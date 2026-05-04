@@ -2,8 +2,10 @@ import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
 import { prisma } from "@/lib/prisma";
+import { env } from "@/lib/env";
 
 export const authOptions: NextAuthOptions = {
+  secret: env.nextAuthSecret,
   session: {
     strategy: "jwt",
   },
@@ -28,18 +30,34 @@ export const authOptions: NextAuthOptions = {
         const isValid = await compare(password, user.passwordHash);
         if (!isValid) return null;
 
-        return { id: user.id, email: user.email, name: user.name };
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          role: user.role,
+        };
       },
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
-      if (user?.id) token.sub = user.id;
+    async jwt({ token, user, trigger }) {
+      if (user?.id) {
+        token.sub = user.id;
+        token.role = (user as { role?: string }).role ?? "USER";
+      }
+      if (trigger === "update" && token.sub) {
+        const u = await prisma.user.findUnique({
+          where: { id: token.sub },
+          select: { role: true },
+        });
+        if (u) token.role = u.role;
+      }
       return token;
     },
     async session({ session, token }) {
       if (session.user && token.sub) {
         session.user.id = token.sub;
+        session.user.role = (token.role as string) ?? "USER";
       }
       return session;
     },

@@ -1,27 +1,34 @@
+import { createHash } from "node:crypto";
 import { PrismaClient } from "@prisma/client";
 import { SEED_QUESTIONS } from "./seed/questions";
+import { SEED_QUESTIONS_EXTENDED } from "./seed/questions-extended";
 import { SEED_TIMELINES } from "./seed/timelines";
 
 const prisma = new PrismaClient();
 
+function dedupeKeyFor(question: string) {
+  return createHash("sha256").update(question.trim()).digest("hex");
+}
+
 async function main() {
-  const questionCount = await prisma.question.count();
-  if (questionCount === 0) {
-    await prisma.question.createMany({
-      data: SEED_QUESTIONS.map((q) => ({
-        question: q.question,
-        answer: q.answer,
-        category: q.category,
-        subcategory: q.subcategory ?? null,
-        difficulty: q.difficulty,
-        tags: q.tags,
-        source: q.source ?? "BIWS 400 Questions Guide",
-      })),
-    });
-    console.log(`Seeded ${SEED_QUESTIONS.length} questions.`);
-  } else {
-    console.log(`Skipping questions seed (${questionCount} already exist).`);
-  }
+  const allSeed = [...SEED_QUESTIONS, ...SEED_QUESTIONS_EXTENDED];
+  const questionRows = allSeed.map((q) => ({
+    question: q.question,
+    answer: q.answer,
+    category: q.category,
+    subcategory: q.subcategory ?? null,
+    difficulty: q.difficulty,
+    tags: q.tags,
+    source: q.source ?? "BIWS 400 Questions Guide",
+    status: "active",
+    dedupeKey: dedupeKeyFor(q.question),
+  }));
+
+  const { count } = await prisma.question.createMany({
+    data: questionRows,
+    skipDuplicates: true,
+  });
+  console.log(`Questions upserted via createMany (new rows this run ~${count}).`);
 
   const timelineCount = await prisma.firmTimeline.count();
   if (timelineCount === 0) {

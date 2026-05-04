@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { cn } from "@/lib/utils";
 
 const nav = [
@@ -12,14 +12,21 @@ const nav = [
   { href: "/firms", label: "Firms" },
   { href: "/pipeline", label: "Pipeline" },
   { href: "/tasks", label: "Tasks" },
+  { href: "/calendar", label: "📅 Calendar" },
   { href: "/questions", label: "📚 Question Bank" },
   { href: "/resources", label: "🔗 Resources" },
-  { href: "/timelines", label: "📅 Firm Timelines" },
+  { href: "/timelines", label: "Firm Timelines" },
+  { href: "/profile", label: "Profile" },
 ];
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const { data: session } = useSession();
   const isAuthPage = pathname === "/login" || pathname === "/signup";
+  const navItems =
+    session?.user?.role === "ADMIN"
+      ? [...nav, { href: "/admin/questions", label: "Admin" }]
+      : nav;
   useEffect(() => {
     if (isAuthPage) return;
     const onKeyDown = (event: KeyboardEvent) => {
@@ -44,7 +51,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           DealFlow CRM
         </div>
         <nav className="space-y-1">
-          {nav.map((item) => (
+          {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}

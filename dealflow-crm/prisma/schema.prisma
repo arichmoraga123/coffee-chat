@@ -1,8 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,36 +11,52 @@ datasource db {
 }
 
 model User {
-  id           String   @id @default(cuid())
-  name         String
-  email        String   @unique
-  passwordHash String
-  drillStreak  Int      @default(0)
-  lastDrillDay String? // YYYY-MM-DD (UTC) last day user completed a drill session
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  contacts     Contact[]
-  firms        Firm[]
-  interactions Interaction[]
-  opportunities Opportunity[]
-  tasks        Task[]
-  questionProgress UserQuestionProgress[]
-  resourceBookmarks ResourceBookmark[]
-  timelinesSubmitted FirmTimeline[] @relation("TimelineSubmitter")
-  timelineVotes      FirmTimelineVote[]
+  id                  String   @id @default(cuid())
+  name                String
+  email               String   @unique
+  passwordHash        String
+  role                String   @default("USER")
+  drillStreak         Int      @default(0)
+  lastDrillDay        String? // YYYY-MM-DD (UTC)
+  xp                  Int      @default(0)
+  weeklyXP            Int      @default(0)
+  recruitingTarget    String[] @default([])
+  targetFirms         String[] @default([])
+  dailyGoal           Int      @default(5)
+  onboardingDone      Boolean  @default(false)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  contacts            Contact[]
+  firms               Firm[]
+  interactions        Interaction[]
+  opportunities       Opportunity[]
+  tasks               Task[]
+  questionProgress    UserQuestionProgress[]
+  resourceBookmarks   ResourceBookmark[]
+  timelinesSubmitted  FirmTimeline[]         @relation("TimelineSubmitter")
+  timelineVotes       FirmTimelineVote[]
+  dailyDrillLogs      DailyDrillLog[]
+  leaderboardEntry    LeaderboardEntry?
+  recruitingEvents    RecruitingEvent[]
+  submittedQuestions  Question[]             @relation("QuestionSubmitter")
 }
 
 model Question {
-  id            String   @id @default(cuid())
-  question      String
-  answer        String
-  category      String
-  subcategory   String?
-  difficulty    String
-  tags          String[]
-  source        String?
-  createdAt     DateTime @default(now())
-  userProgress  UserQuestionProgress[]
+  id             String                 @id @default(cuid())
+  question       String
+  answer         String
+  category       String
+  subcategory    String?
+  difficulty     String
+  tags           String[]
+  source         String?
+  status         String                 @default("active") // active | pending | rejected
+  dedupeKey      String?                @unique
+  submittedById  String?
+  createdAt      DateTime               @default(now())
+  updatedAt      DateTime               @default(now()) @updatedAt
+  userProgress   UserQuestionProgress[]
+  submitter      User?                  @relation("QuestionSubmitter", fields: [submittedById], references: [id], onDelete: SetNull)
 }
 
 model UserQuestionProgress {
@@ -57,11 +71,56 @@ model UserQuestionProgress {
   @@unique([userId, questionId])
 }
 
+model DailyDrillLog {
+  id                  String @id @default(cuid())
+  userId              String
+  date                String // YYYY-MM-DD UTC
+  questionsAnswered   Int
+  correct             Int
+  xpEarned            Int
+  user                User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
+}
+
+model LeaderboardEntry {
+  id       String @id @default(cuid())
+  userId   String @unique
+  username String
+  weeklyXP Int    @default(0)
+  totalXP  Int    @default(0)
+  streak   Int    @default(0)
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model NewsArticle {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  url         String   @unique
+  source      String
+  publishedAt DateTime
+  category    String // M&A | PE/VC | Markets | Banking
+  imageUrl    String?
+  cachedAt    DateTime @default(now())
+}
+
+model RecruitingEvent {
+  id       String   @id @default(cuid())
+  userId   String
+  title    String
+  date     DateTime
+  type     String // coffee_chat | deadline | interview | networking | other
+  firmName String?
+  notes    String?
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
 model ResourceBookmark {
-  id            String @id @default(cuid())
-  userId        String
-  resourceSlug  String
-  user          User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String @id @default(cuid())
+  userId       String
+  resourceSlug String
+  user         User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, resourceSlug])
 }

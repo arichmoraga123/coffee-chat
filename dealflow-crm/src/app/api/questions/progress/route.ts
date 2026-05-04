@@ -24,7 +24,10 @@ export async function PATCH(req: Request) {
     return NextResponse.json({ error: "Invalid body" }, { status: 400 });
   }
 
-  const question = await prisma.question.findUnique({ where: { id: questionId }, select: { id: true } });
+  const question = await prisma.question.findFirst({
+    where: { id: questionId, status: "active" },
+    select: { id: true },
+  });
   if (!question) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
   const row = await prisma.userQuestionProgress.upsert({

@@ -34,10 +34,14 @@ export function QuestionsBank({
   questions,
   initialProgress,
   drillStreak,
+  weeklyXP = 0,
+  totalXP = 0,
 }: {
   questions: QuestionDTO[];
   initialProgress: ProgressMap;
   drillStreak: number;
+  weeklyXP?: number;
+  totalXP?: number;
 }) {
   const router = useRouter();
   const [progress, setProgress] = useState<ProgressMap>(initialProgress);
@@ -111,15 +115,6 @@ export function QuestionsBank({
     if (!opts?.skipRefresh) router.refresh();
   };
 
-  const recordDrillDay = async () => {
-    const res = await fetch("/api/questions/drill-session", { method: "POST" });
-    if (res.ok) {
-      const data = (await res.json()) as { drillStreak: number };
-      setStreakDisplay(data.drillStreak);
-    }
-    router.refresh();
-  };
-
   const startDrill = () => {
     let pool = questions.filter((q) => {
       if (drillCategory !== "all" && q.category !== drillCategory) return false;
@@ -154,7 +149,7 @@ export function QuestionsBank({
     const isLast = drillIndex + 1 >= drillQueue.length;
     if (isLast) {
       setEndScreen(true);
-      await recordDrillDay();
+      router.refresh();
     } else {
       setDrillIndex((i) => i + 1);
       setFlipped(false);
@@ -263,7 +258,8 @@ export function QuestionsBank({
             <p className="text-sm text-zinc-400">
               Mastered {knownCount} / {TARGET_TOTAL} (bank has {questions.length} seeded)
             </p>
-            <p className="text-sm text-cyan-400">Streak: {streakDisplay} day(s) drilled in a row</p>
+            <p className="text-sm text-cyan-400">Streak: {streakDisplay} day(s) · Weekly XP {weeklyXP} · Total XP {totalXP}</p>
+            <p className="text-xs text-zinc-500">Daily streak updates from the dashboard daily drill.</p>
           </div>
           <div className="h-2 w-full max-w-xs overflow-hidden rounded-full bg-zinc-800 sm:w-48">
             <div
