@@ -1,0 +1,148 @@
+/** Approximate crowdsourced timelines — verify with firms. Year = recruiting cycle. */
+
+export type SeedTimeline = {
+  firmName: string;
+  firmType: string;
+  role: string;
+  applicationOpen: Date | null;
+  applicationClose: Date | null;
+  firstRound: Date | null;
+  finalRound: Date | null;
+  offerDate: Date | null;
+  year: number;
+  notes: string | null;
+  upvotes: number;
+};
+
+export const SEED_TIMELINES: SeedTimeline[] = [
+  {
+    firmName: "Goldman Sachs",
+    firmType: "BB",
+    role: "Summer Analyst",
+    applicationOpen: new Date("2025-08-15"),
+    applicationClose: new Date("2025-10-31"),
+    firstRound: new Date("2025-11-01"),
+    finalRound: new Date("2025-11-20"),
+    offerDate: new Date("2025-11-30"),
+    year: 2026,
+    notes: "Apps typically Aug–Sep; close Oct; interviews Oct–Nov; offers Nov.",
+    upvotes: 12,
+  },
+  {
+    firmName: "Morgan Stanley",
+    firmType: "BB",
+    role: "Summer Analyst",
+    applicationOpen: new Date("2025-08-01"),
+    applicationClose: new Date("2025-10-15"),
+    firstRound: new Date("2025-10-20"),
+    finalRound: new Date("2025-11-15"),
+    offerDate: new Date("2025-12-05"),
+    year: 2026,
+    notes: "Apps open Aug; interviews Oct–Nov; offers Nov–Dec.",
+    upvotes: 10,
+  },
+  {
+    firmName: "JPMorgan",
+    firmType: "BB",
+    role: "Summer Analyst",
+    applicationOpen: new Date("2025-08-01"),
+    applicationClose: new Date("2025-10-20"),
+    firstRound: new Date("2025-10-25"),
+    finalRound: new Date("2025-11-10"),
+    offerDate: new Date("2025-11-20"),
+    year: 2026,
+    notes: "Apps open Aug; superday Oct–Nov; offers Nov.",
+    upvotes: 11,
+  },
+  {
+    firmName: "Evercore",
+    firmType: "EB",
+    role: "Summer Analyst",
+    applicationOpen: new Date("2025-09-01"),
+    applicationClose: new Date("2025-10-31"),
+    firstRound: new Date("2025-11-15"),
+    finalRound: new Date("2025-12-10"),
+    offerDate: new Date("2026-01-10"),
+    year: 2026,
+    notes: "Apps open Sep; interviews Nov–Dec; offers Dec–Jan.",
+    upvotes: 8,
+  },
+  {
+    firmName: "Centerview Partners",
+    firmType: "EB",
+    role: "Summer Analyst",
+    applicationOpen: new Date("2025-09-01"),
+    applicationClose: new Date("2025-11-15"),
+    firstRound: new Date("2025-12-01"),
+    finalRound: new Date("2026-01-10"),
+    offerDate: new Date("2026-01-25"),
+    year: 2026,
+    notes: "Apps open Sep; interviews Dec–Jan; offers Jan.",
+    upvotes: 7,
+  },
+  {
+    firmName: "PJT Partners",
+    firmType: "EB",
+    role: "Summer Analyst",
+    applicationOpen: new Date("2025-09-01"),
+    applicationClose: new Date("2025-10-25"),
+    firstRound: new Date("2025-11-10"),
+    finalRound: new Date("2025-12-01"),
+    offerDate: new Date("2025-12-20"),
+    year: 2026,
+    notes: "Apps open Sep; interviews Nov–Dec; offers Dec.",
+    upvotes: 6,
+  },
+  {
+    firmName: "KKR",
+    firmType: "PE",
+    role: "Summer Analyst",
+    applicationOpen: new Date("2025-09-01"),
+    applicationClose: new Date("2025-10-31"),
+    firstRound: new Date("2025-10-15"),
+    finalRound: null,
+    offerDate: new Date("2025-11-01"),
+    year: 2026,
+    notes: "On-cycle typically Sep–Oct of junior year.",
+    upvotes: 9,
+  },
+  {
+    firmName: "Blackstone",
+    firmType: "PE",
+    role: "Summer Analyst",
+    applicationOpen: new Date("2025-09-01"),
+    applicationClose: new Date("2025-10-31"),
+    firstRound: new Date("2025-10-10"),
+    finalRound: null,
+    offerDate: new Date("2025-10-25"),
+    year: 2026,
+    notes: "On-cycle Sep–Oct.",
+    upvotes: 9,
+  },
+  {
+    firmName: "Apollo",
+    firmType: "PE",
+    role: "Summer Analyst",
+    applicationOpen: new Date("2025-09-01"),
+    applicationClose: new Date("2025-10-20"),
+    firstRound: new Date("2025-10-05"),
+    finalRound: null,
+    offerDate: new Date("2025-10-20"),
+    year: 2026,
+    notes: "On-cycle Sep–Oct.",
+    upvotes: 8,
+  },
+  {
+    firmName: "Sequoia",
+    firmType: "VC",
+    role: "Summer Analyst",
+    applicationOpen: null,
+    applicationClose: null,
+    firstRound: null,
+    finalRound: null,
+    offerDate: null,
+    year: 2026,
+    notes: "Rolling; no fixed timeline.",
+    upvotes: 5,
+  },
+];

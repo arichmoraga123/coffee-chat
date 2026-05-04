@@ -1,0 +1,251 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  drillStreak  Int      @default(0)
+  lastDrillDay String? // YYYY-MM-DD (UTC) last day user completed a drill session
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  contacts     Contact[]
+  firms        Firm[]
+  interactions Interaction[]
+  opportunities Opportunity[]
+  tasks        Task[]
+  questionProgress UserQuestionProgress[]
+  resourceBookmarks ResourceBookmark[]
+  timelinesSubmitted FirmTimeline[] @relation("TimelineSubmitter")
+  timelineVotes      FirmTimelineVote[]
+}
+
+model Question {
+  id            String   @id @default(cuid())
+  question      String
+  answer        String
+  category      String
+  subcategory   String?
+  difficulty    String
+  tags          String[]
+  source        String?
+  createdAt     DateTime @default(now())
+  userProgress  UserQuestionProgress[]
+}
+
+model UserQuestionProgress {
+  id         String   @id @default(cuid())
+  userId     String
+  questionId String
+  status     String // "known" | "review" | "unseen"
+  lastSeen   DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, questionId])
+}
+
+model ResourceBookmark {
+  id            String @id @default(cuid())
+  userId        String
+  resourceSlug  String
+  user          User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, resourceSlug])
+}
+
+model FirmTimeline {
+  id               String    @id @default(cuid())
+  firmName         String
+  firmType         String // BB, EB, MM, PE, VC
+  role             String
+  applicationOpen  DateTime?
+  applicationClose DateTime?
+  firstRound       DateTime?
+  finalRound       DateTime?
+  offerDate        DateTime?
+  year             Int
+  notes            String?
+  submittedBy      String?
+  verified         Boolean   @default(false)
+  upvotes          Int       @default(0)
+  createdAt        DateTime  @default(now())
+  submitter        User?     @relation("TimelineSubmitter", fields: [submittedBy], references: [id], onDelete: SetNull)
+  votes            FirmTimelineVote[]
+}
+
+model FirmTimelineVote {
+  id         String       @id @default(cuid())
+  userId     String
+  timelineId String
+  timeline   FirmTimeline @relation(fields: [timelineId], references: [id], onDelete: Cascade)
+  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, timelineId])
+}
+
+enum FirmType {
+  IB
+  PE
+  GE
+  VC
+  HF
+}
+
+enum RecruitingCategory {
+  IB
+  PE
+  GE
+  VC
+  HF
+}
+
+enum ReferralProbability {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum InteractionType {
+  COFFEE_CHAT
+  CALL
+  EMAIL
+  LINKEDIN
+  IN_PERSON
+}
+
+enum OpportunityStage {
+  TARGET
+  NETWORKING
+  APPLIED
+  FIRST_ROUND
+  TECHNICAL
+  SUPERDAY
+  OFFER
+  REJECTED
+}
+
+enum Priority {
+  HIGH
+  MEDIUM
+  LOW
+}
+
+enum TaskType {
+  FOLLOW_UP
+  THANK_YOU
+  CHECK_IN
+  APPLY
+}
+
+enum TaskStatus {
+  PENDING
+  COMPLETED
+}
+
+model Contact {
+  id                   String              @id @default(cuid())
+  fullName             String
+  email                String
+  phone                String?
+  linkedinUrl          String
+  group                String
+  title                String
+  location             String
+  school               String
+  recruitingCategory   RecruitingCategory
+  relationshipStrength Int                 @default(1)
+  referralProbability  ReferralProbability
+  notes                String              @default("")
+  lastInteractionDate  DateTime?
+  createdAt            DateTime            @default(now())
+  updatedAt            DateTime            @updatedAt
+  firmId               String
+  userId               String
+  firm                 Firm                @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  user                 User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  interactions         Interaction[]
+  tasks                Task[]
+  opportunities        OpportunityContact[]
+
+  @@unique([userId, email])
+}
+
+model Firm {
+  id              String        @id @default(cuid())
+  name            String
+  type            FirmType
+  location        String
+  aum             String?
+  focus           String
+  recruitingNotes String        @default("")
+  createdAt       DateTime      @default(now())
+  userId          String
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  contacts        Contact[]
+  opportunities   Opportunity[]
+
+  @@unique([userId, name])
+}
+
+model Interaction {
+  id              String          @id @default(cuid())
+  date            DateTime
+  type            InteractionType
+  notes           String          @default("")
+  keyTakeaways    String          @default("")
+  personalDetails String          @default("")
+  followUpDate    DateTime?
+  createdAt       DateTime        @default(now())
+  contactId       String
+  userId          String
+  contact         Contact         @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  user            User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Opportunity {
+  id         String               @id @default(cuid())
+  role       String
+  stage      OpportunityStage     @default(TARGET)
+  priority   Priority             @default(MEDIUM)
+  notes      String               @default("")
+  createdAt  DateTime             @default(now())
+  firmId     String
+  userId     String
+  firm       Firm                 @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  user       User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  contacts   OpportunityContact[]
+}
+
+model OpportunityContact {
+  opportunityId String
+  contactId     String
+  opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  contact       Contact     @relation(fields: [contactId], references: [id], onDelete: Cascade)
+
+  @@id([opportunityId, contactId])
+}
+
+model Task {
+  id        String     @id @default(cuid())
+  dueDate   DateTime
+  taskType  TaskType
+  status    TaskStatus @default(PENDING)
+  notes     String     @default("")
+  contactId String
+  userId    String
+  contact   Contact    @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
