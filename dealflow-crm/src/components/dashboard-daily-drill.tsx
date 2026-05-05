@@ -1,10 +1,17 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { QuestionMcqDeck } from "@/components/question-mcq-deck";
+import type { McqDistractorSource } from "@/lib/question-mcq";
+import {
+  readStoredQuestionMode,
+  writeStoredQuestionMode,
+  type QuestionPracticeMode,
+} from "@/lib/question-mode-storage";
 
 type Q = {
   id: string;
@@ -24,6 +31,8 @@ type CompleteResponse = {
   weeklyXP: number;
   xp: number;
   milestoneStreak: number | null;
+  correct?: number;
+  answered?: number;
 };
 
 export function DashboardDailyDrill({
@@ -39,22 +48,21 @@ export function DashboardDailyDrill({
   const [loading, setLoading] = useState(true);
   const [completed, setCompleted] = useState(false);
   const [questions, setQuestions] = useState<Q[]>([]);
+  const [mcqPool, setMcqPool] = useState<McqDistractorSource[]>([]);
   const [streak, setStreak] = useState(initialStreak);
   const [xp, setXp] = useState(initialXp);
   const [weeklyXP, setWeeklyXP] = useState(initialWeeklyXp);
   const [log, setLog] = useState<{ xpEarned: number; correct: number; questionsAnswered: number } | null>(null);
 
   const [open, setOpen] = useState(false);
+  const [sessionFormat, setSessionFormat] = useState<QuestionPracticeMode>("flashcard");
   const [idx, setIdx] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [results, setResults] = useState<{ questionId: string; action: Action }[]>([]);
   const [end, setEnd] = useState(false);
-  const [summary, setSummary] = useState<{
-    xpEarned: number;
-    drillStreak: number;
-    weeklyXP: number;
-    milestoneStreak: number | null;
-  } | null>(null);
+  const [summary, setSummary] = useState<CompleteResponse | null>(null);
+  const [mcqExtras, setMcqExtras] = useState<{ score: number; total: number; ms: number } | null>(null);
+  const sessionStartRef = useRef<number | null>(null);
 
   const refreshState = useCallback(async () => {
     setLoading(true);
@@ -62,6 +70,7 @@ export function DashboardDailyDrill({
     const data = (await res.json()) as {
       completed?: boolean;
       questions?: Q[];
+      mcqPool?: McqDistractorSource[];
       drillStreak?: number;
       xp?: number;
       weeklyXP?: number;
@@ -69,6 +78,7 @@ export function DashboardDailyDrill({
     };
     setCompleted(Boolean(data.completed));
     setQuestions(data.questions ?? []);
+    setMcqPool(data.mcqPool ?? []);
     setStreak(data.drillStreak ?? initialStreak);
     setXp(data.xp ?? initialXp);
     setWeeklyXP(data.weeklyXP ?? initialWeeklyXp);
@@ -77,17 +87,30 @@ export function DashboardDailyDrill({
   }, [initialStreak, initialXp, initialWeeklyXp]);
 
   useEffect(() => {
+    setSessionFormat(readStoredQuestionMode());
+  }, []);
+
+  useEffect(() => {
     void refreshState();
   }, [refreshState]);
 
-  const start = () => {
+  const persistPreferredMode = (mode: QuestionPracticeMode) => {
+    setSessionFormat(mode);
+    writeStoredQuestionMode(mode);
+  };
+
+  const beginSession = (format: QuestionPracticeMode) => {
     if (!questions.length) return;
+    persistPreferredMode(format);
+    setSessionFormat(format);
     setOpen(true);
     setIdx(0);
     setFlipped(false);
     setResults([]);
     setEnd(false);
     setSummary(null);
+    setMcqExtras(null);
+    sessionStartRef.current = Date.now();
   };
 
   const current = questions[idx];
@@ -112,7 +135,7 @@ export function DashboardDailyDrill({
       const res = await fetch("/api/questions/drill-complete", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ results: next }),
+        body: JSON.stringify({ results: next, format: "flashcard" }),
       });
       if (res.ok) {
         const data = (await res.json()) as CompleteResponse;
@@ -129,6 +152,32 @@ export function DashboardDailyDrill({
       setIdx((i) => i + 1);
       setFlipped(false);
     }
+  };
+
+  const onMcqComplete = async (mcqResults: { questionId: string; action: Action }[]) => {
+    const started = sessionStartRef.current ?? Date.now();
+    const score = mcqResults.filter((r) => r.action === "known").length;
+    const res = await fetch("/api/questions/drill-complete", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ results: mcqResults, format: "mcq" }),
+    });
+    if (res.ok) {
+      const data = (await res.json()) as CompleteResponse;
+      setSummary(data);
+      setStreak(data.drillStreak);
+      setXp(data.xp);
+      setWeeklyXP(data.weeklyXP);
+      void fireConfetti(data.milestoneStreak);
+      setMcqExtras({
+        score,
+        total: questions.length,
+        ms: Date.now() - started,
+      });
+    }
+    setEnd(true);
+    setCompleted(true);
+    router.refresh();
   };
 
   const weeklyGoal = 500;
@@ -148,7 +197,18 @@ export function DashboardDailyDrill({
         {end && summary ? (
           <div className="mx-auto flex max-w-lg flex-1 flex-col items-center justify-center text-center">
             <h2 className="text-2xl font-semibold">Drill complete</h2>
-            <p className="mt-4 text-zinc-400">+{summary.xpEarned} XP today</p>
+            {mcqExtras ? (
+              <>
+                <p className="mt-4 text-lg text-zinc-200">
+                  Score {mcqExtras.score}/{mcqExtras.total}
+                </p>
+                <p className="mt-1 text-sm text-zinc-500">
+                  Time {(mcqExtras.ms / 1000).toFixed(1)}s · +{summary.xpEarned} XP
+                </p>
+              </>
+            ) : (
+              <p className="mt-4 text-zinc-400">+{summary.xpEarned} XP today</p>
+            )}
             <p className="mt-2 text-cyan-400">🔥 Streak: {summary.drillStreak} days</p>
             {summary.milestoneStreak ? (
               <p className="mt-2 text-amber-300">{summary.milestoneStreak}-day milestone</p>
@@ -163,6 +223,14 @@ export function DashboardDailyDrill({
               Close
             </Button>
           </div>
+        ) : sessionFormat === "mcq" && questions.length ? (
+          <QuestionMcqDeck
+            questions={questions}
+            distractorPool={mcqPool.length ? mcqPool : questions}
+            persistEachAnswer={false}
+            onComplete={(r) => void onMcqComplete(r)}
+            onExit={() => setOpen(false)}
+          />
         ) : current ? (
           <>
             <div className="mb-4 flex items-center justify-between text-sm text-zinc-400">
@@ -253,15 +321,17 @@ export function DashboardDailyDrill({
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="text-xs font-semibold uppercase tracking-wider text-cyan-300/90">Daily drill</p>
-          <p className="mt-1 text-lg font-semibold text-zinc-100">5 cards · weak categories first</p>
+          <p className="mt-1 text-lg font-semibold text-zinc-100">5 questions · weak categories first</p>
           <p className="mt-2 text-2xl">
             <span className="text-orange-400">🔥</span>{" "}
             <span className="font-mono text-zinc-100">{streak}</span>
             <span className="text-sm text-zinc-500"> day streak</span>
           </p>
-          <p className="mt-1 text-xs text-zinc-500">Got it +10 XP · Need review +2 XP · Skip 0 XP</p>
+          <p className="mt-1 text-xs text-zinc-500">
+            Flashcard: Got it +10 XP · Need review +2 XP · Skip 0 XP. MCQ: correct +10 XP, wrong +0 XP.
+          </p>
         </div>
-        <div className="min-w-[160px] flex-1">
+        <div className="min-w-[160px] flex-1 space-y-2">
           <p className="text-xs text-zinc-500">Weekly XP</p>
           <div className="mt-1 h-2 overflow-hidden rounded bg-zinc-800">
             <div className="h-full bg-cyan-500 transition-all" style={{ width: `${weeklyPct}%` }} />
@@ -269,8 +339,11 @@ export function DashboardDailyDrill({
           <p className="mt-1 text-xs text-zinc-400">
             {weeklyXP} / {weeklyGoal}
           </p>
-          <Button className="mt-3 w-full" size="sm" onClick={start}>
-            Start Today&apos;s Drill
+          <Button className="w-full" size="sm" variant="outline" onClick={() => beginSession("flashcard")}>
+            Flashcard drill
+          </Button>
+          <Button className="w-full" size="sm" onClick={() => beginSession("mcq")}>
+            MCQ drill
           </Button>
         </div>
       </div>

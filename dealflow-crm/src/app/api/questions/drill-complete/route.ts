@@ -28,8 +28,10 @@ export async function POST(req: Request) {
 
   const body = (await req.json()) as {
     results?: { questionId: string; action: Action }[];
+    format?: "flashcard" | "mcq";
   };
   const results = body.results ?? [];
+  const format = body.format === "mcq" ? "mcq" : "flashcard";
   if (!Array.isArray(results) || results.length === 0) {
     return NextResponse.json({ error: "results required" }, { status: 400 });
   }
@@ -61,7 +63,7 @@ export async function POST(req: Request) {
         update: { status: "known", lastSeen: new Date() },
       });
     } else if (action === "review") {
-      xpSession += 2;
+      xpSession += format === "mcq" ? 0 : 2;
       answered += 1;
       await prisma.userQuestionProgress.upsert({
         where: { userId_questionId: { userId, questionId: qid } },

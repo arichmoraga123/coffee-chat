@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { RecruitingCategory, ReferralProbability } from "@prisma/client";
 import { getUserIdFromSession } from "@/lib/auth";
+import { buildContactPatchData } from "@/lib/contact-body";
 
 export async function PATCH(
   req: Request,
@@ -11,33 +11,31 @@ export async function PATCH(
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { id } = await params;
-  const body = await req.json();
+  const body = (await req.json()) as Record<string, unknown>;
   const existing = await prisma.contact.findFirst({
     where: { id, userId },
     select: { id: true },
   });
   if (!existing) return NextResponse.json({ error: "Not found" }, { status: 404 });
-  const firm = await prisma.firm.findFirst({ where: { id: body.firmId, userId }, select: { id: true } });
-  if (!firm) return NextResponse.json({ error: "Invalid firm." }, { status: 400 });
+
+  const data = buildContactPatchData(body);
+  if (typeof body.firmId === "string" && body.firmId) {
+    const firm = await prisma.firm.findFirst({
+      where: { id: body.firmId, userId },
+      select: { id: true },
+    });
+    if (!firm) return NextResponse.json({ error: "Invalid firm." }, { status: 400 });
+  }
+
+  const keys = Object.keys(data);
+  if (keys.length === 0) {
+    return NextResponse.json({ error: "No fields to update." }, { status: 400 });
+  }
 
   const contact = await prisma.contact.update({
     where: { id },
-    data: {
-      fullName: body.fullName,
-      email: body.email,
-      phone: body.phone || null,
-      linkedinUrl: body.linkedinUrl,
-      firmId: body.firmId,
-      group: body.group,
-      title: body.title,
-      location: body.location,
-      school: body.school,
-      recruitingCategory: body.recruitingCategory as RecruitingCategory,
-      relationshipStrength: Number(body.relationshipStrength ?? 1),
-      referralProbability: body.referralProbability as ReferralProbability,
-      notes: body.notes || "",
-      lastInteractionDate: body.lastInteractionDate ? new Date(body.lastInteractionDate) : null,
-    },
+    data,
+    include: { firm: true },
   });
   return NextResponse.json(contact);
 }

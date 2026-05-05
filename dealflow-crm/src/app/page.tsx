@@ -1,4 +1,5 @@
-import { startOfWeek, isAfter } from "date-fns";
+import { startOfWeek, isAfter, subDays } from "date-fns";
+import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { Card } from "@/components/ui/card";
 import { STAGE_LABELS } from "@/lib/constants";
@@ -26,6 +27,8 @@ export default async function Home() {
     },
   });
 
+  const coldThreshold = subDays(new Date(), 45);
+
   const [
     knownCount,
     contactsThisWeek,
@@ -33,6 +36,7 @@ export default async function Home() {
     recruitingEvents,
     coffeeInteractions,
     pipeline,
+    coldContacts,
   ] = await Promise.all([
     prisma.userQuestionProgress.count({ where: { userId, status: "known" } }),
     prisma.contact.count({
@@ -54,6 +58,16 @@ export default async function Home() {
       include: { contact: { select: { fullName: true } } },
     }),
     prisma.opportunity.groupBy({ by: ["stage"], where: { userId }, _count: { _all: true } }),
+    prisma.contact.findMany({
+      where: {
+        userId,
+        warmthScore: { in: ["HOT", "ADVOCATE"] },
+        OR: [{ lastInteractionDate: null }, { lastInteractionDate: { lt: coldThreshold } }],
+      },
+      select: { id: true, fullName: true, lastInteractionDate: true, warmthScore: true },
+      orderBy: { lastInteractionDate: "asc" },
+      take: 10,
+    }),
   ]);
 
   const followUpAlerts = contactsForFollowUps
@@ -157,6 +171,35 @@ export default async function Home() {
                       Due {alert.dueAt.toLocaleDateString()} · {alert.status.toUpperCase()}
                     </p>
                   </div>
+                ))
+              )}
+            </div>
+          </Card>
+
+          <Card className="border-zinc-800 bg-zinc-900/70 p-3">
+            <p className="text-xs font-semibold uppercase tracking-wide text-zinc-400">Cold contacts</p>
+            <p className="mt-0.5 text-[10px] text-zinc-500">
+              HOT / ADVOCATE with no touch in 45+ days — high-value relationships slipping.
+            </p>
+            <div className="mt-2 max-h-[180px] space-y-1.5 overflow-y-auto pr-1 text-[11px]">
+              {coldContacts.length === 0 ? (
+                <p className="text-zinc-500">None right now.</p>
+              ) : (
+                coldContacts.map((c) => (
+                  <Link
+                    key={c.id}
+                    href={`/contacts/${c.id}`}
+                    className="block rounded border border-amber-900/40 bg-amber-950/15 px-2 py-1.5 hover:border-amber-700/50"
+                  >
+                    <p className="font-semibold text-amber-100">{c.fullName}</p>
+                    <p className="text-[10px] text-zinc-500">
+                      {c.warmthScore}
+                      {" · "}
+                      {c.lastInteractionDate
+                        ? `Last: ${c.lastInteractionDate.toLocaleDateString()}`
+                        : "Never logged"}
+                    </p>
+                  </Link>
                 ))
               )}
             </div>

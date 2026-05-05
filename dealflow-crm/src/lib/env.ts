@@ -93,6 +93,7 @@ const schema = z.object({
   AUTH_SECRET: z.preprocess(optString, z.string().min(1).optional()),
   NEWS_API_KEY: z.preprocess(optString, z.string().min(1).optional()),
   CRON_SECRET: z.preprocess(optString, z.string().min(1).optional()),
+  ANTHROPIC_API_KEY: z.preprocess(optString, z.string().min(1).optional()),
 });
 
 function load() {
@@ -125,6 +126,7 @@ function load() {
       nextAuthSecret,
       newsApiKey: optString(raw.NEWS_API_KEY),
       cronSecret: optString(raw.CRON_SECRET),
+      anthropicApiKey: optString(raw.ANTHROPIC_API_KEY),
       skipValidation: true as const,
     };
   }
@@ -180,6 +182,7 @@ function load() {
     nextAuthSecret,
     newsApiKey: data.NEWS_API_KEY,
     cronSecret: data.CRON_SECRET,
+    anthropicApiKey: data.ANTHROPIC_API_KEY,
     skipValidation: false as const,
   };
 }

@@ -106,9 +106,12 @@ export async function POST() {
     selected = [...selected, ...rest].slice(0, 5);
   }
 
+  const mcqPool = questions.map((q) => ({ id: q.id, answer: q.answer, category: q.category }));
+
   return NextResponse.json({
     completed: false,
     questions: selected,
+    mcqPool,
     drillStreak: user.drillStreak,
     xp: user.xp,
     weeklyXP: user.weeklyXP,

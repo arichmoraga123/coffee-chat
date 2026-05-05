@@ -26,6 +26,7 @@ export default async function ContactsPage() {
         id: c.id,
         fullName: c.fullName,
         firmName: c.firm.name,
+        firmType: c.firm.type,
         firmId: c.firmId,
         group: c.group,
         title: c.title,

@@ -2,13 +2,15 @@ import { NextResponse } from "next/server";
 import { getUserIdFromSession } from "@/lib/auth";
 import { createInteractionAndSideEffects } from "@/lib/create-interaction";
 
-export async function POST(req: Request) {
+export async function POST(
+  req: Request,
+  { params }: { params: Promise<{ id: string }> },
+) {
   const userId = await getUserIdFromSession();
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
+  const { id: contactId } = await params;
   const body = (await req.json()) as Record<string, unknown>;
-  const contactId = String(body.contactId ?? "");
-  if (!contactId) return NextResponse.json({ error: "contactId required" }, { status: 400 });
 
   const result = await createInteractionAndSideEffects({ userId, contactId, body });
   if ("error" in result) {

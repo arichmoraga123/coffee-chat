@@ -1,11 +1,18 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { QuestionMcqDeck } from "@/components/question-mcq-deck";
+import type { McqDistractorSource } from "@/lib/question-mcq";
+import {
+  readStoredQuestionMode,
+  writeStoredQuestionMode,
+  type QuestionPracticeMode,
+} from "@/lib/question-mode-storage";
 
 export type QuestionDTO = {
   id: string;
@@ -51,11 +58,15 @@ export function QuestionsBank({
   const [status, setStatus] = useState<string>("all");
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
+  const [practiceMode, setPracticeMode] = useState<QuestionPracticeMode>("flashcard");
   const [drillOpen, setDrillOpen] = useState(false);
+  const [drillUseMcq, setDrillUseMcq] = useState(false);
+  const [mcqBrowseOpen, setMcqBrowseOpen] = useState(false);
   const [drillCategory, setDrillCategory] = useState("all");
   const [drillDifficulty, setDrillDifficulty] = useState("all");
   const [shuffle, setShuffle] = useState(true);
   const [drillQueue, setDrillQueue] = useState<QuestionDTO[]>([]);
+  const [browseMcqQueue, setBrowseMcqQueue] = useState<QuestionDTO[]>([]);
   const [drillIndex, setDrillIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [sessionKnown, setSessionKnown] = useState(0);
@@ -63,11 +74,32 @@ export function QuestionsBank({
   const [sessionSkipped, setSessionSkipped] = useState(0);
   const [endScreen, setEndScreen] = useState(false);
   const [streakDisplay, setStreakDisplay] = useState(drillStreak);
+  const [mcqSummary, setMcqSummary] = useState<{
+    score: number;
+    total: number;
+    xpEarned: number;
+    ms: number;
+  } | null>(null);
+  const sessionStartRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    setPracticeMode(readStoredQuestionMode());
+  }, []);
+
+  const progressSnap = JSON.stringify(initialProgress);
+  useEffect(() => {
+    setProgress(initialProgress);
+  }, [progressSnap, initialProgress]);
 
   const categories = useMemo(() => {
     const s = new Set(questions.map((q) => q.category));
     return ["all", ...Array.from(s).sort()];
   }, [questions]);
+
+  const distractorPool: McqDistractorSource[] = useMemo(
+    () => questions.map((q) => ({ id: q.id, answer: q.answer, category: q.category })),
+    [questions],
+  );
 
   const statusOf = useCallback(
     (id: string) => progress[id] ?? "unseen",
@@ -115,6 +147,11 @@ export function QuestionsBank({
     if (!opts?.skipRefresh) router.refresh();
   };
 
+  const setModeAndStore = (m: QuestionPracticeMode) => {
+    setPracticeMode(m);
+    writeStoredQuestionMode(m);
+  };
+
   const startDrill = () => {
     let pool = questions.filter((q) => {
       if (drillCategory !== "all" && q.category !== drillCategory) return false;
@@ -124,13 +161,24 @@ export function QuestionsBank({
     if (pool.length === 0) return;
     if (shuffle) pool = shuffleArray(pool);
     setDrillQueue(pool);
+    setDrillUseMcq(practiceMode === "mcq");
     setDrillIndex(0);
     setFlipped(false);
     setSessionKnown(0);
     setSessionReview(0);
     setSessionSkipped(0);
     setEndScreen(false);
+    setMcqSummary(null);
+    sessionStartRef.current = Date.now();
     setDrillOpen(true);
+  };
+
+  const startBrowseMcq = () => {
+    if (filteredBrowse.length === 0) return;
+    setBrowseMcqQueue(shuffleArray([...filteredBrowse]));
+    setMcqBrowseOpen(true);
+    setMcqSummary(null);
+    sessionStartRef.current = Date.now();
   };
 
   const currentDrill = drillQueue[drillIndex];
@@ -159,6 +207,41 @@ export function QuestionsBank({
   const closeDrill = () => {
     setDrillOpen(false);
     setEndScreen(false);
+    setDrillUseMcq(false);
+    setMcqSummary(null);
+  };
+
+  const closeBrowseMcq = () => {
+    setMcqBrowseOpen(false);
+    setMcqSummary(null);
+  };
+
+  const onMcqDrillComplete = (results: { questionId: string; action: "known" | "review" | "skip" }[]) => {
+    const started = sessionStartRef.current ?? Date.now();
+    const score = results.filter((r) => r.action === "known").length;
+    const xpEarned = score * 10;
+    setMcqSummary({
+      score,
+      total: results.length,
+      xpEarned,
+      ms: Date.now() - started,
+    });
+    setEndScreen(true);
+    void router.refresh();
+  };
+
+  const onMcqBrowseComplete = (results: { questionId: string; action: "known" | "review" | "skip" }[]) => {
+    const started = sessionStartRef.current ?? Date.now();
+    const score = results.filter((r) => r.action === "known").length;
+    const xpEarned = score * 10;
+    setMcqSummary({
+      score,
+      total: results.length,
+      xpEarned,
+      ms: Date.now() - started,
+    });
+    setMcqBrowseOpen(false);
+    void router.refresh();
   };
 
   const difficultyBadge = (d: string) =>
@@ -219,6 +302,15 @@ export function QuestionsBank({
 
         <Card className="p-3 text-sm">
           <p className="mb-2 font-semibold text-zinc-200">Drill setup</p>
+          <label className="mb-1 block text-xs text-zinc-500">Mode (saved)</label>
+          <select
+            className="mb-2 w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5"
+            value={practiceMode}
+            onChange={(e) => setModeAndStore(e.target.value as QuestionPracticeMode)}
+          >
+            <option value="flashcard">Flashcard</option>
+            <option value="mcq">MCQ</option>
+          </select>
           <select
             className="mb-2 w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5"
             value={drillCategory}
@@ -246,7 +338,7 @@ export function QuestionsBank({
             Shuffle
           </label>
           <Button className="w-full" size="sm" onClick={startDrill}>
-            Start Drill
+            Start drill ({practiceMode === "mcq" ? "MCQ" : "Flashcard"})
           </Button>
         </Card>
       </aside>
@@ -260,6 +352,20 @@ export function QuestionsBank({
             </p>
             <p className="text-sm text-cyan-400">Streak: {streakDisplay} day(s) · Weekly XP {weeklyXP} · Total XP {totalXP}</p>
             <p className="text-xs text-zinc-500">Daily streak updates from the dashboard daily drill.</p>
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              <span className="text-xs text-zinc-500">Default mode:</span>
+              <select
+                className="rounded border border-zinc-700 bg-zinc-950 px-2 py-1 text-xs"
+                value={practiceMode}
+                onChange={(e) => setModeAndStore(e.target.value as QuestionPracticeMode)}
+              >
+                <option value="flashcard">Flashcard</option>
+                <option value="mcq">MCQ</option>
+              </select>
+              <Button size="sm" variant="outline" disabled={filteredBrowse.length === 0} onClick={startBrowseMcq}>
+                MCQ quiz · filtered ({filteredBrowse.length})
+              </Button>
+            </div>
           </div>
           <div className="h-2 w-full max-w-xs overflow-hidden rounded-full bg-zinc-800 sm:w-48">
             <div
@@ -315,10 +421,24 @@ export function QuestionsBank({
                       <div className="mt-3 border-t border-zinc-800 pt-3 text-sm text-zinc-300">
                         <p className="mb-2 whitespace-pre-wrap">{q.answer}</p>
                         <div className="flex flex-wrap gap-2">
-                          <Button size="sm" variant="outline" onClick={(e) => { e.stopPropagation(); void patchProgress(q.id, "known"); }}>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              void patchProgress(q.id, "known");
+                            }}
+                          >
                             Mark Known ✓
                           </Button>
-                          <Button size="sm" variant="outline" onClick={(e) => { e.stopPropagation(); void patchProgress(q.id, "review"); }}>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              void patchProgress(q.id, "review");
+                            }}
+                          >
                             Mark for Review 🔁
                           </Button>
                         </div>
@@ -337,14 +457,33 @@ export function QuestionsBank({
           {endScreen ? (
             <div className="mx-auto flex max-w-lg flex-1 flex-col items-center justify-center text-center">
               <h2 className="text-2xl font-semibold">Session complete</h2>
-              <p className="mt-4 text-zinc-400">
-                Known: {sessionKnown} · Review: {sessionReview} · Skipped: {sessionSkipped}
-              </p>
+              {drillUseMcq && mcqSummary ? (
+                <>
+                  <p className="mt-4 text-lg text-zinc-200">
+                    Score {mcqSummary.score}/{mcqSummary.total}
+                  </p>
+                  <p className="mt-2 text-zinc-400">
+                    +{mcqSummary.xpEarned} XP · {(mcqSummary.ms / 1000).toFixed(1)}s
+                  </p>
+                </>
+              ) : (
+                <p className="mt-4 text-zinc-400">
+                  Known: {sessionKnown} · Review: {sessionReview} · Skipped: {sessionSkipped}
+                </p>
+              )}
               <p className="mt-2 text-cyan-400">Streak: {streakDisplay} day(s)</p>
               <Button className="mt-8" onClick={closeDrill}>
                 Close
               </Button>
             </div>
+          ) : drillUseMcq && drillQueue.length ? (
+            <QuestionMcqDeck
+              questions={drillQueue}
+              distractorPool={distractorPool}
+              persistEachAnswer
+              onComplete={onMcqDrillComplete}
+              onExit={closeDrill}
+            />
           ) : currentDrill ? (
             <>
               <div className="mb-4 flex items-center justify-between text-sm text-zinc-400">
@@ -384,6 +523,18 @@ export function QuestionsBank({
               </div>
             </>
           ) : null}
+        </div>
+      ) : null}
+
+      {mcqBrowseOpen && browseMcqQueue.length ? (
+        <div className="fixed inset-0 z-50 flex flex-col bg-zinc-950/98 p-4 text-zinc-100 backdrop-blur">
+          <QuestionMcqDeck
+            questions={browseMcqQueue}
+            distractorPool={distractorPool}
+            persistEachAnswer
+            onComplete={onMcqBrowseComplete}
+            onExit={closeBrowseMcq}
+          />
         </div>
       ) : null}
     </div>

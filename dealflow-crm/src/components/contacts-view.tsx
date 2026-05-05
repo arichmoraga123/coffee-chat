@@ -8,11 +8,14 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
 import { useRouter } from "next/navigation";
+import { FIRM_TYPE_ORDER, FIRM_TYPE_LABELS, FirmTypeBadge } from "@/lib/firm-type";
+import type { FirmType } from "@prisma/client";
 
 type ContactRow = {
   id: string;
   fullName: string;
   firmName: string;
+  firmType: FirmType | null;
   firmId: string;
   group: string;
   title: string;
@@ -47,6 +50,7 @@ export function ContactsView({
     linkedinUrl: "",
     firmId: firms[0]?.id ?? "",
     firmName: "",
+    firmType: "" as FirmType | "",
     group: "",
     title: "Analyst",
     location: "",
@@ -56,14 +60,35 @@ export function ContactsView({
     referralProbability: "MEDIUM",
     notes: "",
     lastInteractionDate: new Date().toISOString().slice(0, 10),
+    undergradSchool: "",
+    gradSchool: "",
+    graduationYear: "",
+    hometown: "",
+    previousFirms: "",
+    careerPath: "",
+    clubs: "",
+    sports: "",
+    greekLife: "",
+    howWeMet: "",
+    referredBy: "",
+    mutualConnections: "",
+    warmthScore: "COLD",
+    hiringTimeline: "",
+    whatTheyLookFor: "",
+    referralPotential: "",
+    openRoles: "",
+    notableDeals: "",
   });
   const [interactionForm, setInteractionForm] = useState({
     contactId: "",
     date: new Date().toISOString().slice(0, 10),
     type: "COFFEE_CHAT",
     notes: "",
-    keyTakeaways: "",
+    adviceGiven: "",
+    actionItemsText: "",
     personalDetails: "",
+    firmInsights: "",
+    redFlags: "",
     followUpDate: "",
   });
   const [taskForm, setTaskForm] = useState({
@@ -102,6 +127,9 @@ export function ContactsView({
   const refresh = () => router.refresh();
 
   const createContact = async () => {
+    if (!contactForm.firmId && (!contactForm.firmName.trim() || !contactForm.firmType)) {
+      return;
+    }
     await fetch("/api/contacts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -112,10 +140,25 @@ export function ContactsView({
   };
 
   const createInteraction = async () => {
+    const actionItems = interactionForm.actionItemsText
+      .split("\n")
+      .map((s) => s.trim())
+      .filter(Boolean);
     await fetch("/api/interactions", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(interactionForm),
+      body: JSON.stringify({
+        contactId: interactionForm.contactId,
+        date: interactionForm.date,
+        type: interactionForm.type,
+        notes: interactionForm.notes.trim() || null,
+        adviceGiven: interactionForm.adviceGiven.trim() || null,
+        actionItems,
+        personalDetails: interactionForm.personalDetails.trim() || null,
+        firmInsights: interactionForm.firmInsights.trim() || null,
+        redFlags: interactionForm.redFlags.trim() || null,
+        followUpDate: interactionForm.followUpDate.trim() || null,
+      }),
     });
     setShowI(false);
     refresh();
@@ -172,7 +215,18 @@ export function ContactsView({
               return (
                 <tr key={c.id} className="border-t border-zinc-800">
                   <td className="px-3 py-2"><Link href={`/contacts/${c.id}`} className="text-cyan-400 hover:underline">{c.fullName}</Link>{isStale ? <span className="ml-2 rounded bg-amber-500/20 px-1.5 py-0.5 text-xs text-amber-300">Stale</span> : null}</td>
-                  <td>{c.firmName}</td><td>{c.group}</td><td>{c.title}</td><td>{c.relationshipStrength}</td><td>{c.referralProbability}</td><td><span className={`rounded px-1.5 py-0.5 text-xs ${followUpBadge[c.followUpStatus]}`}>{followUpLabel[c.followUpStatus]}</span></td><td>{last ? last.toLocaleDateString() : "-"}</td><td><Button size="sm" variant="outline" onClick={() => setQuickLogContactId(c.id)}>Log Interaction</Button></td>
+                  <td>
+                    <span className="inline-flex flex-wrap items-center gap-1.5">
+                      <FirmTypeBadge type={c.firmType} />
+                      <Link
+                        href={`/firms/${c.firmId}`}
+                        className="text-cyan-400 hover:underline"
+                      >
+                        {c.firmName}
+                      </Link>
+                    </span>
+                  </td>
+                  <td>{c.group}</td><td>{c.title}</td><td>{c.relationshipStrength}</td><td>{c.referralProbability}</td><td><span className={`rounded px-1.5 py-0.5 text-xs ${followUpBadge[c.followUpStatus]}`}>{followUpLabel[c.followUpStatus]}</span></td><td>{last ? last.toLocaleDateString() : "-"}</td><td><Button size="sm" variant="outline" onClick={() => setQuickLogContactId(c.id)}>Log Interaction</Button></td>
                 </tr>
               );
             })}
@@ -180,41 +234,125 @@ export function ContactsView({
         </table>
       </Card>
 
-      <Modal open={showC} onClose={() => setShowC(false)} title="New Contact">
-        <div className="grid gap-2 md:grid-cols-2">
-          <Input placeholder="Full name" value={contactForm.fullName} onChange={(e) => setContactForm((p) => ({ ...p, fullName: e.target.value }))} />
-          <Input placeholder="Email" value={contactForm.email} onChange={(e) => setContactForm((p) => ({ ...p, email: e.target.value }))} />
-          <Input placeholder="LinkedIn URL" value={contactForm.linkedinUrl} onChange={(e) => setContactForm((p) => ({ ...p, linkedinUrl: e.target.value }))} />
-          <select className="h-9 rounded border border-zinc-700 bg-zinc-950 px-2 text-sm" value={contactForm.firmId} onChange={(e) => setContactForm((p) => ({ ...p, firmId: e.target.value }))}>
-            {firms.map((f) => <option key={f.id} value={f.id}>{f.name}</option>)}
-            <option value="">Create new firm</option>
-          </select>
-          {!contactForm.firmId ? (
-            <Input
-              placeholder="New firm name"
-              value={contactForm.firmName}
-              onChange={(e) => setContactForm((p) => ({ ...p, firmName: e.target.value }))}
-            />
-          ) : null}
-          <Input placeholder="Group" value={contactForm.group} onChange={(e) => setContactForm((p) => ({ ...p, group: e.target.value }))} />
-          <Input placeholder="Title" value={contactForm.title} onChange={(e) => setContactForm((p) => ({ ...p, title: e.target.value }))} />
-          <Input placeholder="Location" value={contactForm.location} onChange={(e) => setContactForm((p) => ({ ...p, location: e.target.value }))} />
-          <Input placeholder="School" value={contactForm.school} onChange={(e) => setContactForm((p) => ({ ...p, school: e.target.value }))} />
-          <Input type="date" value={contactForm.lastInteractionDate} onChange={(e) => setContactForm((p) => ({ ...p, lastInteractionDate: e.target.value }))} />
+      <Modal open={showC} onClose={() => setShowC(false)} title="New Contact" className="max-w-2xl">
+        <div className="max-h-[75vh] space-y-4 overflow-y-auto pr-1 text-sm">
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500">Basic info</p>
+          <div className="grid gap-2 md:grid-cols-2">
+            <Input placeholder="Full name" value={contactForm.fullName} onChange={(e) => setContactForm((p) => ({ ...p, fullName: e.target.value }))} />
+            <Input placeholder="Email" value={contactForm.email} onChange={(e) => setContactForm((p) => ({ ...p, email: e.target.value }))} />
+            <Input placeholder="LinkedIn URL (optional)" value={contactForm.linkedinUrl} onChange={(e) => setContactForm((p) => ({ ...p, linkedinUrl: e.target.value }))} />
+            <select className="h-9 rounded border border-zinc-700 bg-zinc-950 px-2 text-sm" value={contactForm.firmId} onChange={(e) => setContactForm((p) => ({ ...p, firmId: e.target.value }))}>
+              {firms.map((f) => <option key={f.id} value={f.id}>{f.name}</option>)}
+              <option value="">Create new firm</option>
+            </select>
+            {!contactForm.firmId ? (
+              <>
+                <Input
+                  placeholder="New firm name"
+                  value={contactForm.firmName}
+                  onChange={(e) => setContactForm((p) => ({ ...p, firmName: e.target.value }))}
+                />
+                <div className="md:col-span-2">
+                  <label className="mb-1 block text-xs text-zinc-500">New firm type</label>
+                  <select
+                    className="h-9 w-full rounded border border-zinc-700 bg-zinc-950 px-2 text-sm"
+                    value={contactForm.firmType}
+                    onChange={(e) =>
+                      setContactForm((p) => ({
+                        ...p,
+                        firmType: (e.target.value || "") as FirmType | "",
+                      }))
+                    }
+                  >
+                    <option value="">Select firm type…</option>
+                    {FIRM_TYPE_ORDER.map((t) => (
+                      <option key={t} value={t}>
+                        {FIRM_TYPE_LABELS[t]}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </>
+            ) : null}
+            <Input placeholder="Group" value={contactForm.group} onChange={(e) => setContactForm((p) => ({ ...p, group: e.target.value }))} />
+            <Input placeholder="Title" value={contactForm.title} onChange={(e) => setContactForm((p) => ({ ...p, title: e.target.value }))} />
+            <Input placeholder="Location" value={contactForm.location} onChange={(e) => setContactForm((p) => ({ ...p, location: e.target.value }))} />
+            <Input placeholder="School" value={contactForm.school} onChange={(e) => setContactForm((p) => ({ ...p, school: e.target.value }))} />
+            <select className="h-9 rounded border border-zinc-700 bg-zinc-950 px-2 text-sm" value={contactForm.recruitingCategory} onChange={(e) => setContactForm((p) => ({ ...p, recruitingCategory: e.target.value }))}>
+              {["IB", "PE", "GE", "VC", "HF"].map((c) => <option key={c} value={c}>{c}</option>)}
+            </select>
+            <Input type="number" min={1} max={10} value={contactForm.relationshipStrength} onChange={(e) => setContactForm((p) => ({ ...p, relationshipStrength: Number(e.target.value) }))} />
+            <select className="h-9 rounded border border-zinc-700 bg-zinc-950 px-2 text-sm" value={contactForm.referralProbability} onChange={(e) => setContactForm((p) => ({ ...p, referralProbability: e.target.value }))}>
+              {["LOW", "MEDIUM", "HIGH"].map((c) => <option key={c} value={c}>{c}</option>)}
+            </select>
+            <Input type="date" value={contactForm.lastInteractionDate} onChange={(e) => setContactForm((p) => ({ ...p, lastInteractionDate: e.target.value }))} />
+            <textarea className="min-h-[56px] rounded border border-zinc-700 bg-zinc-950 p-2 text-sm md:col-span-2" placeholder="Notes" value={contactForm.notes} onChange={(e) => setContactForm((p) => ({ ...p, notes: e.target.value }))} />
+          </div>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500">Background &amp; education</p>
+          <div className="grid gap-2 md:grid-cols-2">
+            <Input placeholder="Undergrad school" value={contactForm.undergradSchool} onChange={(e) => setContactForm((p) => ({ ...p, undergradSchool: e.target.value }))} />
+            <Input placeholder="Grad school" value={contactForm.gradSchool} onChange={(e) => setContactForm((p) => ({ ...p, gradSchool: e.target.value }))} />
+            <Input placeholder="Graduation year" value={contactForm.graduationYear} onChange={(e) => setContactForm((p) => ({ ...p, graduationYear: e.target.value }))} />
+            <Input placeholder="Hometown" value={contactForm.hometown} onChange={(e) => setContactForm((p) => ({ ...p, hometown: e.target.value }))} />
+            <textarea className="min-h-[56px] rounded border border-zinc-700 bg-zinc-950 p-2 text-sm md:col-span-2" placeholder="Previous firms (one per line)" value={contactForm.previousFirms} onChange={(e) => setContactForm((p) => ({ ...p, previousFirms: e.target.value }))} />
+            <textarea className="min-h-[56px] rounded border border-zinc-700 bg-zinc-950 p-2 text-sm md:col-span-2" placeholder="Career path" value={contactForm.careerPath} onChange={(e) => setContactForm((p) => ({ ...p, careerPath: e.target.value }))} />
+          </div>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500">Clubs &amp; activities</p>
+          <div className="grid gap-2 md:grid-cols-2">
+            <textarea className="min-h-[56px] rounded border border-zinc-700 bg-zinc-950 p-2 text-sm md:col-span-2" placeholder="Clubs (one per line)" value={contactForm.clubs} onChange={(e) => setContactForm((p) => ({ ...p, clubs: e.target.value }))} />
+            <textarea className="min-h-[56px] rounded border border-zinc-700 bg-zinc-950 p-2 text-sm md:col-span-2" placeholder="Sports (one per line)" value={contactForm.sports} onChange={(e) => setContactForm((p) => ({ ...p, sports: e.target.value }))} />
+            <Input placeholder="Greek life" value={contactForm.greekLife} onChange={(e) => setContactForm((p) => ({ ...p, greekLife: e.target.value }))} />
+          </div>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500">Relationship</p>
+          <div className="grid gap-2 md:grid-cols-2">
+            <Input placeholder="How we met" value={contactForm.howWeMet} onChange={(e) => setContactForm((p) => ({ ...p, howWeMet: e.target.value }))} />
+            <Input placeholder="Referred by" value={contactForm.referredBy} onChange={(e) => setContactForm((p) => ({ ...p, referredBy: e.target.value }))} />
+            <textarea className="min-h-[56px] rounded border border-zinc-700 bg-zinc-950 p-2 text-sm md:col-span-2" placeholder="Mutual connections (one per line)" value={contactForm.mutualConnections} onChange={(e) => setContactForm((p) => ({ ...p, mutualConnections: e.target.value }))} />
+            <select className="h-9 rounded border border-zinc-700 bg-zinc-950 px-2 text-sm md:col-span-2" value={contactForm.warmthScore} onChange={(e) => setContactForm((p) => ({ ...p, warmthScore: e.target.value }))}>
+              {["COLD", "WARM", "HOT", "ADVOCATE"].map((w) => <option key={w} value={w}>{w}</option>)}
+            </select>
+          </div>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500">Recruiting intel</p>
+          <div className="grid gap-2 md:grid-cols-2">
+            <Input placeholder="Hiring timeline" value={contactForm.hiringTimeline} onChange={(e) => setContactForm((p) => ({ ...p, hiringTimeline: e.target.value }))} />
+            <textarea className="min-h-[56px] rounded border border-zinc-700 bg-zinc-950 p-2 text-sm md:col-span-2" placeholder="What they look for" value={contactForm.whatTheyLookFor} onChange={(e) => setContactForm((p) => ({ ...p, whatTheyLookFor: e.target.value }))} />
+            <select className="h-9 rounded border border-zinc-700 bg-zinc-950 px-2 text-sm" value={contactForm.referralPotential} onChange={(e) => setContactForm((p) => ({ ...p, referralPotential: e.target.value }))}>
+              <option value="">Referral potential…</option>
+              {["UNLIKELY", "POSSIBLE", "LIKELY", "OFFERED"].map((r) => <option key={r} value={r}>{r}</option>)}
+            </select>
+            <Input placeholder="Open roles" value={contactForm.openRoles} onChange={(e) => setContactForm((p) => ({ ...p, openRoles: e.target.value }))} />
+            <textarea className="min-h-[56px] rounded border border-zinc-700 bg-zinc-950 p-2 text-sm md:col-span-2" placeholder="Notable deals (one per line)" value={contactForm.notableDeals} onChange={(e) => setContactForm((p) => ({ ...p, notableDeals: e.target.value }))} />
+          </div>
         </div>
         <p className="mt-2 text-xs text-zinc-400">Last interaction date helps generate coffee chat follow-up alerts immediately.</p>
-        <div className="mt-3 flex justify-end"><Button onClick={createContact}>Save Contact</Button></div>
+        <div className="mt-3 flex justify-end">
+          <Button
+            onClick={createContact}
+            disabled={
+              !contactForm.fullName.trim() ||
+              (!contactForm.firmId &&
+                (!contactForm.firmName.trim() || !contactForm.firmType))
+            }
+          >
+            Save Contact
+          </Button>
+        </div>
       </Modal>
 
-      <Modal open={showI} onClose={() => setShowI(false)} title="New Interaction">
-        <div className="grid gap-2">
-          <select className="h-9 rounded border border-zinc-700 bg-zinc-950 px-2 text-sm" value={interactionForm.contactId} onChange={(e) => setInteractionForm((p) => ({ ...p, contactId: e.target.value }))}>
+      <Modal open={showI} onClose={() => setShowI(false)} title="New Interaction" className="max-w-lg">
+        <div className="max-h-[70vh] space-y-2 overflow-y-auto pr-1 text-sm">
+          <select className="h-9 w-full rounded border border-zinc-700 bg-zinc-950 px-2 text-sm" value={interactionForm.contactId} onChange={(e) => setInteractionForm((p) => ({ ...p, contactId: e.target.value }))}>
             <option value="">Select contact</option>
             {contacts.map((c) => <option key={c.id} value={c.id}>{c.fullName}</option>)}
           </select>
           <Input type="date" value={interactionForm.date} onChange={(e) => setInteractionForm((p) => ({ ...p, date: e.target.value }))} />
           <Input placeholder="Type (COFFEE_CHAT/CALL/...)" value={interactionForm.type} onChange={(e) => setInteractionForm((p) => ({ ...p, type: e.target.value }))} />
-          <Input placeholder="Key takeaways" value={interactionForm.keyTakeaways} onChange={(e) => setInteractionForm((p) => ({ ...p, keyTakeaways: e.target.value }))} />
+          <textarea className="min-h-[56px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-sm" placeholder="What was discussed" value={interactionForm.notes} onChange={(e) => setInteractionForm((p) => ({ ...p, notes: e.target.value }))} />
+          <textarea className="min-h-[48px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-sm" placeholder="Advice given" value={interactionForm.adviceGiven} onChange={(e) => setInteractionForm((p) => ({ ...p, adviceGiven: e.target.value }))} />
+          <textarea className="min-h-[48px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-sm" placeholder="Action items (one per line)" value={interactionForm.actionItemsText} onChange={(e) => setInteractionForm((p) => ({ ...p, actionItemsText: e.target.value }))} />
+          <textarea className="min-h-[48px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-sm" placeholder="Personal details" value={interactionForm.personalDetails} onChange={(e) => setInteractionForm((p) => ({ ...p, personalDetails: e.target.value }))} />
+          <textarea className="min-h-[48px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-sm" placeholder="Firm insights" value={interactionForm.firmInsights} onChange={(e) => setInteractionForm((p) => ({ ...p, firmInsights: e.target.value }))} />
+          <textarea className="min-h-[40px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-sm" placeholder="Red flags" value={interactionForm.redFlags} onChange={(e) => setInteractionForm((p) => ({ ...p, redFlags: e.target.value }))} />
           <Input type="date" value={interactionForm.followUpDate} onChange={(e) => setInteractionForm((p) => ({ ...p, followUpDate: e.target.value }))} />
         </div>
         <div className="mt-3 flex justify-end"><Button onClick={createInteraction}>Log Interaction</Button></div>
@@ -255,6 +393,7 @@ export function ContactsView({
                   contactId: quickLogContactId,
                   date: quickInteractionDate,
                   type: "COFFEE_CHAT",
+                  notes: null,
                 }),
               });
               setQuickLogContactId("");

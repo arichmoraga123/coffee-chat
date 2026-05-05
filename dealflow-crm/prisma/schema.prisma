@@ -161,6 +161,9 @@ enum FirmType {
   GE
   VC
   HF
+  CONSULTING
+  CORPORATE
+  OTHER
 }
 
 enum RecruitingCategory {
@@ -219,7 +222,7 @@ model Contact {
   fullName             String
   email                String
   phone                String?
-  linkedinUrl          String
+  linkedinUrl          String?
   group                String
   title                String
   location             String
@@ -233,6 +236,30 @@ model Contact {
   updatedAt            DateTime            @updatedAt
   firmId               String
   userId               String
+
+  undergradSchool   String?
+  gradSchool        String?
+  graduationYear    Int?
+  hometown          String?
+  previousFirms     String[] @default([])
+  careerPath        String?
+
+  clubs       String[] @default([])
+  sports      String[] @default([])
+  greekLife   String?
+
+  howWeMet            String?
+  referredBy          String?
+  mutualConnections   String[] @default([])
+  warmthScore         String   @default("COLD") // COLD | WARM | HOT | ADVOCATE
+
+  hiringTimeline    String?
+  whatTheyLookFor   String?
+  referralPotential String?
+  openRoles         String?
+
+  notableDeals String[] @default([])
+
   firm                 Firm                @relation(fields: [firmId], references: [id], onDelete: Cascade)
   user                 User                @relation(fields: [userId], references: [id], onDelete: Cascade)
   interactions         Interaction[]
@@ -245,7 +272,7 @@ model Contact {
 model Firm {
   id              String        @id @default(cuid())
   name            String
-  type            FirmType
+  type            FirmType?
   location        String
   aum             String?
   focus           String
@@ -260,29 +287,35 @@ model Firm {
 }
 
 model Interaction {
-  id              String          @id @default(cuid())
-  date            DateTime
-  type            InteractionType
-  notes           String          @default("")
-  keyTakeaways    String          @default("")
-  personalDetails String          @default("")
-  followUpDate    DateTime?
-  createdAt       DateTime        @default(now())
-  contactId       String
-  userId          String
-  contact         Contact         @relation(fields: [contactId], references: [id], onDelete: Cascade)
-  user            User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                 String          @id @default(cuid())
+  date               DateTime
+  type               InteractionType
+  notes              String?
+  adviceGiven        String?
+  actionItems        String[]        @default([])
+  actionItemsChecked Int[]           @default([])
+  personalDetails    String?
+  firmInsights       String?
+  redFlags           String?
+  followUpDate       DateTime?
+  createdAt          DateTime        @default(now())
+  contactId          String
+  userId             String
+  contact            Contact         @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  user               User            @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Opportunity {
-  id         String               @id @default(cuid())
-  role       String
-  stage      OpportunityStage     @default(TARGET)
-  priority   Priority             @default(MEDIUM)
-  notes      String               @default("")
-  createdAt  DateTime             @default(now())
-  firmId     String
-  userId     String
+  id                  String               @id @default(cuid())
+  role                String
+  stage               OpportunityStage     @default(TARGET)
+  priority            Priority             @default(MEDIUM)
+  notes               String               @default("")
+  applicationDeadline DateTime?
+  contactName         String               @default("")
+  createdAt           DateTime             @default(now())
+  firmId              String
+  userId              String
   firm       Firm                 @relation(fields: [firmId], references: [id], onDelete: Cascade)
   user       User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
   contacts   OpportunityContact[]
