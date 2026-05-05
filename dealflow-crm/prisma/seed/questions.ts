@@ -3,6 +3,7 @@
 export type SeedQuestion = {
   question: string;
   answer: string;
+  keywords: string[];
   category: string;
   subcategory?: string;
   difficulty: string;
@@ -10,7 +11,22 @@ export type SeedQuestion = {
   source?: string;
 };
 
-export const SEED_QUESTIONS: SeedQuestion[] = [
+function keywordize(question: string, answer: string, tags: string[]): string[] {
+  const overrides: Record<string, string[]> = {
+    "What is WACC?": ["weighted", "cost of equity", "cost of debt", "tax", "discount rate"],
+    "Walk me through a DCF.": ["free cash flow", "discount", "terminal value", "wacc", "equity value"],
+    "What is a leveraged buyout (LBO)?": ["leverage", "debt", "equity", "irr", "returns"],
+  };
+  if (overrides[question]) return overrides[question];
+
+  const phrases = (answer.toLowerCase().match(/[a-z]{4,}(?:\s+[a-z]{4,})?/g) ?? []).filter(
+    (x) => !["this", "that", "with", "from", "into", "also", "over", "year", "years"].includes(x),
+  );
+  const seeds = [...tags.map((t) => t.toLowerCase()), ...phrases];
+  return Array.from(new Set(seeds)).slice(0, 5);
+}
+
+const BASE_SEED_QUESTIONS = [
   // Finance Concepts
   {
     question: "Explain the time value of money.",
@@ -366,3 +382,8 @@ export const SEED_QUESTIONS: SeedQuestion[] = [
     source: "BIWS 400 Questions Guide",
   },
 ];
+
+export const SEED_QUESTIONS: SeedQuestion[] = BASE_SEED_QUESTIONS.map((q) => ({
+  ...q,
+  keywords: keywordize(q.question, q.answer, q.tags),
+}));

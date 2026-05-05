@@ -68,7 +68,7 @@ export function TasksList({
       <div className="flex items-center justify-between gap-2 text-sm">
         <div className="flex gap-2">
         {(["today", "week", "overdue"] as const).map((f) => (
-          <button key={f} onClick={() => setFilter(f)} className={`rounded px-2 py-1 ${filter === f ? "bg-cyan-500/20 text-cyan-300" : "bg-zinc-800"}`}>
+          <button key={f} onClick={() => setFilter(f)} className={`rounded px-2 py-1 ${filter === f ? "border border-[#2a2a2a] bg-[#161616] text-[#f5f5f5]" : "bg-zinc-800"}`}>
             {f === "today" ? "Due Today" : f === "week" ? "This Week" : "Overdue"}
           </button>
         ))}

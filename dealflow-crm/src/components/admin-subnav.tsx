@@ -29,7 +29,7 @@ export function AdminSubnav({ draftDealCount = 0 }: { draftDealCount?: number })
             href={href}
             className={cn(
               "inline-flex items-center rounded px-3 py-1.5 transition-colors",
-              active ? "bg-cyan-500/20 text-cyan-300" : "text-zinc-400 hover:bg-zinc-900 hover:text-zinc-100",
+              active ? "bg-white/[0.06] text-[#f5f5f5]" : "text-[#888888] hover:bg-[#161616] hover:text-[#f0f0f0]",
             )}
           >
             {label}

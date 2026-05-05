@@ -53,9 +53,9 @@ export function GroupsView() {
           <Link
             key={g.id}
             href={`/groups/${g.id}`}
-            className="block rounded-lg border border-zinc-800 bg-zinc-900/50 p-4 transition-colors hover:border-cyan-800/50"
+            className="block rounded-lg border border-[#2a2a2a] bg-[#161616]/80 p-4 transition-colors hover:border-[#3a3a3a]"
           >
-            <p className="font-semibold text-cyan-300">{g.name}</p>
+            <p className="font-semibold text-[#f5f5f5]">{g.name}</p>
             <p className="text-xs text-zinc-500">
               {g.memberCount} members · you are {g.role}
             </p>

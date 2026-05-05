@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { QuestionMcqDeck } from "@/components/question-mcq-deck";
 import type { McqDistractorSource } from "@/lib/question-mcq";
+import { gradeAnswerByKeywords, type KeywordGradeResult } from "@/lib/answer-grader";
 import {
   readStoredQuestionMode,
   writeStoredQuestionMode,
@@ -22,9 +23,10 @@ type Q = {
   subcategory: string | null;
   difficulty: string;
   tags: string[];
+  keywords: string[];
 };
 
-type Action = "known" | "review" | "skip";
+type Action = "known" | "partial" | "review" | "skip";
 
 type CompleteResponse = {
   xpEarned: number;
@@ -56,9 +58,11 @@ export function DashboardDailyDrill({
   const [log, setLog] = useState<{ xpEarned: number; correct: number; questionsAnswered: number } | null>(null);
 
   const [open, setOpen] = useState(false);
-  const [sessionFormat, setSessionFormat] = useState<QuestionPracticeMode>("flashcard");
+  const [sessionFormat, setSessionFormat] = useState<QuestionPracticeMode>("mcq");
   const [idx, setIdx] = useState(0);
   const [flipped, setFlipped] = useState(false);
+  const [typedAnswer, setTypedAnswer] = useState("");
+  const [gradedResult, setGradedResult] = useState<KeywordGradeResult | null>(null);
   const [results, setResults] = useState<{ questionId: string; action: Action }[]>([]);
   const [end, setEnd] = useState(false);
   const [summary, setSummary] = useState<CompleteResponse | null>(null);
@@ -111,6 +115,8 @@ export function DashboardDailyDrill({
     setEnd(false);
     setSummary(null);
     setMcqExtras(null);
+    setTypedAnswer("");
+    setGradedResult(null);
     sessionStartRef.current = Date.now();
   };
 
@@ -123,7 +129,7 @@ export function DashboardDailyDrill({
       particleCount: 140,
       spread: 70,
       origin: { y: 0.35 },
-      colors: ["#22d3ee", "#fbbf24", "#a78bfa"],
+      colors: ["#f5f5f5", "#c9a84c", "#4a6fa5"],
     });
   };
 
@@ -152,7 +158,28 @@ export function DashboardDailyDrill({
     } else {
       setIdx((i) => i + 1);
       setFlipped(false);
+      setTypedAnswer("");
+      setGradedResult(null);
     }
+  };
+
+  const onFlashcardFlip = () => {
+    if (!current) return;
+    setFlipped((prev) => {
+      const next = !prev;
+      if (next && typedAnswer.trim()) {
+        setGradedResult(
+          gradeAnswerByKeywords({
+            userAnswer: typedAnswer,
+            modelAnswer: current.answer,
+            keywords: current.keywords,
+          }),
+        );
+      } else if (!next) {
+        setGradedResult(null);
+      }
+      return next;
+    });
   };
 
   const onMcqComplete = async (mcqResults: { questionId: string; action: Action }[]) => {
@@ -186,7 +213,7 @@ export function DashboardDailyDrill({
 
   if (loading) {
     return (
-      <Card className="border-l-4 border-cyan-500/50 p-4">
+      <Card className="border-l-2 border-l-[#f5f5f5] p-4">
         <div className="space-y-3">
           <Skeleton className="h-3 w-28" />
           <Skeleton className="h-5 w-64 max-w-full" />
@@ -218,7 +245,7 @@ export function DashboardDailyDrill({
             ) : (
               <p className="mt-4 text-zinc-400">+{summary.xpEarned} XP today</p>
             )}
-            <p className="mt-2 text-cyan-400">🔥 Streak: {summary.drillStreak} days</p>
+            <p className="mt-2 text-[#c9a84c]">🔥 Streak: {summary.drillStreak} days</p>
             {summary.milestoneStreak ? (
               <p className="mt-2 text-amber-300">{summary.milestoneStreak}-day milestone</p>
             ) : null}
@@ -253,30 +280,73 @@ export function DashboardDailyDrill({
             <div className="perspective-flip mx-auto w-full max-w-3xl flex-1">
               <button
                 type="button"
-                className="relative w-full cursor-pointer border-0 bg-transparent p-0 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
-                onClick={() => setFlipped((f) => !f)}
+                className="relative w-full cursor-pointer border-0 bg-transparent p-0 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4a6fa5]/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a]"
+                onClick={onFlashcardFlip}
               >
                 <div className={cn("flip-card-inner shadow-xl", flipped && "is-flipped")}>
                   <div className="flip-card-face border border-white/10 bg-gradient-to-br from-zinc-900 to-zinc-950">
                     <p className="mb-2 text-xs uppercase tracking-[0.18em] text-zinc-500">Question</p>
                     <p className="text-lg font-medium text-zinc-100">{current.question}</p>
+                    <div className="mt-5">
+                      <label className="mb-1 block text-xs uppercase tracking-[0.14em] text-zinc-500">
+                        Type your answer (optional)
+                      </label>
+                      <textarea
+                        className="min-h-24 w-full rounded border border-[#2a2a2a] bg-[#111111] px-3 py-2 text-sm text-[#f0f0f0] outline-none focus:border-[#3a3a3a] focus:ring-1 focus:ring-[#4a6fa5]/40"
+                        placeholder="Write your answer before flipping..."
+                        value={typedAnswer}
+                        onChange={(e) => setTypedAnswer(e.target.value)}
+                        onClick={(e) => e.stopPropagation()}
+                      />
+                    </div>
                     <p className="mt-6 text-xs text-zinc-500">Tap to flip · reveal answer</p>
                   </div>
-                  <div className="flip-card-face flip-card-back border border-emerald-500/25 bg-gradient-to-br from-emerald-950/40 to-zinc-950">
-                    <p className="mb-2 text-xs uppercase tracking-[0.18em] text-emerald-400/90">Answer</p>
+                  <div className="flip-card-face flip-card-back border border-[#2a2a2a] bg-[#141414]">
+                    <p className="mb-2 text-xs uppercase tracking-[0.18em] text-[#888888]">Answer</p>
                     <p className="text-base text-zinc-100">{current.answer}</p>
                   </div>
                 </div>
               </button>
             </div>
             <div className="mx-auto mt-6 flex max-w-3xl flex-wrap justify-center gap-2">
-              <Button onClick={() => void onAction("known")}>Got it</Button>
-              <Button variant="outline" onClick={() => void onAction("review")}>
-                Need Review
-              </Button>
-              <Button variant="ghost" onClick={() => void onAction("skip")}>
-                Skip
-              </Button>
+              {flipped && gradedResult ? (
+                <>
+                  <div className="w-full rounded border border-[#2a2a2a] bg-[#161616] p-3 text-sm text-[#e8e8e8]">
+                    <p className="font-medium text-[#f0f0f0]">
+                      {gradedResult.grade === "correct"
+                        ? "Correct (+10 XP)"
+                        : gradedResult.grade === "partial"
+                          ? "Partial (+5 XP)"
+                          : "Incorrect (+0 XP)"}{" "}
+                      ({Math.round(gradedResult.hitRate * 100)}% keyword hit)
+                    </p>
+                    <p className="mt-1 text-xs text-[#888888]">
+                      {gradedResult.foundKeywords.length > 0
+                        ? `✓ mentioned ${gradedResult.foundKeywords.join(", ")}`
+                        : "✓ mentioned: none"}
+                    </p>
+                    <p className="text-xs text-[#888888]">
+                      {gradedResult.missedKeywords.length > 0
+                        ? `✗ missed: ${gradedResult.missedKeywords.join(", ")}`
+                        : "✗ missed: none"}
+                    </p>
+                  </div>
+                  <Button onClick={() => void onAction(gradedResult.suggestedAction)}>Continue</Button>
+                  <Button variant="ghost" onClick={() => void onAction("skip")}>
+                    Skip
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button onClick={() => void onAction("known")}>Got it</Button>
+                  <Button variant="outline" onClick={() => void onAction("review")}>
+                    Need Review
+                  </Button>
+                  <Button variant="ghost" onClick={() => void onAction("skip")}>
+                    Skip
+                  </Button>
+                </>
+              )}
             </div>
           </>
         ) : (
@@ -293,31 +363,31 @@ export function DashboardDailyDrill({
 
   if (completed) {
     return (
-      <Card className="border border-amber-500/20 bg-gradient-to-br from-amber-950/30 via-zinc-900 to-zinc-950 p-4">
+      <Card className="border border-[#2a2a2a] border-l-2 border-l-[#c9a84c] bg-[#161616] p-4">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-amber-300/90">Daily drill</p>
-            <p className="mt-1 text-lg font-semibold text-zinc-100">Come back tomorrow</p>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#666666]">Daily drill</p>
+            <p className="mt-1 text-lg font-semibold text-[#f0f0f0]">Come back tomorrow</p>
             <p className="mt-2 text-2xl">
-              <span className="text-orange-400">🔥</span>{" "}
-              <span className="font-mono text-zinc-100">{streak}</span>
-              <span className="text-sm text-zinc-500"> day streak</span>
+              <span className="text-[#c9a84c]">🔥</span>{" "}
+              <span className="font-mono text-[#f0f0f0]">{streak}</span>
+              <span className="text-sm text-[#888888]"> day streak</span>
             </p>
             {log ? (
-              <p className="mt-2 text-xs text-zinc-500">
+              <p className="mt-2 text-xs text-[#888888]">
                 Today: +{log.xpEarned} XP · {log.correct}/{log.questionsAnswered} correct
               </p>
             ) : null}
           </div>
           <div className="min-w-[140px] flex-1">
-            <p className="text-xs text-zinc-500">Weekly XP</p>
-            <div className="mt-1 h-2 overflow-hidden rounded-full bg-zinc-800/90 ring-1 ring-white/5">
+            <p className="text-xs text-[#888888]">Weekly XP</p>
+            <div className="mt-1 h-2 overflow-hidden rounded-full bg-[#1a1a1a] ring-1 ring-[#2a2a2a]">
               <div
-                className="h-full bg-gradient-to-r from-cyan-700 via-teal-400 to-cyan-300 transition-[width] duration-500 ease-out"
+                className="h-full bg-[#4a6fa5] transition-[width] duration-500 ease-out"
                 style={{ width: `${weeklyPct}%` }}
               />
             </div>
-            <p className="mt-1 text-xs text-zinc-400">
+            <p className="mt-1 text-xs text-[#888888]">
               {weeklyXP} / {weeklyGoal}
             </p>
           </div>
@@ -327,46 +397,47 @@ export function DashboardDailyDrill({
   }
 
   return (
-    <Card className="border-l-4 border-cyan-400/90 bg-gradient-to-br from-zinc-900/95 via-zinc-950 to-black p-4 shadow-[4px_0_24px_-8px_rgba(0,188,212,0.35)]">
+    <Card className="border border-[#2a2a2a] border-l-2 border-l-[#f5f5f5] bg-[#161616] p-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="section-label">Daily drill</p>
-          <p className="mt-1 text-lg font-semibold text-zinc-100">5 questions · weak categories first</p>
+          <p className="mt-1 text-lg font-semibold text-[#f0f0f0]">5 questions · weak categories first</p>
           <p className="mt-2 text-2xl">
-            <span className="text-orange-400">🔥</span>{" "}
-            <span className="font-mono text-zinc-100">{streak}</span>
-            <span className="text-sm text-zinc-500"> day streak</span>
+            <span className="text-[#c9a84c]">🔥</span>{" "}
+            <span className="font-mono text-[#f0f0f0]">{streak}</span>
+            <span className="text-sm text-[#888888]"> day streak</span>
           </p>
-          <p className="mt-1 text-xs text-zinc-500">
-            Flashcard: Got it +10 XP · Need review +2 XP · Skip 0 XP. MCQ: correct +10 XP, wrong +0 XP.
+          <p className="mt-1 text-xs text-[#888888]">
+            MCQ is default and auto-graded. Study Mode (flashcard) supports optional typed answers with keyword
+            grading: Correct +10 XP, Partial +5 XP, Incorrect +0 XP.
           </p>
         </div>
         <div className="min-w-[160px] flex-1 space-y-2">
-          <p className="text-xs text-zinc-500">Weekly XP</p>
-          <div className="mt-1 h-2 overflow-hidden rounded-full bg-zinc-800/90 ring-1 ring-white/5">
+          <p className="text-xs text-[#888888]">Weekly XP</p>
+          <div className="mt-1 h-2 overflow-hidden rounded-full bg-[#1a1a1a] ring-1 ring-[#2a2a2a]">
             <div
-              className="h-full bg-gradient-to-r from-cyan-700 via-teal-400 to-cyan-300 transition-[width] duration-500 ease-out"
+              className="h-full bg-[#4a6fa5] transition-[width] duration-500 ease-out"
               style={{ width: `${weeklyPct}%` }}
             />
           </div>
-          <p className="mt-1 text-xs text-zinc-400">
+          <p className="mt-1 text-xs text-[#888888]">
             {weeklyXP} / {weeklyGoal}
           </p>
           <Button
             className="animate-df-pulse-glow w-full"
             size="sm"
             variant="cta"
-            onClick={() => beginSession("flashcard")}
+            onClick={() => beginSession("mcq")}
           >
-            Flashcard drill
+            Start MCQ drill
           </Button>
           <Button
             className="animate-df-pulse-glow w-full"
             size="sm"
             variant="cta"
-            onClick={() => beginSession("mcq")}
+            onClick={() => beginSession("flashcard")}
           >
-            MCQ drill
+            Study Mode (flashcard)
           </Button>
         </div>
       </div>

@@ -168,7 +168,7 @@ function UserDetailPanel({
         <button
           type="button"
           disabled={isSelf}
-          className="rounded bg-cyan-700/80 px-3 py-1.5 text-xs font-medium text-white disabled:opacity-40"
+          className="rounded border border-[#3a3a3a] bg-[#111111] px-3 py-1.5 text-xs font-medium text-[#f5f5f5] hover:border-[#525252] disabled:opacity-40"
           onClick={() => onPatchRole(u.id, u.role === "ADMIN" ? "USER" : "ADMIN")}
         >
           {u.role === "ADMIN" ? "Demote to USER" : "Promote to ADMIN"}
@@ -449,7 +449,7 @@ export function AdminDashboard() {
 
       {/* User management */}
       <section id="admin-users" className="scroll-mt-6 space-y-4">
-        <h2 className="text-lg font-medium text-cyan-400/90">User management</h2>
+        <h2 className="section-label">User management</h2>
         <div className="flex flex-wrap gap-4 text-sm text-zinc-400">
           <span>
             Total users: <strong className="text-zinc-200">{totals.totalUsers}</strong>
@@ -466,7 +466,7 @@ export function AdminDashboard() {
           placeholder="Search name or email…"
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          className="w-full max-w-md rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-600 focus:border-cyan-600 focus:outline-none"
+          className="w-full max-w-md rounded-md border border-[#2a2a2a] bg-[#111111] px-3 py-2 text-sm text-[#f0f0f0] placeholder:text-[#555555] focus:border-[#3a3a3a] focus:outline-none focus:ring-1 focus:ring-[#4a6fa5]/40"
         />
         <div className="overflow-x-auto rounded-lg border border-zinc-800">
           <table className="w-full min-w-[960px] text-left text-sm">
@@ -519,7 +519,7 @@ export function AdminDashboard() {
       {/* Analytics */}
       {analytics && (
         <section className="space-y-4">
-          <h2 className="text-lg font-medium text-cyan-400/90">Usage analytics</h2>
+          <h2 className="section-label">Usage analytics</h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <StatCard
               label="Questions answered (all time)"
@@ -605,7 +605,7 @@ export function AdminDashboard() {
                       <td className="px-3 py-2 text-zinc-500">{i + 1}</td>
                       <td className="px-3 py-2 text-zinc-200">{u.name}</td>
                       <td className="px-3 py-2 text-zinc-500">{u.email}</td>
-                      <td className="px-3 py-2 text-cyan-400">{u.xp}</td>
+                      <td className="px-3 py-2 font-mono text-[#c9a84c]">{u.xp}</td>
                       <td className="px-3 py-2 text-zinc-400">{u.weeklyXP}</td>
                     </tr>
                   ))}
@@ -619,7 +619,7 @@ export function AdminDashboard() {
       {/* Content */}
       {content && (
         <section className="space-y-6">
-          <h2 className="text-lg font-medium text-cyan-400/90">Content management</h2>
+          <h2 className="section-label">Content management</h2>
 
           <div>
             <h3 className="mb-2 text-sm font-medium text-zinc-300">Pending questions</h3>
@@ -714,7 +714,7 @@ export function AdminDashboard() {
                         href={p.fileUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="text-xs text-cyan-400 hover:underline"
+                        className="text-xs text-[#f0f0f0] underline-offset-4 hover:underline"
                       >
                         Open link
                       </a>
@@ -753,7 +753,7 @@ export function AdminDashboard() {
                 >
                   <p className="text-zinc-300">
                     <span className="text-zinc-500">{r.targetType}</span> ·{" "}
-                    <code className="text-xs text-cyan-600/90">{r.targetId}</code>
+                    <code className="text-xs text-[#888888]">{r.targetId}</code>
                   </p>
                   <p className="mt-1 text-zinc-400">{r.reason}</p>
                   <p className="mt-1 text-xs text-zinc-500">
@@ -803,7 +803,7 @@ export function AdminDashboard() {
                       <td className="px-3 py-2">
                         <button
                           type="button"
-                          className="mr-2 text-cyan-400 hover:underline"
+                          className="mr-2 text-[#f0f0f0] underline-offset-4 hover:underline"
                           onClick={() => setTplEdit({ ...t })}
                         >
                           Edit
@@ -830,7 +830,7 @@ export function AdminDashboard() {
       {/* API usage */}
       {apiUsage && (
         <section className="space-y-4">
-          <h2 className="text-lg font-medium text-cyan-400/90">API usage (Anthropic)</h2>
+          <h2 className="section-label">API usage (Anthropic)</h2>
           <p className="text-sm text-zinc-500">
             Estimated cost (Claude Sonnet 4 list rates):{" "}
             <strong className="text-zinc-200">{costDisplay}</strong> · Total calls:{" "}
@@ -958,7 +958,7 @@ export function AdminDashboard() {
               </button>
               <button
                 type="button"
-                className="rounded bg-cyan-600 px-4 py-1.5 text-sm font-medium text-white hover:bg-cyan-500"
+                className="rounded border border-[#3a3a3a] bg-[#111111] px-4 py-1.5 text-sm font-medium text-[#f5f5f5] hover:border-[#525252] hover:bg-[#1a1a1a]"
                 onClick={() => void saveTemplate()}
               >
                 Save

@@ -78,11 +78,11 @@ export default async function ProfilePage() {
           <div className="mt-3 grid grid-cols-3 gap-2 text-center text-xs">
             <div className="rounded border border-zinc-800 bg-black/30 p-2">
               <p className="text-[10px] text-zinc-500">Total XP</p>
-              <p className="text-lg font-mono text-cyan-400">{user?.xp ?? 0}</p>
+              <p className="text-lg font-mono text-[#f5f5f5]">{user?.xp ?? 0}</p>
             </div>
             <div className="rounded border border-zinc-800 bg-black/30 p-2">
               <p className="text-[10px] text-zinc-500">Weekly XP</p>
-              <p className="text-lg font-mono text-cyan-300">{user?.weeklyXP ?? 0}</p>
+              <p className="text-lg font-mono text-[#c9a84c]">{user?.weeklyXP ?? 0}</p>
             </div>
             <div className="rounded border border-zinc-800 bg-black/30 p-2">
               <p className="text-[10px] text-zinc-500">Streak</p>

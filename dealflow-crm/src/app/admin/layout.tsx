@@ -9,12 +9,12 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   await requireAdminUserId();
   const draftDealCount = await prisma.deal.count({ where: { status: "draft" } });
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100">
-      <div className="border-b border-white/10 bg-zinc-950/95 px-4 py-3">
+    <div className="min-h-screen bg-[#0a0a0a] text-[#f0f0f0]">
+      <div className="border-b border-[#2a2a2a] bg-[#111111] px-4 py-3">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-4">
-          <span className="text-sm font-semibold tracking-wide text-cyan-400">Admin</span>
+          <span className="text-sm font-semibold tracking-wide text-[#f5f5f5]">Admin</span>
           <AdminSubnav draftDealCount={draftDealCount} />
-          <Link href="/" className="ml-auto text-xs text-zinc-500 hover:text-zinc-300">
+          <Link href="/" className="ml-auto text-xs text-[#888888] underline-offset-4 hover:text-[#f0f0f0] hover:underline">
             ← App
           </Link>
         </div>

@@ -9,15 +9,15 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "border border-cyan-400/25 bg-gradient-to-b from-cyan-400 to-cyan-600 text-zinc-950 shadow-[0_0_22px_-6px_rgba(0,188,212,0.55)] hover:from-cyan-300 hover:to-cyan-500 hover:shadow-[0_0_32px_-4px_rgba(0,188,212,0.75)]",
+          "border border-[#3a3a3a] bg-[#111111] text-[#f5f5f5] shadow-sm hover:border-[#525252] hover:bg-[#1a1a1a] hover:shadow-[0_0_20px_-4px_rgba(245,245,245,0.12)]",
         outline:
-          "border border-white/10 bg-zinc-900/80 text-zinc-100 hover:border-white/18 hover:bg-zinc-800/90",
-        ghost: "text-zinc-200 hover:bg-white/[0.06]",
+          "border border-[#2a2a2a] bg-[#161616] text-[#f0f0f0] hover:border-[#3a3a3a] hover:bg-[#1a1a1a]",
+        ghost: "text-[#e4e4e4] hover:bg-white/[0.06]",
         destructive:
-          "border border-red-500/35 bg-gradient-to-b from-red-600 to-red-800 text-white shadow-md hover:from-red-500 hover:to-red-700 hover:border-red-400/40 hover:shadow-[0_0_20px_-4px_rgba(248,113,113,0.4)]",
+          "border border-red-900/50 bg-red-950/80 text-red-100 hover:border-red-800/60 hover:bg-red-900/90",
         /** High emphasis CTA — use with `animate-df-pulse-glow` for drill buttons. */
         cta:
-          "border border-cyan-400/40 bg-gradient-to-b from-cyan-400 to-cyan-600 text-zinc-950 shadow-[0_0_26px_-4px_rgba(0,188,212,0.65)] hover:from-cyan-300 hover:to-cyan-500",
+          "border border-[#c9a84c]/40 bg-[#141414] text-[#f5f5f5] hover:border-[#c9a84c]/55 hover:bg-[#1a1a1a] hover:shadow-[0_0_24px_-6px_rgba(201,168,76,0.2)]",
       },
       size: {
         default: "h-9 px-4 py-2",

@@ -20,9 +20,9 @@ export default async function ResearchPage() {
           <Link
             key={f.id}
             href={`/research/${f.id}`}
-            className="block h-full rounded-lg border border-zinc-800 bg-zinc-900/50 p-4 transition-colors hover:border-cyan-800/60"
+            className="block h-full rounded-lg border border-[#2a2a2a] bg-[#161616]/80 p-4 transition-colors hover:border-[#3a3a3a]"
           >
-            <p className="font-semibold text-cyan-300">{f.firmName}</p>
+            <p className="font-semibold text-[#f5f5f5]">{f.firmName}</p>
             <p className="mt-1 text-xs text-zinc-500">{f.firmType}</p>
             {f.description ? (
               <p className="mt-2 line-clamp-3 text-sm text-zinc-400">{f.description}</p>

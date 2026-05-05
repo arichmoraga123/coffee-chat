@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
+import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession, requireAdminUserId } from "@/lib/auth";
 import { dealDedupeKey } from "@/lib/deal-dedupe";
 import { DEAL_TYPE_SET, normalizeVertical } from "@/lib/deal-taxonomy";
 
-/** Members — published deals only. */
+/** Members — published, plus legacy draft rows (seeded defaults) until backfilled (see prisma/publish-deals.ts). */
 export async function GET(req: Request) {
   const userId = await getUserIdFromSession();
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -13,13 +14,15 @@ export async function GET(req: Request) {
   const sector = searchParams.get("sector");
   const size = searchParams.get("size");
   const vertical = searchParams.get("vertical");
-  const where: Record<string, unknown> = { status: "published" };
+  const where: Prisma.DealWhereInput = {
+    status: { in: ["published", "draft"] },
+  };
   if (dealType) where.dealType = dealType;
   if (vertical) where.vertical = vertical;
-  if (sector) where.sector = { contains: sector, mode: "insensitive" as const };
-  if (size) where.dealValue = { contains: size, mode: "insensitive" as const };
+  if (sector) where.sector = { contains: sector, mode: "insensitive" };
+  if (size) where.dealValue = { contains: size, mode: "insensitive" };
   const deals = await prisma.deal.findMany({
-    where: where as never,
+    where,
     orderBy: { announcedAt: "desc" },
     take: 500,
   });

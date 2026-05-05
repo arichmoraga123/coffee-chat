@@ -24,16 +24,29 @@ async function main() {
     subcategory: q.subcategory ?? null,
     difficulty: q.difficulty,
     tags: q.tags,
+    keywords: q.keywords,
     source: q.source ?? "BIWS 400 Questions Guide",
     status: "active",
     dedupeKey: dedupeKeyFor(q.question),
   }));
 
-  const { count } = await prisma.question.createMany({
-    data: questionRows,
-    skipDuplicates: true,
-  });
-  console.log(`Questions upserted via createMany (new rows this run ~${count}).`);
+  for (const row of questionRows) {
+    await prisma.question.upsert({
+      where: { dedupeKey: row.dedupeKey },
+      create: row,
+      update: {
+        answer: row.answer,
+        category: row.category,
+        subcategory: row.subcategory,
+        difficulty: row.difficulty,
+        tags: row.tags,
+        keywords: row.keywords,
+        source: row.source,
+        status: row.status,
+      },
+    });
+  }
+  console.log(`Questions upserted with keywords (${questionRows.length} total).`);
 
   const timelineCount = await prisma.firmTimeline.count();
   if (timelineCount === 0) {

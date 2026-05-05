@@ -25,7 +25,7 @@ export function RecruitingCalendarSidebar({ events }: { events: RecruitingSideba
       <p className="section-label mb-2">Recruiting season (30 days)</p>
       <p className="mb-2 text-[10px] leading-snug text-zinc-500">
         Crowdsourced dates —{" "}
-        <Link href="/recruiting-calendar" className="text-cyan-500 hover:underline">
+        <Link href="/recruiting-calendar" className="text-[#f0f0f0] underline-offset-4 hover:underline">
           verify on firm sites
         </Link>
         .

@@ -66,7 +66,7 @@ export function GroupDetailView({ groupId }: { groupId: string }) {
 
   return (
     <div className="space-y-4">
-      <Link href="/groups" className="text-xs text-zinc-500 hover:text-cyan-400">
+      <Link href="/groups" className="text-xs text-[#888888] underline-offset-4 hover:text-[#f0f0f0] hover:underline">
         ← Groups
       </Link>
       <h1 className="text-xl font-semibold">{group.name}</h1>
@@ -97,7 +97,7 @@ export function GroupDetailView({ groupId }: { groupId: string }) {
           <div className="max-h-72 space-y-2 overflow-y-auto text-sm">
             {group.messages.map((m) => (
               <div key={m.id} className="rounded bg-zinc-950/80 px-2 py-1">
-                <span className="text-xs text-cyan-500">{m.user.name}</span>
+                <span className="text-xs text-[#4a6fa5]">{m.user.name}</span>
                 <p className="text-zinc-300">{m.body}</p>
               </div>
             ))}

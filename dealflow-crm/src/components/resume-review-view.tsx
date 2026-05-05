@@ -198,7 +198,7 @@ export function ResumeReviewView() {
                 className={cn(
                   "rounded-lg border px-3 py-1.5 text-left text-xs transition-colors",
                   active?.id === r.id
-                    ? "border-cyan-500/50 bg-cyan-500/10 text-cyan-100"
+                    ? "border-[#4a6fa5]/50 bg-[#4a6fa5]/10 text-[#f0f0f0]"
                     : "border-white/10 bg-black/20 text-zinc-400 hover:border-white/20 hover:text-zinc-200",
                 )}
               >
@@ -269,7 +269,7 @@ export function ResumeReviewView() {
             {fb.targetFirmFit?.summary ? <p className="text-sm text-zinc-300">{fb.targetFirmFit.summary}</p> : null}
             <div className="mt-3 flex flex-wrap gap-2">
               {(fb.targetFirmFit?.suggestedFirms ?? []).map((x) => (
-                <span key={x} className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-2 py-0.5 text-xs text-cyan-200">
+                <span key={x} className="rounded-full border border-[#2a2a2a] bg-[#161616] px-2 py-0.5 text-xs text-[#e8e8e8]">
                   {x}
                 </span>
               ))}

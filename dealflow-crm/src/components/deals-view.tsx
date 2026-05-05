@@ -6,7 +6,6 @@ import { subMonths, startOfDay } from "date-fns";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
 import { DEAL_TYPE_OPTIONS, VERTICAL_OPTIONS } from "@/lib/deal-taxonomy";
 
 type Deal = {
@@ -109,8 +108,8 @@ export function DealsView({
     <div className="space-y-4">
       <div>
         <h1 className="page-title">Deal Tracker</h1>
-        <p className="mt-1 text-sm text-zinc-400">
-          <span className="text-emerald-400/90">SHARED</span> feed · <span className="text-cyan-400/90">PRIVATE</span> bookmarks
+        <p className="mt-1 text-sm text-[#888888]">
+          <span className="text-[#f0f0f0]">SHARED</span> feed · <span className="text-[#c9a84c]">PRIVATE</span> bookmarks
         </p>
       </div>
 
@@ -119,7 +118,6 @@ export function DealsView({
           type="button"
           size="sm"
           variant={tab === "current" ? "default" : "outline"}
-          className={cn(tab === "current" && "bg-cyan-600 text-white hover:bg-cyan-500")}
           onClick={() => setTab("current")}
         >
           Current
@@ -128,7 +126,6 @@ export function DealsView({
           type="button"
           size="sm"
           variant={tab === "archive" ? "default" : "outline"}
-          className={cn(tab === "archive" && "bg-cyan-600 text-white hover:bg-cyan-500")}
           onClick={() => setTab("archive")}
         >
           Archive

@@ -1,7 +1,15 @@
 import type { SeedQuestion } from "./questions";
 
 /** Additional questions (Deutsche Bank LBO Manual, Citi Credit Primer). */
-export const SEED_QUESTIONS_EXTENDED: SeedQuestion[] = [
+function keywordizeExtended(answer: string, tags: string[]): string[] {
+  const phrases = (answer.toLowerCase().match(/[a-z]{4,}(?:\s+[a-z]{4,})?/g) ?? []).filter(
+    (x) => !["this", "that", "with", "from", "into", "also", "over", "year", "years"].includes(x),
+  );
+  const seeds = [...tags.map((t) => t.toLowerCase()), ...phrases];
+  return Array.from(new Set(seeds)).slice(0, 6);
+}
+
+const BASE_SEED_QUESTIONS_EXTENDED = [
   {
     question: "What are the key characteristics of a suitable LBO candidate?",
     answer:
@@ -154,3 +162,8 @@ export const SEED_QUESTIONS_EXTENDED: SeedQuestion[] = [
     source: "Citi Credit Primer 2005",
   },
 ];
+
+export const SEED_QUESTIONS_EXTENDED: SeedQuestion[] = BASE_SEED_QUESTIONS_EXTENDED.map((q) => ({
+  ...q,
+  keywords: keywordizeExtended(q.answer, q.tags),
+}));

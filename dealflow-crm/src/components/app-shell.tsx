@@ -230,8 +230,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         className={cn(
           "block rounded-r-md border-l-[3px] py-2 pl-3 pr-2 text-sm transition-all duration-200",
           active
-            ? "border-cyan-400 bg-cyan-500/[0.12] font-medium text-cyan-100 shadow-[inset_0_0_24px_-12px_rgba(0,188,212,0.25)]"
-            : "border-transparent text-zinc-400 hover:border-white/10 hover:bg-white/[0.04] hover:text-zinc-100",
+            ? "border-[#f5f5f5] bg-transparent font-medium text-[#f5f5f5]"
+            : "border-transparent text-[#888888] hover:border-[#2a2a2a] hover:bg-white/[0.03] hover:text-[#f0f0f0]",
         )}
       >
         {item.label}
@@ -240,15 +240,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   };
 
   if (isAuthPage) {
-    return <main className="min-h-screen bg-zinc-950 p-6 text-zinc-100">{children}</main>;
+    return <main className="min-h-screen bg-[#0a0a0a] p-6 text-[#f0f0f0]">{children}</main>;
   }
 
   if (isAdminRoute) {
-    return <div className="min-h-screen bg-zinc-950 text-zinc-100">{children}</div>;
+    return <div className="min-h-screen bg-[#0a0a0a] text-[#f0f0f0]">{children}</div>;
   }
 
   return (
-    <div className="flex min-h-screen bg-zinc-950 text-zinc-100">
+    <div className="flex min-h-screen bg-[#0a0a0a] text-[#f0f0f0]">
       <button
         type="button"
         aria-label="Close menu"
@@ -261,32 +261,32 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 flex w-56 flex-col border-r border-white/10 bg-gradient-to-b from-zinc-950 via-zinc-950 to-black p-4 transition-transform duration-200 ease-out md:static md:z-auto md:translate-x-0",
+          "fixed inset-y-0 left-0 z-50 flex w-56 flex-col border-r border-[#2a2a2a] bg-[#111111] p-4 transition-transform duration-200 ease-out md:static md:z-auto md:translate-x-0",
           mobileOpen ? "translate-x-0 shadow-xl shadow-black/40" : "-translate-x-full md:translate-x-0",
         )}
       >
-        <div className="mb-4 text-lg font-bold tracking-wide text-cyan-400 drop-shadow-[0_0_14px_rgba(0,188,212,0.35)]">
+        <div className="mb-4 text-lg font-bold tracking-wide text-[#f5f5f5]">
           DealFlow CRM
         </div>
         <nav className="flex-1 space-y-1 overflow-y-auto pr-1">
           <div className="pb-1">
-            <p className="px-1 pb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-500">📊 Overview</p>
+            <p className="px-1 pb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#666666]">📊 Overview</p>
             {renderLink(OVERVIEW_ITEM)}
           </div>
 
           {groupsToRender.map((group) => {
             const open = openGroups[group.id] ?? false;
             return (
-              <div key={group.id} className="border-t border-white/5 pt-1">
+              <div key={group.id} className="border-t border-[#2a2a2a] pt-1">
                 <button
                   type="button"
                   onClick={() => toggleGroup(group.id)}
-                  className="flex w-full items-center justify-between gap-1 rounded-md px-1 py-1.5 text-left text-[11px] font-semibold uppercase tracking-[0.12em] text-zinc-400 transition-colors hover:bg-white/[0.04] hover:text-zinc-200"
+                  className="flex w-full items-center justify-between gap-1 rounded-md px-1 py-1.5 text-left text-[11px] font-semibold uppercase tracking-[0.12em] text-[#888888] transition-colors hover:bg-white/[0.03] hover:text-[#f0f0f0]"
                   aria-expanded={open}
                 >
                   <span className="min-w-0 leading-snug">{group.title}</span>
                   <ChevronDown
-                    className={cn("h-4 w-4 shrink-0 text-zinc-500 transition-transform", open ? "rotate-0" : "-rotate-90")}
+                    className={cn("h-4 w-4 shrink-0 text-[#555555] transition-transform", open ? "rotate-0" : "-rotate-90")}
                     aria-hidden
                   />
                 </button>
@@ -296,7 +296,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           })}
         </nav>
         <button
-          className="mt-4 text-left text-xs text-zinc-500 transition-colors duration-200 hover:text-zinc-200"
+          className="mt-4 text-left text-xs text-[#888888] transition-colors duration-200 hover:text-[#f0f0f0]"
           onClick={() => {
             closeMobile();
             void signOut({ callbackUrl: "/login" });
@@ -305,11 +305,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         >
           Log out
         </button>
-        <p className="mt-6 text-[10px] text-zinc-600">Shortcuts: C, I, T</p>
+        <p className="mt-6 text-[10px] text-[#555555]">Shortcuts: C, I, T</p>
       </aside>
 
       <div className="flex min-h-screen min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-30 flex h-12 shrink-0 items-center gap-3 border-b border-white/10 bg-zinc-950/90 px-3 backdrop-blur-md md:hidden">
+        <header className="sticky top-0 z-30 flex h-12 shrink-0 items-center gap-3 border-b border-[#2a2a2a] bg-[#0a0a0a]/95 px-3 backdrop-blur-md md:hidden">
           <button
             type="button"
             className="flex h-10 w-10 items-center justify-center rounded-md text-xl text-zinc-100 transition-colors hover:bg-white/[0.06]"
@@ -318,7 +318,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           >
             ☰
           </button>
-          <span className="text-sm font-bold tracking-wide text-cyan-400 drop-shadow-[0_0_10px_rgba(0,188,212,0.3)]">
+          <span className="text-sm font-bold tracking-wide text-[#f5f5f5]">
             DealFlow CRM
           </span>
         </header>

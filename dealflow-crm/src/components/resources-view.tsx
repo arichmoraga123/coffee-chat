@@ -66,7 +66,6 @@ export function ResourcesView({ initialBookmarkSlugs }: { initialBookmarkSlugs: 
           type="button"
           size="sm"
           variant={mainTab === "links" ? "default" : "outline"}
-          className={cn(mainTab === "links" && "bg-cyan-600 text-white hover:bg-cyan-500")}
           onClick={() => setMainTab("links")}
         >
           Links
@@ -75,7 +74,6 @@ export function ResourcesView({ initialBookmarkSlugs }: { initialBookmarkSlugs: 
           type="button"
           size="sm"
           variant={mainTab === "templates" ? "default" : "outline"}
-          className={cn(mainTab === "templates" && "bg-cyan-600 text-white hover:bg-cyan-500")}
           onClick={() => setMainTab("templates")}
         >
           Email templates
@@ -95,7 +93,6 @@ export function ResourcesView({ initialBookmarkSlugs }: { initialBookmarkSlugs: 
             type="button"
             size="sm"
             variant={tab === t ? "default" : "outline"}
-            className={cn(tab === t && "bg-cyan-600 text-white hover:bg-cyan-500")}
             onClick={() => setTab(t)}
           >
             {t}
@@ -128,7 +125,7 @@ export function ResourcesView({ initialBookmarkSlugs }: { initialBookmarkSlugs: 
             <h3 className="pr-8 text-base font-semibold text-zinc-100">{item.title}</h3>
             <p className="mt-1 flex-1 text-sm text-zinc-400">{item.description}</p>
             <a
-              className="mt-3 inline-flex items-center gap-1 text-sm text-cyan-400 hover:underline"
+              className="mt-3 inline-flex items-center gap-1 text-sm text-[#f0f0f0] underline-offset-4 hover:underline"
               href={item.url === "#" ? undefined : item.url}
               target={item.url === "#" ? undefined : "_blank"}
               rel={item.url === "#" ? undefined : "noopener noreferrer"}

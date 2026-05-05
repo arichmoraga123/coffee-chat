@@ -242,10 +242,10 @@ export function ContactsView({
                 return (
                   <tr
                     key={c.id}
-                    className="border-t border-white/[0.06] odd:bg-white/[0.02] transition-colors hover:bg-cyan-500/[0.06] hover:shadow-[inset_3px_0_0_0_rgba(34,211,238,0.45)]"
+                    className="border-t border-white/[0.06] odd:bg-white/[0.02] transition-colors hover:bg-white/[0.04] hover:shadow-[inset_3px_0_0_0_rgba(245,245,245,0.2)]"
                   >
                     <td className="max-w-[42vw] px-3 py-2 align-top md:max-w-none">
-                      <Link href={`/contacts/${c.id}`} className="break-words text-cyan-400 hover:underline">
+                      <Link href={`/contacts/${c.id}`} className="break-words text-[#f0f0f0] underline-offset-4 hover:underline">
                         {c.fullName}
                       </Link>
                       {isStale ? (
@@ -258,7 +258,7 @@ export function ContactsView({
                       <div className="flex min-w-0 flex-col gap-1.5 md:flex-row md:flex-wrap md:items-center md:gap-1.5">
                         <Link
                           href={`/firms/${c.firmId}`}
-                          className="min-w-0 break-words text-cyan-400 hover:underline md:order-2"
+                          className="min-w-0 break-words text-[#f0f0f0] underline-offset-4 hover:underline md:order-2"
                         >
                           {c.firmName}
                         </Link>

@@ -217,7 +217,7 @@ export function CalendarView({
                   className={cn(
                     "min-h-[88px] rounded border border-zinc-800/80 p-1 text-left",
                     inMonth ? "bg-black/30" : "bg-zinc-950/40 opacity-50",
-                    isSameDay(day, new Date()) && "ring-1 ring-cyan-500/50",
+                    isSameDay(day, new Date()) && "ring-1 ring-[#4a6fa5]/50",
                   )}
                 >
                   <p className="text-[10px] font-mono text-zinc-400">{format(day, "d")}</p>

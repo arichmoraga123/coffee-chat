@@ -54,7 +54,7 @@ export function OnboardingWizard() {
                   onClick={() => toggleTarget(t)}
                   className={
                     targets.includes(t)
-                      ? "rounded-full border border-cyan-500 bg-cyan-500/20 px-3 py-1 text-sm text-cyan-200"
+                      ? "rounded-full border border-[#3a3a3a] bg-white/[0.06] px-3 py-1 text-sm text-[#f5f5f5]"
                       : "rounded-full border border-zinc-700 bg-zinc-900 px-3 py-1 text-sm text-zinc-300 hover:border-zinc-500"
                   }
                 >
@@ -101,7 +101,7 @@ export function OnboardingWizard() {
                   onClick={() => setDailyGoal(n)}
                   className={
                     dailyGoal === n
-                      ? "flex-1 rounded border border-cyan-500 bg-cyan-500/20 py-3 text-sm font-medium text-cyan-200"
+                      ? "flex-1 rounded border border-[#c9a84c]/40 bg-[#161616] py-3 text-sm font-medium text-[#f5f5f5]"
                       : "flex-1 rounded border border-zinc-700 bg-zinc-900 py-3 text-sm text-zinc-300 hover:border-zinc-500"
                   }
                 >

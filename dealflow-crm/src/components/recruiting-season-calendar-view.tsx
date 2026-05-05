@@ -41,7 +41,7 @@ const TYPE_BG: Record<string, string> = {
   "First Round": "bg-amber-500/85",
   Superday: "bg-orange-600/85",
   "Offer Deadline": "bg-violet-600/85",
-  "On-Cycle Start": "bg-cyan-600/85",
+  "On-Cycle Start": "bg-[#4a6fa5]/85",
   "Networking Event": "bg-zinc-600/85",
 };
 
@@ -196,7 +196,7 @@ export function RecruitingSeasonCalendarView() {
                 className={cn(
                   "min-h-[88px] rounded border border-white/10 p-1 text-left",
                   inMonth ? "bg-black/30" : "bg-zinc-950/40 opacity-50",
-                  isSameDay(day, new Date()) && "ring-1 ring-cyan-500/50",
+                  isSameDay(day, new Date()) && "ring-1 ring-[#4a6fa5]/50",
                 )}
               >
                 <p className="text-[10px] font-mono text-zinc-400">{format(day, "d")}</p>
@@ -244,7 +244,7 @@ export function RecruitingSeasonCalendarView() {
                   {e.firmName ? ` · ${e.firmName}` : ""}
                 </p>
                 {e.sourceUrl ? (
-                  <a href={e.sourceUrl} target="_blank" rel="noreferrer" className="text-[10px] text-cyan-400 hover:underline">
+                  <a href={e.sourceUrl} target="_blank" rel="noreferrer" className="text-[10px] text-[#f0f0f0] underline-offset-2 hover:underline">
                     Source
                   </a>
                 ) : null}
@@ -254,7 +254,9 @@ export function RecruitingSeasonCalendarView() {
                   type="button"
                   className={cn(
                     "rounded border px-2 py-1 text-[10px]",
-                    e.userVoted ? "border-cyan-500/50 bg-cyan-500/10 text-cyan-300" : "border-white/10 text-zinc-400",
+                    e.userVoted
+                      ? "border-[#4a6fa5]/50 bg-[#4a6fa5]/10 text-[#e8e8e8]"
+                      : "border-white/10 text-zinc-400",
                   )}
                   onClick={() => void vote(e.id)}
                 >

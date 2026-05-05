@@ -64,7 +64,7 @@ function DroppableColumn({
       ref={setNodeRef}
       className={cn(
         "min-h-56 rounded border border-zinc-800 bg-zinc-900/40 p-2 transition-colors",
-        isOver && "border-cyan-700/60 bg-cyan-950/20",
+        isOver && "border-[#4a6fa5]/50 bg-[#4a6fa5]/10",
       )}
     >
       {children}
@@ -99,7 +99,7 @@ function DraggableCard({
       <Card
         className={cn(
           "space-y-1.5 border-zinc-700/80 p-2 text-xs shadow-sm",
-          isDragging && "opacity-60 ring-1 ring-cyan-500/40",
+          isDragging && "opacity-60 ring-1 ring-[#4a6fa5]/40",
         )}
       >
         <div className="flex gap-1">
@@ -122,7 +122,7 @@ function DraggableCard({
             <FirmTypeBadge type={opp.firmType} className="text-[9px]" />
           </div>
           <div className="mt-1 flex flex-wrap items-center gap-1.5">
-            <span className="rounded border border-cyan-700/50 bg-cyan-950/50 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-cyan-200">
+            <span className="rounded border border-[#2a2a2a] bg-[#161616] px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-[#c9a84c]">
               {opportunityRoleBadge(opp.role)}
             </span>
             <span

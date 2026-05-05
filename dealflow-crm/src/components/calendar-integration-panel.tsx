@@ -46,7 +46,7 @@ function SlotCard({
       <div className="mb-2 flex flex-wrap items-center gap-2">
         <p className="section-label mb-0">{title}</p>
         {recommended ? (
-          <span className="rounded bg-cyan-500/15 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-cyan-300 ring-1 ring-cyan-500/30">
+          <span className="rounded bg-[#161616] px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[#c9a84c] ring-1 ring-[#2a2a2a]">
             Recommended · MSU / Microsoft 365
           </span>
         ) : null}

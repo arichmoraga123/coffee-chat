@@ -53,6 +53,7 @@ export async function POST() {
       subcategory: true,
       difficulty: true,
       tags: true,
+      keywords: true,
     },
   });
 

@@ -21,6 +21,7 @@ export default async function QuestionsPage() {
         subcategory: true,
         difficulty: true,
         tags: true,
+        keywords: true,
       },
     }),
     prisma.userQuestionProgress.findMany({
@@ -78,12 +79,12 @@ export default async function QuestionsPage() {
                   key={row.id}
                   className={cn(
                     "border-b border-zinc-800/80",
-                    row.id === userId && "bg-cyan-500/10",
+                    row.id === userId && "bg-[#4a6fa5]/10",
                   )}
                 >
                   <td className="py-2 pr-2 font-mono text-zinc-400">{i + 1}</td>
                   <td className="py-2 pr-2 font-medium text-zinc-200">{row.name}</td>
-                  <td className="py-2 pr-2 font-mono text-cyan-300">{row.weeklyXP}</td>
+                  <td className="py-2 pr-2 font-mono text-[#c9a84c]">{row.weeklyXP}</td>
                   <td className="py-2 pr-2 font-mono text-orange-300">{row.drillStreak}</td>
                   <td className="py-2 font-mono text-zinc-300">{row.xp}</td>
                 </tr>

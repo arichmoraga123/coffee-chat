@@ -75,7 +75,7 @@ function LoginForm() {
         </form>
         <p className="mt-4 text-sm text-zinc-400">
           New here?{" "}
-          <Link className="text-cyan-400 hover:underline" href="/signup">
+          <Link className="text-[#f5f5f5] underline-offset-4 hover:underline" href="/signup">
             Create an account
           </Link>
         </p>

@@ -205,7 +205,7 @@ export function AdminRecruitingCalendarManager() {
                     </button>
                   </td>
                   <td className="space-x-2 whitespace-nowrap px-3 py-2 text-right">
-                    <button type="button" className="text-cyan-400 hover:underline" onClick={() => openEdit(e)}>
+                    <button type="button" className="text-[#f0f0f0] underline-offset-4 hover:underline" onClick={() => openEdit(e)}>
                       Edit
                     </button>
                     <button type="button" className="text-red-400/90 hover:underline" onClick={() => void remove(e.id)}>

@@ -20,7 +20,7 @@ function nextStreak(lastDrillDay: string | null, today: string, current: number)
   return 1;
 }
 
-type Action = "known" | "review" | "skip";
+type Action = "known" | "partial" | "review" | "skip";
 
 export async function POST(req: Request) {
   const userId = await getUserIdFromSession();
@@ -52,7 +52,7 @@ export async function POST(req: Request) {
   for (const row of results) {
     const action = row.action;
     const qid = String(row.questionId ?? "");
-    if (!qid || !["known", "review", "skip"].includes(action)) continue;
+    if (!qid || !["known", "partial", "review", "skip"].includes(action)) continue;
     if (action === "known") {
       xpSession += 10;
       correct += 1;
@@ -61,6 +61,14 @@ export async function POST(req: Request) {
         where: { userId_questionId: { userId, questionId: qid } },
         create: { userId, questionId: qid, status: "known" },
         update: { status: "known", lastSeen: new Date() },
+      });
+    } else if (action === "partial") {
+      xpSession += 5;
+      answered += 1;
+      await prisma.userQuestionProgress.upsert({
+        where: { userId_questionId: { userId, questionId: qid } },
+        create: { userId, questionId: qid, status: "review" },
+        update: { status: "review", lastSeen: new Date() },
       });
     } else if (action === "review") {
       xpSession += format === "mcq" ? 0 : 2;

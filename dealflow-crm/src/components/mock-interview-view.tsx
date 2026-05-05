@@ -264,7 +264,7 @@ export function MockInterviewView() {
                 <span>{secondsLeft}s</span>
               </div>
               <div className="h-2 overflow-hidden rounded bg-zinc-800">
-                <div className="h-full bg-cyan-600 transition-all" style={{ width: `${bar}%` }} />
+                <div className="h-full bg-[#4a6fa5] transition-all" style={{ width: `${bar}%` }} />
               </div>
             </div>
           ) : null}
@@ -286,7 +286,7 @@ export function MockInterviewView() {
               {aiBusy ? "…" : "AI feedback"}
             </Button>
           </div>
-          {aiNote ? <p className="text-sm text-cyan-200/90">{aiNote}</p> : null}
+          {aiNote ? <p className="text-sm text-[#e8e8e8]/90">{aiNote}</p> : null}
           {showModel && (current.modelAnswer || current.tips) ? (
             <div className="rounded border border-zinc-700 bg-zinc-950/80 p-3 text-sm text-zinc-300">
               {current.modelAnswer ? <p className="mb-2">{current.modelAnswer}</p> : null}
@@ -316,9 +316,9 @@ export function MockInterviewView() {
     <div className="space-y-6">
       <div>
         <h1 className="page-title">Mock Interview</h1>
-        <p className="mt-1 text-sm text-zinc-400">
-          <span className="text-emerald-400/90">SHARED</span> question bank ·{" "}
-          <span className="text-cyan-400/90">PRIVATE</span> sessions &amp; grades
+        <p className="mt-1 text-sm text-[#888888]">
+          <span className="text-[#f0f0f0]">SHARED</span> question bank ·{" "}
+          <span className="text-[#c9a84c]">PRIVATE</span> sessions &amp; grades
         </p>
       </div>
       <div className="grid gap-6 lg:grid-cols-[220px_1fr]">
@@ -417,7 +417,7 @@ export function MockInterviewView() {
             </Button>
           </Card>
           <p className="text-xs text-zinc-500">
-            <Link className="text-cyan-400 hover:underline" href="/debriefs">
+            <Link className="text-[#f0f0f0] underline-offset-4 hover:underline" href="/debriefs">
               Interview debriefs (private)
             </Link>
           </p>

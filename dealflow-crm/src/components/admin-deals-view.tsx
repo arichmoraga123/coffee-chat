@@ -251,7 +251,6 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
           type="button"
           size="sm"
           variant={listTab === "published" ? "default" : "outline"}
-          className={cn(listTab === "published" && "bg-cyan-600 text-white hover:bg-cyan-500")}
           onClick={() => setListTab("published")}
         >
           Published
@@ -284,7 +283,7 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
                 return (
                   <tr
                     key={d.id}
-                    className="border-b border-white/[0.06] odd:bg-white/[0.02] transition-colors hover:bg-cyan-500/[0.06] hover:shadow-[inset_3px_0_0_0_rgba(34,211,238,0.45)]"
+                    className="border-b border-white/[0.06] odd:bg-white/[0.02] transition-colors hover:bg-white/[0.04] hover:shadow-[inset_3px_0_0_0_rgba(201,168,76,0.35)]"
                   >
                     <td className="max-w-[220px] px-3 py-2 align-top text-zinc-200">{d.title}</td>
                     <td className="px-3 py-2 align-top text-zinc-400">{d.acquirer ?? "—"}</td>

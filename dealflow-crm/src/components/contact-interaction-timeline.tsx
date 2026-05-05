@@ -58,7 +58,7 @@ export function ContactInteractionTimeline({
         {interactions.map((i) => (
           <li key={i.id} className="relative">
             <span
-              className="absolute left-[-9px] top-1.5 h-3 w-3 rounded-full border-2 border-cyan-600 bg-zinc-950"
+              className="absolute left-[-9px] top-1.5 h-3 w-3 rounded-full border-2 border-[#4a6fa5] bg-[#0a0a0a]"
               aria-hidden
             />
             <Card className="border-zinc-800 bg-zinc-900/60 p-4 text-sm">
@@ -72,7 +72,7 @@ export function ContactInteractionTimeline({
                       year: "numeric",
                     })}
                   </p>
-                  <span className="mt-1 inline-block rounded border border-cyan-800/60 bg-cyan-950/40 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-cyan-200">
+                  <span className="mt-1 inline-block rounded border border-[#2a2a2a] bg-[#161616] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-[#c9a84c]">
                     {interactionTypeLabel(i.type)}
                   </span>
                 </div>

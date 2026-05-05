@@ -98,7 +98,7 @@ export function ResearchFirmDetail({ initial, relatedDeals }: { initial: Firm; r
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <Link href="/research" className="text-xs text-zinc-500 hover:text-cyan-400">
+        <Link href="/research" className="text-xs text-[#888888] underline-offset-4 hover:text-[#f0f0f0] hover:underline">
           ← All firms
         </Link>
         <Button size="sm" variant={editing ? "default" : "outline"} onClick={() => (editing ? void save() : setEditing(true))}>
@@ -131,7 +131,7 @@ export function ResearchFirmDetail({ initial, relatedDeals }: { initial: Firm; r
               ) : (
                 relatedDeals.map((d) => (
                   <li key={d.id}>
-                    <Link className="text-cyan-400 hover:underline" href={`/deals#${d.id}`}>
+                    <Link className="text-[#f0f0f0] underline-offset-4 hover:underline" href={`/deals#${d.id}`}>
                       {d.title}
                     </Link>
                     {d.dealValue ? <span className="ml-2 text-zinc-500">{d.dealValue}</span> : null}

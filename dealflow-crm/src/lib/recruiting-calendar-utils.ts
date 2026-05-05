@@ -7,7 +7,7 @@ export const RECRUITING_EVENT_TYPE_COLOR: Record<string, string> = {
   "First Round": "yellow",
   Superday: "orange",
   "Offer Deadline": "purple",
-  "On-Cycle Start": "cyan",
+  "On-Cycle Start": "blue",
   "Networking Event": "zinc",
 };
 

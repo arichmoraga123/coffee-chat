@@ -93,7 +93,7 @@ export function OffersView() {
       <div>
         <h1 className="page-title">Offer comparison</h1>
         <p className="mt-1 text-sm text-zinc-400">
-          <span className="text-cyan-400/90">PRIVATE</span> to your account
+          <span className="text-[#c9a84c]">PRIVATE</span> to your account
         </p>
       </div>
       <Card className="space-y-2 border-zinc-800 bg-zinc-900/50 p-4">

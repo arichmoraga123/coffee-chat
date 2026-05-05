@@ -101,10 +101,10 @@ export function FirmsDirectory({ initialFirms }: { initialFirms: FirmRow[] }) {
               {initialFirms.map((f) => (
                 <tr
                   key={f.id}
-                  className="border-t border-white/[0.06] odd:bg-white/[0.02] transition-colors hover:bg-cyan-500/[0.06] hover:shadow-[inset_3px_0_0_0_rgba(34,211,238,0.45)]"
+                  className="border-t border-white/[0.06] odd:bg-white/[0.02] transition-colors hover:bg-white/[0.04] hover:shadow-[inset_3px_0_0_0_rgba(245,245,245,0.2)]"
                 >
                   <td className="max-w-[48%] min-w-0 px-3 py-2 align-top md:max-w-none">
-                    <Link href={`/firms/${f.id}`} className="break-words text-cyan-400 hover:underline">
+                    <Link href={`/firms/${f.id}`} className="break-words text-[#f0f0f0] underline-offset-4 hover:underline">
                       {f.name}
                     </Link>
                   </td>

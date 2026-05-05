@@ -72,7 +72,7 @@ export function DebriefsView() {
       <div>
         <h1 className="page-title">Interview debriefs</h1>
         <p className="mt-1 text-sm text-zinc-400">
-          <span className="text-cyan-400/90">PRIVATE</span> to your account
+          <span className="text-[#c9a84c]">PRIVATE</span> to your account
         </p>
       </div>
       <Card className="space-y-2 border-zinc-800 bg-zinc-900/50 p-4">
@@ -112,7 +112,7 @@ export function DebriefsView() {
       <div className="space-y-2">
         {rows.map((r) => (
           <Card key={r.id} className="border-zinc-800 bg-zinc-900/40 p-3 text-sm">
-            <p className="font-medium text-cyan-300">
+            <p className="font-medium text-[#f0f0f0]">
               {r.firmName} · {r.round}
             </p>
             <p className="text-xs text-zinc-500">{r.date}</p>

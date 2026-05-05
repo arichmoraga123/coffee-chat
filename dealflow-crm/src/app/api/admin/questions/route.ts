@@ -33,6 +33,7 @@ export async function GET(req: Request) {
       subcategory: true,
       difficulty: true,
       tags: true,
+      keywords: true,
       source: true,
       status: true,
       submittedById: true,
@@ -53,6 +54,7 @@ export async function POST(req: Request) {
   const category = String(body.category ?? "").trim();
   const difficulty = String(body.difficulty ?? "Medium");
   const tags = Array.isArray(body.tags) ? body.tags.map((t: unknown) => String(t)) : [];
+  const keywords = Array.isArray(body.keywords) ? body.keywords.map((t: unknown) => String(t)) : [];
   const source = body.source ? String(body.source) : null;
 
   if (!question || !answer || !category) {
@@ -67,6 +69,7 @@ export async function POST(req: Request) {
       subcategory: body.subcategory ? String(body.subcategory) : null,
       difficulty: ["Easy", "Medium", "Hard"].includes(difficulty) ? difficulty : "Medium",
       tags,
+      keywords,
       source,
       status: "active",
       dedupeKey: questionDedupeKey(question),

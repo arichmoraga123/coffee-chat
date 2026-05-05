@@ -313,7 +313,7 @@ export function CasesView() {
             ) : null}
             <div className="mt-2 flex flex-wrap gap-1">
               {c.skills.map((s) => (
-                <span key={s} className="rounded bg-cyan-500/10 px-1.5 py-0.5 text-[10px] text-cyan-200">
+                <span key={s} className="rounded border border-[#2a2a2a] bg-[#161616] px-1.5 py-0.5 text-[10px] text-[#e8e8e8]">
                   {s}
                 </span>
               ))}
@@ -324,7 +324,7 @@ export function CasesView() {
                   href={c.driveLink}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center rounded border border-white/10 px-2 py-1 text-[11px] text-cyan-400 hover:bg-white/[0.04]"
+                  className="inline-flex items-center rounded border border-[#2a2a2a] px-2 py-1 text-[11px] text-[#f0f0f0] underline-offset-2 hover:bg-white/[0.04] hover:underline"
                 >
                   View deck
                 </a>
@@ -351,7 +351,7 @@ export function CasesView() {
                 disabled={bulletsLoading === c.id}
                 className={cn(
                   "relative h-6 w-11 shrink-0 rounded-full transition-colors",
-                  c.addToResume ? "bg-cyan-600" : "bg-zinc-700",
+                  c.addToResume ? "bg-[#4a6fa5]" : "bg-zinc-700",
                 )}
                 onClick={() => void toggleResume(c, !c.addToResume)}
                 aria-pressed={c.addToResume}

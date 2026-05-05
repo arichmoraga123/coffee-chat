@@ -3,12 +3,12 @@ export const QUESTION_MODE_STORAGE_KEY = "dealflow-question-mode";
 export type QuestionPracticeMode = "flashcard" | "mcq";
 
 export function readStoredQuestionMode(): QuestionPracticeMode {
-  if (typeof window === "undefined") return "flashcard";
+  if (typeof window === "undefined") return "mcq";
   try {
     const v = localStorage.getItem(QUESTION_MODE_STORAGE_KEY);
-    return v === "mcq" ? "mcq" : "flashcard";
+    return v === "flashcard" ? "flashcard" : "mcq";
   } catch {
-    return "flashcard";
+    return "mcq";
   }
 }
 

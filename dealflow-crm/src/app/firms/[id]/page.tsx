@@ -24,7 +24,7 @@ export default async function FirmDetail({
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center gap-2">
-        <Link href="/firms" className="text-xs text-zinc-500 hover:text-cyan-400">
+        <Link href="/firms" className="text-xs text-[#888888] underline-offset-4 hover:text-[#f0f0f0] hover:underline">
           ← Firms
         </Link>
       </div>
@@ -48,7 +48,7 @@ export default async function FirmDetail({
           <h2 className="mb-2 font-semibold">Contacts</h2>
           {firm.contacts.map((c) => (
             <p key={c.id} className="mb-1 text-sm">
-              <Link className="text-cyan-400 hover:underline" href={`/contacts/${c.id}`}>
+              <Link className="text-[#f0f0f0] underline-offset-4 hover:underline" href={`/contacts/${c.id}`}>
                 {c.fullName}
               </Link>{" "}
               - {c.title}

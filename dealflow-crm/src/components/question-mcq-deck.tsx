@@ -127,7 +127,7 @@ export function QuestionMcqDeck({
       </div>
       <div className="mb-4 h-2.5 w-full overflow-hidden rounded-full bg-zinc-800/90 ring-1 ring-white/5">
         <div
-          className="h-full rounded-full bg-gradient-to-r from-cyan-700 via-teal-400 to-cyan-300 transition-[width] duration-500 ease-out"
+          className="h-full rounded-full bg-gradient-to-r from-[#3d5d8c] via-[#4a6fa5] to-[#5a7fb5] transition-[width] duration-500 ease-out"
           style={{ width: `${pct}%` }}
         />
       </div>
@@ -152,7 +152,7 @@ export function QuestionMcqDeck({
                 className={cn(
                   "rounded-xl border px-4 py-3 text-left text-sm transition-all duration-200",
                   phase === "pick" &&
-                    "border-white/10 bg-zinc-950/90 hover:border-cyan-500/40 hover:bg-zinc-900/95 hover:shadow-[0_0_20px_-6px_rgba(0,188,212,0.25)]",
+                    "border-white/10 bg-zinc-950/90 hover:border-[#4a6fa5]/40 hover:bg-zinc-900/95 hover:shadow-[0_0_20px_-8px_rgba(74,111,165,0.2)]",
                   showCorrect && "animate-df-flash-green border-emerald-500/70 bg-emerald-950/50 text-emerald-50",
                   showWrong && "animate-df-shake border-red-500/80 bg-red-950/50 text-red-50",
                   phase === "show" && !showCorrect && !showWrong && "border-white/[0.06] opacity-45",

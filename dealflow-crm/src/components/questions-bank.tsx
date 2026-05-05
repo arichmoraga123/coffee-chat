@@ -10,6 +10,7 @@ import { QuestionMcqDeck } from "@/components/question-mcq-deck";
 import { ReportContentAction } from "@/components/report-content-action";
 import { EmptyState } from "@/components/ui/empty-state";
 import type { McqDistractorSource } from "@/lib/question-mcq";
+import { gradeAnswerByKeywords, type KeywordGradeResult } from "@/lib/answer-grader";
 import {
   readStoredQuestionMode,
   writeStoredQuestionMode,
@@ -24,6 +25,7 @@ export type QuestionDTO = {
   subcategory: string | null;
   difficulty: string;
   tags: string[];
+  keywords: string[];
 };
 
 type ProgressMap = Record<string, "known" | "review" | "unseen">;
@@ -60,7 +62,7 @@ export function QuestionsBank({
   const [status, setStatus] = useState<string>("all");
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
-  const [practiceMode, setPracticeMode] = useState<QuestionPracticeMode>("flashcard");
+  const [practiceMode, setPracticeMode] = useState<QuestionPracticeMode>("mcq");
   const [drillOpen, setDrillOpen] = useState(false);
   const [drillUseMcq, setDrillUseMcq] = useState(false);
   const [mcqBrowseOpen, setMcqBrowseOpen] = useState(false);
@@ -71,6 +73,8 @@ export function QuestionsBank({
   const [browseMcqQueue, setBrowseMcqQueue] = useState<QuestionDTO[]>([]);
   const [drillIndex, setDrillIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
+  const [typedAnswer, setTypedAnswer] = useState("");
+  const [gradedResult, setGradedResult] = useState<KeywordGradeResult | null>(null);
   const [sessionKnown, setSessionKnown] = useState(0);
   const [sessionReview, setSessionReview] = useState(0);
   const [sessionSkipped, setSessionSkipped] = useState(0);
@@ -166,6 +170,8 @@ export function QuestionsBank({
     setDrillUseMcq(practiceMode === "mcq");
     setDrillIndex(0);
     setFlipped(false);
+    setTypedAnswer("");
+    setGradedResult(null);
     setSessionKnown(0);
     setSessionReview(0);
     setSessionSkipped(0);
@@ -203,6 +209,8 @@ export function QuestionsBank({
     } else {
       setDrillIndex((i) => i + 1);
       setFlipped(false);
+      setTypedAnswer("");
+      setGradedResult(null);
     }
   };
 
@@ -211,6 +219,27 @@ export function QuestionsBank({
     setEndScreen(false);
     setDrillUseMcq(false);
     setMcqSummary(null);
+    setTypedAnswer("");
+    setGradedResult(null);
+  };
+
+  const onFlashcardFlip = () => {
+    if (!currentDrill) return;
+    setFlipped((prev) => {
+      const next = !prev;
+      if (next && typedAnswer.trim()) {
+        setGradedResult(
+          gradeAnswerByKeywords({
+            userAnswer: typedAnswer,
+            modelAnswer: currentDrill.answer,
+            keywords: currentDrill.keywords,
+          }),
+        );
+      } else if (!next) {
+        setGradedResult(null);
+      }
+      return next;
+    });
   };
 
   const closeBrowseMcq = () => {
@@ -248,10 +277,10 @@ export function QuestionsBank({
 
   const difficultyBadge = (d: string) =>
     d === "Hard"
-      ? "bg-red-500/20 text-red-300"
+      ? "border border-[#3a3a3a] bg-[#161616] text-[#c9a84c]"
       : d === "Medium"
-        ? "bg-amber-500/20 text-amber-300"
-        : "bg-emerald-500/20 text-emerald-300";
+        ? "border border-[#2a2a2a] bg-[#161616] text-[#888888]"
+        : "border border-[#2a2a2a] bg-[#1a1a1a] text-[#888888]";
 
   return (
     <div className="flex flex-col gap-4 lg:flex-row">
@@ -310,8 +339,8 @@ export function QuestionsBank({
             value={practiceMode}
             onChange={(e) => setModeAndStore(e.target.value as QuestionPracticeMode)}
           >
-            <option value="flashcard">Flashcard</option>
-            <option value="mcq">MCQ</option>
+            <option value="mcq">MCQ (auto-graded)</option>
+            <option value="flashcard">Study Mode (flashcard)</option>
           </select>
           <select
             className="mb-2 w-full rounded border border-white/10 bg-zinc-950 px-2 py-1.5"
@@ -340,7 +369,7 @@ export function QuestionsBank({
             Shuffle
           </label>
           <Button className="animate-df-pulse-glow w-full" size="sm" variant="cta" onClick={startDrill}>
-            Start drill ({practiceMode === "mcq" ? "MCQ" : "Flashcard"})
+            Start drill ({practiceMode === "mcq" ? "MCQ" : "Study Mode"})
           </Button>
         </Card>
       </aside>
@@ -352,7 +381,10 @@ export function QuestionsBank({
             <p className="text-sm text-zinc-400">
               Mastered {knownCount} / {TARGET_TOTAL} (bank has {questions.length} seeded)
             </p>
-            <p className="text-sm text-cyan-400">Streak: {streakDisplay} day(s) · Weekly XP {weeklyXP} · Total XP {totalXP}</p>
+            <p className="text-sm text-[#888888]">
+              Streak: <span className="text-[#c9a84c]">{streakDisplay}</span> day(s) · Weekly XP{" "}
+              <span className="text-[#4a6fa5]">{weeklyXP}</span> · Total XP {totalXP}
+            </p>
             <p className="text-xs text-zinc-500">Daily streak updates from the dashboard daily drill.</p>
             <div className="mt-3 flex flex-wrap items-center gap-2">
               <span className="text-xs text-zinc-500">Default mode:</span>
@@ -361,8 +393,8 @@ export function QuestionsBank({
                 value={practiceMode}
                 onChange={(e) => setModeAndStore(e.target.value as QuestionPracticeMode)}
               >
-                <option value="flashcard">Flashcard</option>
-                <option value="mcq">MCQ</option>
+                <option value="mcq">MCQ (auto-graded)</option>
+                <option value="flashcard">Study Mode (flashcard)</option>
               </select>
               <Button size="sm" variant="outline" disabled={filteredBrowse.length === 0} onClick={startBrowseMcq}>
                 MCQ quiz · filtered ({filteredBrowse.length})
@@ -371,7 +403,7 @@ export function QuestionsBank({
           </div>
           <div className="h-2.5 w-full max-w-xs overflow-hidden rounded-full bg-zinc-800/90 ring-1 ring-white/5 sm:w-48">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-cyan-700 via-teal-400 to-cyan-300 transition-[width] duration-500 ease-out"
+              className="h-full rounded-full bg-[#4a6fa5] transition-[width] duration-500 ease-out"
               style={{ width: `${Math.min(100, (knownCount / TARGET_TOTAL) * 100)}%` }}
             />
           </div>
@@ -390,7 +422,7 @@ export function QuestionsBank({
                 </div>
                 <div className="h-1.5 overflow-hidden rounded-full bg-zinc-800/90 ring-1 ring-white/5">
                   <div
-                    className="h-full rounded-full bg-gradient-to-r from-emerald-700 via-teal-500 to-cyan-400/90 transition-[width] duration-500"
+                    className="h-full rounded-full bg-[#4a6fa5]/85 transition-[width] duration-500"
                     style={{ width: `${total ? (known / total) * 100 : 0}%` }}
                   />
                 </div>
@@ -412,7 +444,7 @@ export function QuestionsBank({
             return (
               <Card
                 key={q.id}
-                className={cn("cursor-pointer p-4 transition-colors", open && "border-cyan-500/40")}
+                className={cn("cursor-pointer p-4 transition-colors", open && "border-[#4a6fa5]/40")}
                 onClick={() => setExpandedId(open ? null : q.id)}
               >
                 <div className="flex flex-wrap items-start justify-between gap-2">
@@ -480,7 +512,9 @@ export function QuestionsBank({
                   Known: {sessionKnown} · Review: {sessionReview} · Skipped: {sessionSkipped}
                 </p>
               )}
-              <p className="mt-2 text-cyan-400">Streak: {streakDisplay} day(s)</p>
+              <p className="mt-2 text-[#888888]">
+                Streak: <span className="text-[#c9a84c]">{streakDisplay}</span> day(s)
+              </p>
               <Button className="mt-8" onClick={closeDrill}>
                 Close
               </Button>
@@ -506,30 +540,75 @@ export function QuestionsBank({
               <div className="perspective-flip mx-auto w-full max-w-3xl flex-1">
                 <button
                   type="button"
-                  className="relative w-full cursor-pointer border-0 bg-transparent p-0 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
-                  onClick={() => setFlipped((f) => !f)}
+                  className="relative w-full cursor-pointer border-0 bg-transparent p-0 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4a6fa5]/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a]"
+                  onClick={onFlashcardFlip}
                 >
                   <div className={cn("flip-card-inner shadow-xl", flipped && "is-flipped")}>
                     <div className="flip-card-face border border-white/10 bg-gradient-to-br from-zinc-900 to-zinc-950">
                       <p className="mb-2 text-xs uppercase tracking-[0.18em] text-zinc-500">Question</p>
                       <p className="text-lg font-medium text-zinc-100">{currentDrill.question}</p>
+                      <div className="mt-5">
+                        <label className="mb-1 block text-xs uppercase tracking-[0.14em] text-zinc-500">
+                          Type your answer (optional)
+                        </label>
+                        <textarea
+                          className="min-h-24 w-full rounded border border-[#2a2a2a] bg-[#111111] px-3 py-2 text-sm text-[#f0f0f0] outline-none focus:border-[#3a3a3a] focus:ring-1 focus:ring-[#4a6fa5]/40"
+                          placeholder="Write your answer before flipping..."
+                          value={typedAnswer}
+                          onChange={(e) => setTypedAnswer(e.target.value)}
+                          onClick={(e) => e.stopPropagation()}
+                        />
+                      </div>
                       <p className="mt-6 text-xs text-zinc-500">Tap to flip · reveal answer</p>
                     </div>
-                    <div className="flip-card-face flip-card-back border border-emerald-500/25 bg-gradient-to-br from-emerald-950/40 to-zinc-950">
-                      <p className="mb-2 text-xs uppercase tracking-[0.18em] text-emerald-400/90">Answer</p>
+                    <div className="flip-card-face flip-card-back border border-[#2a2a2a] bg-[#141414]">
+                      <p className="mb-2 text-xs uppercase tracking-[0.18em] text-[#888888]">Answer</p>
                       <p className="text-base text-zinc-100">{currentDrill.answer}</p>
                     </div>
                   </div>
                 </button>
               </div>
               <div className="mx-auto mt-6 flex max-w-3xl flex-wrap justify-center gap-2">
-                <Button onClick={() => void drillAction("known")}>Got it</Button>
-                <Button variant="outline" onClick={() => void drillAction("review")}>
-                  Need Review
-                </Button>
-                <Button variant="ghost" onClick={() => void drillAction("skip")}>
-                  Skip
-                </Button>
+                {flipped && gradedResult ? (
+                  <>
+                    <div className="w-full rounded border border-[#2a2a2a] bg-[#161616] p-3 text-sm text-[#e8e8e8]">
+                      <p className="font-medium text-[#f0f0f0]">
+                        {gradedResult.grade === "correct"
+                          ? "Correct"
+                          : gradedResult.grade === "partial"
+                            ? "Partial"
+                            : "Needs review"}{" "}
+                        ({Math.round(gradedResult.hitRate * 100)}% keyword hit)
+                      </p>
+                      <p className="mt-1 text-xs text-[#888888]">
+                        {gradedResult.foundKeywords.length > 0
+                          ? `✓ mentioned ${gradedResult.foundKeywords.join(", ")}`
+                          : "✓ mentioned: none"}
+                      </p>
+                      <p className="text-xs text-[#888888]">
+                        {gradedResult.missedKeywords.length > 0
+                          ? `✗ missed: ${gradedResult.missedKeywords.join(", ")}`
+                          : "✗ missed: none"}
+                      </p>
+                    </div>
+                    <Button onClick={() => void drillAction(gradedResult.suggestedAction === "known" ? "known" : "review")}>
+                      Continue
+                    </Button>
+                    <Button variant="ghost" onClick={() => void drillAction("skip")}>
+                      Skip
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button onClick={() => void drillAction("known")}>Got it</Button>
+                    <Button variant="outline" onClick={() => void drillAction("review")}>
+                      Need Review
+                    </Button>
+                    <Button variant="ghost" onClick={() => void drillAction("skip")}>
+                      Skip
+                    </Button>
+                  </>
+                )}
               </div>
             </>
           ) : null}
