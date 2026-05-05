@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { QuestionMcqDeck } from "@/components/question-mcq-deck";
+import { ReportContentAction } from "@/components/report-content-action";
 import type { McqDistractorSource } from "@/lib/question-mcq";
 import {
   readStoredQuestionMode,
@@ -441,6 +442,7 @@ export function QuestionsBank({
                           >
                             Mark for Review 🔁
                           </Button>
+                          <ReportContentAction targetType="question" targetId={q.id} />
                         </div>
                       </div>
                     ) : null}

@@ -14,7 +14,10 @@ export async function POST(req: Request) {
   const weakCategories = String(body.weakCategories ?? "");
   const prompt = `Mock interview recap for the candidate (private coaching):\n\nScore breakdown by category:\n${breakdown || "N/A"}\n\nCategories with weaker self-grades:\n${weakCategories || "N/A"}\n\nIn 120 words max, summarize top 2–3 improvement themes and one concrete practice habit.`;
   try {
-    const text = await anthropicMessage(prompt, { maxTokens: 600 });
+    const text = await anthropicMessage(prompt, {
+      maxTokens: 600,
+      usageLog: { userId, feature: "mock-summary" },
+    });
     return NextResponse.json({ summary: text });
   } catch (e) {
     const msg = e instanceof Error ? e.message : "AI error";

@@ -24,8 +24,10 @@ model User {
   targetFirms         String[] @default([])
   dailyGoal           Int      @default(5)
   onboardingDone      Boolean  @default(false)
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
+  accountActive         Boolean  @default(true)
+  lastActiveAt          DateTime?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
   contacts            Contact[]
   firms               Firm[]
   interactions        Interaction[]
@@ -49,6 +51,8 @@ model User {
   studyGroupsCreated         StudyGroup[]           @relation("StudyGroupCreator")
   studyGroupMessages         StudyGroupMessage[]
   offerComparisons           OfferComparison[]
+  apiUsageLogs               ApiUsageLog[]
+  contentReports             ContentReport[]        @relation("ContentReportReporter")
 }
 
 model Question {
@@ -440,8 +444,11 @@ model EmailTemplate {
   submittedById   String?
   isOfficial      Boolean  @default(false)
   dedupeKey       String?  @unique
+  archived        Boolean  @default(false)
   createdAt       DateTime @default(now())
   upvotedBy       TemplateUpvote[]
+
+  @@index([archived])
 }
 
 model TemplateUpvote {
@@ -498,8 +505,11 @@ model VaultDocument {
   upvotes         Int      @default(0)
   submittedById   String?
   dedupeKey       String?  @unique
+  status          String   @default("active") // active | pending | rejected
   createdAt       DateTime @default(now())
   upvotedBy       VaultDocumentUpvote[]
+
+  @@index([status])
 }
 
 model VaultDocumentUpvote {
@@ -556,4 +566,31 @@ model OfferComparison {
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+}
+
+model ApiUsageLog {
+  id           String   @id @default(cuid())
+  userId       String
+  feature      String
+  inputTokens  Int
+  outputTokens Int
+  createdAt    DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([feature])
+}
+
+model ContentReport {
+  id         String   @id @default(cuid())
+  reporterId String
+  targetType String
+  targetId   String
+  reason     String
+  status     String   @default("pending") // pending | reviewed | dismissed
+  createdAt  DateTime @default(now())
+  reporter   User     @relation("ContentReportReporter", fields: [reporterId], references: [id], onDelete: Cascade)
+
+  @@index([status])
+  @@index([targetType, targetId])
 }

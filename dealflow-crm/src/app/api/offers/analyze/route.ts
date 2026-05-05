@@ -15,7 +15,10 @@ export async function POST(req: Request) {
   }
   const prompt = `Compare these job offers for an MSU Broad finance student. Evaluate comp (base, signing, bonus), location, prestige, deal flow/learning, and exit options. Then give a structured recommendation (max 250 words). Use bullet sections.\n\n${JSON.stringify(body.offers, null, 2)}`;
   try {
-    const text = await anthropicMessage(prompt, { maxTokens: 1500 });
+    const text = await anthropicMessage(prompt, {
+      maxTokens: 1500,
+      usageLog: { userId, feature: "offer-analysis" },
+    });
     return NextResponse.json({ analysis: text });
   } catch (e) {
     const msg = e instanceof Error ? e.message : "AI error";

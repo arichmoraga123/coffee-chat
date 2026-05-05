@@ -24,7 +24,10 @@ export async function POST() {
     .join("\n");
   const prompt = `You are a recruiting coach. Based ONLY on these private interview debriefs, identify recurring strengths and weaknesses (max 180 words). Be direct and actionable.\n\n${blob}`;
   try {
-    const text = await anthropicMessage(prompt, { maxTokens: 900 });
+    const text = await anthropicMessage(prompt, {
+      maxTokens: 900,
+      usageLog: { userId, feature: "debrief-analysis" },
+    });
     return NextResponse.json({ analysis: text });
   } catch (e) {
     const msg = e instanceof Error ? e.message : "AI error";

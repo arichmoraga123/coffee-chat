@@ -47,7 +47,9 @@ export async function POST(_req: Request, { params }: { params: Promise<{ id: st
   ].join("\n");
 
   try {
-    const text = await anthropicMessage(prompt);
+    const text = await anthropicMessage(prompt, {
+      usageLog: { userId, feature: "pre-call" },
+    });
     return NextResponse.json({ text });
   } catch (e) {
     const msg = e instanceof Error ? e.message : "AI request failed";

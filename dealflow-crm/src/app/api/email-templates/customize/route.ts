@@ -17,7 +17,10 @@ export async function POST(req: Request) {
   if (!template) return NextResponse.json({ error: "template body required" }, { status: 400 });
   const prompt = `Personalize this recruiting email template. Replace bracket placeholders with natural prose. Keep professional tone.\n\nYour name: ${yourName || "[Your Name]"}\nContact first name: ${contactName || "[Name]"}\nTheir firm: ${firm || "[firm]"}\n\nTemplate:\n"""${template}"""\n\nOutput only the final email body (no subject unless clearly part of template).`;
   try {
-    const text = await anthropicMessage(prompt, { maxTokens: 1200 });
+    const text = await anthropicMessage(prompt, {
+      maxTokens: 1200,
+      usageLog: { userId, feature: "email-customize" },
+    });
     return NextResponse.json({ body: text });
   } catch (e) {
     const msg = e instanceof Error ? e.message : "AI error";

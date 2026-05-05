@@ -31,9 +31,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const { data: session } = useSession();
   const [mobileOpen, setMobileOpen] = useState(false);
   const isAuthPage = pathname === "/login" || pathname === "/signup";
+  const isAdminRoute = pathname.startsWith("/admin");
   const navItems =
     session?.user?.role === "ADMIN"
-      ? [...nav, { href: "/admin/questions", label: "Admin" }]
+      ? [...nav, { href: "/admin", label: "Admin" }]
       : nav;
 
   const closeMobile = () => setMobileOpen(false);
@@ -64,8 +65,17 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     setMobileOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    if (isAuthPage || isAdminRoute || !session?.user) return;
+    void fetch("/api/user/ping", { method: "POST" }).catch(() => {});
+  }, [isAuthPage, isAdminRoute, session?.user]);
+
   if (isAuthPage) {
     return <main className="min-h-screen bg-zinc-950 p-6 text-zinc-100">{children}</main>;
+  }
+
+  if (isAdminRoute) {
+    return <div className="min-h-screen bg-zinc-950 text-zinc-100">{children}</div>;
   }
 
   return (

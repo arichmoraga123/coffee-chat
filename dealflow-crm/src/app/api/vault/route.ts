@@ -11,7 +11,7 @@ export async function GET(req: Request) {
   const targetFirm = searchParams.get("targetFirm");
   const outcome = searchParams.get("outcome");
   const year = searchParams.get("year");
-  const where: Record<string, unknown> = {};
+  const where: Record<string, unknown> = { status: "active" };
   if (type) where.type = type;
   if (targetFirm) where.targetFirm = { contains: targetFirm, mode: "insensitive" };
   if (outcome) where.outcome = outcome;
@@ -59,6 +59,7 @@ export async function POST(req: Request) {
       fileUrl,
       notes: body.notes ? String(body.notes).trim() : null,
       submittedById: userId,
+      status: "pending",
     },
   });
   return NextResponse.json(doc);

@@ -9,9 +9,10 @@ export async function GET(req: Request) {
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const { searchParams } = new URL(req.url);
   const category = searchParams.get("category");
-  const where = category && category !== "All" ? { category } : undefined;
+  const where: Record<string, unknown> = { archived: false };
+  if (category && category !== "All") where.category = category;
   const templates = await prisma.emailTemplate.findMany({
-    where,
+    where: where as never,
     orderBy: [{ isOfficial: "desc" }, { upvotes: "desc" }, { createdAt: "desc" }],
   });
   const upvotes = await prisma.templateUpvote.findMany({

@@ -70,7 +70,9 @@ export async function POST(
   ].join("\n");
 
   try {
-    const text = await anthropicMessage(prompt);
+    const text = await anthropicMessage(prompt, {
+      usageLog: { userId, feature: "follow-up" },
+    });
     return NextResponse.json({ text });
   } catch (e) {
     const msg = e instanceof Error ? e.message : "AI request failed";

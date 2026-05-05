@@ -10,7 +10,7 @@ export type ResourceItem = {
 export const resources: ResourceItem[] = [
   {
     slug: "biws-400-2025",
-    title: "BIWS 400 Questions Guide (2025)",
+    title: "BIWS 400 Questions Guide",
     description:
       "The definitive free IB interview prep guide — 400 Q&As across technicals, behavioral, and industry-specific questions.",
     url: "https://breakingintowallstreet.com/free-400-questions/",
@@ -35,7 +35,7 @@ export const resources: ResourceItem[] = [
   },
   {
     slug: "streetofwalls-ib",
-    title: "Street of Walls — IB Training",
+    title: "Street of Walls IB Training",
     description: "Free IB and PE technical training including LBO modeling guides.",
     url: "https://www.streetofwalls.com/finance-training-courses/investment-banking-training/",
     category: "Technical Prep",
@@ -93,7 +93,7 @@ export const resources: ResourceItem[] = [
     slug: "wsj",
     title: "Wall Street Journal",
     description: "Primary source for M&A news, markets, and macro.",
-    url: "https://wsj.com",
+    url: "https://www.wsj.com/",
     category: "News & Markets",
     isPrimary: true,
   },
@@ -101,7 +101,7 @@ export const resources: ResourceItem[] = [
     slug: "ft",
     title: "Financial Times",
     description: "Best for APAC/European deal coverage and macro analysis.",
-    url: "https://ft.com",
+    url: "https://www.ft.com/",
     category: "News & Markets",
     isPrimary: true,
   },
@@ -117,7 +117,7 @@ export const resources: ResourceItem[] = [
     slug: "bloomberg",
     title: "Bloomberg",
     description: "Real-time markets, M&A, and finance news.",
-    url: "https://bloomberg.com",
+    url: "https://www.bloomberg.com/",
     category: "News & Markets",
     isPrimary: false,
   },
@@ -149,7 +149,7 @@ export const resources: ResourceItem[] = [
     slug: "pitchbook",
     title: "Pitchbook",
     description: "PE/VC deal database. Free access available through MSU library.",
-    url: "https://pitchbook.com",
+    url: "https://pitchbook.com/",
     category: "Tools",
     isPrimary: true,
   },

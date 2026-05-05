@@ -15,7 +15,10 @@ export async function POST(req: Request) {
   if (!question) return NextResponse.json({ error: "question required" }, { status: 400 });
   const prompt = `You are an investment banking / PE mock interviewer. The candidate was asked:\n\n"""${question}"""\n\nTheir typed draft answer (may be empty):\n"""${draft || "(none)"}"""\n\nGive concise feedback on: (1) structure, (2) content depth, (3) conciseness. Bullet points, max 200 words.`;
   try {
-    const text = await anthropicMessage(prompt, { maxTokens: 800 });
+    const text = await anthropicMessage(prompt, {
+      maxTokens: 800,
+      usageLog: { userId, feature: "mock-feedback" },
+    });
     return NextResponse.json({ feedback: text });
   } catch (e) {
     const msg = e instanceof Error ? e.message : "AI error";

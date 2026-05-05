@@ -15,7 +15,10 @@ export async function POST(_req: Request, { params }: { params: Promise<{ id: st
   if (!deal) return NextResponse.json({ error: "Not found" }, { status: 404 });
   const prompt = `Generate exactly 3 concise technical or deal-style interview questions a banking/PE candidate could be asked about this transaction. Number them 1–3.\n\nTitle: ${deal.title}\nSummary: ${deal.summary}\nThesis: ${deal.keyThesis ?? "N/A"}\nRisks: ${deal.risks ?? "N/A"}`;
   try {
-    const text = await anthropicMessage(prompt, { maxTokens: 700 });
+    const text = await anthropicMessage(prompt, {
+      maxTokens: 700,
+      usageLog: { userId, feature: "deal-practice" },
+    });
     return NextResponse.json({ questions: text });
   } catch (e) {
     const msg = e instanceof Error ? e.message : "AI error";
