@@ -9,7 +9,7 @@ export default async function DealsPage() {
   const [deals, marks] = await Promise.all([
     prisma.deal.findMany({
       orderBy: { announcedAt: "desc" },
-      take: 100,
+      take: 500,
     }),
     prisma.dealBookmark.findMany({
       where: { userId },

@@ -5,17 +5,17 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { href: "/admin", label: "Dashboard" },
-  { href: "/admin/questions", label: "Questions" },
+  { href: "/admin", label: "Dashboard", exact: true },
+  { href: "/admin/questions", label: "Questions", exact: false },
+  { href: "/admin/deals", label: "Deals", exact: false },
 ];
 
 export function AdminSubnav() {
   const pathname = usePathname();
   return (
     <nav className="flex gap-1 text-sm">
-      {links.map(({ href, label }) => {
-        const active =
-          href === "/admin" ? pathname === "/admin" : pathname.startsWith(href);
+      {links.map(({ href, label, exact }) => {
+        const active = exact ? pathname === href : pathname.startsWith(href);
         return (
           <Link
             key={href}

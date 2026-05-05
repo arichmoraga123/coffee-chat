@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { subMonths, startOfDay } from "date-fns";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
 type Deal = {
   id: string;
@@ -21,6 +23,11 @@ type Deal = {
   announcedAt: string;
 };
 
+function isCurrentDeal(announcedAt: string): boolean {
+  const cutoff = startOfDay(subMonths(new Date(), 6));
+  return new Date(announcedAt).getTime() >= cutoff.getTime();
+}
+
 export function DealsView({
   initialDeals = [],
   initialBookmarks = {},
@@ -31,8 +38,15 @@ export function DealsView({
   const [deals, setDeals] = useState<Deal[]>(initialDeals);
   const [bookmarks, setBookmarks] = useState<Record<string, string | null | undefined>>(initialBookmarks);
   const [filters, setFilters] = useState({ dealType: "", sector: "", size: "" });
+  const [tab, setTab] = useState<"current" | "archive">("current");
   const [practice, setPractice] = useState<string | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
+
+  const tabDeals = useMemo(() => {
+    return deals.filter((d) =>
+      tab === "current" ? isCurrentDeal(d.announcedAt) : !isCurrentDeal(d.announcedAt),
+    );
+  }, [deals, tab]);
 
   const load = async () => {
     setLoadError(null);
@@ -96,6 +110,37 @@ export function DealsView({
           <span className="text-emerald-400/90">SHARED</span> feed · <span className="text-cyan-400/90">PRIVATE</span> bookmarks
         </p>
       </div>
+
+      <div className="flex flex-wrap gap-2 border-b border-zinc-800 pb-3">
+        <Button
+          type="button"
+          size="sm"
+          variant={tab === "current" ? "default" : "outline"}
+          className={cn(tab === "current" && "bg-cyan-600 text-white hover:bg-cyan-500")}
+          onClick={() => setTab("current")}
+        >
+          Current
+        </Button>
+        <Button
+          type="button"
+          size="sm"
+          variant={tab === "archive" ? "default" : "outline"}
+          className={cn(tab === "archive" && "bg-cyan-600 text-white hover:bg-cyan-500")}
+          onClick={() => setTab("archive")}
+        >
+          Archive
+        </Button>
+        <span className="ml-auto self-center text-xs text-zinc-500">
+          Current = announced within the last 6 months
+        </span>
+      </div>
+
+      {tab === "archive" ? (
+        <p className="rounded border border-zinc-800 bg-zinc-900/60 px-3 py-2 text-sm text-zinc-400">
+          These deals may no longer be current but are saved for reference and interview prep.
+        </p>
+      ) : null}
+
       {loadError ? (
         <p className="rounded border border-amber-900/50 bg-amber-950/30 px-3 py-2 text-sm text-amber-200">{loadError}</p>
       ) : null}
@@ -123,7 +168,12 @@ export function DealsView({
         </Button>
       </Card>
       <div className="space-y-3">
-        {deals.map((d) => (
+        {tabDeals.length === 0 ? (
+          <p className="text-sm text-zinc-500">
+            {tab === "current" ? "No deals in the current window — try Archive or adjust filters." : "No archived deals match these filters."}
+          </p>
+        ) : null}
+        {tabDeals.map((d) => (
           <Card key={d.id} id={d.id} className="space-y-2 border-zinc-800 bg-zinc-900/50 p-4">
             <div className="flex flex-wrap items-start justify-between gap-2">
               <div>
@@ -138,7 +188,10 @@ export function DealsView({
                 </span>
               ) : null}
             </div>
-            <p className="text-xs text-zinc-500">{d.dealType}{d.sector ? ` · ${d.sector}` : ""}</p>
+            <p className="text-xs text-zinc-500">
+              {d.dealType}
+              {d.sector ? ` · ${d.sector}` : ""}
+            </p>
             <p className="text-sm text-zinc-300">{d.summary}</p>
             {d.keyThesis ? (
               <div>
@@ -156,7 +209,7 @@ export function DealsView({
               </Button>
               {d.sourceUrl ? (
                 <Button asChild size="sm" variant="ghost">
-                  <a href={d.sourceUrl} target="_blank" rel="noreferrer">
+                  <a href={d.sourceUrl} target="_blank" rel="noopener noreferrer">
                     Source
                   </a>
                 </Button>
