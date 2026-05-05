@@ -263,8 +263,13 @@ export function ContactsView({
                     <td className="hidden px-3 py-2 align-top md:table-cell">
                       {last ? last.toLocaleDateString() : "-"}
                     </td>
-                    <td className="hidden px-3 py-2 align-top md:table-cell">
-                      <Button size="sm" variant="outline" onClick={() => setQuickLogContactId(c.id)}>
+                    <td className="hidden whitespace-nowrap px-3 py-2 align-top md:table-cell">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="h-7 shrink-0 px-2 py-0 text-xs whitespace-nowrap"
+                        onClick={() => setQuickLogContactId(c.id)}
+                      >
                         Log Interaction
                       </Button>
                     </td>

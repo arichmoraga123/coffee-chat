@@ -1,7 +1,7 @@
 import "server-only";
 import { prisma } from "@/lib/prisma";
 
-const MODEL = "claude-sonnet-4-20250514";
+const MODEL = "claude-sonnet-4-5";
 const DEFAULT_MAX_TOKENS = 1000;
 
 export type AnthropicUsageFeature =
@@ -108,7 +108,7 @@ export async function anthropicMessage(
   return text;
 }
 
-/** Claude Sonnet 4 (2025-05-14) approximate list pricing — adjust if your contract differs. */
+/** Claude Sonnet 4.5 approximate list pricing — adjust if your contract differs. */
 export const ANTHROPIC_SONNET4_INPUT_PER_MTOK_USD = 3;
 export const ANTHROPIC_SONNET4_OUTPUT_PER_MTOK_USD = 15;
 

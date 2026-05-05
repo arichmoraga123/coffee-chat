@@ -21,19 +21,31 @@ type Deal = {
   announcedAt: string;
 };
 
-export function DealsView() {
-  const [deals, setDeals] = useState<Deal[]>([]);
-  const [bookmarks, setBookmarks] = useState<Record<string, string | null | undefined>>({});
+export function DealsView({
+  initialDeals = [],
+  initialBookmarks = {},
+}: {
+  initialDeals?: Deal[];
+  initialBookmarks?: Record<string, string | null | undefined>;
+}) {
+  const [deals, setDeals] = useState<Deal[]>(initialDeals);
+  const [bookmarks, setBookmarks] = useState<Record<string, string | null | undefined>>(initialBookmarks);
   const [filters, setFilters] = useState({ dealType: "", sector: "", size: "" });
   const [practice, setPractice] = useState<string | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
   const load = async () => {
+    setLoadError(null);
     const p = new URLSearchParams();
     if (filters.dealType) p.set("dealType", filters.dealType);
     if (filters.sector) p.set("sector", filters.sector);
     if (filters.size) p.set("size", filters.size);
-    const res = await fetch(`/api/deals?${p}`);
-    if (!res.ok) return;
+    const q = p.toString();
+    const res = await fetch(q ? `/api/deals?${q}` : "/api/deals", { credentials: "same-origin" });
+    if (!res.ok) {
+      setLoadError(res.status === 401 ? "Session expired — refresh the page." : "Could not load deals.");
+      return;
+    }
     const d = (await res.json()) as { deals: Deal[]; bookmarks: Record<string, string | null> };
     setDeals(d.deals);
     setBookmarks(d.bookmarks);
@@ -45,7 +57,7 @@ export function DealsView() {
 
   const toggleBm = async (id: string) => {
     if (bookmarks[id] !== undefined) {
-      await fetch(`/api/deals/${id}/bookmark`, { method: "DELETE" });
+      await fetch(`/api/deals/${id}/bookmark`, { method: "DELETE", credentials: "same-origin" });
       const next = { ...bookmarks };
       delete next[id];
       setBookmarks(next);
@@ -53,6 +65,7 @@ export function DealsView() {
       await fetch(`/api/deals/${id}/bookmark`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "same-origin",
         body: JSON.stringify({ notes: null }),
       });
       setBookmarks((b) => ({ ...b, [id]: null }));
@@ -61,7 +74,10 @@ export function DealsView() {
 
   const practiceQs = async (id: string) => {
     setPractice("…");
-    const res = await fetch(`/api/deals/${id}/practice`, { method: "POST" });
+    const res = await fetch(`/api/deals/${id}/practice`, {
+      method: "POST",
+      credentials: "same-origin",
+    });
     setPractice(null);
     if (!res.ok) {
       const e = (await res.json()) as { error?: string };
@@ -80,6 +96,9 @@ export function DealsView() {
           <span className="text-emerald-400/90">SHARED</span> feed · <span className="text-cyan-400/90">PRIVATE</span> bookmarks
         </p>
       </div>
+      {loadError ? (
+        <p className="rounded border border-amber-900/50 bg-amber-950/30 px-3 py-2 text-sm text-amber-200">{loadError}</p>
+      ) : null}
       <Card className="flex flex-wrap gap-2 border-zinc-800 bg-zinc-900/50 p-3">
         <Input
           placeholder="Deal type (LBO, M&A, IPO…)"

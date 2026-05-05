@@ -113,6 +113,9 @@ async function main() {
   });
   console.log(`Email templates seed (new rows ~${etCount}).`);
 
+  await prisma.dealBookmark.deleteMany({});
+  await prisma.deal.deleteMany({});
+
   const { count: dealCount } = await prisma.deal.createMany({
     data: SEED_DEALS.map((d) => ({
       title: d.title,
@@ -130,7 +133,7 @@ async function main() {
     })),
     skipDuplicates: true,
   });
-  console.log(`Deals seed (new rows ~${dealCount}).`);
+  console.log(`Deals seed (cleared + inserted ~${dealCount} rows, skipDuplicates on unique keys).`);
 }
 
 main()
