@@ -71,40 +71,45 @@ export function FirmsDirectory({ initialFirms }: { initialFirms: FirmRow[] }) {
         </Button>
       </div>
       <Card className="overflow-hidden">
-        <table className="w-full text-sm">
-          <thead className="bg-zinc-900 text-left text-zinc-400">
-            <tr>
-              <th className="px-3 py-2">Firm</th>
-              <th className="px-3 py-2">Type</th>
-              <th className="px-3 py-2">Location</th>
-              <th className="px-3 py-2">Contacts</th>
-              <th className="px-3 py-2">Opportunities</th>
-              <th className="px-3 py-2" />
-            </tr>
-          </thead>
-          <tbody>
-            {initialFirms.map((f) => (
-              <tr key={f.id} className="border-t border-zinc-800">
-                <td className="px-3 py-2">
-                  <Link href={`/firms/${f.id}`} className="text-cyan-400 hover:underline">
-                    {f.name}
-                  </Link>
-                </td>
-                <td className="px-3 py-2">
-                  <FirmTypeBadge type={f.type} />
-                </td>
-                <td className="px-3 py-2">{f.location}</td>
-                <td className="px-3 py-2">{f.contacts}</td>
-                <td className="px-3 py-2">{f.opportunities}</td>
-                <td className="px-3 py-2 text-right">
-                  <Button asChild size="sm" variant="outline">
-                    <Link href={`/firms/${f.id}`}>Edit</Link>
-                  </Button>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[280px] text-sm md:min-w-[640px]">
+            <thead className="bg-zinc-900 text-left text-zinc-400">
+              <tr>
+                <th className="px-3 py-2">Firm</th>
+                <th className="min-w-0 px-3 py-2">Type</th>
+                <th className="hidden px-3 py-2 md:table-cell">Location</th>
+                <th className="hidden px-3 py-2 md:table-cell">Contacts</th>
+                <th className="hidden px-3 py-2 md:table-cell">Opportunities</th>
+                <th className="hidden md:table-cell" />
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {initialFirms.map((f) => (
+                <tr key={f.id} className="border-t border-zinc-800">
+                  <td className="max-w-[48%] min-w-0 px-3 py-2 align-top md:max-w-none">
+                    <Link href={`/firms/${f.id}`} className="break-words text-cyan-400 hover:underline">
+                      {f.name}
+                    </Link>
+                  </td>
+                  <td className="min-w-0 max-w-[44%] px-3 py-2 align-top md:max-w-none">
+                    <FirmTypeBadge
+                      type={f.type}
+                      className="inline-flex max-w-full whitespace-normal break-words text-[9px] leading-snug md:text-[10px]"
+                    />
+                  </td>
+                  <td className="hidden px-3 py-2 align-top md:table-cell">{f.location}</td>
+                  <td className="hidden px-3 py-2 align-top md:table-cell">{f.contacts}</td>
+                  <td className="hidden px-3 py-2 align-top md:table-cell">{f.opportunities}</td>
+                  <td className="hidden px-3 py-2 text-right align-top md:table-cell">
+                    <Button asChild size="sm" variant="outline">
+                      <Link href={`/firms/${f.id}`}>Edit</Link>
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </Card>
 
       <Modal open={open} onClose={() => setOpen(false)} title="New firm" className="max-w-md">

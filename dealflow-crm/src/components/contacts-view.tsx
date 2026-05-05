@@ -206,32 +206,74 @@ export function ContactsView({
         </div>
       </Card>
       <Card className="overflow-hidden">
-        <table className="w-full text-sm">
-          <thead className="bg-zinc-900 text-left text-zinc-400"><tr><th className="px-3 py-2">Name</th><th>Firm</th><th>Group</th><th>Title</th><th>Strength</th><th>Referral</th><th>Follow-up</th><th>Last Interaction</th><th></th></tr></thead>
-          <tbody>
-            {filtered.map((c) => {
-              const last = c.lastInteractionDate ? new Date(c.lastInteractionDate) : null;
-              const isStale = !last || last < staleDate;
-              return (
-                <tr key={c.id} className="border-t border-zinc-800">
-                  <td className="px-3 py-2"><Link href={`/contacts/${c.id}`} className="text-cyan-400 hover:underline">{c.fullName}</Link>{isStale ? <span className="ml-2 rounded bg-amber-500/20 px-1.5 py-0.5 text-xs text-amber-300">Stale</span> : null}</td>
-                  <td>
-                    <span className="inline-flex flex-wrap items-center gap-1.5">
-                      <FirmTypeBadge type={c.firmType} />
-                      <Link
-                        href={`/firms/${c.firmId}`}
-                        className="text-cyan-400 hover:underline"
-                      >
-                        {c.firmName}
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[320px] text-sm md:min-w-[720px]">
+            <thead className="bg-zinc-900 text-left text-zinc-400">
+              <tr>
+                <th className="px-3 py-2">Name</th>
+                <th className="min-w-[140px] px-3 py-2 md:min-w-0">Firm</th>
+                <th className="hidden px-3 py-2 md:table-cell">Group</th>
+                <th className="hidden px-3 py-2 md:table-cell">Title</th>
+                <th className="hidden px-3 py-2 md:table-cell">Strength</th>
+                <th className="hidden px-3 py-2 md:table-cell">Referral</th>
+                <th className="hidden px-3 py-2 md:table-cell">Follow-up</th>
+                <th className="hidden px-3 py-2 md:table-cell">Last Interaction</th>
+                <th className="hidden md:table-cell" />
+              </tr>
+            </thead>
+            <tbody>
+              {filtered.map((c) => {
+                const last = c.lastInteractionDate ? new Date(c.lastInteractionDate) : null;
+                const isStale = !last || last < staleDate;
+                return (
+                  <tr key={c.id} className="border-t border-zinc-800">
+                    <td className="max-w-[42vw] px-3 py-2 align-top md:max-w-none">
+                      <Link href={`/contacts/${c.id}`} className="break-words text-cyan-400 hover:underline">
+                        {c.fullName}
                       </Link>
-                    </span>
-                  </td>
-                  <td>{c.group}</td><td>{c.title}</td><td>{c.relationshipStrength}</td><td>{c.referralProbability}</td><td><span className={`rounded px-1.5 py-0.5 text-xs ${followUpBadge[c.followUpStatus]}`}>{followUpLabel[c.followUpStatus]}</span></td><td>{last ? last.toLocaleDateString() : "-"}</td><td><Button size="sm" variant="outline" onClick={() => setQuickLogContactId(c.id)}>Log Interaction</Button></td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                      {isStale ? (
+                        <span className="ml-1.5 inline-block rounded bg-amber-500/20 px-1.5 py-0.5 text-[10px] text-amber-300 md:ml-2 md:text-xs">
+                          Stale
+                        </span>
+                      ) : null}
+                    </td>
+                    <td className="min-w-0 px-3 py-2 align-top">
+                      <div className="flex min-w-0 flex-col gap-1.5 md:flex-row md:flex-wrap md:items-center md:gap-1.5">
+                        <Link
+                          href={`/firms/${c.firmId}`}
+                          className="min-w-0 break-words text-cyan-400 hover:underline md:order-2"
+                        >
+                          {c.firmName}
+                        </Link>
+                        <FirmTypeBadge
+                          type={c.firmType}
+                          className="w-fit max-w-full shrink-0 whitespace-normal text-left leading-snug md:order-1"
+                        />
+                      </div>
+                    </td>
+                    <td className="hidden px-3 py-2 align-top md:table-cell">{c.group}</td>
+                    <td className="hidden px-3 py-2 align-top md:table-cell">{c.title}</td>
+                    <td className="hidden px-3 py-2 align-top md:table-cell">{c.relationshipStrength}</td>
+                    <td className="hidden px-3 py-2 align-top md:table-cell">{c.referralProbability}</td>
+                    <td className="hidden px-3 py-2 align-top md:table-cell">
+                      <span className={`rounded px-1.5 py-0.5 text-xs ${followUpBadge[c.followUpStatus]}`}>
+                        {followUpLabel[c.followUpStatus]}
+                      </span>
+                    </td>
+                    <td className="hidden px-3 py-2 align-top md:table-cell">
+                      {last ? last.toLocaleDateString() : "-"}
+                    </td>
+                    <td className="hidden px-3 py-2 align-top md:table-cell">
+                      <Button size="sm" variant="outline" onClick={() => setQuickLogContactId(c.id)}>
+                        Log Interaction
+                      </Button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </Card>
 
       <Modal open={showC} onClose={() => setShowC(false)} title="New Contact" className="max-w-2xl">
