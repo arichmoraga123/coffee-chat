@@ -464,7 +464,7 @@ model TemplateUpvote {
 // --- Shared deals, private bookmarks ---
 model Deal {
   id          String         @id @default(cuid())
-  title       String
+  title       String         @unique
   acquirer    String?
   target      String?
   dealValue   String?

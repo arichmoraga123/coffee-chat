@@ -13,7 +13,7 @@ export const resources: ResourceItem[] = [
     title: "BIWS 400 Questions Guide",
     description:
       "The definitive free IB interview prep guide — 400 Q&As across technicals, behavioral, and industry-specific questions.",
-    url: "https://breakingintowallstreet.com/free-400-questions/",
+    url: "https://drive.google.com/file/d/106-QK_HLQL7Zy4f1spHbp6PJlv-YGjS8/view?usp=sharing",
     category: "Technical Prep",
     isPrimary: true,
   },
@@ -37,7 +37,7 @@ export const resources: ResourceItem[] = [
     slug: "streetofwalls-ib",
     title: "Street of Walls IB Training",
     description: "Free IB and PE technical training including LBO modeling guides.",
-    url: "https://www.streetofwalls.com/finance-training-courses/investment-banking-training/",
+    url: "https://www.streetofwalls.com/",
     category: "Technical Prep",
     isPrimary: false,
   },
@@ -124,8 +124,8 @@ export const resources: ResourceItem[] = [
   {
     slug: "pe-broad-resources",
     title: "PE@Broad Club Resources",
-    description: "Internal PE@Broad training materials, past deal cases, and recruiting guides. (MSU login required)",
-    url: "#",
+    description: "PE@Broad training materials, past deal cases, and recruiting guides.",
+    url: "https://privateequityatbroad.wixsite.com/home",
     category: "MSU / Broad",
     isPrimary: true,
   },
