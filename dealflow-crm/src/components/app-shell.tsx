@@ -34,7 +34,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const isAdminRoute = pathname.startsWith("/admin");
   const navItems =
     session?.user?.role === "ADMIN"
-      ? [...nav, { href: "/admin", label: "Admin" }]
+      ? [...nav, { href: "/admin", label: "🛡️ Admin" }]
       : nav;
 
   const closeMobile = () => setMobileOpen(false);
@@ -99,21 +99,24 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       >
         <div className="mb-5 text-sm font-semibold tracking-wide text-cyan-400">DealFlow CRM</div>
         <nav className="flex-1 space-y-1 overflow-y-auto">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={closeMobile}
-              className={cn(
-                "block rounded px-3 py-2 text-sm",
-                pathname === item.href
-                  ? "bg-cyan-500/20 text-cyan-300"
-                  : "text-zinc-300 hover:bg-zinc-900",
-              )}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            const active =
+              pathname === item.href ||
+              (item.href === "/admin" && pathname.startsWith("/admin"));
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={closeMobile}
+                className={cn(
+                  "block rounded px-3 py-2 text-sm",
+                  active ? "bg-cyan-500/20 text-cyan-300" : "text-zinc-300 hover:bg-zinc-900",
+                )}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
         <button
           className="mt-4 text-left text-xs text-zinc-400 hover:text-zinc-200"
