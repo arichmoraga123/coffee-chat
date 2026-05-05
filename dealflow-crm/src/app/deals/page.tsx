@@ -8,6 +8,7 @@ export default async function DealsPage() {
   const userId = await requireUserId();
   const [deals, marks] = await Promise.all([
     prisma.deal.findMany({
+      where: { status: "published" },
       orderBy: { announcedAt: "desc" },
       take: 500,
     }),

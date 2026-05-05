@@ -7,6 +7,7 @@ import { mockInterviewSeedRows } from "./seed/mock-interview-questions";
 import { SEED_FIRM_RESEARCH } from "./seed/firm-research";
 import { SEED_EMAIL_TEMPLATES } from "./seed/email-templates-seed";
 import { SEED_DEALS } from "./seed/deals-seed";
+import { SEED_RECRUITING_CALENDAR } from "./seed/recruiting-calendar-seed";
 
 const prisma = new PrismaClient();
 
@@ -123,17 +124,29 @@ async function main() {
       target: d.target,
       dealValue: d.dealValue,
       dealType: d.dealType,
+      vertical: d.vertical ?? null,
       sector: d.sector,
       summary: d.summary,
       keyThesis: d.keyThesis,
       risks: d.risks,
       sourceUrl: d.sourceUrl,
       announcedAt: d.announcedAt,
+      status: d.status,
       dedupeKey: d.dedupeKey,
     })),
     skipDuplicates: true,
   });
   console.log(`Deals seed (cleared + inserted ~${dealCount} rows, skipDuplicates on unique keys).`);
+
+  const { count: rcCount } = await prisma.recruitingCalendarEvent.createMany({
+    data: SEED_RECRUITING_CALENDAR.map((r) => ({
+      ...r,
+      upvotes: 0,
+      isRecurring: false,
+    })),
+    skipDuplicates: true,
+  });
+  console.log(`Recruiting calendar seed (new rows ~${rcCount}).`);
 }
 
 main()

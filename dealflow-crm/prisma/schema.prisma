@@ -53,6 +53,10 @@ model User {
   offerComparisons           OfferComparison[]
   apiUsageLogs               ApiUsageLog[]
   contentReports             ContentReport[]        @relation("ContentReportReporter")
+  calendarIntegrations       CalendarIntegration[]
+  resumeReviews              ResumeReview[]
+  caseCompetitions           CaseCompetition[]
+  recruitingCalendarVotes    RecruitingCalendarVote[]
 }
 
 model Question {
@@ -120,14 +124,16 @@ model NewsArticle {
 }
 
 model RecruitingEvent {
-  id       String   @id @default(cuid())
-  userId   String
-  title    String
-  date     DateTime
-  type     String // coffee_chat | deadline | interview | networking | other
-  firmName String?
-  notes    String?
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                    String   @id @default(cuid())
+  userId                String
+  title                 String
+  date                  DateTime
+  type                  String // coffee_chat | deadline | interview | networking | other
+  firmName              String?
+  notes                 String?
+  googleCalendarEventId   String?
+  outlookCalendarEventId String?
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model ResourceBookmark {
@@ -311,12 +317,14 @@ model Interaction {
   personalDetails    String?
   firmInsights       String?
   redFlags           String?
-  followUpDate       DateTime?
-  createdAt          DateTime        @default(now())
-  contactId          String
-  userId             String
-  contact            Contact         @relation(fields: [contactId], references: [id], onDelete: Cascade)
-  user               User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  followUpDate             DateTime?
+  googleCalendarEventId    String?
+  outlookCalendarEventId   String?
+  createdAt               DateTime        @default(now())
+  contactId               String
+  userId                  String
+  contact                 Contact         @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  user                    User            @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Opportunity {
@@ -325,11 +333,13 @@ model Opportunity {
   stage               OpportunityStage     @default(TARGET)
   priority            Priority             @default(MEDIUM)
   notes               String               @default("")
-  applicationDeadline DateTime?
-  contactName         String               @default("")
-  createdAt           DateTime             @default(now())
-  firmId              String
-  userId              String
+  applicationDeadline      DateTime?
+  googleCalendarEventId    String?
+  outlookCalendarEventId   String?
+  contactName               String               @default("")
+  createdAt                 DateTime             @default(now())
+  firmId                    String
+  userId                    String
   firm       Firm                 @relation(fields: [firmId], references: [id], onDelete: Cascade)
   user       User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
   contacts   OpportunityContact[]
@@ -469,15 +479,19 @@ model Deal {
   target      String?
   dealValue   String?
   dealType    String
+  vertical    String?
   sector      String?
   summary     String
   keyThesis   String?
   risks       String?
   sourceUrl   String?
   announcedAt DateTime
+  status      String         @default("draft") // draft | published
   dedupeKey   String?        @unique
   createdAt   DateTime       @default(now())
   bookmarks   DealBookmark[]
+
+  @@index([status])
 }
 
 model DealBookmark {
@@ -593,4 +607,89 @@ model ContentReport {
 
   @@index([status])
   @@index([targetType, targetId])
+}
+
+// --- External calendars (Google + Outlook) — one row per provider per user ---
+model CalendarIntegration {
+  id           String    @id @default(cuid())
+  userId       String
+  provider     String // "google" | "outlook"
+  accessToken  String    @db.Text
+  refreshToken String    @db.Text
+  expiresAt    DateTime
+  calendarId   String?
+  syncEnabled  Boolean   @default(true)
+  lastSynced   DateTime?
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, provider])
+}
+
+// --- AI resume review (last 5 per user enforced in app) ---
+model ResumeReview {
+  id        String   @id @default(cuid())
+  userId    String
+  fileName  String
+  score     Int
+  feedback  Json
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+// --- Case competitions (private) ---
+model CaseCompetition {
+  id            String   @id @default(cuid())
+  userId        String
+  name          String
+  organizer     String?
+  date          DateTime
+  teamMembers   String[] @default([])
+  role          String?
+  topic         String?
+  result        String?
+  description   String?
+  driveLink     String?
+  skills        String[] @default([])
+  addToResume   Boolean  @default(false)
+  resumeBullets String[] @default([])
+  createdAt     DateTime @default(now())
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// --- Shared recruiting season calendar (crowdsourced) ---
+model RecruitingCalendarEvent {
+  id          String   @id @default(cuid())
+  title       String
+  firmName    String?
+  vertical    String?
+  eventType   String
+  date        DateTime
+  endDate     DateTime?
+  year        Int
+  isRecurring Boolean  @default(false)
+  notes       String?
+  sourceUrl   String?
+  submittedBy String?
+  verified    Boolean  @default(false)
+  upvotes     Int       @default(0)
+  dedupeKey   String?   @unique
+  createdAt   DateTime  @default(now())
+  votes       RecruitingCalendarVote[]
+
+  @@index([year, date])
+  @@index([vertical])
+}
+
+model RecruitingCalendarVote {
+  id      String                  @id @default(cuid())
+  userId  String
+  eventId String
+  user    User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  event   RecruitingCalendarEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, eventId])
 }

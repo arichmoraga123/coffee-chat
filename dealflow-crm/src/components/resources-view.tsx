@@ -57,7 +57,7 @@ export function ResourcesView({ initialBookmarkSlugs }: { initialBookmarkSlugs: 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-xl font-semibold">Resources</h1>
+        <h1 className="page-title">Resources</h1>
         <p className="mt-1 text-sm text-zinc-400">Curated links for IB/PE recruiting prep.</p>
       </div>
 

@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { cn } from "@/lib/utils";
+import { DEAL_TYPE_OPTIONS, VERTICAL_OPTIONS } from "@/lib/deal-taxonomy";
 
 type DealRow = {
   id: string;
@@ -16,28 +17,44 @@ type DealRow = {
   target: string | null;
   dealValue: string | null;
   dealType: string;
+  vertical: string | null;
   sector: string | null;
   summary: string;
   keyThesis: string | null;
   risks: string | null;
   sourceUrl: string | null;
   announcedAt: string;
+  status: string;
 };
-
-const DEAL_TYPES = ["M&A", "LBO", "IPO", "Recap"] as const;
 
 function trackerTabLabel(announcedAt: string): "Current" | "Archive" {
   const cutoff = startOfDay(subMonths(new Date(), 6));
   return new Date(announcedAt) >= cutoff ? "Current" : "Archive";
 }
 
-function emptyForm() {
+type DealFormState = {
+  title: string;
+  acquirer: string;
+  target: string;
+  dealValue: string;
+  dealType: string;
+  vertical: string;
+  sector: string;
+  announcedAt: string;
+  sourceUrl: string;
+  summary: string;
+  keyThesis: string;
+  risks: string;
+};
+
+function emptyForm(): DealFormState {
   return {
     title: "",
     acquirer: "",
     target: "",
     dealValue: "",
-    dealType: "M&A" as (typeof DEAL_TYPES)[number],
+    dealType: DEAL_TYPE_OPTIONS[0],
+    vertical: "",
     sector: "",
     announcedAt: new Date().toISOString().slice(0, 10),
     sourceUrl: "",
@@ -50,9 +67,10 @@ function emptyForm() {
 export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
   const router = useRouter();
   const [deals, setDeals] = useState<DealRow[]>(initialDeals);
+  const [listTab, setListTab] = useState<"drafts" | "published">("drafts");
   const [modalOpen, setModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [form, setForm] = useState(emptyForm);
+  const [form, setForm] = useState<DealFormState>(() => emptyForm());
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -61,14 +79,23 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
     [deals],
   );
 
+  const filtered = useMemo(
+    () =>
+      sorted.filter((d) => (listTab === "drafts" ? d.status === "draft" : d.status === "published")),
+    [sorted, listTab],
+  );
+
+  const draftCount = useMemo(() => deals.filter((d) => d.status === "draft").length, [deals]);
+
   const refresh = async () => {
-    const res = await fetch("/api/deals", { credentials: "same-origin" });
+    const res = await fetch("/api/admin/deals", { credentials: "same-origin" });
     if (!res.ok) return;
     const d = (await res.json()) as { deals: DealRow[] };
     setDeals(
       d.deals.map((row) => ({
         ...row,
         announcedAt: typeof row.announcedAt === "string" ? row.announcedAt : String(row.announcedAt),
+        status: row.status === "published" ? "published" : "draft",
       })),
     );
     router.refresh();
@@ -88,9 +115,10 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
       acquirer: row.acquirer ?? "",
       target: row.target ?? "",
       dealValue: row.dealValue ?? "",
-      dealType: (DEAL_TYPES.includes(row.dealType as (typeof DEAL_TYPES)[number])
+      dealType: (DEAL_TYPE_OPTIONS as readonly string[]).includes(row.dealType)
         ? row.dealType
-        : "M&A") as (typeof DEAL_TYPES)[number],
+        : DEAL_TYPE_OPTIONS[0],
+      vertical: row.vertical ?? "",
       sector: row.sector ?? "",
       announcedAt: new Date(row.announcedAt).toISOString().slice(0, 10),
       sourceUrl: row.sourceUrl ?? "",
@@ -111,6 +139,7 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
       target: form.target.trim() || null,
       dealValue: form.dealValue.trim() || null,
       dealType: form.dealType,
+      vertical: form.vertical.trim() || null,
       sector: form.sector.trim() || null,
       announcedAt: new Date(form.announcedAt + "T12:00:00").toISOString(),
       sourceUrl: form.sourceUrl.trim() || null,
@@ -125,11 +154,16 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
     }
     try {
       if (editingId) {
+        const row = deals.find((x) => x.id === editingId);
+        const patchBody =
+          row?.status === "draft"
+            ? { ...payload, status: "draft" as const }
+            : { ...payload, status: "published" as const };
         const res = await fetch(`/api/deals/${editingId}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           credentials: "same-origin",
-          body: JSON.stringify(payload),
+          body: JSON.stringify(patchBody),
         });
         if (!res.ok) {
           const j = (await res.json().catch(() => ({}))) as { error?: string };
@@ -158,6 +192,24 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
     }
   };
 
+  const publish = async (id: string) => {
+    setBusy(true);
+    const res = await fetch(`/api/deals/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
+      body: JSON.stringify({ status: "published" }),
+    });
+    setBusy(false);
+    if (!res.ok) {
+      const j = (await res.json().catch(() => ({}))) as { error?: string };
+      setError(j.error ?? "Publish failed");
+      return;
+    }
+    setError(null);
+    await refresh();
+  };
+
   const remove = async (id: string, title: string) => {
     if (!confirm(`Delete deal "${title}"? This removes it from the shared tracker for everyone.`)) return;
     const res = await fetch(`/api/deals/${id}`, { method: "DELETE", credentials: "same-origin" });
@@ -172,10 +224,9 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
-          <h1 className="text-xl font-semibold">Deal management</h1>
+          <h1 className="page-title">Deal management</h1>
           <p className="mt-1 text-sm text-zinc-500">
-            Shared deals feed · &quot;Tracker tab&quot; is where each row appears for users (Current vs Archive,
-            6-month rule).
+            Drafts: auto-ingested from news (review before publish). Published: visible on /deals.
           </p>
         </div>
         <Button size="sm" onClick={openCreate}>
@@ -183,35 +234,64 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
         </Button>
       </div>
 
+      <div className="flex flex-wrap gap-2 border-b border-zinc-800 pb-2">
+        <Button
+          type="button"
+          size="sm"
+          variant={listTab === "drafts" ? "default" : "outline"}
+          className={cn(listTab === "drafts" && "bg-amber-600 text-white hover:bg-amber-500")}
+          onClick={() => setListTab("drafts")}
+        >
+          Drafts
+          {draftCount > 0 ? (
+            <span className="ml-2 rounded-full bg-black/30 px-2 py-0.5 text-xs">{draftCount}</span>
+          ) : null}
+        </Button>
+        <Button
+          type="button"
+          size="sm"
+          variant={listTab === "published" ? "default" : "outline"}
+          className={cn(listTab === "published" && "bg-cyan-600 text-white hover:bg-cyan-500")}
+          onClick={() => setListTab("published")}
+        >
+          Published
+        </Button>
+      </div>
+
       {error && !modalOpen ? (
         <p className="rounded border border-red-900/40 bg-red-950/30 px-3 py-2 text-sm text-red-200">{error}</p>
       ) : null}
 
-      <Card className="overflow-hidden border-zinc-800">
+      <Card className="overflow-hidden p-0">
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[800px] text-left text-sm">
-            <thead className="border-b border-zinc-800 bg-zinc-900/80 text-xs uppercase text-zinc-500">
+          <table className="w-full min-w-[880px] text-left text-sm">
+            <thead className="border-b border-white/10 bg-zinc-950/90 text-left text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
               <tr>
-                <th className="px-3 py-2">Title</th>
-                <th className="px-3 py-2">Acquirer</th>
-                <th className="px-3 py-2">Target</th>
-                <th className="px-3 py-2">Value</th>
-                <th className="px-3 py-2">Type</th>
-                <th className="px-3 py-2">Announced</th>
-                <th className="px-3 py-2">Tracker tab</th>
-                <th className="px-3 py-2 text-right">Actions</th>
+                <th className="px-3 py-3">Title</th>
+                <th className="px-3 py-3">Acquirer</th>
+                <th className="px-3 py-3">Target</th>
+                <th className="px-3 py-3">Value</th>
+                <th className="px-3 py-3">Type</th>
+                <th className="px-3 py-3">Vertical</th>
+                <th className="px-3 py-3">Announced</th>
+                <th className="px-3 py-3">Tracker tab</th>
+                <th className="px-3 py-3 text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {sorted.map((d) => {
+              {filtered.map((d) => {
                 const tab = trackerTabLabel(d.announcedAt);
                 return (
-                  <tr key={d.id} className="border-b border-zinc-800/80">
+                  <tr
+                    key={d.id}
+                    className="border-b border-white/[0.06] odd:bg-white/[0.02] transition-colors hover:bg-cyan-500/[0.06] hover:shadow-[inset_3px_0_0_0_rgba(34,211,238,0.45)]"
+                  >
                     <td className="max-w-[220px] px-3 py-2 align-top text-zinc-200">{d.title}</td>
                     <td className="px-3 py-2 align-top text-zinc-400">{d.acquirer ?? "—"}</td>
                     <td className="px-3 py-2 align-top text-zinc-400">{d.target ?? "—"}</td>
                     <td className="whitespace-nowrap px-3 py-2 align-top text-zinc-400">{d.dealValue ?? "—"}</td>
                     <td className="whitespace-nowrap px-3 py-2 align-top text-zinc-400">{d.dealType}</td>
+                    <td className="whitespace-nowrap px-3 py-2 align-top text-zinc-400">{d.vertical ?? "—"}</td>
                     <td className="whitespace-nowrap px-3 py-2 align-top text-zinc-500">
                       {new Date(d.announcedAt).toLocaleDateString()}
                     </td>
@@ -228,13 +308,23 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
                       </span>
                     </td>
                     <td className="whitespace-nowrap px-3 py-2 align-top text-right">
+                      {listTab === "drafts" ? (
+                        <Button
+                          size="sm"
+                          className="mr-2 h-7 bg-emerald-600 px-2 text-xs hover:bg-emerald-500"
+                          disabled={busy}
+                          onClick={() => void publish(d.id)}
+                        >
+                          Publish
+                        </Button>
+                      ) : null}
                       <Button size="sm" variant="outline" className="mr-2 h-7 px-2 text-xs" onClick={() => openEdit(d)}>
                         Edit
                       </Button>
                       <Button
                         size="sm"
-                        variant="outline"
-                        className="h-7 border-red-900/50 px-2 text-xs text-red-400 hover:bg-red-950/40"
+                        variant="destructive"
+                        className="h-7 px-2 text-xs"
                         onClick={() => void remove(d.id, d.title)}
                       >
                         Delete
@@ -246,6 +336,11 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
             </tbody>
           </table>
         </div>
+        {filtered.length === 0 ? (
+          <p className="border-t border-zinc-800 px-3 py-4 text-sm text-zinc-500">
+            {listTab === "drafts" ? "No drafts — ingest runs on the news cron." : "No published deals yet."}
+          </p>
+        ) : null}
       </Card>
 
       <Modal
@@ -282,13 +377,26 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
               <select
                 className="h-9 w-full rounded border border-zinc-700 bg-zinc-950 px-2 text-sm"
                 value={form.dealType}
-                onChange={(e) =>
-                  setForm((f) => ({ ...f, dealType: e.target.value as (typeof DEAL_TYPES)[number] }))
-                }
+                onChange={(e) => setForm((f) => ({ ...f, dealType: e.target.value }))}
               >
-                {DEAL_TYPES.map((t) => (
+                {DEAL_TYPE_OPTIONS.map((t) => (
                   <option key={t} value={t}>
                     {t}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label>
+              <span className="mb-1 block text-xs text-zinc-500">Vertical</span>
+              <select
+                className="h-9 w-full rounded border border-zinc-700 bg-zinc-950 px-2 text-sm"
+                value={form.vertical}
+                onChange={(e) => setForm((f) => ({ ...f, vertical: e.target.value }))}
+              >
+                <option value="">— None —</option>
+                {VERTICAL_OPTIONS.map((v) => (
+                  <option key={v} value={v}>
+                    {v}
                   </option>
                 ))}
               </select>

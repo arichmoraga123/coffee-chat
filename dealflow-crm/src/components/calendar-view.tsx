@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { cn } from "@/lib/utils";
+import { RecruitingCalendarSidebar, type RecruitingSidebarEvent } from "@/components/recruiting-calendar-sidebar";
 
 type RecruitingEventDTO = {
   id: string;
@@ -44,9 +45,11 @@ const TYPE_COLORS: Record<string, string> = {
 export function CalendarView({
   initialEvents,
   initialCoffee,
+  recruitingSeasonEvents = [],
 }: {
   initialEvents: RecruitingEventDTO[];
   initialCoffee: CoffeeDTO[];
+  recruitingSeasonEvents?: RecruitingSidebarEvent[];
 }) {
   const [cursor, setCursor] = useState(() => startOfMonth(new Date()));
   const [events, setEvents] = useState(initialEvents);
@@ -149,6 +152,7 @@ export function CalendarView({
   return (
     <div className="flex flex-col gap-4 lg:flex-row">
       <aside className="w-full shrink-0 space-y-3 lg:w-64">
+        <RecruitingCalendarSidebar events={recruitingSeasonEvents} />
         <Card className="border-zinc-800 bg-zinc-900/60 p-3 text-xs">
           <p className="mb-2 font-semibold text-zinc-200">Next 14 days</p>
           <div className="space-y-2">
@@ -179,7 +183,7 @@ export function CalendarView({
 
       <div className="min-w-0 flex-1 space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <h1 className="text-xl font-semibold">Calendar</h1>
+          <h1 className="page-title">Calendar</h1>
           <div className="flex items-center gap-2">
             <Button size="sm" variant="outline" onClick={() => setCursor((c) => addMonths(c, -1))}>
               Prev

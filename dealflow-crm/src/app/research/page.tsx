@@ -10,7 +10,7 @@ export default async function ResearchPage() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-xl font-semibold">Firm research</h1>
+        <h1 className="page-title">Firm research</h1>
         <p className="mt-1 text-sm text-zinc-400">
           <span className="text-emerald-400/90">SHARED</span> wiki — any logged-in member can edit.
         </p>

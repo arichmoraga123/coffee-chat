@@ -21,7 +21,7 @@ export default async function TasksPage() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-xl font-semibold">Tasks</h1>
+      <h1 className="page-title">Tasks</h1>
       <TasksList
         contacts={contacts}
         initialTasks={tasks.map((t) => ({

@@ -1,6 +1,7 @@
 import { differenceInDays } from "date-fns";
 import { InteractionType, TaskType } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
+import { syncCoffeeFollowUpToExternalCalendars } from "@/lib/calendar-sync";
 import { normalizeStringArray, normalizeIntArray } from "@/lib/form-arrays";
 
 export function buildInteractionUncheckedData(
@@ -90,6 +91,25 @@ export async function createInteractionAndSideEffects(opts: {
   const interaction = await prisma.interaction.create({
     data,
   });
+
+  if (
+    interaction.type === "COFFEE_CHAT" &&
+    data.followUpDate &&
+    interaction.followUpDate
+  ) {
+    const contactForName = await prisma.contact.findFirst({
+      where: { id: contactId, userId },
+      select: { fullName: true },
+    });
+    if (contactForName) {
+      void syncCoffeeFollowUpToExternalCalendars(
+        userId,
+        interaction.id,
+        contactForName.fullName,
+        interaction.followUpDate,
+      );
+    }
+  }
 
   const bonus = differenceInDays(new Date(), data.date) <= 14 ? 2 : 0;
   await prisma.contact.update({

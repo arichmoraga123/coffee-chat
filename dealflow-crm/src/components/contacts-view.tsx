@@ -7,6 +7,8 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
+import { EmptyState } from "@/components/ui/empty-state";
+import { Users } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { FIRM_TYPE_ORDER, FIRM_TYPE_LABELS, FirmTypeBadge } from "@/lib/firm-type";
 import type { FirmType } from "@prisma/client";
@@ -189,44 +191,59 @@ export function ContactsView({
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold">Contacts</h1>
+        <h1 className="page-title">Contacts</h1>
         <Button onClick={() => setShowC(true)} size="sm">New Contact (C)</Button>
       </div>
       <Card className="p-3">
         <div className="grid gap-2 md:grid-cols-3">
-          <select className="h-9 rounded border border-zinc-700 bg-zinc-950 px-2 text-sm" value={firmFilter} onChange={(e) => setFirmFilter(e.target.value)}>
+          <select className="h-9 rounded border border-white/10 bg-zinc-950 px-2 text-sm" value={firmFilter} onChange={(e) => setFirmFilter(e.target.value)}>
             <option value="all">All Firms</option>
             {firms.map((f) => <option key={f.id} value={f.id}>{f.name}</option>)}
           </select>
-          <select className="h-9 rounded border border-zinc-700 bg-zinc-950 px-2 text-sm" value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
+          <select className="h-9 rounded border border-white/10 bg-zinc-950 px-2 text-sm" value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
             <option value="all">All Categories</option>
             {["IB", "PE", "GE", "VC", "HF"].map((c) => <option key={c} value={c}>{c}</option>)}
           </select>
           <Input type="number" min={1} max={10} value={minStrength} onChange={(e) => setMinStrength(Number(e.target.value || 1))} placeholder="Min relationship strength" />
         </div>
       </Card>
-      <Card className="overflow-hidden">
+      <Card className="overflow-hidden p-0">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[320px] text-sm md:min-w-[720px]">
-            <thead className="bg-zinc-900 text-left text-zinc-400">
+            <thead className="border-b border-white/10 bg-zinc-950/90 text-left text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
               <tr>
-                <th className="px-3 py-2">Name</th>
-                <th className="min-w-[140px] px-3 py-2 md:min-w-0">Firm</th>
-                <th className="hidden px-3 py-2 md:table-cell">Group</th>
-                <th className="hidden px-3 py-2 md:table-cell">Title</th>
-                <th className="hidden px-3 py-2 md:table-cell">Strength</th>
-                <th className="hidden px-3 py-2 md:table-cell">Referral</th>
-                <th className="hidden px-3 py-2 md:table-cell">Follow-up</th>
-                <th className="hidden px-3 py-2 md:table-cell">Last Interaction</th>
+                <th className="px-3 py-3">Name</th>
+                <th className="min-w-[140px] px-3 py-3 md:min-w-0">Firm</th>
+                <th className="hidden px-3 py-3 md:table-cell">Group</th>
+                <th className="hidden px-3 py-3 md:table-cell">Title</th>
+                <th className="hidden px-3 py-3 md:table-cell">Strength</th>
+                <th className="hidden px-3 py-3 md:table-cell">Referral</th>
+                <th className="hidden px-3 py-3 md:table-cell">Follow-up</th>
+                <th className="hidden px-3 py-3 md:table-cell">Last Interaction</th>
                 <th className="hidden md:table-cell" />
               </tr>
             </thead>
             <tbody>
+              {filtered.length === 0 ? (
+                <tr>
+                  <td colSpan={9} className="p-0">
+                    <EmptyState
+                      icon={Users}
+                      className="border-0 bg-transparent"
+                      title="No contacts match"
+                      description="Adjust filters or add a contact with New Contact."
+                    />
+                  </td>
+                </tr>
+              ) : null}
               {filtered.map((c) => {
                 const last = c.lastInteractionDate ? new Date(c.lastInteractionDate) : null;
                 const isStale = !last || last < staleDate;
                 return (
-                  <tr key={c.id} className="border-t border-zinc-800">
+                  <tr
+                    key={c.id}
+                    className="border-t border-white/[0.06] odd:bg-white/[0.02] transition-colors hover:bg-cyan-500/[0.06] hover:shadow-[inset_3px_0_0_0_rgba(34,211,238,0.45)]"
+                  >
                     <td className="max-w-[42vw] px-3 py-2 align-top md:max-w-none">
                       <Link href={`/contacts/${c.id}`} className="break-words text-cyan-400 hover:underline">
                         {c.fullName}

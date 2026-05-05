@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { QuestionMcqDeck } from "@/components/question-mcq-deck";
 import type { McqDistractorSource } from "@/lib/question-mcq";
@@ -185,8 +186,16 @@ export function DashboardDailyDrill({
 
   if (loading) {
     return (
-      <Card className="border-zinc-800 bg-zinc-900/80 p-4">
-        <p className="text-sm text-zinc-400">Loading daily drill…</p>
+      <Card className="border-l-4 border-cyan-500/50 p-4">
+        <div className="space-y-3">
+          <Skeleton className="h-3 w-28" />
+          <Skeleton className="h-5 w-64 max-w-full" />
+          <Skeleton className="h-4 w-full" />
+          <div className="flex gap-2 pt-2">
+            <Skeleton className="h-8 flex-1" />
+            <Skeleton className="h-8 flex-1" />
+          </div>
+        </div>
       </Card>
     );
   }
@@ -241,27 +250,25 @@ export function DashboardDailyDrill({
                 Exit
               </Button>
             </div>
-            <button
-              type="button"
-              className={cn(
-                "mx-auto flex min-h-[50vh] w-full max-w-3xl flex-1 flex-col items-center justify-center rounded-xl border p-8 text-left shadow-xl",
-                flipped ? "border-emerald-900/40 bg-emerald-950/20" : "border-zinc-700 bg-zinc-900",
-              )}
-              onClick={() => setFlipped((f) => !f)}
-            >
-              {!flipped ? (
-                <>
-                  <p className="mb-2 text-xs uppercase tracking-wide text-zinc-500">Question</p>
-                  <p className="text-lg font-medium">{current.question}</p>
-                  <p className="mt-6 text-xs text-zinc-500">Tap to reveal answer</p>
-                </>
-              ) : (
-                <>
-                  <p className="mb-2 text-xs uppercase tracking-wide text-zinc-500">Answer</p>
-                  <p className="text-base text-zinc-200">{current.answer}</p>
-                </>
-              )}
-            </button>
+            <div className="perspective-flip mx-auto w-full max-w-3xl flex-1">
+              <button
+                type="button"
+                className="relative w-full cursor-pointer border-0 bg-transparent p-0 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+                onClick={() => setFlipped((f) => !f)}
+              >
+                <div className={cn("flip-card-inner shadow-xl", flipped && "is-flipped")}>
+                  <div className="flip-card-face border border-white/10 bg-gradient-to-br from-zinc-900 to-zinc-950">
+                    <p className="mb-2 text-xs uppercase tracking-[0.18em] text-zinc-500">Question</p>
+                    <p className="text-lg font-medium text-zinc-100">{current.question}</p>
+                    <p className="mt-6 text-xs text-zinc-500">Tap to flip · reveal answer</p>
+                  </div>
+                  <div className="flip-card-face flip-card-back border border-emerald-500/25 bg-gradient-to-br from-emerald-950/40 to-zinc-950">
+                    <p className="mb-2 text-xs uppercase tracking-[0.18em] text-emerald-400/90">Answer</p>
+                    <p className="text-base text-zinc-100">{current.answer}</p>
+                  </div>
+                </div>
+              </button>
+            </div>
             <div className="mx-auto mt-6 flex max-w-3xl flex-wrap justify-center gap-2">
               <Button onClick={() => void onAction("known")}>Got it</Button>
               <Button variant="outline" onClick={() => void onAction("review")}>
@@ -286,10 +293,10 @@ export function DashboardDailyDrill({
 
   if (completed) {
     return (
-      <Card className="border border-amber-900/40 bg-gradient-to-br from-zinc-900 to-zinc-950 p-4">
+      <Card className="border border-amber-500/20 bg-gradient-to-br from-amber-950/30 via-zinc-900 to-zinc-950 p-4">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-amber-200/90">Daily drill</p>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-amber-300/90">Daily drill</p>
             <p className="mt-1 text-lg font-semibold text-zinc-100">Come back tomorrow</p>
             <p className="mt-2 text-2xl">
               <span className="text-orange-400">🔥</span>{" "}
@@ -304,8 +311,11 @@ export function DashboardDailyDrill({
           </div>
           <div className="min-w-[140px] flex-1">
             <p className="text-xs text-zinc-500">Weekly XP</p>
-            <div className="mt-1 h-2 overflow-hidden rounded bg-zinc-800">
-              <div className="h-full bg-cyan-500 transition-all" style={{ width: `${weeklyPct}%` }} />
+            <div className="mt-1 h-2 overflow-hidden rounded-full bg-zinc-800/90 ring-1 ring-white/5">
+              <div
+                className="h-full bg-gradient-to-r from-cyan-700 via-teal-400 to-cyan-300 transition-[width] duration-500 ease-out"
+                style={{ width: `${weeklyPct}%` }}
+              />
             </div>
             <p className="mt-1 text-xs text-zinc-400">
               {weeklyXP} / {weeklyGoal}
@@ -317,10 +327,10 @@ export function DashboardDailyDrill({
   }
 
   return (
-    <Card className="border border-cyan-900/30 bg-gradient-to-br from-zinc-900 via-zinc-950 to-black p-4">
+    <Card className="border-l-4 border-cyan-400/90 bg-gradient-to-br from-zinc-900/95 via-zinc-950 to-black p-4 shadow-[4px_0_24px_-8px_rgba(0,188,212,0.35)]">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-cyan-300/90">Daily drill</p>
+          <p className="section-label">Daily drill</p>
           <p className="mt-1 text-lg font-semibold text-zinc-100">5 questions · weak categories first</p>
           <p className="mt-2 text-2xl">
             <span className="text-orange-400">🔥</span>{" "}
@@ -333,16 +343,29 @@ export function DashboardDailyDrill({
         </div>
         <div className="min-w-[160px] flex-1 space-y-2">
           <p className="text-xs text-zinc-500">Weekly XP</p>
-          <div className="mt-1 h-2 overflow-hidden rounded bg-zinc-800">
-            <div className="h-full bg-cyan-500 transition-all" style={{ width: `${weeklyPct}%` }} />
+          <div className="mt-1 h-2 overflow-hidden rounded-full bg-zinc-800/90 ring-1 ring-white/5">
+            <div
+              className="h-full bg-gradient-to-r from-cyan-700 via-teal-400 to-cyan-300 transition-[width] duration-500 ease-out"
+              style={{ width: `${weeklyPct}%` }}
+            />
           </div>
           <p className="mt-1 text-xs text-zinc-400">
             {weeklyXP} / {weeklyGoal}
           </p>
-          <Button className="w-full" size="sm" variant="outline" onClick={() => beginSession("flashcard")}>
+          <Button
+            className="animate-df-pulse-glow w-full"
+            size="sm"
+            variant="cta"
+            onClick={() => beginSession("flashcard")}
+          >
             Flashcard drill
           </Button>
-          <Button className="w-full" size="sm" onClick={() => beginSession("mcq")}>
+          <Button
+            className="animate-df-pulse-glow w-full"
+            size="sm"
+            variant="cta"
+            onClick={() => beginSession("mcq")}
+          >
             MCQ drill
           </Button>
         </div>

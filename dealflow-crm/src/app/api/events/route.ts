@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession } from "@/lib/auth";
+import { syncRecruitingEventToExternalCalendars } from "@/lib/calendar-sync";
 
 const TYPES = ["coffee_chat", "deadline", "interview", "networking", "other"] as const;
 
@@ -45,5 +46,6 @@ export async function POST(req: Request) {
       notes,
     },
   });
+  void syncRecruitingEventToExternalCalendars(userId, event.id);
   return NextResponse.json(event, { status: 201 });
 }

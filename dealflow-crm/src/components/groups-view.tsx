@@ -37,7 +37,7 @@ export function GroupsView() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-xl font-semibold">Study groups</h1>
+        <h1 className="page-title">Study groups</h1>
         <p className="mt-1 text-sm text-zinc-400">
           <span className="text-emerald-400/90">SHARED</span> inside the group only · invite by email (must already have an account)
         </p>

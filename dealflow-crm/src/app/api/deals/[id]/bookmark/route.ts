@@ -8,7 +8,9 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const { id } = await params;
   const deal = await prisma.deal.findUnique({ where: { id } });
-  if (!deal) return NextResponse.json({ error: "Not found" }, { status: 404 });
+  if (!deal || deal.status !== "published") {
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
+  }
   const body = (await req.json().catch(() => ({}))) as { notes?: string };
   const notes = body.notes?.trim() || null;
   await prisma.dealBookmark.upsert({

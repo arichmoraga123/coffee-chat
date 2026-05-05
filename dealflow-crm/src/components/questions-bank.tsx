@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { QuestionMcqDeck } from "@/components/question-mcq-deck";
 import { ReportContentAction } from "@/components/report-content-action";
+import { EmptyState } from "@/components/ui/empty-state";
 import type { McqDistractorSource } from "@/lib/question-mcq";
 import {
   readStoredQuestionMode,
@@ -259,7 +260,7 @@ export function QuestionsBank({
           <p className="mb-2 font-semibold text-zinc-200">Filters</p>
           <label className="mb-1 block text-xs text-zinc-500">Category</label>
           <select
-            className="mb-2 w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-sm"
+            className="mb-2 w-full rounded border border-white/10 bg-zinc-950 px-2 py-1.5 text-sm"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -271,7 +272,7 @@ export function QuestionsBank({
           </select>
           <label className="mb-1 block text-xs text-zinc-500">Difficulty</label>
           <select
-            className="mb-2 w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-sm"
+            className="mb-2 w-full rounded border border-white/10 bg-zinc-950 px-2 py-1.5 text-sm"
             value={difficulty}
             onChange={(e) => setDifficulty(e.target.value)}
           >
@@ -283,7 +284,7 @@ export function QuestionsBank({
           </select>
           <label className="mb-1 block text-xs text-zinc-500">Status</label>
           <select
-            className="mb-2 w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-sm"
+            className="mb-2 w-full rounded border border-white/10 bg-zinc-950 px-2 py-1.5 text-sm"
             value={status}
             onChange={(e) => setStatus(e.target.value)}
           >
@@ -305,7 +306,7 @@ export function QuestionsBank({
           <p className="mb-2 font-semibold text-zinc-200">Drill setup</p>
           <label className="mb-1 block text-xs text-zinc-500">Mode (saved)</label>
           <select
-            className="mb-2 w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5"
+            className="mb-2 w-full rounded border border-white/10 bg-zinc-950 px-2 py-1.5"
             value={practiceMode}
             onChange={(e) => setModeAndStore(e.target.value as QuestionPracticeMode)}
           >
@@ -313,7 +314,7 @@ export function QuestionsBank({
             <option value="mcq">MCQ</option>
           </select>
           <select
-            className="mb-2 w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5"
+            className="mb-2 w-full rounded border border-white/10 bg-zinc-950 px-2 py-1.5"
             value={drillCategory}
             onChange={(e) => setDrillCategory(e.target.value)}
           >
@@ -324,7 +325,7 @@ export function QuestionsBank({
             ))}
           </select>
           <select
-            className="mb-2 w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5"
+            className="mb-2 w-full rounded border border-white/10 bg-zinc-950 px-2 py-1.5"
             value={drillDifficulty}
             onChange={(e) => setDrillDifficulty(e.target.value)}
           >
@@ -338,16 +339,16 @@ export function QuestionsBank({
             <input type="checkbox" checked={shuffle} onChange={(e) => setShuffle(e.target.checked)} />
             Shuffle
           </label>
-          <Button className="w-full" size="sm" onClick={startDrill}>
+          <Button className="animate-df-pulse-glow w-full" size="sm" variant="cta" onClick={startDrill}>
             Start drill ({practiceMode === "mcq" ? "MCQ" : "Flashcard"})
           </Button>
         </Card>
       </aside>
 
       <div className="min-w-0 flex-1 space-y-4">
-        <div className="flex flex-col gap-3 rounded-lg border border-zinc-800 bg-zinc-900/40 p-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-3 rounded-xl border border-white/10 bg-zinc-900/50 p-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-xl font-semibold">Question Bank</h1>
+            <h1 className="page-title">Question Bank</h1>
             <p className="text-sm text-zinc-400">
               Mastered {knownCount} / {TARGET_TOTAL} (bank has {questions.length} seeded)
             </p>
@@ -356,7 +357,7 @@ export function QuestionsBank({
             <div className="mt-3 flex flex-wrap items-center gap-2">
               <span className="text-xs text-zinc-500">Default mode:</span>
               <select
-                className="rounded border border-zinc-700 bg-zinc-950 px-2 py-1 text-xs"
+                className="rounded border border-white/10 bg-zinc-950 px-2 py-1 text-xs"
                 value={practiceMode}
                 onChange={(e) => setModeAndStore(e.target.value as QuestionPracticeMode)}
               >
@@ -368,9 +369,9 @@ export function QuestionsBank({
               </Button>
             </div>
           </div>
-          <div className="h-2 w-full max-w-xs overflow-hidden rounded-full bg-zinc-800 sm:w-48">
+          <div className="h-2.5 w-full max-w-xs overflow-hidden rounded-full bg-zinc-800/90 ring-1 ring-white/5 sm:w-48">
             <div
-              className="h-full bg-cyan-500 transition-all"
+              className="h-full rounded-full bg-gradient-to-r from-cyan-700 via-teal-400 to-cyan-300 transition-[width] duration-500 ease-out"
               style={{ width: `${Math.min(100, (knownCount / TARGET_TOTAL) * 100)}%` }}
             />
           </div>
@@ -387,9 +388,9 @@ export function QuestionsBank({
                     {known}/{total}
                   </span>
                 </div>
-                <div className="h-1.5 overflow-hidden rounded-full bg-zinc-800">
+                <div className="h-1.5 overflow-hidden rounded-full bg-zinc-800/90 ring-1 ring-white/5">
                   <div
-                    className="h-full bg-emerald-500/80"
+                    className="h-full rounded-full bg-gradient-to-r from-emerald-700 via-teal-500 to-cyan-400/90 transition-[width] duration-500"
                     style={{ width: `${total ? (known / total) * 100 : 0}%` }}
                   />
                 </div>
@@ -399,6 +400,12 @@ export function QuestionsBank({
         </Card>
 
         <div className="space-y-2">
+          {filteredBrowse.length === 0 ? (
+            <EmptyState
+              title="No questions match filters"
+              description="Try a different category, difficulty, or clear the tag search."
+            />
+          ) : null}
           {filteredBrowse.map((q) => {
             const st = statusOf(q.id);
             const open = expandedId === q.id;
@@ -496,24 +503,25 @@ export function QuestionsBank({
                   Exit
                 </Button>
               </div>
-              <button
-                type="button"
-                className="mx-auto flex min-h-[50vh] w-full max-w-3xl flex-1 flex-col items-center justify-center rounded-xl border border-zinc-700 bg-zinc-900 p-8 text-left shadow-xl"
-                onClick={() => setFlipped((f) => !f)}
-              >
-                {!flipped ? (
-                  <>
-                    <p className="mb-2 text-xs uppercase tracking-wide text-zinc-500">Question</p>
-                    <p className="text-lg font-medium">{currentDrill.question}</p>
-                    <p className="mt-6 text-xs text-zinc-500">Tap to reveal answer</p>
-                  </>
-                ) : (
-                  <>
-                    <p className="mb-2 text-xs uppercase tracking-wide text-zinc-500">Answer</p>
-                    <p className="text-base text-zinc-200">{currentDrill.answer}</p>
-                  </>
-                )}
-              </button>
+              <div className="perspective-flip mx-auto w-full max-w-3xl flex-1">
+                <button
+                  type="button"
+                  className="relative w-full cursor-pointer border-0 bg-transparent p-0 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/50 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+                  onClick={() => setFlipped((f) => !f)}
+                >
+                  <div className={cn("flip-card-inner shadow-xl", flipped && "is-flipped")}>
+                    <div className="flip-card-face border border-white/10 bg-gradient-to-br from-zinc-900 to-zinc-950">
+                      <p className="mb-2 text-xs uppercase tracking-[0.18em] text-zinc-500">Question</p>
+                      <p className="text-lg font-medium text-zinc-100">{currentDrill.question}</p>
+                      <p className="mt-6 text-xs text-zinc-500">Tap to flip · reveal answer</p>
+                    </div>
+                    <div className="flip-card-face flip-card-back border border-emerald-500/25 bg-gradient-to-br from-emerald-950/40 to-zinc-950">
+                      <p className="mb-2 text-xs uppercase tracking-[0.18em] text-emerald-400/90">Answer</p>
+                      <p className="text-base text-zinc-100">{currentDrill.answer}</p>
+                    </div>
+                  </div>
+                </button>
+              </div>
               <div className="mx-auto mt-6 flex max-w-3xl flex-wrap justify-center gap-2">
                 <Button onClick={() => void drillAction("known")}>Got it</Button>
                 <Button variant="outline" onClick={() => void drillAction("review")}>

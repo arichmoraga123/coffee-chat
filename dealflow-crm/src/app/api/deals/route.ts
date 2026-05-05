@@ -2,10 +2,9 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession, requireAdminUserId } from "@/lib/auth";
 import { dealDedupeKey } from "@/lib/deal-dedupe";
+import { DEAL_TYPE_SET, normalizeVertical } from "@/lib/deal-taxonomy";
 
-const DEAL_TYPES = new Set(["M&A", "LBO", "IPO", "Recap"]);
-
-/** SHARED deal feed. */
+/** Members — published deals only. */
 export async function GET(req: Request) {
   const userId = await getUserIdFromSession();
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -13,8 +12,10 @@ export async function GET(req: Request) {
   const dealType = searchParams.get("dealType");
   const sector = searchParams.get("sector");
   const size = searchParams.get("size");
-  const where: Record<string, unknown> = {};
+  const vertical = searchParams.get("vertical");
+  const where: Record<string, unknown> = { status: "published" };
   if (dealType) where.dealType = dealType;
+  if (vertical) where.vertical = vertical;
   if (sector) where.sector = { contains: sector, mode: "insensitive" as const };
   if (size) where.dealValue = { contains: size, mode: "insensitive" as const };
   const deals = await prisma.deal.findMany({
@@ -30,7 +31,7 @@ export async function GET(req: Request) {
   return NextResponse.json({ deals, bookmarks: bookmarkMap });
 }
 
-/** ADMIN — create a shared deal (manual fields only). */
+/** ADMIN — create a shared deal (manual; published by default). */
 export async function POST(req: Request) {
   await requireAdminUserId();
   const body = (await req.json()) as Record<string, unknown>;
@@ -38,8 +39,8 @@ export async function POST(req: Request) {
   const summary = String(body.summary ?? "").trim();
   const dealType = String(body.dealType ?? "").trim();
   const announcedRaw = body.announcedAt;
-  if (!title || !summary || !dealType || !DEAL_TYPES.has(dealType)) {
-    return NextResponse.json({ error: "title, summary, dealType (M&A|LBO|IPO|Recap) required" }, { status: 400 });
+  if (!title || !summary || !DEAL_TYPE_SET.has(dealType)) {
+    return NextResponse.json({ error: "title, summary, and a valid dealType required" }, { status: 400 });
   }
   const announcedAt =
     typeof announcedRaw === "string" || announcedRaw instanceof Date
@@ -56,6 +57,7 @@ export async function POST(req: Request) {
   const sourceUrl = body.sourceUrl != null ? String(body.sourceUrl).trim() || null : null;
   const keyThesis = body.keyThesis != null ? String(body.keyThesis).trim() || null : null;
   const risks = body.risks != null ? String(body.risks).trim() || null : null;
+  const vertical = normalizeVertical(body.vertical as string | undefined);
 
   try {
     const row = await prisma.deal.create({
@@ -65,6 +67,7 @@ export async function POST(req: Request) {
         target,
         dealValue,
         dealType,
+        vertical,
         sector,
         summary: summary.slice(0, 4000),
         keyThesis: keyThesis ? keyThesis.slice(0, 2000) : null,
@@ -72,6 +75,7 @@ export async function POST(req: Request) {
         sourceUrl: sourceUrl ? sourceUrl.slice(0, 2000) : null,
         announcedAt,
         dedupeKey: dealDedupeKey(title, announcedAt),
+        status: "published",
       },
     });
     return NextResponse.json(row);

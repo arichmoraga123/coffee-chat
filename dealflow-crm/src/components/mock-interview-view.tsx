@@ -315,7 +315,7 @@ export function MockInterviewView() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-xl font-semibold">Mock Interview</h1>
+        <h1 className="page-title">Mock Interview</h1>
         <p className="mt-1 text-sm text-zinc-400">
           <span className="text-emerald-400/90">SHARED</span> question bank ·{" "}
           <span className="text-cyan-400/90">PRIVATE</span> sessions &amp; grades

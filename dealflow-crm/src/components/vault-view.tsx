@@ -82,7 +82,7 @@ export function VaultView() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-xl font-semibold">Resume / cover letter vault</h1>
+        <h1 className="page-title">Resume / cover letter vault</h1>
         <p className="mt-1 text-sm text-zinc-400">
           <span className="text-emerald-400/90">SHARED</span> anonymized metadata &amp; Drive links
         </p>

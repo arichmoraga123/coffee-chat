@@ -80,7 +80,7 @@ export async function refreshNewsFromApi(): Promise<{
       inserted += 1;
 
       if (
-        category === "M&A" &&
+        (category === "M&A" || category === "PE/VC") &&
         matchesDealKeywords(a.title, a.description) &&
         a.url
       ) {

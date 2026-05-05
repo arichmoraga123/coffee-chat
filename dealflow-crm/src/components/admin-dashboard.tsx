@@ -432,7 +432,7 @@ export function AdminDashboard() {
   return (
     <div className="space-y-10">
       <div>
-        <h1 className="text-xl font-semibold text-zinc-100">Admin dashboard</h1>
+        <h1 className="page-title">Admin dashboard</h1>
         <p className="mt-1 text-sm text-zinc-500">Usage, users, content moderation, and AI usage.</p>
       </div>
 
@@ -448,7 +448,7 @@ export function AdminDashboard() {
       )}
 
       {/* User management */}
-      <section className="space-y-4">
+      <section id="admin-users" className="scroll-mt-6 space-y-4">
         <h2 className="text-lg font-medium text-cyan-400/90">User management</h2>
         <div className="flex flex-wrap gap-4 text-sm text-zinc-400">
           <span>

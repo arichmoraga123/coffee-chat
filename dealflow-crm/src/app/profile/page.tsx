@@ -4,6 +4,7 @@ import { requireUserId } from "@/lib/auth";
 import { Card } from "@/components/ui/card";
 import { ProfileDrillChart } from "@/components/profile-drill-chart";
 import { ProfileNameForm } from "@/components/profile-name-form";
+import { CalendarIntegrationPanel } from "@/components/calendar-integration-panel";
 
 export const dynamic = "force-dynamic";
 
@@ -63,7 +64,7 @@ export default async function ProfilePage() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-xl font-semibold">Profile</h1>
+      <h1 className="page-title">Profile</h1>
 
       <div className="grid gap-3 lg:grid-cols-2">
         <Card className="border-zinc-800 bg-zinc-900/50 p-4">
@@ -93,6 +94,8 @@ export default async function ProfilePage() {
           </p>
         </Card>
       </div>
+
+      <CalendarIntegrationPanel callbackUrl="/profile" className="border-zinc-800 bg-zinc-900/50" />
 
       <Card className="border-zinc-800 bg-zinc-900/50 p-4">
         <p className="text-sm font-semibold text-zinc-200">Questions mastered by category</p>

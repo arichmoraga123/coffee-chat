@@ -10,6 +10,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
   if (!firm) return NextResponse.json({ error: "Not found" }, { status: 404 });
   const deals = await prisma.deal.findMany({
     where: {
+      status: "published",
       OR: [
         { acquirer: { contains: firm.firmName, mode: "insensitive" } },
         { target: { contains: firm.firmName, mode: "insensitive" } },

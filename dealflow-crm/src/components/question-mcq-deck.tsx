@@ -125,13 +125,16 @@ export function QuestionMcqDeck({
           Exit
         </Button>
       </div>
-      <div className="mb-4 h-2 w-full overflow-hidden rounded-full bg-zinc-800">
-        <div className="h-full bg-cyan-600 transition-all" style={{ width: `${pct}%` }} />
+      <div className="mb-4 h-2.5 w-full overflow-hidden rounded-full bg-zinc-800/90 ring-1 ring-white/5">
+        <div
+          className="h-full rounded-full bg-gradient-to-r from-cyan-700 via-teal-400 to-cyan-300 transition-[width] duration-500 ease-out"
+          style={{ width: `${pct}%` }}
+        />
       </div>
 
       <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-4 overflow-y-auto">
-        <div className="rounded-xl border border-zinc-700 bg-zinc-900/80 p-6">
-          <p className="mb-2 text-xs uppercase tracking-wide text-zinc-500">Question</p>
+        <div className="rounded-xl border border-white/10 bg-gradient-to-br from-zinc-900/90 to-zinc-950 p-6 shadow-inner">
+          <p className="mb-2 text-xs uppercase tracking-[0.18em] text-zinc-500">Question</p>
           <p className="text-base font-medium text-zinc-100">{current.question}</p>
         </div>
 
@@ -147,11 +150,12 @@ export function QuestionMcqDeck({
                 disabled={phase === "show"}
                 onClick={() => onPick(opt)}
                 className={cn(
-                  "rounded-lg border px-4 py-3 text-left text-sm transition-colors",
-                  phase === "pick" && "border-zinc-600 bg-zinc-950 hover:border-cyan-700 hover:bg-zinc-900",
-                  showCorrect && "border-emerald-600 bg-emerald-950/40 text-emerald-100",
-                  showWrong && "border-red-600 bg-red-950/40 text-red-100",
-                  phase === "show" && !showCorrect && !showWrong && "border-zinc-800 opacity-50",
+                  "rounded-xl border px-4 py-3 text-left text-sm transition-all duration-200",
+                  phase === "pick" &&
+                    "border-white/10 bg-zinc-950/90 hover:border-cyan-500/40 hover:bg-zinc-900/95 hover:shadow-[0_0_20px_-6px_rgba(0,188,212,0.25)]",
+                  showCorrect && "animate-df-flash-green border-emerald-500/70 bg-emerald-950/50 text-emerald-50",
+                  showWrong && "animate-df-shake border-red-500/80 bg-red-950/50 text-red-50",
+                  phase === "show" && !showCorrect && !showWrong && "border-white/[0.06] opacity-45",
                 )}
               >
                 {opt.text}
@@ -161,8 +165,8 @@ export function QuestionMcqDeck({
         </div>
 
         {phase === "show" ? (
-          <div className="rounded-lg border border-zinc-700 bg-zinc-900/60 p-4 text-sm">
-            <p className="mb-2 text-xs font-semibold uppercase text-zinc-500">Explanation</p>
+          <div className="rounded-xl border border-white/10 bg-zinc-900/70 p-4 text-sm shadow-inner">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-500">Explanation</p>
             {pickedKey ? (
               <p className="mb-2 text-xs font-medium">
                 {options.find((o) => o.key === pickedKey)?.isCorrect ? (

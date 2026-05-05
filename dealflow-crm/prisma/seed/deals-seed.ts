@@ -7,6 +7,8 @@ function dk(title: string, date: string) {
 export const SEED_DEALS = [
   {
     title: "Mars acquires Kellanova for $36B",
+    status: "published" as const,
+    vertical: "Investment Banking",
     acquirer: "Mars Inc.",
     target: "Kellanova",
     dealValue: "$36B",
@@ -24,6 +26,8 @@ export const SEED_DEALS = [
   },
   {
     title: "Synopsys acquires Ansys for $35B",
+    status: "published" as const,
+    vertical: "Investment Banking",
     acquirer: "Synopsys",
     target: "Ansys",
     dealValue: "$35B",
@@ -41,6 +45,8 @@ export const SEED_DEALS = [
   },
   {
     title: "Apollo acquires Intel Fab stake for $11B",
+    status: "published" as const,
+    vertical: "Private Equity",
     acquirer: "Apollo Global Management",
     target: "Intel Fab Business (minority stake)",
     dealValue: "$11B",
@@ -58,6 +64,8 @@ export const SEED_DEALS = [
   },
   {
     title: "Blackstone acquires AIR Communities for $10B",
+    status: "published" as const,
+    vertical: "Real Estate PE",
     acquirer: "Blackstone Real Estate",
     target: "Apartment Income REIT (AIR Communities)",
     dealValue: "$10B",
@@ -75,6 +83,8 @@ export const SEED_DEALS = [
   },
   {
     title: "Juniper Networks acquired by HPE for $14B",
+    status: "published" as const,
+    vertical: "Investment Banking",
     acquirer: "Hewlett Packard Enterprise",
     target: "Juniper Networks",
     dealValue: "$14B",

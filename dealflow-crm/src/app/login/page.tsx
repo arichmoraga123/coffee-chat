@@ -1,20 +1,31 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { FormEvent, Suspense, useEffect, useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const callbackUrl = "/";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const q = searchParams.get("error");
+    if (q === "GoogleRequiresRegisteredEmail") {
+      setError("Sign in with Google using the same email you registered with, or create an account first.");
+    }
+    if (q === "MicrosoftRequiresRegisteredEmail") {
+      setError("Sign in with Microsoft using the same email you registered with, or create an account first.");
+    }
+  }, [searchParams]);
 
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -70,5 +81,13 @@ export default function LoginPage() {
         </p>
       </Card>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="mx-auto mt-20 max-w-md text-center text-sm text-zinc-500">Loading…</div>}>
+      <LoginForm />
+    </Suspense>
   );
 }

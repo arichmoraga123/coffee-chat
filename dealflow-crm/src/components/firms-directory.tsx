@@ -7,6 +7,8 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
+import { EmptyState } from "@/components/ui/empty-state";
+import { Building2 } from "lucide-react";
 import { FIRM_TYPE_ORDER, FIRM_TYPE_LABELS, FirmTypeBadge } from "@/lib/firm-type";
 import type { FirmType } from "@prisma/client";
 
@@ -59,7 +61,7 @@ export function FirmsDirectory({ initialFirms }: { initialFirms: FirmRow[] }) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-2">
-        <h1 className="text-xl font-semibold">Firms</h1>
+        <h1 className="page-title">Firms</h1>
         <Button
           size="sm"
           onClick={() => {
@@ -70,22 +72,37 @@ export function FirmsDirectory({ initialFirms }: { initialFirms: FirmRow[] }) {
           Add firm
         </Button>
       </div>
-      <Card className="overflow-hidden">
+      <Card className="overflow-hidden p-0">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[280px] text-sm md:min-w-[640px]">
-            <thead className="bg-zinc-900 text-left text-zinc-400">
+            <thead className="border-b border-white/10 bg-zinc-950/90 text-left text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
               <tr>
-                <th className="px-3 py-2">Firm</th>
-                <th className="min-w-0 px-3 py-2">Type</th>
-                <th className="hidden px-3 py-2 md:table-cell">Location</th>
-                <th className="hidden px-3 py-2 md:table-cell">Contacts</th>
-                <th className="hidden px-3 py-2 md:table-cell">Opportunities</th>
+                <th className="px-3 py-3">Firm</th>
+                <th className="min-w-0 px-3 py-3">Type</th>
+                <th className="hidden px-3 py-3 md:table-cell">Location</th>
+                <th className="hidden px-3 py-3 md:table-cell">Contacts</th>
+                <th className="hidden px-3 py-3 md:table-cell">Opportunities</th>
                 <th className="hidden md:table-cell" />
               </tr>
             </thead>
             <tbody>
+              {initialFirms.length === 0 ? (
+                <tr>
+                  <td colSpan={6} className="p-0">
+                    <EmptyState
+                      icon={Building2}
+                      className="border-0 bg-transparent"
+                      title="No firms yet"
+                      description="Add your first firm to start linking contacts and pipeline."
+                    />
+                  </td>
+                </tr>
+              ) : null}
               {initialFirms.map((f) => (
-                <tr key={f.id} className="border-t border-zinc-800">
+                <tr
+                  key={f.id}
+                  className="border-t border-white/[0.06] odd:bg-white/[0.02] transition-colors hover:bg-cyan-500/[0.06] hover:shadow-[inset_3px_0_0_0_rgba(34,211,238,0.45)]"
+                >
                   <td className="max-w-[48%] min-w-0 px-3 py-2 align-top md:max-w-none">
                     <Link href={`/firms/${f.id}`} className="break-words text-cyan-400 hover:underline">
                       {f.name}
@@ -117,7 +134,7 @@ export function FirmsDirectory({ initialFirms }: { initialFirms: FirmRow[] }) {
           <Input placeholder="Firm name" value={name} onChange={(e) => setName(e.target.value)} />
           <label className="mb-1 block text-xs text-zinc-500">Firm type</label>
           <select
-            className="w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-sm"
+            className="w-full rounded border border-white/10 bg-zinc-950 px-2 py-2 text-sm"
             value={type}
             onChange={(e) => setType((e.target.value || "") as FirmType | "")}
           >

@@ -12,6 +12,7 @@ export default async function ResearchFirmPage({ params }: { params: Promise<{ i
   if (!firm) return notFound();
   const deals = await prisma.deal.findMany({
     where: {
+      status: "published",
       OR: [
         { acquirer: { contains: firm.firmName, mode: "insensitive" } },
         { target: { contains: firm.firmName, mode: "insensitive" } },

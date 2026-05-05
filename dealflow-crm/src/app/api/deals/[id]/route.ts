@@ -2,8 +2,9 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { requireAdminUserId } from "@/lib/auth";
 import { dealDedupeKey } from "@/lib/deal-dedupe";
+import { DEAL_TYPE_SET, VERTICAL_SET } from "@/lib/deal-taxonomy";
 
-const DEAL_TYPES = new Set(["M&A", "LBO", "IPO", "Recap"]);
+const STATUS_SET = new Set(["draft", "published"]);
 
 export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
   await requireAdminUserId();
@@ -12,13 +13,16 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
   if (!existing) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
   const body = (await req.json()) as Record<string, unknown>;
+
   const title =
     body.title !== undefined ? String(body.title).trim().slice(0, 500) : existing.title;
   const summary =
     body.summary !== undefined ? String(body.summary).trim().slice(0, 4000) : existing.summary;
-  const dealTypeRaw = body.dealType !== undefined ? String(body.dealType).trim() : existing.dealType;
-  if (!DEAL_TYPES.has(dealTypeRaw)) {
-    return NextResponse.json({ error: "dealType must be M&A, LBO, IPO, or Recap" }, { status: 400 });
+
+  const dealTypeNext =
+    body.dealType !== undefined ? String(body.dealType).trim() : existing.dealType;
+  if (!DEAL_TYPE_SET.has(dealTypeNext)) {
+    return NextResponse.json({ error: "Invalid dealType" }, { status: 400 });
   }
 
   let announcedAt = existing.announcedAt;
@@ -53,6 +57,29 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
   const risks =
     body.risks !== undefined ? String(body.risks).trim().slice(0, 2000) || null : existing.risks;
 
+  let vertical: string | null = existing.vertical;
+  if ("vertical" in body) {
+    const v = body.vertical;
+    if (v === null || v === "") {
+      vertical = null;
+    } else {
+      const s = String(v).trim();
+      if (!VERTICAL_SET.has(s)) {
+        return NextResponse.json({ error: "Invalid vertical" }, { status: 400 });
+      }
+      vertical = s;
+    }
+  }
+
+  let status = existing.status;
+  if ("status" in body) {
+    const s = String(body.status ?? "").trim();
+    if (!STATUS_SET.has(s)) {
+      return NextResponse.json({ error: 'status must be "draft" or "published"' }, { status: 400 });
+    }
+    status = s;
+  }
+
   const dedupeKey = dealDedupeKey(title, announcedAt);
 
   try {
@@ -63,7 +90,8 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
         acquirer,
         target,
         dealValue,
-        dealType: dealTypeRaw,
+        dealType: dealTypeNext,
+        vertical,
         sector,
         summary,
         keyThesis,
@@ -71,6 +99,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
         sourceUrl,
         announcedAt,
         dedupeKey,
+        status,
       },
     });
     return NextResponse.json(row);

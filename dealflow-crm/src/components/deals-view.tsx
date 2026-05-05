@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { DEAL_TYPE_OPTIONS, VERTICAL_OPTIONS } from "@/lib/deal-taxonomy";
 
 type Deal = {
   id: string;
@@ -15,6 +16,7 @@ type Deal = {
   target: string | null;
   dealValue: string | null;
   dealType: string;
+  vertical: string | null;
   sector: string | null;
   summary: string;
   keyThesis: string | null;
@@ -37,7 +39,7 @@ export function DealsView({
 }) {
   const [deals, setDeals] = useState<Deal[]>(initialDeals);
   const [bookmarks, setBookmarks] = useState<Record<string, string | null | undefined>>(initialBookmarks);
-  const [filters, setFilters] = useState({ dealType: "", sector: "", size: "" });
+  const [filters, setFilters] = useState({ dealType: "", vertical: "", sector: "", size: "" });
   const [tab, setTab] = useState<"current" | "archive">("current");
   const [practice, setPractice] = useState<string | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -52,6 +54,7 @@ export function DealsView({
     setLoadError(null);
     const p = new URLSearchParams();
     if (filters.dealType) p.set("dealType", filters.dealType);
+    if (filters.vertical) p.set("vertical", filters.vertical);
     if (filters.sector) p.set("sector", filters.sector);
     if (filters.size) p.set("size", filters.size);
     const q = p.toString();
@@ -105,7 +108,7 @@ export function DealsView({
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-xl font-semibold">Deal Tracker</h1>
+        <h1 className="page-title">Deal Tracker</h1>
         <p className="mt-1 text-sm text-zinc-400">
           <span className="text-emerald-400/90">SHARED</span> feed · <span className="text-cyan-400/90">PRIVATE</span> bookmarks
         </p>
@@ -144,13 +147,37 @@ export function DealsView({
       {loadError ? (
         <p className="rounded border border-amber-900/50 bg-amber-950/30 px-3 py-2 text-sm text-amber-200">{loadError}</p>
       ) : null}
-      <Card className="flex flex-wrap gap-2 border-zinc-800 bg-zinc-900/50 p-3">
-        <Input
-          placeholder="Deal type (LBO, M&A, IPO…)"
-          className="max-w-[140px]"
-          value={filters.dealType}
-          onChange={(e) => setFilters((f) => ({ ...f, dealType: e.target.value }))}
-        />
+      <Card className="flex flex-wrap items-center gap-2 border-zinc-800 bg-zinc-900/50 p-3">
+        <label className="text-xs text-zinc-500">
+          <span className="mb-0.5 block">Deal type</span>
+          <select
+            className="h-9 min-w-[140px] rounded border border-zinc-700 bg-zinc-950 px-2 text-sm text-zinc-200"
+            value={filters.dealType}
+            onChange={(e) => setFilters((f) => ({ ...f, dealType: e.target.value }))}
+          >
+            <option value="">All</option>
+            {DEAL_TYPE_OPTIONS.map((t) => (
+              <option key={t} value={t}>
+                {t}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="text-xs text-zinc-500">
+          <span className="mb-0.5 block">Vertical</span>
+          <select
+            className="h-9 min-w-[160px] rounded border border-zinc-700 bg-zinc-950 px-2 text-sm text-zinc-200"
+            value={filters.vertical}
+            onChange={(e) => setFilters((f) => ({ ...f, vertical: e.target.value }))}
+          >
+            <option value="">All</option>
+            {VERTICAL_OPTIONS.map((v) => (
+              <option key={v} value={v}>
+                {v}
+              </option>
+            ))}
+          </select>
+        </label>
         <Input
           placeholder="Sector"
           className="max-w-[140px]"
@@ -190,6 +217,7 @@ export function DealsView({
             </div>
             <p className="text-xs text-zinc-500">
               {d.dealType}
+              {d.vertical ? ` · ${d.vertical}` : ""}
               {d.sector ? ` · ${d.sector}` : ""}
             </p>
             <p className="text-sm text-zinc-300">{d.summary}</p>

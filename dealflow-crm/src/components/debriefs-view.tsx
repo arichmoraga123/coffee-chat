@@ -70,7 +70,7 @@ export function DebriefsView() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-xl font-semibold">Interview debriefs</h1>
+        <h1 className="page-title">Interview debriefs</h1>
         <p className="mt-1 text-sm text-zinc-400">
           <span className="text-cyan-400/90">PRIVATE</span> to your account
         </p>
