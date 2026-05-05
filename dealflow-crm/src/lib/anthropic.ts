@@ -1,7 +1,7 @@
 import "server-only";
 
 const MODEL = "claude-sonnet-4-20250514";
-const MAX_TOKENS = 1000;
+const DEFAULT_MAX_TOKENS = 1000;
 
 export function getAnthropicApiKey(): string | undefined {
   const k = process.env.ANTHROPIC_API_KEY?.trim();
@@ -14,7 +14,7 @@ export function getAnthropicApiKey(): string | undefined {
  */
 export async function anthropicMessage(
   userPrompt: string,
-  options?: { system?: string },
+  options?: { system?: string; maxTokens?: number },
 ): Promise<string> {
   const apiKey = getAnthropicApiKey();
   if (!apiKey) {
@@ -30,7 +30,7 @@ export async function anthropicMessage(
     },
     body: JSON.stringify({
       model: MODEL,
-      max_tokens: MAX_TOKENS,
+      max_tokens: options?.maxTokens ?? DEFAULT_MAX_TOKENS,
       system:
         options?.system ??
         "You are a concise assistant helping a finance recruiting candidate. Be practical and specific.",

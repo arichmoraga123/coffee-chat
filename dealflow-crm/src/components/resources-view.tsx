@@ -9,10 +9,12 @@ import type { ResourceItem } from "@/lib/resources";
 import { allResources, resourceTabs } from "@/lib/resources";
 import { Bookmark, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { EmailTemplatesTab } from "@/components/email-templates-tab";
 
 export function ResourcesView({ initialBookmarkSlugs }: { initialBookmarkSlugs: string[] }) {
   const router = useRouter();
   const [q, setQ] = useState("");
+  const [mainTab, setMainTab] = useState<"links" | "templates">("links");
   const [tab, setTab] = useState<string>("All");
   const [bookmarked, setBookmarked] = useState<Set<string>>(new Set(initialBookmarkSlugs));
 
@@ -59,6 +61,33 @@ export function ResourcesView({ initialBookmarkSlugs }: { initialBookmarkSlugs: 
         <p className="mt-1 text-sm text-zinc-400">Curated links for IB/PE recruiting prep.</p>
       </div>
 
+      <div className="flex flex-wrap gap-2 border-b border-zinc-800 pb-2">
+        <Button
+          type="button"
+          size="sm"
+          variant={mainTab === "links" ? "default" : "outline"}
+          className={cn(mainTab === "links" && "bg-cyan-600 text-white hover:bg-cyan-500")}
+          onClick={() => setMainTab("links")}
+        >
+          Links
+        </Button>
+        <Button
+          type="button"
+          size="sm"
+          variant={mainTab === "templates" ? "default" : "outline"}
+          className={cn(mainTab === "templates" && "bg-cyan-600 text-white hover:bg-cyan-500")}
+          onClick={() => setMainTab("templates")}
+        >
+          Email templates
+        </Button>
+      </div>
+
+      {mainTab === "templates" ? (
+        <EmailTemplatesTab />
+      ) : null}
+
+      {mainTab === "links" ? (
+        <>
       <div className="flex flex-wrap gap-2">
         {tabs.map((t) => (
           <Button
@@ -112,6 +141,8 @@ export function ResourcesView({ initialBookmarkSlugs }: { initialBookmarkSlugs: 
           </Card>
         ))}
       </div>
+        </>
+      ) : null}
     </div>
   );
 }

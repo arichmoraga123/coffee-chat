@@ -39,6 +39,16 @@ model User {
   leaderboardEntry    LeaderboardEntry?
   recruitingEvents    RecruitingEvent[]
   submittedQuestions  Question[]             @relation("QuestionSubmitter")
+  mockInterviewSessions      MockInterviewSession[]
+  mockInterviewQuestions     MockInterviewQuestion[] @relation("MockInterviewQuestionSubmitter")
+  interviewDebriefs          InterviewDebrief[]
+  templateUpvotes            TemplateUpvote[]
+  dealBookmarks              DealBookmark[]
+  vaultDocumentUpvotes       VaultDocumentUpvote[]
+  studyGroupMembers          StudyGroupMember[]
+  studyGroupsCreated         StudyGroup[]           @relation("StudyGroupCreator")
+  studyGroupMessages         StudyGroupMessage[]
+  offerComparisons           OfferComparison[]
 }
 
 model Question {
@@ -340,4 +350,210 @@ model Task {
   userId    String
   contact   Contact    @relation(fields: [contactId], references: [id], onDelete: Cascade)
   user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// --- Recruiting Hub: shared question bank, private sessions ---
+model MockInterviewQuestion {
+  id            String   @id @default(cuid())
+  question      String
+  category      String
+  bankSource    String
+  year          Int?
+  difficulty    String
+  modelAnswer   String?
+  tips          String?
+  upvotes       Int      @default(0)
+  submittedById String?
+  status        String   @default("active")
+  dedupeKey     String?  @unique
+  createdAt     DateTime @default(now())
+  submitter     User?    @relation("MockInterviewQuestionSubmitter", fields: [submittedById], references: [id], onDelete: SetNull)
+
+  @@index([bankSource, status])
+  @@index([status])
+}
+
+model MockInterviewSession {
+  id          String   @id @default(cuid())
+  userId      String
+  mode        String
+  bankFilter  String?
+  questions   String[]
+  scores      Json
+  duration    Int
+  aiSummary   String?
+  completedAt DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model InterviewDebrief {
+  id               String   @id @default(cuid())
+  userId           String
+  firmName         String
+  round            String
+  date             DateTime
+  questionsAsked   String[]
+  myAnswers        String?
+  whatWentWell     String?
+  improvements     String?
+  outcome          String?
+  createdAt        DateTime @default(now())
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, date])
+}
+
+// --- Shared firm research wiki ---
+model FirmResearch {
+  id                String   @id @default(cuid())
+  firmName          String   @unique
+  firmType          String
+  aum               String?
+  founded           Int?
+  headquarters      String?
+  description       String?
+  investmentFocus   String?
+  dealSize          String?
+  notableDeals      String[] @default([])
+  whatTheyLookFor   String?
+  hiringTimeline    String?
+  interviewProcess  String?
+  culture           String?
+  msuAlumni         String[] @default([])
+  websiteUrl        String?
+  linkedinUrl       String?
+  lastUpdated       DateTime @default(now())
+  updatedById       String?
+}
+
+// --- Shared email templates ---
+model EmailTemplate {
+  id              String   @id @default(cuid())
+  title           String
+  category        String
+  subject         String?
+  body            String
+  tags            String[] @default([])
+  upvotes         Int      @default(0)
+  submittedById   String?
+  isOfficial      Boolean  @default(false)
+  dedupeKey       String?  @unique
+  createdAt       DateTime @default(now())
+  upvotedBy       TemplateUpvote[]
+}
+
+model TemplateUpvote {
+  id         String        @id @default(cuid())
+  userId     String
+  templateId String
+  user       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  template   EmailTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, templateId])
+}
+
+// --- Shared deals, private bookmarks ---
+model Deal {
+  id          String         @id @default(cuid())
+  title       String
+  acquirer    String?
+  target      String?
+  dealValue   String?
+  dealType    String
+  sector      String?
+  summary     String
+  keyThesis   String?
+  risks       String?
+  sourceUrl   String?
+  announcedAt DateTime
+  dedupeKey   String?        @unique
+  createdAt   DateTime       @default(now())
+  bookmarks   DealBookmark[]
+}
+
+model DealBookmark {
+  id     String @id @default(cuid())
+  userId String
+  dealId String
+  notes  String?
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deal   Deal   @relation(fields: [dealId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, dealId])
+}
+
+// --- Shared vault (anonymized metadata); submitter id stored for moderation ---
+model VaultDocument {
+  id              String   @id @default(cuid())
+  type            String
+  targetFirm      String?
+  targetRole      String?
+  outcome         String?
+  year            Int?
+  school          String?
+  fileUrl         String?
+  notes           String?
+  upvotes         Int      @default(0)
+  submittedById   String?
+  dedupeKey       String?  @unique
+  createdAt       DateTime @default(now())
+  upvotedBy       VaultDocumentUpvote[]
+}
+
+model VaultDocumentUpvote {
+  id         String        @id @default(cuid())
+  userId     String
+  documentId String
+  user       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  document   VaultDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, documentId])
+}
+
+// --- Study groups: visible to members only ---
+model StudyGroup {
+  id        String              @id @default(cuid())
+  name      String
+  createdBy String
+  createdAt DateTime            @default(now())
+  creator   User                @relation("StudyGroupCreator", fields: [createdBy], references: [id], onDelete: Cascade)
+  members   StudyGroupMember[]
+  messages  StudyGroupMessage[]
+}
+
+model StudyGroupMember {
+  id      String     @id @default(cuid())
+  groupId String
+  userId  String
+  role    String     @default("member")
+  group   StudyGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  user    User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([groupId, userId])
+}
+
+model StudyGroupMessage {
+  id        String     @id @default(cuid())
+  groupId   String
+  userId    String
+  body      String
+  createdAt DateTime   @default(now())
+  group     StudyGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([groupId, createdAt])
+}
+
+// --- Private offer comparison ---
+model OfferComparison {
+  id         String   @id @default(cuid())
+  userId     String
+  offers     Json
+  aiAnalysis String?
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }

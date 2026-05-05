@@ -3,6 +3,10 @@ import { PrismaClient } from "@prisma/client";
 import { SEED_QUESTIONS } from "./seed/questions";
 import { SEED_QUESTIONS_EXTENDED } from "./seed/questions-extended";
 import { SEED_TIMELINES } from "./seed/timelines";
+import { mockInterviewSeedRows } from "./seed/mock-interview-questions";
+import { SEED_FIRM_RESEARCH } from "./seed/firm-research";
+import { SEED_EMAIL_TEMPLATES } from "./seed/email-templates-seed";
+import { SEED_DEALS } from "./seed/deals-seed";
 
 const prisma = new PrismaClient();
 
@@ -52,6 +56,81 @@ async function main() {
   } else {
     console.log(`Skipping timelines seed (${timelineCount} already exist).`);
   }
+
+  const mockRows = mockInterviewSeedRows();
+  const { count: mockCount } = await prisma.mockInterviewQuestion.createMany({
+    data: mockRows.map((r) => ({
+      question: r.question,
+      category: r.category,
+      bankSource: r.bankSource,
+      year: r.year,
+      difficulty: r.difficulty,
+      modelAnswer: r.modelAnswer,
+      tips: r.tips,
+      dedupeKey: r.dedupeKey,
+      status: r.status,
+      upvotes: r.upvotes,
+    })),
+    skipDuplicates: true,
+  });
+  console.log(`Mock interview questions seed (new rows ~${mockCount}).`);
+
+  const { count: frCount } = await prisma.firmResearch.createMany({
+    data: SEED_FIRM_RESEARCH.map((f) => ({
+      firmName: f.firmName,
+      firmType: f.firmType,
+      aum: f.aum,
+      founded: f.founded,
+      headquarters: f.headquarters,
+      description: f.description,
+      investmentFocus: f.investmentFocus,
+      dealSize: f.dealSize,
+      notableDeals: f.notableDeals,
+      whatTheyLookFor: f.whatTheyLookFor,
+      hiringTimeline: f.hiringTimeline,
+      interviewProcess: f.interviewProcess,
+      culture: f.culture,
+      msuAlumni: f.msuAlumni,
+      websiteUrl: f.websiteUrl,
+      linkedinUrl: f.linkedinUrl,
+    })),
+    skipDuplicates: true,
+  });
+  console.log(`Firm research seed (new rows ~${frCount}).`);
+
+  const { count: etCount } = await prisma.emailTemplate.createMany({
+    data: SEED_EMAIL_TEMPLATES.map((t) => ({
+      title: t.title,
+      category: t.category,
+      subject: t.subject,
+      body: t.body,
+      tags: t.tags,
+      isOfficial: t.isOfficial,
+      dedupeKey: t.dedupeKey,
+      upvotes: 0,
+    })),
+    skipDuplicates: true,
+  });
+  console.log(`Email templates seed (new rows ~${etCount}).`);
+
+  const { count: dealCount } = await prisma.deal.createMany({
+    data: SEED_DEALS.map((d) => ({
+      title: d.title,
+      acquirer: d.acquirer,
+      target: d.target,
+      dealValue: d.dealValue,
+      dealType: d.dealType,
+      sector: d.sector,
+      summary: d.summary,
+      keyThesis: d.keyThesis,
+      risks: d.risks,
+      sourceUrl: d.sourceUrl,
+      announcedAt: d.announcedAt,
+      dedupeKey: d.dedupeKey,
+    })),
+    skipDuplicates: true,
+  });
+  console.log(`Deals seed (new rows ~${dealCount}).`);
 }
 
 main()
