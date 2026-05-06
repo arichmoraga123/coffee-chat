@@ -110,7 +110,7 @@ export function CalendarIntegrationPanel({
   }, [refresh]);
 
   const disconnect = async (provider: "google" | "outlook") => {
-    if (!confirm(`Disconnect ${provider === "outlook" ? "Outlook" : "Google"} calendar from DealFlow?`)) return;
+    if (!confirm(`Disconnect ${provider === "outlook" ? "Outlook" : "Google"} calendar from Prospect?`)) return;
     await fetch(`/api/integrations/calendar?provider=${provider}`, {
       method: "DELETE",
       credentials: "same-origin",
@@ -144,7 +144,7 @@ export function CalendarIntegrationPanel({
         />
         <SlotCard
           title="Google Calendar"
-          description="Sync to the Google account that uses the same email as your DealFlow login."
+          description="Sync to the Google account that uses the same email as your Prospect login."
           connected={data.google.connected}
           lastSynced={data.google.lastSynced}
           callbackUrl={callbackUrl}

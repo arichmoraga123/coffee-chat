@@ -43,6 +43,7 @@ export default async function TimelinesPage({
     verified: t.verified,
     upvotes: t.upvotes,
     hasVoted: t.votes.length > 0,
+    careerTracks: t.careerTracks ?? [],
   }));
 
   return (

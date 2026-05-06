@@ -12,7 +12,12 @@ export type SeedTimeline = {
   year: number;
   notes: string | null;
   upvotes: number;
+  careerTracks: string[];
 };
+
+const IB = ["Investment Banking"];
+const PE = ["Private Equity"];
+const VC = ["Venture Capital"];
 
 export const SEED_TIMELINES: SeedTimeline[] = [
   {
@@ -27,6 +32,7 @@ export const SEED_TIMELINES: SeedTimeline[] = [
     year: 2026,
     notes: "Apps typically Aug–Sep; close Oct; interviews Oct–Nov; offers Nov.",
     upvotes: 12,
+    careerTracks: IB,
   },
   {
     firmName: "Morgan Stanley",
@@ -40,6 +46,7 @@ export const SEED_TIMELINES: SeedTimeline[] = [
     year: 2026,
     notes: "Apps open Aug; interviews Oct–Nov; offers Nov–Dec.",
     upvotes: 10,
+    careerTracks: IB,
   },
   {
     firmName: "JPMorgan",
@@ -53,6 +60,7 @@ export const SEED_TIMELINES: SeedTimeline[] = [
     year: 2026,
     notes: "Apps open Aug; superday Oct–Nov; offers Nov.",
     upvotes: 11,
+    careerTracks: IB,
   },
   {
     firmName: "Evercore",
@@ -66,6 +74,7 @@ export const SEED_TIMELINES: SeedTimeline[] = [
     year: 2026,
     notes: "Apps open Sep; interviews Nov–Dec; offers Dec–Jan.",
     upvotes: 8,
+    careerTracks: IB,
   },
   {
     firmName: "Centerview Partners",
@@ -79,6 +88,7 @@ export const SEED_TIMELINES: SeedTimeline[] = [
     year: 2026,
     notes: "Apps open Sep; interviews Dec–Jan; offers Jan.",
     upvotes: 7,
+    careerTracks: IB,
   },
   {
     firmName: "PJT Partners",
@@ -92,6 +102,7 @@ export const SEED_TIMELINES: SeedTimeline[] = [
     year: 2026,
     notes: "Apps open Sep; interviews Nov–Dec; offers Dec.",
     upvotes: 6,
+    careerTracks: IB,
   },
   {
     firmName: "KKR",
@@ -105,6 +116,7 @@ export const SEED_TIMELINES: SeedTimeline[] = [
     year: 2026,
     notes: "On-cycle typically Sep–Oct of junior year.",
     upvotes: 9,
+    careerTracks: PE,
   },
   {
     firmName: "Blackstone",
@@ -118,6 +130,7 @@ export const SEED_TIMELINES: SeedTimeline[] = [
     year: 2026,
     notes: "On-cycle Sep–Oct.",
     upvotes: 9,
+    careerTracks: PE,
   },
   {
     firmName: "Apollo",
@@ -131,6 +144,7 @@ export const SEED_TIMELINES: SeedTimeline[] = [
     year: 2026,
     notes: "On-cycle Sep–Oct.",
     upvotes: 8,
+    careerTracks: PE,
   },
   {
     firmName: "Sequoia",
@@ -144,5 +158,134 @@ export const SEED_TIMELINES: SeedTimeline[] = [
     year: 2026,
     notes: "Rolling; no fixed timeline.",
     upvotes: 5,
+    careerTracks: VC,
+  },
+  // Consulting — fall recruiting / OCI-style
+  {
+    firmName: "McKinsey & Company",
+    firmType: "CONSULTING",
+    role: "Summer Associate",
+    applicationOpen: new Date("2025-07-01"),
+    applicationClose: new Date("2025-09-30"),
+    firstRound: new Date("2025-10-15"),
+    finalRound: new Date("2025-11-20"),
+    offerDate: new Date("2025-12-05"),
+    year: 2026,
+    notes: "Fall OCI on many campuses; off-cycle exists — verify with your school.",
+    upvotes: 14,
+    careerTracks: ["Consulting"],
+  },
+  {
+    firmName: "Boston Consulting Group",
+    firmType: "CONSULTING",
+    role: "Summer Associate",
+    applicationOpen: new Date("2025-07-01"),
+    applicationClose: new Date("2025-09-30"),
+    firstRound: new Date("2025-10-10"),
+    finalRound: new Date("2025-11-15"),
+    offerDate: new Date("2025-12-01"),
+    year: 2026,
+    notes: "Fall recruiting; case-heavy process.",
+    upvotes: 13,
+    careerTracks: ["Consulting"],
+  },
+  {
+    firmName: "Bain & Company",
+    firmType: "CONSULTING",
+    role: "Summer Associate",
+    applicationOpen: new Date("2025-07-01"),
+    applicationClose: new Date("2025-09-30"),
+    firstRound: new Date("2025-10-12"),
+    finalRound: new Date("2025-11-18"),
+    offerDate: new Date("2025-12-03"),
+    year: 2026,
+    notes: "Fall OCI; verify office-specific dates.",
+    upvotes: 13,
+    careerTracks: ["Consulting"],
+  },
+  {
+    firmName: "Deloitte Consulting (S&O)",
+    firmType: "CONSULTING",
+    role: "Summer Scholar",
+    applicationOpen: new Date("2025-07-15"),
+    applicationClose: new Date("2025-10-01"),
+    firstRound: new Date("2025-10-20"),
+    finalRound: new Date("2025-11-30"),
+    offerDate: new Date("2025-12-15"),
+    year: 2026,
+    notes: "Strategy & Operations track; timelines vary by office.",
+    upvotes: 8,
+    careerTracks: ["Consulting"],
+  },
+  {
+    firmName: "Accenture Strategy",
+    firmType: "CONSULTING",
+    role: "Summer Analyst",
+    applicationOpen: new Date("2025-08-01"),
+    applicationClose: new Date("2025-10-15"),
+    firstRound: new Date("2025-10-25"),
+    finalRound: new Date("2025-11-25"),
+    offerDate: new Date("2025-12-10"),
+    year: 2026,
+    notes: "Early fall; Accenture campus events precede interviews.",
+    upvotes: 7,
+    careerTracks: ["Consulting"],
+  },
+  // Big 4 — early fall / internship programs
+  {
+    firmName: "PwC",
+    firmType: "ACCOUNTING",
+    role: "Summer Intern",
+    applicationOpen: new Date("2025-07-01"),
+    applicationClose: new Date("2025-09-30"),
+    firstRound: new Date("2025-10-01"),
+    finalRound: new Date("2025-11-01"),
+    offerDate: new Date("2025-11-15"),
+    year: 2026,
+    notes: "Advisory and assurance tracks; early fall at many schools.",
+    upvotes: 9,
+    careerTracks: ["Big 4 Accounting"],
+  },
+  {
+    firmName: "Deloitte",
+    firmType: "ACCOUNTING",
+    role: "Summer Intern",
+    applicationOpen: new Date("2025-07-01"),
+    applicationClose: new Date("2025-09-30"),
+    firstRound: new Date("2025-10-01"),
+    finalRound: new Date("2025-11-01"),
+    offerDate: new Date("2025-11-15"),
+    year: 2026,
+    notes: "Audit, tax, and advisory; confirm campus calendar.",
+    upvotes: 9,
+    careerTracks: ["Big 4 Accounting"],
+  },
+  {
+    firmName: "EY",
+    firmType: "ACCOUNTING",
+    role: "Summer Intern",
+    applicationOpen: new Date("2025-07-01"),
+    applicationClose: new Date("2025-09-30"),
+    firstRound: new Date("2025-10-05"),
+    finalRound: new Date("2025-11-05"),
+    offerDate: new Date("2025-11-20"),
+    year: 2026,
+    notes: "Early fall recruiting for internship programs.",
+    upvotes: 8,
+    careerTracks: ["Big 4 Accounting"],
+  },
+  {
+    firmName: "KPMG",
+    firmType: "ACCOUNTING",
+    role: "Summer Intern",
+    applicationOpen: new Date("2025-07-01"),
+    applicationClose: new Date("2025-09-30"),
+    firstRound: new Date("2025-10-05"),
+    finalRound: new Date("2025-11-05"),
+    offerDate: new Date("2025-11-20"),
+    year: 2026,
+    notes: "Early fall; advisory vs audit timelines may differ.",
+    upvotes: 8,
+    careerTracks: ["Big 4 Accounting"],
   },
 ];

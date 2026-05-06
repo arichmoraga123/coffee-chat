@@ -110,8 +110,8 @@ export function ContactsView({
       if (detail === "i") setShowI(true);
       if (detail === "t") setShowT(true);
     };
-    window.addEventListener("dealflow-shortcut", onShortcut);
-    return () => window.removeEventListener("dealflow-shortcut", onShortcut);
+    window.addEventListener("prospect-shortcut", onShortcut);
+    return () => window.removeEventListener("prospect-shortcut", onShortcut);
   }, []);
 
   const filtered = useMemo(() => {

@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { ProfileDrillChart } from "@/components/profile-drill-chart";
 import { ProfileNameForm } from "@/components/profile-name-form";
 import { CalendarIntegrationPanel } from "@/components/calendar-integration-panel";
+import { ProfileTracksForm } from "@/components/profile-tracks-form";
 
 export const dynamic = "force-dynamic";
 
@@ -22,6 +23,7 @@ export default async function ProfilePage() {
         weeklyXP: true,
         drillStreak: true,
         recruitingTarget: true,
+        careerTracks: true,
         targetFirms: true,
         dailyGoal: true,
       },
@@ -74,6 +76,11 @@ export default async function ProfilePage() {
         </Card>
 
         <Card className="border-zinc-800 bg-zinc-900/50 p-4">
+          <p className="text-sm font-semibold text-zinc-200">Career tracks</p>
+          <ProfileTracksForm initialTracks={user?.careerTracks ?? []} />
+        </Card>
+
+        <Card className="border-zinc-800 bg-zinc-900/50 p-4">
           <p className="text-sm font-semibold text-zinc-200">Engagement</p>
           <div className="mt-3 grid grid-cols-3 gap-2 text-center text-xs">
             <div className="rounded border border-zinc-800 bg-black/30 p-2">
@@ -90,7 +97,7 @@ export default async function ProfilePage() {
             </div>
           </div>
           <p className="mt-3 text-xs text-zinc-500">
-            Daily goal: {user?.dailyGoal ?? 5} questions · Targets: {(user?.recruitingTarget ?? []).join(", ") || "—"}
+            Daily goal: {user?.dailyGoal ?? 5} questions · Legacy targets: {(user?.recruitingTarget ?? []).join(", ") || "—"}
           </p>
         </Card>
       </div>

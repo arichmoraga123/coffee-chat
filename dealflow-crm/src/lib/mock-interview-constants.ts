@@ -16,4 +16,11 @@ export const MOCK_INTERVIEW_BANKS = [
   "Ares",
   "Lazard",
   "Moelis",
+  "Houlihan Lokey",
+  "Rothschild",
+  "William Blair",
+  "Baird",
+  "Lincoln International",
+  "Raymond James",
+  "Piper Sandler",
 ] as const;

@@ -1,12 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { cn } from "@/lib/utils";
+import { useCareerTracks } from "@/components/career-track-provider";
+import { matchesCareerTracks } from "@/lib/career-tracks";
 
 export type TimelineRow = {
   id: string;
@@ -23,6 +25,7 @@ export type TimelineRow = {
   verified: boolean;
   upvotes: number;
   hasVoted: boolean;
+  careerTracks: string[];
 };
 
 function StageBar({
@@ -55,6 +58,7 @@ export function TimelinesView({
   defaultYear?: string;
 }) {
   const router = useRouter();
+  const { careerTracks, narrowTrack } = useCareerTracks();
   const [rows, setRows] = useState(initial);
   const [firmType, setFirmType] = useState(defaultFirmType);
   const [role, setRole] = useState(defaultRole);
@@ -81,7 +85,12 @@ export function TimelinesView({
     const res = await fetch(`/api/timelines?${params.toString()}`);
     if (!res.ok) return;
     const data = (await res.json()) as { timelines: TimelineRow[] };
-    setRows(data.timelines);
+    setRows(
+      (data.timelines ?? []).map((r) => ({
+        ...r,
+        careerTracks: r.careerTracks ?? [],
+      })),
+    );
   };
 
   const upvote = async (id: string) => {
@@ -118,6 +127,11 @@ export function TimelinesView({
     router.refresh();
   };
 
+  const visibleRows = useMemo(
+    () => rows.filter((t) => matchesCareerTracks(t.careerTracks ?? [], careerTracks, narrowTrack)),
+    [rows, careerTracks, narrowTrack],
+  );
+
   return (
     <div className="space-y-4">
       <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
@@ -141,7 +155,7 @@ export function TimelinesView({
             value={firmType}
             onChange={(e) => setFirmType(e.target.value)}
           >
-            {["all", "BB", "EB", "MM", "PE", "VC"].map((t) => (
+            {["all", "BB", "EB", "MM", "PE", "VC", "CONSULTING", "ACCOUNTING"].map((t) => (
               <option key={t} value={t}>
                 {t === "all" ? "All" : t}
               </option>
@@ -182,7 +196,7 @@ export function TimelinesView({
       </Card>
 
       <div className="space-y-3">
-        {rows.map((t) => (
+        {visibleRows.map((t) => (
           <Card key={t.id} className="p-4">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
               <div>
@@ -218,7 +232,7 @@ export function TimelinesView({
             value={form.firmType}
             onChange={(e) => setForm((p) => ({ ...p, firmType: e.target.value }))}
           >
-            {["BB", "EB", "MM", "PE", "VC"].map((t) => (
+            {["BB", "EB", "MM", "PE", "VC", "CONSULTING", "ACCOUNTING"].map((t) => (
               <option key={t} value={t}>
                 {t}
               </option>

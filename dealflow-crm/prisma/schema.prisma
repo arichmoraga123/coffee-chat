@@ -21,6 +21,16 @@ model User {
   xp                  Int      @default(0)
   weeklyXP            Int      @default(0)
   recruitingTarget    String[] @default([])
+  /** Primary career paths for filtering prep (DB column legacy name `preferredTracks`). */
+  careerTracks        String[] @default([]) @map("preferredTracks")
+  schoolId            String?
+  eduEmail            String?
+  eduVerified         Boolean  @default(false)
+  eduVerificationToken   String?
+  eduVerificationExpires DateTime?
+  contributionXP    Int      @default(0)
+  bio                 String?
+  referralCode        String?  @unique
   targetFirms         String[] @default([])
   dailyGoal           Int      @default(5)
   onboardingDone      Boolean  @default(false)
@@ -28,6 +38,14 @@ model User {
   lastActiveAt          DateTime?
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
+  school              School?  @relation(fields: [schoolId], references: [id], onDelete: SetNull)
+  clubMemberships     ClubMember[]
+  compData            CompData[]
+  compDataUpvotes     CompDataUpvote[]
+  referralsGiven      Referral[] @relation("Referrer")
+  referralsReceived   Referral[] @relation("Referee")
+  clubPostsAuthored   ClubPost[]       @relation("ClubPostAuthor")
+  clubAnnouncementsAuthored ClubAnnouncement[] @relation("ClubAnnouncementAuthor")
   contacts            Contact[]
   firms               Firm[]
   interactions        Interaction[]
@@ -57,6 +75,7 @@ model User {
   resumeReviews              ResumeReview[]
   caseCompetitions           CaseCompetition[]
   recruitingCalendarVotes    RecruitingCalendarVote[]
+  stockPitches                 StockPitch[]
 }
 
 model Question {
@@ -68,14 +87,20 @@ model Question {
   subcategory    String?
   difficulty     String
   tags           String[]
+  /** Empty = relevant to all tracks. Otherwise show only if user selected a matching track. */
+  careerTracks   String[]               @default([])
   source         String?
   status         String                 @default("active") // active | pending | rejected
   dedupeKey      String?                @unique
   submittedById  String?
+  schoolId       String?
+  scope          String                 @default("global") // global | school | club
+  upvotes        Int                    @default(0)
   createdAt      DateTime               @default(now())
   updatedAt      DateTime               @default(now()) @updatedAt
   userProgress   UserQuestionProgress[]
   submitter      User?                  @relation("QuestionSubmitter", fields: [submittedById], references: [id], onDelete: SetNull)
+  school         School?                @relation(fields: [schoolId], references: [id], onDelete: SetNull)
 }
 
 model UserQuestionProgress {
@@ -158,11 +183,15 @@ model FirmTimeline {
   offerDate        DateTime?
   year             Int
   notes            String?
+  careerTracks     String[]  @default([])
+  schoolId         String?
+  scope            String    @default("global") // global | school | club
   submittedBy      String?
   verified         Boolean   @default(false)
   upvotes          Int       @default(0)
   createdAt        DateTime  @default(now())
   submitter        User?     @relation("TimelineSubmitter", fields: [submittedBy], references: [id], onDelete: SetNull)
+  school           School?   @relation(fields: [schoolId], references: [id], onDelete: SetNull)
   votes            FirmTimelineVote[]
 }
 
@@ -377,6 +406,7 @@ model MockInterviewQuestion {
   difficulty    String
   modelAnswer   String?
   tips          String?
+  careerTracks  String[] @default([])
   upvotes       Int      @default(0)
   submittedById String?
   status        String   @default("active")
@@ -488,11 +518,49 @@ model Deal {
   sourceUrl   String?
   announcedAt DateTime
   status      String         @default("draft") // draft | published
+  careerTracks String[]      @default([])
   dedupeKey   String?        @unique
   createdAt   DateTime       @default(now())
   bookmarks   DealBookmark[]
 
   @@index([status])
+}
+
+model ConsultingCase {
+  id           String   @id @default(cuid())
+  title        String
+  type         String
+  difficulty   String
+  prompt       String   @db.Text
+  framework    String?  @db.Text
+  sampleAnswer String?  @db.Text
+  firmSource   String?
+  isShared     Boolean  @default(true)
+  dedupeKey    String?  @unique
+  careerTracks String[] @default(["Consulting"])
+  createdAt    DateTime @default(now())
+}
+
+model StockPitch {
+  id               String   @id @default(cuid())
+  userId           String
+  companyName      String
+  overview         String   @db.Text
+  thesisBullets    String[] @default([])
+  currentPrice     String?
+  targetPrice      String?
+  catalysts        String[] @default([])
+  risks            String[] @default([])
+  recommendation   String
+  deckOutline      String?  @db.Text
+  sharedToGroupId  String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  studyGroup       StudyGroup? @relation(fields: [sharedToGroupId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([sharedToGroupId])
 }
 
 model DealBookmark {
@@ -539,13 +607,14 @@ model VaultDocumentUpvote {
 
 // --- Study groups: visible to members only ---
 model StudyGroup {
-  id        String              @id @default(cuid())
-  name      String
-  createdBy String
-  createdAt DateTime            @default(now())
-  creator   User                @relation("StudyGroupCreator", fields: [createdBy], references: [id], onDelete: Cascade)
-  members   StudyGroupMember[]
-  messages  StudyGroupMessage[]
+  id           String              @id @default(cuid())
+  name         String
+  createdBy    String
+  createdAt    DateTime            @default(now())
+  creator      User                @relation("StudyGroupCreator", fields: [createdBy], references: [id], onDelete: Cascade)
+  members      StudyGroupMember[]
+  messages     StudyGroupMessage[]
+  sharedPitches StockPitch[]
 }
 
 model StudyGroupMember {
@@ -693,4 +762,198 @@ model RecruitingCalendarVote {
   event   RecruitingCalendarEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
 
   @@unique([userId, eventId])
+}
+
+// --- Prospect: multi-school network ---
+model School {
+  id           String         @id @default(cuid())
+  name         String         @unique
+  shortName    String
+  domain       String         @unique
+  location     String?
+  country      String         @default("US")
+  type         String         @default("semi-target") // target | semi-target | non-target
+  logoUrl      String?
+  isVerified   Boolean        @default(false)
+  createdAt    DateTime       @default(now())
+  members      User[]
+  clubs        Club[]
+  questions    Question[]
+  timelines    FirmTimeline[]
+  compData     CompData[]
+  alumni       SchoolAlumni[]
+}
+
+model Club {
+  id             String               @id @default(cuid())
+  schoolId       String
+  name           String
+  type           String
+  description    String?
+  logoUrl        String?
+  isVerified     Boolean              @default(false)
+  isPublic       Boolean              @default(true)
+  createdAt      DateTime             @default(now())
+  school         School               @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  members        ClubMember[]
+  posts          ClubPost[]
+  projects       ClubProject[]
+  events         ClubEvent[]
+  announcements  ClubAnnouncement[]
+
+  @@unique([schoolId, name])
+}
+
+model ClubMember {
+  id       String   @id @default(cuid())
+  clubId   String
+  userId   String
+  role     String   @default("member")
+  joinedAt DateTime @default(now())
+  club     Club     @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([clubId, userId])
+}
+
+model ClubPost {
+  id        String    @id @default(cuid())
+  clubId    String
+  authorId  String
+  title     String
+  content   String    @db.Text
+  type      String
+  dueDate   DateTime?
+  driveLink String?
+  isPinned  Boolean   @default(false)
+  readBy    String[]  @default([])
+  createdAt DateTime  @default(now())
+  club      Club      @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  author    User      @relation("ClubPostAuthor", fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([clubId, createdAt])
+}
+
+model ClubProject {
+  id           String            @id @default(cuid())
+  clubId       String
+  title        String
+  description  String?           @db.Text
+  dueDate      DateTime?
+  memberIds    String[]          @default([])
+  driveLink    String?
+  status       String            @default("active")
+  createdAt    DateTime          @default(now())
+  club         Club              @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  deliverables ClubDeliverable[]
+
+  @@index([clubId])
+}
+
+model ClubDeliverable {
+  id          String      @id @default(cuid())
+  projectId   String
+  title       String
+  assignedTo  String[]    @default([])
+  dueDate     DateTime?
+  status      String      @default("pending")
+  driveLink   String?
+  project     ClubProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+}
+
+model ClubEvent {
+  id            String   @id @default(cuid())
+  clubId        String
+  title         String
+  description   String?  @db.Text
+  date          DateTime
+  location      String?
+  type          String
+  rsvpIds       String[] @default([])
+  capacity      Int?
+  materialsLink String?
+  createdAt     DateTime @default(now())
+  club          Club     @relation(fields: [clubId], references: [id], onDelete: Cascade)
+
+  @@index([clubId, date])
+}
+
+model ClubAnnouncement {
+  id        String   @id @default(cuid())
+  clubId    String
+  authorId  String
+  title     String
+  body      String   @db.Text
+  isPinned  Boolean  @default(false)
+  readBy    String[] @default([])
+  createdAt DateTime @default(now())
+  club      Club     @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  author    User     @relation("ClubAnnouncementAuthor", fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([clubId, createdAt])
+}
+
+model CompData {
+  id             String           @id @default(cuid())
+  userId         String
+  schoolId       String?
+  firmName       String
+  role           String
+  vertical       String
+  officeLocation String?
+  baseComp       Int?
+  signingBonus   Int?
+  yearEndBonus   Int?
+  totalComp      Int?
+  year           Int
+  anonymous      Boolean          @default(true)
+  verified       Boolean          @default(false)
+  upvotes        Int              @default(0)
+  createdAt      DateTime         @default(now())
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  school         School?          @relation(fields: [schoolId], references: [id], onDelete: SetNull)
+  upvotedBy      CompDataUpvote[]
+
+  @@index([year, firmName])
+}
+
+model CompDataUpvote {
+  id     String   @id @default(cuid())
+  userId String
+  compId String
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comp   CompData @relation(fields: [compId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, compId])
+}
+
+model SchoolAlumni {
+  id           String   @id @default(cuid())
+  schoolId     String
+  firmName     String
+  role         String
+  vertical     String
+  gradYear     Int?
+  linkedinUrl  String?
+  openToChat   Boolean  @default(false)
+  anonymous    Boolean  @default(false)
+  submittedBy  String?
+  verified     Boolean  @default(false)
+  school       School   @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+
+  @@index([schoolId, firmName])
+}
+
+model Referral {
+  id         String   @id @default(cuid())
+  referrerId String
+  refereeId  String?
+  code       String   @unique
+  status     String   @default("pending")
+  xpAwarded  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  referrer   User     @relation("Referrer", fields: [referrerId], references: [id], onDelete: Cascade)
+  referee    User?    @relation("Referee", fields: [refereeId], references: [id], onDelete: SetNull)
 }

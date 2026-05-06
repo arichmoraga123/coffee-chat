@@ -11,11 +11,18 @@ type Member = {
   user: { id: string; name: string; email: string; drillStreak: number; weeklyXP: number; xp: number };
 };
 type Msg = { id: string; body: string; createdAt: string; user: { name: string } };
+type SharedPitch = {
+  id: string;
+  companyName: string;
+  recommendation: string;
+  user: { name: string };
+};
 type Group = {
   id: string;
   name: string;
   members: Member[];
   messages: Msg[];
+  sharedPitches: SharedPitch[];
 };
 
 export function GroupDetailView({ groupId }: { groupId: string }) {
@@ -27,7 +34,7 @@ export function GroupDetailView({ groupId }: { groupId: string }) {
     const res = await fetch(`/api/study-groups/${groupId}`);
     if (!res.ok) return;
     const d = (await res.json()) as { group: Group };
-    setGroup(d.group);
+    setGroup({ ...d.group, sharedPitches: d.group.sharedPitches ?? [] });
   };
 
   useEffect(() => {
@@ -91,6 +98,29 @@ export function GroupDetailView({ groupId }: { groupId: string }) {
               Invite
             </Button>
           </div>
+        </Card>
+        <Card className="space-y-2 border-zinc-800 bg-zinc-900/50 p-4">
+          <p className="text-sm font-medium text-zinc-200">Shared stock pitches</p>
+          {group.sharedPitches?.length ? (
+            <ul className="space-y-2 text-sm text-zinc-300">
+              {group.sharedPitches.map((p) => (
+                <li key={p.id} className="flex flex-wrap items-center justify-between gap-2 border-b border-zinc-800/80 py-1 last:border-0">
+                  <span>
+                    {p.companyName} · <span className="text-zinc-500">{p.recommendation}</span>{" "}
+                    <span className="text-xs text-zinc-500">by {p.user.name}</span>
+                  </span>
+                  <Link
+                    href={`/pitch-builder?view=${encodeURIComponent(p.id)}`}
+                    className="text-xs text-[#4a6fa5] underline-offset-2 hover:underline"
+                  >
+                    Open in Pitch Builder
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-xs text-zinc-500">No pitches shared yet.</p>
+          )}
         </Card>
         <Card className="space-y-2 border-zinc-800 bg-zinc-900/50 p-4">
           <p className="text-sm font-medium text-zinc-200">Group board</p>

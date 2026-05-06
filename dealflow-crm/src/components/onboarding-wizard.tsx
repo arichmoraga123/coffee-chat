@@ -4,19 +4,52 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { CAREER_TRACK_OPTIONS } from "@/lib/career-tracks";
 
-const TARGETS = ["IB", "PE", "VC", "Consulting", "Other"] as const;
+const TRACK_CHOICES = CAREER_TRACK_OPTIONS.filter((t) => t !== "Actuarial");
 
 export function OnboardingWizard() {
   const router = useRouter();
-  const [step, setStep] = useState(1);
-  const [targets, setTargets] = useState<string[]>([]);
+  const [step, setStep] = useState(0);
+  const [eduEmail, setEduEmail] = useState("");
+  const [eduMsg, setEduMsg] = useState<string | null>(null);
+  const [verifyUrl, setVerifyUrl] = useState<string | null>(null);
+  const [eduBusy, setEduBusy] = useState(false);
+  const [tracks, setTracks] = useState<string[]>([]);
   const [firmsText, setFirmsText] = useState("");
   const [dailyGoal, setDailyGoal] = useState<5 | 10 | 20>(5);
   const [busy, setBusy] = useState(false);
 
-  const toggleTarget = (t: string) => {
-    setTargets((prev) => (prev.includes(t) ? prev.filter((x) => x !== t) : [...prev, t]));
+  const toggleTrack = (t: string) => {
+    setTracks((prev) => (prev.includes(t) ? prev.filter((x) => x !== t) : [...prev, t]));
+  };
+
+  const submitEdu = async () => {
+    setEduBusy(true);
+    setEduMsg(null);
+    setVerifyUrl(null);
+    const res = await fetch("/api/user/edu-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ eduEmail: eduEmail.trim() }),
+    });
+    const data = (await res.json().catch(() => ({}))) as {
+      schoolFound?: boolean;
+      schoolName?: string | null;
+      verifyUrl?: string;
+      error?: string;
+    };
+    setEduBusy(false);
+    if (!res.ok) {
+      setEduMsg(data.error ?? "Could not save school email.");
+      return;
+    }
+    if (data.schoolFound && data.schoolName) {
+      setEduMsg(`We found ${data.schoolName}! You'll be connected to the ${data.schoolName} community.`);
+    } else {
+      setEduMsg("We don't have your school yet — you'll be our founding member there!");
+    }
+    if (data.verifyUrl) setVerifyUrl(data.verifyUrl);
   };
 
   const finish = async () => {
@@ -29,7 +62,8 @@ export function OnboardingWizard() {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        recruitingTarget: targets,
+        careerTracks: tracks,
+        recruitingTarget: [],
         targetFirms,
         dailyGoal,
         onboardingDone: true,
@@ -41,29 +75,69 @@ export function OnboardingWizard() {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur">
-      <Card className="w-full max-w-lg border-zinc-700 bg-zinc-950 p-6 shadow-2xl">
+      <Card className="max-h-[90vh] w-full max-w-lg overflow-y-auto border-zinc-700 bg-zinc-950 p-6 shadow-2xl">
+        {step === 0 ? (
+          <>
+            <h2 className="text-lg font-semibold text-zinc-100">What&apos;s your school email address?</h2>
+            <p className="mt-2 text-sm text-zinc-400">
+              We use it to place you in the right campus community. You&apos;ll verify it from your inbox (or the link below in
+              development).
+            </p>
+            <input
+              type="email"
+              className="mt-4 w-full rounded border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-100"
+              placeholder="you@school.edu"
+              value={eduEmail}
+              onChange={(e) => setEduEmail(e.target.value)}
+            />
+            {eduMsg ? <p className="mt-3 text-sm text-zinc-300">{eduMsg}</p> : null}
+            {verifyUrl ? (
+              <div className="mt-3 rounded border border-zinc-700 bg-zinc-900/80 p-3 text-xs text-zinc-400">
+                <p className="font-medium text-zinc-200">Verification link (copy if email did not send)</p>
+                <p className="mt-1 break-all text-zinc-500">{verifyUrl}</p>
+              </div>
+            ) : null}
+            <div className="mt-6 flex flex-wrap justify-between gap-2">
+              <Button type="button" variant="outline" onClick={() => setStep(1)}>
+                Skip for now
+              </Button>
+              <div className="flex gap-2">
+                <Button type="button" variant="outline" onClick={() => void submitEdu()} disabled={eduBusy || !eduEmail.trim()}>
+                  {eduBusy ? "Saving…" : "Submit"}
+                </Button>
+                <Button type="button" onClick={() => setStep(1)} disabled={eduBusy}>
+                  Next
+                </Button>
+              </div>
+            </div>
+          </>
+        ) : null}
+
         {step === 1 ? (
           <>
-            <h2 className="text-lg font-semibold text-zinc-100">Welcome — what are you recruiting for?</h2>
-            <p className="mt-2 text-sm text-zinc-400">Pick all that apply.</p>
+            <h2 className="text-lg font-semibold text-zinc-100">Which career tracks are you recruiting for?</h2>
+            <p className="mt-2 text-sm text-zinc-400">Pick all that apply. Prep content filters to these paths.</p>
             <div className="mt-4 flex flex-wrap gap-2">
-              {TARGETS.map((t) => (
+              {TRACK_CHOICES.map((t) => (
                 <button
                   key={t}
                   type="button"
-                  onClick={() => toggleTarget(t)}
+                  onClick={() => toggleTrack(t)}
                   className={
-                    targets.includes(t)
-                      ? "rounded-full border border-[#3a3a3a] bg-white/[0.06] px-3 py-1 text-sm text-[#f5f5f5]"
-                      : "rounded-full border border-zinc-700 bg-zinc-900 px-3 py-1 text-sm text-zinc-300 hover:border-zinc-500"
+                    tracks.includes(t)
+                      ? "rounded-full border border-[#3a3a3a] bg-white/[0.06] px-3 py-1 text-xs text-[#f5f5f5]"
+                      : "rounded-full border border-zinc-700 bg-zinc-900 px-3 py-1 text-xs text-zinc-300 hover:border-zinc-500"
                   }
                 >
                   {t}
                 </button>
               ))}
             </div>
-            <div className="mt-6 flex justify-end gap-2">
-              <Button onClick={() => setStep(2)} disabled={targets.length === 0}>
+            <div className="mt-6 flex justify-between gap-2">
+              <Button variant="outline" onClick={() => setStep(0)}>
+                Back
+              </Button>
+              <Button onClick={() => setStep(2)} disabled={tracks.length === 0}>
                 Next
               </Button>
             </div>
@@ -78,7 +152,7 @@ export function OnboardingWizard() {
               className="mt-4 min-h-[120px] w-full rounded border border-zinc-700 bg-zinc-900 p-3 text-sm text-zinc-100"
               value={firmsText}
               onChange={(e) => setFirmsText(e.target.value)}
-              placeholder="e.g. Goldman Sachs, Evercore, KKR"
+              placeholder="e.g. Goldman Sachs, McKinsey, PwC"
             />
             <div className="mt-6 flex justify-between gap-2">
               <Button variant="outline" onClick={() => setStep(1)}>

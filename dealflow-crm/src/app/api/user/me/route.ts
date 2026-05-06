@@ -15,6 +15,13 @@ export async function GET() {
       weeklyXP: true,
       drillStreak: true,
       recruitingTarget: true,
+      careerTracks: true,
+      schoolId: true,
+      eduEmail: true,
+      eduVerified: true,
+      bio: true,
+      referralCode: true,
+      contributionXP: true,
       targetFirms: true,
       dailyGoal: true,
       onboardingDone: true,
@@ -43,6 +50,21 @@ export async function PATCH(req: Request) {
   if (Array.isArray(body.recruitingTarget)) {
     data.recruitingTarget = body.recruitingTarget.map((x: unknown) => String(x));
   }
+  const tracksPayload = Array.isArray(body.careerTracks)
+    ? body.careerTracks
+    : Array.isArray(body.preferredTracks)
+      ? body.preferredTracks
+      : null;
+  if (tracksPayload) {
+    data.careerTracks = tracksPayload.map((x: unknown) => String(x)).filter(Boolean);
+  }
+  if (typeof body.eduEmail === "string") {
+    const e = body.eduEmail.trim().toLowerCase();
+    data.eduEmail = e.length ? e : null;
+  }
+  if (typeof body.bio === "string") {
+    data.bio = body.bio.trim().slice(0, 2000) || null;
+  }
   if (Array.isArray(body.targetFirms)) {
     data.targetFirms = body.targetFirms.map((x: unknown) => String(x));
   }
@@ -64,6 +86,12 @@ export async function PATCH(req: Request) {
       name: true,
       email: true,
       recruitingTarget: true,
+      careerTracks: true,
+      schoolId: true,
+      eduEmail: true,
+      eduVerified: true,
+      bio: true,
+      referralCode: true,
       targetFirms: true,
       dailyGoal: true,
       onboardingDone: true,

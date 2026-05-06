@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { hash } from "bcryptjs";
 import { prisma } from "@/lib/prisma";
+import { randomReferralCode } from "@/lib/referral-code";
 
 export async function POST(req: Request) {
   const body = await req.json();
@@ -21,8 +22,15 @@ export async function POST(req: Request) {
   }
 
   const passwordHash = await hash(password, 12);
+  let referralCode = randomReferralCode();
+  for (let i = 0; i < 40; i++) {
+    const clash = await prisma.user.findFirst({ where: { referralCode } });
+    if (!clash) break;
+    referralCode = randomReferralCode();
+  }
+
   const user = await prisma.user.create({
-    data: { name, email, passwordHash },
+    data: { name, email, passwordHash, referralCode },
     select: { id: true, name: true, email: true },
   });
 

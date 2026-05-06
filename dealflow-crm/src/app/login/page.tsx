@@ -52,7 +52,7 @@ function LoginForm() {
     <div className="mx-auto mt-20 max-w-md">
       <Card className="p-6">
         <h1 className="text-xl font-semibold">Log in</h1>
-        <p className="mt-1 text-sm text-zinc-400">Access your private DealFlow workspace.</p>
+        <p className="mt-1 text-sm text-zinc-400">Access your Prospect workspace.</p>
         <form className="mt-4 space-y-3" onSubmit={onSubmit}>
           <Input
             required

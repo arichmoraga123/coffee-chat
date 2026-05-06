@@ -23,6 +23,7 @@ export const SEED_DEALS = [
     sourceUrl: null,
     announcedAt: new Date("2024-08-14"),
     dedupeKey: dk("Mars / Kellanova", "2024-08-14"),
+    careerTracks: ["Investment Banking", "Private Equity", "Corporate Finance"],
   },
   {
     title: "Synopsys acquires Ansys for $35B",
@@ -42,6 +43,7 @@ export const SEED_DEALS = [
     sourceUrl: null,
     announcedAt: new Date("2024-01-16"),
     dedupeKey: dk("Synopsys / Ansys", "2024-01-16"),
+    careerTracks: ["Investment Banking", "Tech/Startup", "Private Equity"],
   },
   {
     title: "Apollo acquires Intel Fab stake for $11B",
@@ -61,6 +63,7 @@ export const SEED_DEALS = [
     sourceUrl: null,
     announcedAt: new Date("2024-09-16"),
     dedupeKey: dk("Apollo / Intel Fab", "2024-09-16"),
+    careerTracks: ["Private Equity", "Private Credit", "Investment Banking"],
   },
   {
     title: "Blackstone acquires AIR Communities for $10B",
@@ -80,6 +83,7 @@ export const SEED_DEALS = [
     sourceUrl: null,
     announcedAt: new Date("2024-04-08"),
     dedupeKey: dk("Blackstone / AIR", "2024-04-08"),
+    careerTracks: ["Private Equity", "Real Estate", "Asset Management"],
   },
   {
     title: "Juniper Networks acquired by HPE for $14B",
@@ -99,5 +103,6 @@ export const SEED_DEALS = [
     sourceUrl: null,
     announcedAt: new Date("2024-01-09"),
     dedupeKey: dk("HPE / Juniper", "2024-01-09"),
+    careerTracks: ["Investment Banking", "Tech/Startup", "Equity Research"],
   },
 ];

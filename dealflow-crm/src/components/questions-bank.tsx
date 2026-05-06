@@ -6,6 +6,8 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { useCareerTracks } from "@/components/career-track-provider";
+import { matchesCareerTracks } from "@/lib/career-tracks";
 import { QuestionMcqDeck } from "@/components/question-mcq-deck";
 import { ReportContentAction } from "@/components/report-content-action";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -26,6 +28,7 @@ export type QuestionDTO = {
   difficulty: string;
   tags: string[];
   keywords: string[];
+  careerTracks: string[];
 };
 
 type ProgressMap = Record<string, "known" | "review" | "unseen">;
@@ -55,6 +58,7 @@ export function QuestionsBank({
   totalXP?: number;
 }) {
   const router = useRouter();
+  const { careerTracks, narrowTrack } = useCareerTracks();
   const [progress, setProgress] = useState<ProgressMap>(initialProgress);
   const [category, setCategory] = useState<string>("all");
   const [difficulty, setDifficulty] = useState<string>("all");
@@ -97,14 +101,19 @@ export function QuestionsBank({
     setProgress(initialProgress);
   }, [progressSnap, initialProgress]);
 
+  const trackFiltered = useMemo(
+    () => questions.filter((q) => matchesCareerTracks(q.careerTracks, careerTracks, narrowTrack)),
+    [questions, careerTracks, narrowTrack],
+  );
+
   const categories = useMemo(() => {
-    const s = new Set(questions.map((q) => q.category));
+    const s = new Set(trackFiltered.map((q) => q.category));
     return ["all", ...Array.from(s).sort()];
-  }, [questions]);
+  }, [trackFiltered]);
 
   const distractorPool: McqDistractorSource[] = useMemo(
-    () => questions.map((q) => ({ id: q.id, answer: q.answer, category: q.category })),
-    [questions],
+    () => trackFiltered.map((q) => ({ id: q.id, answer: q.answer, category: q.category })),
+    [trackFiltered],
   );
 
   const statusOf = useCallback(
@@ -114,30 +123,30 @@ export function QuestionsBank({
 
   const filteredBrowse = useMemo(() => {
     const tagNeedle = tagFilter.trim().toLowerCase();
-    return questions.filter((q) => {
+    return trackFiltered.filter((q) => {
       if (category !== "all" && q.category !== category) return false;
       if (difficulty !== "all" && q.difficulty !== difficulty) return false;
       if (status !== "all" && statusOf(q.id) !== status) return false;
       if (tagNeedle && !q.tags.some((t) => t.toLowerCase().includes(tagNeedle))) return false;
       return true;
     });
-  }, [questions, category, difficulty, status, tagFilter, statusOf]);
+  }, [trackFiltered, category, difficulty, status, tagFilter, statusOf]);
 
   const knownCount = useMemo(
-    () => questions.filter((q) => statusOf(q.id) === "known").length,
-    [questions, statusOf],
+    () => trackFiltered.filter((q) => statusOf(q.id) === "known").length,
+    [trackFiltered, statusOf],
   );
 
   const categoryStats = useMemo(() => {
     const map = new Map<string, { total: number; known: number }>();
-    questions.forEach((q) => {
+    trackFiltered.forEach((q) => {
       const cur = map.get(q.category) ?? { total: 0, known: 0 };
       cur.total += 1;
       if (statusOf(q.id) === "known") cur.known += 1;
       map.set(q.category, cur);
     });
     return Array.from(map.entries()).sort((a, b) => a[0].localeCompare(b[0]));
-  }, [questions, statusOf]);
+  }, [trackFiltered, statusOf]);
 
   const patchProgress = async (
     questionId: string,
@@ -159,7 +168,7 @@ export function QuestionsBank({
   };
 
   const startDrill = () => {
-    let pool = questions.filter((q) => {
+    let pool = trackFiltered.filter((q) => {
       if (drillCategory !== "all" && q.category !== drillCategory) return false;
       if (drillDifficulty !== "all" && q.difficulty !== drillDifficulty) return false;
       return true;
@@ -379,7 +388,7 @@ export function QuestionsBank({
           <div>
             <h1 className="page-title">Question Bank</h1>
             <p className="text-sm text-zinc-400">
-              Mastered {knownCount} / {TARGET_TOTAL} (bank has {questions.length} seeded)
+              Mastered {knownCount} / {TARGET_TOTAL} (showing {trackFiltered.length} for your career tracks)
             </p>
             <p className="text-sm text-[#888888]">
               Streak: <span className="text-[#c9a84c]">{streakDisplay}</span> day(s) · Weekly XP{" "}

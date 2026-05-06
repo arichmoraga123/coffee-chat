@@ -40,3 +40,39 @@ export function matchCountdownEvents(
     OR: [{ vertical: null }, { vertical: { in: targets } }],
   };
 }
+
+/** Map profile career tracks (full names) + legacy recruitingTarget (IB/PE/…) to calendar `vertical` values. */
+export function calendarVerticalsFromProfile(
+  careerTracks: string[],
+  recruitingTarget: string[],
+): string[] {
+  const trackToVertical: Record<string, string[]> = {
+    "Investment Banking": ["IB"],
+    "Private Equity": ["PE"],
+    "Venture Capital": ["VC"],
+    Consulting: ["Consulting"],
+    "Corporate Finance": ["IB"],
+    "Capital Markets": ["IB"],
+    "Sales & Trading": ["IB"],
+    "Asset Management": ["PE"],
+    "Equity Research": ["IB"],
+    "Hedge Fund": ["PE"],
+    "Private Credit": ["PE"],
+    "Real Estate": ["PE"],
+    "Big 4 Accounting": ["Consulting"],
+    "Wealth Management": ["PE"],
+    "Tech/Startup": ["VC"],
+    Actuarial: ["PE"],
+  };
+  const out = new Set<string>();
+  for (const t of recruitingTarget) {
+    if (t === "IB") out.add("IB");
+    else if (t === "PE") out.add("PE");
+    else if (t === "VC") out.add("VC");
+    else if (t === "Consulting") out.add("Consulting");
+  }
+  for (const tr of careerTracks) {
+    for (const v of trackToVertical[tr] ?? []) out.add(v);
+  }
+  return Array.from(out);
+}

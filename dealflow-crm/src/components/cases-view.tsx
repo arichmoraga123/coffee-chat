@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { cn } from "@/lib/utils";
+import { ConsultingCaseLibrary } from "@/components/consulting-case-library";
 
 export type CaseDTO = {
   id: string;
@@ -59,6 +60,7 @@ function matchesResultFilter(c: CaseDTO, f: (typeof RESULT_FILTER)[number]) {
 }
 
 export function CasesView() {
+  const [pageTab, setPageTab] = useState<"competitions" | "consulting">("competitions");
   const [cases, setCases] = useState<CaseDTO[]>([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
@@ -235,6 +237,27 @@ export function CasesView() {
 
   return (
     <div className="space-y-6">
+      <div className="flex flex-wrap gap-2 border-b border-zinc-800 pb-2">
+        <Button type="button" size="sm" variant={pageTab === "competitions" ? "default" : "outline"} onClick={() => setPageTab("competitions")}>
+          Case competitions
+        </Button>
+        <Button type="button" size="sm" variant={pageTab === "consulting" ? "default" : "outline"} onClick={() => setPageTab("consulting")}>
+          Consulting case library
+        </Button>
+      </div>
+
+      {pageTab === "consulting" ? (
+        <>
+          <div>
+            <h1 className="page-title">Consulting case library</h1>
+            <p className="mt-1 text-sm text-zinc-500">Seeded scenarios for profitability, market entry, M&amp;A, pricing, and operations.</p>
+          </div>
+          <ConsultingCaseLibrary />
+        </>
+      ) : null}
+
+      {pageTab === "competitions" ? (
+        <>
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="page-title">Case competitions</h1>
@@ -426,6 +449,8 @@ export function CasesView() {
           </div>
         </div>
       </Modal>
+        </>
+      ) : null}
     </div>
   );
 }

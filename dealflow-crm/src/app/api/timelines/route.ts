@@ -43,6 +43,7 @@ export async function GET(req: Request) {
       verified: t.verified,
       upvotes: t.upvotes,
       hasVoted: t.votes.length > 0,
+      careerTracks: t.careerTracks ?? [],
     })),
   });
 }
@@ -66,6 +67,15 @@ export async function POST(req: Request) {
     return Number.isNaN(d.getTime()) ? null : d;
   };
 
+  const inferTracks = (): string[] => {
+    if (firmType === "CONSULTING") return ["Consulting"];
+    if (firmType === "ACCOUNTING") return ["Big 4 Accounting"];
+    if (firmType === "PE") return ["Private Equity"];
+    if (firmType === "VC") return ["Venture Capital"];
+    if (firmType === "BB" || firmType === "EB" || firmType === "MM") return ["Investment Banking"];
+    return [];
+  };
+
   const created = await prisma.firmTimeline.create({
     data: {
       firmName,
@@ -80,6 +90,7 @@ export async function POST(req: Request) {
       offerDate: parseDate(body.offerDate),
       submittedBy: userId,
       verified: false,
+      careerTracks: inferTracks(),
     },
   });
   return NextResponse.json(created, { status: 201 });

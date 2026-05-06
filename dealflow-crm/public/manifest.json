@@ -1,7 +1,7 @@
 {
-  "name": "Recruiting Hub",
-  "short_name": "RecHub",
-  "description": "Personal recruiting CRM",
+  "name": "Prospect",
+  "short_name": "Prospect",
+  "description": "Multi-school recruiting network",
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#000000",

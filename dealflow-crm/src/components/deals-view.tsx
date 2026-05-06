@@ -7,6 +7,8 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DEAL_TYPE_OPTIONS, VERTICAL_OPTIONS } from "@/lib/deal-taxonomy";
+import { useCareerTracks } from "@/components/career-track-provider";
+import { matchesCareerTracks } from "@/lib/career-tracks";
 
 type Deal = {
   id: string;
@@ -22,6 +24,7 @@ type Deal = {
   risks: string | null;
   sourceUrl: string | null;
   announcedAt: string;
+  careerTracks: string[];
 };
 
 function isCurrentDeal(announcedAt: string): boolean {
@@ -36,6 +39,7 @@ export function DealsView({
   initialDeals?: Deal[];
   initialBookmarks?: Record<string, string | null | undefined>;
 }) {
+  const { careerTracks, narrowTrack } = useCareerTracks();
   const [deals, setDeals] = useState<Deal[]>(initialDeals);
   const [bookmarks, setBookmarks] = useState<Record<string, string | null | undefined>>(initialBookmarks);
   const [filters, setFilters] = useState({ dealType: "", vertical: "", sector: "", size: "" });
@@ -44,10 +48,10 @@ export function DealsView({
   const [loadError, setLoadError] = useState<string | null>(null);
 
   const tabDeals = useMemo(() => {
-    return deals.filter((d) =>
-      tab === "current" ? isCurrentDeal(d.announcedAt) : !isCurrentDeal(d.announcedAt),
-    );
-  }, [deals, tab]);
+    return deals
+      .filter((d) => matchesCareerTracks(d.careerTracks ?? [], careerTracks, narrowTrack))
+      .filter((d) => (tab === "current" ? isCurrentDeal(d.announcedAt) : !isCurrentDeal(d.announcedAt)));
+  }, [deals, tab, careerTracks, narrowTrack]);
 
   const load = async () => {
     setLoadError(null);
@@ -63,7 +67,12 @@ export function DealsView({
       return;
     }
     const d = (await res.json()) as { deals: Deal[]; bookmarks: Record<string, string | null> };
-    setDeals(d.deals);
+    setDeals(
+      (d.deals ?? []).map((row) => ({
+        ...row,
+        careerTracks: row.careerTracks ?? [],
+      })),
+    );
     setBookmarks(d.bookmarks);
   };
 

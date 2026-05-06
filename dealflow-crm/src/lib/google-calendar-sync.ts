@@ -185,7 +185,7 @@ export async function syncCoffeeFollowUpToGoogle(
   const gid = await upsertExternalEvent(userId, {
     existingGoogleId: row.googleCalendarEventId,
     summary,
-    description: "Follow-up from DealFlow CRM coffee chat.",
+    description: "Follow-up from Prospect coffee chat.",
     start: dayStart,
     end: dayEnd,
     allDay: true,

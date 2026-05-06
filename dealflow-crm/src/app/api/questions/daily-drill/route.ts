@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession } from "@/lib/auth";
+import { matchesCareerTracks } from "@/lib/career-tracks";
 
 function utcDayString(d: Date) {
   return d.toISOString().slice(0, 10);
@@ -27,7 +28,7 @@ export async function POST() {
     }),
     prisma.user.findUnique({
       where: { id: userId },
-      select: { drillStreak: true, lastDrillDay: true, xp: true, weeklyXP: true },
+      select: { drillStreak: true, lastDrillDay: true, xp: true, weeklyXP: true, careerTracks: true },
     }),
   ]);
 
@@ -43,7 +44,7 @@ export async function POST() {
     });
   }
 
-  const questions = await prisma.question.findMany({
+  const rawQuestions = await prisma.question.findMany({
     where: { status: "active" },
     select: {
       id: true,
@@ -54,8 +55,13 @@ export async function POST() {
       difficulty: true,
       tags: true,
       keywords: true,
+      careerTracks: true,
     },
   });
+
+  const pt = user.careerTracks ?? [];
+  const filtered = rawQuestions.filter((q) => matchesCareerTracks(q.careerTracks, pt, null));
+  const questions = filtered.length > 0 ? filtered : rawQuestions;
 
   const progressRows = await prisma.userQuestionProgress.findMany({
     where: { userId },

@@ -208,7 +208,7 @@ export async function syncCoffeeFollowUpToOutlook(
   const oid = await upsertGraphEvent(userId, {
     existingId: row.outlookCalendarEventId,
     summary,
-    description: "Follow-up from DealFlow CRM coffee chat.",
+    description: "Follow-up from Prospect coffee chat.",
     start: dayStart,
     end: dayEnd,
     allDay: true,

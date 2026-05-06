@@ -11,6 +11,22 @@ export default async function DealsPage() {
       where: { status: "published" },
       orderBy: { announcedAt: "desc" },
       take: 500,
+      select: {
+        id: true,
+        title: true,
+        acquirer: true,
+        target: true,
+        dealValue: true,
+        dealType: true,
+        vertical: true,
+        sector: true,
+        summary: true,
+        keyThesis: true,
+        risks: true,
+        sourceUrl: true,
+        announcedAt: true,
+        careerTracks: true,
+      },
     }),
     prisma.dealBookmark.findMany({
       where: { userId },
@@ -24,6 +40,7 @@ export default async function DealsPage() {
       initialDeals={deals.map((d) => ({
         ...d,
         announcedAt: d.announcedAt.toISOString(),
+        careerTracks: d.careerTracks ?? [],
       }))}
       initialBookmarks={bookmarkMap}
     />

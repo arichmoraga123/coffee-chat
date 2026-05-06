@@ -6,8 +6,10 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useCareerTracks } from "@/components/career-track-provider";
+import { Button } from "@/components/ui/button";
 
-const STORAGE_KEY = "dealflow-sidebar-groups-v1";
+const STORAGE_KEY = "prospect-sidebar-groups-v1";
 
 type NavItem = { href: string; label: string };
 
@@ -21,6 +23,15 @@ const OVERVIEW_ITEM: NavItem = { href: "/", label: "Dashboard" };
 
 const COLLAPSIBLE_GROUPS: CollapsibleGroup[] = [
   {
+    id: "prospect",
+    title: "🏛️ Prospect",
+    items: [
+      { href: "/schools", label: "Schools" },
+      { href: "/comp", label: "Comp Data" },
+      { href: "/alumni", label: "Alumni" },
+    ],
+  },
+  {
     id: "networking",
     title: "👥 Networking",
     items: [
@@ -31,11 +42,24 @@ const COLLAPSIBLE_GROUPS: CollapsibleGroup[] = [
     ],
   },
   {
+    id: "club",
+    title: "🏢 Club",
+    items: [
+      { href: "/club", label: "Club Hub" },
+      { href: "/club/announcements", label: "Announcements" },
+      { href: "/club/content", label: "Content" },
+      { href: "/club/projects", label: "Projects" },
+      { href: "/club/events", label: "Events" },
+      { href: "/club/members", label: "Members" },
+    ],
+  },
+  {
     id: "prep",
     title: "📚 Prep",
     items: [
       { href: "/questions", label: "Question Bank" },
       { href: "/mock-interview", label: "Mock Interview" },
+      { href: "/pitch-builder", label: "Stock Pitch Builder" },
       { href: "/resume", label: "Resume Review" },
       { href: "/cases", label: "Cases" },
     ],
@@ -97,6 +121,8 @@ function defaultsForViewport(isMobile: boolean): Record<string, boolean> {
   if (!isMobile) {
     base.networking = true;
     base.prep = true;
+    base.prospect = true;
+    base.club = true;
   }
   return base;
 }
@@ -132,7 +158,6 @@ function pathMatchesItem(pathname: string, href: string): boolean {
   if (href.includes("#")) {
     const base = (href.split("#")[0] ?? "").replace(/\/$/, "") || "/";
     if (base === "/") return pathname === "/";
-    // Hash deep links: highlight only on exact path (not /admin/questions vs /admin#…)
     return pathname === base;
   }
   if (href === "/") return pathname === "/";
@@ -150,6 +175,7 @@ function groupIdForPathname(pathname: string): string | null {
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { data: session } = useSession();
+  const { careerTracks, narrowTrack, setNarrowTrack, cycleNarrowTrack, refreshCareerTracks } = useCareerTracks();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() => defaultsForViewport(false));
@@ -196,7 +222,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       if (target && ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) return;
       const key = event.key.toLowerCase();
       if (!["c", "i", "t"].includes(key)) return;
-      window.dispatchEvent(new CustomEvent("dealflow-shortcut", { detail: key }));
+      window.dispatchEvent(new CustomEvent("prospect-shortcut", { detail: key }));
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
@@ -265,9 +291,56 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           mobileOpen ? "translate-x-0 shadow-xl shadow-black/40" : "-translate-x-full md:translate-x-0",
         )}
       >
-        <div className="mb-4 text-lg font-bold tracking-wide text-[#f5f5f5]">
-          DealFlow CRM
-        </div>
+        <div className="mb-1 text-lg font-bold tracking-wide text-[#f5f5f5]">Prospect</div>
+        <p className="mb-4 text-[10px] uppercase tracking-[0.12em] text-zinc-500">Recruiting network</p>
+        {!isAuthPage ? (
+          <div className="mb-3 space-y-2 rounded border border-[#2a2a2a] bg-zinc-900/50 p-2">
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-[#666666]">Career track</p>
+            {careerTracks.length === 0 ? (
+              <p className="text-[11px] leading-snug text-zinc-500">
+                Set tracks in onboarding or{" "}
+                <Link href="/profile" className="text-zinc-200 underline-offset-2 hover:underline" onClick={closeMobile}>
+                  Profile
+                </Link>{" "}
+                to filter prep.
+              </p>
+            ) : (
+              <>
+                <select
+                  className="w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-xs text-zinc-200"
+                  value={narrowTrack ?? ""}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setNarrowTrack(v === "" ? null : v);
+                  }}
+                >
+                  <option value="">All my tracks</option>
+                  {careerTracks.map((t) => (
+                    <option key={t} value={t}>
+                      {t}
+                    </option>
+                  ))}
+                </select>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="h-7 w-full text-[11px]"
+                  onClick={() => cycleNarrowTrack()}
+                >
+                  Switch track
+                </Button>
+              </>
+            )}
+            <button
+              type="button"
+              className="w-full text-left text-[10px] text-zinc-500 hover:text-zinc-300"
+              onClick={() => void refreshCareerTracks()}
+            >
+              Refresh from profile
+            </button>
+          </div>
+        ) : null}
         <nav className="flex-1 space-y-1 overflow-y-auto pr-1">
           <div className="pb-1">
             <p className="px-1 pb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#666666]">📊 Overview</p>
@@ -318,9 +391,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           >
             ☰
           </button>
-          <span className="text-sm font-bold tracking-wide text-[#f5f5f5]">
-            DealFlow CRM
-          </span>
+          <span className="text-sm font-bold tracking-wide text-[#f5f5f5]">Prospect</span>
         </header>
         <main className="min-w-0 flex-1 space-y-8 p-4 md:p-6">{children}</main>
       </div>

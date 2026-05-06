@@ -15,7 +15,8 @@ export type AnthropicUsageFeature =
   | "deal-practice"
   | "email-customize"
   | "resume-review"
-  | "case-resume-bullets";
+  | "case-resume-bullets"
+  | "pitch-outline";
 
 export function getAnthropicApiKey(): string | undefined {
   const k = process.env.ANTHROPIC_API_KEY?.trim();

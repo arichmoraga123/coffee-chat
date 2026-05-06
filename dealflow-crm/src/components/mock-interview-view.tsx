@@ -7,6 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MOCK_INTERVIEW_BANKS } from "@/lib/mock-interview-constants";
 import { cn } from "@/lib/utils";
+import { useCareerTracks } from "@/components/career-track-provider";
+import { matchesCareerTracks } from "@/lib/career-tracks";
+import { ConsultingCasePractice } from "@/components/consulting-case-practice";
 
 type Q = {
   id: string;
@@ -17,6 +20,7 @@ type Q = {
   difficulty: string;
   modelAnswer: string | null;
   tips: string | null;
+  careerTracks: string[];
 };
 
 function shuffle<T>(arr: T[]): T[] {
@@ -29,6 +33,7 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 export function MockInterviewView() {
+  const { careerTracks, narrowTrack } = useCareerTracks();
   const [bankCounts, setBankCounts] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(true);
   const [sessionMode, setSessionMode] = useState<"practice" | "timed" | "bank-specific" | null>(null);
@@ -58,13 +63,23 @@ export function MockInterviewView() {
   const refreshCounts = useCallback(async () => {
     const res = await fetch("/api/mock-interview/questions");
     if (!res.ok) return;
-    const data = (await res.json()) as { bankCounts?: Record<string, number> };
-    setBankCounts(data.bankCounts ?? {});
-  }, []);
+    const data = (await res.json()) as { bankCounts?: Record<string, number>; questions?: Q[] };
+    if (!careerTracks.length) {
+      setBankCounts(data.bankCounts ?? {});
+      return;
+    }
+    const qs = data.questions ?? [];
+    const filtered = qs.filter((q) => matchesCareerTracks(q.careerTracks ?? [], careerTracks, narrowTrack));
+    const nextCounts: Record<string, number> = {};
+    for (const q of filtered) {
+      nextCounts[q.bankSource] = (nextCounts[q.bankSource] ?? 0) + 1;
+    }
+    setBankCounts(nextCounts);
+  }, [careerTracks, narrowTrack]);
 
   useEffect(() => {
     void refreshCounts().finally(() => setLoading(false));
-  }, [refreshCounts]);
+  }, [refreshCounts, careerTracks, narrowTrack]);
 
   const current = pool[idx] ?? null;
 
@@ -93,7 +108,7 @@ export function MockInterviewView() {
     setLoading(false);
     if (!res.ok) return;
     const data = (await res.json()) as { questions: Q[] };
-    let list = data.questions;
+    let list = data.questions.filter((q) => matchesCareerTracks(q.careerTracks ?? [], careerTracks, narrowTrack));
     if (mode === "timed") {
       list = shuffle(list).slice(0, 20);
     } else if (mode === "practice") {
@@ -340,6 +355,7 @@ export function MockInterviewView() {
           ))}
         </Card>
         <div className="space-y-4">
+          <ConsultingCasePractice />
           <Card className="space-y-3 border-zinc-800 bg-zinc-900/50 p-4">
             <p className="text-sm font-medium text-zinc-200">Start</p>
             <div className="flex flex-wrap gap-2">

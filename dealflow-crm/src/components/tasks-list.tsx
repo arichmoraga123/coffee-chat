@@ -59,8 +59,8 @@ export function TasksList({
       const detail = (event as CustomEvent<string>).detail;
       if (detail === "t") setShowModal(true);
     };
-    window.addEventListener("dealflow-shortcut", onShortcut);
-    return () => window.removeEventListener("dealflow-shortcut", onShortcut);
+    window.addEventListener("prospect-shortcut", onShortcut);
+    return () => window.removeEventListener("prospect-shortcut", onShortcut);
   }, []);
 
   return (

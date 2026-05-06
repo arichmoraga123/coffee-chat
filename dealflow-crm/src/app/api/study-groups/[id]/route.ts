@@ -17,6 +17,14 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
         include: { user: { select: { id: true, name: true, email: true, drillStreak: true, weeklyXP: true, xp: true } } },
       },
       messages: { orderBy: { createdAt: "asc" }, take: 200, include: { user: { select: { name: true } } } },
+      sharedPitches: {
+        select: {
+          id: true,
+          companyName: true,
+          recommendation: true,
+          user: { select: { name: true } },
+        },
+      },
     },
   });
   if (!group) return NextResponse.json({ error: "Not found" }, { status: 404 });

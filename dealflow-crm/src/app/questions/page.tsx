@@ -22,6 +22,7 @@ export default async function QuestionsPage() {
         difficulty: true,
         tags: true,
         keywords: true,
+        careerTracks: true,
       },
     }),
     prisma.userQuestionProgress.findMany({

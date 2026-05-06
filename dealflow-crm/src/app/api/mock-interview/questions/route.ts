@@ -16,6 +16,17 @@ export async function GET(req: Request) {
   const questions = await prisma.mockInterviewQuestion.findMany({
     where,
     orderBy: [{ bankSource: "asc" }, { category: "asc" }],
+    select: {
+      id: true,
+      question: true,
+      category: true,
+      bankSource: true,
+      year: true,
+      difficulty: true,
+      modelAnswer: true,
+      tips: true,
+      careerTracks: true,
+    },
   });
   const counts = await prisma.mockInterviewQuestion.groupBy({
     by: ["bankSource"],
@@ -39,6 +50,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "question, bankSource, and category are required" }, { status: 400 });
   }
   const dedupeKey = createHash("sha256").update(`${bankSource}|${question}`).digest("hex");
+  const careerTracks = Array.isArray(body.careerTracks)
+    ? (body.careerTracks as unknown[]).map((x) => String(x)).filter(Boolean)
+    : [];
   const row = await prisma.mockInterviewQuestion.create({
     data: {
       question,
@@ -51,6 +65,7 @@ export async function POST(req: Request) {
       status: "pending",
       submittedById: userId,
       dedupeKey,
+      careerTracks: careerTracks.length ? careerTracks : ["Investment Banking"],
     },
   });
   return NextResponse.json(row);

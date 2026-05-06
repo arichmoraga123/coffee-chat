@@ -8,6 +8,7 @@ import { getFollowUpSteps, getFollowUpStatus } from "@/lib/follow-up";
 import { DashboardDailyDrill } from "@/components/dashboard-daily-drill";
 import { DashboardNewsFeed } from "@/components/dashboard-news-feed";
 import { DashboardRecruitingCountdown } from "@/components/dashboard-recruiting-countdown";
+import { calendarVerticalsFromProfile } from "@/lib/recruiting-calendar-utils";
 import { OnboardingWizard } from "@/components/onboarding-wizard";
 import { cn } from "@/lib/utils";
 
@@ -26,6 +27,7 @@ export default async function Home() {
       weeklyXP: true,
       name: true,
       recruitingTarget: true,
+      careerTracks: true,
     },
   });
 
@@ -263,7 +265,10 @@ export default async function Home() {
             </div>
           </Card>
 
-          <DashboardRecruitingCountdown userId={userId} targets={user?.recruitingTarget ?? []} />
+          <DashboardRecruitingCountdown
+            userId={userId}
+            targets={calendarVerticalsFromProfile(user?.careerTracks ?? [], user?.recruitingTarget ?? [])}
+          />
 
           <Card className="p-3">
             <p className="section-label">Pipeline snapshot</p>
