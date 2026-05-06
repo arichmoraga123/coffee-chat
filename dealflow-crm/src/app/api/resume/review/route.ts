@@ -8,71 +8,54 @@ export const maxDuration = 60;
 
 const COMMON_SCHEMA_PROMPT = `Return ONLY valid JSON with no markdown or explanation using this exact structure:
 {
-  overallScore: number (0-100),
-  oneLiner: string,
-  recruitingReadiness: string,
-  targetTrack: string,
-  visualAnalysis: {
-    score: number (0-100),
-    grade: string,
-    feedback: string,
-    issues: [
-      {
-        issue: string,
-        severity: 'critical' | 'moderate' | 'minor',
-        fix: string
-      }
-    ]
-  },
-  sections: {
-    formatting: {
-      score: number,
-      grade: string,
-      feedback: string,
-      issues: string[],
-      fixes: string[]
+  "overallScore": number,
+  "oneLiner": string,
+  "recruitingReadiness": string,
+  "targetTrack": string,
+  "top5Improvements": string[],
+  "sections": {
+    "formatting": {
+      "grade": string,
+      "feedback": string,
+      "issues": string[],
+      "fixes": string[]
     },
-    experience: {
-      score: number,
-      grade: string,
-      feedback: string,
-      weakBullets: [
+    "experience": {
+      "grade": string,
+      "feedback": string,
+      "weakBullets": [
         {
-          original: string,
-          problem: string,
-          rewritten: string
+          "original": string,
+          "problem": string,
+          "rewritten": string
         }
       ]
     },
-    education: {
-      score: number,
-      grade: string,
-      feedback: string,
-      issues: string[]
+    "education": {
+      "grade": string,
+      "feedback": string,
+      "issues": string[]
     },
-    skills: {
-      score: number,
-      grade: string,
-      feedback: string,
-      missing: string[],
-      suggestions: string[]
+    "skills": {
+      "grade": string,
+      "feedback": string,
+      "missing": string[],
+      "suggestions": string[]
     },
-    trackSpecific: {
-      score: number,
-      grade: string,
-      feedback: string,
-      strengths: string[],
-      gaps: string[]
+    "trackSpecific": {
+      "grade": string,
+      "feedback": string,
+      "strengths": string[],
+      "gaps": string[]
     }
   },
-  topFirmsMatch: [
+  "topFirmsMatch": [
     {
-      firm: string,
-      fitScore: number,
-      reason: string
+      "firm": string,
+      "fitScore": number,
+      "reason": string
     }
-  ],
-  top5Improvements: string[]
+  ]
 }`;
 
 const TRACK_PROMPTS: Record<string, string> = {
@@ -139,7 +122,7 @@ function getTrackPrompt(track: string) {
           : track === "Big 4 Accounting"
             ? "Scoring weights: Education/GPA 30%, Experience 30%, Skills 25%, Formatting 15%."
             : "Scoring weights: equal weight across sections.";
-  return `${base}\n${scoring}\n${COMMON_SCHEMA_PROMPT}`;
+  return `${base}\n${scoring}\nKeep all text values SHORT. Feedback strings max 2 sentences. Issue/fix strings max 1 sentence. This ensures the response fits within token limits.\n${COMMON_SCHEMA_PROMPT}`;
 }
 
 async function analyzeWithClaude(userId: string, pdfBase64: string, track: string) {
@@ -173,7 +156,7 @@ async function analyzeWithClaude(userId: string, pdfBase64: string, track: strin
     },
     body: JSON.stringify({
       model: "claude-sonnet-4-5",
-      max_tokens: 1500,
+      max_tokens: 2500,
       system: getTrackPrompt(track),
       messages: [{ role: "user", content }],
     }),
