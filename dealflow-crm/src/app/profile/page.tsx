@@ -77,6 +77,13 @@ export default async function ProfilePage() {
 
         <Card className="border-zinc-800 bg-zinc-900/50 p-4">
           <p className="text-sm font-semibold text-zinc-200">Career tracks</p>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {(user?.careerTracks ?? []).map((track) => (
+              <span key={track} className="rounded-full border border-zinc-700 bg-zinc-950 px-2 py-0.5 text-xs text-zinc-300">
+                {track}
+              </span>
+            ))}
+          </div>
           <ProfileTracksForm initialTracks={user?.careerTracks ?? []} />
         </Card>
 

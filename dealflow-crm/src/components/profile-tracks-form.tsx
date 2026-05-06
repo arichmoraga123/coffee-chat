@@ -11,9 +11,17 @@ export function ProfileTracksForm({ initialTracks }: { initialTracks: string[] }
   const { refreshCareerTracks } = useCareerTracks();
   const [tracks, setTracks] = useState<string[]>(initialTracks);
   const [busy, setBusy] = useState(false);
+  const [msg, setMsg] = useState<string>("");
 
   const toggle = (t: string) => {
-    setTracks((prev) => (prev.includes(t) ? prev.filter((x) => x !== t) : [...prev, t]));
+    setTracks((prev) => {
+      if (prev.includes(t)) return prev.filter((x) => x !== t);
+      if (prev.length >= 3) {
+        setMsg("Select up to 3 tracks.");
+        return prev;
+      }
+      return [...prev, t];
+    });
   };
 
   const save = async () => {
@@ -26,11 +34,13 @@ export function ProfileTracksForm({ initialTracks }: { initialTracks: string[] }
     setBusy(false);
     await refreshCareerTracks();
     router.refresh();
+    setMsg(`Your app has been updated for ${tracks.join(", ")}`);
   };
 
   return (
     <div className="space-y-3">
       <p className="text-xs text-zinc-500">Controls filtering for questions, mock interviews, deals, timelines, and resources.</p>
+      {msg ? <p className="text-xs text-amber-300">{msg}</p> : null}
       <div className="flex flex-wrap gap-2">
         {CAREER_TRACK_OPTIONS.map((t) => (
           <button

@@ -11,6 +11,7 @@ import { DashboardRecruitingCountdown } from "@/components/dashboard-recruiting-
 import { calendarVerticalsFromProfile } from "@/lib/recruiting-calendar-utils";
 import { OnboardingWizard } from "@/components/onboarding-wizard";
 import { cn } from "@/lib/utils";
+import { getPrimaryTrack, getRelevantCategories } from "@/lib/track-utils";
 
 export const dynamic = "force-dynamic";
 
@@ -41,6 +42,7 @@ export default async function Home() {
     coffeeInteractions,
     pipeline,
     coldContacts,
+    trackProgressRows,
   ] = await Promise.all([
     prisma.userQuestionProgress.count({ where: { userId, status: "known" } }),
     prisma.contact.count({
@@ -72,7 +74,16 @@ export default async function Home() {
       orderBy: { lastInteractionDate: "asc" },
       take: 10,
     }),
+    prisma.userQuestionProgress.findMany({
+      where: { userId },
+      select: { status: true, question: { select: { category: true } } },
+    }),
   ]);
+  const relevantCats = getRelevantCategories(user?.careerTracks ?? []);
+  const relevantRows = trackProgressRows.filter((row) => relevantCats.includes(row.question.category));
+  const trackKnown = relevantRows.filter((row) => row.status === "known").length;
+  const trackPct = relevantRows.length ? Math.round((trackKnown / relevantRows.length) * 100) : 0;
+  const primaryTrack = getPrimaryTrack(user?.careerTracks ?? []);
 
   const followUpAlerts = contactsForFollowUps
     .flatMap((contact) => {
@@ -263,6 +274,9 @@ export default async function Home() {
                 <p className="text-base font-semibold tabular-nums text-[#4a6fa5]">{contactsThisWeek}</p>
               </div>
             </div>
+            <p className="mt-2 text-xs text-zinc-400">
+              {primaryTrack} Prep: <span className="text-zinc-200">{trackPct}% complete</span>
+            </p>
           </Card>
 
           <DashboardRecruitingCountdown

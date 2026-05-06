@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { EmailTemplatesTab } from "@/components/email-templates-tab";
 import { useCareerTracks } from "@/components/career-track-provider";
 import { RESOURCE_TRACK_BUCKETS, matchesCareerTracks } from "@/lib/career-tracks";
+import { getRelevantResources } from "@/lib/track-utils";
 
 export function ResourcesView({ initialBookmarkSlugs }: { initialBookmarkSlugs: string[] }) {
   const router = useRouter();
@@ -20,10 +21,16 @@ export function ResourcesView({ initialBookmarkSlugs }: { initialBookmarkSlugs: 
   const [mainTab, setMainTab] = useState<"links" | "templates">("links");
   const [trackTab, setTrackTab] = useState<string>("All");
   const [bookmarked, setBookmarked] = useState<Set<string>>(new Set(initialBookmarkSlugs));
+  const relevantResourceTabs = useMemo(() => getRelevantResources(careerTracks), [careerTracks]);
 
   useEffect(() => {
     setBookmarked(new Set(initialBookmarkSlugs));
   }, [initialBookmarkSlugs]);
+
+  useEffect(() => {
+    if (!relevantResourceTabs.length) return;
+    if (trackTab === "All") setTrackTab(relevantResourceTabs[0] ?? "All");
+  }, [relevantResourceTabs, trackTab]);
 
   const toggleBookmark = async (slug: string) => {
     const res = await fetch("/api/resources/bookmarks", {
@@ -113,6 +120,14 @@ export function ResourcesView({ initialBookmarkSlugs }: { initialBookmarkSlugs: 
           <Input placeholder="Search resources…" value={q} onChange={(e) => setQ(e.target.value)} className="max-w-md" />
 
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            {relevantResourceTabs.length > 0 ? (
+              <Card className="border-emerald-700/30 bg-emerald-950/10 p-4 sm:col-span-2 xl:col-span-3">
+                <p className="text-sm font-semibold text-emerald-300">Recommended for you</p>
+                <p className="mt-1 text-xs text-zinc-400">
+                  Prioritized tabs: {relevantResourceTabs.join(", ")}
+                </p>
+              </Card>
+            ) : null}
             {items.map((item) => (
               <Card key={item.slug} className="relative flex flex-col border-zinc-800 bg-zinc-900/60 p-4">
                 <button

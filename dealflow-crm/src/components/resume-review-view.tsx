@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { getPrimaryTrack, getResumeTrackSectionLabel } from "@/lib/track-utils";
 
 type Severity = "critical" | "moderate" | "minor";
 type WeakBullet = {
@@ -14,6 +15,7 @@ type WeakBullet = {
 
 type FeedbackShape = {
   overallScore: number;
+  targetTrack?: string;
   oneLiner?: string;
   recruitingReadiness?: string;
   visualAnalysis?: {
@@ -36,6 +38,13 @@ type FeedbackShape = {
       dealExperience: string;
       technicalSkills: string;
       quantification: string;
+    };
+    trackSpecific?: {
+      score: number;
+      grade: string;
+      feedback: string;
+      strengths?: string[];
+      gaps?: string[];
     };
   };
   topFirmsMatch?: Array<{ firm: string; fitScore: number; reason: string }>;
@@ -93,13 +102,14 @@ function BulletList({ title, items }: { title: string; items: string[] | undefin
   );
 }
 
-export function ResumeReviewView() {
+export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const reuploadRef = useRef<HTMLInputElement>(null);
   const [reviews, setReviews] = useState<ReviewRow[]>([]);
   const [active, setActive] = useState<ReviewRow | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [targetTrack, setTargetTrack] = useState<string>(getPrimaryTrack(careerTracks));
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({
     formatting: true,
     experience: true,
@@ -128,6 +138,7 @@ export function ResumeReviewView() {
     setLoading(true);
     const fd = new FormData();
     fd.append("file", file);
+    fd.append("targetTrack", targetTrack);
     try {
       const res = await fetch("/api/resume/review", { method: "POST", body: fd, credentials: "same-origin" });
       const data = (await res.json()) as { review?: ReviewRow; error?: string };
@@ -156,6 +167,7 @@ export function ResumeReviewView() {
 
   const fb = asFeedback(active?.feedback);
   const currentScore = typeof fb.overallScore === "number" ? fb.overallScore : active?.score ?? 0;
+  const reviewedTrack = (fb.targetTrack as string | undefined) ?? targetTrack;
   const previous = active ? reviews.find((r) => r.id !== active.id) : null;
   const scoreDelta = previous ? currentScore - previous.score : 0;
   const readiness = fb.recruitingReadiness ?? "Developing";
@@ -179,6 +191,27 @@ export function ResumeReviewView() {
         <p className="mt-1 text-sm text-zinc-500">
           Upload a PDF for visual + content review. Reviews are stored (last three per account).
         </p>
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          <span className="rounded-full border border-zinc-700 bg-zinc-900 px-2 py-1 text-xs text-zinc-300">
+            Reviewing for: {targetTrack}
+          </span>
+          {careerTracks.length !== 1 ? (
+            <select
+              className="rounded border border-zinc-700 bg-zinc-950 px-2 py-1 text-xs text-zinc-300"
+              value={targetTrack}
+              onChange={(e) => setTargetTrack(e.target.value)}
+            >
+              {(careerTracks.length ? careerTracks : ["General"]).map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
+          ) : null}
+          {careerTracks.length === 0 ? (
+            <span className="text-xs text-amber-300">Set tracks in profile for better personalization.</span>
+          ) : null}
+        </div>
       </div>
 
       <Card
@@ -264,6 +297,7 @@ export function ResumeReviewView() {
                   </span>
                 </div>
                 {fb.oneLiner ? <p className="mt-2 text-sm text-zinc-300">{fb.oneLiner}</p> : null}
+                <p className="mt-2 text-xs text-zinc-500">Reviewed for: {reviewedTrack}</p>
                 {fb.visualAnalysisUnavailable ? (
                   <p className="mt-2 text-xs text-amber-300">
                     {fb.visualAnalysisNote ?? "Visual analysis unavailable — content only"}
@@ -280,7 +314,11 @@ export function ResumeReviewView() {
               ["Experience", fb.sections?.experience?.score ?? 0, fb.sections?.experience?.grade ?? "-"],
               ["Education", fb.sections?.education?.score ?? 0, fb.sections?.education?.grade ?? "-"],
               ["Skills", fb.sections?.skills?.score ?? 0, fb.sections?.skills?.grade ?? "-"],
-              ["Finance-Specific", fb.sections?.financeSpecific?.score ?? 0, fb.sections?.financeSpecific?.grade ?? "-"],
+              [
+                getResumeTrackSectionLabel(reviewedTrack),
+                fb.sections?.trackSpecific?.score ?? fb.sections?.financeSpecific?.score ?? 0,
+                fb.sections?.trackSpecific?.grade ?? fb.sections?.financeSpecific?.grade ?? "-",
+              ],
             ].map(([label, score, grade]) => (
               <Card key={label as string} className="p-3">
                 <p className="text-[10px] uppercase tracking-wide text-zinc-500">{label as string}</p>
@@ -325,11 +363,13 @@ export function ResumeReviewView() {
               ["skills", "Skills", fb.sections?.skills?.feedback, fb.sections?.skills?.missing, fb.sections?.skills?.suggestions],
               [
                 "finance",
-                "Finance-specific",
-                fb.sections?.financeSpecific?.feedback,
-                [fb.sections?.financeSpecific?.dealExperience, fb.sections?.financeSpecific?.technicalSkills, fb.sections?.financeSpecific?.quantification].filter(
-                  Boolean,
-                ) as string[],
+                getResumeTrackSectionLabel(reviewedTrack),
+                fb.sections?.trackSpecific?.feedback ?? fb.sections?.financeSpecific?.feedback,
+                (
+                  fb.sections?.trackSpecific
+                    ? [...(fb.sections.trackSpecific.strengths ?? []), ...(fb.sections.trackSpecific.gaps ?? [])]
+                    : [fb.sections?.financeSpecific?.dealExperience, fb.sections?.financeSpecific?.technicalSkills, fb.sections?.financeSpecific?.quantification]
+                ).filter(Boolean) as string[],
                 [],
               ],
             ].map(([key, label, feedback, issues, fixes]) => (

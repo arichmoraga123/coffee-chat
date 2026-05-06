@@ -14,6 +14,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import type { McqDistractorSource } from "@/lib/question-mcq";
 import { gradeAnswerByKeywords, type KeywordGradeResult } from "@/lib/answer-grader";
 import { PracticeModal } from "@/components/practice-modal";
+import { getRelevantCategories, getTrackLearningPath } from "@/lib/track-utils";
 import {
   readStoredQuestionMode,
   writeStoredQuestionMode,
@@ -108,6 +109,8 @@ export function QuestionsBank({
     () => questions.filter((q) => matchesCareerTracks(q.careerTracks, careerTracks, narrowTrack)),
     [questions, careerTracks, narrowTrack],
   );
+  const relevantCategories = useMemo(() => getRelevantCategories(careerTracks), [careerTracks]);
+  const learningPath = useMemo(() => getTrackLearningPath(careerTracks), [careerTracks]);
 
   const categories = useMemo(() => {
     const s = new Set(trackFiltered.map((q) => q.category));
@@ -126,14 +129,20 @@ export function QuestionsBank({
 
   const filteredBrowse = useMemo(() => {
     const tagNeedle = tagFilter.trim().toLowerCase();
-    return trackFiltered.filter((q) => {
+    const ranked = [...trackFiltered].sort((a, b) => {
+      const aRec = relevantCategories.includes(a.category) ? 1 : 0;
+      const bRec = relevantCategories.includes(b.category) ? 1 : 0;
+      if (aRec !== bRec) return bRec - aRec;
+      return a.question.localeCompare(b.question);
+    });
+    return ranked.filter((q) => {
       if (category !== "all" && q.category !== category) return false;
       if (difficulty !== "all" && q.difficulty !== difficulty) return false;
       if (status !== "all" && statusOf(q.id) !== status) return false;
       if (tagNeedle && !q.tags.some((t) => t.toLowerCase().includes(tagNeedle))) return false;
       return true;
     });
-  }, [trackFiltered, category, difficulty, status, tagFilter, statusOf]);
+  }, [trackFiltered, category, difficulty, status, tagFilter, statusOf, relevantCategories]);
 
   const dedupedFilteredBrowse = useMemo(() => {
     const seen = new Set<string>();
@@ -216,6 +225,12 @@ export function QuestionsBank({
     });
     return Array.from(map.entries()).sort((a, b) => a[0].localeCompare(b[0]));
   }, [trackFiltered, statusOf]);
+
+  useEffect(() => {
+    if (drillCategory !== "all") return;
+    const firstRelevant = categories.find((c) => c !== "all" && relevantCategories.includes(c));
+    if (firstRelevant) setDrillCategory(firstRelevant);
+  }, [categories, relevantCategories, drillCategory]);
 
   const patchProgress = async (
     questionId: string,
@@ -504,12 +519,37 @@ export function QuestionsBank({
         </div>
 
         <Card className="p-4">
+          {learningPath.length > 0 ? (
+            <div className="mb-4 rounded-lg border border-zinc-800 bg-zinc-950/50 p-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">Learning path</p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {learningPath.map((step) => (
+                  <button
+                    key={step}
+                    type="button"
+                    className="rounded border border-zinc-700 px-2 py-1 text-xs text-zinc-300 hover:border-zinc-500"
+                    onClick={() => {
+                      setCategory(step);
+                      setExpandedCategories((prev) => ({ ...prev, [step]: true }));
+                    }}
+                  >
+                    {step}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : null}
           <p className="mb-3 text-sm font-semibold text-zinc-200">Progress by category</p>
           <div className="grid gap-2 sm:grid-cols-2">
             {categoryStats.map(([cat, { total, known }]) => (
               <div key={cat}>
                 <div className="mb-1 flex justify-between text-xs text-zinc-400">
-                  <span>{cat}</span>
+                  <span className="inline-flex items-center gap-1">
+                    {cat}
+                    {relevantCategories.includes(cat) ? (
+                      <span className="rounded bg-amber-500/15 px-1.5 py-0.5 text-[10px] text-amber-300">Priority</span>
+                    ) : null}
+                  </span>
                   <span>
                     {known}/{total}
                   </span>
@@ -613,6 +653,11 @@ export function QuestionsBank({
                                       <span className="rounded bg-zinc-800 px-2 py-0.5 text-xs capitalize text-zinc-400">
                                         {st}
                                       </span>
+                                      {relevantCategories.includes(q.category) ? (
+                                        <span className="rounded bg-emerald-500/15 px-2 py-0.5 text-xs text-emerald-300">
+                                          Recommended
+                                        </span>
+                                      ) : null}
                                     </div>
                                     <p className="text-sm font-medium text-zinc-100">{q.question}</p>
                                   </div>

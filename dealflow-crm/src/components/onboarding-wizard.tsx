@@ -21,7 +21,11 @@ export function OnboardingWizard() {
   const [busy, setBusy] = useState(false);
 
   const toggleTrack = (t: string) => {
-    setTracks((prev) => (prev.includes(t) ? prev.filter((x) => x !== t) : [...prev, t]));
+    setTracks((prev) => {
+      if (prev.includes(t)) return prev.filter((x) => x !== t);
+      if (prev.length >= 3) return prev;
+      return [...prev, t];
+    });
   };
 
   const submitEdu = async () => {
@@ -116,7 +120,9 @@ export function OnboardingWizard() {
         {step === 1 ? (
           <>
             <h2 className="text-lg font-semibold text-zinc-100">Which career tracks are you recruiting for?</h2>
-            <p className="mt-2 text-sm text-zinc-400">Pick all that apply. Prep content filters to these paths.</p>
+            <p className="mt-2 text-sm text-zinc-400">
+              Pick up to 3. We&apos;ll personalize your question bank, mock interviews, resume review, and news feed based on your recruiting goals.
+            </p>
             <div className="mt-4 flex flex-wrap gap-2">
               {TRACK_CHOICES.map((t) => (
                 <button

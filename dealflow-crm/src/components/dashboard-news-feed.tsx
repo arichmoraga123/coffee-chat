@@ -8,6 +8,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { Newspaper } from "lucide-react";
 import { EmptyState } from "@/components/ui/empty-state";
+import { useCareerTracks } from "@/components/career-track-provider";
+import { getPrimaryTrack } from "@/lib/track-utils";
 
 type Article = {
   id: string;
@@ -23,7 +25,15 @@ type Article = {
 const TABS = ["All", "M&A", "PE/VC", "Markets", "Banking"] as const;
 
 export function DashboardNewsFeed() {
+  const { careerTracks } = useCareerTracks();
   const [tab, setTab] = useState<(typeof TABS)[number]>("All");
+  useEffect(() => {
+    const primary = getPrimaryTrack(careerTracks);
+    if (primary === "Investment Banking" || primary === "Private Equity") setTab("M&A");
+    else if (primary === "Venture Capital") setTab("PE/VC");
+    else if (primary === "Sales & Trading" || primary === "Capital Markets") setTab("Markets");
+  }, [careerTracks]);
+
   const [articles, setArticles] = useState<Article[]>([]);
   const [lastUpdatedAt, setLastUpdatedAt] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);

@@ -4,14 +4,14 @@ import sharp from "sharp";
 import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession } from "@/lib/auth";
 import { getAnthropicApiKey } from "@/lib/anthropic";
+import { getPrimaryTrack } from "@/lib/track-utils";
 
-const SYSTEM = `You are a senior recruiter at Goldman Sachs with 15 years of experience reviewing resumes for IB, PE, and consulting roles. You have reviewed over 10,000 resumes from target and non-target schools. You give direct, specific, actionable feedback. You can see the resume as an image — visually inspect it for formatting issues including alignment, font consistency, spacing, and layout in addition to content analysis. Be extremely specific — if dates are not right-aligned say so, if bullet points are not consistently indented say so.
-
-Return ONLY valid JSON with no markdown or explanation:
+const COMMON_SCHEMA_PROMPT = `Return ONLY valid JSON with no markdown or explanation using this exact structure:
 {
   overallScore: number (0-100),
   oneLiner: string,
   recruitingReadiness: string,
+  targetTrack: string,
   visualAnalysis: {
     score: number (0-100),
     grade: string,
@@ -26,14 +26,14 @@ Return ONLY valid JSON with no markdown or explanation:
   },
   sections: {
     formatting: {
-      score: number (0-100),
+      score: number,
       grade: string,
       feedback: string,
       issues: string[],
       fixes: string[]
     },
     experience: {
-      score: number (0-100),
+      score: number,
       grade: string,
       feedback: string,
       weakBullets: [
@@ -45,54 +45,67 @@ Return ONLY valid JSON with no markdown or explanation:
       ]
     },
     education: {
-      score: number (0-100),
+      score: number,
       grade: string,
       feedback: string,
       issues: string[]
     },
     skills: {
-      score: number (0-100),
+      score: number,
       grade: string,
       feedback: string,
       missing: string[],
       suggestions: string[]
     },
-    financeSpecific: {
-      score: number (0-100),
+    trackSpecific: {
+      score: number,
       grade: string,
       feedback: string,
-      dealExperience: string,
-      technicalSkills: string,
-      quantification: string
+      strengths: string[],
+      gaps: string[]
     }
   },
   topFirmsMatch: [
     {
       firm: string,
-      fitScore: number (0-100),
+      fitScore: number,
       reason: string
     }
   ],
   top5Improvements: string[]
-}
+}`;
 
-Visual checks Claude must perform:
-- Margins: consistent and 0.5-1 inch?
-- Font: same font used throughout?
-- Font size: body 10-12pt, headers larger?
-- Alignment: bullets, dates, company names aligned?
-- Spacing: consistent line spacing?
-- Length: exactly one page for undergrad?
-- Section headers: clearly differentiated?
-- Dates: consistently formatted (May 2024 not 5/2024)?
-- Bullet style: consistent • or – not mixed?
-- Bold: consistent for company names and titles?
-- Contact info: properly formatted at top?
-- GPA: shown correctly?
-- Column alignment: right-aligned dates line up?`;
+const TRACK_PROMPTS: Record<string, string> = {
+  "Investment Banking":
+    "You are a senior recruiter at Goldman Sachs IBD with 15 years experience reviewing resumes. You have reviewed over 10,000 resumes from target and non-target schools. Look for: deal experience, modeling skills, GPA prominence, quantified achievements, finance internships, relevant clubs (investment club, PE club), clean one-page format, strong action verbs (executed, analyzed, modeled, advised). Penalize: vague bullets, missing quantification, irrelevant experience taking up prime resume space.",
+  "Private Equity":
+    "You are a senior recruiter at Goldman Sachs IBD with 15 years experience reviewing resumes. You have reviewed over 10,000 resumes from target and non-target schools. Look for: deal experience, modeling skills, GPA prominence, quantified achievements, finance internships, relevant clubs (investment club, PE club), clean one-page format, strong action verbs (executed, analyzed, modeled, advised). Penalize: vague bullets, missing quantification, irrelevant experience taking up prime resume space.",
+  "Venture Capital":
+    "You are a senior recruiter at Goldman Sachs IBD with 15 years experience reviewing resumes. You have reviewed over 10,000 resumes from target and non-target schools. Look for: deal experience, modeling skills, GPA prominence, quantified achievements, finance internships, relevant clubs (investment club, PE club), clean one-page format, strong action verbs (executed, analyzed, modeled, advised). Penalize: vague bullets, missing quantification, irrelevant experience taking up prime resume space.",
+  Consulting:
+    "You are a senior recruiter at McKinsey & Company. Look for: leadership experiences, impact metrics, problem-solving examples, diversity of experience, GPA prominence, case competition wins, structured bullet points showing situation-action-result, communication skills evident in descriptions. Consulting resumes value breadth over depth — penalize resumes that are too finance-heavy and lack leadership and impact stories.",
+  "Sales & Trading":
+    "You are a senior S&T recruiter at Morgan Stanley. Look for: quantitative skills, markets knowledge, fast-paced environment experience, any trading or risk experience, relevant coursework (stats, econometrics, programming), Bloomberg experience, concise punchy bullets. Penalize: long-winded descriptions, lack of quant evidence.",
+  "Asset Management":
+    "You are a senior recruiter at BlackRock. Look for: investment thesis experience, stock pitches, portfolio management exposure, CFA progress, deep sector knowledge, research experience, written communication quality. Penalize: no evidence of independent investment thinking.",
+  "Equity Research":
+    "You are a senior recruiter at BlackRock. Look for: investment thesis experience, stock pitches, portfolio management exposure, CFA progress, deep sector knowledge, research experience, written communication quality. Penalize: no evidence of independent investment thinking.",
+  "Big 4 Accounting":
+    "You are a senior campus recruiter at PwC. Look for: accounting coursework (GAAP, audit, tax), CPA exam eligibility, Excel proficiency, attention to detail in formatting, internship experience at accounting firms, relevant certifications, leadership in accounting clubs.",
+  "Wealth Management":
+    "You are a senior recruiter at Morgan Stanley Wealth Management. Look for: client-facing experience, communication skills, Series 7/66 awareness, financial planning knowledge, relationship building examples. Penalize: no evidence of interpersonal or client service skills.",
+  "Corporate Finance":
+    "You are a senior finance recruiter at a Fortune 500. Look for: Excel/financial modeling, budgeting experience, cross-functional work, communication with non-finance stakeholders, operational understanding, accounting foundation.",
+  "Capital Markets":
+    "You are a senior DCM/ECM recruiter at JPMorgan. Look for: markets knowledge, debt/equity products understanding, financial modeling, client coverage experience, ability to work under time pressure.",
+  "Tech/Startup":
+    "You are a senior recruiter at Google. Look for: technical skills (programming languages), project experience, quantified impact, startup experience, product thinking, GitHub/portfolio links, internship progression.",
+};
 
-const JSON_INSTRUCTION =
-  "Analyze the resume text and images together. Prioritize specific fixes and quantifiable rewrite guidance.";
+const FALLBACK_PROMPT =
+  "You are a senior recruiter at Goldman Sachs with 15 years of experience reviewing resumes for IB, PE, and consulting roles. You have reviewed over 10,000 resumes from target and non-target schools. You give direct, specific, actionable feedback.";
+
+const JSON_INSTRUCTION = "Analyze the resume text and images together. Prioritize specific fixes and quantifiable rewrite guidance.";
 
 type AnthropicResponse = {
   content?: Array<{ type?: string; text?: string }>;
@@ -128,7 +141,11 @@ async function renderWithPdfJs(buf: Buffer): Promise<string[]> {
     const viewport = page.getViewport({ scale });
     const canvas = createCanvas(Math.round(viewport.width), Math.round(viewport.height));
     const context = canvas.getContext("2d");
-    await page.render({ canvasContext: context as never, viewport }).promise;
+    await page.render({
+      canvas: canvas as unknown as HTMLCanvasElement,
+      canvasContext: context as unknown as CanvasRenderingContext2D,
+      viewport,
+    }).promise;
     const dataUrl = canvas.toDataURL("image/png");
     images.push(dataUrl.replace(/^data:image\/png;base64,/, ""));
   }
@@ -153,7 +170,22 @@ async function renderWithSharp(buf: Buffer): Promise<string[]> {
   return images;
 }
 
-async function analyzeWithClaude(userId: string, text: string, imageBase64Png: string[]) {
+function getTrackPrompt(track: string) {
+  const base = TRACK_PROMPTS[track] ?? FALLBACK_PROMPT;
+  const scoring =
+    track === "Investment Banking" || track === "Private Equity" || track === "Venture Capital"
+      ? "Scoring weights: trackSpecific 30%, Experience 30%, Formatting 20%, Education 15%, Skills 5%."
+      : track === "Consulting"
+        ? "Scoring weights: Experience/Leadership 35%, Education 25%, Formatting 20%, trackSpecific 20%."
+        : track === "Sales & Trading"
+          ? "Scoring weights: Skills/Quant 35%, Experience 30%, Education 20%, Formatting 15%."
+          : track === "Big 4 Accounting"
+            ? "Scoring weights: Education/GPA 30%, Experience 30%, Skills 25%, Formatting 15%."
+            : "Scoring weights: equal weight across sections.";
+  return `${base}\n${scoring}\n${COMMON_SCHEMA_PROMPT}`;
+}
+
+async function analyzeWithClaude(userId: string, text: string, imageBase64Png: string[], track: string) {
   const apiKey = getAnthropicApiKey();
   if (!apiKey) throw new Error("AI is not configured");
 
@@ -163,7 +195,7 @@ async function analyzeWithClaude(userId: string, text: string, imageBase64Png: s
   > = [
     {
       type: "text",
-      text: `${JSON_INSTRUCTION}\n\nResume text:\n${text.slice(0, 50_000)}`,
+      text: `${JSON_INSTRUCTION}\nTarget track: ${track}\n\nResume text:\n${text.slice(0, 50_000)}`,
     },
     ...imageBase64Png.map((img) => ({
       type: "image" as const,
@@ -181,7 +213,7 @@ async function analyzeWithClaude(userId: string, text: string, imageBase64Png: s
     body: JSON.stringify({
       model: "claude-sonnet-4-5",
       max_tokens: 3200,
-      system: SYSTEM,
+      system: getTrackPrompt(track),
       messages: [{ role: "user", content }],
     }),
   });
@@ -212,6 +244,10 @@ export async function POST(req: Request) {
   }
 
   const form = await req.formData();
+  const profile = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { careerTracks: true },
+  });
   const file = form.get("file");
   if (!file || !(file instanceof File)) {
     return NextResponse.json({ error: "file required" }, { status: 400 });
@@ -231,6 +267,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Could not extract enough text from PDF" }, { status: 400 });
   }
   const clipped = text.slice(0, 50_000);
+  const requestedTrack = String(form.get("targetTrack") ?? "").trim();
+  const userPrimaryTrack = getPrimaryTrack(profile?.careerTracks ?? []);
+  const targetTrack = requestedTrack || userPrimaryTrack || "General";
 
   let visualUnavailable = false;
   let images: string[] = [];
@@ -247,7 +286,7 @@ export async function POST(req: Request) {
 
   let raw = "";
   try {
-    raw = await analyzeWithClaude(userId, clipped, images);
+    raw = await analyzeWithClaude(userId, clipped, images, targetTrack);
   } catch (e) {
     const msg = e instanceof Error ? e.message : "Resume analysis failed";
     return NextResponse.json({ error: msg }, { status: 502 });
@@ -275,6 +314,7 @@ export async function POST(req: Request) {
     typeof feedback === "object" && feedback !== null
       ? {
           ...(feedback as Record<string, unknown>),
+          targetTrack,
           visualAnalysisUnavailable: visualUnavailable,
           visualAnalysisNote: visualUnavailable ? "Visual analysis unavailable — content only" : null,
         }

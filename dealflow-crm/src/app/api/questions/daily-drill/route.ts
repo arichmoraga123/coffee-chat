@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession } from "@/lib/auth";
 import { matchesCareerTracks } from "@/lib/career-tracks";
+import { getRelevantCategories } from "@/lib/track-utils";
 
 function utcDayString(d: Date) {
   return d.toISOString().slice(0, 10);
@@ -60,6 +61,7 @@ export async function POST() {
   });
 
   const pt = user.careerTracks ?? [];
+  const relevantCategories = getRelevantCategories(pt);
   const filtered = rawQuestions.filter((q) => matchesCareerTracks(q.careerTracks, pt, null));
   const questions = filtered.length > 0 ? filtered : rawQuestions;
 
@@ -107,7 +109,12 @@ export async function POST() {
     return st === "review" || st === "unseen";
   });
 
-  let selected = weakFirst(reviewOrUnseen).slice(0, 5);
+  const prioritized = weakFirst(reviewOrUnseen).sort((a, b) => {
+    const aRel = relevantCategories.includes(a.category) ? 1 : 0;
+    const bRel = relevantCategories.includes(b.category) ? 1 : 0;
+    return bRel - aRel;
+  });
+  let selected = prioritized.slice(0, 5);
   if (selected.length < 5) {
     const rest = shuffle(questions.filter((q) => !selected.some((s) => s.id === q.id)));
     selected = [...selected, ...rest].slice(0, 5);

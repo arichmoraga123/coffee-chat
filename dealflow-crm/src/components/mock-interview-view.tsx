@@ -11,6 +11,7 @@ import { useCareerTracks } from "@/components/career-track-provider";
 import { matchesCareerTracks } from "@/lib/career-tracks";
 import { ConsultingCasePractice } from "@/components/consulting-case-practice";
 import { PracticeModal, type PracticeQuestion } from "@/components/practice-modal";
+import { getRelevantBanks } from "@/lib/track-utils";
 
 type Q = {
   id: string;
@@ -58,6 +59,7 @@ export function MockInterviewView() {
   const [timedQueue, setTimedQueue] = useState<Q[]>([]);
   const [timedIndex, setTimedIndex] = useState(0);
   const [secondsLeft, setSecondsLeft] = useState(90);
+  const relevantBanks = useMemo(() => getRelevantBanks(careerTracks), [careerTracks]);
   const [submitQ, setSubmitQ] = useState({
     question: "",
     bankSource: "Case in Point / General Consulting",
@@ -131,8 +133,11 @@ export function MockInterviewView() {
     const savedBank = localStorage.getItem("mock:lastBank");
     if (savedBank && MOCK_INTERVIEW_BANKS.includes(savedBank as (typeof MOCK_INTERVIEW_BANKS)[number])) {
       setBankFilter(savedBank);
+      return;
     }
-  }, []);
+    const suggested = relevantBanks.find((b) => MOCK_INTERVIEW_BANKS.includes(b as (typeof MOCK_INTERVIEW_BANKS)[number]));
+    if (suggested) setBankFilter(suggested);
+  }, [relevantBanks]);
 
   useEffect(() => {
     if (bankFilter) localStorage.setItem("mock:lastBank", bankFilter);
@@ -303,6 +308,24 @@ export function MockInterviewView() {
       ) : (
         <div className="grid gap-6 lg:grid-cols-[220px_1fr]">
           <Card className="h-fit space-y-2 border-zinc-800 bg-zinc-900/50 p-3 text-sm">
+            {relevantBanks.length > 0 ? (
+              <div className="mb-2 rounded border border-zinc-800 bg-zinc-950/60 p-2">
+                <p className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">Recommended for you</p>
+                <div className="mt-1 space-y-1">
+                  {relevantBanks.slice(0, 3).map((bank) => (
+                    <button
+                      key={`rec-${bank}`}
+                      type="button"
+                      onClick={() => setBankFilter(bank)}
+                      className="flex w-full items-center justify-between rounded px-1.5 py-1 text-left text-xs text-zinc-300 hover:bg-zinc-800"
+                    >
+                      <span className="truncate">{bank}</span>
+                      <span className="text-amber-300">★</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : null}
             <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">Banks</p>
             {MOCK_INTERVIEW_BANKS.map((b) => (
               <button
@@ -420,7 +443,10 @@ export function MockInterviewView() {
                     <button
                       key={q.id}
                       type="button"
-                      className="flex w-full items-center justify-between gap-3 rounded border border-zinc-800 bg-zinc-950/60 p-3 text-left hover:border-zinc-600"
+                      className={cn(
+                        "flex w-full items-center justify-between gap-3 rounded border border-zinc-800 bg-zinc-950/60 p-3 text-left hover:border-zinc-600",
+                        relevantBanks.includes(q.bankSource) && "border-emerald-700/40 bg-emerald-950/10",
+                      )}
                       onClick={() => openPractice(q.id)}
                     >
                       <div className="min-w-0 flex-1">
