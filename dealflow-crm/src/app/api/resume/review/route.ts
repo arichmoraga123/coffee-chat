@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { PDFParse } from "pdf-parse";
 import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession } from "@/lib/auth";
 import { getAnthropicApiKey } from "@/lib/anthropic";
@@ -105,23 +104,13 @@ const FALLBACK_PROMPT =
   "You are a senior recruiter at Goldman Sachs with 15 years of experience reviewing resumes for IB, PE, and consulting roles. You have reviewed over 10,000 resumes from target and non-target schools. You give direct, specific, actionable feedback.";
 
 const JSON_INSTRUCTION =
-  "Analyze the resume text and infer formatting quality from text patterns. Detect date formatting consistency, bullet character consistency, line-length alignment patterns, and capitalization consistency. Prioritize specific fixes and quantifiable rewrite guidance.";
+  "Analyze the resume document deeply. Infer formatting quality from extracted structure and text patterns where needed. Detect date formatting consistency, bullet character consistency, line-length alignment patterns, and capitalization consistency. Prioritize specific fixes and quantifiable rewrite guidance.";
 
 type AnthropicResponse = {
   content?: Array<{ type?: string; text?: string }>;
   usage?: { input_tokens?: number; output_tokens?: number };
   error?: { message?: string };
 };
-
-async function extractResumeText(buf: Buffer): Promise<string> {
-  const parser = new PDFParse({ data: buf });
-  try {
-    const extracted = await parser.getText();
-    return (extracted.text ?? "").trim();
-  } finally {
-    await parser.destroy();
-  }
-}
 
 function getTrackPrompt(track: string) {
   const base = TRACK_PROMPTS[track] ?? FALLBACK_PROMPT;
@@ -138,14 +127,25 @@ function getTrackPrompt(track: string) {
   return `${base}\n${scoring}\n${COMMON_SCHEMA_PROMPT}`;
 }
 
-async function analyzeWithClaude(userId: string, text: string, track: string) {
+async function analyzeWithClaude(userId: string, pdfBase64: string, track: string) {
   const apiKey = getAnthropicApiKey();
   if (!apiKey) throw new Error("AI is not configured");
 
-  const content: Array<{ type: "text"; text: string }> = [
+  const content: Array<
+    | { type: "text"; text: string }
+    | { type: "document"; source: { type: "base64"; media_type: "application/pdf"; data: string } }
+  > = [
     {
       type: "text",
-      text: `${JSON_INSTRUCTION}\nTarget track: ${track}\n\nAnalyze the text for formatting patterns and infer visual issues from the structure of the extracted text.\n\nResume text:\n${text.slice(0, 50_000)}`,
+      text: `${JSON_INSTRUCTION}\nTarget track: ${track}\n\nAnalyze the PDF directly. If visual layout is imperfectly recoverable, infer likely visual issues from document structure.`,
+    },
+    {
+      type: "document",
+      source: {
+        type: "base64",
+        media_type: "application/pdf",
+        data: pdfBase64,
+      },
     },
   ];
 
@@ -205,20 +205,12 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "PDF only" }, { status: 400 });
     }
 
-    console.log("[resume-review] reading file buffer");
+    console.log("[resume-review] reading file buffer + encoding base64");
     const buf = Buffer.from(await file.arrayBuffer());
-    console.log("[resume-review] extracting text");
-    let text = "";
-    try {
-      text = await extractResumeText(buf);
-    } catch (error) {
-      console.error("[resume-review] text extraction failed", error);
-      return NextResponse.json({ error: "Could not read PDF" }, { status: 400 });
+    const pdfBase64 = buf.toString("base64");
+    if (!pdfBase64.length) {
+      return NextResponse.json({ error: "Could not read PDF bytes" }, { status: 400 });
     }
-    if (text.length < 40) {
-      return NextResponse.json({ error: "Could not extract enough text from PDF" }, { status: 400 });
-    }
-    const clipped = text.slice(0, 50_000);
     const requestedTrack = String(form.get("targetTrack") ?? "").trim();
     const userPrimaryTrack = getPrimaryTrack(profile?.careerTracks ?? []);
     const targetTrack = requestedTrack || userPrimaryTrack || "General";
@@ -227,7 +219,7 @@ export async function POST(req: Request) {
     console.log("[resume-review] calling claude");
     let raw = "";
     try {
-      raw = await analyzeWithClaude(userId, clipped, targetTrack);
+      raw = await analyzeWithClaude(userId, pdfBase64, targetTrack);
     } catch (e) {
       const msg = e instanceof Error ? e.message : "Resume analysis failed";
       console.error("[resume-review] claude call failed", msg);
@@ -259,8 +251,8 @@ export async function POST(req: Request) {
         ? {
             ...(feedback as Record<string, unknown>),
             targetTrack,
-            visualAnalysisUnavailable: true,
-            visualAnalysisNote: "Visual analysis inferred from extracted text patterns only",
+            visualAnalysisUnavailable: false,
+            visualAnalysisNote: null,
           }
         : feedback;
 
