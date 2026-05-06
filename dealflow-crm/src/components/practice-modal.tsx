@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
 import { gradeAnswerByKeywords, type KeywordGradeResult } from "@/lib/answer-grader";
 
@@ -147,8 +146,17 @@ export function PracticeModal({
             ? 0
             : null;
 
+  if (!open) return null;
+
   return (
-    <Modal open={open} onClose={onClose} title={title} className="max-w-3xl">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-zinc-950/95 p-4 backdrop-blur-sm">
+      <div className="mx-auto w-full max-w-4xl rounded-md border border-zinc-700 bg-zinc-900 p-4">
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="text-sm font-semibold text-zinc-100">{title}</h2>
+          <button onClick={onClose} className="rounded px-2 py-1 text-xs text-zinc-400 hover:bg-zinc-800">
+            Close
+          </button>
+        </div>
       <div className="space-y-3 text-sm">
         <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-400">
           {current.sourceLabel ? (
@@ -266,6 +274,7 @@ export function PracticeModal({
 
         <p className="text-xs text-zinc-500">Ctrl+Enter or Enter = Submit · ←/→ = Navigate · Esc = Close</p>
       </div>
-    </Modal>
+      </div>
+    </div>
   );
 }

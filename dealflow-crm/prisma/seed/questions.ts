@@ -12,17 +12,27 @@ export type SeedQuestion = {
 };
 
 function keywordize(question: string, answer: string, tags: string[]): string[] {
+  const normalizeSeedKeyword = (value: string) => {
+    const lower = value.toLowerCase();
+    if (lower === "bs") return "balance sheet";
+    if (lower === "cfs") return "cash flow";
+    if (lower === "is") return "income statement";
+    if (lower === "ni") return "net income";
+    if (lower === "d&a" || lower === "d a") return "depreciation";
+    return lower;
+  };
+
   const overrides: Record<string, string[]> = {
     "What is WACC?": ["weighted", "cost of equity", "cost of debt", "tax", "discount rate"],
     "Walk me through a DCF.": ["free cash flow", "discount", "terminal value", "wacc", "equity value"],
     "What is a leveraged buyout (LBO)?": ["leverage", "debt", "equity", "irr", "returns"],
   };
-  if (overrides[question]) return overrides[question];
+  if (overrides[question]) return overrides[question].map(normalizeSeedKeyword);
 
   const phrases = (answer.toLowerCase().match(/[a-z]{4,}(?:\s+[a-z]{4,})?/g) ?? []).filter(
     (x) => !["this", "that", "with", "from", "into", "also", "over", "year", "years"].includes(x),
   );
-  const seeds = [...tags.map((t) => t.toLowerCase()), ...phrases];
+  const seeds = [...tags.map((t) => normalizeSeedKeyword(t)), ...phrases.map((p) => normalizeSeedKeyword(p))];
   return Array.from(new Set(seeds)).slice(0, 5);
 }
 
@@ -72,7 +82,7 @@ const BASE_SEED_QUESTIONS = [
       "Income Statement (revenue, expenses, net income over a period), Balance Sheet (assets, liabilities, equity at a point in time), Cash Flow Statement (actual cash generated). We need all three because net income ≠ cash flow — the CFS bridges that gap.",
     category: "Accounting",
     difficulty: "Easy",
-    tags: ["financial statements", "IS", "BS", "CFS"],
+    tags: ["financial statements", "income statement", "balance sheet", "cash flow"],
     source: "BIWS 400 Questions Guide",
   },
   {
@@ -90,7 +100,7 @@ const BASE_SEED_QUESTIONS = [
       "The Cash Flow Statement, because almost all valuation is based on cash flow, and net income includes non-cash items that don't reflect real cash generation.",
     category: "Accounting",
     difficulty: "Medium",
-    tags: ["CFS", "valuation"],
+    tags: ["cash flow", "valuation"],
     source: "BIWS 400 Questions Guide",
   },
   {

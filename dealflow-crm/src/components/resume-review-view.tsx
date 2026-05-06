@@ -5,25 +5,41 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-type TopImprovement = {
-  section?: string;
-  original?: string;
-  rewritten?: string;
-  reason?: string;
+type Severity = "critical" | "moderate" | "minor";
+type WeakBullet = {
+  original: string;
+  problem: string;
+  rewritten: string;
 };
 
 type FeedbackShape = {
-  overallScore?: number;
-  formatting?: { summary?: string; onePage?: boolean; issues?: string[] };
-  experienceBullets?: { summary?: string; strengths?: string[]; weaknesses?: string[] };
-  skillsEducation?: { summary?: string; suggestions?: string[] };
-  financeSpecific?: { summary?: string; suggestions?: string[] };
-  targetFirmFit?: {
-    summary?: string;
-    suggestedFirms?: string[];
-    suggestedVerticals?: string[];
+  overallScore: number;
+  oneLiner?: string;
+  recruitingReadiness?: string;
+  visualAnalysis?: {
+    score: number;
+    grade: string;
+    feedback: string;
+    issues: Array<{ issue: string; severity: Severity; fix: string }>;
   };
-  topImprovements?: TopImprovement[];
+  visualAnalysisUnavailable?: boolean;
+  visualAnalysisNote?: string | null;
+  sections?: {
+    formatting?: { score: number; grade: string; feedback: string; issues: string[]; fixes: string[] };
+    experience?: { score: number; grade: string; feedback: string; weakBullets: WeakBullet[] };
+    education?: { score: number; grade: string; feedback: string; issues: string[] };
+    skills?: { score: number; grade: string; feedback: string; missing: string[]; suggestions: string[] };
+    financeSpecific?: {
+      score: number;
+      grade: string;
+      feedback: string;
+      dealExperience: string;
+      technicalSkills: string;
+      quantification: string;
+    };
+  };
+  topFirmsMatch?: Array<{ firm: string; fitScore: number; reason: string }>;
+  top5Improvements?: string[];
 };
 
 type ReviewRow = {
@@ -39,27 +55,25 @@ function isRecord(x: unknown): x is Record<string, unknown> {
 }
 
 function asFeedback(f: unknown): FeedbackShape {
-  if (!isRecord(f)) return {};
+  if (!isRecord(f)) return { overallScore: 0 };
   return f as FeedbackShape;
 }
 
 function ScoreGauge({ score }: { score: number }) {
   const s = Math.min(100, Math.max(0, score));
-  const hue = s >= 70 ? 160 : s >= 45 ? 45 : 0;
+  const color = s >= 80 ? "#22c55e" : s >= 60 ? "#eab308" : "#ef4444";
   return (
-    <div className="space-y-2">
-      <div className="flex items-end justify-between gap-2">
-        <p className="text-4xl font-bold tabular-nums text-zinc-100">{s}</p>
-        <p className="text-xs text-zinc-500">/ 100</p>
-      </div>
-      <div className="h-2.5 w-full overflow-hidden rounded-full bg-zinc-800">
-        <div
-          className="h-full rounded-full transition-all"
-          style={{
-            width: `${s}%`,
-            background: `linear-gradient(90deg, hsl(${hue} 70% 35%), hsl(${hue} 80% 50%))`,
-          }}
-        />
+    <div className="flex items-center justify-center">
+      <div
+        className="relative flex h-32 w-32 items-center justify-center rounded-full"
+        style={{
+          background: `conic-gradient(${color} ${s * 3.6}deg, #27272a 0deg)`,
+        }}
+      >
+        <div className="flex h-24 w-24 flex-col items-center justify-center rounded-full bg-[#0f0f10] ring-1 ring-white/10">
+          <p className="text-3xl font-bold text-zinc-100">{s}</p>
+          <p className="text-[10px] text-zinc-500">/100</p>
+        </div>
       </div>
     </div>
   );
@@ -86,6 +100,13 @@ export function ResumeReviewView() {
   const [active, setActive] = useState<ReviewRow | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>({
+    formatting: true,
+    experience: true,
+    education: false,
+    skills: false,
+    finance: false,
+  });
 
   const load = useCallback(async () => {
     const res = await fetch("/api/resume/review", { credentials: "same-origin" });
@@ -134,13 +155,29 @@ export function ResumeReviewView() {
   };
 
   const fb = asFeedback(active?.feedback);
+  const currentScore = typeof fb.overallScore === "number" ? fb.overallScore : active?.score ?? 0;
+  const previous = active ? reviews.find((r) => r.id !== active.id) : null;
+  const scoreDelta = previous ? currentScore - previous.score : 0;
+  const readiness = fb.recruitingReadiness ?? "Developing";
+  const readinessClass =
+    readiness === "Strong"
+      ? "bg-emerald-900/40 text-emerald-300"
+      : readiness === "Ready"
+        ? "bg-lime-900/40 text-lime-300"
+        : readiness === "Not Ready"
+          ? "bg-red-900/40 text-red-300"
+          : "bg-amber-900/40 text-amber-300";
+  const visualIssues = [...(fb.visualAnalysis?.issues ?? [])].sort((a, b) => {
+    const rank: Record<Severity, number> = { critical: 0, moderate: 1, minor: 2 };
+    return rank[a.severity] - rank[b.severity];
+  });
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="page-title">Resume review</h1>
         <p className="mt-1 text-sm text-zinc-500">
-          Upload a PDF for structured IB/PE feedback. Reviews are stored (last five per account).
+          Upload a PDF for visual + content review. Reviews are stored (last three per account).
         </p>
       </div>
 
@@ -188,7 +225,7 @@ export function ResumeReviewView() {
 
       {reviews.length > 0 ? (
         <Card className="p-4">
-          <p className="section-label mb-2">Recent reviews</p>
+          <p className="section-label mb-2">History (last 3)</p>
           <div className="flex flex-wrap gap-2">
             {reviews.map((r) => (
               <button
@@ -204,7 +241,7 @@ export function ResumeReviewView() {
               >
                 <span className="block font-medium text-zinc-200">{r.fileName}</span>
                 <span className="text-[10px] text-zinc-500">
-                  {new Date(r.createdAt).toLocaleString()} · Score {r.score}
+                    {new Date(r.createdAt).toLocaleString()} · Score {r.score}
                 </span>
               </button>
             ))}
@@ -215,99 +252,144 @@ export function ResumeReviewView() {
       {active ? (
         <div className="space-y-4">
           <Card className="p-4">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+            <div className="grid gap-4 md:grid-cols-[160px_1fr]">
+              <ScoreGauge score={currentScore} />
               <div>
                 <p className="text-sm font-semibold text-zinc-100">{active.fileName}</p>
                 <p className="text-xs text-zinc-500">{new Date(active.createdAt).toLocaleString()}</p>
-              </div>
-              <div className="w-full max-w-[220px]">
-                <p className="section-label mb-2">Overall score</p>
-                <ScoreGauge score={typeof fb.overallScore === "number" ? fb.overallScore : active.score} />
+                <div className="mt-2 flex flex-wrap items-center gap-2">
+                  <span className={cn("rounded-full px-2 py-1 text-xs font-medium", readinessClass)}>{readiness}</span>
+                  <span className="text-xs text-zinc-500">
+                    {scoreDelta === 0 ? "No change" : scoreDelta > 0 ? `+${scoreDelta} vs prior` : `${scoreDelta} vs prior`}
+                  </span>
+                </div>
+                {fb.oneLiner ? <p className="mt-2 text-sm text-zinc-300">{fb.oneLiner}</p> : null}
+                {fb.visualAnalysisUnavailable ? (
+                  <p className="mt-2 text-xs text-amber-300">
+                    {fb.visualAnalysisNote ?? "Visual analysis unavailable — content only"}
+                  </p>
+                ) : null}
               </div>
             </div>
           </Card>
 
-          <div className="grid gap-4 lg:grid-cols-2">
-            <Card className="p-4">
-              <p className="section-label mb-2">Formatting & structure</p>
-              {fb.formatting?.summary ? <p className="text-sm text-zinc-300">{fb.formatting.summary}</p> : null}
-              <p className="mt-2 text-xs text-zinc-500">
-                One page (finance convention):{" "}
-                <span className="text-zinc-300">{fb.formatting?.onePage === true ? "Yes" : "No / unclear"}</span>
-              </p>
-              <BulletList title="Issues" items={fb.formatting?.issues} />
-            </Card>
-
-            <Card className="p-4">
-              <p className="section-label mb-2">Experience bullets</p>
-              {fb.experienceBullets?.summary ? (
-                <p className="text-sm text-zinc-300">{fb.experienceBullets.summary}</p>
-              ) : null}
-              <BulletList title="Strengths" items={fb.experienceBullets?.strengths} />
-              <BulletList title="Weaknesses" items={fb.experienceBullets?.weaknesses} />
-            </Card>
-
-            <Card className="p-4">
-              <p className="section-label mb-2">Skills & education</p>
-              {fb.skillsEducation?.summary ? (
-                <p className="text-sm text-zinc-300">{fb.skillsEducation.summary}</p>
-              ) : null}
-              <BulletList title="Suggestions" items={fb.skillsEducation?.suggestions} />
-            </Card>
-
-            <Card className="p-4">
-              <p className="section-label mb-2">Finance-specific</p>
-              {fb.financeSpecific?.summary ? (
-                <p className="text-sm text-zinc-300">{fb.financeSpecific.summary}</p>
-              ) : null}
-              <BulletList title="Suggestions" items={fb.financeSpecific?.suggestions} />
-            </Card>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
+            {[
+              ["Visual Layout", fb.visualAnalysis?.score ?? 0, fb.visualAnalysis?.grade ?? "-"],
+              ["Formatting", fb.sections?.formatting?.score ?? 0, fb.sections?.formatting?.grade ?? "-"],
+              ["Experience", fb.sections?.experience?.score ?? 0, fb.sections?.experience?.grade ?? "-"],
+              ["Education", fb.sections?.education?.score ?? 0, fb.sections?.education?.grade ?? "-"],
+              ["Skills", fb.sections?.skills?.score ?? 0, fb.sections?.skills?.grade ?? "-"],
+              ["Finance-Specific", fb.sections?.financeSpecific?.score ?? 0, fb.sections?.financeSpecific?.grade ?? "-"],
+            ].map(([label, score, grade]) => (
+              <Card key={label as string} className="p-3">
+                <p className="text-[10px] uppercase tracking-wide text-zinc-500">{label as string}</p>
+                <p className="mt-1 text-lg font-semibold text-zinc-100">{String(grade)}</p>
+                <p className="text-xs text-zinc-400">{score as number}/100</p>
+              </Card>
+            ))}
           </div>
 
           <Card className="p-4">
-            <p className="section-label mb-2">Target firm fit</p>
-            {fb.targetFirmFit?.summary ? <p className="text-sm text-zinc-300">{fb.targetFirmFit.summary}</p> : null}
-            <div className="mt-3 flex flex-wrap gap-2">
-              {(fb.targetFirmFit?.suggestedFirms ?? []).map((x) => (
-                <span key={x} className="rounded-full border border-[#2a2a2a] bg-[#161616] px-2 py-0.5 text-xs text-[#e8e8e8]">
-                  {x}
-                </span>
-              ))}
-            </div>
-            <div className="mt-2 flex flex-wrap gap-2">
-              {(fb.targetFirmFit?.suggestedVerticals ?? []).map((x) => (
-                <span key={x} className="rounded-full border border-zinc-600 bg-zinc-800/80 px-2 py-0.5 text-xs text-zinc-300">
-                  {x}
-                </span>
+            <p className="section-label mb-2">Visual issues</p>
+            <div className="space-y-2">
+              {visualIssues.map((v, i) => (
+                <div key={i} className="rounded border border-zinc-800 bg-zinc-950/50 p-3">
+                  <div className="mb-1 flex items-center gap-2">
+                    <span
+                      className={cn(
+                        "rounded px-2 py-0.5 text-[10px] uppercase",
+                        v.severity === "critical"
+                          ? "bg-red-900/50 text-red-300"
+                          : v.severity === "moderate"
+                            ? "bg-amber-900/50 text-amber-300"
+                            : "bg-zinc-800 text-zinc-300",
+                      )}
+                    >
+                      {v.severity}
+                    </span>
+                    <p className="text-sm text-zinc-100">{v.issue}</p>
+                  </div>
+                  <p className="text-xs text-zinc-400">Fix: {v.fix}</p>
+                </div>
               ))}
             </div>
           </Card>
 
           <Card className="p-4">
-            <p className="section-label mb-3">Top improvements</p>
-            <ul className="space-y-4">
-              {(fb.topImprovements ?? []).slice(0, 5).map((t, i) => (
-                <li key={i} className="rounded-lg border border-white/10 bg-black/20 p-3 text-sm">
-                  {t.section ? (
-                    <p className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">{t.section}</p>
-                  ) : null}
-                  {t.original ? (
-                    <p className="mt-1 text-zinc-400">
-                      <span className="text-zinc-600">Was:</span> {t.original}
-                    </p>
-                  ) : null}
-                  {t.rewritten ? (
-                    <p className="mt-2 font-medium text-emerald-200">
-                      <span className="text-zinc-600">Rewrite:</span> {t.rewritten}
-                    </p>
-                  ) : null}
-                  {t.reason ? <p className="mt-2 text-xs text-zinc-500">{t.reason}</p> : null}
-                </li>
-              ))}
-            </ul>
+            <p className="section-label mb-3">Detailed sections</p>
+            {[
+              ["formatting", "Formatting", fb.sections?.formatting?.feedback, fb.sections?.formatting?.issues, fb.sections?.formatting?.fixes],
+              ["experience", "Experience", fb.sections?.experience?.feedback, [], []],
+              ["education", "Education", fb.sections?.education?.feedback, fb.sections?.education?.issues, []],
+              ["skills", "Skills", fb.sections?.skills?.feedback, fb.sections?.skills?.missing, fb.sections?.skills?.suggestions],
+              [
+                "finance",
+                "Finance-specific",
+                fb.sections?.financeSpecific?.feedback,
+                [fb.sections?.financeSpecific?.dealExperience, fb.sections?.financeSpecific?.technicalSkills, fb.sections?.financeSpecific?.quantification].filter(
+                  Boolean,
+                ) as string[],
+                [],
+              ],
+            ].map(([key, label, feedback, issues, fixes]) => (
+              <div key={key as string} className="mb-3 rounded border border-zinc-800 bg-zinc-950/50">
+                <button
+                  type="button"
+                  className="flex w-full items-center justify-between p-3 text-left"
+                  onClick={() => setOpenSections((prev) => ({ ...prev, [key as string]: !prev[key as string] }))}
+                >
+                  <span className="text-sm text-zinc-200">{label as string}</span>
+                  <span className="text-zinc-500">{openSections[key as string] ? "▾" : "▸"}</span>
+                </button>
+                {openSections[key as string] ? (
+                  <div className="border-t border-zinc-800 p-3">
+                    {feedback ? <p className="text-sm text-zinc-300">{feedback as string}</p> : null}
+                    <BulletList title="Issues" items={issues as string[]} />
+                    <BulletList title="Fixes" items={fixes as string[]} />
+                  </div>
+                ) : null}
+              </div>
+            ))}
           </Card>
 
-          <div className="flex justify-center">
+          <Card className="p-4">
+            <p className="section-label mb-3">Bullet point rewrites</p>
+            <div className="space-y-3">
+              {(fb.sections?.experience?.weakBullets ?? []).map((b, i) => (
+                <div key={i} className="rounded border border-zinc-800 p-3">
+                  <p className="rounded bg-red-950/20 p-2 text-sm text-red-200/90">{b.original}</p>
+                  <p className="my-1 text-center text-zinc-500">↓</p>
+                  <p className="rounded bg-emerald-950/20 p-2 text-sm text-emerald-200">{b.rewritten}</p>
+                  <p className="mt-2 text-xs text-zinc-500">{b.problem}</p>
+                </div>
+              ))}
+            </div>
+          </Card>
+
+          <Card className="p-4">
+            <p className="section-label mb-2">Top firm matches</p>
+            <div className="grid gap-2 sm:grid-cols-3">
+              {(fb.topFirmsMatch ?? []).slice(0, 3).map((m) => (
+                <div key={m.firm} className="rounded border border-zinc-800 bg-zinc-950/50 p-3">
+                  <p className="text-sm font-medium text-zinc-100">{m.firm}</p>
+                  <p className="text-xs text-zinc-400">Fit {m.fitScore}/100</p>
+                  <p className="mt-1 text-xs text-zinc-500">{m.reason}</p>
+                </div>
+              ))}
+            </div>
+          </Card>
+
+          <Card className="p-4">
+            <p className="section-label mb-2">Top 5 improvements</p>
+            <ol className="list-inside list-decimal space-y-1 text-sm text-zinc-300">
+              {(fb.top5Improvements ?? []).slice(0, 5).map((x, i) => (
+                <li key={i}>{x}</li>
+              ))}
+            </ol>
+          </Card>
+
+          <div className="flex justify-center gap-2">
             <input
               ref={reuploadRef}
               type="file"
@@ -317,7 +399,7 @@ export function ResumeReviewView() {
               onChange={(e) => onFile(e.target.files)}
             />
             <Button type="button" variant="outline" disabled={loading} onClick={() => reuploadRef.current?.click()}>
-              Re-upload
+              Re-analyze
             </Button>
           </div>
         </div>

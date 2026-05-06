@@ -2,10 +2,20 @@ import type { SeedQuestion } from "./questions";
 
 /** Additional questions (Deutsche Bank LBO Manual, Citi Credit Primer). */
 function keywordizeExtended(answer: string, tags: string[]): string[] {
+  const normalizeSeedKeyword = (value: string) => {
+    const lower = value.toLowerCase();
+    if (lower === "bs") return "balance sheet";
+    if (lower === "cfs") return "cash flow";
+    if (lower === "is") return "income statement";
+    if (lower === "ni") return "net income";
+    if (lower === "d&a" || lower === "d a") return "depreciation";
+    return lower;
+  };
+
   const phrases = (answer.toLowerCase().match(/[a-z]{4,}(?:\s+[a-z]{4,})?/g) ?? []).filter(
     (x) => !["this", "that", "with", "from", "into", "also", "over", "year", "years"].includes(x),
   );
-  const seeds = [...tags.map((t) => t.toLowerCase()), ...phrases];
+  const seeds = [...tags.map((t) => normalizeSeedKeyword(t)), ...phrases.map((p) => normalizeSeedKeyword(p))];
   return Array.from(new Set(seeds)).slice(0, 6);
 }
 

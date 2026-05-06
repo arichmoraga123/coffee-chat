@@ -1,22 +1,208 @@
 import { NextResponse } from "next/server";
 import { PDFParse } from "pdf-parse";
+import sharp from "sharp";
 import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession } from "@/lib/auth";
-import { anthropicMessage, getAnthropicApiKey } from "@/lib/anthropic";
+import { getAnthropicApiKey } from "@/lib/anthropic";
 
-const SYSTEM = `You are an expert investment banking and private equity recruiter who has reviewed thousands of resumes from target and non-target school candidates. Analyze this resume and provide specific, actionable feedback for a student recruiting for IB/PE roles. Be direct and specific — point out exact weaknesses and provide rewritten versions of weak bullet points.`;
+const SYSTEM = `You are a senior recruiter at Goldman Sachs with 15 years of experience reviewing resumes for IB, PE, and consulting roles. You have reviewed over 10,000 resumes from target and non-target schools. You give direct, specific, actionable feedback. You can see the resume as an image — visually inspect it for formatting issues including alignment, font consistency, spacing, and layout in addition to content analysis. Be extremely specific — if dates are not right-aligned say so, if bullet points are not consistently indented say so.
 
-const JSON_INSTRUCTION = `Return ONLY valid JSON (no markdown) with this exact shape:
+Return ONLY valid JSON with no markdown or explanation:
 {
-  "overallScore": <number 0-100>,
-  "formatting": { "summary": string, "onePage": boolean, "issues": string[] },
-  "experienceBullets": { "summary": string, "strengths": string[], "weaknesses": string[] },
-  "skillsEducation": { "summary": string, "suggestions": string[] },
-  "financeSpecific": { "summary": string, "suggestions": string[] },
-  "targetFirmFit": { "summary": string, "suggestedFirms": string[], "suggestedVerticals": string[] },
-  "topImprovements": [ { "section": string, "original": string, "rewritten": string, "reason": string } ]
+  overallScore: number (0-100),
+  oneLiner: string,
+  recruitingReadiness: string,
+  visualAnalysis: {
+    score: number (0-100),
+    grade: string,
+    feedback: string,
+    issues: [
+      {
+        issue: string,
+        severity: 'critical' | 'moderate' | 'minor',
+        fix: string
+      }
+    ]
+  },
+  sections: {
+    formatting: {
+      score: number (0-100),
+      grade: string,
+      feedback: string,
+      issues: string[],
+      fixes: string[]
+    },
+    experience: {
+      score: number (0-100),
+      grade: string,
+      feedback: string,
+      weakBullets: [
+        {
+          original: string,
+          problem: string,
+          rewritten: string
+        }
+      ]
+    },
+    education: {
+      score: number (0-100),
+      grade: string,
+      feedback: string,
+      issues: string[]
+    },
+    skills: {
+      score: number (0-100),
+      grade: string,
+      feedback: string,
+      missing: string[],
+      suggestions: string[]
+    },
+    financeSpecific: {
+      score: number (0-100),
+      grade: string,
+      feedback: string,
+      dealExperience: string,
+      technicalSkills: string,
+      quantification: string
+    }
+  },
+  topFirmsMatch: [
+    {
+      firm: string,
+      fitScore: number (0-100),
+      reason: string
+    }
+  ],
+  top5Improvements: string[]
 }
-Use at most 5 items in topImprovements.`;
+
+Visual checks Claude must perform:
+- Margins: consistent and 0.5-1 inch?
+- Font: same font used throughout?
+- Font size: body 10-12pt, headers larger?
+- Alignment: bullets, dates, company names aligned?
+- Spacing: consistent line spacing?
+- Length: exactly one page for undergrad?
+- Section headers: clearly differentiated?
+- Dates: consistently formatted (May 2024 not 5/2024)?
+- Bullet style: consistent • or – not mixed?
+- Bold: consistent for company names and titles?
+- Contact info: properly formatted at top?
+- GPA: shown correctly?
+- Column alignment: right-aligned dates line up?`;
+
+const JSON_INSTRUCTION =
+  "Analyze the resume text and images together. Prioritize specific fixes and quantifiable rewrite guidance.";
+
+type AnthropicResponse = {
+  content?: Array<{ type?: string; text?: string }>;
+  usage?: { input_tokens?: number; output_tokens?: number };
+  error?: { message?: string };
+};
+
+async function extractResumeText(buf: Buffer): Promise<string> {
+  const parser = new PDFParse({ data: buf });
+  try {
+    const extracted = await parser.getText();
+    return (extracted.text ?? "").trim();
+  } finally {
+    await parser.destroy();
+  }
+}
+
+async function renderWithPdfJs(buf: Buffer): Promise<string[]> {
+  const [{ getDocument }, { createCanvas }] = await Promise.all([
+    import("pdfjs-dist/legacy/build/pdf.mjs"),
+    import("canvas"),
+  ]);
+
+  const loadingTask = getDocument({ data: new Uint8Array(buf) });
+  const pdf = await loadingTask.promise;
+  const pages = Math.min(2, pdf.numPages);
+  const images: string[] = [];
+
+  for (let i = 1; i <= pages; i++) {
+    const page = await pdf.getPage(i);
+    const baseViewport = page.getViewport({ scale: 1 });
+    const scale = Math.min(2, 1500 / baseViewport.width);
+    const viewport = page.getViewport({ scale });
+    const canvas = createCanvas(Math.round(viewport.width), Math.round(viewport.height));
+    const context = canvas.getContext("2d");
+    await page.render({ canvasContext: context as never, viewport }).promise;
+    const dataUrl = canvas.toDataURL("image/png");
+    images.push(dataUrl.replace(/^data:image\/png;base64,/, ""));
+  }
+
+  await pdf.destroy();
+  return images;
+}
+
+async function renderWithSharp(buf: Buffer): Promise<string[]> {
+  const images: string[] = [];
+  for (let i = 0; i < 2; i++) {
+    try {
+      const out = await sharp(buf, { page: i, density: 180 })
+        .resize({ width: 1500, withoutEnlargement: true })
+        .png()
+        .toBuffer();
+      images.push(out.toString("base64"));
+    } catch {
+      break;
+    }
+  }
+  return images;
+}
+
+async function analyzeWithClaude(userId: string, text: string, imageBase64Png: string[]) {
+  const apiKey = getAnthropicApiKey();
+  if (!apiKey) throw new Error("AI is not configured");
+
+  const content: Array<
+    | { type: "text"; text: string }
+    | { type: "image"; source: { type: "base64"; media_type: "image/png"; data: string } }
+  > = [
+    {
+      type: "text",
+      text: `${JSON_INSTRUCTION}\n\nResume text:\n${text.slice(0, 50_000)}`,
+    },
+    ...imageBase64Png.map((img) => ({
+      type: "image" as const,
+      source: { type: "base64" as const, media_type: "image/png" as const, data: img },
+    })),
+  ];
+
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      "x-api-key": apiKey,
+      "anthropic-version": "2023-06-01",
+    },
+    body: JSON.stringify({
+      model: "claude-sonnet-4-5",
+      max_tokens: 3200,
+      system: SYSTEM,
+      messages: [{ role: "user", content }],
+    }),
+  });
+
+  const raw = await res.text();
+  if (!res.ok) throw new Error(`Anthropic API error ${res.status}: ${raw.slice(0, 400)}`);
+  const parsed = JSON.parse(raw) as AnthropicResponse;
+  if (parsed.error?.message) throw new Error(parsed.error.message);
+  const textOut = parsed.content?.find((b) => b.type === "text")?.text?.trim();
+  if (!textOut) throw new Error("Anthropic returned no text content");
+
+  void prisma.apiUsageLog.create({
+    data: {
+      userId,
+      feature: "resume-review",
+      inputTokens: parsed.usage?.input_tokens ?? 0,
+      outputTokens: parsed.usage?.output_tokens ?? 0,
+    },
+  });
+  return textOut;
+}
 
 export async function POST(req: Request) {
   const userId = await getUserIdFromSession();
@@ -37,10 +223,7 @@ export async function POST(req: Request) {
   const buf = Buffer.from(await file.arrayBuffer());
   let text = "";
   try {
-    const parser = new PDFParse({ data: buf });
-    const extracted = await parser.getText();
-    text = (extracted.text ?? "").trim();
-    await parser.destroy();
+    text = await extractResumeText(buf);
   } catch {
     return NextResponse.json({ error: "Could not read PDF" }, { status: 400 });
   }
@@ -49,14 +232,26 @@ export async function POST(req: Request) {
   }
   const clipped = text.slice(0, 50_000);
 
-  const raw = await anthropicMessage(
-    `${JSON_INSTRUCTION}\n\n---\n\nResume text:\n${clipped}`,
-    {
-      system: SYSTEM,
-      maxTokens: 2000,
-      usageLog: { userId, feature: "resume-review" },
-    },
-  );
+  let visualUnavailable = false;
+  let images: string[] = [];
+  try {
+    images = await renderWithPdfJs(buf);
+  } catch {
+    try {
+      images = await renderWithSharp(buf);
+    } catch {
+      images = [];
+    }
+  }
+  if (!images.length) visualUnavailable = true;
+
+  let raw = "";
+  try {
+    raw = await analyzeWithClaude(userId, clipped, images);
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : "Resume analysis failed";
+    return NextResponse.json({ error: msg }, { status: 502 });
+  }
 
   let feedback: unknown;
   try {
@@ -76,19 +271,28 @@ export async function POST(req: Request) {
       ? Math.min(100, Math.max(0, Math.round((feedback as { overallScore: number }).overallScore)))
       : 0;
 
+  const feedbackWithMeta =
+    typeof feedback === "object" && feedback !== null
+      ? {
+          ...(feedback as Record<string, unknown>),
+          visualAnalysisUnavailable: visualUnavailable,
+          visualAnalysisNote: visualUnavailable ? "Visual analysis unavailable — content only" : null,
+        }
+      : feedback;
+
   const review = await prisma.resumeReview.create({
     data: {
       userId,
       fileName: file.name.slice(0, 255),
       score,
-      feedback: feedback as object,
+      feedback: feedbackWithMeta as object,
     },
   });
 
   const extras = await prisma.resumeReview.findMany({
     where: { userId },
     orderBy: { createdAt: "desc" },
-    skip: 5,
+    skip: 3,
     select: { id: true },
   });
   if (extras.length) {
@@ -106,7 +310,7 @@ export async function GET() {
   const reviews = await prisma.resumeReview.findMany({
     where: { userId },
     orderBy: { createdAt: "desc" },
-    take: 5,
+    take: 3,
   });
   return NextResponse.json({ reviews });
 }

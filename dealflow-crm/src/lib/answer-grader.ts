@@ -17,6 +17,21 @@ function escapeRegExp(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+const KEYWORD_ALIASES: Record<string, string[]> = {
+  bs: ["balance sheet"],
+  "balance sheet": ["bs"],
+  cfs: ["cash flow", "cash flow statement"],
+  "cash flow": ["cfs", "cash flow statement"],
+  "cash flow statement": ["cfs", "cash flow"],
+  is: ["income statement"],
+  "income statement": ["is"],
+  ni: ["net income"],
+  "net income": ["ni"],
+  "d a": ["depreciation"],
+  "d&a": ["depreciation"],
+  depreciation: ["d&a", "d a"],
+};
+
 function uniqueKeywords(keywords: string[]) {
   return Array.from(
     new Set(
@@ -25,6 +40,28 @@ function uniqueKeywords(keywords: string[]) {
         .filter((k) => k.length >= 2),
     ),
   );
+}
+
+function variantsForKeyword(keyword: string): string[] {
+  const base = normalizeText(keyword);
+  const aliases = KEYWORD_ALIASES[base] ?? [];
+  return Array.from(new Set([base, ...aliases.map((a) => normalizeText(a))])).filter(Boolean);
+}
+
+function matchesVariant(normalizedUser: string, variant: string) {
+  if (!variant) return false;
+  const exactPattern = new RegExp(`\\b${escapeRegExp(variant)}\\b`, "i");
+  if (exactPattern.test(normalizedUser)) return true;
+
+  // Phrase-aware fallback: if all key terms from a phrase are present, treat as a match.
+  const tokens = variant
+    .split(" ")
+    .map((t) => t.trim())
+    .filter((t) => t.length >= 3 && !["the", "and", "for", "with"].includes(t));
+  if (tokens.length >= 2) {
+    return tokens.every((t) => new RegExp(`\\b${escapeRegExp(t)}\\b`, "i").test(normalizedUser));
+  }
+  return false;
 }
 
 export function gradeAnswerByKeywords(input: {
@@ -48,14 +85,11 @@ export function gradeAnswerByKeywords(input: {
     };
   }
 
-  const foundKeywords = keywords.filter((kw) => {
-    const pattern = new RegExp(`\\b${escapeRegExp(kw)}\\b`, "i");
-    return pattern.test(normalizedUser);
-  });
+  const foundKeywords = keywords.filter((kw) => variantsForKeyword(kw).some((v) => matchesVariant(normalizedUser, v)));
   const missedKeywords = keywords.filter((kw) => !foundKeywords.includes(kw));
   const hitRate = foundKeywords.length / keywords.length;
 
-  if (hitRate >= 0.8) {
+  if (hitRate >= 0.6) {
     return {
       grade: "correct",
       hitRate,
@@ -65,7 +99,7 @@ export function gradeAnswerByKeywords(input: {
       xpEarned: 10,
     };
   }
-  if (hitRate >= 0.5) {
+  if (hitRate >= 0.3) {
     return {
       grade: "partial",
       hitRate,
