@@ -1,5 +1,6 @@
 /** Banks shown in mock interview filters (SHARED question bank is keyed by these names). */
 export const MOCK_INTERVIEW_BANKS = [
+  "Case in Point / General Consulting",
   "Goldman Sachs",
   "Morgan Stanley",
   "JPMorgan",

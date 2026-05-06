@@ -82,6 +82,124 @@ const BASE: Array<Omit<SeedTrackQuestion, "keywords">> = [
     tags: ["issue tree", "revenue"],
     careerTracks: ["Consulting"],
   },
+  {
+    question: "Why consulting?",
+    answer:
+      "Structure around three points: (1) Variety — consultants work across industries and problem types, building broad expertise faster than any other career. (2) Impact — direct access to C-suite decision makers, seeing your recommendations implemented. (3) Development — steep learning curve, best training ground for structured problem solving and communication. Always tie back to a specific experience that sparked the interest.",
+    category: "Consulting - Behavioral",
+    difficulty: "Easy",
+    tags: ["variety", "impact", "problem solving", "structured", "development"],
+    careerTracks: ["Consulting"],
+  },
+  {
+    question: "What do consultants do?",
+    answer:
+      "Consultants help organizations solve complex business problems they lack the internal expertise, bandwidth, or objectivity to solve themselves. Day-to-day work includes: structuring ambiguous problems into workable frameworks, gathering and analyzing data, building financial models, interviewing stakeholders, developing recommendations, and presenting findings to senior leadership. The core skill is taking a massive amount of information and synthesizing it into a clear, actionable recommendation.",
+    category: "Consulting - Behavioral",
+    difficulty: "Easy",
+    tags: ["problem solving", "frameworks", "analysis", "recommendations", "structured"],
+    careerTracks: ["Consulting"],
+  },
+  {
+    question: "Walk me through the profitability framework.",
+    answer:
+      "Profit = Revenue - Costs. Revenue = Price × Volume. Break Volume into: number of customers × purchase frequency × units per purchase. Break Price into: pricing strategy, discounts, mix. Costs = Fixed (rent, salaries, depreciation) + Variable (COGS, commissions). First identify whether it's a revenue or cost problem, then drill down into the specific driver. Always ask: is this a recent change or long-standing issue? Is it industry-wide or company-specific?",
+    category: "Consulting - Behavioral",
+    difficulty: "Medium",
+    tags: ["profit", "revenue", "costs", "fixed", "variable", "price", "volume"],
+    careerTracks: ["Consulting"],
+  },
+  {
+    question: "A client's profits have declined 20% YoY. How do you approach this?",
+    answer:
+      "Start by clarifying: is it revenue down, costs up, or both? What timeframe? Is it across all products/segments or specific ones? Then structure: Revenue side — has price changed? Volume? Mix? Are we losing customers or selling less per customer? Cost side — have fixed costs increased (new facilities, headcount)? Variable costs up (input prices, labor)? Next isolate the primary driver, then identify root cause. Close with: is this fixable and what's the recommended action?",
+    category: "Consulting - Behavioral",
+    difficulty: "Hard",
+    tags: ["profitability", "revenue", "costs", "clarify", "structure", "root cause"],
+    careerTracks: ["Consulting"],
+  },
+  {
+    question: "Estimate the market size of the US coffee market.",
+    answer:
+      "Market sizing structure: US population ~330M. Adults who drink coffee (~65%) = ~215M coffee drinkers. Average cups per day = 2. Days per year = 365. Total cups = 215M × 2 × 365 = ~157B cups/year. Average price per cup: mix of home brew (~$0.50) and cafe (~$4.00). Assume 60% home, 40% cafe. Weighted average = ~$1.90/cup. Total market = 157B × $1.90 = ~$300B. Sanity check: Starbucks alone does ~$35B in US revenue which fits. Answer: ~$250-300B US coffee market.",
+    category: "Consulting - Behavioral",
+    difficulty: "Medium",
+    tags: ["market sizing", "population", "segmentation", "assumptions", "sanity check"],
+    careerTracks: ["Consulting"],
+  },
+  {
+    question: "Walk me through a market entry framework.",
+    answer:
+      "Four areas to assess: (1) Market Attractiveness — size, growth rate, profitability, cyclicality. (2) Competitive Landscape — number of players, concentration, barriers to entry, our potential differentiation. (3) Company Fit — do we have the capabilities, capital, and strategic rationale? Build, buy, or partner? (4) Financial Viability — what investment is required, what's the expected return, break-even timeline. Always end with a recommendation: enter or don't enter, and through which mode.",
+    category: "Consulting - Behavioral",
+    difficulty: "Medium",
+    tags: ["market entry", "attractiveness", "competition", "capabilities", "financials", "recommendation"],
+    careerTracks: ["Consulting"],
+  },
+  {
+    question: "What is MECE and why does it matter?",
+    answer:
+      "MECE stands for Mutually Exclusive, Collectively Exhaustive. Mutually Exclusive means no overlap between categories — each issue fits in exactly one bucket. Collectively Exhaustive means together the categories cover every possible cause — nothing is left out. It matters because consultants need to structure problems in a way that ensures they're not double-counting issues (ME) and not missing anything (CE). A non-MECE framework leads to confused analysis and missed insights.",
+    category: "Consulting - Behavioral",
+    difficulty: "Easy",
+    tags: ["MECE", "mutually exclusive", "collectively exhaustive", "structure", "framework"],
+    careerTracks: ["Consulting"],
+  },
+  {
+    question: "Walk me through Porter's Five Forces.",
+    answer:
+      "Five Forces analyzes industry attractiveness: (1) Threat of New Entrants — how easy is it for new competitors to enter? Barriers include capital requirements, economies of scale, brand loyalty, regulation. (2) Bargaining Power of Suppliers — can suppliers raise prices or reduce quality? High when few suppliers or high switching costs. (3) Bargaining Power of Buyers — can customers demand lower prices? High when buyers are concentrated or products are commoditized. (4) Threat of Substitutes — can customers switch to alternatives? (5) Competitive Rivalry — how intense is competition among existing players? Together these determine how much profit any firm in the industry can sustainably capture.",
+    category: "Consulting - Behavioral",
+    difficulty: "Medium",
+    tags: ["Porter", "five forces", "competition", "suppliers", "buyers", "substitutes", "rivalry"],
+    careerTracks: ["Consulting"],
+  },
+  {
+    question: "A retailer wants to know if they should launch a new product line. How do you advise them?",
+    answer:
+      "Structure the analysis in three parts: (1) Market Opportunity — is there customer demand? What's the market size and growth? Who are the target customers? (2) Competitive Dynamics — who else sells this? How are we differentiated? What's our competitive advantage? (3) Internal Fit — do we have the capabilities to produce and distribute this? What's the investment required and expected return? What's the cannibalization risk to existing products? End with a clear recommendation: launch, don't launch, or launch with modifications, and explain your reasoning.",
+    category: "Consulting - Behavioral",
+    difficulty: "Hard",
+    tags: ["market opportunity", "competitive advantage", "capabilities", "investment", "recommendation", "cannibalization"],
+    careerTracks: ["Consulting"],
+  },
+  {
+    question: "What are the four key case scenarios according to the Ivy Case System?",
+    answer:
+      "The four key scenarios are: (1) Profitability — company profits are declining, need to diagnose revenue vs cost issues. (2) Entering a New Market — should a company expand into a new geography or product category. (3) Industry Analysis — assess the attractiveness and dynamics of an industry. (4) Mergers & Acquisitions — should a company acquire another, and at what price/terms. Each scenario has a standard framework structure but good consultants adapt the framework to the specific facts of the case.",
+    category: "Consulting - Behavioral",
+    difficulty: "Medium",
+    tags: ["Ivy Case System", "profitability", "market entry", "industry analysis", "M&A", "framework"],
+    careerTracks: ["Consulting"],
+  },
+  {
+    question: "How do you handle getting stuck in a case interview?",
+    answer:
+      "Stay calm — interviewers expect candidates to hit walls. Four tactics: (1) Buy time by summarizing what you know so far: 'Let me recap what we've established...' (2) Go back to your framework and identify which branch you haven't explored. (3) Ask a clarifying question: 'Can you tell me more about X?' (4) State your assumption out loud and move forward: 'I'm going to assume X because...' Never go silent. The interviewer is evaluating your composure and structured thinking under pressure as much as your answer.",
+    category: "Consulting - Behavioral",
+    difficulty: "Easy",
+    tags: ["stuck", "composure", "framework", "clarify", "assumptions", "structured thinking"],
+    careerTracks: ["Consulting"],
+  },
+  {
+    question:
+      "A company has revenue of $500M and EBITDA margin of 20%. Fixed costs are $60M. If variable costs increase by 10%, what happens to EBITDA?",
+    answer:
+      "Current EBITDA = $500M × 20% = $100M. Total costs = $500M - $100M = $400M. Fixed costs = $60M, so Variable costs = $340M. 10% increase in variable costs = $34M additional cost. New EBITDA = $100M - $34M = $66M. New EBITDA margin = $66M / $500M = 13.2%. EBITDA declined by $34M or 34%.",
+    category: "Consulting - Case Math",
+    difficulty: "Hard",
+    tags: ["EBITDA", "fixed costs", "variable costs", "margin", "calculation"],
+    careerTracks: ["Consulting"],
+  },
+  {
+    question: "Market sizing: How many gas stations are in the United States?",
+    answer:
+      "Structure: US has ~130M households. Assume 1.5 cars per household = ~195M cars. Cars need to fill up roughly once per week = 195M fill-ups/week. Each gas station can handle roughly 1,000 fill-ups per week (10 pumps, ~14 hours/day, ~7 cars/hour per pump). Gas stations needed = 195M / 1,000 = ~195,000. Real answer is ~150,000 — our estimate is reasonable. Always show your structure and sanity check.",
+    category: "Consulting - Case Math",
+    difficulty: "Medium",
+    tags: ["market sizing", "gas stations", "estimation", "structure", "sanity check"],
+    careerTracks: ["Consulting"],
+  },
   // Capital Markets
   {
     question: "Walk me through how a bond is priced.",

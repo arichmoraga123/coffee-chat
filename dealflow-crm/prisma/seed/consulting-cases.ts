@@ -18,78 +18,74 @@ function dk(title: string, type: string) {
 
 export const SEED_CONSULTING_CASES: (SeedConsultingCase & { dedupeKey: string })[] = [
   {
-    title: "MetroBrew Coffee Chain Profitability",
+    title: "Coffee Chain Declining Profits",
     type: "Profitability",
     difficulty: "Medium",
     prompt:
-      "MetroBrew is a 120-store regional coffee chain. Same-store sales are flat, but EBITDA has fallen 18% over the last 12 months. The CEO wants to understand what is driving the profit decline and what to do next. How would you structure your analysis?",
-    framework:
-      "Profit tree: Revenue = Price × Volume (transactions × basket); Costs = Fixed + Variable. Segment by store format (urban vs suburban), daypart, and product mix. Compare YoY unit economics and benchmark vs peers.",
+      "Your client is a national coffee chain with 500 locations. Profits have declined 15% over the past two years despite flat revenue. The CEO has hired your firm to diagnose the issue and recommend a solution. How do you approach this?",
+    framework: "Profitability = Revenue - Costs",
     sampleAnswer:
-      "Start by confirming whether the issue is top-line, margin, or both. Decompose revenue into traffic, ticket, and mix; decompose margin into COGS (beans, dairy), labor, rent, and marketing. If revenue is flat but profit fell, focus on cost inflation (wages, inputs) or shrink/waste. Size each driver, then prioritize quick wins (pricing tests, labor scheduling) vs structural fixes (lease renegotiation, menu rationalization).",
-    firmSource: "Style: McKinsey-style profitability",
+      "Focus on cost side given flat revenue. Investigate: COGS (coffee bean prices up?), labor (minimum wage increases?), rent (lease renewals?), overhead. If variable costs: renegotiate supplier contracts, menu rationalization. If fixed: underperforming store closures.",
+    firmSource: "Case in Point (8th Edition)",
     isShared: true,
     careerTracks: ["Consulting"],
-    dedupeKey: dk("MetroBrew", "Profitability"),
+    dedupeKey: dk("Coffee Chain Declining Profits", "Profitability"),
   },
   {
-    title: "SunPack Entering the US Snack Bar Market",
+    title: "European Retail Expansion",
     type: "Market Entry",
-    difficulty: "Hard",
+    difficulty: "Medium",
     prompt:
-      "SunPack, a European brand of healthy snack bars, is considering entering the United States. The board wants a recommendation on whether to enter, and if so, which channel and positioning to lead with.",
+      "A mid-size US apparel retailer with $2B in revenue wants to expand into Europe. They've asked your firm whether they should enter and if so, how. What framework do you use and what are the key questions you'd ask?",
     framework:
-      "Market entry: market attractiveness (size, growth, margins), competitive landscape, barriers (regulation, distribution), capabilities fit, and entry mode (organic build, JV, acquisition). End with a phased go-to-market.",
+      "Market Attractiveness + Competitive Landscape + Company Fit + Financials",
     sampleAnswer:
-      "Size the US snack bar TAM/SAM, growth, and profitability. Map competitors (Clif, KIND, RXBAR) and whitespace (e.g., low-sugar, functional ingredients). Assess SunPack’s supply chain cost to serve US vs EU. Recommend entry only if SAM supports a path to scale; often start in natural/specialty retail and e-commerce, then expand to conventional grocery once velocity is proven.",
-    firmSource: "Style: BCG-style market entry",
+      "Assess EU apparel market size/growth, identify most attractive entry market (UK easiest due to language), analyze local competitors (Zara, H&M), evaluate company's supply chain capability for international logistics, model unit economics per store, recommend phased entry starting with 3-5 UK flagship stores.",
+    firmSource: "Case in Point (8th Edition)",
     isShared: true,
     careerTracks: ["Consulting"],
-    dedupeKey: dk("SunPack", "Market Entry"),
+    dedupeKey: dk("European Retail Expansion", "Market Entry"),
   },
   {
-    title: "Horizon Pharma Acquires Rival FormularyCo",
+    title: "Pharma Acquisition Decision",
     type: "M&A",
     difficulty: "Hard",
     prompt:
-      "Horizon Pharma is evaluating the acquisition of FormularyCo, a smaller competitor with overlapping therapeutic areas but stronger payer relationships. The CEO asks how you would advise them on the decision and key diligence workstreams.",
-    framework:
-      "Strategic rationale (revenue synergies, portfolio depth, payer access), financial (accretion, ROIC, integration costs), risks (regulatory, integration, culture), and process (valuation range, negotiation levers, alternative structures).",
+      "A large pharmaceutical company is considering acquiring a biotech startup that has one drug in Phase 3 trials. The asking price is $500M. Should they acquire? What would you need to know?",
+    framework: "Strategic fit + Financial valuation + Risk assessment",
     sampleAnswer:
-      "Clarify thesis: is this about scale, pipeline, or commercial reach? Build a synergy case (cross-sell, combined contracting) vs standalone sum-of-parts. Stress-test concentration risk and pipeline overlap. Recommend proceeding only if synergies exceed control premium and integration risk is manageable; define a diligence plan covering legal, commercial, and manufacturing continuity.",
-    firmSource: "Style: Bain-style M&A strategy",
+      "Key questions — what's the drug's TAM and probability of FDA approval? What's the expected revenue if approved? NPV of drug at various probability scenarios. Strategic fit — does it complement existing portfolio? Integration complexity. Walk through DCF with probability weighting on approval scenarios.",
+    firmSource: "Case in Point (8th Edition)",
     isShared: true,
     careerTracks: ["Consulting"],
-    dedupeKey: dk("Horizon FormularyCo", "M&A"),
+    dedupeKey: dk("Pharma Acquisition Decision", "M&A"),
   },
   {
-    title: "CloudSync SaaS Pricing Reset",
-    type: "Pricing",
+    title: "NYC Taxi Market Size",
+    type: "Market Sizing",
     difficulty: "Medium",
     prompt:
-      "CloudSync sells B2B workflow software with flat per-seat pricing. Churn has risen and new logo growth slowed. The CRO believes pricing is leaving money on the table but fears backlash from existing customers. How would you approach pricing?",
-    framework:
-      "Pricing framework: value to customer (ROI), willingness-to-pay research, competitive price bands, cost-to-serve, and packaging (good/better/best). Consider grandfathering vs migration paths.",
+      "Estimate the total annual revenue of the taxi and rideshare market in New York City.",
+    framework: "Population -> trips per day -> revenue per trip -> annual",
     sampleAnswer:
-      "Segment customers by usage intensity and retention cohorts. Estimate elasticity with conjoint or historical experiments. Compare to value-based metrics (time saved per seat). Propose tiered bundles aligning price to value, with migration credits for strategic accounts. Pilot with new logos first, then offer voluntary migration with incentives before any broad reset.",
-    firmSource: "Style: McKinsey-style pricing",
+      "NYC population 8M, ~30% use taxi/rideshare regularly = 2.4M users. Average 2 trips/week = 4.8M trips/week. Average fare $15. Weekly revenue = $72M. Annual = ~$3.7B. Sanity check: Uber NYC revenue reported at ~$2B, our estimate reasonable including yellow cabs.",
+    firmSource: "Case in Point (8th Edition)",
     isShared: true,
     careerTracks: ["Consulting"],
-    dedupeKey: dk("CloudSync", "Pricing"),
+    dedupeKey: dk("NYC Taxi Market Size", "Market Sizing"),
   },
   {
-    title: "FreshFold Regional Laundry Network — Throughput Crisis",
+    title: "Hospital Wait Times",
     type: "Operations",
     difficulty: "Medium",
     prompt:
-      "FreshFold operates industrial laundry plants serving hotels and hospitals. On-time delivery has slipped from 97% to 88% in six months, and overtime hours are up 35%. The COO wants a root-cause assessment and improvement plan.",
-    framework:
-      "Operations diagnostic: demand/capacity balance, bottleneck process mapping (wash, dry, fold, dispatch), labor scheduling, maintenance/MTBF, supplier inputs, and quality/rework rates.",
+      "A large urban hospital has seen emergency room wait times increase from 45 minutes to 3 hours over the past year. Hospital administration has asked your firm to fix this. How do you approach it?",
+    framework: "Supply (capacity) vs Demand (patient volume)",
     sampleAnswer:
-      "Map the value stream and measure cycle time by step. Check if demand spikes or lost capacity (equipment downtime) shifted the bottleneck. Review scheduling vs peaks, staffing model, and maintenance backlog. Quick wins may include staggered shifts and preventive maintenance; structural fixes could be modest capex on dryers or route density optimization.",
-    firmSource: "Style: Operations case",
+      "Diagnose supply vs demand. Demand side: patient volume up? Acuity higher? Seasonal patterns? Supply side: staffing levels down? Bed capacity reduced? Process bottlenecks (triage, labs, imaging)? Likely culprit: process inefficiency or staffing. Solutions: triage fast-track for minor cases, staffing model optimization, EHR process improvements.",
+    firmSource: "Case in Point (8th Edition)",
     isShared: true,
     careerTracks: ["Consulting"],
-    dedupeKey: dk("FreshFold", "Operations"),
+    dedupeKey: dk("Hospital Wait Times", "Operations"),
   },
 ];

@@ -34,6 +34,7 @@ function shuffle<T>(arr: T[]): T[] {
 
 export function MockInterviewView() {
   const { careerTracks, narrowTrack } = useCareerTracks();
+  const [activeTab, setActiveTab] = useState<"question-bank" | "case-practice">("question-bank");
   const [bankCounts, setBankCounts] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(true);
   const [sessionMode, setSessionMode] = useState<"practice" | "timed" | "bank-specific" | null>(null);
@@ -335,110 +336,131 @@ export function MockInterviewView() {
           <span className="text-[#f0f0f0]">SHARED</span> question bank ·{" "}
           <span className="text-[#c9a84c]">PRIVATE</span> sessions &amp; grades
         </p>
-      </div>
-      <div className="grid gap-6 lg:grid-cols-[220px_1fr]">
-        <Card className="h-fit space-y-2 border-zinc-800 bg-zinc-900/50 p-3 text-sm">
-          <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">Banks</p>
-          {MOCK_INTERVIEW_BANKS.map((b) => (
-            <button
-              key={b}
-              type="button"
-              className={cn(
-                "flex w-full items-center justify-between rounded px-2 py-1.5 text-left hover:bg-zinc-800",
-                bankFilter === b && "bg-zinc-800",
-              )}
-              onClick={() => setBankFilter(b)}
-            >
-              <span className="truncate">{b}</span>
-              <span className="text-xs text-zinc-500">{bankCounts[b] ?? 0}</span>
-            </button>
-          ))}
-        </Card>
-        <div className="space-y-4">
-          <ConsultingCasePractice />
-          <Card className="space-y-3 border-zinc-800 bg-zinc-900/50 p-4">
-            <p className="text-sm font-medium text-zinc-200">Start</p>
-            <div className="flex flex-wrap gap-2">
-              <Button size="sm" disabled={loading} onClick={() => void start("practice", null)}>
-                Practice (untimed)
-              </Button>
-              <Button size="sm" disabled={loading} onClick={() => void start("timed", null)}>
-                Timed (~20×90s)
-              </Button>
-              <Button
-                size="sm"
-                disabled={loading || !bankFilter}
-                onClick={() => bankFilter && void start("bank-specific", bankFilter)}
-              >
-                Bank mode
-              </Button>
-            </div>
-            <p className="text-xs text-zinc-500">Pick a bank on the left for Bank mode. Timed uses a mixed bank set.</p>
-          </Card>
-          <Card className="space-y-2 border-zinc-800 bg-zinc-900/50 p-4">
-            <p className="text-sm font-medium text-zinc-200">Submit a question</p>
-            <Input
-              placeholder="Question"
-              value={submitQ.question}
-              onChange={(e) => setSubmitQ((s) => ({ ...s, question: e.target.value }))}
-            />
-            <div className="grid gap-2 sm:grid-cols-2">
-              <select
-                className="rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-sm"
-                value={submitQ.bankSource}
-                onChange={(e) => setSubmitQ((s) => ({ ...s, bankSource: e.target.value }))}
-              >
-                {MOCK_INTERVIEW_BANKS.map((b) => (
-                  <option key={b} value={b}>
-                    {b}
-                  </option>
-                ))}
-              </select>
-              <select
-                className="rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-sm"
-                value={submitQ.category}
-                onChange={(e) => setSubmitQ((s) => ({ ...s, category: e.target.value }))}
-              >
-                {["Behavioral", "Technical", "Deal Discussion"].map((c) => (
-                  <option key={c} value={c}>
-                    {c}
-                  </option>
-                ))}
-              </select>
-              <select
-                className="rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-sm"
-                value={submitQ.difficulty}
-                onChange={(e) => setSubmitQ((s) => ({ ...s, difficulty: e.target.value }))}
-              >
-                {["Easy", "Medium", "Hard"].map((c) => (
-                  <option key={c} value={c}>
-                    {c}
-                  </option>
-                ))}
-              </select>
-              <Input
-                placeholder="Year"
-                value={submitQ.year}
-                onChange={(e) => setSubmitQ((s) => ({ ...s, year: e.target.value }))}
-              />
-            </div>
-            <textarea
-              className="min-h-[80px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-sm"
-              placeholder="Model answer (optional)"
-              value={submitQ.modelAnswer}
-              onChange={(e) => setSubmitQ((s) => ({ ...s, modelAnswer: e.target.value }))}
-            />
-            <Button size="sm" onClick={() => void submitQuestion()}>
-              Submit for review
-            </Button>
-          </Card>
-          <p className="text-xs text-zinc-500">
-            <Link className="text-[#f0f0f0] underline-offset-4 hover:underline" href="/debriefs">
-              Interview debriefs (private)
-            </Link>
-          </p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <Button
+            size="sm"
+            variant={activeTab === "question-bank" ? "default" : "outline"}
+            onClick={() => setActiveTab("question-bank")}
+          >
+            Question Practice
+          </Button>
+          <Button
+            size="sm"
+            variant={activeTab === "case-practice" ? "default" : "outline"}
+            onClick={() => setActiveTab("case-practice")}
+          >
+            Case Practice
+          </Button>
         </div>
       </div>
+      {activeTab === "case-practice" ? (
+        <ConsultingCasePractice />
+      ) : (
+        <div className="grid gap-6 lg:grid-cols-[220px_1fr]">
+          <Card className="h-fit space-y-2 border-zinc-800 bg-zinc-900/50 p-3 text-sm">
+            <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">Banks</p>
+            {MOCK_INTERVIEW_BANKS.map((b) => (
+              <button
+                key={b}
+                type="button"
+                className={cn(
+                  "flex w-full items-center justify-between rounded px-2 py-1.5 text-left hover:bg-zinc-800",
+                  bankFilter === b && "bg-zinc-800",
+                )}
+                onClick={() => setBankFilter(b)}
+              >
+                <span className="truncate">{b}</span>
+                <span className="text-xs text-zinc-500">{bankCounts[b] ?? 0}</span>
+              </button>
+            ))}
+          </Card>
+          <div className="space-y-4">
+            <Card className="space-y-3 border-zinc-800 bg-zinc-900/50 p-4">
+              <p className="text-sm font-medium text-zinc-200">Start</p>
+              <div className="flex flex-wrap gap-2">
+                <Button size="sm" disabled={loading} onClick={() => void start("practice", null)}>
+                  Practice (untimed)
+                </Button>
+                <Button size="sm" disabled={loading} onClick={() => void start("timed", null)}>
+                  Timed (~20×90s)
+                </Button>
+                <Button
+                  size="sm"
+                  disabled={loading || !bankFilter}
+                  onClick={() => bankFilter && void start("bank-specific", bankFilter)}
+                >
+                  Bank mode
+                </Button>
+              </div>
+              <p className="text-xs text-zinc-500">
+                Pick a bank on the left for Bank mode. Timed uses a mixed bank set.
+              </p>
+            </Card>
+            <Card className="space-y-2 border-zinc-800 bg-zinc-900/50 p-4">
+              <p className="text-sm font-medium text-zinc-200">Submit a question</p>
+              <Input
+                placeholder="Question"
+                value={submitQ.question}
+                onChange={(e) => setSubmitQ((s) => ({ ...s, question: e.target.value }))}
+              />
+              <div className="grid gap-2 sm:grid-cols-2">
+                <select
+                  className="rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-sm"
+                  value={submitQ.bankSource}
+                  onChange={(e) => setSubmitQ((s) => ({ ...s, bankSource: e.target.value }))}
+                >
+                  {MOCK_INTERVIEW_BANKS.map((b) => (
+                    <option key={b} value={b}>
+                      {b}
+                    </option>
+                  ))}
+                </select>
+                <select
+                  className="rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-sm"
+                  value={submitQ.category}
+                  onChange={(e) => setSubmitQ((s) => ({ ...s, category: e.target.value }))}
+                >
+                  {["Behavioral", "Technical", "Deal Discussion", "Consulting - Behavioral", "Consulting - Case Math"].map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
+                </select>
+                <select
+                  className="rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-sm"
+                  value={submitQ.difficulty}
+                  onChange={(e) => setSubmitQ((s) => ({ ...s, difficulty: e.target.value }))}
+                >
+                  {["Easy", "Medium", "Hard"].map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
+                </select>
+                <Input
+                  placeholder="Year"
+                  value={submitQ.year}
+                  onChange={(e) => setSubmitQ((s) => ({ ...s, year: e.target.value }))}
+                />
+              </div>
+              <textarea
+                className="min-h-[80px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-sm"
+                placeholder="Model answer (optional)"
+                value={submitQ.modelAnswer}
+                onChange={(e) => setSubmitQ((s) => ({ ...s, modelAnswer: e.target.value }))}
+              />
+              <Button size="sm" onClick={() => void submitQuestion()}>
+                Submit for review
+              </Button>
+            </Card>
+            <p className="text-xs text-zinc-500">
+              <Link className="text-[#f0f0f0] underline-offset-4 hover:underline" href="/debriefs">
+                Interview debriefs (private)
+              </Link>
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
