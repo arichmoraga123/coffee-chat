@@ -102,12 +102,21 @@ function BulletList({ title, items }: { title: string; items: string[] | undefin
   );
 }
 
+const LOADING_MESSAGES = [
+  "Reading your resume...",
+  "Analyzing your experience...",
+  "Checking formatting and structure...",
+  "Generating improvement suggestions...",
+  "Almost done...",
+];
+
 export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const reuploadRef = useRef<HTMLInputElement>(null);
   const [reviews, setReviews] = useState<ReviewRow[]>([]);
   const [active, setActive] = useState<ReviewRow | null>(null);
   const [loading, setLoading] = useState(false);
+  const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
   const [error, setError] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [targetTrack, setTargetTrack] = useState<string>(getPrimaryTrack(careerTracks));
@@ -133,6 +142,17 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
   useEffect(() => {
     void load();
   }, [load]);
+
+  useEffect(() => {
+    if (!loading) {
+      setLoadingMessageIndex(0);
+      return;
+    }
+    const timer = window.setInterval(() => {
+      setLoadingMessageIndex((prev) => (prev + 1) % LOADING_MESSAGES.length);
+    }, 5000);
+    return () => window.clearInterval(timer);
+  }, [loading]);
 
   const upload = async (file: File) => {
     setError("");
@@ -271,7 +291,7 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
           </div>
         ) : null}
         {loading ? (
-          <p className="mt-4 text-center text-sm text-zinc-400">Claude is reviewing your resume…</p>
+          <p className="mt-4 text-center text-sm text-zinc-400">{LOADING_MESSAGES[loadingMessageIndex]}</p>
         ) : null}
       </Card>
 
