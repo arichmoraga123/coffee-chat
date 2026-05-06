@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { PDFParse } from "pdf-parse";
-import sharp from "sharp";
 import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession } from "@/lib/auth";
 import { getAnthropicApiKey } from "@/lib/anthropic";
@@ -105,7 +104,8 @@ const TRACK_PROMPTS: Record<string, string> = {
 const FALLBACK_PROMPT =
   "You are a senior recruiter at Goldman Sachs with 15 years of experience reviewing resumes for IB, PE, and consulting roles. You have reviewed over 10,000 resumes from target and non-target schools. You give direct, specific, actionable feedback.";
 
-const JSON_INSTRUCTION = "Analyze the resume text and images together. Prioritize specific fixes and quantifiable rewrite guidance.";
+const JSON_INSTRUCTION =
+  "Analyze the resume text and infer formatting quality from text patterns. Detect date formatting consistency, bullet character consistency, line-length alignment patterns, and capitalization consistency. Prioritize specific fixes and quantifiable rewrite guidance.";
 
 type AnthropicResponse = {
   content?: Array<{ type?: string; text?: string }>;
@@ -123,53 +123,6 @@ async function extractResumeText(buf: Buffer): Promise<string> {
   }
 }
 
-async function renderWithPdfJs(buf: Buffer): Promise<string[]> {
-  const [{ getDocument }, { createCanvas }] = await Promise.all([
-    import("pdfjs-dist/legacy/build/pdf.mjs"),
-    import("canvas"),
-  ]);
-
-  const loadingTask = getDocument({ data: new Uint8Array(buf) });
-  const pdf = await loadingTask.promise;
-  const pages = Math.min(2, pdf.numPages);
-  const images: string[] = [];
-
-  for (let i = 1; i <= pages; i++) {
-    const page = await pdf.getPage(i);
-    const baseViewport = page.getViewport({ scale: 1 });
-    const scale = Math.min(2, 1500 / baseViewport.width);
-    const viewport = page.getViewport({ scale });
-    const canvas = createCanvas(Math.round(viewport.width), Math.round(viewport.height));
-    const context = canvas.getContext("2d");
-    await page.render({
-      canvas: canvas as unknown as HTMLCanvasElement,
-      canvasContext: context as unknown as CanvasRenderingContext2D,
-      viewport,
-    }).promise;
-    const dataUrl = canvas.toDataURL("image/png");
-    images.push(dataUrl.replace(/^data:image\/png;base64,/, ""));
-  }
-
-  await pdf.destroy();
-  return images;
-}
-
-async function renderWithSharp(buf: Buffer): Promise<string[]> {
-  const images: string[] = [];
-  for (let i = 0; i < 2; i++) {
-    try {
-      const out = await sharp(buf, { page: i, density: 180 })
-        .resize({ width: 1500, withoutEnlargement: true })
-        .png()
-        .toBuffer();
-      images.push(out.toString("base64"));
-    } catch {
-      break;
-    }
-  }
-  return images;
-}
-
 function getTrackPrompt(track: string) {
   const base = TRACK_PROMPTS[track] ?? FALLBACK_PROMPT;
   const scoring =
@@ -185,22 +138,15 @@ function getTrackPrompt(track: string) {
   return `${base}\n${scoring}\n${COMMON_SCHEMA_PROMPT}`;
 }
 
-async function analyzeWithClaude(userId: string, text: string, imageBase64Png: string[], track: string) {
+async function analyzeWithClaude(userId: string, text: string, track: string) {
   const apiKey = getAnthropicApiKey();
   if (!apiKey) throw new Error("AI is not configured");
 
-  const content: Array<
-    | { type: "text"; text: string }
-    | { type: "image"; source: { type: "base64"; media_type: "image/png"; data: string } }
-  > = [
+  const content: Array<{ type: "text"; text: string }> = [
     {
       type: "text",
-      text: `${JSON_INSTRUCTION}\nTarget track: ${track}\n\nResume text:\n${text.slice(0, 50_000)}`,
+      text: `${JSON_INSTRUCTION}\nTarget track: ${track}\n\nAnalyze the text for formatting patterns and infer visual issues from the structure of the extracted text.\n\nResume text:\n${text.slice(0, 50_000)}`,
     },
-    ...imageBase64Png.map((img) => ({
-      type: "image" as const,
-      source: { type: "base64" as const, media_type: "image/png" as const, data: img },
-    })),
   ];
 
   const res = await fetch("https://api.anthropic.com/v1/messages", {
@@ -237,111 +183,120 @@ async function analyzeWithClaude(userId: string, text: string, imageBase64Png: s
 }
 
 export async function POST(req: Request) {
-  const userId = await getUserIdFromSession();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  if (!getAnthropicApiKey()) {
-    return NextResponse.json({ error: "AI is not configured" }, { status: 503 });
-  }
-
-  const form = await req.formData();
-  const profile = await prisma.user.findUnique({
-    where: { id: userId },
-    select: { careerTracks: true },
-  });
-  const file = form.get("file");
-  if (!file || !(file instanceof File)) {
-    return NextResponse.json({ error: "file required" }, { status: 400 });
-  }
-  if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
-    return NextResponse.json({ error: "PDF only" }, { status: 400 });
-  }
-
-  const buf = Buffer.from(await file.arrayBuffer());
-  let text = "";
   try {
-    text = await extractResumeText(buf);
-  } catch {
-    return NextResponse.json({ error: "Could not read PDF" }, { status: 400 });
-  }
-  if (text.length < 40) {
-    return NextResponse.json({ error: "Could not extract enough text from PDF" }, { status: 400 });
-  }
-  const clipped = text.slice(0, 50_000);
-  const requestedTrack = String(form.get("targetTrack") ?? "").trim();
-  const userPrimaryTrack = getPrimaryTrack(profile?.careerTracks ?? []);
-  const targetTrack = requestedTrack || userPrimaryTrack || "General";
-
-  let visualUnavailable = false;
-  let images: string[] = [];
-  try {
-    images = await renderWithPdfJs(buf);
-  } catch {
-    try {
-      images = await renderWithSharp(buf);
-    } catch {
-      images = [];
+    console.log("[resume-review] POST start");
+    const userId = await getUserIdFromSession();
+    if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    if (!getAnthropicApiKey()) {
+      return NextResponse.json({ error: "AI is not configured" }, { status: 503 });
     }
-  }
-  if (!images.length) visualUnavailable = true;
 
-  let raw = "";
-  try {
-    raw = await analyzeWithClaude(userId, clipped, images, targetTrack);
-  } catch (e) {
-    const msg = e instanceof Error ? e.message : "Resume analysis failed";
-    return NextResponse.json({ error: msg }, { status: 502 });
-  }
-
-  let feedback: unknown;
-  try {
-    const start = raw.indexOf("{");
-    const end = raw.lastIndexOf("}");
-    if (start === -1 || end <= start) throw new Error("no json");
-    feedback = JSON.parse(raw.slice(start, end + 1));
-  } catch {
-    return NextResponse.json({ error: "AI returned invalid JSON — try again" }, { status: 502 });
-  }
-
-  const score =
-    typeof feedback === "object" &&
-    feedback !== null &&
-    "overallScore" in feedback &&
-    typeof (feedback as { overallScore: unknown }).overallScore === "number"
-      ? Math.min(100, Math.max(0, Math.round((feedback as { overallScore: number }).overallScore)))
-      : 0;
-
-  const feedbackWithMeta =
-    typeof feedback === "object" && feedback !== null
-      ? {
-          ...(feedback as Record<string, unknown>),
-          targetTrack,
-          visualAnalysisUnavailable: visualUnavailable,
-          visualAnalysisNote: visualUnavailable ? "Visual analysis unavailable — content only" : null,
-        }
-      : feedback;
-
-  const review = await prisma.resumeReview.create({
-    data: {
-      userId,
-      fileName: file.name.slice(0, 255),
-      score,
-      feedback: feedbackWithMeta as object,
-    },
-  });
-
-  const extras = await prisma.resumeReview.findMany({
-    where: { userId },
-    orderBy: { createdAt: "desc" },
-    skip: 3,
-    select: { id: true },
-  });
-  if (extras.length) {
-    await prisma.resumeReview.deleteMany({
-      where: { id: { in: extras.map((e) => e.id) } },
+    console.log("[resume-review] parsing formData");
+    const form = await req.formData();
+    const profile = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { careerTracks: true },
     });
-  }
+    const file = form.get("file");
+    if (!file || !(file instanceof File)) {
+      return NextResponse.json({ error: "file required" }, { status: 400 });
+    }
+    if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
+      return NextResponse.json({ error: "PDF only" }, { status: 400 });
+    }
 
-  return NextResponse.json({ review });
+    console.log("[resume-review] reading file buffer");
+    const buf = Buffer.from(await file.arrayBuffer());
+    console.log("[resume-review] extracting text");
+    let text = "";
+    try {
+      text = await extractResumeText(buf);
+    } catch (error) {
+      console.error("[resume-review] text extraction failed", error);
+      return NextResponse.json({ error: "Could not read PDF" }, { status: 400 });
+    }
+    if (text.length < 40) {
+      return NextResponse.json({ error: "Could not extract enough text from PDF" }, { status: 400 });
+    }
+    const clipped = text.slice(0, 50_000);
+    const requestedTrack = String(form.get("targetTrack") ?? "").trim();
+    const userPrimaryTrack = getPrimaryTrack(profile?.careerTracks ?? []);
+    const targetTrack = requestedTrack || userPrimaryTrack || "General";
+    console.log("[resume-review] target track", targetTrack);
+
+    console.log("[resume-review] calling claude");
+    let raw = "";
+    try {
+      raw = await analyzeWithClaude(userId, clipped, targetTrack);
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : "Resume analysis failed";
+      console.error("[resume-review] claude call failed", msg);
+      return NextResponse.json({ error: msg }, { status: 502 });
+    }
+
+    console.log("[resume-review] parsing claude json");
+    let feedback: unknown;
+    try {
+      const start = raw.indexOf("{");
+      const end = raw.lastIndexOf("}");
+      if (start === -1 || end <= start) throw new Error("no json");
+      feedback = JSON.parse(raw.slice(start, end + 1));
+    } catch (error) {
+      console.error("[resume-review] invalid json", error);
+      return NextResponse.json({ error: "AI returned invalid JSON — try again" }, { status: 502 });
+    }
+
+    const score =
+      typeof feedback === "object" &&
+      feedback !== null &&
+      "overallScore" in feedback &&
+      typeof (feedback as { overallScore: unknown }).overallScore === "number"
+        ? Math.min(100, Math.max(0, Math.round((feedback as { overallScore: number }).overallScore)))
+        : 0;
+
+    const feedbackWithMeta =
+      typeof feedback === "object" && feedback !== null
+        ? {
+            ...(feedback as Record<string, unknown>),
+            targetTrack,
+            visualAnalysisUnavailable: true,
+            visualAnalysisNote: "Visual analysis inferred from extracted text patterns only",
+          }
+        : feedback;
+
+    console.log("[resume-review] saving review");
+    const review = await prisma.resumeReview.create({
+      data: {
+        userId,
+        fileName: file.name.slice(0, 255),
+        score,
+        feedback: feedbackWithMeta as object,
+      },
+    });
+
+    const extras = await prisma.resumeReview.findMany({
+      where: { userId },
+      orderBy: { createdAt: "desc" },
+      skip: 3,
+      select: { id: true },
+    });
+    if (extras.length) {
+      await prisma.resumeReview.deleteMany({
+        where: { id: { in: extras.map((e) => e.id) } },
+      });
+    }
+
+    console.log("[resume-review] POST success");
+    return NextResponse.json({ review });
+  } catch (error) {
+    console.error("[resume-review] unexpected error", error);
+    return NextResponse.json(
+      {
+        error: error instanceof Error ? error.message : "Resume review failed unexpectedly",
+      },
+      { status: 500 },
+    );
+  }
 }
 
 export async function GET() {

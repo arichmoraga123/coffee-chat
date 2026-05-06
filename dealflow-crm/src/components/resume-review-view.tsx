@@ -109,6 +109,7 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
   const [active, setActive] = useState<ReviewRow | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [targetTrack, setTargetTrack] = useState<string>(getPrimaryTrack(careerTracks));
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({
     formatting: true,
@@ -136,20 +137,28 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
   const upload = async (file: File) => {
     setError("");
     setLoading(true);
+    setSelectedFile(file);
     const fd = new FormData();
     fd.append("file", file);
     fd.append("targetTrack", targetTrack);
     try {
       const res = await fetch("/api/resume/review", { method: "POST", body: fd, credentials: "same-origin" });
-      const data = (await res.json()) as { review?: ReviewRow; error?: string };
+      let data: { review?: ReviewRow; error?: string } = {};
+      try {
+        data = (await res.json()) as { review?: ReviewRow; error?: string };
+      } catch {
+        data = { error: "Server returned an unreadable response." };
+      }
       if (!res.ok) {
-        setError(data.error ?? "Upload failed");
+        setError(`Review failed: ${data.error ?? "Upload failed"}`);
         return;
       }
       if (data.review) {
         setActive(data.review);
         await load();
       }
+    } catch (e) {
+      setError(`Review failed: ${e instanceof Error ? e.message : "Network error"}`);
     } finally {
       setLoading(false);
     }
@@ -226,6 +235,7 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
           <div>
             <p className="text-sm font-medium text-zinc-200">Upload resume (PDF)</p>
             <p className="text-xs text-zinc-500">Drag and drop or choose a file.</p>
+            {selectedFile ? <p className="mt-1 text-xs text-zinc-400">Selected: {selectedFile.name}</p> : null}
           </div>
           <div className="flex flex-wrap justify-center gap-2">
             <input
@@ -243,6 +253,11 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
             >
               {loading ? "Analyzing…" : "Upload resume"}
             </Button>
+            {selectedFile ? (
+              <Button type="button" variant="outline" disabled={loading} onClick={() => void upload(selectedFile)}>
+                Re-run with selected file
+              </Button>
+            ) : null}
             {active ? (
               <Button type="button" variant="outline" disabled={loading} onClick={() => setActive(null)}>
                 Clear view
@@ -250,11 +265,27 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
             ) : null}
           </div>
         </div>
-        {error ? <p className="mt-3 text-sm text-red-400">{error}</p> : null}
+        {error ? (
+          <div className="mt-3 rounded border border-red-700/60 bg-red-950/30 p-3 text-sm text-red-300">
+            {error}
+          </div>
+        ) : null}
         {loading ? (
           <p className="mt-4 text-center text-sm text-zinc-400">Claude is reviewing your resume…</p>
         ) : null}
       </Card>
+
+      {loading ? (
+        <Card className="space-y-3 p-4">
+          <div className="h-4 w-40 animate-pulse rounded bg-zinc-800" />
+          <div className="h-24 animate-pulse rounded bg-zinc-900" />
+          <div className="grid gap-2 sm:grid-cols-3">
+            <div className="h-16 animate-pulse rounded bg-zinc-900" />
+            <div className="h-16 animate-pulse rounded bg-zinc-900" />
+            <div className="h-16 animate-pulse rounded bg-zinc-900" />
+          </div>
+        </Card>
+      ) : null}
 
       {reviews.length > 0 ? (
         <Card className="p-4">
