@@ -13,6 +13,7 @@ import { ReportContentAction } from "@/components/report-content-action";
 import { EmptyState } from "@/components/ui/empty-state";
 import type { McqDistractorSource } from "@/lib/question-mcq";
 import { gradeAnswerByKeywords, type KeywordGradeResult } from "@/lib/answer-grader";
+import { PracticeModal } from "@/components/practice-modal";
 import {
   readStoredQuestionMode,
   writeStoredQuestionMode,
@@ -64,7 +65,9 @@ export function QuestionsBank({
   const [difficulty, setDifficulty] = useState<string>("all");
   const [tagFilter, setTagFilter] = useState("");
   const [status, setStatus] = useState<string>("all");
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [practiceOpen, setPracticeOpen] = useState(false);
+  const [practiceIndex, setPracticeIndex] = useState(0);
+  const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
 
   const [practiceMode, setPracticeMode] = useState<QuestionPracticeMode>("mcq");
   const [drillOpen, setDrillOpen] = useState(false);
@@ -132,6 +135,72 @@ export function QuestionsBank({
     });
   }, [trackFiltered, category, difficulty, status, tagFilter, statusOf]);
 
+  const dedupedFilteredBrowse = useMemo(() => {
+    const seen = new Set<string>();
+    const out: QuestionDTO[] = [];
+    for (const q of filteredBrowse) {
+      const key = q.question.trim().toLowerCase();
+      if (seen.has(key)) continue;
+      seen.add(key);
+      out.push(q);
+    }
+    return out;
+  }, [filteredBrowse]);
+
+  const difficultyOrder: Record<string, number> = { Easy: 0, Medium: 1, Hard: 2 };
+  const statusOrder: Record<string, number> = { unseen: 0, review: 1, known: 2 };
+
+  const groupedBrowse = useMemo(() => {
+    const byCategory = new Map<string, QuestionDTO[]>();
+    for (const q of dedupedFilteredBrowse) {
+      const cur = byCategory.get(q.category) ?? [];
+      cur.push(q);
+      byCategory.set(q.category, cur);
+    }
+    return Array.from(byCategory.entries())
+      .sort((a, b) => a[0].localeCompare(b[0]))
+      .map(([cat, qs]) => {
+        const counts = { known: 0, review: 0, unseen: 0 };
+        for (const q of qs) {
+          const st = statusOf(q.id);
+          if (st === "known") counts.known += 1;
+          else if (st === "review") counts.review += 1;
+          else counts.unseen += 1;
+        }
+        const knownRate = qs.length ? counts.known / qs.length : 0;
+        const dotClass =
+          knownRate >= 0.8 ? "bg-emerald-500" : knownRate >= 0.4 ? "bg-amber-500" : "bg-zinc-500";
+
+        const byDifficulty = new Map<string, QuestionDTO[]>();
+        for (const q of qs) {
+          const d = ["Easy", "Medium", "Hard"].includes(q.difficulty) ? q.difficulty : "Medium";
+          const cur = byDifficulty.get(d) ?? [];
+          cur.push(q);
+          byDifficulty.set(d, cur);
+        }
+        const difficultyGroups = Array.from(byDifficulty.entries())
+          .sort((a, b) => (difficultyOrder[a[0]] ?? 99) - (difficultyOrder[b[0]] ?? 99))
+          .map(([d, questions]) => ({
+            difficulty: d,
+            questions: [...questions].sort((a, b) => {
+              const sa = statusOrder[statusOf(a.id)] ?? 99;
+              const sb = statusOrder[statusOf(b.id)] ?? 99;
+              if (sa !== sb) return sa - sb;
+              return a.question.localeCompare(b.question);
+            }),
+          }));
+
+        return {
+          category: cat,
+          questions: qs,
+          counts,
+          knownRate,
+          dotClass,
+          difficultyGroups,
+        };
+      });
+  }, [dedupedFilteredBrowse, statusOf]);
+
   const knownCount = useMemo(
     () => trackFiltered.filter((q) => statusOf(q.id) === "known").length,
     [trackFiltered, statusOf],
@@ -197,6 +266,22 @@ export function QuestionsBank({
     setMcqSummary(null);
     sessionStartRef.current = Date.now();
   };
+
+  const openPracticeFor = (questionId: string) => {
+    const foundIndex = dedupedFilteredBrowse.findIndex((q) => q.id === questionId);
+    if (foundIndex < 0) return;
+    setPracticeIndex(foundIndex);
+    setPracticeOpen(true);
+  };
+
+  const filtersActive = category !== "all" || difficulty !== "all" || status !== "all" || tagFilter.trim().length > 0;
+
+  useEffect(() => {
+    if (!filtersActive) return;
+    const next: Record<string, boolean> = {};
+    for (const g of groupedBrowse) next[g.category] = true;
+    setExpandedCategories(next);
+  }, [filtersActive, groupedBrowse]);
 
   const currentDrill = drillQueue[drillIndex];
 
@@ -441,61 +526,106 @@ export function QuestionsBank({
         </Card>
 
         <div className="space-y-2">
-          {filteredBrowse.length === 0 ? (
+          <div className="flex items-center justify-end gap-2">
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() =>
+                setExpandedCategories(
+                  Object.fromEntries(groupedBrowse.map((g) => [g.category, true])) as Record<string, boolean>,
+                )
+              }
+              disabled={groupedBrowse.length === 0}
+            >
+              Expand All
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => setExpandedCategories({})}
+              disabled={groupedBrowse.length === 0}
+            >
+              Collapse All
+            </Button>
+          </div>
+          {dedupedFilteredBrowse.length === 0 ? (
             <EmptyState
               title="No questions match filters"
               description="Try a different category, difficulty, or clear the tag search."
             />
           ) : null}
-          {filteredBrowse.map((q) => {
-            const st = statusOf(q.id);
-            const open = expandedId === q.id;
+          {groupedBrowse.map((group) => {
+            const expanded = !!expandedCategories[group.category];
             return (
-              <Card
-                key={q.id}
-                className={cn("cursor-pointer p-4 transition-colors", open && "border-[#4a6fa5]/40")}
-                onClick={() => setExpandedId(open ? null : q.id)}
-              >
-                <div className="flex flex-wrap items-start justify-between gap-2">
-                  <div className="min-w-0 flex-1">
-                    <div className="mb-2 flex flex-wrap gap-2">
-                      <span className="rounded bg-zinc-800 px-2 py-0.5 text-xs text-zinc-300">{q.category}</span>
-                      <span className={cn("rounded px-2 py-0.5 text-xs", difficultyBadge(q.difficulty))}>
-                        {q.difficulty}
-                      </span>
-                      <span className="rounded bg-zinc-800 px-2 py-0.5 text-xs capitalize text-zinc-400">{st}</span>
+              <Card key={group.category} className="overflow-hidden p-0">
+                <button
+                  type="button"
+                  className="w-full cursor-pointer p-4 text-left transition-colors hover:bg-zinc-900/40"
+                  onClick={() =>
+                    setExpandedCategories((prev) => ({ ...prev, [group.category]: !prev[group.category] }))
+                  }
+                >
+                  <div className="flex items-center gap-3">
+                    <span className={cn("h-2.5 w-2.5 shrink-0 rounded-full", group.dotClass)} />
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <p className="text-sm font-semibold text-zinc-100">{group.category}</p>
+                        <span className="text-xs text-zinc-500">({group.questions.length})</span>
+                        <span className="text-xs text-zinc-500">
+                          Known {group.counts.known} · Review {group.counts.review} · Unseen {group.counts.unseen}
+                        </span>
+                      </div>
+                      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-zinc-800/90 ring-1 ring-white/5">
+                        <div
+                          className="h-full rounded-full bg-[#4a6fa5]/85 transition-[width] duration-500"
+                          style={{ width: `${Math.round(group.knownRate * 100)}%` }}
+                        />
+                      </div>
+                      <p className="mt-1 text-[11px] text-zinc-500">{Math.round(group.knownRate * 100)}% mastered</p>
                     </div>
-                    <p className="text-sm font-medium text-zinc-100">{q.question}</p>
-                    {open ? (
-                      <div className="mt-3 border-t border-zinc-800 pt-3 text-sm text-zinc-300">
-                        <p className="mb-2 whitespace-pre-wrap">{q.answer}</p>
-                        <div className="flex flex-wrap gap-2">
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              void patchProgress(q.id, "known");
-                            }}
-                          >
-                            Mark Known ✓
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              void patchProgress(q.id, "review");
-                            }}
-                          >
-                            Mark for Review 🔁
-                          </Button>
-                          <ReportContentAction targetType="question" targetId={q.id} />
+                    <span className="text-zinc-500">{expanded ? "▾" : "▸"}</span>
+                  </div>
+                </button>
+                {expanded ? (
+                  <div className="border-t border-zinc-800 px-3 pb-3">
+                    {group.difficultyGroups.map((dg) => (
+                      <div key={`${group.category}-${dg.difficulty}`} className="pt-3">
+                        <div className="mb-2 border-b border-zinc-800 pb-1">
+                          <p className="text-xs font-medium text-zinc-500">
+                            {dg.difficulty} ({dg.questions.length})
+                          </p>
+                        </div>
+                        <div className="space-y-2">
+                          {dg.questions.map((q) => {
+                            const st = statusOf(q.id);
+                            return (
+                              <Card
+                                key={q.id}
+                                className="cursor-pointer p-3 transition-colors hover:border-[#4a6fa5]/40"
+                                onClick={() => openPracticeFor(q.id)}
+                              >
+                                <div className="flex flex-wrap items-start justify-between gap-2">
+                                  <div className="min-w-0 flex-1">
+                                    <div className="mb-1 flex flex-wrap gap-2">
+                                      <span className={cn("rounded px-2 py-0.5 text-xs", difficultyBadge(q.difficulty))}>
+                                        {q.difficulty}
+                                      </span>
+                                      <span className="rounded bg-zinc-800 px-2 py-0.5 text-xs capitalize text-zinc-400">
+                                        {st}
+                                      </span>
+                                    </div>
+                                    <p className="text-sm font-medium text-zinc-100">{q.question}</p>
+                                  </div>
+                                  <ReportContentAction targetType="question" targetId={q.id} />
+                                </div>
+                              </Card>
+                            );
+                          })}
                         </div>
                       </div>
-                    ) : null}
+                    ))}
                   </div>
-                </div>
+                ) : null}
               </Card>
             );
           })}
@@ -635,6 +765,29 @@ export function QuestionsBank({
           />
         </div>
       ) : null}
+      <PracticeModal
+        open={practiceOpen}
+        title="Question Practice"
+        questions={dedupedFilteredBrowse.map((q) => ({
+          id: q.id,
+          question: q.question,
+          answer: q.answer,
+          category: q.category,
+          difficulty: q.difficulty,
+          sourceLabel: "Question Bank",
+          keywords: q.keywords,
+          statusLabel: statusOf(q.id),
+        }))}
+        index={practiceIndex}
+        onClose={() => setPracticeOpen(false)}
+        onNavigate={setPracticeIndex}
+        onMarkKnown={async (id) => {
+          await patchProgress(id, "known");
+        }}
+        onMarkReview={async (id) => {
+          await patchProgress(id, "review");
+        }}
+      />
     </div>
   );
 }

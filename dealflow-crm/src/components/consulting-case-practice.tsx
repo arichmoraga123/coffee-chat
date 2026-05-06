@@ -37,6 +37,8 @@ export function ConsultingCasePractice() {
   const [analysisNotes, setAnalysisNotes] = useState("");
   const [recommendationNotes, setRecommendationNotes] = useState("");
   const [grades, setGrades] = useState<Partial<Record<Dim, number>>>({});
+  const [selectedType, setSelectedType] = useState("all");
+  const [activeCaseId, setActiveCaseId] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -57,7 +59,13 @@ export function ConsultingCasePractice() {
     [cases, careerTracks, narrowTrack],
   );
 
-  const current = filtered[idx] ?? null;
+  const typeFiltered = useMemo(() => {
+    if (selectedType === "all") return filtered;
+    return filtered.filter((c) => c.type === selectedType);
+  }, [filtered, selectedType]);
+
+  const current = typeFiltered[idx] ?? null;
+  const caseTypes = useMemo(() => ["all", ...Array.from(new Set(filtered.map((c) => c.type))).sort()], [filtered]);
 
   useEffect(() => {
     if (!running) return;
@@ -92,6 +100,12 @@ export function ConsultingCasePractice() {
     resetCurrentCase();
   }, [filtered.length, narrowTrack, careerTracks.join("|"), resetCurrentCase]);
 
+  useEffect(() => {
+    setIdx(0);
+    resetCurrentCase();
+    setActiveCaseId(null);
+  }, [selectedType, resetCurrentCase]);
+
   if (loading) return <p className="text-sm text-zinc-500">Loading consulting cases…</p>;
   if (!filtered.length) {
     return (
@@ -109,6 +123,51 @@ export function ConsultingCasePractice() {
           Step through full consulting cases with a 20-minute timer, framework hints, model walkthrough, and self-grading.
         </p>
       </div>
+      {!activeCaseId ? (
+        <>
+          <div className="flex flex-wrap items-center gap-2">
+            <Button size="sm" variant={selectedType === "all" ? "default" : "outline"} onClick={() => setSelectedType("all")}>
+              Browse All Cases
+            </Button>
+            {caseTypes
+              .filter((t) => t !== "all")
+              .map((t) => (
+                <Button
+                  key={t}
+                  size="sm"
+                  variant={selectedType === t ? "default" : "outline"}
+                  onClick={() => setSelectedType(t)}
+                >
+                  {t}
+                </Button>
+              ))}
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {typeFiltered.map((c) => (
+              <button
+                key={c.id}
+                type="button"
+                className="rounded border border-zinc-800 bg-zinc-950/40 p-3 text-left hover:border-zinc-600"
+                onClick={() => {
+                  const nextIdx = typeFiltered.findIndex((x) => x.id === c.id);
+                  setIdx(nextIdx >= 0 ? nextIdx : 0);
+                  setActiveCaseId(c.id);
+                  resetCurrentCase();
+                }}
+              >
+                <p className="font-medium text-zinc-100">{c.title}</p>
+                <div className="mt-2 flex flex-wrap gap-2 text-xs text-zinc-400">
+                  <span className="rounded bg-zinc-800 px-2 py-0.5">{c.type}</span>
+                  <span className="rounded border border-zinc-700 px-2 py-0.5">{c.difficulty}</span>
+                  {c.firmSource ? <span>{c.firmSource}</span> : null}
+                </div>
+              </button>
+            ))}
+          </div>
+        </>
+      ) : null}
+      {activeCaseId ? (
+        <>
       <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-400">
         <span className="rounded border border-zinc-700 px-2 py-0.5">{current?.type}</span>
         <span>{current?.difficulty}</span>
@@ -138,11 +197,14 @@ export function ConsultingCasePractice() {
           variant="outline"
           type="button"
           onClick={() => {
-            setIdx((i) => (i + 1 >= filtered.length ? 0 : i + 1));
+            setIdx((i) => (i + 1 >= typeFiltered.length ? 0 : i + 1));
             resetCurrentCase();
           }}
         >
           Next case
+        </Button>
+        <Button size="sm" variant="ghost" type="button" onClick={() => setActiveCaseId(null)}>
+          Back to case list
         </Button>
         <Button
           size="sm"
@@ -258,9 +320,11 @@ export function ConsultingCasePractice() {
             ))}
           </div>
           <p className="text-xs text-zinc-600">
-            Case {idx + 1} of {filtered.length}
+            Case {idx + 1} of {typeFiltered.length}
           </p>
         </>
+      ) : null}
+      </>
       ) : null}
     </Card>
   );
