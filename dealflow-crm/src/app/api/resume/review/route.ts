@@ -4,6 +4,8 @@ import { getUserIdFromSession } from "@/lib/auth";
 import { getAnthropicApiKey } from "@/lib/anthropic";
 import { getPrimaryTrack } from "@/lib/track-utils";
 
+export const maxDuration = 60;
+
 const COMMON_SCHEMA_PROMPT = `Return ONLY valid JSON with no markdown or explanation using this exact structure:
 {
   overallScore: number (0-100),
@@ -112,6 +114,19 @@ type AnthropicResponse = {
   error?: { message?: string };
 };
 
+function extractJSON(text: string): string {
+  try {
+    JSON.parse(text);
+    return text;
+  } catch {}
+  const start = text.indexOf("{");
+  const end = text.lastIndexOf("}");
+  if (start !== -1 && end !== -1 && end > start) {
+    return text.slice(start, end + 1);
+  }
+  throw new Error("No JSON found in response");
+}
+
 function getTrackPrompt(track: string) {
   const base = TRACK_PROMPTS[track] ?? FALLBACK_PROMPT;
   const scoring =
@@ -137,7 +152,7 @@ async function analyzeWithClaude(userId: string, pdfBase64: string, track: strin
   > = [
     {
       type: "text",
-      text: `${JSON_INSTRUCTION}\nTarget track: ${track}\n\nAnalyze the PDF directly. If visual layout is imperfectly recoverable, infer likely visual issues from document structure.`,
+      text: `${JSON_INSTRUCTION}\nTarget track: ${track}\n\nAnalyze the PDF directly. If visual layout is imperfectly recoverable, infer likely visual issues from document structure.\n\nCRITICAL: Your entire response must be a single valid JSON object. No text before or after. No markdown. No backticks. Start with { and end with }. Nothing else.`,
     },
     {
       type: "document",
@@ -158,7 +173,7 @@ async function analyzeWithClaude(userId: string, pdfBase64: string, track: strin
     },
     body: JSON.stringify({
       model: "claude-sonnet-4-5",
-      max_tokens: 3200,
+      max_tokens: 1500,
       system: getTrackPrompt(track),
       messages: [{ role: "user", content }],
     }),
@@ -229,10 +244,7 @@ export async function POST(req: Request) {
     console.log("[resume-review] parsing claude json");
     let feedback: unknown;
     try {
-      const start = raw.indexOf("{");
-      const end = raw.lastIndexOf("}");
-      if (start === -1 || end <= start) throw new Error("no json");
-      feedback = JSON.parse(raw.slice(start, end + 1));
+      feedback = JSON.parse(extractJSON(raw));
     } catch (error) {
       console.error("[resume-review] invalid json", error);
       return NextResponse.json({ error: "AI returned invalid JSON — try again" }, { status: 502 });
