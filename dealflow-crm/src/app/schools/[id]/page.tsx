@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { requireUserId } from "@/lib/auth";
+import { requireAdminUserId } from "@/lib/auth";
 import { SchoolProfileView } from "@/components/school-profile-view";
 
 export const dynamic = "force-dynamic";
 
 export default async function SchoolProfilePage({ params }: { params: Promise<{ id: string }> }) {
-  const userId = await requireUserId();
+  const userId = await requireAdminUserId();
   const { id } = await params;
 
   const [me, school] = await Promise.all([

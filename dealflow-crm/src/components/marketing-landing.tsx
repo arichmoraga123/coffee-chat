@@ -4,12 +4,22 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { LandingFeaturePreview } from "@/components/marketing-feature-previews";
 
+type PricingFeature = string | { text: string; comingSoon: true };
+
+function ComingSoonBadge() {
+  return (
+    <span className="ml-2 inline-flex shrink-0 items-center rounded-full border border-amber-500/35 bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-200/95">
+      Coming Soon
+    </span>
+  );
+}
+
 export function MarketingLanding({ inviteName }: { inviteName?: string | null }) {
   const pricingTiers: Array<{
     name: string;
     price: string;
     subtitle: string;
-    features: string[];
+    features: PricingFeature[];
     cta: string;
     href: string;
   }> = [
@@ -21,7 +31,7 @@ export function MarketingLanding({ inviteName }: { inviteName?: string | null })
         "Full question bank and drill mode",
         "Personal rolodex and pipeline tracker",
         "Resume reviewer (3 per month)",
-        "Read-only comp data and timelines",
+        { text: "Read-only comp data and timelines", comingSoon: true },
         "Global leaderboard",
       ],
       cta: "Get Started Free",
@@ -49,8 +59,8 @@ export function MarketingLanding({ inviteName }: { inviteName?: string | null })
       features: [
         "Everything in Club",
         "Multiple clubs under one chapter",
-        "School alumni directory",
-        "School-specific recruiting timelines",
+        { text: "School alumni directory", comingSoon: true },
+        { text: "School-specific recruiting timelines", comingSoon: true },
         "Unlimited members",
         "Priority support",
         "14-day free trial",
@@ -125,12 +135,19 @@ export function MarketingLanding({ inviteName }: { inviteName?: string | null })
           ["Practice like the real thing.", "400+ questions from Goldman, KKR, McKinsey and more. Flashcard and MCQ modes. Daily streaks, XP, and a leaderboard that keeps you accountable."],
           ["Your rolodex, supercharged.", "Log every coffee chat with detailed notes. One click generates a personalized follow-up email referencing exactly what you discussed. Pre-call briefs before every conversation."],
           ["Get feedback like a Goldman recruiter.", "Upload your resume and get specific, actionable feedback tailored to your target track — IB, PE, consulting, S&T, and more. Bullet point rewrites included."],
-          ["Your school's recruiting intel, in one place.", "Crowdsourced firm timelines, comp data from real students, and alumni at target firms — all verified by .edu email."],
-        ].map(([title, body], idx) => (
-          <div key={title} className="grid items-center gap-4 md:grid-cols-2">
+          [
+            "Your school's recruiting intel, in one place.",
+            "Crowdsourced firm timelines, comp data from real students, and alumni at target firms — all verified by .edu email.",
+            true,
+          ],
+        ].map(([title, body, schoolNetwork], idx) => (
+          <div key={title as string} className="grid items-center gap-4 md:grid-cols-2">
             <div className={idx % 2 ? "md:order-2" : ""}>
-              <p className="text-2xl font-semibold">{title}</p>
-              <p className="mt-2 text-zinc-400">{body}</p>
+              <p className="flex flex-wrap items-center gap-2 text-2xl font-semibold">
+                <span>{title as string}</span>
+                {schoolNetwork ? <ComingSoonBadge /> : null}
+              </p>
+              <p className="mt-2 text-zinc-400">{body as string}</p>
             </div>
             <LandingFeaturePreview index={idx} />
           </div>
@@ -146,7 +163,16 @@ export function MarketingLanding({ inviteName }: { inviteName?: string | null })
               <p className="mt-1 text-2xl font-semibold">{tier.price}</p>
               <p className="mt-1 text-sm text-zinc-400">{tier.subtitle}</p>
               <ul className="mt-3 space-y-1 text-sm text-zinc-300">
-                {tier.features.map((f) => <li key={f}>- {f}</li>)}
+                {tier.features.map((f) => {
+                  const label = typeof f === "string" ? f : f.text;
+                  const key = label;
+                  return (
+                    <li key={key} className="flex flex-wrap items-baseline gap-x-1">
+                      <span>- {label}</span>
+                      {typeof f !== "string" && f.comingSoon ? <ComingSoonBadge /> : null}
+                    </li>
+                  );
+                })}
               </ul>
               <Button asChild className="mt-4 w-full"><Link href={tier.href}>{tier.cta}</Link></Button>
             </div>

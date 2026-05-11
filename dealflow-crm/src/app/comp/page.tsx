@@ -1,10 +1,9 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth-options";
+import { requireAdminUserId } from "@/lib/auth";
 import { CompDataExplorer } from "@/components/comp-data-explorer";
 
 export const dynamic = "force-dynamic";
 
 export default async function CompPage() {
-  const session = await getServerSession(authOptions);
-  return <CompDataExplorer loggedIn={Boolean(session?.user?.id)} />;
+  await requireAdminUserId();
+  return <CompDataExplorer loggedIn={true} />;
 }

@@ -23,15 +23,6 @@ const OVERVIEW_ITEM: NavItem = { href: "/dashboard", label: "Dashboard" };
 
 const COLLAPSIBLE_GROUPS: CollapsibleGroup[] = [
   {
-    id: "prospect",
-    title: "🏛️ Prospect",
-    items: [
-      { href: "/schools", label: "Schools" },
-      { href: "/comp", label: "Comp Data" },
-      { href: "/alumni", label: "Alumni" },
-    ],
-  },
-  {
     id: "networking",
     title: "👥 Networking",
     items: [
@@ -109,6 +100,9 @@ const ADMIN_GROUP: CollapsibleGroup = {
     { href: "/admin/questions", label: "Questions" },
     { href: "/admin/deals", label: "Deals" },
     { href: "/admin#admin-users", label: "Users" },
+    { href: "/schools", label: "Schools" },
+    { href: "/comp", label: "Comp Data" },
+    { href: "/alumni", label: "Alumni" },
   ],
 };
 
@@ -121,7 +115,6 @@ function defaultsForViewport(isMobile: boolean): Record<string, boolean> {
   if (!isMobile) {
     base.networking = true;
     base.prep = true;
-    base.prospect = true;
     base.club = true;
   }
   return base;
@@ -168,6 +161,7 @@ function groupIdForPathname(pathname: string): string | null {
   for (const g of COLLAPSIBLE_GROUPS) {
     if (g.items.some((item) => pathMatchesItem(pathname, item.href))) return g.id;
   }
+  if (ADMIN_GROUP.items.some((item) => pathMatchesItem(pathname, item.href))) return "admin";
   if (pathname.startsWith("/admin")) return "admin";
   return null;
 }

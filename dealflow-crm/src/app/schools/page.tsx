@@ -1,11 +1,11 @@
 import { prisma } from "@/lib/prisma";
-import { requireUserId } from "@/lib/auth";
+import { requireAdminUserId } from "@/lib/auth";
 import { SchoolsSearch, type SchoolCard } from "@/components/schools-search";
 
 export const dynamic = "force-dynamic";
 
 export default async function SchoolsPage() {
-  await requireUserId();
+  await requireAdminUserId();
 
   const schools = await prisma.school.findMany({
     where: { isVerified: true },
