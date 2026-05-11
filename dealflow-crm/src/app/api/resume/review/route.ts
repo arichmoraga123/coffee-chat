@@ -2,7 +2,10 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession } from "@/lib/auth";
 import { getAnthropicApiKey } from "@/lib/anthropic";
+import { CAREER_TRACK_OPTIONS } from "@/lib/career-tracks";
 import { getPrimaryTrack } from "@/lib/track-utils";
+
+const CAREER_TRACK_SET = new Set<string>(CAREER_TRACK_OPTIONS);
 
 export const maxDuration = 60;
 const MAX_RETRIES = 3;
@@ -61,11 +64,11 @@ const COMMON_SCHEMA_PROMPT = `Return ONLY valid JSON with no markdown or explana
 
 const TRACK_PROMPTS: Record<string, string> = {
   "Investment Banking":
-    "You are a senior recruiter at Goldman Sachs IBD with 15 years experience reviewing resumes. You have reviewed over 10,000 resumes from target and non-target schools. Look for: deal experience, modeling skills, GPA prominence, quantified achievements, finance internships, relevant clubs (investment club, PE club), clean one-page format, strong action verbs (executed, analyzed, modeled, advised). Penalize: vague bullets, missing quantification, irrelevant experience taking up prime resume space.",
+    "You are a senior recruiter at a top bulge-bracket or elite boutique investment bank reviewing for IB analyst/summer analyst roles only — not PE or consulting. Evaluate THIS resume only against IB recruiting norms. Look specifically for: M&A deal exposure (live deals, sell-side/buy-side, announced transactions), pitchbook and CIM experience, financial modeling (3-statement, comps, precedents, DCF as relevant), client coverage exposure, strong GPA presentation, BB/EB target-firm interest and internships, and evidence of banking-style execution. Penalize: PE-style sourcing memos framed without IB relevance, vague deal bullets, missing quantification, or clutter unrelated to IB.",
   "Private Equity":
-    "You are a senior recruiter at Goldman Sachs IBD with 15 years experience reviewing resumes. You have reviewed over 10,000 resumes from target and non-target schools. Look for: deal experience, modeling skills, GPA prominence, quantified achievements, finance internships, relevant clubs (investment club, PE club), clean one-page format, strong action verbs (executed, analyzed, modeled, advised). Penalize: vague bullets, missing quantification, irrelevant experience taking up prime resume space.",
+    "You are a hiring manager at a middle-market or large-cap PE fund reviewing for analyst/associate recruiting only — not investment banking interviews. Evaluate THIS resume only against PE recruiting norms (distinct from IB). Look specifically for: LBO modeling depth, deal sourcing, portfolio monitoring, operational improvement experience, investment memos / IC materials, PE club leadership, on-cycle and off-cycle recruiting awareness, and sponsor coverage experience (working with sponsor clients or GP-led processes where applicable). Penalize: IB-only deal lists with no investor or LBO lens, generic finance wording, or missing evidence of judgment and ownership.",
   "Venture Capital":
-    "You are a senior recruiter at Goldman Sachs IBD with 15 years experience reviewing resumes. You have reviewed over 10,000 resumes from target and non-target schools. Look for: deal experience, modeling skills, GPA prominence, quantified achievements, finance internships, relevant clubs (investment club, PE club), clean one-page format, strong action verbs (executed, analyzed, modeled, advised). Penalize: vague bullets, missing quantification, irrelevant experience taking up prime resume space.",
+    "You are a senior investor at a venture fund reviewing for VC analyst/intern roles. Look for: startup evaluation, market sizing, founder empathy, product sense, technical or sector depth, sourcing, and any investing club or angel exposure. Penalize: resumes that are only IB-style without startup or innovation angle.",
   Consulting:
     "You are a senior recruiter at McKinsey & Company. Look for: leadership experiences, impact metrics, problem-solving examples, diversity of experience, GPA prominence, case competition wins, structured bullet points showing situation-action-result, communication skills evident in descriptions. Consulting resumes value breadth over depth — penalize resumes that are too finance-heavy and lack leadership and impact stories.",
   "Sales & Trading":
@@ -84,10 +87,18 @@ const TRACK_PROMPTS: Record<string, string> = {
     "You are a senior DCM/ECM recruiter at JPMorgan. Look for: markets knowledge, debt/equity products understanding, financial modeling, client coverage experience, ability to work under time pressure.",
   "Tech/Startup":
     "You are a senior recruiter at Google. Look for: technical skills (programming languages), project experience, quantified impact, startup experience, product thinking, GitHub/portfolio links, internship progression.",
+  "Hedge Fund":
+    "You are a senior allocator at a multi-strategy hedge fund reviewing for research or trading analyst roles — not IB or PE. Look for: alpha-generating research, short pitches, factor/stat arb or macro exposure, risk framing, P&L ownership where appropriate, and coding/stats depth. Penalize: generic IB deal lists without public-markets or PM lens.",
+  "Private Credit":
+    "You are a senior recruiter at a direct lending or credit fund — not leveraged finance IB. Look for: credit analysis, covenant fluency, direct lending or syndicated loan exposure, workout/restructuring awareness, and memo writing for credit committees. Penalize: bullets that only describe M&A execution with no credit angle.",
+  "Real Estate":
+    "You are a senior recruiter at a real estate PE or REIT group. Look for: Argus or property modeling, cap rates, development or acquisitions exposure, market selection, debt sizing on deals, and internships in real estate finance. Penalize: generic 'finance' without property or REPE context.",
+  Actuarial:
+    "You are a senior actuarial hiring manager at a major insurer or consultancy. Look for: exam progress (SOA/CAS pathway), programming (R, Python, SQL), stochastic modeling coursework, internships in pricing or risk, attention to detail in formatting. Penalize: vague 'analytical' claims without exam or technical evidence.",
 };
 
 const FALLBACK_PROMPT =
-  "You are a senior recruiter at Goldman Sachs with 15 years of experience reviewing resumes for IB, PE, and consulting roles. You have reviewed over 10,000 resumes from target and non-target schools. You give direct, specific, actionable feedback.";
+  "You are a senior recruiter with 15 years of experience reviewing resumes. You have reviewed over 10,000 resumes from target and non-target schools. You give direct, specific, actionable feedback.";
 
 const JSON_INSTRUCTION =
   "Analyze the resume document deeply. Infer formatting quality from extracted structure and text patterns where needed. Detect date formatting consistency, bullet character consistency, line-length alignment patterns, and capitalization consistency. Prioritize specific fixes and quantifiable rewrite guidance.";
@@ -111,19 +122,43 @@ function extractJSON(text: string): string {
   throw new Error("No JSON found in response");
 }
 
+function resolveTargetTrack(requestedTrack: string, careerTracks: string[]): string {
+  const req = requestedTrack.trim();
+  if (careerTracks.length > 0) {
+    return careerTracks.includes(req) ? req : getPrimaryTrack(careerTracks);
+  }
+  if (req && (TRACK_PROMPTS[req] || CAREER_TRACK_SET.has(req) || req === "General")) return req;
+  return "General";
+}
+
 function getTrackPrompt(track: string) {
   const base = TRACK_PROMPTS[track] ?? FALLBACK_PROMPT;
-  const scoring =
-    track === "Investment Banking" || track === "Private Equity" || track === "Venture Capital"
-      ? "Scoring weights: trackSpecific 30%, Experience 30%, Formatting 20%, Education 15%, Skills 5%."
-      : track === "Consulting"
-        ? "Scoring weights: Experience/Leadership 35%, Education 25%, Formatting 20%, trackSpecific 20%."
-        : track === "Sales & Trading"
-          ? "Scoring weights: Skills/Quant 35%, Experience 30%, Education 20%, Formatting 15%."
-          : track === "Big 4 Accounting"
-            ? "Scoring weights: Education/GPA 30%, Experience 30%, Skills 25%, Formatting 15%."
+  const singleTrack =
+    "CRITICAL: Grade this resume for ONLY this one target track. Do not blend, average, or mix criteria from other tracks (e.g. if the track is Investment Banking, do not apply Private Equity sourcing expectations, and vice versa).";
+  const financeStyle = new Set([
+    "Investment Banking",
+    "Private Equity",
+    "Venture Capital",
+    "Hedge Fund",
+    "Private Credit",
+    "Corporate Finance",
+    "Capital Markets",
+    "Asset Management",
+    "Equity Research",
+    "Real Estate",
+  ]);
+  const scoring = financeStyle.has(track)
+    ? "Scoring weights: trackSpecific 30%, Experience 30%, Formatting 20%, Education 15%, Skills 5%."
+    : track === "Consulting"
+      ? "Scoring weights: Experience/Leadership 35%, Education 25%, Formatting 20%, trackSpecific 20%."
+      : track === "Sales & Trading"
+        ? "Scoring weights: Skills/Quant 35%, Experience 30%, Education 20%, Formatting 15%."
+        : track === "Big 4 Accounting" || track === "Actuarial"
+          ? "Scoring weights: Education/GPA 30%, Experience 30%, Skills 25%, Formatting 15%."
+          : track === "Wealth Management" || track === "Tech/Startup"
+            ? "Scoring weights: Experience 35%, trackSpecific 25%, Formatting 20%, Education 12%, Skills 8%."
             : "Scoring weights: equal weight across sections.";
-  return `${base}\n${scoring}\nKeep all text values SHORT. Feedback strings max 2 sentences. Issue/fix strings max 1 sentence. This ensures the response fits within token limits.\n${COMMON_SCHEMA_PROMPT}`;
+  return `${singleTrack}\n\n${base}\n${scoring}\nKeep all text values SHORT. Feedback strings max 2 sentences. Issue/fix strings max 1 sentence. This ensures the response fits within token limits.\n${COMMON_SCHEMA_PROMPT}`;
 }
 
 async function analyzeWithClaude(userId: string, pdfBase64: string, track: string, retryAttempt: number) {
@@ -213,9 +248,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Could not read PDF bytes" }, { status: 400 });
     }
     const requestedTrack = String(form.get("targetTrack") ?? "").trim();
-    const userPrimaryTrack = getPrimaryTrack(profile?.careerTracks ?? []);
-    const targetTrack = requestedTrack || userPrimaryTrack || "General";
-    console.log("[resume-review] target track", targetTrack);
+    const careerTracks = profile?.careerTracks ?? [];
+    const targetTrack = resolveTargetTrack(requestedTrack, careerTracks);
+    console.log("[resume-review] target track", targetTrack, "requested", requestedTrack);
 
     console.log("[resume-review] calling claude with retry");
     let feedback: unknown = null;

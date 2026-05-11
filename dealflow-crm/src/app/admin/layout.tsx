@@ -14,7 +14,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-4">
           <span className="text-sm font-semibold tracking-wide text-[#f5f5f5]">Admin</span>
           <AdminSubnav draftDealCount={draftDealCount} />
-          <Link href="/" className="ml-auto text-xs text-[#888888] underline-offset-4 hover:text-[#f0f0f0] hover:underline">
+          <Link href="/dashboard" className="ml-auto text-xs text-[#888888] underline-offset-4 hover:text-[#f0f0f0] hover:underline">
             ← App
           </Link>
         </div>

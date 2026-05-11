@@ -74,6 +74,19 @@ export async function PATCH(req: Request) {
   if (typeof body.onboardingDone === "boolean") {
     data.onboardingDone = body.onboardingDone;
   }
+  if (body.schoolId === null) {
+    data.schoolId = null;
+  } else if (typeof body.schoolId === "string" && body.schoolId.trim()) {
+    const sid = body.schoolId.trim();
+    const ok = await prisma.school.findFirst({
+      where: { id: sid, isVerified: true },
+      select: { id: true },
+    });
+    if (!ok) {
+      return NextResponse.json({ error: "Invalid or unverified school" }, { status: 400 });
+    }
+    data.schoolId = sid;
+  }
 
   if (Object.keys(data).length === 0) {
     return NextResponse.json({ error: "No valid fields" }, { status: 400 });

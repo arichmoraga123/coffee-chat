@@ -9,6 +9,7 @@ import { SEED_EMAIL_TEMPLATES } from "./seed/email-templates-seed";
 import { SEED_DEALS } from "./seed/deals-seed";
 import { SEED_RECRUITING_CALENDAR } from "./seed/recruiting-calendar-seed";
 import { SEED_TRACK_QUESTIONS } from "./seed/track-questions";
+import { SEED_THIN_CATEGORY_QUESTIONS } from "./seed/questions-thin-categories";
 import { SEED_CONSULTING_CASES } from "./seed/consulting-cases";
 import { PROSPECT_SCHOOL_SEED } from "./seed/prospect-schools";
 import { randomReferralCode } from "../src/lib/referral-code";
@@ -83,6 +84,36 @@ async function main() {
     });
   }
   console.log(`Track-specific questions upserted (${SEED_TRACK_QUESTIONS.length}).`);
+
+  for (const q of SEED_THIN_CATEGORY_QUESTIONS) {
+    const dedupeKey = dedupeKeyFor(q.question);
+    await prisma.question.upsert({
+      where: { dedupeKey },
+      create: {
+        question: q.question,
+        answer: q.answer,
+        category: q.category,
+        subcategory: null,
+        difficulty: q.difficulty,
+        tags: q.tags,
+        keywords: q.keywords,
+        source: q.source,
+        status: "active",
+        dedupeKey,
+        careerTracks: q.careerTracks,
+      },
+      update: {
+        answer: q.answer,
+        category: q.category,
+        difficulty: q.difficulty,
+        tags: q.tags,
+        keywords: q.keywords,
+        source: q.source,
+        careerTracks: q.careerTracks,
+      },
+    });
+  }
+  console.log(`Thin-category questions upserted (${SEED_THIN_CATEGORY_QUESTIONS.length}).`);
 
   for (const t of SEED_TIMELINES) {
     const existing = await prisma.firmTimeline.findFirst({

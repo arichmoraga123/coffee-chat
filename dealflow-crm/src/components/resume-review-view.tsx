@@ -119,7 +119,7 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
   const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
   const [error, setError] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [targetTrack, setTargetTrack] = useState<string>(getPrimaryTrack(careerTracks));
+  const [targetTrack, setTargetTrack] = useState<string>(() => getPrimaryTrack(careerTracks));
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({
     formatting: true,
     experience: true,
@@ -142,6 +142,11 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
   useEffect(() => {
     void load();
   }, [load]);
+
+  useEffect(() => {
+    if (!careerTracks.length) return;
+    setTargetTrack((t) => (careerTracks.includes(t) ? t : getPrimaryTrack(careerTracks)));
+  }, [careerTracks]);
 
   useEffect(() => {
     if (!loading) {
@@ -197,6 +202,7 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
   const fb = asFeedback(active?.feedback);
   const currentScore = typeof fb.overallScore === "number" ? fb.overallScore : active?.score ?? 0;
   const reviewedTrack = (fb.targetTrack as string | undefined) ?? targetTrack;
+  const trackMismatch = Boolean(active && reviewedTrack !== targetTrack);
   const previous = active ? reviews.find((r) => r.id !== active.id) : null;
   const scoreDelta = previous ? currentScore - previous.score : 0;
   const readiness = fb.recruitingReadiness ?? "Developing";
@@ -220,25 +226,56 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
         <p className="mt-1 text-sm text-zinc-500">
           Upload a PDF for visual + content review. Reviews are stored (last three per account).
         </p>
-        <div className="mt-2 flex flex-wrap items-center gap-2">
-          <span className="rounded-full border border-zinc-700 bg-zinc-900 px-2 py-1 text-xs text-zinc-300">
-            Reviewing for: {targetTrack}
-          </span>
-          {careerTracks.length !== 1 ? (
-            <select
-              className="rounded border border-zinc-700 bg-zinc-950 px-2 py-1 text-xs text-zinc-300"
-              value={targetTrack}
-              onChange={(e) => setTargetTrack(e.target.value)}
+        <div className="mt-4 rounded-xl border border-white/10 bg-zinc-950/60 p-4">
+          <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">Reviewing for</p>
+          {careerTracks.length > 1 ? (
+            <div
+              className="mt-3 flex flex-wrap gap-2"
+              role="radiogroup"
+              aria-label="Career track for resume grading"
             >
-              {(careerTracks.length ? careerTracks : ["General"]).map((t) => (
-                <option key={t} value={t}>
-                  {t}
-                </option>
-              ))}
-            </select>
+              {careerTracks.map((t) => {
+                const primary = t === getPrimaryTrack(careerTracks);
+                const active = t === targetTrack;
+                return (
+                  <button
+                    key={t}
+                    type="button"
+                    role="radio"
+                    aria-checked={active}
+                    onClick={() => setTargetTrack(t)}
+                    className={cn(
+                      "rounded-full border px-3 py-1.5 text-left text-xs font-medium transition-colors sm:text-sm",
+                      active
+                        ? "border-[#4a6fa5]/60 bg-[#4a6fa5]/20 text-[#e8eef8] ring-1 ring-[#4a6fa5]/25"
+                        : "border-zinc-700 bg-zinc-900/80 text-zinc-300 hover:border-zinc-500 hover:text-zinc-100",
+                    )}
+                  >
+                    {t}
+                    {primary ? <span className="ml-1 text-[10px] font-normal text-zinc-500">(primary)</span> : null}
+                  </button>
+                );
+              })}
+            </div>
+          ) : (
+            <p className="mt-2 text-sm font-medium text-zinc-100">
+              {careerTracks.length === 1 ? careerTracks[0] : "General"}
+              {careerTracks.length === 1 ? (
+                <span className="ml-2 text-xs font-normal text-zinc-500">Primary track</span>
+              ) : null}
+            </p>
+          )}
+          {careerTracks.length > 1 ? (
+            <p className="mt-3 text-xs leading-relaxed text-zinc-500">
+              Switch tracks to see how your resume scores for different recruiting paths. Each track is graded on its
+              own criteria — scores are not blended or averaged across tracks.
+            </p>
           ) : null}
           {careerTracks.length === 0 ? (
-            <span className="text-xs text-amber-300">Set tracks in profile for better personalization.</span>
+            <p className="mt-2 text-xs text-amber-300/90">
+              Add career tracks in your profile to unlock track-specific grading. Until then, reviews use a general
+              rubric.
+            </p>
           ) : null}
         </div>
       </div>
@@ -295,6 +332,32 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
         ) : null}
       </Card>
 
+      {!loading && trackMismatch ? (
+        <Card className="border-amber-500/35 bg-amber-950/15 p-4">
+          <p className="text-sm text-amber-100/95">
+            These results were graded for <span className="font-semibold text-amber-50">{reviewedTrack}</span>, but
+            your selector is set to <span className="font-semibold text-amber-50">{targetTrack}</span>. Each track uses
+            different criteria (for example, IB vs PE).
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {selectedFile ? (
+              <Button type="button" disabled={loading} onClick={() => void upload(selectedFile)}>
+                Re-analyze for {targetTrack}
+              </Button>
+            ) : (
+              <Button
+                type="button"
+                variant="outline"
+                disabled={loading}
+                onClick={() => fileInputRef.current?.click()}
+              >
+                Upload resume to grade for {targetTrack}
+              </Button>
+            )}
+          </div>
+        </Card>
+      ) : null}
+
       {loading ? (
         <Card className="space-y-3 p-4">
           <div className="h-4 w-40 animate-pulse rounded bg-zinc-800" />
@@ -325,7 +388,11 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
               >
                 <span className="block font-medium text-zinc-200">{r.fileName}</span>
                 <span className="text-[10px] text-zinc-500">
-                    {new Date(r.createdAt).toLocaleString()} · Score {r.score}
+                  {new Date(r.createdAt).toLocaleString()} · Score {r.score}
+                  {(() => {
+                    const t = asFeedback(r.feedback).targetTrack;
+                    return t ? ` · ${t}` : "";
+                  })()}
                 </span>
               </button>
             ))}
@@ -348,7 +415,9 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
                   </span>
                 </div>
                 {fb.oneLiner ? <p className="mt-2 text-sm text-zinc-300">{fb.oneLiner}</p> : null}
-                <p className="mt-2 text-xs text-zinc-500">Reviewed for: {reviewedTrack}</p>
+                <p className="mt-2 text-xs text-zinc-500">
+                  Graded for: <span className="font-medium text-zinc-300">{reviewedTrack}</span> (single-track rubric)
+                </p>
                 {fb.visualAnalysisUnavailable ? (
                   <p className="mt-2 text-xs text-amber-300">
                     {fb.visualAnalysisNote ?? "Visual analysis unavailable — content only"}
@@ -490,7 +559,7 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
               onChange={(e) => onFile(e.target.files)}
             />
             <Button type="button" variant="outline" disabled={loading} onClick={() => reuploadRef.current?.click()}>
-              Re-analyze
+              {selectedFile ? `Re-analyze for ${targetTrack}` : "Re-analyze (choose PDF)"}
             </Button>
           </div>
         </div>
