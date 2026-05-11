@@ -46,7 +46,10 @@ function SignupForm() {
       return;
     }
 
-    router.push("/dashboard");
+    const redirectTo = searchParams.get("redirect");
+    const safe =
+      redirectTo && redirectTo.startsWith("/") && !redirectTo.startsWith("//") ? redirectTo : "/dashboard";
+    router.push(safe);
     router.refresh();
   };
 
