@@ -25,6 +25,7 @@
     "@radix-ui/react-label": "^2.1.8",
     "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-slot": "^1.2.4",
+    "@stripe/stripe-js": "^9.4.0",
     "@supabase/supabase-js": "^2.105.2",
     "bcryptjs": "^3.0.3",
     "canvas": "^3.2.3",
@@ -45,6 +46,7 @@
     "server-only": "^0.0.1",
     "sharp": "^0.34.5",
     "sonner": "^2.0.7",
+    "stripe": "^22.1.0",
     "tailwind-merge": "^3.5.0",
     "zod": "^4.4.3"
   },

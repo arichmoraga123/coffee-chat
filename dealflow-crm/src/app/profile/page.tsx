@@ -6,14 +6,16 @@ import { ProfileDrillChart } from "@/components/profile-drill-chart";
 import { ProfileNameForm } from "@/components/profile-name-form";
 import { CalendarIntegrationPanel } from "@/components/calendar-integration-panel";
 import { ProfileTracksForm } from "@/components/profile-tracks-form";
+import { ProfileReferralCard } from "@/components/profile-referral-card";
 
 export const dynamic = "force-dynamic";
 
-export default async function ProfilePage() {
+export default async function ProfilePage({ searchParams }: { searchParams: Promise<{ referredBy?: string }> }) {
+  const params = await searchParams;
   const userId = await requireUserId();
   const since = subDays(new Date(), 29);
 
-  const [user, drillLogs, byCategory, pendingCount, submittedActive] = await Promise.all([
+  const [user, drillLogs, byCategory, pendingCount, submittedActive, joinedCount] = await Promise.all([
     prisma.user.findUnique({
       where: { id: userId },
       select: {
@@ -26,6 +28,7 @@ export default async function ProfilePage() {
         careerTracks: true,
         targetFirms: true,
         dailyGoal: true,
+        referralCode: true,
       },
     }),
     prisma.dailyDrillLog.findMany({
@@ -39,6 +42,7 @@ export default async function ProfilePage() {
     }),
     prisma.question.count({ where: { submittedById: userId, status: "pending" } }),
     prisma.question.count({ where: { submittedById: userId, status: "active" } }),
+    prisma.referral.count({ where: { referrerId: userId, status: "completed" } }),
   ]);
 
   const knownByCat = await prisma.userQuestionProgress.findMany({
@@ -67,6 +71,11 @@ export default async function ProfilePage() {
   return (
     <div className="space-y-4">
       <h1 className="page-title">Profile</h1>
+      {params.referredBy ? (
+        <p className="rounded border border-emerald-700/40 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-300">
+          You joined via {params.referredBy}&apos;s invite.
+        </p>
+      ) : null}
 
       <div className="grid gap-3 lg:grid-cols-2">
         <Card className="border-zinc-800 bg-zinc-900/50 p-4">
@@ -110,6 +119,7 @@ export default async function ProfilePage() {
       </div>
 
       <CalendarIntegrationPanel callbackUrl="/profile" className="border-zinc-800 bg-zinc-900/50" />
+      <ProfileReferralCard code={user?.referralCode ?? "INVITE"} joinedCount={joinedCount} xpEarned={joinedCount * 200} />
 
       <Card className="border-zinc-800 bg-zinc-900/50 p-4">
         <p className="text-sm font-semibold text-zinc-200">Questions mastered by category</p>

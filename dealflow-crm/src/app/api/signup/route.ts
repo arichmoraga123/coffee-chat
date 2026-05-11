@@ -8,6 +8,7 @@ export async function POST(req: Request) {
   const name = String(body.name ?? "").trim();
   const email = String(body.email ?? "").trim().toLowerCase();
   const password = String(body.password ?? "");
+  const referredByCode = String(body.refCode ?? "").trim().toUpperCase();
 
   if (!name || !email || password.length < 8) {
     return NextResponse.json(
@@ -33,6 +34,23 @@ export async function POST(req: Request) {
     data: { name, email, passwordHash, referralCode },
     select: { id: true, name: true, email: true },
   });
+
+  if (referredByCode) {
+    const referrer = await prisma.user.findUnique({
+      where: { referralCode: referredByCode },
+      select: { id: true },
+    });
+    if (referrer && referrer.id !== user.id) {
+      await prisma.referral.create({
+        data: {
+          referrerId: referrer.id,
+          refereeId: user.id,
+          code: `${referredByCode}-${user.id.slice(-8)}`,
+          status: "pending",
+        },
+      });
+    }
+  }
 
   return NextResponse.json(user, { status: 201 });
 }

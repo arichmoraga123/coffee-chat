@@ -800,6 +800,12 @@ model Club {
   projects       ClubProject[]
   events         ClubEvent[]
   announcements  ClubAnnouncement[]
+  stripeCustomerId     String?
+  stripeSubscriptionId String?
+  stripePriceId        String?
+  subscriptionStatus   String?
+  trialEndsAt          DateTime?
+  currentPeriodEnd     DateTime?
 
   @@unique([schoolId, name])
 }

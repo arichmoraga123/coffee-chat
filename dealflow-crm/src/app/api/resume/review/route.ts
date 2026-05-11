@@ -5,6 +5,7 @@ import { getAnthropicApiKey } from "@/lib/anthropic";
 import { getPrimaryTrack } from "@/lib/track-utils";
 
 export const maxDuration = 60;
+const MAX_RETRIES = 3;
 
 const COMMON_SCHEMA_PROMPT = `Return ONLY valid JSON with no markdown or explanation using this exact structure:
 {
@@ -125,9 +126,11 @@ function getTrackPrompt(track: string) {
   return `${base}\n${scoring}\nKeep all text values SHORT. Feedback strings max 2 sentences. Issue/fix strings max 1 sentence. This ensures the response fits within token limits.\n${COMMON_SCHEMA_PROMPT}`;
 }
 
-async function analyzeWithClaude(userId: string, pdfBase64: string, track: string) {
+async function analyzeWithClaude(userId: string, pdfBase64: string, track: string, retryAttempt: number) {
   const apiKey = getAnthropicApiKey();
   if (!apiKey) throw new Error("AI is not configured");
+  const retryPrefix =
+    retryAttempt > 0 ? "Previous attempt failed. Return ONLY valid JSON, nothing else.\n\n" : "";
 
   const content: Array<
     | { type: "text"; text: string }
@@ -135,7 +138,7 @@ async function analyzeWithClaude(userId: string, pdfBase64: string, track: strin
   > = [
     {
       type: "text",
-      text: `${JSON_INSTRUCTION}\nTarget track: ${track}\n\nAnalyze the PDF directly. If visual layout is imperfectly recoverable, infer likely visual issues from document structure.\n\nCRITICAL: Your entire response must be a single valid JSON object. No text before or after. No markdown. No backticks. Start with { and end with }. Nothing else.`,
+      text: `${retryPrefix}${JSON_INSTRUCTION}\nTarget track: ${track}\n\nAnalyze the PDF directly. If visual layout is imperfectly recoverable, infer likely visual issues from document structure.\n\nCRITICAL: Your entire response must be a single valid JSON object. No text before or after. No markdown. No backticks. Start with { and end with }. Nothing else.`,
     },
     {
       type: "document",
@@ -214,23 +217,21 @@ export async function POST(req: Request) {
     const targetTrack = requestedTrack || userPrimaryTrack || "General";
     console.log("[resume-review] target track", targetTrack);
 
-    console.log("[resume-review] calling claude");
-    let raw = "";
-    try {
-      raw = await analyzeWithClaude(userId, pdfBase64, targetTrack);
-    } catch (e) {
-      const msg = e instanceof Error ? e.message : "Resume analysis failed";
-      console.error("[resume-review] claude call failed", msg);
-      return NextResponse.json({ error: msg }, { status: 502 });
-    }
-
-    console.log("[resume-review] parsing claude json");
-    let feedback: unknown;
-    try {
-      feedback = JSON.parse(extractJSON(raw));
-    } catch (error) {
-      console.error("[resume-review] invalid json", error);
-      return NextResponse.json({ error: "AI returned invalid JSON — try again" }, { status: 502 });
+    console.log("[resume-review] calling claude with retry");
+    let feedback: unknown = null;
+    let attempt = 0;
+    while (attempt < MAX_RETRIES && !feedback) {
+      try {
+        const raw = await analyzeWithClaude(userId, pdfBase64, targetTrack, attempt);
+        feedback = JSON.parse(extractJSON(raw));
+      } catch (error) {
+        attempt += 1;
+        console.log(`[resume-review] attempt ${attempt} failed, retrying...`);
+        if (attempt === MAX_RETRIES) {
+          console.error("[resume-review] invalid json after retries", error);
+          return NextResponse.json({ error: "AI returned invalid JSON — try again" }, { status: 500 });
+        }
+      }
     }
 
     const score =

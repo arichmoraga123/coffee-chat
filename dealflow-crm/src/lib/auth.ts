@@ -37,6 +37,6 @@ export async function requireAdminUserId() {
     select: { accountActive: true, role: true },
   });
   if (!u?.accountActive) redirect("/login");
-  if (role !== "ADMIN" || u.role !== "ADMIN") redirect("/");
+  if (role !== "ADMIN" || u.role !== "ADMIN") redirect("/dashboard");
   return userId;
 }

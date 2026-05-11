@@ -19,7 +19,7 @@ type CollapsibleGroup = {
   items: NavItem[];
 };
 
-const OVERVIEW_ITEM: NavItem = { href: "/", label: "Dashboard" };
+const OVERVIEW_ITEM: NavItem = { href: "/dashboard", label: "Dashboard" };
 
 const COLLAPSIBLE_GROUPS: CollapsibleGroup[] = [
   {
@@ -181,6 +181,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() => defaultsForViewport(false));
 
   const isAuthPage = pathname === "/login" || pathname === "/signup";
+  const isPublicPage = pathname === "/" || pathname === "/pricing" || pathname.startsWith("/join");
   const isAdminRoute = pathname.startsWith("/admin");
   const isAdminUser = session?.user?.role === "ADMIN";
 
@@ -265,7 +266,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     );
   };
 
-  if (isAuthPage) {
+  if (isAuthPage || isPublicPage) {
     return <main className="min-h-screen bg-[#0a0a0a] p-6 text-[#f0f0f0]">{children}</main>;
   }
 
@@ -368,6 +369,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             );
           })}
         </nav>
+        <Link
+          className="mt-4 text-left text-xs text-[#888888] transition-colors duration-200 hover:text-[#f0f0f0]"
+          href="/pricing"
+          onClick={closeMobile}
+        >
+          Pricing
+        </Link>
         <button
           className="mt-4 text-left text-xs text-[#888888] transition-colors duration-200 hover:text-[#f0f0f0]"
           onClick={() => {

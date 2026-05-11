@@ -133,12 +133,14 @@ export function QuestionMcqDeck({
       </div>
 
       <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-4 overflow-y-auto">
-        <div className="rounded-xl border border-white/10 bg-gradient-to-br from-zinc-900/90 to-zinc-950 p-6 shadow-inner">
+        <div className="rounded-xl border border-white/10 bg-gradient-to-br from-zinc-900/90 to-zinc-950 px-4 py-4 shadow-inner sm:p-6">
           <p className="mb-2 text-xs uppercase tracking-[0.18em] text-zinc-500">Question</p>
-          <p className="text-base font-medium text-zinc-100">{current.question}</p>
+          <p className="text-base font-medium leading-relaxed text-zinc-100 [font-size:max(14px,1rem)] [overflow-wrap:anywhere]">
+            {current.question}
+          </p>
         </div>
 
-        <div className="grid gap-2 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-2">
           {options.map((opt) => {
             const isPicked = pickedKey === opt.key;
             const showCorrect = phase === "show" && opt.isCorrect;
@@ -150,7 +152,8 @@ export function QuestionMcqDeck({
                 disabled={phase === "show"}
                 onClick={() => onPick(opt)}
                 className={cn(
-                  "rounded-xl border px-4 py-3 text-left text-sm transition-all duration-200",
+                  "min-h-0 w-full min-w-0 overflow-visible whitespace-normal rounded-xl border px-4 py-3 text-left text-sm leading-snug transition-all duration-200 sm:text-[15px]",
+                  "[overflow-wrap:anywhere]",
                   phase === "pick" &&
                     "border-white/10 bg-zinc-950/90 hover:border-[#4a6fa5]/40 hover:bg-zinc-900/95 hover:shadow-[0_0_20px_-8px_rgba(74,111,165,0.2)]",
                   showCorrect && "animate-df-flash-green border-emerald-500/70 bg-emerald-950/50 text-emerald-50",

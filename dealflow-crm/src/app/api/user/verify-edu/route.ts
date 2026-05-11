@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { completeReferralForUser } from "@/lib/referrals";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
@@ -26,6 +27,8 @@ export async function GET(req: Request) {
       eduVerificationExpires: null,
     },
   });
-
-  return NextResponse.redirect(new URL("/profile?eduVerified=1", base));
+  const referral = await completeReferralForUser(user.id);
+  const target = new URL("/profile?eduVerified=1", base);
+  if (referral?.referrerName) target.searchParams.set("referredBy", referral.referrerName);
+  return NextResponse.redirect(target);
 }

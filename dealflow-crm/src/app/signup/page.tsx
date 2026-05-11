@@ -1,15 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { FormEvent, Suspense, useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-export default function SignupPage() {
+function SignupForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,7 +25,7 @@ export default function SignupPage() {
     const signupResponse = await fetch("/api/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ name, email, password, refCode: searchParams.get("ref") ?? undefined }),
     });
     if (!signupResponse.ok) {
       const payload = (await signupResponse.json().catch(() => ({}))) as { error?: string };
@@ -37,7 +38,7 @@ export default function SignupPage() {
       email,
       password,
       redirect: false,
-      callbackUrl: "/",
+      callbackUrl: "/dashboard",
     });
     setLoading(false);
     if (!result || result.error) {
@@ -45,7 +46,7 @@ export default function SignupPage() {
       return;
     }
 
-    router.push("/");
+    router.push("/dashboard");
     router.refresh();
   };
 
@@ -89,5 +90,13 @@ export default function SignupPage() {
         </p>
       </Card>
     </div>
+  );
+}
+
+export default function SignupPage() {
+  return (
+    <Suspense fallback={<div className="mx-auto mt-20 max-w-md text-center text-sm text-zinc-500">Loading…</div>}>
+      <SignupForm />
+    </Suspense>
   );
 }
