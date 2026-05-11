@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { LandingFeaturePreview } from "@/components/marketing-feature-previews";
 
 export function MarketingLanding({ inviteName }: { inviteName?: string | null }) {
   const pricingTiers: Array<{
@@ -131,7 +132,7 @@ export function MarketingLanding({ inviteName }: { inviteName?: string | null })
               <p className="text-2xl font-semibold">{title}</p>
               <p className="mt-2 text-zinc-400">{body}</p>
             </div>
-            <div className="h-44 rounded-xl border border-zinc-800 bg-zinc-900/40" />
+            <LandingFeaturePreview index={idx} />
           </div>
         ))}
       </section>
