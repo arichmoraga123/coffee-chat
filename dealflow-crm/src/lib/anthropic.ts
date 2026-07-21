@@ -14,6 +14,7 @@ export type AnthropicUsageFeature =
   | "debrief-analysis"
   | "deal-practice"
   | "email-customize"
+  | "contact-email"
   | "resume-review"
   | "case-resume-bullets"
   | "pitch-outline";

@@ -27,6 +27,7 @@ const COLLAPSIBLE_GROUPS: CollapsibleGroup[] = [
     title: "👥 Networking",
     items: [
       { href: "/contacts", label: "Contacts" },
+      { href: "/contacts?tab=queue", label: "Outreach Queue" },
       { href: "/firms", label: "Firms" },
       { href: "/pipeline", label: "Pipeline" },
       { href: "/tasks", label: "Tasks" },

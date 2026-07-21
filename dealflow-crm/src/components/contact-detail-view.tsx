@@ -17,13 +17,25 @@ import {
 } from "@/components/contact-interaction-timeline";
 import { AiOutputModal } from "@/components/ai-output-modal";
 import { FirmTypeBadge } from "@/lib/firm-type";
+import { ContactOutreachSidebar } from "@/components/contact-outreach-sidebar";
+import { ContactEmailDropdown } from "@/components/contact-email-dropdown";
+import type { EmailTemplateType } from "@/lib/email-template-types";
+import { EMAIL_TEMPLATE_TYPES } from "@/lib/email-template-types";
 
 type FirmOption = { id: string; name: string; type?: string | null };
+
+type EmailDraft = {
+  id: string;
+  templateType: string;
+  content: string;
+  createdAt: string;
+};
 
 type Props = {
   profile: ContactProfilePayload;
   firms: FirmOption[];
   interactions: TimelineInteraction[];
+  emailDrafts: EmailDraft[];
   tasks: Array<{ id: string; taskType: string; dueDate: string; status: string }>;
   opportunities: Array<{ id: string; label: string }>;
   linkableOpportunities: Array<{ id: string; label: string }>;
@@ -42,6 +54,7 @@ export function ContactDetailView({
   profile,
   firms,
   interactions,
+  emailDrafts,
   tasks,
   opportunities,
   linkableOpportunities,
@@ -181,6 +194,31 @@ export function ContactDetailView({
     refresh();
   };
 
+  const runDraftTemplate = async (templateType: EmailTemplateType) => {
+    openAiModal(EMAIL_TEMPLATE_TYPES[templateType]?.label ?? "Email draft");
+    try {
+      const res = await fetch(`/api/contacts/${profile.id}/draft-email`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ templateType }),
+      });
+      const data = (await res.json()) as { text?: string; error?: string };
+      if (!res.ok) {
+        setAiModal((m) => ({ ...m, loading: false, error: data.error ?? "Request failed" }));
+        return;
+      }
+      setAiModal((m) => ({ ...m, loading: false, text: data.text ?? "" }));
+      refresh();
+    } catch {
+      setAiModal((m) => ({ ...m, loading: false, error: "Network error" }));
+    }
+  };
+
+  const nameParts = profile.fullName.trim().split(/\s+/);
+  const firstName = nameParts[0] ?? "";
+  const lastName = nameParts.slice(1).join(" ") || firstName;
+  const firmDomain = profile.firmName.toLowerCase().replace(/[^a-z0-9]/g, "") + ".com";
+
   const fieldClass =
     "w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-sm text-zinc-100 placeholder:text-zinc-600";
 
@@ -197,6 +235,7 @@ export function ContactDetailView({
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
+          <ContactEmailDropdown contactId={profile.id} size="default" />
           <Button size="sm" variant="outline" onClick={() => setShowI(true)}>
             Log interaction
           </Button>
@@ -212,7 +251,7 @@ export function ContactDetailView({
         </div>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,400px)_1fr]">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,340px)_1fr_minmax(0,280px)]">
         <ContactProfileForm profile={profile} firms={firms} />
         <div className="space-y-4">
           <div>
@@ -278,6 +317,51 @@ export function ContactDetailView({
             </Card>
           </div>
         </div>
+        <ContactOutreachSidebar
+          drafts={emailDrafts}
+          interactions={interactions.map((i) => ({
+            id: i.id,
+            date: i.date,
+            type: i.type,
+            notes: i.notes,
+          }))}
+          contactName={profile.fullName}
+          firmName={profile.firmName}
+          firstName={firstName}
+          lastName={lastName}
+          onDraftFollowUp={() => {
+            const last = interactions[0];
+            if (last) void runDraftFollowUp(last.id);
+          }}
+          onPreCallBrief={() => void runPreCallBrief()}
+          onFindLinkedIn={() => {
+            const q = encodeURIComponent(`${profile.fullName} ${profile.firmName}`);
+            window.open(`https://www.linkedin.com/search/results/people/?keywords=${q}`, "_blank");
+          }}
+          onFindEmail={() => {
+            window.open(
+              `https://hunter.io/email-finder?domain=${firmDomain}&first=${encodeURIComponent(firstName)}&last=${encodeURIComponent(lastName)}`,
+              "_blank",
+            );
+          }}
+          onAddToCalendar={async () => {
+            const date = new Date();
+            date.setDate(date.getDate() + 7);
+            await fetch("/api/events", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                title: `Coffee chat — ${profile.fullName}`,
+                date: date.toISOString(),
+                type: "coffee_chat",
+                firmName: profile.firmName,
+                notes: `Scheduled call with ${profile.fullName} (${profile.title})`,
+              }),
+            });
+            alert("Added to recruiting calendar");
+          }}
+          onDraftTemplate={(t) => void runDraftTemplate(t as EmailTemplateType)}
+        />
       </div>
 
       <Modal open={showI} onClose={() => setShowI(false)} title="Log interaction" className="max-w-lg">

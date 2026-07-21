@@ -47,6 +47,7 @@ model User {
   clubPostsAuthored   ClubPost[]       @relation("ClubPostAuthor")
   clubAnnouncementsAuthored ClubAnnouncement[] @relation("ClubAnnouncementAuthor")
   contacts            Contact[]
+  contactEmailDrafts  ContactEmailDraft[]
   firms               Firm[]
   interactions        Interaction[]
   opportunities       Opportunity[]
@@ -310,13 +311,31 @@ model Contact {
 
   notableDeals String[] @default([])
 
+  source            String?  // "manual", "import", "linkedin", "linkedin-search"
+  inOutreachQueue   Boolean  @default(false)
+  queueExcluded     Boolean  @default(false)
+
   firm                 Firm                @relation(fields: [firmId], references: [id], onDelete: Cascade)
   user                 User                @relation(fields: [userId], references: [id], onDelete: Cascade)
   interactions         Interaction[]
   tasks                Task[]
   opportunities        OpportunityContact[]
+  emailDrafts          ContactEmailDraft[]
 
   @@unique([userId, email])
+}
+
+model ContactEmailDraft {
+  id           String   @id @default(cuid())
+  contactId    String
+  userId       String
+  templateType String
+  content      String
+  createdAt    DateTime @default(now())
+  contact      Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([contactId, createdAt])
 }
 
 model Firm {

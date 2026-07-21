@@ -125,6 +125,7 @@ export default async function ContactDetail({
         interactions: { orderBy: { date: "desc" } },
         tasks: { orderBy: { dueDate: "asc" } },
         opportunities: { include: { opportunity: { include: { firm: true } } } },
+        emailDrafts: { orderBy: { createdAt: "desc" } },
       },
     }),
     prisma.firm.findMany({
@@ -147,6 +148,12 @@ export default async function ContactDetail({
       profile={toProfile(contact)}
       firms={firms}
       interactions={toTimeline(contact.interactions)}
+      emailDrafts={contact.emailDrafts.map((d) => ({
+        id: d.id,
+        templateType: d.templateType,
+        content: d.content,
+        createdAt: d.createdAt.toISOString(),
+      }))}
       tasks={contact.tasks.map((t) => ({
         id: t.id,
         taskType: t.taskType,

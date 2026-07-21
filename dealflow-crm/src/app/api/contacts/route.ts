@@ -42,7 +42,7 @@ export async function POST(req: Request) {
   const contact = await prisma.contact.create({
     data: {
       fullName: String(body.fullName ?? ""),
-      email: String(body.email ?? ""),
+      email: String(body.email ?? "") || `import+${Date.now()}@placeholder.local`,
       phone: body.phone ? String(body.phone) : null,
       linkedinUrl: linkedin,
       firmId,
@@ -57,6 +57,8 @@ export async function POST(req: Request) {
       lastInteractionDate: body.lastInteractionDate ? new Date(String(body.lastInteractionDate)) : null,
       userId,
       ...extendedContactCreateData(body),
+      source: body.source ? String(body.source) : "manual",
+      inOutreachQueue: Boolean(body.inOutreachQueue),
     },
   });
   return NextResponse.json(contact);

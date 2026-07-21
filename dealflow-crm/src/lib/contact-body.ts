@@ -110,6 +110,9 @@ export function buildContactPatchData(body: Record<string, unknown>): Prisma.Con
   patchOptString(body, "referralPotential", data, "referralPotential");
   patchOptString(body, "openRoles", data, "openRoles");
   if ("notableDeals" in body) data.notableDeals = normalizeStringArray(body.notableDeals);
+  if ("inOutreachQueue" in body) data.inOutreachQueue = Boolean(body.inOutreachQueue);
+  if ("queueExcluded" in body) data.queueExcluded = Boolean(body.queueExcluded);
+  if ("source" in body) data.source = body.source ? String(body.source) : null;
 
   return data;
 }
