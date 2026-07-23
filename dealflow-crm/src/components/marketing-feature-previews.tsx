@@ -22,7 +22,7 @@ export function McqFeaturePreview() {
       <p className="mb-2 text-[11px] font-medium leading-snug text-zinc-100 sm:text-xs">
         In an LBO, why does the PE sponsor care more about equity value than enterprise value at exit?
       </p>
-      <div className="grid grid-cols-2 gap-1.5">
+      <div className="grid auto-rows-auto grid-cols-1 gap-1.5 sm:grid-cols-2">
         {[
           { t: "Because lenders own the equity at exit", ok: false },
           { t: "Returns are on equity invested; debt is repaid to lenders", ok: true },
@@ -33,8 +33,8 @@ export function McqFeaturePreview() {
             key={c.t}
             className={
               c.ok
-                ? "rounded-lg border border-emerald-500/60 bg-emerald-950/45 px-2 py-1.5 text-[9px] leading-tight text-emerald-50 ring-1 ring-emerald-500/20 sm:text-[10px]"
-                : "rounded-lg border border-white/[0.08] bg-zinc-950/80 px-2 py-1.5 text-[9px] leading-tight text-zinc-400 sm:text-[10px]"
+                ? "h-auto min-h-[60px] overflow-visible whitespace-normal break-words rounded-lg border border-emerald-500/60 bg-emerald-950/45 px-4 py-3 text-left text-[9px] leading-relaxed text-emerald-50 ring-1 ring-emerald-500/20 sm:text-[10px]"
+                : "h-auto min-h-[60px] overflow-visible whitespace-normal break-words rounded-lg border border-white/[0.08] bg-zinc-950/80 px-4 py-3 text-left text-[9px] leading-relaxed text-zinc-400 sm:text-[10px]"
             }
           >
             {c.t}

@@ -2,9 +2,8 @@ export type McqDistractorSource = { id: string; answer: string; category: string
 
 export type McqOption = { key: string; text: string; isCorrect: boolean };
 
-const MCQ_ANSWER_MAX_LEN = 120;
-const MIN_SENTENCE_SNIPPET = 40;
-const MIN_WORD_SNIPPET = 40;
+/** Display cap — only truncate beyond this at a sentence boundary. */
+const MCQ_ANSWER_MAX_LEN = 400;
 
 /**
  * Categories often studied together; used for distractors when same-category pool is thin.
@@ -32,12 +31,17 @@ function adjacentCategories(category: string): Set<string> {
   return out;
 }
 
+/** Normalize whitespace for MCQ choice display and deduplication. */
+export function normalizeMcqAnswerText(s: string): string {
+  return s.trim().replace(/\s+/g, " ");
+}
+
 /**
- * Shortens long answers for MCQ buttons: prefers ending after . ? ! within the limit;
- * otherwise last word boundary; avoids mid-word cuts. No change if already short.
+ * Truncates only when text exceeds `max` (default 400) and only at a complete
+ * sentence boundary (. ? !). Returns full text otherwise — never mid-word cuts.
  */
 export function truncateAnswerForMcq(s: string, max = MCQ_ANSWER_MAX_LEN): string {
-  const t = s.trim().replace(/\s+/g, " ");
+  const t = normalizeMcqAnswerText(s);
   if (t.length <= max) return t;
 
   const slice = t.slice(0, max);
@@ -53,28 +57,15 @@ export function truncateAnswerForMcq(s: string, max = MCQ_ANSWER_MAX_LEN): strin
     }
   }
 
-  let out: string;
   if (bestSentenceEnd >= 0) {
     const atSentence = slice.slice(0, bestSentenceEnd + 1).trim();
-    if (atSentence.length >= MIN_SENTENCE_SNIPPET) {
-      out = atSentence;
-    } else {
-      out = "";
-    }
-  } else {
-    out = "";
-  }
-
-  if (!out) {
-    const sp = slice.lastIndexOf(" ");
-    if (sp >= MIN_WORD_SNIPPET) {
-      out = slice.slice(0, sp).trim();
-    } else {
-      out = slice.trimEnd();
+    if (atSentence.length > 0) {
+      return atSentence.length < t.length ? `${atSentence}…` : atSentence;
     }
   }
 
-  return out.length < t.length ? `${out}…` : out;
+  // No sentence boundary within limit — show full text rather than clip mid-sentence.
+  return t;
 }
 
 /** @deprecated Use truncateAnswerForMcq — kept for any external imports */
@@ -93,17 +84,18 @@ function shuffle<T>(arr: T[]): T[] {
 
 /**
  * One correct + three wrong answers (same category → adjacent categories → rest), shuffled.
+ * Choice text is shown in full (no truncation under 400 chars).
  */
 export function buildMcqOptions(
   current: McqDistractorSource,
   pool: McqDistractorSource[],
 ): McqOption[] {
-  const correctText = truncateAnswerForMcq(current.answer);
+  const correctText = normalizeMcqAnswerText(current.answer);
   const wrongPool = pool.filter((q) => q.id !== current.id);
   const picked: string[] = [];
 
   const tryAdd = (raw: string) => {
-    const t = truncateAnswerForMcq(raw);
+    const t = normalizeMcqAnswerText(raw);
     if (!t || t === correctText || picked.includes(t)) return false;
     picked.push(t);
     return true;
@@ -155,3 +147,7 @@ export function buildMcqOptions(
   ];
   return shuffle(opts);
 }
+
+/** Shared Tailwind classes for MCQ answer choice buttons. */
+export const MCQ_CHOICE_BUTTON_CLASS =
+  "w-full h-auto min-h-[60px] overflow-visible whitespace-normal break-words rounded-xl border px-4 py-3 text-left text-sm leading-relaxed sm:text-[15px]";

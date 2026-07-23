@@ -75,7 +75,7 @@ export function ContactImportModal({ open, onClose, onImported }: Props) {
       setFile(f);
       setHeaders(parsed.headers);
       setRows(parsed.rows);
-      if (isLinkedInExport(parsed.headers)) {
+      if (parsed.isLinkedIn || isLinkedInExport(parsed.headers)) {
         setMapping(linkedInAutoMapping());
         setStep(3);
       } else {

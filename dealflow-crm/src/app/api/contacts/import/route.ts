@@ -128,7 +128,9 @@ export async function POST(req: Request) {
           relationshipStrength: 1,
           referralProbability: ReferralProbability.MEDIUM,
           notes: mapped.notes,
-          lastInteractionDate: null,
+          lastInteractionDate: mapped.lastInteractionDate
+            ? new Date(mapped.lastInteractionDate)
+            : null,
           userId,
           source: "import",
           warmthScore: "COLD",

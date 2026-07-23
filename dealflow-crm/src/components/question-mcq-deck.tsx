@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { buildMcqOptions, type McqDistractorSource, type McqOption } from "@/lib/question-mcq";
+import { buildMcqOptions, MCQ_CHOICE_BUTTON_CLASS, type McqDistractorSource, type McqOption } from "@/lib/question-mcq";
 import { cn } from "@/lib/utils";
 
 export type QuestionMcqRow = {
@@ -140,7 +140,7 @@ export function QuestionMcqDeck({
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-2">
+        <div className="grid auto-rows-auto grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-3">
           {options.map((opt) => {
             const isPicked = pickedKey === opt.key;
             const showCorrect = phase === "show" && opt.isCorrect;
@@ -152,8 +152,8 @@ export function QuestionMcqDeck({
                 disabled={phase === "show"}
                 onClick={() => onPick(opt)}
                 className={cn(
-                  "min-h-0 w-full min-w-0 overflow-visible whitespace-normal rounded-xl border px-4 py-3 text-left text-sm leading-snug transition-all duration-200 sm:text-[15px]",
-                  "[overflow-wrap:anywhere]",
+                  MCQ_CHOICE_BUTTON_CLASS,
+                  "transition-all duration-200",
                   phase === "pick" &&
                     "border-white/10 bg-zinc-950/90 hover:border-[#4a6fa5]/40 hover:bg-zinc-900/95 hover:shadow-[0_0_20px_-8px_rgba(74,111,165,0.2)]",
                   showCorrect && "animate-df-flash-green border-emerald-500/70 bg-emerald-950/50 text-emerald-50",
