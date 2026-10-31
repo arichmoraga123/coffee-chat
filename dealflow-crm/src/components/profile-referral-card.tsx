@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -14,7 +14,10 @@ export function ProfileReferralCard({
   xpEarned: number;
 }) {
   const [copied, setCopied] = useState(false);
-  const link = useMemo(() => `${typeof window !== "undefined" ? window.location.origin : "https://prospectapp.co"}/join?ref=${code}`, [code]);
+  // Resolve the origin after mount so server and client render the same HTML.
+  const [origin, setOrigin] = useState("https://prospectapp.co");
+  useEffect(() => setOrigin(window.location.origin), []);
+  const link = `${origin}/join?ref=${code}`;
 
   return (
     <Card className="border-zinc-800 bg-zinc-900/50 p-4">

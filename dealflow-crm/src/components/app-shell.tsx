@@ -20,6 +20,7 @@ type CollapsibleGroup = {
 };
 
 const OVERVIEW_ITEM: NavItem = { href: "/dashboard", label: "Dashboard" };
+const ROADMAP_ITEM: NavItem = { href: "/roadmap", label: "Recruiting Roadmap" };
 
 const COLLAPSIBLE_GROUPS: CollapsibleGroup[] = [
   {
@@ -71,7 +72,7 @@ const COLLAPSIBLE_GROUPS: CollapsibleGroup[] = [
     title: "📅 Scheduling",
     items: [
       { href: "/calendar", label: "Calendar" },
-      { href: "/recruiting-calendar", label: "Recruiting Calendar" },
+      { href: "/recruiting-calendar", label: "Recruiting Tracker" },
     ],
   },
   {
@@ -341,6 +342,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <div className="pb-1">
             <p className="px-1 pb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#666666]">📊 Overview</p>
             {renderLink(OVERVIEW_ITEM)}
+            {renderLink(ROADMAP_ITEM)}
           </div>
 
           {groupsToRender.map((group) => {

@@ -12,6 +12,7 @@ import { calendarVerticalsFromProfile } from "@/lib/recruiting-calendar-utils";
 import { OnboardingWizard } from "@/components/onboarding-wizard";
 import { cn } from "@/lib/utils";
 import { getPrimaryTrack, getRelevantCategories } from "@/lib/track-utils";
+import { PROGRAMS_2028, programWindow } from "@/lib/recruiting-programs-2028";
 
 export async function DashboardHome() {
   const userId = await requireUserId();
@@ -100,6 +101,8 @@ export async function DashboardHome() {
     yellow: "font-medium text-[#c9a84c]/90",
     green: "font-medium text-[#a8904a]",
   };
+  const todayIso = new Date().toISOString().slice(0, 10);
+  const openPrograms = PROGRAMS_2028.filter((p) => programWindow(p, todayIso) === "open").length;
   return (
     <div className="min-h-0 space-y-8 text-[#f0f0f0]">
       {!user?.onboardingDone ? <OnboardingWizard /> : null}
@@ -113,6 +116,32 @@ export async function DashboardHome() {
           <span>XP <span className="text-[#f5f5f5]">{user?.xp ?? 0}</span></span>
           <span>WXP <span className="text-[#4a6fa5]">{user?.weeklyXP ?? 0}</span></span>
         </div>
+      </div>
+      <div className="grid gap-3 sm:grid-cols-3">
+        <Link
+          href="/roadmap"
+          className="rounded-xl border border-[#4a6fa5]/40 bg-[#4a6fa5]/10 p-3 transition hover:border-[#4a6fa5]/70"
+        >
+          <p className="text-[11px] uppercase tracking-[0.16em] text-[#a8c0e6]">Start here</p>
+          <p className="mt-1 text-sm font-semibold text-zinc-100">Recruiting roadmap</p>
+          <p className="text-xs text-zinc-400">What to do this month for your class year</p>
+        </Link>
+        <Link
+          href="/recruiting-calendar"
+          className="rounded-xl border border-emerald-700/40 bg-emerald-950/20 p-3 transition hover:border-emerald-600/70"
+        >
+          <p className="text-[11px] uppercase tracking-[0.16em] text-emerald-300">Applications</p>
+          <p className="mt-1 text-sm font-semibold text-zinc-100">{openPrograms} programs open now</p>
+          <p className="text-xs text-zinc-400">Summer 2028 tracker with deadlines</p>
+        </Link>
+        <Link
+          href="/deals"
+          className="rounded-xl border border-amber-700/40 bg-amber-950/20 p-3 transition hover:border-amber-600/70"
+        >
+          <p className="text-[11px] uppercase tracking-[0.16em] text-amber-300">Deals</p>
+          <p className="mt-1 text-sm font-semibold text-zinc-100">Prep &ldquo;tell me about a deal&rdquo;</p>
+          <p className="text-xs text-zinc-400">Real transactions, updated daily</p>
+        </Link>
       </div>
       <div className="grid gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
         <div className="space-y-6">

@@ -231,7 +231,7 @@ export function QuestionMcqDeck({
         </span>
         <div className="flex items-center gap-3 font-mono text-xs">
           <span title="Correct so far" className="text-emerald-300">
-            ✓ {correctCount}/{Math.max(1, answered)}
+            ✓ {correctCount}/{answered}
           </span>
           <span title="Current streak" className={cn(streak >= 3 ? "text-orange-300" : "text-zinc-500")}>
             🔥 {streak}
@@ -330,9 +330,9 @@ export function QuestionMcqDeck({
           <div className="rounded-xl border border-white/10 bg-zinc-900/70 p-4 text-sm shadow-inner">
             <p className="mb-2 text-sm font-semibold">
               {pickedCorrect ? (
-                <span className="text-emerald-400">{persistEachAnswer ? "Correct · +10 XP" : "Correct"}</span>
+                <span className="text-emerald-400">{persistEachAnswer ? "Correct · +10 XP if newly mastered" : "Correct"}</span>
               ) : (
-                <span className="text-red-400">{persistEachAnswer ? "Incorrect · +0 XP" : "Incorrect"}</span>
+                <span className="text-red-400">{persistEachAnswer ? "Incorrect · added to your review list" : "Incorrect"}</span>
               )}
             </p>
             {drill?.why ? (

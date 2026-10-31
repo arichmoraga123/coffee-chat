@@ -83,10 +83,11 @@ type UserContent = string | BetaContentBlockParam[];
 function buildParams(
   content: UserContent,
   opts: AiCallOptions & { jsonSchema?: Record<string, unknown> },
-  fast: boolean,
+  mode: { fast: boolean; fallbacks: boolean },
 ): BetaMessageStreamParams {
-  const betas = ["server-side-fallback-2026-07-01"];
-  if (fast) betas.push("fast-mode-2026-02-01");
+  const betas: string[] = [];
+  if (mode.fallbacks) betas.push("server-side-fallback-2026-07-01");
+  if (mode.fast) betas.push("fast-mode-2026-02-01");
   return {
     model: AI_MODEL,
     max_tokens: Math.max(MIN_MAX_TOKENS, opts.maxTokens ?? DEFAULT_MAX_TOKENS),
@@ -97,34 +98,32 @@ function buildParams(
       ...(opts.jsonSchema ? { format: { type: "json_schema" as const, schema: opts.jsonSchema } } : {}),
     },
     // If the model declines for policy reasons, the API retries on a default fallback model.
-    fallbacks: "default",
-    betas,
-    ...(fast ? { speed: "fast" as const } : {}),
+    ...(mode.fallbacks ? { fallbacks: "default" as const } : {}),
+    ...(betas.length ? { betas } : {}),
+    ...(mode.fast ? { speed: "fast" as const } : {}),
   };
 }
 
-function isFastModeError(e: unknown): boolean {
-  return (
-    e instanceof Anthropic.RateLimitError ||
-    e instanceof Anthropic.BadRequestError ||
-    e instanceof Anthropic.PermissionDeniedError
-  );
-}
-
-/** Opens a streaming request, retrying once at standard speed if fast mode is unavailable. */
+/**
+ * Opens a streaming request. If the preferred configuration is rejected (fast mode rate-limited,
+ * or an optional feature unsupported), retries once with a plain standard-speed request.
+ */
 async function openStream(content: UserContent, opts: AiCallOptions & { jsonSchema?: Record<string, unknown> }) {
-  const start = async (fast: boolean) => {
-    const stream = client().beta.messages.stream(buildParams(content, opts, fast));
+  const start = async (mode: { fast: boolean; fallbacks: boolean }) => {
+    const stream = client().beta.messages.stream(buildParams(content, opts, mode));
     // Surface connection/HTTP errors before handing the stream back.
     await stream.withResponse();
     return stream;
   };
-  if (!FAST_MODE) return start(false);
   try {
-    return await start(true);
+    return await start({ fast: FAST_MODE, fallbacks: true });
   } catch (e) {
-    if (isFastModeError(e)) return start(false);
-    throw e;
+    const retryable =
+      e instanceof Anthropic.BadRequestError ||
+      (FAST_MODE && (e instanceof Anthropic.RateLimitError || e instanceof Anthropic.PermissionDeniedError));
+    if (!retryable) throw e;
+    console.warn("[anthropic] retrying with a plain request:", e instanceof Error ? e.message.slice(0, 200) : e);
+    return start({ fast: false, fallbacks: false });
   }
 }
 

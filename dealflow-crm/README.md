@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Prospect (dealflow-crm)
 
-## Getting Started
+Recruiting platform for finance students: networking CRM, question bank with drill-style MCQs,
+Summer 2028 program tracker, deal tracker with AI interview prep, resume review, and more.
 
-First, run the development server:
+## Setup
 
 ```bash
+npm install
+npx prisma db push      # sync the schema to your database
+npm run db:seed         # load questions, deals, programs, calendar events (safe to re-run)
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Re-run `npm run db:seed` after pulling updates — it upserts new questions, firm-specific
+question sets, deals and recruiting calendar events without touching user data.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `DATABASE_URL` | yes | Postgres connection string |
+| `NEXTAUTH_URL`, `NEXTAUTH_SECRET` | yes | Auth |
+| `ANTHROPIC_API_KEY` | for AI features | Resume review, deal pitches, practice questions, MCQ generation |
+| `ANTHROPIC_MODEL` | no | Defaults to `claude-opus-5-5` |
+| `ANTHROPIC_FAST_MODE` | no | `1` = fast output mode (about 2x faster generation at about 2x token price) |
+| `NEWS_API_KEY` | for live news/deals | NewsAPI key used by the daily news + deal ingest |
+| `CRON_SECRET` | for cron | Protects `/api/cron/*` (Vercel sends it automatically) |
 
-## Learn More
+## How content updates
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Deals**: `/api/cron/refresh-news` runs daily. Articles describing a real transaction with a
+  disclosed dollar value are published to `/deals` automatically; admins can also click
+  "Pull latest deals now" on `/admin/deals`.
+- **Question bank MCQs**: seeded questions use hand-written near-miss choices
+  (`src/lib/drill-mcq`). New or user-submitted questions get AI-generated choices on first use.
+  Run `npm run check:mcq` after editing to catch missing choices or "longest answer wins" giveaways.
+- **Program tracker**: `src/lib/recruiting-programs-2028.ts` — update dates there and re-seed to
+  refresh calendar events.

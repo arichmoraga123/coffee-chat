@@ -20,12 +20,13 @@ export function Card({
       )}
       {...props}
     >
+      {/* Decorative texture. Absolutely positioned so it never takes part in the card's flex/grid layout. */}
       <div
-        className="pointer-events-none absolute inset-0 z-0 bg-cover bg-center opacity-[0.03] mix-blend-overlay"
+        className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.03] mix-blend-overlay"
         style={{ backgroundImage: `url("${NOISE_SVG}")` }}
         aria-hidden
       />
-      <div className="relative z-[1]">{children}</div>
+      {children}
     </div>
   );
 }

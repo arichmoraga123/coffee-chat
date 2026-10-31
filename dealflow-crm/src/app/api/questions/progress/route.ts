@@ -32,20 +32,16 @@ export async function PATCH(req: Request) {
   });
   if (!question) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
-  const awardMcqXp = status === "known" && source === "mcq_quiz";
+  // XP only for the FIRST time a question is mastered — re-answering can't farm the leaderboard.
+  const prior = await prisma.userQuestionProgress.findUnique({
+    where: { userId_questionId: { userId, questionId } },
+    select: { status: true },
+  });
+  const awardMcqXp = status === "known" && source === "mcq_quiz" && prior?.status !== "known";
 
   if (awardMcqXp) {
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-      select: { name: true, xp: true, weeklyXP: true, drillStreak: true },
-    });
-    if (!user) return NextResponse.json({ error: "Not found" }, { status: 404 });
-
     const xp = 10;
-    const nextXp = user.xp + xp;
-    const nextWeekly = user.weeklyXP + xp;
-
-    await prisma.$transaction([
+    const [, updatedUser] = await prisma.$transaction([
       prisma.userQuestionProgress.upsert({
         where: { userId_questionId: { userId, questionId } },
         create: { userId, questionId, status: "known" },
@@ -53,24 +49,23 @@ export async function PATCH(req: Request) {
       }),
       prisma.user.update({
         where: { id: userId },
-        data: { xp: nextXp, weeklyXP: nextWeekly },
-      }),
-      prisma.leaderboardEntry.upsert({
-        where: { userId },
-        create: {
-          userId,
-          username: user.name,
-          weeklyXP: nextWeekly,
-          totalXP: nextXp,
-          streak: user.drillStreak,
-        },
-        update: {
-          username: user.name,
-          weeklyXP: nextWeekly,
-          totalXP: nextXp,
-        },
+        data: { xp: { increment: xp }, weeklyXP: { increment: xp } },
+        select: { name: true, xp: true, weeklyXP: true, drillStreak: true },
       }),
     ]);
+    const nextXp = updatedUser.xp;
+    const nextWeekly = updatedUser.weeklyXP;
+    await prisma.leaderboardEntry.upsert({
+      where: { userId },
+      create: {
+        userId,
+        username: updatedUser.name,
+        weeklyXP: nextWeekly,
+        totalXP: nextXp,
+        streak: updatedUser.drillStreak,
+      },
+      update: { username: updatedUser.name, weeklyXP: nextWeekly, totalXP: nextXp },
+    });
 
     const row = await prisma.userQuestionProgress.findUnique({
       where: { userId_questionId: { userId, questionId } },

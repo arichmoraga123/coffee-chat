@@ -457,9 +457,10 @@ export function MockInterviewView() {
                           {q.year ? <span>{q.year}</span> : null}
                         </div>
                       </div>
-                      <Button size="sm" variant="outline" onClick={() => openPractice(q.id)}>
+                      {/* Visual affordance only — the whole row is already a button. */}
+                      <span className="shrink-0 rounded-md border border-zinc-700 px-3 py-1 text-xs text-zinc-200">
                         Practice
-                      </Button>
+                      </span>
                     </button>
                   ))}
                 </div>
