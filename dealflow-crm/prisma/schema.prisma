@@ -11,97 +11,104 @@ datasource db {
 }
 
 model User {
-  id                  String   @id @default(cuid())
-  name                String
-  email               String   @unique
-  passwordHash        String
-  role                String   @default("USER")
-  drillStreak         Int      @default(0)
-  lastDrillDay        String? // YYYY-MM-DD (UTC)
-  xp                  Int      @default(0)
-  weeklyXP            Int      @default(0)
-  recruitingTarget    String[] @default([])
-  /** Primary career paths for filtering prep (DB column legacy name `preferredTracks`). */
-  careerTracks        String[] @default([]) @map("preferredTracks")
-  schoolId            String?
-  eduEmail            String?
-  eduVerified         Boolean  @default(false)
-  eduVerificationToken   String?
-  eduVerificationExpires DateTime?
-  contributionXP    Int      @default(0)
-  bio                 String?
-  referralCode        String?  @unique
-  targetFirms         String[] @default([])
-  dailyGoal           Int      @default(5)
-  onboardingDone      Boolean  @default(false)
-  accountActive         Boolean  @default(true)
-  lastActiveAt          DateTime?
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
-  school              School?  @relation(fields: [schoolId], references: [id], onDelete: SetNull)
-  clubMemberships     ClubMember[]
-  compData            CompData[]
-  compDataUpvotes     CompDataUpvote[]
-  referralsGiven      Referral[] @relation("Referrer")
-  referralsReceived   Referral[] @relation("Referee")
-  clubPostsAuthored   ClubPost[]       @relation("ClubPostAuthor")
-  clubAnnouncementsAuthored ClubAnnouncement[] @relation("ClubAnnouncementAuthor")
-  contacts            Contact[]
-  contactEmailDrafts  ContactEmailDraft[]
-  firms               Firm[]
-  interactions        Interaction[]
-  opportunities       Opportunity[]
-  tasks               Task[]
-  questionProgress    UserQuestionProgress[]
-  resourceBookmarks   ResourceBookmark[]
-  timelinesSubmitted  FirmTimeline[]         @relation("TimelineSubmitter")
-  timelineVotes       FirmTimelineVote[]
-  dailyDrillLogs      DailyDrillLog[]
-  leaderboardEntry    LeaderboardEntry?
-  recruitingEvents    RecruitingEvent[]
-  submittedQuestions  Question[]             @relation("QuestionSubmitter")
-  mockInterviewSessions      MockInterviewSession[]
-  mockInterviewQuestions     MockInterviewQuestion[] @relation("MockInterviewQuestionSubmitter")
-  interviewDebriefs          InterviewDebrief[]
-  templateUpvotes            TemplateUpvote[]
-  dealBookmarks              DealBookmark[]
-  vaultDocumentUpvotes       VaultDocumentUpvote[]
-  studyGroupMembers          StudyGroupMember[]
-  studyGroupsCreated         StudyGroup[]           @relation("StudyGroupCreator")
-  studyGroupMessages         StudyGroupMessage[]
-  offerComparisons           OfferComparison[]
-  apiUsageLogs               ApiUsageLog[]
-  contentReports             ContentReport[]        @relation("ContentReportReporter")
-  calendarIntegrations       CalendarIntegration[]
-  resumeReviews              ResumeReview[]
-  caseCompetitions           CaseCompetition[]
-  recruitingCalendarVotes    RecruitingCalendarVote[]
-  stockPitches                 StockPitch[]
+  id                        String                   @id @default(cuid())
+  name                      String
+  email                     String                   @unique
+  passwordHash              String
+  role                      String                   @default("USER")
+  drillStreak               Int                      @default(0)
+  lastDrillDay              String? // YYYY-MM-DD (UTC)
+  xp                        Int                      @default(0)
+  weeklyXP                  Int                      @default(0)
+  recruitingTarget          String[]                 @default([])
+  /**
+   * Primary career paths for filtering prep (DB column legacy name `preferredTracks`).
+   */
+  careerTracks              String[]                 @default([]) @map("preferredTracks")
+  schoolId                  String?
+  eduEmail                  String?
+  eduVerified               Boolean                  @default(false)
+  eduVerificationToken      String?
+  eduVerificationExpires    DateTime?
+  contributionXP            Int                      @default(0)
+  bio                       String?
+  referralCode              String?                  @unique
+  targetFirms               String[]                 @default([])
+  dailyGoal                 Int                      @default(5)
+  onboardingDone            Boolean                  @default(false)
+  accountActive             Boolean                  @default(true)
+  lastActiveAt              DateTime?
+  createdAt                 DateTime                 @default(now())
+  updatedAt                 DateTime                 @updatedAt
+  school                    School?                  @relation(fields: [schoolId], references: [id], onDelete: SetNull)
+  clubMemberships           ClubMember[]
+  compData                  CompData[]
+  compDataUpvotes           CompDataUpvote[]
+  referralsGiven            Referral[]               @relation("Referrer")
+  referralsReceived         Referral[]               @relation("Referee")
+  clubPostsAuthored         ClubPost[]               @relation("ClubPostAuthor")
+  clubAnnouncementsAuthored ClubAnnouncement[]       @relation("ClubAnnouncementAuthor")
+  contacts                  Contact[]
+  contactEmailDrafts        ContactEmailDraft[]
+  firms                     Firm[]
+  interactions              Interaction[]
+  opportunities             Opportunity[]
+  tasks                     Task[]
+  questionProgress          UserQuestionProgress[]
+  lessonProgress            LessonProgress[]
+  reviewItems               ReviewItem[]
+  mentorQuestions           MentorQuestion[]         @relation("MentorQuestionAsker")
+  resourceBookmarks         ResourceBookmark[]
+  timelinesSubmitted        FirmTimeline[]           @relation("TimelineSubmitter")
+  timelineVotes             FirmTimelineVote[]
+  dailyDrillLogs            DailyDrillLog[]
+  leaderboardEntry          LeaderboardEntry?
+  recruitingEvents          RecruitingEvent[]
+  submittedQuestions        Question[]               @relation("QuestionSubmitter")
+  mockInterviewSessions     MockInterviewSession[]
+  mockInterviewQuestions    MockInterviewQuestion[]  @relation("MockInterviewQuestionSubmitter")
+  interviewDebriefs         InterviewDebrief[]
+  templateUpvotes           TemplateUpvote[]
+  dealBookmarks             DealBookmark[]
+  vaultDocumentUpvotes      VaultDocumentUpvote[]
+  studyGroupMembers         StudyGroupMember[]
+  studyGroupsCreated        StudyGroup[]             @relation("StudyGroupCreator")
+  studyGroupMessages        StudyGroupMessage[]
+  offerComparisons          OfferComparison[]
+  apiUsageLogs              ApiUsageLog[]
+  contentReports            ContentReport[]          @relation("ContentReportReporter")
+  calendarIntegrations      CalendarIntegration[]
+  resumeReviews             ResumeReview[]
+  caseCompetitions          CaseCompetition[]
+  recruitingCalendarVotes   RecruitingCalendarVote[]
+  stockPitches              StockPitch[]
 }
 
 model Question {
-  id             String                 @id @default(cuid())
-  question       String
-  answer         String
-  keywords       String[]               @default([])
-  category       String
-  subcategory    String?
-  difficulty     String
-  tags           String[]
-  /** Empty = relevant to all tracks. Otherwise show only if user selected a matching track. */
-  careerTracks   String[]               @default([])
-  source         String?
-  status         String                 @default("active") // active | pending | rejected
-  dedupeKey      String?                @unique
-  submittedById  String?
-  schoolId       String?
-  scope          String                 @default("global") // global | school | club
-  upvotes        Int                    @default(0)
-  createdAt      DateTime               @default(now())
-  updatedAt      DateTime               @default(now()) @updatedAt
-  userProgress   UserQuestionProgress[]
-  submitter      User?                  @relation("QuestionSubmitter", fields: [submittedById], references: [id], onDelete: SetNull)
-  school         School?                @relation(fields: [schoolId], references: [id], onDelete: SetNull)
+  id            String                 @id @default(cuid())
+  question      String
+  answer        String
+  keywords      String[]               @default([])
+  category      String
+  subcategory   String?
+  difficulty    String
+  tags          String[]
+  /**
+   * Empty = relevant to all tracks. Otherwise show only if user selected a matching track.
+   */
+  careerTracks  String[]               @default([])
+  source        String?
+  status        String                 @default("active") // active | pending | rejected
+  dedupeKey     String?                @unique
+  submittedById String?
+  schoolId      String?
+  scope         String                 @default("global") // global | school | club
+  upvotes       Int                    @default(0)
+  createdAt     DateTime               @default(now())
+  updatedAt     DateTime               @default(now()) @updatedAt
+  userProgress  UserQuestionProgress[]
+  submitter     User?                  @relation("QuestionSubmitter", fields: [submittedById], references: [id], onDelete: SetNull)
+  school        School?                @relation(fields: [schoolId], references: [id], onDelete: SetNull)
 }
 
 model UserQuestionProgress {
@@ -117,13 +124,13 @@ model UserQuestionProgress {
 }
 
 model DailyDrillLog {
-  id                  String @id @default(cuid())
-  userId              String
-  date                String // YYYY-MM-DD UTC
-  questionsAnswered   Int
-  correct             Int
-  xpEarned            Int
-  user                User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String @id @default(cuid())
+  userId            String
+  date              String // YYYY-MM-DD UTC
+  questionsAnswered Int
+  correct           Int
+  xpEarned          Int
+  user              User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, date])
 }
@@ -151,16 +158,16 @@ model NewsArticle {
 }
 
 model RecruitingEvent {
-  id                    String   @id @default(cuid())
-  userId                String
-  title                 String
-  date                  DateTime
-  type                  String // coffee_chat | deadline | interview | networking | other
-  firmName              String?
-  notes                 String?
-  googleCalendarEventId   String?
+  id                     String   @id @default(cuid())
+  userId                 String
+  title                  String
+  date                   DateTime
+  type                   String // coffee_chat | deadline | interview | networking | other
+  firmName               String?
+  notes                  String?
+  googleCalendarEventId  String?
   outlookCalendarEventId String?
-  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model ResourceBookmark {
@@ -173,7 +180,7 @@ model ResourceBookmark {
 }
 
 model FirmTimeline {
-  id               String    @id @default(cuid())
+  id               String             @id @default(cuid())
   firmName         String
   firmType         String // BB, EB, MM, PE, VC
   role             String
@@ -184,15 +191,15 @@ model FirmTimeline {
   offerDate        DateTime?
   year             Int
   notes            String?
-  careerTracks     String[]  @default([])
+  careerTracks     String[]           @default([])
   schoolId         String?
-  scope            String    @default("global") // global | school | club
+  scope            String             @default("global") // global | school | club
   submittedBy      String?
-  verified         Boolean   @default(false)
-  upvotes          Int       @default(0)
-  createdAt        DateTime  @default(now())
-  submitter        User?     @relation("TimelineSubmitter", fields: [submittedBy], references: [id], onDelete: SetNull)
-  school           School?   @relation(fields: [schoolId], references: [id], onDelete: SetNull)
+  verified         Boolean            @default(false)
+  upvotes          Int                @default(0)
+  createdAt        DateTime           @default(now())
+  submitter        User?              @relation("TimelineSubmitter", fields: [submittedBy], references: [id], onDelete: SetNull)
+  school           School?            @relation(fields: [schoolId], references: [id], onDelete: SetNull)
   votes            FirmTimelineVote[]
 }
 
@@ -288,21 +295,21 @@ model Contact {
   firmId               String
   userId               String
 
-  undergradSchool   String?
-  gradSchool        String?
-  graduationYear    Int?
-  hometown          String?
-  previousFirms     String[] @default([])
-  careerPath        String?
+  undergradSchool String?
+  gradSchool      String?
+  graduationYear  Int?
+  hometown        String?
+  previousFirms   String[] @default([])
+  careerPath      String?
 
-  clubs       String[] @default([])
-  sports      String[] @default([])
-  greekLife   String?
+  clubs     String[] @default([])
+  sports    String[] @default([])
+  greekLife String?
 
-  howWeMet            String?
-  referredBy          String?
-  mutualConnections   String[] @default([])
-  warmthScore         String   @default("COLD") // COLD | WARM | HOT | ADVOCATE
+  howWeMet          String?
+  referredBy        String?
+  mutualConnections String[] @default([])
+  warmthScore       String   @default("COLD") // COLD | WARM | HOT | ADVOCATE
 
   hiringTimeline    String?
   whatTheyLookFor   String?
@@ -311,16 +318,16 @@ model Contact {
 
   notableDeals String[] @default([])
 
-  source            String?  // "manual", "import", "linkedin", "linkedin-search"
-  inOutreachQueue   Boolean  @default(false)
-  queueExcluded     Boolean  @default(false)
+  source          String? // "manual", "import", "linkedin", "linkedin-search"
+  inOutreachQueue Boolean @default(false)
+  queueExcluded   Boolean @default(false)
 
-  firm                 Firm                @relation(fields: [firmId], references: [id], onDelete: Cascade)
-  user                 User                @relation(fields: [userId], references: [id], onDelete: Cascade)
-  interactions         Interaction[]
-  tasks                Task[]
-  opportunities        OpportunityContact[]
-  emailDrafts          ContactEmailDraft[]
+  firm          Firm                 @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  user          User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  interactions  Interaction[]
+  tasks         Task[]
+  opportunities OpportunityContact[]
+  emailDrafts   ContactEmailDraft[]
 
   @@unique([userId, email])
 }
@@ -356,42 +363,42 @@ model Firm {
 }
 
 model Interaction {
-  id                 String          @id @default(cuid())
-  date               DateTime
-  type               InteractionType
-  notes              String?
-  adviceGiven        String?
-  actionItems        String[]        @default([])
-  actionItemsChecked Int[]           @default([])
-  personalDetails    String?
-  firmInsights       String?
-  redFlags           String?
-  followUpDate             DateTime?
-  googleCalendarEventId    String?
-  outlookCalendarEventId   String?
-  createdAt               DateTime        @default(now())
-  contactId               String
-  userId                  String
-  contact                 Contact         @relation(fields: [contactId], references: [id], onDelete: Cascade)
-  user                    User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                     String          @id @default(cuid())
+  date                   DateTime
+  type                   InteractionType
+  notes                  String?
+  adviceGiven            String?
+  actionItems            String[]        @default([])
+  actionItemsChecked     Int[]           @default([])
+  personalDetails        String?
+  firmInsights           String?
+  redFlags               String?
+  followUpDate           DateTime?
+  googleCalendarEventId  String?
+  outlookCalendarEventId String?
+  createdAt              DateTime        @default(now())
+  contactId              String
+  userId                 String
+  contact                Contact         @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  user                   User            @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Opportunity {
-  id                  String               @id @default(cuid())
-  role                String
-  stage               OpportunityStage     @default(TARGET)
-  priority            Priority             @default(MEDIUM)
-  notes               String               @default("")
-  applicationDeadline      DateTime?
-  googleCalendarEventId    String?
-  outlookCalendarEventId   String?
-  contactName               String               @default("")
-  createdAt                 DateTime             @default(now())
-  firmId                    String
-  userId                    String
-  firm       Firm                 @relation(fields: [firmId], references: [id], onDelete: Cascade)
-  user       User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
-  contacts   OpportunityContact[]
+  id                     String               @id @default(cuid())
+  role                   String
+  stage                  OpportunityStage     @default(TARGET)
+  priority               Priority             @default(MEDIUM)
+  notes                  String               @default("")
+  applicationDeadline    DateTime?
+  googleCalendarEventId  String?
+  outlookCalendarEventId String?
+  contactName            String               @default("")
+  createdAt              DateTime             @default(now())
+  firmId                 String
+  userId                 String
+  firm                   Firm                 @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  user                   User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  contacts               OpportunityContact[]
 }
 
 model OpportunityContact {
@@ -453,60 +460,60 @@ model MockInterviewSession {
 }
 
 model InterviewDebrief {
-  id               String   @id @default(cuid())
-  userId           String
-  firmName         String
-  round            String
-  date             DateTime
-  questionsAsked   String[]
-  myAnswers        String?
-  whatWentWell     String?
-  improvements     String?
-  outcome          String?
-  createdAt        DateTime @default(now())
-  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id             String   @id @default(cuid())
+  userId         String
+  firmName       String
+  round          String
+  date           DateTime
+  questionsAsked String[]
+  myAnswers      String?
+  whatWentWell   String?
+  improvements   String?
+  outcome        String?
+  createdAt      DateTime @default(now())
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, date])
 }
 
 // --- Shared firm research wiki ---
 model FirmResearch {
-  id                String   @id @default(cuid())
-  firmName          String   @unique
-  firmType          String
-  aum               String?
-  founded           Int?
-  headquarters      String?
-  description       String?
-  investmentFocus   String?
-  dealSize          String?
-  notableDeals      String[] @default([])
-  whatTheyLookFor   String?
-  hiringTimeline    String?
-  interviewProcess  String?
-  culture           String?
-  msuAlumni         String[] @default([])
-  websiteUrl        String?
-  linkedinUrl       String?
-  lastUpdated       DateTime @default(now())
-  updatedById       String?
+  id               String   @id @default(cuid())
+  firmName         String   @unique
+  firmType         String
+  aum              String?
+  founded          Int?
+  headquarters     String?
+  description      String?
+  investmentFocus  String?
+  dealSize         String?
+  notableDeals     String[] @default([])
+  whatTheyLookFor  String?
+  hiringTimeline   String?
+  interviewProcess String?
+  culture          String?
+  msuAlumni        String[] @default([])
+  websiteUrl       String?
+  linkedinUrl      String?
+  lastUpdated      DateTime @default(now())
+  updatedById      String?
 }
 
 // --- Shared email templates ---
 model EmailTemplate {
-  id              String   @id @default(cuid())
-  title           String
-  category        String
-  subject         String?
-  body            String
-  tags            String[] @default([])
-  upvotes         Int      @default(0)
-  submittedById   String?
-  isOfficial      Boolean  @default(false)
-  dedupeKey       String?  @unique
-  archived        Boolean  @default(false)
-  createdAt       DateTime @default(now())
-  upvotedBy       TemplateUpvote[]
+  id            String           @id @default(cuid())
+  title         String
+  category      String
+  subject       String?
+  body          String
+  tags          String[]         @default([])
+  upvotes       Int              @default(0)
+  submittedById String?
+  isOfficial    Boolean          @default(false)
+  dedupeKey     String?          @unique
+  archived      Boolean          @default(false)
+  createdAt     DateTime         @default(now())
+  upvotedBy     TemplateUpvote[]
 
   @@index([archived])
 }
@@ -523,24 +530,24 @@ model TemplateUpvote {
 
 // --- Shared deals, private bookmarks ---
 model Deal {
-  id          String         @id @default(cuid())
-  title       String         @unique
-  acquirer    String?
-  target      String?
-  dealValue   String?
-  dealType    String
-  vertical    String?
-  sector      String?
-  summary     String
-  keyThesis   String?
-  risks       String?
-  sourceUrl   String?
-  announcedAt DateTime
-  status      String         @default("draft") // draft | published
-  careerTracks String[]      @default([])
-  dedupeKey   String?        @unique
-  createdAt   DateTime       @default(now())
-  bookmarks   DealBookmark[]
+  id           String         @id @default(cuid())
+  title        String         @unique
+  acquirer     String?
+  target       String?
+  dealValue    String?
+  dealType     String
+  vertical     String?
+  sector       String?
+  summary      String
+  keyThesis    String?
+  risks        String?
+  sourceUrl    String?
+  announcedAt  DateTime
+  status       String         @default("draft") // draft | published
+  careerTracks String[]       @default([])
+  dedupeKey    String?        @unique
+  createdAt    DateTime       @default(now())
+  bookmarks    DealBookmark[]
 
   @@index([status])
 }
@@ -561,55 +568,55 @@ model ConsultingCase {
 }
 
 model StockPitch {
-  id               String   @id @default(cuid())
-  userId           String
-  companyName      String
-  overview         String   @db.Text
-  thesisBullets    String[] @default([])
-  currentPrice     String?
-  targetPrice      String?
-  catalysts        String[] @default([])
-  risks            String[] @default([])
-  recommendation   String
-  deckOutline      String?  @db.Text
-  sharedToGroupId  String?
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  studyGroup       StudyGroup? @relation(fields: [sharedToGroupId], references: [id], onDelete: SetNull)
+  id              String      @id @default(cuid())
+  userId          String
+  companyName     String
+  overview        String      @db.Text
+  thesisBullets   String[]    @default([])
+  currentPrice    String?
+  targetPrice     String?
+  catalysts       String[]    @default([])
+  risks           String[]    @default([])
+  recommendation  String
+  deckOutline     String?     @db.Text
+  sharedToGroupId String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  studyGroup      StudyGroup? @relation(fields: [sharedToGroupId], references: [id], onDelete: SetNull)
 
   @@index([userId])
   @@index([sharedToGroupId])
 }
 
 model DealBookmark {
-  id     String @id @default(cuid())
+  id     String  @id @default(cuid())
   userId String
   dealId String
   notes  String?
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  deal   Deal   @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deal   Deal    @relation(fields: [dealId], references: [id], onDelete: Cascade)
 
   @@unique([userId, dealId])
 }
 
 // --- Shared vault (anonymized metadata); submitter id stored for moderation ---
 model VaultDocument {
-  id              String   @id @default(cuid())
-  type            String
-  targetFirm      String?
-  targetRole      String?
-  outcome         String?
-  year            Int?
-  school          String?
-  fileUrl         String?
-  notes           String?
-  upvotes         Int      @default(0)
-  submittedById   String?
-  dedupeKey       String?  @unique
-  status          String   @default("active") // active | pending | rejected
-  createdAt       DateTime @default(now())
-  upvotedBy       VaultDocumentUpvote[]
+  id            String                @id @default(cuid())
+  type          String
+  targetFirm    String?
+  targetRole    String?
+  outcome       String?
+  year          Int?
+  school        String?
+  fileUrl       String?
+  notes         String?
+  upvotes       Int                   @default(0)
+  submittedById String?
+  dedupeKey     String?               @unique
+  status        String                @default("active") // active | pending | rejected
+  createdAt     DateTime              @default(now())
+  upvotedBy     VaultDocumentUpvote[]
 
   @@index([status])
 }
@@ -626,13 +633,13 @@ model VaultDocumentUpvote {
 
 // --- Study groups: visible to members only ---
 model StudyGroup {
-  id           String              @id @default(cuid())
-  name         String
-  createdBy    String
-  createdAt    DateTime            @default(now())
-  creator      User                @relation("StudyGroupCreator", fields: [createdBy], references: [id], onDelete: Cascade)
-  members      StudyGroupMember[]
-  messages     StudyGroupMessage[]
+  id            String              @id @default(cuid())
+  name          String
+  createdBy     String
+  createdAt     DateTime            @default(now())
+  creator       User                @relation("StudyGroupCreator", fields: [createdBy], references: [id], onDelete: Cascade)
+  members       StudyGroupMember[]
+  messages      StudyGroupMessage[]
   sharedPitches StockPitch[]
 }
 
@@ -751,7 +758,7 @@ model CaseCompetition {
 
 // --- Shared recruiting season calendar (crowdsourced) ---
 model RecruitingCalendarEvent {
-  id          String   @id @default(cuid())
+  id          String                   @id @default(cuid())
   title       String
   firmName    String?
   vertical    String?
@@ -759,14 +766,14 @@ model RecruitingCalendarEvent {
   date        DateTime
   endDate     DateTime?
   year        Int
-  isRecurring Boolean  @default(false)
+  isRecurring Boolean                  @default(false)
   notes       String?
   sourceUrl   String?
   submittedBy String?
-  verified    Boolean  @default(false)
-  upvotes     Int       @default(0)
-  dedupeKey   String?   @unique
-  createdAt   DateTime  @default(now())
+  verified    Boolean                  @default(false)
+  upvotes     Int                      @default(0)
+  dedupeKey   String?                  @unique
+  createdAt   DateTime                 @default(now())
   votes       RecruitingCalendarVote[]
 
   @@index([year, date])
@@ -785,40 +792,40 @@ model RecruitingCalendarVote {
 
 // --- Prospect: multi-school network ---
 model School {
-  id           String         @id @default(cuid())
-  name         String         @unique
-  shortName    String
-  domain       String         @unique
-  location     String?
-  country      String         @default("US")
-  type         String         @default("semi-target") // target | semi-target | non-target
-  logoUrl      String?
-  isVerified   Boolean        @default(false)
-  createdAt    DateTime       @default(now())
-  members      User[]
-  clubs        Club[]
-  questions    Question[]
-  timelines    FirmTimeline[]
-  compData     CompData[]
-  alumni       SchoolAlumni[]
+  id         String         @id @default(cuid())
+  name       String         @unique
+  shortName  String
+  domain     String         @unique
+  location   String?
+  country    String         @default("US")
+  type       String         @default("semi-target") // target | semi-target | non-target
+  logoUrl    String?
+  isVerified Boolean        @default(false)
+  createdAt  DateTime       @default(now())
+  members    User[]
+  clubs      Club[]
+  questions  Question[]
+  timelines  FirmTimeline[]
+  compData   CompData[]
+  alumni     SchoolAlumni[]
 }
 
 model Club {
-  id             String               @id @default(cuid())
-  schoolId       String
-  name           String
-  type           String
-  description    String?
-  logoUrl        String?
-  isVerified     Boolean              @default(false)
-  isPublic       Boolean              @default(true)
-  createdAt      DateTime             @default(now())
-  school         School               @relation(fields: [schoolId], references: [id], onDelete: Cascade)
-  members        ClubMember[]
-  posts          ClubPost[]
-  projects       ClubProject[]
-  events         ClubEvent[]
-  announcements  ClubAnnouncement[]
+  id                   String             @id @default(cuid())
+  schoolId             String
+  name                 String
+  type                 String
+  description          String?
+  logoUrl              String?
+  isVerified           Boolean            @default(false)
+  isPublic             Boolean            @default(true)
+  createdAt            DateTime           @default(now())
+  school               School             @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  members              ClubMember[]
+  posts                ClubPost[]
+  projects             ClubProject[]
+  events               ClubEvent[]
+  announcements        ClubAnnouncement[]
   stripeCustomerId     String?
   stripeSubscriptionId String?
   stripePriceId        String?
@@ -876,14 +883,14 @@ model ClubProject {
 }
 
 model ClubDeliverable {
-  id          String      @id @default(cuid())
-  projectId   String
-  title       String
-  assignedTo  String[]    @default([])
-  dueDate     DateTime?
-  status      String      @default("pending")
-  driveLink   String?
-  project     ClubProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  id         String      @id @default(cuid())
+  projectId  String
+  title      String
+  assignedTo String[]    @default([])
+  dueDate    DateTime?
+  status     String      @default("pending")
+  driveLink  String?
+  project    ClubProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   @@index([projectId])
 }
@@ -955,18 +962,18 @@ model CompDataUpvote {
 }
 
 model SchoolAlumni {
-  id           String   @id @default(cuid())
-  schoolId     String
-  firmName     String
-  role         String
-  vertical     String
-  gradYear     Int?
-  linkedinUrl  String?
-  openToChat   Boolean  @default(false)
-  anonymous    Boolean  @default(false)
-  submittedBy  String?
-  verified     Boolean  @default(false)
-  school       School   @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  id          String  @id @default(cuid())
+  schoolId    String
+  firmName    String
+  role        String
+  vertical    String
+  gradYear    Int?
+  linkedinUrl String?
+  openToChat  Boolean @default(false)
+  anonymous   Boolean @default(false)
+  submittedBy String?
+  verified    Boolean @default(false)
+  school      School  @relation(fields: [schoolId], references: [id], onDelete: Cascade)
 
   @@index([schoolId, firmName])
 }
@@ -981,4 +988,84 @@ model Referral {
   createdAt  DateTime @default(now())
   referrer   User     @relation("Referrer", fields: [referrerId], references: [id], onDelete: Cascade)
   referee    User?    @relation("Referee", fields: [refereeId], references: [id], onDelete: SetNull)
+}
+
+// ── Prospect Learn ─────────────────────────────────────────────
+
+model LessonProgress {
+  id          String    @id @default(cuid())
+  userId      String
+  lessonId    String
+  status      String    @default("in_progress") // in_progress | completed
+  /// { [blockId]: { done, attempts, correct, opened?, step?, marks? } }
+  blockState  Json      @default("{}")
+  /// % of graded blocks correct on first or second try
+  score       Int       @default(0)
+  /// Deep dives that have earned XP (max 3 per lesson)
+  deepDiveXp  Int       @default(0)
+  completedAt DateTime?
+  updatedAt   DateTime  @updatedAt
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, lessonId])
+  @@index([lessonId])
+}
+
+model ReviewItem {
+  id        String   @id @default(cuid())
+  userId    String
+  lessonId  String
+  blockId   String
+  prompt    String
+  createdAt DateTime @default(now())
+  resolved  Boolean  @default(false)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, lessonId, blockId, prompt])
+  @@index([userId, resolved])
+}
+
+model LessonResource {
+  id          String   @id @default(cuid())
+  workbookKey String // e.g. "PEB_03_CAPM_Beta_WACC"
+  kind        String // "student" | "answer_key"
+  title       String
+  description String?
+  blobUrl     String
+  fileName    String
+  sizeBytes   Int
+  version     Int      @default(1)
+  uploadedBy  String
+  createdAt   DateTime @default(now())
+
+  @@unique([workbookKey, kind, version])
+}
+
+model ResourceDownload {
+  id         String   @id @default(cuid())
+  userId     String
+  resourceId String
+  createdAt  DateTime @default(now())
+
+  @@index([resourceId])
+}
+
+model MentorQuestion {
+  id         String    @id @default(cuid())
+  userId     String
+  lessonId   String
+  blockId    String?
+  question   String
+  answer     String?
+  answeredBy String?
+  answeredAt DateTime?
+  status     String    @default("open") // open | answered
+  /// When true the Q&A is shown on the lesson as an FAQ deep dive for everyone
+  public     Boolean   @default(false)
+  seenByUser Boolean   @default(false)
+  createdAt  DateTime  @default(now())
+  user       User      @relation("MentorQuestionAsker", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([lessonId, status])
+  @@index([userId])
 }

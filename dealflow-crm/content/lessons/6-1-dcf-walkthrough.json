@@ -1,0 +1,155 @@
+{
+  "id": "6-1",
+  "slug": "dcf-walkthrough",
+  "module": 6,
+  "moduleTitle": "DCF",
+  "title": "DCF walkthrough",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "5-5"
+  ],
+  "relatedQuestionTags": [
+    "dcf"
+  ],
+  "workbook": "PEB_04_DCF",
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "DCF"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Discounted Cash Flow"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Walk me through a DCF in under 90 seconds."
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "Project unlevered free cash flow for 5–10 years."
+        },
+        {
+          "body": "Calculate the discount rate (WACC)."
+        },
+        {
+          "body": "Calculate terminal value (perpetuity growth or exit multiple)."
+        },
+        {
+          "body": "Discount the projected cash flows and the terminal value to today."
+        },
+        {
+          "body": "Sum = implied enterprise value. Bridge to equity value; divide by diluted shares for a per-share value."
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b2",
+      "prompt": "Fill in the blank",
+      "template": "A DCF discounts unlevered FCF at {{1}} to get {{2}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "WACC",
+            "weighted average cost of capital"
+          ],
+          "hint": "Starts with “W”."
+        },
+        "2": {
+          "accept": [
+            "enterprise value",
+            "ev"
+          ],
+          "hint": "Starts with “E”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "Projection periods are typically {{1}} years",
+      "blanks": {
+        "1": {
+          "accept": [
+            "5–10",
+            "5-10",
+            "5 to 10"
+          ],
+          "hint": "Starts with “5”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b4",
+      "title": "“Walk me through a DCF.”",
+      "difficulty": "core",
+      "teaser": "Includes a model interview answer",
+      "body": "**Interview answer:** \"A DCF values a company based on the present value of its future cash flows. First, project unlevered free cash flow — EBIT less taxes, plus D&A, less CapEx and the change in working capital — for five to ten years. Then calculate a discount rate, usually WACC. Then calculate terminal value, either with a perpetuity growth rate or an exit multiple. Discount the cash flows and terminal value back to today and add them up to get enterprise value. Then subtract net debt to get equity value and divide by diluted shares for the implied share price.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b5",
+      "title": "Why project 5–10 years?",
+      "difficulty": "follow-up",
+      "teaser": "Long enough for the company to reach a steady state (stable growth and margins), short enough that projections stay credible.",
+      "body": "Long enough for the company to reach a steady state (stable growth and margins), short enough that projections stay credible. A high-growth company needs a longer period, or its terminal value starts while it's still growing unsustainably."
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "When is a DCF most and least useful?",
+      "difficulty": "follow-up",
+      "teaser": "Most: stable, predictable cash flows (consumer staples, mature industrials).",
+      "body": "Most: stable, predictable cash flows (consumer staples, mature industrials). Least: early-stage companies with negative cash flow, highly cyclical businesses, and banks (debt is their raw material — see 10.1)."
+    },
+    {
+      "type": "mcq",
+      "id": "b7",
+      "prompt": "For which company is a standard DCF LEAST useful?",
+      "options": [
+        {
+          "id": "a",
+          "text": "A mature consumer staples company"
+        },
+        {
+          "id": "b",
+          "text": "A stable industrial"
+        },
+        {
+          "id": "c",
+          "text": "A bank"
+        },
+        {
+          "id": "d",
+          "text": "A utility with regulated returns"
+        }
+      ],
+      "correct": "c",
+      "explanation": "For banks, debt is their raw material and interest is operating, so unlevered FCF isn't meaningful — use a DDM or P/BV."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b8",
+      "title": "Say it out loud",
+      "prompts": [
+        "Walk me through a DCF in under 90 seconds."
+      ],
+      "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b9",
+      "workbook": "PEB_04_DCF",
+      "body": "Practice this lesson's mechanics in the matching workbook."
+    }
+  ]
+}

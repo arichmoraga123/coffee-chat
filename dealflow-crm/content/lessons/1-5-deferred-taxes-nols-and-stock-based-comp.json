@@ -1,0 +1,168 @@
+{
+  "id": "1-5",
+  "slug": "deferred-taxes-nols-and-stock-based-comp",
+  "module": 1,
+  "moduleTitle": "Accounting",
+  "title": "Deferred taxes, NOLs, and stock-based comp",
+  "difficulty": "advanced",
+  "estMinutes": 10,
+  "prerequisites": [
+    "1-4"
+  ],
+  "relatedQuestionTags": [
+    "deferred tax",
+    "nol",
+    "stock-based"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Accounting"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Accounting"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: What's a DTL?",
+    "Answer out loud: How do NOLs affect value?",
+    "Answer out loud: Is SBC a real expense?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "Companies keep two sets of books: book (GAAP, for investors) and tax (for the IRS). They often differ."
+        },
+        {
+          "body": "Timing differences create deferred tax liabilities (pay more tax later) or deferred tax assets (pay less later)."
+        },
+        {
+          "body": "Net operating losses (NOLs) are past losses that can offset future taxable income — a DTA."
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b2",
+      "prompt": "Fill in the blank",
+      "template": "Accelerated depreciation for tax purposes creates a deferred tax {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "liability",
+            "a liability",
+            "deferred tax liability",
+            "dtl"
+          ],
+          "hint": "Starts with “L”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "NOLs create a deferred tax {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "asset",
+            "an asset",
+            "deferred tax asset",
+            "dta"
+          ],
+          "hint": "Starts with “A”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "If a company might not use its DTAs, it records a {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "valuation allowance",
+            "an allowance",
+            "valuation reserve"
+          ],
+          "hint": "Starts with “V”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b5",
+      "title": "How does a DTL arise?",
+      "difficulty": "follow-up",
+      "teaser": "Tax rules let companies depreciate faster than they do on GAAP books.",
+      "body": "Tax rules let companies depreciate faster than they do on GAAP books. Early on, tax depreciation > book depreciation, so cash taxes are lower than book taxes. That difference is a liability: the company will owe it later when tax depreciation falls below book.\n\n**Interview answer:** \"When tax depreciation is faster than book depreciation, the company pays less cash tax now and more later. The difference sits on the balance sheet as a deferred tax liability.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "How do NOLs affect a valuation?",
+      "difficulty": "follow-up",
+      "teaser": "NOLs reduce future cash taxes.",
+      "body": "NOLs reduce future cash taxes. Value them separately as the present value of the tax savings, or reduce cash taxes in the DCF. Since 2017 tax reform, new US NOLs carry forward indefinitely but can offset only 80% of taxable income in a given year."
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "What happens to NOLs in an acquisition?",
+      "difficulty": "advanced",
+      "teaser": "If ownership changes by more than 50%, Section 382 limits how much NOL can be used per year: roughly the target's equity value × a published long-ter…",
+      "body": "If ownership changes by more than 50%, Section 382 limits how much NOL can be used per year: roughly the target's equity value × a published long-term tax-exempt rate. So acquired NOLs are worth less than their face value.\n\n**Interview answer:** \"Section 382 caps annual NOL usage after a change of control, so you can't buy a company just for its losses.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "SBC is added back on the CFS — so is it free?",
+      "difficulty": "follow-up",
+      "teaser": "No.",
+      "body": "No. It doesn't use cash, but it dilutes existing shareholders, and companies often spend real cash buying back shares to offset it. In valuation, adding SBC back to cash flow overstates value unless dilution is captured elsewhere. Many practitioners treat it as a cash expense.\n\n**Interview answer:** \"It's non-cash, but it's a real cost through dilution. Adding it back without counting the dilution overstates value.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b9",
+      "prompt": "SBC is added back on the cash flow statement. What's the right way to think about it in valuation?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It's free, because it doesn't use cash"
+        },
+        {
+          "id": "b",
+          "text": "It's a real cost through dilution, so adding it back without counting dilution overstates value"
+        },
+        {
+          "id": "c",
+          "text": "It should be added back and the share count should be reduced"
+        },
+        {
+          "id": "d",
+          "text": "It only matters for companies with negative net income"
+        }
+      ],
+      "correct": "b",
+      "explanation": "SBC doesn't use cash, but it dilutes shareholders (and companies often buy back shares to offset it). Ignoring that overstates value."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b10",
+      "title": "Say it out loud",
+      "prompts": [
+        "What's a DTL?",
+        "How do NOLs affect value?",
+        "Is SBC a real expense?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}

@@ -44,3 +44,6 @@ next-env.d.ts
 
 .vercel
 .env*.local
+
+# Paid reference guides (BIWS, WSP) — never commit or serve
+/content/sources/

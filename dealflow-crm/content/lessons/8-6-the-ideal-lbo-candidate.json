@@ -1,0 +1,86 @@
+{
+  "id": "8-6",
+  "slug": "the-ideal-lbo-candidate",
+  "module": 8,
+  "moduleTitle": "LBO",
+  "title": "The ideal LBO candidate",
+  "difficulty": "follow-up",
+  "estMinutes": 10,
+  "prerequisites": [
+    "8-5"
+  ],
+  "relatedQuestionTags": [
+    "lbo candidate",
+    "lbo"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "LBO Models"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Leveraged Buyouts"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: What makes a good LBO candidate?"
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "id": "b1",
+      "body": "- Stable, predictable cash flow (to service debt)\n- Low CapEx needs (more cash for debt paydown)\n- Strong market position and defensible moat\n- Tangible assets for collateral\n- Room for operational improvement or cost cuts\n- Strong management team\n- Clear exit path (strategic buyers or IPO)\n- Reasonable purchase price"
+    },
+    {
+      "type": "deepDive",
+      "id": "b2",
+      "title": "What makes a bad LBO candidate?",
+      "difficulty": "follow-up",
+      "teaser": "Highly cyclical revenue, heavy CapEx, rapid technological disruption, negative or volatile cash flow, or a business that depends on constant reinvest…",
+      "body": "Highly cyclical revenue, heavy CapEx, rapid technological disruption, negative or volatile cash flow, or a business that depends on constant reinvestment (early-stage tech). All of these struggle to service fixed debt.\n\n**Interview answer:** \"Volatile or cyclical cash flow and heavy CapEx, since the business has to reliably pay interest and debt.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b3",
+      "prompt": "Which company is the WORST LBO candidate?",
+      "options": [
+        {
+          "id": "a",
+          "text": "A subscription software company with 95% retention"
+        },
+        {
+          "id": "b",
+          "text": "A highly cyclical manufacturer with heavy CapEx"
+        },
+        {
+          "id": "c",
+          "text": "A market-leading distributor with stable margins"
+        },
+        {
+          "id": "d",
+          "text": "A services business with low CapEx and recurring contracts"
+        }
+      ],
+      "correct": "b",
+      "explanation": "Volatile, cyclical cash flow and heavy CapEx make it hard to reliably service fixed debt."
+    },
+    {
+      "type": "deepDive",
+      "id": "b4",
+      "title": "Why do PE firms like recurring revenue?",
+      "difficulty": "follow-up",
+      "teaser": "It makes cash flow predictable, which lets the company carry more debt safely.",
+      "body": "It makes cash flow predictable, which lets the company carry more debt safely."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b5",
+      "title": "Say it out loud",
+      "prompts": [
+        "What makes a good LBO candidate?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}

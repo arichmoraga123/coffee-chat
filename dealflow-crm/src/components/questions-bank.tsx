@@ -54,19 +54,22 @@ export function QuestionsBank({
   drillStreak,
   weeklyXP = 0,
   totalXP = 0,
+  initialTagFilter = "",
 }: {
   questions: QuestionDTO[];
   initialProgress: ProgressMap;
   drillStreak: number;
   weeklyXP?: number;
   totalXP?: number;
+  /** Comma-separated topics, e.g. from a lesson's "Drill related questions" link. */
+  initialTagFilter?: string;
 }) {
   const router = useRouter();
   const { careerTracks, narrowTrack } = useCareerTracks();
   const [progress, setProgress] = useState<ProgressMap>(initialProgress);
   const [category, setCategory] = useState<string>("all");
   const [difficulty, setDifficulty] = useState<string>("all");
-  const [tagFilter, setTagFilter] = useState("");
+  const [tagFilter, setTagFilter] = useState(initialTagFilter);
   const [firm, setFirm] = useState<string>("all");
   const [status, setStatus] = useState<string>("all");
   const [practiceOpen, setPracticeOpen] = useState(false);
@@ -141,7 +144,11 @@ export function QuestionsBank({
   );
 
   const filteredBrowse = useMemo(() => {
-    const tagNeedle = tagFilter.trim().toLowerCase();
+    const tagNeedles = tagFilter
+      .toLowerCase()
+      .split(",")
+      .map((t) => t.trim().replace(/-/g, " "))
+      .filter(Boolean);
     const ranked = [...trackFiltered].sort((a, b) => {
       const aRec = relevantCategories.includes(a.category) ? 1 : 0;
       const bRec = relevantCategories.includes(b.category) ? 1 : 0;
@@ -152,7 +159,16 @@ export function QuestionsBank({
       if (category !== "all" && q.category !== category) return false;
       if (difficulty !== "all" && q.difficulty !== difficulty) return false;
       if (status !== "all" && statusOf(q.id) !== status) return false;
-      if (tagNeedle && !q.tags.some((t) => t.toLowerCase().includes(tagNeedle))) return false;
+      if (
+        tagNeedles.length &&
+        !tagNeedles.some(
+          (n) =>
+            q.tags.some((t) => t.toLowerCase().includes(n)) ||
+            q.keywords.some((k) => k.toLowerCase().includes(n)) ||
+            q.question.toLowerCase().includes(n),
+        )
+      )
+        return false;
       if (!matchesFirm(q)) return false;
       return true;
     });
@@ -462,7 +478,7 @@ export function QuestionsBank({
           </select>
           <label className="mb-1 block text-xs text-zinc-500">Tags</label>
           <Input
-            placeholder="e.g. WACC"
+            placeholder="e.g. WACC, beta"
             value={tagFilter}
             onChange={(e) => setTagFilter(e.target.value)}
             className="text-sm"

@@ -1,0 +1,143 @@
+{
+  "id": "10-3",
+  "slug": "energy-eandp",
+  "module": 10,
+  "moduleTitle": "Industry-Specific Valuation",
+  "title": "Energy (E&P)",
+  "difficulty": "advanced",
+  "estMinutes": 10,
+  "prerequisites": [
+    "10-2"
+  ],
+  "relatedQuestionTags": [
+    "e&p",
+    "energy"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Industry-specific valuation"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Industry Valuation"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Why EBITDAX?",
+    "Answer out loud: Why NAV instead of a perpetuity DCF?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "Exploration & production companies find and extract oil and gas. Value depends on reserves and commodity prices."
+        },
+        {
+          "body": "Metrics: EV/EBITDAX, NAV of reserves, EV/production ($ per flowing barrel), EV/reserves."
+        },
+        {
+          "body": "Reserves: proved (1P), probable (2P), possible (3P)."
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b2",
+      "prompt": "Fill in the blank",
+      "template": "EBITDAX adds back {{1}} expense",
+      "blanks": {
+        "1": {
+          "accept": [
+            "exploration"
+          ],
+          "hint": "Starts with “E”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "Proved reserves are abbreviated {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "1P"
+          ],
+          "hint": "Starts with “1”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b4",
+      "title": "Why EBITDAX instead of EBITDA?",
+      "difficulty": "advanced",
+      "teaser": "Companies account for exploration differently.",
+      "body": "Companies account for exploration differently. Under successful efforts, failed exploration costs (dry holes) are expensed; under full cost, they're capitalized. Adding back exploration expense makes companies using different methods comparable.\n\n**Interview answer:** \"Exploration accounting differs between successful efforts and full cost, so we add exploration back to compare them.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b5",
+      "prompt": "Why do analysts use EBITDAX for E&P companies?",
+      "options": [
+        {
+          "id": "a",
+          "text": "To remove commodity price swings"
+        },
+        {
+          "id": "b",
+          "text": "Exploration accounting differs (successful efforts vs. full cost), so adding it back makes companies comparable"
+        },
+        {
+          "id": "c",
+          "text": "To include hedging gains"
+        },
+        {
+          "id": "d",
+          "text": "Because E&P companies have no depreciation"
+        }
+      ],
+      "correct": "b",
+      "explanation": "Successful-efforts companies expense dry holes; full-cost companies capitalize them. Adding back exploration expense levels the playing field."
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "How does an NAV model work?",
+      "difficulty": "advanced",
+      "teaser": "Project production from each reserve category until depletion, apply a commodity price deck, subtract costs and taxes, and discount (often at 10% — P…",
+      "body": "Project production from each reserve category until depletion, apply a commodity price deck, subtract costs and taxes, and discount (often at 10% — PV-10). Sum the reserves, subtract net debt. Risk probable and possible reserves at lower percentages."
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "Why isn't a standard DCF terminal value used?",
+      "difficulty": "advanced",
+      "teaser": "Reserves are finite and deplete.",
+      "body": "Reserves are finite and deplete. An NAV model projects to depletion instead of assuming cash flows forever."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "How do hedges affect value?",
+      "difficulty": "advanced",
+      "teaser": "Hedging locks in prices for part of production, reducing exposure to commodity swings.",
+      "body": "Hedging locks in prices for part of production, reducing exposure to commodity swings. Model hedged volumes at hedge prices and the rest at the price deck."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b9",
+      "title": "Say it out loud",
+      "prompts": [
+        "Why EBITDAX?",
+        "Why NAV instead of a perpetuity DCF?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}

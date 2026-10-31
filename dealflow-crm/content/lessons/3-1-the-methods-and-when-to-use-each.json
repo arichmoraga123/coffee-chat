@@ -1,0 +1,207 @@
+{
+  "id": "3-1",
+  "slug": "the-methods-and-when-to-use-each",
+  "module": 3,
+  "moduleTitle": "Valuation Overview",
+  "title": "The methods and when to use each",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "2-5"
+  ],
+  "relatedQuestionTags": [
+    "valuation",
+    "precedents",
+    "comps"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Valuation"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Valuation"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Walk me through how you'd value a company.",
+    "Answer out loud: Rank the methods.",
+    "Answer out loud: When is the DCF most useful?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "heading": "Relative valuation",
+          "body": "trading comps (what similar public companies trade at) and precedent transactions (what buyers paid for similar companies)."
+        },
+        {
+          "heading": "Intrinsic valuation",
+          "body": "the DCF — value from the company's own projected cash flows."
+        },
+        {
+          "heading": "LBO analysis",
+          "body": "what a financial sponsor could pay and still hit its target return. Often the floor."
+        },
+        {
+          "heading": "Others",
+          "body": "sum-of-the-parts (conglomerates), liquidation (distressed), dividend discount model (banks)."
+        },
+        {
+          "body": "Each gives a range; together they form the football field."
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b2",
+      "prompt": "Fill in the blank",
+      "template": "Precedent transactions usually give the highest values because they include a {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "control premium",
+            "a control premium",
+            "premium for control"
+          ],
+          "hint": "Starts with “C”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "An LBO analysis often sets the {{1}} of a valuation range",
+      "blanks": {
+        "1": {
+          "accept": [
+            "floor",
+            "the floor",
+            "minimum",
+            "low end"
+          ],
+          "hint": "Starts with “F”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "The DCF is an {{1}} method; comps are {{2}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "intrinsic",
+            "intrinsic valuation"
+          ],
+          "hint": "Starts with “I”."
+        },
+        "2": {
+          "accept": [
+            "relative",
+            "relative valuation"
+          ],
+          "hint": "Starts with “R”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b5",
+      "title": "“Walk me through how you'd value a company.”",
+      "difficulty": "core",
+      "teaser": "Includes a model interview answer",
+      "body": "**Interview answer:** \"I'd use three main methods. Trading comps — how similar public companies are valued, using multiples like EV/EBITDA. Precedent transactions — what buyers paid for similar companies. And a DCF — projecting the company's free cash flows and discounting them back. For a sponsor-relevant company, I'd add an LBO to see what a PE firm could pay. Then I'd compare the ranges on a football field.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "Which method gives the highest value?",
+      "difficulty": "core",
+      "teaser": "Usually precedent transactions, because buyers pay a control premium (typically 20–40%) plus sometimes synergies.",
+      "body": "Usually precedent transactions, because buyers pay a control premium (typically 20–40%) plus sometimes synergies. The DCF can be highest or lowest — it depends entirely on assumptions. Trading comps sit in between. The LBO is usually lowest, because sponsors are constrained by target returns and debt capacity.\n\n**Interview answer:** \"Generally precedents, because of the control premium. The DCF depends on assumptions so it can land anywhere. The LBO is usually the floor.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b7",
+      "prompt": "Which method usually produces the LOWEST value in a football field?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Precedent transactions"
+        },
+        {
+          "id": "b",
+          "text": "Trading comps"
+        },
+        {
+          "id": "c",
+          "text": "LBO analysis"
+        },
+        {
+          "id": "d",
+          "text": "DCF — always"
+        }
+      ],
+      "correct": "c",
+      "explanation": "The LBO is usually the floor: sponsors are constrained by target returns and debt capacity. The DCF can land anywhere depending on assumptions."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "When would trading comps be higher than precedents?",
+      "difficulty": "advanced",
+      "teaser": "When public markets are hot relative to the period when the precedent deals happened — for example, if multiples have expanded sharply since the deal…",
+      "body": "When public markets are hot relative to the period when the precedent deals happened — for example, if multiples have expanded sharply since the deals closed, or the precedents were done during a downturn."
+    },
+    {
+      "type": "deepDive",
+      "id": "b9",
+      "title": "Pros and cons of each method?",
+      "difficulty": "follow-up",
+      "teaser": "Comps: market-based and current, but no perfectly comparable companies and subject to market mood.",
+      "body": "Comps: market-based and current, but no perfectly comparable companies and subject to market mood. Precedents: reflect real prices paid, but data is often old or incomplete and deals have unique circumstances. DCF: based on fundamentals and independent of market mood, but extremely sensitive to assumptions, especially terminal value."
+    },
+    {
+      "type": "deepDive",
+      "id": "b10",
+      "title": "Why is the LBO the \"floor\"?",
+      "difficulty": "follow-up",
+      "teaser": "A financial buyer with no synergies can pay at least that much and still earn 20%+.",
+      "body": "A financial buyer with no synergies can pay at least that much and still earn 20%+. A strategic buyer with synergies should be able to pay more. If a sale price falls below the LBO value, a sponsor would step in."
+    },
+    {
+      "type": "deepDive",
+      "id": "b11",
+      "title": "When do you use sum-of-the-parts?",
+      "difficulty": "follow-up",
+      "teaser": "When a company has distinct segments with different growth, margins, and peer multiples — e.g., a conglomerate with a software division and a manufac…",
+      "body": "When a company has distinct segments with different growth, margins, and peer multiples — e.g., a conglomerate with a software division and a manufacturing division. Value each segment separately, add them up, and adjust for corporate costs and net debt."
+    },
+    {
+      "type": "deepDive",
+      "id": "b12",
+      "title": "When do you use liquidation value?",
+      "difficulty": "advanced",
+      "teaser": "For distressed companies where the going-concern value is in doubt.",
+      "body": "For distressed companies where the going-concern value is in doubt. Estimate what assets would fetch in a sale (with haircuts — receivables recover more than inventory, which recovers more than specialized equipment) minus liabilities."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b13",
+      "title": "Say it out loud",
+      "prompts": [
+        "Walk me through how you'd value a company.",
+        "Rank the methods.",
+        "When is the DCF most useful?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}

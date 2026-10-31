@@ -40,3 +40,17 @@ export async function requireAdminUserId() {
   if (role !== "ADMIN" || u.role !== "ADMIN") redirect("/dashboard");
   return userId;
 }
+
+/** Admins and mentors (role "MENTOR") — used for the Prospect Learn mentor tools. Checks the DB role. */
+export async function requireMentorUserId(): Promise<{ userId: string; isAdmin: boolean }> {
+  const session = await getServerSession(authOptions);
+  const userId = session?.user?.id;
+  if (!userId) redirect("/login");
+  const u = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { accountActive: true, role: true },
+  });
+  if (!u?.accountActive) redirect("/login");
+  if (u.role !== "ADMIN" && u.role !== "MENTOR") redirect("/dashboard");
+  return { userId, isAdmin: u.role === "ADMIN" };
+}

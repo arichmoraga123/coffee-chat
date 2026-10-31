@@ -1,8 +1,10 @@
+import { requireAdminUserId } from "@/lib/auth";
 import { AdminQuestionsPanel } from "@/components/admin-questions-panel";
 
 export const dynamic = "force-dynamic";
 
-export default function AdminQuestionsPage() {
+export default async function AdminQuestionsPage() {
+  await requireAdminUserId();
   return (
     <div className="space-y-3">
       <h1 className="page-title">Admin · Questions</h1>

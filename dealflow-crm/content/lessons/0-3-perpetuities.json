@@ -1,0 +1,156 @@
+{
+  "id": "0-3",
+  "slug": "perpetuities",
+  "module": 0,
+  "moduleTitle": "Foundations",
+  "title": "Perpetuities",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "0-2"
+  ],
+  "relatedQuestionTags": [
+    "perpetuity",
+    "terminal value"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Valuation fundamentals"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Valuation — Introduction"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Value a $20/year perpetuity at 8%.",
+    "Answer out loud: Why does g have to be below r?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "A perpetuity pays the same cash flow forever. Value = CF ÷ r. $100 a year at 10% = $1,000."
+        },
+        {
+          "body": "A growing perpetuity grows each year at g. Value = CF₁ ÷ (r − g), where CF₁ is *next* year's cash flow."
+        },
+        {
+          "body": "This is exactly the Gordon Growth terminal value used in a DCF."
+        }
+      ]
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "\\text{PV}_{\\text{perpetuity}} = \\frac{\\text{CF}}{r} \\qquad \\text{PV}_{\\text{growing}} = \\frac{\\text{CF}_1}{r - g}",
+      "caption": "Perpetuity and growing perpetuity",
+      "legend": [
+        {
+          "symbol": "\\text{CF}_1",
+          "meaning": "Next year's cash flow"
+        },
+        {
+          "symbol": "r",
+          "meaning": "Discount rate"
+        },
+        {
+          "symbol": "g",
+          "meaning": "Constant growth rate (must be below r)"
+        }
+      ]
+    },
+    {
+      "type": "calc",
+      "id": "b3",
+      "prompt": "$50 per year forever at a 5% discount rate → **?**",
+      "answer": 1000,
+      "tolerance": 1,
+      "unit": "$",
+      "solution": "$50 per year forever at a 5% discount rate → $1,000"
+    },
+    {
+      "type": "calc",
+      "id": "b4",
+      "prompt": "Growing perpetuity: next year's CF of $100, r = 10%, g = 2% → **?**",
+      "answer": 1250,
+      "tolerance": 1,
+      "unit": "$",
+      "solution": "Growing perpetuity: next year's CF of $100, r = 10%, g = 2% → $1,250"
+    },
+    {
+      "type": "fillBlank",
+      "id": "b5",
+      "prompt": "Fill in the blank",
+      "template": "The formula breaks down when g is {{1}} r",
+      "blanks": {
+        "1": {
+          "accept": [
+            "greater than or equal to",
+            "at least",
+            ">=",
+            "≥",
+            "equal to or greater than",
+            "greater or equal to"
+          ],
+          "hint": "Starts with “G”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "Why does the formula use *next year's* cash flow?",
+      "difficulty": "follow-up",
+      "teaser": "The formula values a stream starting one period from now.",
+      "body": "The formula values a stream starting one period from now. If you have this year's cash flow, multiply by (1 + g) first. Forgetting this in a DCF understates terminal value.\n\n**Interview answer:** \"Gordon Growth values cash flows starting one year out, so you grow the final-year cash flow by (1 + g) first.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b7",
+      "prompt": "This year's cash flow is $100, g = 2%, r = 10%. What's the growing perpetuity value?",
+      "options": [
+        {
+          "id": "a",
+          "text": "$1,250"
+        },
+        {
+          "id": "b",
+          "text": "$1,275"
+        },
+        {
+          "id": "c",
+          "text": "$1,000"
+        },
+        {
+          "id": "d",
+          "text": "$1,020"
+        }
+      ],
+      "correct": "b",
+      "explanation": "The formula needs next year's cash flow: $100 × 1.02 = $102; $102 ÷ (10% − 2%) = $1,275. $1,250 forgets to grow the cash flow first."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "Why must g be lower than r — and lower than GDP growth?",
+      "difficulty": "core",
+      "teaser": "If g ≥ r, the denominator is zero or negative and the value is infinite or nonsensical.",
+      "body": "If g ≥ r, the denominator is zero or negative and the value is infinite or nonsensical. Economically, a company can't grow faster than the overall economy forever, or it would eventually *become* the economy. So long-run g is capped around long-term nominal GDP growth (roughly 2–4%).\n\n**Interview answer:** \"A company can't outgrow the economy forever, so terminal growth stays below long-run GDP growth — and it has to stay below the discount rate or the math breaks.\""
+    },
+    {
+      "type": "checkpoint",
+      "id": "b9",
+      "title": "Say it out loud",
+      "prompts": [
+        "Value a $20/year perpetuity at 8%.",
+        "Why does g have to be below r?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}

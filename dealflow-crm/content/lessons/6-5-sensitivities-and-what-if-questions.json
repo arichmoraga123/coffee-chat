@@ -1,0 +1,168 @@
+{
+  "id": "6-5",
+  "slug": "sensitivities-and-what-if-questions",
+  "module": 6,
+  "moduleTitle": "DCF",
+  "title": "Sensitivities and \"what if\" questions",
+  "difficulty": "follow-up",
+  "estMinutes": 10,
+  "prerequisites": [
+    "6-4"
+  ],
+  "relatedQuestionTags": [
+    "sensitivity",
+    "dcf"
+  ],
+  "workbook": "PEB_04_DCF",
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "DCF"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Discounted Cash Flow"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: What happens to the DCF if WACC rises 1%?",
+    "Answer out loud: If CapEx rises $10?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "Build tables that vary two key inputs: WACC vs. terminal growth, WACC vs. exit multiple, revenue growth vs. margin."
+        },
+        {
+          "body": "The range matters more than any single point estimate."
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b2",
+      "prompt": "Fill in the blank",
+      "template": "If WACC increases, DCF value {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "decreases",
+            "falls",
+            "declines",
+            "goes down",
+            "decrease",
+            "lower",
+            "down",
+            "drops"
+          ],
+          "hint": "Starts with “D”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "If terminal growth increases, DCF value {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "increases",
+            "rises",
+            "goes up",
+            "increase",
+            "higher",
+            "up",
+            "grows"
+          ],
+          "hint": "Starts with “I”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b4",
+      "title": "Which has a bigger impact: +1% WACC or +1% terminal growth?",
+      "difficulty": "follow-up",
+      "teaser": "Usually WACC.",
+      "body": "Usually WACC. It affects every discount factor *and* the TV denominator. g only affects the TV. (They're roughly symmetric in the TV denominator, but WACC also discounts every projected year.)\n\n**Interview answer:** \"WACC, because it hits every discount factor as well as terminal value, while growth only changes terminal value.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b5",
+      "prompt": "Which usually moves a DCF more: +1% WACC or +1% terminal growth?",
+      "options": [
+        {
+          "id": "a",
+          "text": "+1% terminal growth, because TV is most of the value"
+        },
+        {
+          "id": "b",
+          "text": "+1% WACC, because it hits every discount factor and the TV denominator"
+        },
+        {
+          "id": "c",
+          "text": "They're always exactly equal"
+        },
+        {
+          "id": "d",
+          "text": "Neither — sensitivities only matter for the exit multiple"
+        }
+      ],
+      "correct": "b",
+      "explanation": "WACC affects every projected year's discount factor as well as the TV denominator; growth only affects TV."
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "D&A increases by $10 in every year. What happens to the DCF?",
+      "difficulty": "advanced",
+      "teaser": "UFCF rises by the tax shield ($10 × t) each year, since D&A reduces taxable EBIT but is added back.",
+      "body": "UFCF rises by the tax shield ($10 × t) each year, since D&A reduces taxable EBIT but is added back. With perpetuity growth TV, value rises further (higher final UFCF). With exit-multiple TV on EBITDA, the TV is unchanged (EBITDA isn't affected). In reality, higher D&A usually comes from higher CapEx, which would lower value."
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "CapEx increases by $10 a year.",
+      "difficulty": "follow-up",
+      "teaser": "UFCF falls by $10 a year; value falls.",
+      "body": "UFCF falls by $10 a year; value falls. If the CapEx funds growth, revenue projections should rise too — always ask whether assumptions are consistent."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "The tax rate rises.",
+      "difficulty": "follow-up",
+      "teaser": "NOPAT and UFCF fall.",
+      "body": "NOPAT and UFCF fall. The after-tax cost of debt also falls (a larger tax shield), lowering WACC slightly. Net effect: usually value falls."
+    },
+    {
+      "type": "deepDive",
+      "id": "b9",
+      "title": "Why present sensitivity tables at all?",
+      "difficulty": "core",
+      "teaser": "The DCF is only as good as its assumptions.",
+      "body": "The DCF is only as good as its assumptions. Showing a range across plausible inputs is more honest and shows which assumptions drive value."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b10",
+      "title": "Say it out loud",
+      "prompts": [
+        "What happens to the DCF if WACC rises 1%?",
+        "If CapEx rises $10?"
+      ],
+      "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b11",
+      "workbook": "PEB_04_DCF",
+      "body": "Build them in the “Sensitivity” tab."
+    }
+  ]
+}

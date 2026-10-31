@@ -1,0 +1,195 @@
+{
+  "id": "0-2",
+  "slug": "npv-irr-and-moic",
+  "module": 0,
+  "moduleTitle": "Foundations",
+  "title": "NPV, IRR, and MOIC",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "0-1"
+  ],
+  "relatedQuestionTags": [
+    "irr",
+    "moic"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Valuation fundamentals"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Valuation — Introduction"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Define IRR.",
+    "Answer out loud: Why would a PE firm accept a lower IRR for a higher MOIC?",
+    "Answer out loud: What does a dividend recap do to IRR and MOIC?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "NPV = sum of discounted future cash flows − upfront cost. Positive NPV means the investment earns more than the required return."
+        },
+        {
+          "body": "IRR is the discount rate that makes NPV exactly zero — the annualized return the investment earns."
+        },
+        {
+          "body": "MOIC (multiple on invested capital) = total cash back ÷ cash put in. It ignores time."
+        },
+        {
+          "body": "PE firms report both: IRR for speed, MOIC for size of the win."
+        }
+      ]
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "\\text{NPV} = \\sum_{t=1}^{n} \\frac{\\text{CF}_t}{(1 + r)^t} - \\text{Initial cost}",
+      "caption": "Net present value",
+      "legend": [
+        {
+          "symbol": "\\text{CF}_t",
+          "meaning": "Cash flow in year t"
+        },
+        {
+          "symbol": "r",
+          "meaning": "Required return (hurdle rate)"
+        },
+        {
+          "symbol": "\\text{IRR}",
+          "meaning": "The r that makes NPV = 0"
+        }
+      ]
+    },
+    {
+      "type": "formula",
+      "id": "b3",
+      "latex": "\\text{MOIC} = \\frac{\\text{Total cash returned}}{\\text{Cash invested}}",
+      "caption": "Multiple on invested capital",
+      "legend": [
+        {
+          "symbol": "\\text{MOIC}",
+          "meaning": "Cash-on-cash multiple — ignores time"
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "IRR is the discount rate that sets NPV equal to {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "zero",
+            "0",
+            "nil"
+          ],
+          "hint": "Starts with “Z”."
+        }
+      }
+    },
+    {
+      "type": "calc",
+      "id": "b5",
+      "prompt": "$100 invested, $250 returned → MOIC = **?**",
+      "answer": 2.5,
+      "tolerance": 0.05,
+      "unit": "x",
+      "solution": "$100 invested, $250 returned → MOIC = 2.5x"
+    },
+    {
+      "type": "fillBlank",
+      "id": "b6",
+      "prompt": "Fill in the blank",
+      "template": "If NPV > 0 at a 15% hurdle rate, the IRR must be {{1}} 15%",
+      "blanks": {
+        "1": {
+          "accept": [
+            "greater than",
+            "higher than",
+            "above",
+            "more than",
+            ">"
+          ],
+          "hint": "Starts with “G”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "IRR vs. MOIC — why do PE firms care about both?",
+      "difficulty": "core",
+      "teaser": "IRR rewards speed; MOIC rewards magnitude.",
+      "body": "IRR rewards speed; MOIC rewards magnitude. Doubling money in 1 year is a 100% IRR but only 2.0x. Tripling it over 7 years is ~17% IRR but 3.0x. LPs need both: a high IRR on a quick flip doesn't put much money to work, and a high MOIC over a decade may underperform the market.\n\n**Interview answer:** \"IRR tells you how fast you made money, MOIC tells you how much. A quick 1.5x can show a huge IRR, so you look at both.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "How does a dividend recap affect IRR and MOIC?",
+      "difficulty": "follow-up",
+      "teaser": "A recap returns cash to the sponsor early.",
+      "body": "A recap returns cash to the sponsor early. Getting money back sooner raises IRR. MOIC is roughly unchanged or slightly lower, because the company now carries more debt and pays more interest, which reduces the equity value at exit.\n\n**Interview answer:** \"A dividend recap pulls cash forward, which boosts IRR. MOIC barely moves or dips, since the new debt reduces exit equity.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b9",
+      "prompt": "A sponsor does a dividend recap in year 2. What typically happens to IRR and MOIC?",
+      "options": [
+        {
+          "id": "a",
+          "text": "IRR up, MOIC roughly flat or slightly down"
+        },
+        {
+          "id": "b",
+          "text": "IRR down, MOIC up"
+        },
+        {
+          "id": "c",
+          "text": "Both up significantly"
+        },
+        {
+          "id": "d",
+          "text": "Both unchanged"
+        }
+      ],
+      "correct": "a",
+      "explanation": "Getting cash back earlier boosts IRR. MOIC barely moves or dips, because the new debt and interest reduce equity value at exit."
+    },
+    {
+      "type": "deepDive",
+      "id": "b10",
+      "title": "Can a project have more than one IRR?",
+      "difficulty": "gotcha",
+      "teaser": "Yes.",
+      "body": "Yes. If cash flows change sign more than once (negative, positive, negative — e.g., a mine with cleanup costs at the end), there can be multiple rates where NPV = 0. NPV doesn't have this problem."
+    },
+    {
+      "type": "deepDive",
+      "id": "b11",
+      "title": "What's wrong with ranking projects by IRR alone?",
+      "difficulty": "advanced",
+      "teaser": "IRR ignores scale.",
+      "body": "IRR ignores scale. A 50% IRR on $1,000 creates less value than a 20% IRR on $1,000,000. IRR also implicitly assumes interim cash flows are reinvested at the IRR itself, which overstates very high IRRs. For choosing between projects, NPV is the cleaner rule.\n\n**Interview answer:** \"IRR ignores scale and assumes reinvestment at the IRR. To compare projects, NPV is more reliable.\""
+    },
+    {
+      "type": "checkpoint",
+      "id": "b12",
+      "title": "Say it out loud",
+      "prompts": [
+        "Define IRR.",
+        "Why would a PE firm accept a lower IRR for a higher MOIC?",
+        "What does a dividend recap do to IRR and MOIC?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}

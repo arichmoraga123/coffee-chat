@@ -1,0 +1,198 @@
+{
+  "id": "5-3",
+  "slug": "levered-vs-unlevered-beta",
+  "module": 5,
+  "moduleTitle": "Cost of Capital",
+  "title": "Levered vs. unlevered beta",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "5-2"
+  ],
+  "relatedQuestionTags": [
+    "beta",
+    "unlever"
+  ],
+  "workbook": "PEB_03_CAPM_Beta_WACC",
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "DCF — WACC and Cost of Equity"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Discounted Cash Flow — Cost of Capital"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Why do we unlever beta?",
+    "Answer out loud: Walk me through a bottom-up beta.",
+    "Answer out loud: Why does debt raise beta?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "Observed (levered) beta includes two risks: business risk and financial risk from debt."
+        },
+        {
+          "body": "To compare companies or value a private one: unlever each comp's beta → take the median → relever at the target's capital structure."
+        },
+        {
+          "body": "Hamada: βU = βL ÷ [1 + (1 − t) × D/E]; βL = βU × [1 + (1 − t) × D/E]."
+        }
+      ]
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "\\beta_L = \\beta_U \\times \\left[1 + (1 - t) \\times \\frac{D}{E}\\right]",
+      "caption": "Hamada: relever (divide to unlever)",
+      "legend": [
+        {
+          "symbol": "\\beta_L",
+          "meaning": "Levered (observed) beta"
+        },
+        {
+          "symbol": "\\beta_U",
+          "meaning": "Unlevered (asset) beta — pure business risk"
+        },
+        {
+          "symbol": "t",
+          "meaning": "Tax rate"
+        },
+        {
+          "symbol": "D/E",
+          "meaning": "Debt-to-equity ratio"
+        }
+      ]
+    },
+    {
+      "type": "calc",
+      "id": "b3",
+      "prompt": "Levered beta 1.30, D/E 50%, tax 20% → unlevered beta = **?**",
+      "answer": 0.93,
+      "tolerance": 0.005,
+      "solution": "Levered beta 1.30, D/E 50%, tax 20% → unlevered beta = 0.93 (1.30 ÷ 1.40)"
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "Adding debt {{1}} levered beta",
+      "blanks": {
+        "1": {
+          "accept": [
+            "increases",
+            "rises",
+            "goes up",
+            "increase",
+            "higher",
+            "up",
+            "grows"
+          ],
+          "hint": "Starts with “I”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b5",
+      "prompt": "Fill in the blank",
+      "template": "For a company with no debt, levered beta {{1}} unlevered beta",
+      "blanks": {
+        "1": {
+          "accept": [
+            "equals"
+          ],
+          "hint": "Starts with “E”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "Why unlever and relever?",
+      "difficulty": "core",
+      "teaser": "Each comp's beta reflects its own debt level.",
+      "body": "Each comp's beta reflects its own debt level. Stripping out leverage isolates pure business risk, which is comparable across companies. Then you add back the target's own leverage.\n\n**Interview answer:** \"Comps have different debt levels, so I strip leverage out to get pure business risk, take the median, and relever at the target's capital structure.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b7",
+      "prompt": "Why unlever comparable companies' betas before using them?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Unlevered betas are always closer to 1.0"
+        },
+        {
+          "id": "b",
+          "text": "Each comp's beta reflects its own leverage; unlevering isolates business risk"
+        },
+        {
+          "id": "c",
+          "text": "Levered betas can't be calculated for public companies"
+        },
+        {
+          "id": "d",
+          "text": "To remove the tax rate from CAPM"
+        }
+      ],
+      "correct": "b",
+      "explanation": "Strip out each comp's leverage to get pure business risk, take the median, then relever at the target's capital structure."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "How do you get a beta for a private company?",
+      "difficulty": "core",
+      "teaser": "It has no trading history, so you can't regress.",
+      "body": "It has no trading history, so you can't regress. Use the bottom-up method above from public comps."
+    },
+    {
+      "type": "deepDive",
+      "id": "b9",
+      "title": "Why is levered beta higher than unlevered?",
+      "difficulty": "core",
+      "teaser": "Debt holders are paid first, so equity holders absorb more of the swings in business value.",
+      "body": "Debt holders are paid first, so equity holders absorb more of the swings in business value. More debt → more volatile equity returns → higher beta."
+    },
+    {
+      "type": "deepDive",
+      "id": "b10",
+      "title": "What does Hamada assume?",
+      "difficulty": "advanced",
+      "teaser": "That debt has a beta of zero (debt holders bear no market risk) and a constant debt level.",
+      "body": "That debt has a beta of zero (debt holders bear no market risk) and a constant debt level. For highly levered companies, debt carries real risk, so Hamada overstates levered beta. Some practitioners use a version that includes debt beta."
+    },
+    {
+      "type": "deepDive",
+      "id": "b11",
+      "title": "What if a company has more cash than debt?",
+      "difficulty": "advanced",
+      "teaser": "Hamada uses gross debt, so it ignores the cash.",
+      "body": "Hamada uses gross debt, so it ignores the cash. But cash has zero beta, which drags observed beta down. A cash-rich company's operating business is riskier than its observed beta suggests. Some analysts adjust for this using net debt or a cash-adjusted beta."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b12",
+      "title": "Say it out loud",
+      "prompts": [
+        "Why do we unlever beta?",
+        "Walk me through a bottom-up beta.",
+        "Why does debt raise beta?"
+      ],
+      "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b13",
+      "workbook": "PEB_03_CAPM_Beta_WACC",
+      "body": "Practice in the “Bottom-Up Beta” tab."
+    }
+  ]
+}

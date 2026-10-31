@@ -1,0 +1,172 @@
+{
+  "id": "10-1",
+  "slug": "banks",
+  "module": 10,
+  "moduleTitle": "Industry-Specific Valuation",
+  "title": "Banks",
+  "difficulty": "advanced",
+  "estMinutes": 10,
+  "prerequisites": [
+    "9-3"
+  ],
+  "relatedQuestionTags": [
+    "bank",
+    "p/bv",
+    "fig"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Industry-specific valuation"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Industry Valuation"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Why don't you use EV/EBITDA for a bank?",
+    "Answer out loud: What drives P/BV?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "Banks borrow (deposits) and lend at a higher rate. Interest is their core business, not financing."
+        },
+        {
+          "body": "So EV, EBITDA, and unlevered FCF don't make sense."
+        },
+        {
+          "body": "Use equity-based metrics: P/E, P/BV (price to book value), P/TBV (price to tangible book value)."
+        },
+        {
+          "body": "Intrinsic valuation: dividend discount model (DDM) or excess returns model."
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b2",
+      "prompt": "Fill in the blank",
+      "template": "Banks are valued with equity metrics like P/{{1}} and P/{{2}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "BV"
+          ],
+          "hint": "Starts with “B”."
+        },
+        "2": {
+          "accept": [
+            "TBV"
+          ],
+          "hint": "Starts with “T”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "A bank with ROE above its cost of equity should trade {{1}} book value",
+      "blanks": {
+        "1": {
+          "accept": [
+            "above",
+            "higher than",
+            "over",
+            "greater than"
+          ],
+          "hint": "Starts with “A”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "The intrinsic model for banks is the {{1}} model",
+      "blanks": {
+        "1": {
+          "accept": [
+            "dividend discount",
+            "ddm",
+            "dividend discount model"
+          ],
+          "hint": "Starts with “D”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b5",
+      "title": "Why doesn't EV/EBITDA work for banks?",
+      "difficulty": "follow-up",
+      "teaser": "Debt (deposits) is a bank's raw material, not a financing choice.",
+      "body": "Debt (deposits) is a bank's raw material, not a financing choice. Interest is its main revenue and main cost. You can't separate \"operations\" from \"financing,\" so EV and EBITDA lose meaning.\n\n**Interview answer:** \"For a bank, debt is the product, not financing. Interest is operating, so EBITDA and EV aren't meaningful. We use P/E and P/BV.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "What drives a bank's P/BV?",
+      "difficulty": "advanced",
+      "teaser": "Return on equity vs.",
+      "body": "Return on equity vs. cost of equity. If ROE exceeds the cost of equity, the bank creates value on each dollar of book equity and trades above 1.0x book. Below, it trades at a discount."
+    },
+    {
+      "type": "mcq",
+      "id": "b7",
+      "prompt": "A bank earns a 15% ROE with a 10% cost of equity. Where should it trade relative to book value?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Below 1.0x book"
+        },
+        {
+          "id": "b",
+          "text": "At exactly 1.0x book"
+        },
+        {
+          "id": "c",
+          "text": "Above 1.0x book"
+        },
+        {
+          "id": "d",
+          "text": "Book value is irrelevant for banks"
+        }
+      ],
+      "correct": "c",
+      "explanation": "ROE above the cost of equity means each dollar of book equity creates value, so the bank should trade above book."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "Why use a DDM?",
+      "difficulty": "advanced",
+      "teaser": "Regulators set minimum capital levels (e.g., CET1 ratios), so a bank can only pay out cash above those requirements.",
+      "body": "Regulators set minimum capital levels (e.g., CET1 ratios), so a bank can only pay out cash above those requirements. Dividends are the clearest measure of cash available to shareholders."
+    },
+    {
+      "type": "deepDive",
+      "id": "b9",
+      "title": "Why tangible book value?",
+      "difficulty": "advanced",
+      "teaser": "Goodwill and intangibles wouldn't be available to absorb losses in a crisis.",
+      "body": "Goodwill and intangibles wouldn't be available to absorb losses in a crisis. Regulators and investors focus on tangible equity."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b10",
+      "title": "Say it out loud",
+      "prompts": [
+        "Why don't you use EV/EBITDA for a bank?",
+        "What drives P/BV?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}

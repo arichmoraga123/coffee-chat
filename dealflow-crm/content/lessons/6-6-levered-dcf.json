@@ -1,0 +1,148 @@
+{
+  "id": "6-6",
+  "slug": "levered-dcf",
+  "module": 6,
+  "moduleTitle": "DCF",
+  "title": "Levered DCF",
+  "difficulty": "follow-up",
+  "estMinutes": 10,
+  "prerequisites": [
+    "6-5"
+  ],
+  "relatedQuestionTags": [
+    "levered",
+    "dcf"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "DCF"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Discounted Cash Flow"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: When would you use a levered DCF?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "Levered FCF = net income + D&A − CapEx − increase in NWC − mandatory debt repayment + new borrowing."
+        },
+        {
+          "body": "Discount at cost of equity."
+        },
+        {
+          "body": "Result = equity value directly (no bridge needed)."
+        }
+      ]
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "\\text{LFCF} = \\text{NI} + \\text{D\\&A} - \\text{CapEx} - \\Delta \\text{NWC} - \\text{Mandatory repayment} + \\text{New borrowing}",
+      "caption": "Levered free cash flow",
+      "legend": [
+        {
+          "symbol": "\\text{NI}",
+          "meaning": "Net income (already after interest)"
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "A levered DCF discounts at the {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "cost of equity",
+            "re",
+            "the cost of equity"
+          ],
+          "hint": "Starts with “C”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "A levered DCF produces {{1}} directly",
+      "blanks": {
+        "1": {
+          "accept": [
+            "equity value",
+            "equity"
+          ],
+          "hint": "Starts with “E”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b5",
+      "title": "Why are levered DCFs rarely used?",
+      "difficulty": "follow-up",
+      "teaser": "You have to project every debt issuance and repayment, and changing leverage changes the cost of equity each year.",
+      "body": "You have to project every debt issuance and repayment, and changing leverage changes the cost of equity each year. It's more complex and assumption-heavy than the unlevered version."
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "When would you use one?",
+      "difficulty": "follow-up",
+      "teaser": "For financial institutions (where debt is operational and EV doesn't apply), or when the capital structure is fixed and known, as in an LBO.",
+      "body": "For financial institutions (where debt is operational and EV doesn't apply), or when the capital structure is fixed and known, as in an LBO."
+    },
+    {
+      "type": "mcq",
+      "id": "b7",
+      "prompt": "When is a levered DCF most appropriate?",
+      "options": [
+        {
+          "id": "a",
+          "text": "For a high-growth tech company"
+        },
+        {
+          "id": "b",
+          "text": "For financial institutions, or when the capital structure is fixed and known"
+        },
+        {
+          "id": "c",
+          "text": "Whenever the company has debt"
+        },
+        {
+          "id": "d",
+          "text": "Never — it's always wrong"
+        }
+      ],
+      "correct": "b",
+      "explanation": "Levered DCFs fit banks (where EV doesn't apply) and cases like an LBO where the debt schedule is fixed and known."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "Should levered and unlevered DCFs give the same equity value?",
+      "difficulty": "gotcha",
+      "teaser": "In theory, yes, if all assumptions are consistent.",
+      "body": "In theory, yes, if all assumptions are consistent. In practice they differ, because keeping leverage and discount rates consistent across years is hard."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b9",
+      "title": "Say it out loud",
+      "prompts": [
+        "When would you use a levered DCF?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}

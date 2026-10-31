@@ -1,0 +1,203 @@
+{
+  "id": "1-2",
+  "slug": "how-the-statements-link",
+  "module": 1,
+  "moduleTitle": "Accounting",
+  "title": "How the statements link",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "1-1"
+  ],
+  "relatedQuestionTags": [
+    "three statements",
+    "link"
+  ],
+  "workbook": "PEB_01_Accounting_3Statement_Linking",
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Accounting"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Accounting"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Walk me through how the three statements link.",
+    "Answer out loud: Why does AR going up reduce cash?",
+    "Answer out loud: How do you treat a gain on sale?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "Net income from the IS is the first line of the CFS."
+        },
+        {
+          "body": "CFO adds back non-cash items (D&A, SBC, impairments), subtracts non-cash gains, and adjusts for changes in working capital."
+        },
+        {
+          "body": "CFI: CapEx, acquisitions, asset sales, investments."
+        },
+        {
+          "body": "CFF: debt raised/repaid, stock issued/repurchased, dividends."
+        },
+        {
+          "body": "Net change in cash flows to the BS cash line. Net income (less dividends) flows to retained earnings."
+        },
+        {
+          "body": "The BS balances because every change on one side is matched elsewhere."
+        }
+      ]
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "\\text{RE}_{\\text{end}} = \\text{RE}_{\\text{begin}} + \\text{Net income} - \\text{Dividends}",
+      "caption": "Retained earnings roll-forward",
+      "legend": [
+        {
+          "symbol": "\\text{RE}",
+          "meaning": "Retained earnings (equity on the balance sheet)"
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "An increase in an operating asset (e.g., AR) is a {{1}} of cash",
+      "blanks": {
+        "1": {
+          "accept": [
+            "use",
+            "a use",
+            "outflow",
+            "use of cash"
+          ],
+          "hint": "Starts with “U”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "An increase in an operating liability (e.g., AP) is a {{1}} of cash",
+      "blanks": {
+        "1": {
+          "accept": [
+            "source",
+            "a source",
+            "inflow",
+            "source of cash"
+          ],
+          "hint": "Starts with “S”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b5",
+      "prompt": "Fill in the blank",
+      "template": "Retained earnings = beginning RE + net income − {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "dividends",
+            "dividend",
+            "dividends paid"
+          ],
+          "hint": "Starts with “D”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "“Walk me through how the statements link.”",
+      "difficulty": "core",
+      "teaser": "Includes a model interview answer",
+      "body": "**Interview answer:** \"Net income from the income statement flows to the top of the cash flow statement and into retained earnings. On the CFS, you add back non-cash expenses, adjust for working capital, then add investing and financing activities to get the net change in cash, which flows to cash on the balance sheet. PP&E, debt, and equity on the balance sheet are also updated from the CFS, and the balance sheet balances.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "Why does an increase in accounts receivable reduce cash?",
+      "difficulty": "core",
+      "teaser": "AR rising means you recorded revenue (boosting net income) but haven't collected the cash.",
+      "body": "AR rising means you recorded revenue (boosting net income) but haven't collected the cash. The CFS starts from net income, so it must subtract the uncollected amount.\n\n**Interview answer:** \"Net income already counts that revenue, but the cash hasn't arrived, so we subtract the increase.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b8",
+      "prompt": "Accounts receivable increases by $10. What's the effect on the cash flow statement?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Add $10 in CFO"
+        },
+        {
+          "id": "b",
+          "text": "Subtract $10 in CFO"
+        },
+        {
+          "id": "c",
+          "text": "Subtract $10 in CFI"
+        },
+        {
+          "id": "d",
+          "text": "No effect — AR is on the balance sheet only"
+        }
+      ],
+      "correct": "b",
+      "explanation": "Net income already includes the revenue, but the cash hasn't been collected, so the increase in AR is subtracted in cash from operations."
+    },
+    {
+      "type": "deepDive",
+      "id": "b9",
+      "title": "How does a gain on an asset sale flow through?",
+      "difficulty": "follow-up",
+      "teaser": "Sell equipment with a $100 book value for $120.",
+      "body": "Sell equipment with a $100 book value for $120. IS: $20 gain (net income +$12 at 40% tax). CFS: subtract the $20 gain in CFO (it's not operating cash), then record the full $120 proceeds in CFI. Net cash +$112 (the +$120 proceeds less $8 of tax). BS: cash +$112, PP&E −$100 → assets +$12; equity +$12. Balanced.\n\n**Interview answer:** \"Subtract the gain in operating cash flow so it isn't double counted, and show the full proceeds in investing.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b10",
+      "title": "D&A is a real economic cost — why add it back?",
+      "difficulty": "follow-up",
+      "teaser": "D&A spreads the cost of an asset bought in the past.",
+      "body": "D&A spreads the cost of an asset bought in the past. The cash left when the asset was bought (CapEx in CFI). Adding back D&A just prevents counting that cost twice."
+    },
+    {
+      "type": "deepDive",
+      "id": "b11",
+      "title": "What are the most common reasons a model doesn't balance?",
+      "difficulty": "advanced",
+      "teaser": "A CFS line not linked to the BS; a sign flipped in working capital; dividends not deducted from retained earnings; a new BS item with no CFS counterp…",
+      "body": "A CFS line not linked to the BS; a sign flipped in working capital; dividends not deducted from retained earnings; a new BS item with no CFS counterpart. Debug by checking the year the imbalance first appears and which line changed."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b12",
+      "title": "Say it out loud",
+      "prompts": [
+        "Walk me through how the three statements link.",
+        "Why does AR going up reduce cash?",
+        "How do you treat a gain on sale?"
+      ],
+      "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b13",
+      "workbook": "PEB_01_Accounting_3Statement_Linking",
+      "body": "Practice this lesson's mechanics in the matching workbook."
+    }
+  ]
+}

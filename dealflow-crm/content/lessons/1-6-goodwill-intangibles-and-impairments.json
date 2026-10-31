@@ -1,0 +1,198 @@
+{
+  "id": "1-6",
+  "slug": "goodwill-intangibles-and-impairments",
+  "module": 1,
+  "moduleTitle": "Accounting",
+  "title": "Goodwill, intangibles, and impairments",
+  "difficulty": "follow-up",
+  "estMinutes": 10,
+  "prerequisites": [
+    "1-5"
+  ],
+  "relatedQuestionTags": [
+    "goodwill",
+    "impairment"
+  ],
+  "workbook": "PEB_06_Merger_Model",
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Accounting"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Accounting"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: How is goodwill created?",
+    "Answer out loud: What happens when it's impaired?",
+    "Answer out loud: Is it tax-deductible?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "When a company buys another for more than the fair value of its identifiable net assets, the excess is goodwill."
+        },
+        {
+          "body": "Goodwill = purchase price − fair value of net identifiable assets."
+        },
+        {
+          "body": "Under US GAAP (public companies), goodwill isn't amortized. It's tested for impairment at least yearly."
+        },
+        {
+          "body": "An impairment is a non-cash charge on the IS that reduces goodwill on the BS."
+        }
+      ]
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "\\text{Goodwill} = \\text{Purchase price} - \\text{FV of net identifiable assets}",
+      "caption": "Goodwill",
+      "legend": [
+        {
+          "symbol": "\\text{FV}",
+          "meaning": "Fair value"
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "Goodwill is only created through {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "acquisitions",
+            "acquisition",
+            "m&a",
+            "buying companies"
+          ],
+          "hint": "Starts with “A”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "A goodwill impairment is a {{1}} charge",
+      "blanks": {
+        "1": {
+          "accept": [
+            "non-cash",
+            "noncash",
+            "non cash"
+          ],
+          "hint": "Starts with “N”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b5",
+      "prompt": "Fill in the blank",
+      "template": "Under US GAAP, public companies {{1}} amortize goodwill",
+      "blanks": {
+        "1": {
+          "accept": [
+            "do not",
+            "don't",
+            "dont",
+            "never",
+            "do not amortize"
+          ],
+          "hint": "Starts with “D”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "Why can't a company create goodwill internally?",
+      "difficulty": "follow-up",
+      "teaser": "Goodwill only exists when someone pays a market price above book value.",
+      "body": "Goodwill only exists when someone pays a market price above book value. A company's own brand or culture isn't recorded as an asset, because there's no transaction to measure it."
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "What's the difference between goodwill and other intangibles?",
+      "difficulty": "follow-up",
+      "teaser": "Identifiable intangibles (customer lists, patents, trademarks) can be separated and valued.",
+      "body": "Identifiable intangibles (customer lists, patents, trademarks) can be separated and valued. Most have finite lives and are amortized. Goodwill is the unidentifiable residual — synergies, workforce, reputation — and isn't amortized under US GAAP."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "Is goodwill tax-deductible?",
+      "difficulty": "gotcha",
+      "teaser": "In a stock purchase, no — the tax basis doesn't change.",
+      "body": "In a stock purchase, no — the tax basis doesn't change. In an asset purchase (or a 338(h)(10) election), the buyer gets a stepped-up basis and can amortize goodwill for tax over 15 years, which creates real tax savings."
+    },
+    {
+      "type": "mcq",
+      "id": "b9",
+      "prompt": "When can a buyer amortize goodwill for tax purposes?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Never — goodwill is never tax-deductible"
+        },
+        {
+          "id": "b",
+          "text": "In any stock purchase"
+        },
+        {
+          "id": "c",
+          "text": "In an asset purchase or a 338(h)(10) election, over 15 years"
+        },
+        {
+          "id": "d",
+          "text": "Only when the goodwill is impaired"
+        }
+      ],
+      "correct": "c",
+      "explanation": "A stock purchase keeps the old tax basis, so no deduction. An asset purchase (or 338(h)(10)) steps up the basis and lets the buyer amortize goodwill for tax over 15 years."
+    },
+    {
+      "type": "deepDive",
+      "id": "b10",
+      "title": "What's negative goodwill?",
+      "difficulty": "advanced",
+      "teaser": "If the buyer pays less than the fair value of net identifiable assets — a bargain purchase — the difference is recognized as a gain on the IS.",
+      "body": "If the buyer pays *less* than the fair value of net identifiable assets — a bargain purchase — the difference is recognized as a gain on the IS. It's rare and usually involves distressed sellers."
+    },
+    {
+      "type": "deepDive",
+      "id": "b11",
+      "title": "Why do analysts often ignore impairments?",
+      "difficulty": "follow-up",
+      "teaser": "An impairment says the company overpaid for a past deal.",
+      "body": "An impairment says the company overpaid for a past deal. It's non-cash and doesn't change future cash flows, so it's excluded from adjusted EBITDA and EPS. It's still a signal about management's capital allocation.\n\n**Interview answer:** \"It's a non-cash admission of overpaying for an acquisition. It doesn't change future cash flow, so we strip it out of adjusted metrics.\""
+    },
+    {
+      "type": "checkpoint",
+      "id": "b12",
+      "title": "Say it out loud",
+      "prompts": [
+        "How is goodwill created?",
+        "What happens when it's impaired?",
+        "Is it tax-deductible?"
+      ],
+      "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b13",
+      "workbook": "PEB_06_Merger_Model",
+      "body": "Practice this lesson's mechanics in the matching workbook."
+    }
+  ]
+}

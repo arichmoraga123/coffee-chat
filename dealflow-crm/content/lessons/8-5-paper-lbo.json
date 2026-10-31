@@ -1,0 +1,192 @@
+{
+  "id": "8-5",
+  "slug": "paper-lbo",
+  "module": 8,
+  "moduleTitle": "LBO",
+  "title": "Paper LBO",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "8-4"
+  ],
+  "relatedQuestionTags": [
+    "paper lbo",
+    "irr"
+  ],
+  "workbook": "PEB_07_LBO",
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "LBO Models"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Leveraged Buyouts"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: $100 EBITDA, 10x entry, 5x leverage, EBITDA grows to $130, $150 paid down, exit at 10x. What are MOIC and IRR? (1.9x, ~14%)"
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "id": "b1",
+      "body": "Five steps in your head, with no Excel:"
+    },
+    {
+      "type": "stepThrough",
+      "id": "b2",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "heading": "Purchase price",
+          "body": "EBITDA × entry multiple."
+        },
+        {
+          "heading": "Sources",
+          "body": "debt (EBITDA × leverage multiple); equity = price − debt."
+        },
+        {
+          "heading": "Project",
+          "body": "EBITDA growth and cumulative free cash flow over the holding period."
+        },
+        {
+          "heading": "Exit",
+          "body": "exit EBITDA × exit multiple − remaining debt = exit equity."
+        },
+        {
+          "heading": "Returns",
+          "body": "MOIC = exit equity ÷ initial equity; estimate IRR with rules of thumb."
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "2x in 5 years ≈ {{1}} IRR",
+      "blanks": {
+        "1": {
+          "numeric": 15,
+          "tolerance": 0.5,
+          "accept": [
+            "15%"
+          ],
+          "hint": "Enter a number."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "3x in 5 years ≈ {{1}} IRR",
+      "blanks": {
+        "1": {
+          "numeric": 25,
+          "tolerance": 0.5,
+          "accept": [
+            "25%"
+          ],
+          "hint": "Enter a number."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b5",
+      "prompt": "Fill in the blank",
+      "template": "2x in 3 years ≈ {{1}} IRR",
+      "blanks": {
+        "1": {
+          "numeric": 26,
+          "tolerance": 0.5,
+          "accept": [
+            "26%"
+          ],
+          "hint": "Enter a number."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b6",
+      "prompt": "Fill in the blank",
+      "template": "2.5x in 5 years ≈ {{1}} IRR",
+      "blanks": {
+        "1": {
+          "numeric": 20,
+          "tolerance": 0.5,
+          "accept": [
+            "20%"
+          ],
+          "hint": "Enter a number."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "How do you estimate IRR without a calculator?",
+      "difficulty": "core",
+      "teaser": "Memorize anchors: 2x in 3 years ≈ 26%, 2x in 5 ≈ 15%, 2.5x in 5 ≈ 20%, 3x in 5 ≈ 25%, 3x in 3 ≈ 44%.",
+      "body": "Memorize anchors: 2x in 3 years ≈ 26%, 2x in 5 ≈ 15%, 2.5x in 5 ≈ 20%, 3x in 5 ≈ 25%, 3x in 3 ≈ 44%. Interpolate between them. Rule of 72: years to double ≈ 72 ÷ rate."
+    },
+    {
+      "type": "mcq",
+      "id": "b8",
+      "prompt": "A sponsor triples its money over 5 years. Roughly what IRR is that?",
+      "options": [
+        {
+          "id": "a",
+          "text": "~15%"
+        },
+        {
+          "id": "b",
+          "text": "~20%"
+        },
+        {
+          "id": "c",
+          "text": "~25%"
+        },
+        {
+          "id": "d",
+          "text": "~44%"
+        }
+      ],
+      "correct": "c",
+      "explanation": "Anchor: 3x in 5 years ≈ 25%. (3x in 3 years ≈ 44%; 2x in 5 years ≈ 15%.)"
+    },
+    {
+      "type": "deepDive",
+      "id": "b9",
+      "title": "What simplifications are acceptable in a paper LBO?",
+      "difficulty": "follow-up",
+      "teaser": "Ignore fees, round taxes, assume all FCF pays down debt, and use simple growth.",
+      "body": "Ignore fees, round taxes, assume all FCF pays down debt, and use simple growth. The interviewer is testing your logic and speed, not decimal precision."
+    },
+    {
+      "type": "deepDive",
+      "id": "b10",
+      "title": "How would you solve for the maximum price to hit 25% IRR?",
+      "difficulty": "advanced",
+      "teaser": "Work backwards: 25% IRR over 5 years ≈ 3.0x MOIC.",
+      "body": "Work backwards: 25% IRR over 5 years ≈ 3.0x MOIC. Required equity = exit equity ÷ 3.0. Maximum purchase price = required equity + debt raised."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b11",
+      "title": "Say it out loud",
+      "prompts": [
+        "$100 EBITDA, 10x entry, 5x leverage, EBITDA grows to $130, $150 paid down, exit at 10x. What are MOIC and IRR? (1.9x, ~14%)"
+      ],
+      "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b12",
+      "workbook": "PEB_07_LBO",
+      "body": "Practice in the “Paper LBO” tab."
+    }
+  ]
+}

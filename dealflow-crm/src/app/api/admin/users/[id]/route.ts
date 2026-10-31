@@ -63,7 +63,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
   const { id } = await params;
   const body = (await req.json()) as { role?: string; accountActive?: boolean };
   const data: { role?: string; accountActive?: boolean } = {};
-  if (body.role === "USER" || body.role === "ADMIN") data.role = body.role;
+  if (body.role === "USER" || body.role === "ADMIN" || body.role === "MENTOR") data.role = body.role;
   if (typeof body.accountActive === "boolean") data.accountActive = body.accountActive;
   if (Object.keys(data).length === 0) {
     return NextResponse.json({ error: "No valid fields" }, { status: 400 });

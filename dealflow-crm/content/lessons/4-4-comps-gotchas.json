@@ -1,0 +1,99 @@
+{
+  "id": "4-4",
+  "slug": "comps-gotchas",
+  "module": 4,
+  "moduleTitle": "Comps & Precedents",
+  "title": "Comps gotchas",
+  "difficulty": "advanced",
+  "estMinutes": 10,
+  "prerequisites": [
+    "4-3"
+  ],
+  "relatedQuestionTags": [
+    "comps",
+    "multiples"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Valuation — Comparables"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Comparable Companies & Precedent Transactions"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: What do you do with a negative-EBITDA comp?",
+    "Answer out loud: What drives multiple compression?"
+  ],
+  "blocks": [
+    {
+      "type": "deepDive",
+      "id": "b1",
+      "title": "What if a comp has negative EBITDA?",
+      "difficulty": "follow-up",
+      "teaser": "The EV/EBITDA multiple is meaningless (negative).",
+      "body": "The EV/EBITDA multiple is meaningless (negative). Mark it \"NM\" (not meaningful) and exclude it from that column, or use EV/revenue."
+    },
+    {
+      "type": "mcq",
+      "id": "b2",
+      "prompt": "One comp has negative EBITDA. What do you do with its EV/EBITDA?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Use it — negative multiples mean the stock is cheap"
+        },
+        {
+          "id": "b",
+          "text": "Mark it NM and exclude it, or use EV/revenue"
+        },
+        {
+          "id": "c",
+          "text": "Take the absolute value"
+        },
+        {
+          "id": "d",
+          "text": "Replace it with the industry average"
+        }
+      ],
+      "correct": "b",
+      "explanation": "A negative EV/EBITDA is meaningless. Mark it \"NM\" and exclude it from that column (or use EV/revenue)."
+    },
+    {
+      "type": "deepDive",
+      "id": "b3",
+      "title": "What if one multiple is an outlier?",
+      "difficulty": "follow-up",
+      "teaser": "Investigate why — a pending acquisition, a one-time earnings hit, a data error.",
+      "body": "Investigate why — a pending acquisition, a one-time earnings hit, a data error. Exclude it if it's not representative, and say so."
+    },
+    {
+      "type": "deepDive",
+      "id": "b4",
+      "title": "Why might multiples compress even if a company's earnings grow?",
+      "difficulty": "advanced",
+      "teaser": "Rising interest rates increase discount rates, so investors pay less per dollar of earnings.",
+      "body": "Rising interest rates increase discount rates, so investors pay less per dollar of earnings. Sector sentiment and growth slowdowns also compress multiples."
+    },
+    {
+      "type": "deepDive",
+      "id": "b5",
+      "title": "Can you use a comp from a different country?",
+      "difficulty": "gotcha",
+      "teaser": "Yes, but adjust for accounting differences (leases under IFRS — see 1.7), tax rates, and country risk.",
+      "body": "Yes, but adjust for accounting differences (leases under IFRS — see 1.7), tax rates, and country risk. Market multiples also differ by region."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b6",
+      "title": "Say it out loud",
+      "prompts": [
+        "What do you do with a negative-EBITDA comp?",
+        "What drives multiple compression?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}

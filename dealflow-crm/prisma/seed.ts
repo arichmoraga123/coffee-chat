@@ -8,7 +8,7 @@ import { SEED_FIRM_RESEARCH } from "./seed/firm-research";
 import { SEED_EMAIL_TEMPLATES } from "./seed/email-templates-seed";
 import { SEED_DEALS } from "./seed/deals-seed";
 import { SEED_RECENT_DEALS } from "./seed/deals-recent";
-import { SEED_RECRUITING_CALENDAR, STALE_CALENDAR_DEDUPE_PREFIX } from "./seed/recruiting-calendar-seed";
+import { SEED_RECRUITING_CALENDAR } from "./seed/recruiting-calendar-seed";
 import { SEED_TRACK_QUESTIONS } from "./seed/track-questions";
 import { SEED_THIN_CATEGORY_QUESTIONS } from "./seed/questions-thin-categories";
 import { SEED_CONSULTING_CASES } from "./seed/consulting-cases";
@@ -264,9 +264,6 @@ async function main() {
   });
   console.log(`Deals seed (inserted new rows ~${dealCount}, existing deals preserved).`);
 
-  await prisma.recruitingCalendarEvent.deleteMany({
-    where: { dedupeKey: { startsWith: STALE_CALENDAR_DEDUPE_PREFIX } },
-  });
   const { count: rcCount } = await prisma.recruitingCalendarEvent.createMany({
     data: SEED_RECRUITING_CALENDAR.map((r) => ({
       ...r,

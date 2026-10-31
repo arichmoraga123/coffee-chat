@@ -1,0 +1,141 @@
+{
+  "id": "7-1",
+  "slug": "why-companies-acquire",
+  "module": 7,
+  "moduleTitle": "M&A & Merger Models",
+  "title": "Why companies acquire",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "6-7"
+  ],
+  "relatedQuestionTags": [
+    "synergies",
+    "m&a"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Merger Models"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Mergers & Acquisitions"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Why would a company acquire another?",
+    "Answer out loud: Why are revenue synergies discounted?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "Buy growth faster than building it."
+        },
+        {
+          "body": "Synergies: cost (cutting overlapping functions, purchasing power) and revenue (cross-selling, new markets)."
+        },
+        {
+          "body": "Acquire technology, talent, or IP."
+        },
+        {
+          "body": "Gain market share or remove a competitor."
+        },
+        {
+          "body": "Diversify or enter new geographies."
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b2",
+      "prompt": "Fill in the blank",
+      "template": "{{1}} synergies are more reliable than {{2}} synergies",
+      "blanks": {
+        "1": {
+          "accept": [
+            "Cost"
+          ],
+          "hint": "Starts with “C”."
+        },
+        "2": {
+          "accept": [
+            "revenue"
+          ],
+          "hint": "Starts with “R”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b3",
+      "title": "Why would a company acquire instead of build?",
+      "difficulty": "core",
+      "teaser": "Speed, certainty (the target already works), access to customers or IP that would take years to build, and sometimes it's cheaper than organic invest…",
+      "body": "Speed, certainty (the target already works), access to customers or IP that would take years to build, and sometimes it's cheaper than organic investment.\n\n**Interview answer:** \"Speed and certainty — the target already has the product, customers, or capabilities, which could take years to build internally.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b4",
+      "title": "Why are cost synergies valued more than revenue synergies?",
+      "difficulty": "follow-up",
+      "teaser": "Cost synergies are within management's control (closing a duplicate office, merging systems).",
+      "body": "Cost synergies are within management's control (closing a duplicate office, merging systems). Revenue synergies depend on customers' behavior and frequently fail to materialize. Bankers and investors often discount or exclude revenue synergies."
+    },
+    {
+      "type": "mcq",
+      "id": "b5",
+      "prompt": "Why do bankers trust cost synergies more than revenue synergies?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Cost synergies are larger"
+        },
+        {
+          "id": "b",
+          "text": "Cost synergies are within management's control; revenue synergies depend on customers"
+        },
+        {
+          "id": "c",
+          "text": "Revenue synergies are taxed"
+        },
+        {
+          "id": "d",
+          "text": "Cost synergies happen immediately with no integration costs"
+        }
+      ],
+      "correct": "b",
+      "explanation": "Closing a duplicate office is in management's control; getting customers to buy more is not — revenue synergies often fail to materialize."
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "Why do many acquisitions destroy value?",
+      "difficulty": "follow-up",
+      "teaser": "Overpaying (the winner's curse in competitive auctions), overestimated synergies, integration problems, and culture clashes.",
+      "body": "Overpaying (the winner's curse in competitive auctions), overestimated synergies, integration problems, and culture clashes."
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "What's the difference between a strategic and a financial buyer?",
+      "difficulty": "core",
+      "teaser": "A strategic buyer is an operating company buying to grow or combine its business.",
+      "body": "A strategic buyer is an operating company buying to grow or combine its business. A financial buyer (PE firm) buys to generate a return over a holding period, typically using leverage, and plans to exit."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b8",
+      "title": "Say it out loud",
+      "prompts": [
+        "Why would a company acquire another?",
+        "Why are revenue synergies discounted?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}

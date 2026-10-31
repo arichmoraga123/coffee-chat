@@ -173,6 +173,16 @@ function UserDetailPanel({
         >
           {u.role === "ADMIN" ? "Demote to USER" : "Promote to ADMIN"}
         </button>
+        {u.role !== "ADMIN" ? (
+          <button
+            type="button"
+            disabled={isSelf}
+            className="rounded border border-sky-800 bg-[#111111] px-3 py-1.5 text-xs font-medium text-sky-200 hover:border-sky-600 disabled:opacity-40"
+            onClick={() => onPatchRole(u.id, u.role === "MENTOR" ? "USER" : "MENTOR")}
+          >
+            {u.role === "MENTOR" ? "Remove mentor" : "Make Learn mentor"}
+          </button>
+        ) : null}
         <button
           type="button"
           disabled={isSelf || !u.accountActive}

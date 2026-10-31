@@ -1,0 +1,189 @@
+{
+  "id": "2-3",
+  "slug": "diluted-shares-and-the-treasury-stock-method",
+  "module": 2,
+  "moduleTitle": "Equity Value & Enterprise Value",
+  "title": "Diluted shares and the treasury stock method",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "2-2"
+  ],
+  "relatedQuestionTags": [
+    "diluted",
+    "treasury stock"
+  ],
+  "workbook": "PEB_02_EV_Equity_Bridge",
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Equity Value & Enterprise Value"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Enterprise Value"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Walk me through TSM.",
+    "Answer out loud: When is a convertible counted as shares?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "Start with basic shares outstanding."
+        },
+        {
+          "body": "For each option/warrant tranche: if in the money (strike < share price), assume exercise."
+        },
+        {
+          "body": "TSM: the company uses exercise proceeds to repurchase shares at the current price. Net new shares = options − (options × strike ÷ price)."
+        },
+        {
+          "body": "Add RSUs (no strike)."
+        },
+        {
+          "body": "Convertibles: if in the money, add shares from conversion (face value ÷ conversion price) and remove the bond from debt."
+        }
+      ]
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "\\text{Net new shares} = N - \\frac{N \\times K}{P}",
+      "caption": "Treasury stock method",
+      "legend": [
+        {
+          "symbol": "N",
+          "meaning": "Number of in-the-money options"
+        },
+        {
+          "symbol": "K",
+          "meaning": "Strike (exercise) price"
+        },
+        {
+          "symbol": "P",
+          "meaning": "Current share price"
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "Only {{1}} options are counted",
+      "blanks": {
+        "1": {
+          "accept": [
+            "in-the-money",
+            "in the money",
+            "itm"
+          ],
+          "hint": "Starts with “I”."
+        }
+      }
+    },
+    {
+      "type": "calc",
+      "id": "b4",
+      "prompt": "10 options with a $20 strike, share price $50 → net new shares = **?**",
+      "answer": 6,
+      "tolerance": 0,
+      "solution": "10 options with a $20 strike, share price $50 → net new shares = 6"
+    },
+    {
+      "type": "fillBlank",
+      "id": "b5",
+      "prompt": "Fill in the blank",
+      "template": "An in-the-money convertible is counted as {{1}}, not debt",
+      "blanks": {
+        "1": {
+          "accept": [
+            "shares",
+            "equity",
+            "share count",
+            "diluted shares"
+          ],
+          "hint": "Starts with “S”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "Why does TSM assume the company buys back shares?",
+      "difficulty": "follow-up",
+      "teaser": "When options are exercised, the company receives cash.",
+      "body": "When options are exercised, the company receives cash. TSM assumes it uses that cash to repurchase shares at the current price, offsetting part of the dilution. It's a convention that measures net economic dilution."
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "Why exclude out-of-the-money options?",
+      "difficulty": "follow-up",
+      "teaser": "No one pays $60 to exercise an option for a $50 stock.",
+      "body": "No one pays $60 to exercise an option for a $50 stock. Counting them would overstate dilution."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "How do convertible bonds work in the share count?",
+      "difficulty": "follow-up",
+      "teaser": "If the share price is above the conversion price, holders would convert.",
+      "body": "If the share price is above the conversion price, holders would convert. Count the new shares (face value ÷ conversion price) and remove the bond from debt in the EV bridge — counting both double-counts. If out of the money, keep it as debt.\n\n**Interview answer:** \"If it's in the money, count the shares and take the bond out of debt. If not, it stays as debt.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b9",
+      "prompt": "A convertible bond is in the money. How do you treat it?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Count it as debt and add the conversion shares"
+        },
+        {
+          "id": "b",
+          "text": "Count the conversion shares and remove the bond from debt"
+        },
+        {
+          "id": "c",
+          "text": "Keep it as debt and ignore the shares"
+        },
+        {
+          "id": "d",
+          "text": "Count half as debt and half as shares"
+        }
+      ],
+      "correct": "b",
+      "explanation": "If it's in the money, holders would convert: add the new shares and remove the bond from debt. Counting both double-counts."
+    },
+    {
+      "type": "deepDive",
+      "id": "b10",
+      "title": "Why does dilution create circularity when calculating an implied share price?",
+      "difficulty": "advanced",
+      "teaser": "The implied share price determines which options are in the money, which changes diluted shares, which changes the implied price.",
+      "body": "The implied share price determines which options are in the money, which changes diluted shares, which changes the implied price. Models solve this with iteration or by using the current share count as an approximation."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b11",
+      "title": "Say it out loud",
+      "prompts": [
+        "Walk me through TSM.",
+        "When is a convertible counted as shares?"
+      ],
+      "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b12",
+      "workbook": "PEB_02_EV_Equity_Bridge",
+      "body": "Practice in the “Diluted Shares” tab."
+    }
+  ]
+}

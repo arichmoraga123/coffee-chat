@@ -1,0 +1,217 @@
+{
+  "id": "7-2",
+  "slug": "accretion-dilution",
+  "module": 7,
+  "moduleTitle": "M&A & Merger Models",
+  "title": "Accretion / dilution",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "7-1"
+  ],
+  "relatedQuestionTags": [
+    "accretive",
+    "dilutive",
+    "accretion"
+  ],
+  "workbook": "PEB_06_Merger_Model",
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Merger Models"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Mergers & Acquisitions"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Walk me through a merger model.",
+    "Answer out loud: All-stock deal: when is it accretive?",
+    "Answer out loud: Is accretion good?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "Determine purchase price (offer price × target shares)."
+        },
+        {
+          "body": "Decide financing mix: cash, new debt, new stock."
+        },
+        {
+          "body": "Calculate pro forma net income: acquirer NI + target NI − after-tax foregone interest on cash − after-tax interest on new debt − after-tax extra D&A from write-ups + after-tax synergies."
+        },
+        {
+          "body": "Calculate pro forma shares: acquirer shares + new shares issued."
+        },
+        {
+          "body": "Pro forma EPS vs. standalone EPS → accretive or dilutive."
+        }
+      ]
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "\\text{Pro forma EPS} = \\frac{\\text{NI}_A + \\text{NI}_T - \\text{after-tax financing costs} + \\text{after-tax synergies}}{\\text{Acquirer shares} + \\text{New shares}}",
+      "caption": "Accretion / dilution",
+      "legend": [
+        {
+          "symbol": "\\text{NI}_A",
+          "meaning": "Acquirer net income"
+        },
+        {
+          "symbol": "\\text{NI}_T",
+          "meaning": "Target net income"
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "A deal is accretive if pro forma EPS is {{1}} than the acquirer's standalone EPS",
+      "blanks": {
+        "1": {
+          "accept": [
+            "higher",
+            "more",
+            "greater",
+            "increases",
+            "larger",
+            "rises"
+          ],
+          "hint": "Starts with “H”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "The cost of using cash is the after-tax {{1}} it would have earned",
+      "blanks": {
+        "1": {
+          "accept": [
+            "interest income",
+            "interest",
+            "foregone interest",
+            "interest it would have earned"
+          ],
+          "hint": "Starts with “I”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b5",
+      "prompt": "Fill in the blank",
+      "template": "The cost of issuing stock ≈ the acquirer's {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "earnings yield",
+            "inverse p/e",
+            "1/pe",
+            "1 / p/e",
+            "e/p"
+          ],
+          "hint": "Starts with “E”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "“Walk me through a merger model.”",
+      "difficulty": "core",
+      "teaser": "Includes a model interview answer",
+      "body": "**Interview answer:** \"Start with the purchase price and how it's financed — cash, debt, or stock. Combine the two companies' net income, subtract the after-tax foregone interest on cash used and the after-tax interest on new debt, subtract any new D&A from asset write-ups, and add after-tax synergies. Divide by the new share count — the acquirer's shares plus any new shares issued. Compare that pro forma EPS to the acquirer's standalone EPS to see if the deal is accretive or dilutive.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "What's the shortcut for accretion/dilution?",
+      "difficulty": "follow-up",
+      "teaser": "Compare the weighted after-tax cost of financing to the target's earnings yield at the purchase price (target NI ÷ purchase equity value).",
+      "body": "Compare the weighted after-tax cost of financing to the target's earnings yield at the purchase price (target NI ÷ purchase equity value). If what you're buying yields more than what you're paying for the money, the deal is accretive.\n\n**Interview answer:** \"If the target's earnings yield at the purchase price is higher than the weighted cost of the cash, debt, and stock used, it's accretive.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "In an all-stock deal, when is it accretive?",
+      "difficulty": "follow-up",
+      "teaser": "When the acquirer's P/E is higher than the P/E paid for the target.",
+      "body": "When the acquirer's P/E is higher than the P/E paid for the target. A high-P/E acquirer's stock is \"expensive currency,\" so it gets more earnings per share issued."
+    },
+    {
+      "type": "mcq",
+      "id": "b9",
+      "prompt": "In an all-stock deal, when is the deal accretive?",
+      "options": [
+        {
+          "id": "a",
+          "text": "When the acquirer's P/E is higher than the P/E paid for the target"
+        },
+        {
+          "id": "b",
+          "text": "When the acquirer's P/E is lower than the P/E paid for the target"
+        },
+        {
+          "id": "c",
+          "text": "When the target has more shares than the acquirer"
+        },
+        {
+          "id": "d",
+          "text": "Always, because no debt is used"
+        }
+      ],
+      "correct": "a",
+      "explanation": "A high-P/E acquirer's stock is \"expensive currency\": its cost (earnings yield) is below the earnings yield of what it's buying."
+    },
+    {
+      "type": "deepDive",
+      "id": "b10",
+      "title": "Which financing is usually cheapest?",
+      "difficulty": "follow-up",
+      "teaser": "Cash (after-tax interest income is low), then debt (after-tax interest), then stock (earnings yield is typically higher).",
+      "body": "Cash (after-tax interest income is low), then debt (after-tax interest), then stock (earnings yield is typically higher). This flips if the acquirer has a very high P/E or interest rates are high."
+    },
+    {
+      "type": "deepDive",
+      "id": "b11",
+      "title": "Does accretive mean it's a good deal?",
+      "difficulty": "core",
+      "teaser": "No.",
+      "body": "No. EPS accretion is a short-term accounting measure. A deal can be accretive because it's financed with cheap debt while destroying value — for example, overpaying for a low-growth business. The real test is whether the return on the investment exceeds the cost of capital.\n\n**Interview answer:** \"No — accretion just compares financing cost to earnings yield. A deal can be accretive and still overpay. The real question is whether it earns more than the cost of capital.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b12",
+      "title": "Why use EPS as the metric?",
+      "difficulty": "advanced",
+      "teaser": "Public company shareholders and boards focus on it, and it's easy to communicate.",
+      "body": "Public company shareholders and boards focus on it, and it's easy to communicate. Its weakness is that it ignores risk, the time value of money, and balance sheet strength."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b13",
+      "title": "Say it out loud",
+      "prompts": [
+        "Walk me through a merger model.",
+        "All-stock deal: when is it accretive?",
+        "Is accretion good?"
+      ],
+      "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b14",
+      "workbook": "PEB_06_Merger_Model",
+      "body": "Build it in the workbook."
+    }
+  ]
+}

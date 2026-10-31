@@ -45,6 +45,3 @@ export const SEED_RECRUITING_CALENDAR: Prisma.RecruitingCalendarEventCreateManyI
   }
   return out;
 });
-
-/** Old approximate placeholder events (pre-2028 tracker) — removed on seed. */
-export const STALE_CALENDAR_DEDUPE_PREFIX = "seed-2026-";

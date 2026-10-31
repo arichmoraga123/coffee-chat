@@ -3,6 +3,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import type {
   BetaContentBlockParam,
   BetaMessage,
+  BetaMessageParam,
   BetaMessageStreamParams,
 } from "@anthropic-ai/sdk/resources/beta/messages/messages";
 import { prisma } from "@/lib/prisma";
@@ -41,13 +42,16 @@ export type AnthropicUsageFeature =
   | "resume-review"
   | "case-resume-bullets"
   | "pitch-outline"
-  | "mcq-generate";
+  | "mcq-generate"
+  | "learn-tutor";
 
 export type AiCallOptions = {
   system?: string;
   maxTokens?: number;
   effort?: AiEffort;
   usageLog?: { userId: string; feature: AnthropicUsageFeature };
+  /** Cache the (large, stable) system prompt across turns — cheaper and faster multi-turn chat. */
+  cacheSystem?: boolean;
 };
 
 export function getAnthropicApiKey(): string | undefined {
@@ -79,9 +83,16 @@ async function logUsage(userId: string, feature: AnthropicUsageFeature, msg: Bet
 }
 
 type UserContent = string | BetaContentBlockParam[];
+/** A single user turn, or a full conversation. */
+type Input = UserContent | { messages: BetaMessageParam[] };
+
+function toMessages(input: Input): BetaMessageParam[] {
+  if (typeof input === "object" && !Array.isArray(input) && "messages" in input) return input.messages;
+  return [{ role: "user", content: input }];
+}
 
 function buildParams(
-  content: UserContent,
+  input: Input,
   opts: AiCallOptions & { jsonSchema?: Record<string, unknown> },
   mode: { fast: boolean; fallbacks: boolean },
 ): BetaMessageStreamParams {
@@ -91,8 +102,10 @@ function buildParams(
   return {
     model: AI_MODEL,
     max_tokens: Math.max(MIN_MAX_TOKENS, opts.maxTokens ?? DEFAULT_MAX_TOKENS),
-    system: opts.system ?? DEFAULT_SYSTEM,
-    messages: [{ role: "user", content }],
+    system: opts.cacheSystem
+      ? [{ type: "text", text: opts.system ?? DEFAULT_SYSTEM, cache_control: { type: "ephemeral" } }]
+      : (opts.system ?? DEFAULT_SYSTEM),
+    messages: toMessages(input),
     output_config: {
       effort: opts.effort ?? "low",
       ...(opts.jsonSchema ? { format: { type: "json_schema" as const, schema: opts.jsonSchema } } : {}),
@@ -108,7 +121,7 @@ function buildParams(
  * Opens a streaming request. If the preferred configuration is rejected (fast mode rate-limited,
  * or an optional feature unsupported), retries once with a plain standard-speed request.
  */
-async function openStream(content: UserContent, opts: AiCallOptions & { jsonSchema?: Record<string, unknown> }) {
+async function openStream(content: Input, opts: AiCallOptions & { jsonSchema?: Record<string, unknown> }) {
   const start = async (mode: { fast: boolean; fallbacks: boolean }) => {
     const stream = client().beta.messages.stream(buildParams(content, opts, mode));
     // Surface connection/HTTP errors before handing the stream back.
@@ -194,7 +207,7 @@ export async function anthropicJsonWithProgress<T>(
  * Streams plain text to the browser as it's generated, so users see output in ~1–2s
  * instead of waiting for the full response. Returns a Response with a text/plain body.
  */
-export async function anthropicTextResponse(content: UserContent, opts: AiCallOptions = {}): Promise<Response> {
+export async function anthropicTextResponse(content: Input, opts: AiCallOptions = {}): Promise<Response> {
   const stream = await openStream(content, opts);
   const encoder = new TextEncoder();
   const body = new ReadableStream<Uint8Array>({

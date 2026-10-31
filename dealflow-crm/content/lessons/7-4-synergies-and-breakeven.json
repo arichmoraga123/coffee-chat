@@ -1,0 +1,121 @@
+{
+  "id": "7-4",
+  "slug": "synergies-and-breakeven",
+  "module": 7,
+  "moduleTitle": "M&A & Merger Models",
+  "title": "Synergies and breakeven",
+  "difficulty": "follow-up",
+  "estMinutes": 10,
+  "prerequisites": [
+    "7-3"
+  ],
+  "relatedQuestionTags": [
+    "synergies",
+    "breakeven"
+  ],
+  "workbook": "PEB_06_Merger_Model",
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Merger Models"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Mergers & Acquisitions"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: What are breakeven synergies?",
+    "Answer out loud: Why do synergies take time?"
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "id": "b1",
+      "body": "Breakeven synergies: the pre-tax synergies needed to make pro forma EPS equal standalone EPS."
+    },
+    {
+      "type": "fillBlank",
+      "id": "b2",
+      "prompt": "Fill in the blank",
+      "template": "Breakeven synergies make the deal {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "neither accretive nor dilutive",
+            "breakeven",
+            "eps neutral",
+            "neutral",
+            "neither"
+          ],
+          "hint": "Starts with “N”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b3",
+      "title": "How do you calculate breakeven synergies?",
+      "difficulty": "follow-up",
+      "teaser": "Required pro forma net income = standalone EPS × pro forma shares.",
+      "body": "Required pro forma net income = standalone EPS × pro forma shares. The shortfall vs. pro forma NI (excluding synergies) is the after-tax synergy needed. Divide by (1 − t) to get pre-tax."
+    },
+    {
+      "type": "deepDive",
+      "id": "b4",
+      "title": "Are synergies realized immediately?",
+      "difficulty": "follow-up",
+      "teaser": "No.",
+      "body": "No. They phase in over 2–3 years, and achieving them usually requires one-time integration costs (severance, systems). Year-one accretion often looks worse than steady state."
+    },
+    {
+      "type": "deepDive",
+      "id": "b5",
+      "title": "If breakeven synergies are small, is the deal safe?",
+      "difficulty": "advanced",
+      "teaser": "Safer on EPS, but still not proof of value creation.",
+      "body": "Safer on EPS, but still not proof of value creation. Compare the total synergies needed to justify the premium paid: the capitalized value of synergies should exceed the premium."
+    },
+    {
+      "type": "mcq",
+      "id": "b6",
+      "prompt": "A deal needs only small breakeven synergies to avoid dilution. Does that prove it creates value?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Yes — EPS neutrality means it's a good deal"
+        },
+        {
+          "id": "b",
+          "text": "No — the capitalized value of synergies should exceed the premium paid"
+        },
+        {
+          "id": "c",
+          "text": "Yes, as long as the synergies are cost synergies"
+        },
+        {
+          "id": "d",
+          "text": "No — breakeven synergies are irrelevant to M&A"
+        }
+      ],
+      "correct": "b",
+      "explanation": "Breakeven synergies only test EPS. Value creation requires the capitalized synergies to exceed the premium paid."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b7",
+      "title": "Say it out loud",
+      "prompts": [
+        "What are breakeven synergies?",
+        "Why do synergies take time?"
+      ],
+      "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b8",
+      "workbook": "PEB_06_Merger_Model",
+      "body": "Calculate it in the workbook."
+    }
+  ]
+}

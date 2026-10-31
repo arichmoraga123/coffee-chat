@@ -1,0 +1,108 @@
+{
+  "id": "9-3",
+  "slug": "credit-gotchas",
+  "module": 9,
+  "moduleTitle": "Credit & Leveraged Finance",
+  "title": "Credit gotchas",
+  "difficulty": "advanced",
+  "estMinutes": 10,
+  "prerequisites": [
+    "9-2"
+  ],
+  "relatedQuestionTags": [
+    "bond",
+    "credit",
+    "high yield"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Debt & Leveraged Finance"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Leveraged Finance"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: What's OID?",
+    "Answer out loud: Why do bond prices fall when rates rise?"
+  ],
+  "blocks": [
+    {
+      "type": "deepDive",
+      "id": "b1",
+      "title": "What's OID?",
+      "difficulty": "advanced",
+      "teaser": "Original issue discount: debt issued below par (e.g., at 98).",
+      "body": "Original issue discount: debt issued below par (e.g., at 98). The lender receives 100 at maturity, so the effective yield is higher than the coupon. It's a way to adjust pricing without changing the stated rate."
+    },
+    {
+      "type": "deepDive",
+      "id": "b2",
+      "title": "Why do bond prices fall when interest rates rise?",
+      "difficulty": "core",
+      "teaser": "An existing bond pays a fixed coupon.",
+      "body": "An existing bond pays a fixed coupon. If new bonds pay more, the old one is less attractive, so its price falls until its yield matches the market.\n\n**Interview answer:** \"The coupon is fixed, so when new bonds pay more, the old one's price has to fall to offer a competitive yield.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b3",
+      "prompt": "Market interest rates rise. What happens to an existing fixed-rate bond?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Its coupon rises to match"
+        },
+        {
+          "id": "b",
+          "text": "Its price falls until its yield matches the market"
+        },
+        {
+          "id": "c",
+          "text": "Its price rises because it's safer"
+        },
+        {
+          "id": "d",
+          "text": "Nothing — the price is fixed at par"
+        }
+      ],
+      "correct": "b",
+      "explanation": "The coupon is fixed, so when new bonds pay more, the old bond's price has to fall to offer a competitive yield."
+    },
+    {
+      "type": "deepDive",
+      "id": "b4",
+      "title": "Why do yields rise when credit ratings fall?",
+      "difficulty": "core",
+      "teaser": "Higher default risk requires higher compensation.",
+      "body": "Higher default risk requires higher compensation. The spread over Treasuries widens."
+    },
+    {
+      "type": "deepDive",
+      "id": "b5",
+      "title": "What's covenant-lite and why does it matter?",
+      "difficulty": "follow-up",
+      "teaser": "Loans without maintenance covenants.",
+      "body": "Loans without maintenance covenants. Borrowers gain flexibility, but lenders lose early warning signals — they can't step in until a payment is missed, which often means lower recoveries."
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "Investment grade vs. high yield?",
+      "difficulty": "follow-up",
+      "teaser": "Investment grade is BBB−/Baa3 or above; below that is high yield (\"junk\").",
+      "body": "Investment grade is BBB−/Baa3 or above; below that is high yield (\"junk\"). LBO debt is almost always high yield."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b7",
+      "title": "Say it out loud",
+      "prompts": [
+        "What's OID?",
+        "Why do bond prices fall when rates rise?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}

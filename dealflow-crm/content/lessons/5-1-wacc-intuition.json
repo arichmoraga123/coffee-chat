@@ -1,0 +1,214 @@
+{
+  "id": "5-1",
+  "slug": "wacc-intuition",
+  "module": 5,
+  "moduleTitle": "Cost of Capital",
+  "title": "WACC intuition",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "4-4"
+  ],
+  "relatedQuestionTags": [
+    "wacc"
+  ],
+  "workbook": "PEB_03_CAPM_Beta_WACC",
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "DCF — WACC and Cost of Equity"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Discounted Cash Flow — Cost of Capital"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Walk me through WACC.",
+    "Answer out loud: Why after-tax cost of debt?",
+    "Answer out loud: Why market weights?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "WACC = the blended required return of everyone who funds the company."
+        },
+        {
+          "body": "WACC = (E/V) × Re + (D/V) × Rd × (1 − t) + (P/V) × Rp."
+        },
+        {
+          "body": "It's the discount rate for *unlevered* FCF, because UFCF is available to all investors."
+        },
+        {
+          "body": "Weights use market values and ideally the company's target capital structure."
+        }
+      ]
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "\\text{WACC} = \\frac{E}{V} R_e + \\frac{D}{V} R_d (1 - t) + \\frac{P}{V} R_p",
+      "caption": "Weighted average cost of capital",
+      "legend": [
+        {
+          "symbol": "E, D, P",
+          "meaning": "Market values of equity, debt and preferred"
+        },
+        {
+          "symbol": "V",
+          "meaning": "E + D + P"
+        },
+        {
+          "symbol": "R_e",
+          "meaning": "Cost of equity"
+        },
+        {
+          "symbol": "R_d",
+          "meaning": "Pre-tax cost of debt"
+        },
+        {
+          "symbol": "t",
+          "meaning": "Tax rate"
+        },
+        {
+          "symbol": "R_p",
+          "meaning": "Cost of preferred"
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "Cost of debt is multiplied by (1 − {{1}})",
+      "blanks": {
+        "1": {
+          "accept": [
+            "tax rate",
+            "t",
+            "tax",
+            "the tax rate"
+          ],
+          "hint": "Starts with “T”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "WACC is used to discount {{1}} free cash flow",
+      "blanks": {
+        "1": {
+          "accept": [
+            "unlevered",
+            "unlevered fcf",
+            "unlevered free cash flow"
+          ],
+          "hint": "Starts with “U”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b5",
+      "prompt": "Fill in the blank",
+      "template": "WACC weights should use {{1}} values, not book values",
+      "blanks": {
+        "1": {
+          "accept": [
+            "market",
+            "market values"
+          ],
+          "hint": "Starts with “M”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "Why is cost of debt after-tax but cost of equity isn't?",
+      "difficulty": "core",
+      "teaser": "Interest is tax-deductible, so the government effectively subsidizes part of it.",
+      "body": "Interest is tax-deductible, so the government effectively subsidizes part of it. Dividends to shareholders aren't deductible.\n\n**Interview answer:** \"Interest is tax-deductible, so debt's true cost is lower after tax. Dividends aren't deductible, so equity gets no adjustment.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b7",
+      "prompt": "Why is the cost of debt tax-effected in WACC but the cost of equity isn't?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Debt is riskier than equity"
+        },
+        {
+          "id": "b",
+          "text": "Interest is tax-deductible; dividends aren't"
+        },
+        {
+          "id": "c",
+          "text": "Equity holders pay taxes on dividends"
+        },
+        {
+          "id": "d",
+          "text": "Debt is valued at book, equity at market"
+        }
+      ],
+      "correct": "b",
+      "explanation": "Interest lowers taxable income, so the government effectively subsidizes part of it. Dividends get no such deduction."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "Why market values instead of book?",
+      "difficulty": "follow-up",
+      "teaser": "WACC is the return investors require today on what their capital is worth today.",
+      "body": "WACC is the return investors require today on what their capital is worth today. Book equity reflects historical accounting and can even be negative."
+    },
+    {
+      "type": "deepDive",
+      "id": "b9",
+      "title": "Current or target capital structure?",
+      "difficulty": "follow-up",
+      "teaser": "Target, because the DCF projects the long-term future.",
+      "body": "Target, because the DCF projects the long-term future. A company that's temporarily over-levered after an acquisition will likely delever."
+    },
+    {
+      "type": "deepDive",
+      "id": "b10",
+      "title": "Why does WACC match UFCF but cost of equity match levered FCF?",
+      "difficulty": "core",
+      "teaser": "Match cash flows to the investors who receive them.",
+      "body": "Match cash flows to the investors who receive them. UFCF goes to all investors → WACC. Levered FCF (after interest and debt payments) goes only to equity → cost of equity."
+    },
+    {
+      "type": "deepDive",
+      "id": "b11",
+      "title": "What's the WACC of a company with no debt?",
+      "difficulty": "core",
+      "teaser": "It equals the cost of equity.",
+      "body": "It equals the cost of equity."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b12",
+      "title": "Say it out loud",
+      "prompts": [
+        "Walk me through WACC.",
+        "Why after-tax cost of debt?",
+        "Why market weights?"
+      ],
+      "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b13",
+      "workbook": "PEB_03_CAPM_Beta_WACC",
+      "body": "Practice this lesson's mechanics in the matching workbook."
+    }
+  ]
+}

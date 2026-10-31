@@ -1,0 +1,164 @@
+{
+  "id": "9-1",
+  "slug": "credit-metrics",
+  "module": 9,
+  "moduleTitle": "Credit & Leveraged Finance",
+  "title": "Credit metrics",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "8-7"
+  ],
+  "relatedQuestionTags": [
+    "credit",
+    "leverage",
+    "coverage"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Debt & Leveraged Finance"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Leveraged Finance"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Calculate leverage and coverage.",
+    "Answer out loud: What do lenders focus on?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "heading": "Leverage",
+          "body": "Total debt ÷ EBITDA; Net debt ÷ EBITDA. How many years of EBITDA to repay debt."
+        },
+        {
+          "heading": "Coverage",
+          "body": "EBITDA ÷ interest; (EBITDA − CapEx) ÷ interest. Can the company afford its interest?"
+        },
+        {
+          "heading": "Cash flow",
+          "body": "FCF ÷ debt. How fast can it pay down debt?"
+        },
+        {
+          "body": "Typical LBO leverage: roughly 4–6x EBITDA, depending on the business and credit markets."
+        }
+      ]
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "\\text{Leverage} = \\frac{\\text{Debt}}{\\text{EBITDA}} \\qquad \\text{Coverage} = \\frac{\\text{EBITDA}}{\\text{Interest}}",
+      "caption": "Core credit ratios",
+      "legend": [
+        {
+          "symbol": "\\text{Leverage}",
+          "meaning": "Years of EBITDA to repay debt — lower is safer"
+        },
+        {
+          "symbol": "\\text{Coverage}",
+          "meaning": "How many times EBITDA covers interest — higher is safer"
+        }
+      ]
+    },
+    {
+      "type": "calc",
+      "id": "b3",
+      "prompt": "Debt $500, EBITDA $100 → leverage = **?**",
+      "answer": 5,
+      "tolerance": 0.05,
+      "unit": "x",
+      "solution": "Debt $500, EBITDA $100 → leverage = 5.0x"
+    },
+    {
+      "type": "calc",
+      "id": "b4",
+      "prompt": "EBITDA $100, interest $25 → interest coverage = **?**",
+      "answer": 4,
+      "tolerance": 0.05,
+      "unit": "x",
+      "solution": "EBITDA $100, interest $25 → interest coverage = 4.0x"
+    },
+    {
+      "type": "fillBlank",
+      "id": "b5",
+      "prompt": "Fill in the blank",
+      "template": "Higher leverage ratios mean {{1}} credit risk",
+      "blanks": {
+        "1": {
+          "accept": [
+            "more",
+            "higher",
+            "greater"
+          ],
+          "hint": "Starts with “M”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "Why is (EBITDA − CapEx) ÷ interest more conservative than EBITDA ÷ interest?",
+      "difficulty": "follow-up",
+      "teaser": "CapEx is a real cash need.",
+      "body": "CapEx is a real cash need. A capital-intensive company might cover interest easily on EBITDA but barely after funding CapEx."
+    },
+    {
+      "type": "mcq",
+      "id": "b7",
+      "prompt": "EBITDA $100, CapEx $40, interest $25. What's (EBITDA − CapEx) ÷ interest?",
+      "options": [
+        {
+          "id": "a",
+          "text": "4.0x"
+        },
+        {
+          "id": "b",
+          "text": "2.4x"
+        },
+        {
+          "id": "c",
+          "text": "1.6x"
+        },
+        {
+          "id": "d",
+          "text": "6.0x"
+        }
+      ],
+      "correct": "b",
+      "explanation": "($100 − $40) ÷ $25 = 2.4x. On EBITDA alone it would look like 4.0x — CapEx is a real cash need, so this ratio is more conservative."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "Gross vs. net leverage?",
+      "difficulty": "follow-up",
+      "teaser": "Net leverage subtracts cash, reflecting debt the company couldn't repay immediately.",
+      "body": "Net leverage subtracts cash, reflecting debt the company couldn't repay immediately. Lenders often focus on gross leverage, since cash can be spent."
+    },
+    {
+      "type": "deepDive",
+      "id": "b9",
+      "title": "What do lenders care about most?",
+      "difficulty": "core",
+      "teaser": "Getting repaid: stable cash flow, coverage, collateral, and covenants.",
+      "body": "Getting repaid: stable cash flow, coverage, collateral, and covenants. They don't share in the upside, so they focus on downside protection.\n\n**Interview answer:** \"Lenders don't get the upside, so they care about downside — cash flow stability, coverage, and collateral.\""
+    },
+    {
+      "type": "checkpoint",
+      "id": "b10",
+      "title": "Say it out loud",
+      "prompts": [
+        "Calculate leverage and coverage.",
+        "What do lenders focus on?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}

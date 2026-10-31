@@ -1,0 +1,193 @@
+{
+  "id": "0-1",
+  "slug": "time-value-of-money",
+  "module": 0,
+  "moduleTitle": "Foundations",
+  "title": "Time value of money",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [],
+  "relatedQuestionTags": [
+    "tvm",
+    "discount rate",
+    "present value"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Valuation fundamentals"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Valuation — Introduction"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Why is $1 today worth more than $1 tomorrow?",
+    "Answer out loud: What happens to the PV of a 20-year cash flow if rates rise?",
+    "Answer out loud: What does the discount rate represent?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "A dollar today is worth more than a dollar later because you can invest today's dollar and earn a return."
+        },
+        {
+          "body": "Future value: FV = PV × (1 + r)^n. $100 at 10% for 2 years = $121."
+        },
+        {
+          "body": "Present value runs it backwards: PV = FV / (1 + r)^n. $121 in 2 years at 10% = $100 today."
+        },
+        {
+          "body": "The discount rate is the return you *give up* by not investing elsewhere at similar risk — your opportunity cost."
+        },
+        {
+          "body": "Higher discount rate → lower present value. Further-out cash flows → hit harder by the discount rate."
+        }
+      ]
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "\\text{FV} = \\text{PV} \\times (1 + r)^n \\qquad \\text{PV} = \\frac{\\text{FV}}{(1 + r)^n}",
+      "caption": "Future value and present value",
+      "legend": [
+        {
+          "symbol": "\\text{PV}",
+          "meaning": "Present value — what the cash is worth today"
+        },
+        {
+          "symbol": "\\text{FV}",
+          "meaning": "Future value — what it grows to"
+        },
+        {
+          "symbol": "r",
+          "meaning": "Discount rate (opportunity cost) per period"
+        },
+        {
+          "symbol": "n",
+          "meaning": "Number of periods"
+        }
+      ]
+    },
+    {
+      "type": "calc",
+      "id": "b3",
+      "prompt": "PV of $110 received in 1 year at a 10% discount rate → **?**",
+      "answer": 100,
+      "tolerance": 0,
+      "unit": "$",
+      "solution": "PV of $110 received in 1 year at a 10% discount rate → $100"
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "If the discount rate rises, present value {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "falls",
+            "decreases",
+            "declines",
+            "goes down",
+            "drops",
+            "decrease",
+            "fall",
+            "lower",
+            "down"
+          ],
+          "hint": "Starts with “F”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b5",
+      "prompt": "Fill in the blank",
+      "template": "The discount rate represents the investor's {{1}} / required return",
+      "blanks": {
+        "1": {
+          "accept": [
+            "opportunity cost",
+            "required return",
+            "opportunity cost of capital"
+          ],
+          "hint": "Starts with “O”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "Why is the discount rate called a \"required return\" and not an \"interest rate\"?",
+      "difficulty": "follow-up",
+      "teaser": "An interest rate is what a lender charges.",
+      "body": "An interest rate is what a lender charges. A required return is what *any* investor needs to earn to accept a given level of risk. For a risky business, that's far above a bank interest rate. In valuation, the discount rate always reflects the risk of the cash flows being discounted.\n\n**Interview answer:** \"The discount rate is the return investors require for the risk they're taking — their opportunity cost — so riskier cash flows get a higher rate and a lower present value.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "Why are long-dated cash flows more sensitive to the discount rate?",
+      "difficulty": "follow-up",
+      "teaser": "The rate compounds.",
+      "body": "The rate compounds. Moving from 8% to 10% barely changes the PV of a cash flow next year (0.926 → 0.909), but cuts the PV of a cash flow in 20 years by about a third (0.215 → 0.149). This is why growth companies — whose value sits far in the future — fall harder when interest rates rise.\n\n**Interview answer:** \"Discounting compounds, so a rate change hits distant cash flows much harder. That's why long-duration assets like growth stocks are most rate-sensitive.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b8",
+      "prompt": "Rates rise from 8% to 10%. Which cash flow's present value falls the most in percentage terms?",
+      "options": [
+        {
+          "id": "a",
+          "text": "$100 received next year"
+        },
+        {
+          "id": "b",
+          "text": "$100 received in 5 years"
+        },
+        {
+          "id": "c",
+          "text": "$100 received in 20 years"
+        },
+        {
+          "id": "d",
+          "text": "They all fall by the same percentage"
+        }
+      ],
+      "correct": "c",
+      "explanation": "Discounting compounds, so distant cash flows are hit hardest: the 20-year factor drops from 0.215 to 0.149 (about a third), while next year's barely moves (0.926 → 0.909)."
+    },
+    {
+      "type": "deepDive",
+      "id": "b9",
+      "title": "Nominal vs. real — why must cash flows and rates match?",
+      "difficulty": "advanced",
+      "teaser": "Nominal figures include inflation; real figures strip it out.",
+      "body": "Nominal figures include inflation; real figures strip it out. If you project nominal cash flows (with price increases) but discount at a real rate, you overstate value. Mixing them is a consistency error, the same family as using EV/Net Income.\n\n**Interview answer:** \"Nominal cash flows get a nominal discount rate, real get real. Mismatching them inflates or deflates the value.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b10",
+      "title": "Does compounding frequency matter?",
+      "difficulty": "core",
+      "teaser": "Yes — more frequent compounding means slightly more growth.",
+      "body": "Yes — more frequent compounding means slightly more growth. 10% compounded annually turns $100 into $110; compounded monthly, about $110.47. Interviews rarely test the math, but you should know why a monthly-compounding loan costs more than its stated annual rate."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b11",
+      "title": "Say it out loud",
+      "prompts": [
+        "Why is $1 today worth more than $1 tomorrow?",
+        "What happens to the PV of a 20-year cash flow if rates rise?",
+        "What does the discount rate represent?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}

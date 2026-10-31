@@ -1,0 +1,175 @@
+{
+  "id": "10-2",
+  "slug": "reits",
+  "module": 10,
+  "moduleTitle": "Industry-Specific Valuation",
+  "title": "REITs",
+  "difficulty": "advanced",
+  "estMinutes": 10,
+  "prerequisites": [
+    "10-1"
+  ],
+  "relatedQuestionTags": [
+    "reit",
+    "cap rate"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Industry-specific valuation"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Industry Valuation"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Why not use P/E for a REIT?",
+    "Answer out loud: What's a cap rate?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "Real Estate Investment Trusts must distribute at least 90% of taxable income as dividends, avoiding corporate tax."
+        },
+        {
+          "body": "GAAP depreciation on real estate understates performance, because properties often hold or gain value."
+        },
+        {
+          "body": "Key metrics: FFO, AFFO, NAV, cap rate."
+        }
+      ]
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "\\text{Cap rate} = \\frac{\\text{NOI}}{\\text{Property value}} \\qquad \\text{FFO} = \\text{NI} + \\text{RE D\\&A} - \\text{Gains on sales}",
+      "caption": "REIT metrics",
+      "legend": [
+        {
+          "symbol": "\\text{NOI}",
+          "meaning": "Net operating income"
+        },
+        {
+          "symbol": "\\text{FFO}",
+          "meaning": "Funds from operations"
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "REITs must distribute at least {{1}} of taxable income",
+      "blanks": {
+        "1": {
+          "numeric": 90,
+          "tolerance": 0.5,
+          "accept": [
+            "90%"
+          ],
+          "hint": "Enter a number."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "FFO = net income + real estate D&A − {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "gains on property sales"
+          ],
+          "hint": "Starts with “G”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b5",
+      "prompt": "Fill in the blank",
+      "template": "Cap rate = NOI ÷ {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "property value"
+          ],
+          "hint": "Starts with “P”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "What's FFO and why use it?",
+      "difficulty": "advanced",
+      "teaser": "Funds from operations adds back real estate depreciation (which doesn't reflect real value loss for buildings) and removes one-time gains from proper…",
+      "body": "Funds from operations adds back real estate depreciation (which doesn't reflect real value loss for buildings) and removes one-time gains from property sales. It's a better measure of recurring cash earnings. P/FFO replaces P/E."
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "AFFO vs. FFO?",
+      "difficulty": "advanced",
+      "teaser": "AFFO (adjusted FFO) also subtracts recurring maintenance CapEx and adjusts for straight-line rent.",
+      "body": "AFFO (adjusted FFO) also subtracts recurring maintenance CapEx and adjusts for straight-line rent. It's closer to the cash actually available for dividends."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "What's NAV?",
+      "difficulty": "advanced",
+      "teaser": "Net asset value: estimate the market value of each property (NOI ÷ cap rate), sum them, and subtract debt.",
+      "body": "Net asset value: estimate the market value of each property (NOI ÷ cap rate), sum them, and subtract debt. REITs often trade at a premium or discount to NAV."
+    },
+    {
+      "type": "deepDive",
+      "id": "b9",
+      "title": "What's a cap rate?",
+      "difficulty": "follow-up",
+      "teaser": "Net operating income ÷ property value — the unlevered yield on a property.",
+      "body": "Net operating income ÷ property value — the unlevered yield on a property. Lower cap rate = higher value (similar to an earnings yield). Cap rates rise when interest rates rise.\n\n**Interview answer:** \"NOI divided by property value — the property's yield. A lower cap rate means a higher valuation.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b10",
+      "prompt": "A property has NOI of $5M and is valued at $100M. What's the cap rate, and what happens to value if cap rates rise?",
+      "options": [
+        {
+          "id": "a",
+          "text": "5%; value rises"
+        },
+        {
+          "id": "b",
+          "text": "5%; value falls"
+        },
+        {
+          "id": "c",
+          "text": "20%; value falls"
+        },
+        {
+          "id": "d",
+          "text": "20%; value rises"
+        }
+      ],
+      "correct": "b",
+      "explanation": "$5M ÷ $100M = 5%. A higher cap rate means a lower value for the same NOI (like a higher earnings yield)."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b11",
+      "title": "Say it out loud",
+      "prompts": [
+        "Why not use P/E for a REIT?",
+        "What's a cap rate?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}

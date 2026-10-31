@@ -1,0 +1,318 @@
+{
+  "id": "1-3",
+  "slug": "walk-me-through-scenarios",
+  "module": 1,
+  "moduleTitle": "Accounting",
+  "title": "“Walk me through” scenarios",
+  "difficulty": "core",
+  "estMinutes": 15,
+  "prerequisites": [
+    "1-2"
+  ],
+  "relatedQuestionTags": [
+    "depreciation",
+    "three statements"
+  ],
+  "workbook": "PEB_01_Accounting_3Statement_Linking",
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Accounting"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Accounting"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Depreciation +$10.",
+    "Answer out loud: Buy $100 of PP&E.",
+    "Answer out loud: SBC of $10.",
+    "Answer out loud: AR up $10.",
+    "Answer out loud: All in under 45 seconds each."
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "id": "b1",
+      "body": "Use the same method every time: **IS → CFS → BS, then check that it balances.** Assume a 40% tax rate unless told otherwise."
+    },
+    {
+      "type": "fillBlank",
+      "id": "b2",
+      "prompt": "Fill in the blank",
+      "template": "Depreciation +$10 → net income {{1}}, cash {{2}}, PP&E {{3}}",
+      "blanks": {
+        "1": {
+          "numeric": -6,
+          "tolerance": 0,
+          "accept": [
+            "−$6",
+            "down 6",
+            "down $6",
+            "decreases by 6",
+            "falls by 6",
+            "minus 6"
+          ],
+          "hint": "Include the direction: use + or − (e.g. −6)."
+        },
+        "2": {
+          "numeric": 4,
+          "tolerance": 0,
+          "accept": [
+            "+$4",
+            "up 4",
+            "up $4",
+            "increases by 4",
+            "rises by 4",
+            "plus 4"
+          ],
+          "hint": "Include the direction: use + or − (e.g. −6)."
+        },
+        "3": {
+          "numeric": -10,
+          "tolerance": 0,
+          "accept": [
+            "−$10",
+            "down 10",
+            "down $10",
+            "decreases by 10",
+            "falls by 10",
+            "minus 10"
+          ],
+          "hint": "Include the direction: use + or − (e.g. −6)."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "Buy $100 of PP&E with cash → net income {{1}}, cash {{2}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "unchanged",
+            "no change",
+            "the same",
+            "flat",
+            "same",
+            "no impact"
+          ],
+          "hint": "Starts with “U”."
+        },
+        "2": {
+          "numeric": -100,
+          "tolerance": 0,
+          "accept": [
+            "−$100",
+            "down 100",
+            "down $100",
+            "decreases by 100",
+            "falls by 100",
+            "minus 100"
+          ],
+          "hint": "Include the direction: use + or − (e.g. −6)."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "Repay $50 of debt principal → income statement impact: {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "none",
+            "no impact",
+            "no effect",
+            "nothing",
+            "zero",
+            "0"
+          ],
+          "hint": "Starts with “N”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b5",
+      "prompt": "Fill in the blank",
+      "template": "Stock-based comp of $10 → net income {{1}}, cash {{2}}, equity {{3}}",
+      "blanks": {
+        "1": {
+          "numeric": -6,
+          "tolerance": 0,
+          "accept": [
+            "−$6",
+            "down 6",
+            "down $6",
+            "decreases by 6",
+            "falls by 6",
+            "minus 6"
+          ],
+          "hint": "Include the direction: use + or − (e.g. −6)."
+        },
+        "2": {
+          "numeric": 4,
+          "tolerance": 0,
+          "accept": [
+            "+$4",
+            "up 4",
+            "up $4",
+            "increases by 4",
+            "rises by 4",
+            "plus 4"
+          ],
+          "hint": "Include the direction: use + or − (e.g. −6)."
+        },
+        "3": {
+          "numeric": 4,
+          "tolerance": 0,
+          "accept": [
+            "+$4",
+            "up 4",
+            "up $4",
+            "increases by 4",
+            "rises by 4",
+            "plus 4"
+          ],
+          "hint": "Include the direction: use + or − (e.g. −6)."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "Depreciation goes up by $10 — walk me through it.",
+      "difficulty": "core",
+      "teaser": "Includes a model interview answer",
+      "body": "**Interview answer:** \"Operating income falls by $10, so at a 40% tax rate net income falls by $6. On the cash flow statement, net income is down $6 but we add back the $10 of depreciation since it's non-cash, so cash is up $4. On the balance sheet, cash is up $4, PP&E is down $10, so assets are down $6. Retained earnings is down $6, so both sides are down $6 and it balances.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "Why does depreciation *increase* cash?",
+      "difficulty": "core",
+      "teaser": "Depreciation is tax-deductible but non-cash.",
+      "body": "Depreciation is tax-deductible but non-cash. It lowers taxable income, so the company pays less tax. The cash increase is the tax shield: $10 × 40% = $4.\n\n**Interview answer:** \"It reduces taxes without using cash, so cash goes up by depreciation times the tax rate.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b8",
+      "prompt": "Depreciation increases by $10 with a 40% tax rate. What happens to cash?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Down $10"
+        },
+        {
+          "id": "b",
+          "text": "Down $6"
+        },
+        {
+          "id": "c",
+          "text": "Up $4"
+        },
+        {
+          "id": "d",
+          "text": "Unchanged — depreciation is non-cash"
+        }
+      ],
+      "correct": "c",
+      "explanation": "Net income falls $6, but the $10 non-cash charge is added back, so cash rises by the $4 tax shield ($10 × 40%)."
+    },
+    {
+      "type": "deepDive",
+      "id": "b9",
+      "title": "Inventory written down by $10.",
+      "difficulty": "core",
+      "teaser": "Same mechanics as depreciation: non-cash expense.",
+      "body": "Same mechanics as depreciation: non-cash expense. Net income −$6, add back $10 → cash +$4. BS: cash +$4, inventory −$10 → assets −$6; equity −$6. (Assumes the write-down is tax-deductible, the standard interview simplification.)"
+    },
+    {
+      "type": "deepDive",
+      "id": "b10",
+      "title": "Raise $100 of debt, then pay $10 of interest.",
+      "difficulty": "core",
+      "teaser": "Raising debt: no IS impact; CFF +$100; cash and debt both +$100.",
+      "body": "Raising debt: no IS impact; CFF +$100; cash and debt both +$100. Paying interest: net income −$6; cash −$6; equity −$6. Interest is tax-deductible, so the after-tax cost is only $6."
+    },
+    {
+      "type": "deepDive",
+      "id": "b11",
+      "title": "Repay $50 of debt principal.",
+      "difficulty": "core",
+      "teaser": "No IS impact — principal isn't an expense.",
+      "body": "No IS impact — principal isn't an expense. CFF −$50. Cash −$50, debt −$50.\n\n**Interview answer:** \"Principal repayment never hits the income statement. Cash and debt both fall by $50.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b12",
+      "title": "Stock-based compensation of $10.",
+      "difficulty": "follow-up",
+      "teaser": "IS: −$10 expense → net income −$6.",
+      "body": "IS: −$10 expense → net income −$6. CFS: add back $10 (non-cash) → cash +$4. BS: cash +$4; equity: retained earnings −$6 but common stock/APIC +$10 → equity +$4. Balanced.\n\n**Interview answer:** \"Net income falls $6, we add back the $10 since it's non-cash, cash is up $4. Equity is up $4 because the new stock issued adds $10 while retained earnings falls $6.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b13",
+      "title": "AR increases by $10 (sale made on credit).",
+      "difficulty": "core",
+      "teaser": "Revenue +$10 → net income +$6.",
+      "body": "Revenue +$10 → net income +$6. CFS: net income +$6, subtract $10 increase in AR → cash −$4 (you paid tax on revenue you haven't collected). BS: cash −$4, AR +$10 → assets +$6; equity +$6."
+    },
+    {
+      "type": "deepDive",
+      "id": "b14",
+      "title": "A customer prepays $10 (deferred revenue).",
+      "difficulty": "follow-up",
+      "teaser": "No revenue yet → no IS impact.",
+      "body": "No revenue yet → no IS impact. CFS: deferred revenue up $10 → cash +$10. BS: cash +$10, deferred revenue (liability) +$10. In reality the cash may be taxed when received; the interview version ignores that."
+    },
+    {
+      "type": "deepDive",
+      "id": "b15",
+      "title": "$10 bonus expensed but not yet paid (accrued expense).",
+      "difficulty": "follow-up",
+      "teaser": "Net income −$6.",
+      "body": "Net income −$6. CFS: add back $10 increase in accrued expenses → cash +$4. BS: cash +$4; liabilities +$10; equity −$6."
+    },
+    {
+      "type": "deepDive",
+      "id": "b16",
+      "title": "Pay a $10 dividend.",
+      "difficulty": "core",
+      "teaser": "No IS impact.",
+      "body": "No IS impact. CFF −$10. Cash −$10, retained earnings −$10."
+    },
+    {
+      "type": "deepDive",
+      "id": "b17",
+      "title": "Buy $10 of inventory with cash, then sell it for $15.",
+      "difficulty": "follow-up",
+      "teaser": "Buying: no IS impact; CFO −$10 (inventory up); cash −$10, inventory +$10.",
+      "body": "Buying: no IS impact; CFO −$10 (inventory up); cash −$10, inventory +$10. Selling: revenue $15, COGS $10 → pre-tax $5 → net income +$3. CFS: net income +$3, inventory decrease +$10 → +$13. Combined across both steps, cash +$3, which matches net income."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b18",
+      "title": "Say it out loud",
+      "prompts": [
+        "Depreciation +$10.",
+        "Buy $100 of PP&E.",
+        "SBC of $10.",
+        "AR up $10.",
+        "All in under 45 seconds each."
+      ],
+      "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b19",
+      "workbook": "PEB_01_Accounting_3Statement_Linking",
+      "body": "Practice in the “Scenarios” tab."
+    }
+  ]
+}

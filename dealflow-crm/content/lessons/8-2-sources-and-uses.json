@@ -1,0 +1,171 @@
+{
+  "id": "8-2",
+  "slug": "sources-and-uses",
+  "module": 8,
+  "moduleTitle": "LBO",
+  "title": "Sources & uses",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "8-1"
+  ],
+  "relatedQuestionTags": [
+    "lbo",
+    "sources"
+  ],
+  "workbook": "PEB_07_LBO",
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "LBO Models"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Leveraged Buyouts"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Build sources & uses for a $1,000 EV deal at 5x leverage on $100 EBITDA."
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "heading": "Uses",
+          "body": "purchase price of equity, refinancing existing debt, transaction fees, financing fees, any cash to the balance sheet."
+        },
+        {
+          "heading": "Sources",
+          "body": "new debt tranches (sized as multiples of EBITDA), sponsor equity, management rollover, sometimes existing cash."
+        },
+        {
+          "body": "Sources must equal uses. Sponsor equity is usually the plug."
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b2",
+      "prompt": "Fill in the blank",
+      "template": "Sources must {{1}} uses",
+      "blanks": {
+        "1": {
+          "accept": [
+            "equal",
+            "equals",
+            "be equal",
+            "match"
+          ],
+          "hint": "Starts with “E”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "Sponsor equity is usually the {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "plug",
+            "the plug",
+            "balancing item",
+            "residual"
+          ],
+          "hint": "Starts with “P”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "Debt is typically sized as a multiple of {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "EBITDA",
+            "ebitda"
+          ],
+          "hint": "Starts with “E”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b5",
+      "title": "What does \"cash-free, debt-free\" mean?",
+      "difficulty": "follow-up",
+      "teaser": "The buyer pays for the business on an EV basis.",
+      "body": "The buyer pays for the business on an EV basis. The seller keeps the cash and repays the debt from the proceeds. It simplifies negotiation to one number: enterprise value."
+    },
+    {
+      "type": "mcq",
+      "id": "b6",
+      "prompt": "A deal is done \"cash-free, debt-free.\" What does that mean?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The buyer assumes all debt and keeps the cash"
+        },
+        {
+          "id": "b",
+          "text": "The buyer pays for the business on an EV basis; the seller keeps the cash and repays the debt"
+        },
+        {
+          "id": "c",
+          "text": "The deal is financed with no debt"
+        },
+        {
+          "id": "d",
+          "text": "The target must have zero debt to be sold"
+        }
+      ],
+      "correct": "b",
+      "explanation": "It simplifies the negotiation to one number — enterprise value. The seller keeps cash and repays debt out of the proceeds."
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "How are fees treated?",
+      "difficulty": "advanced",
+      "teaser": "M&A advisory fees are expensed (in the model, they reduce equity value created — \"leakage\").",
+      "body": "M&A advisory fees are expensed (in the model, they reduce equity value created — \"leakage\"). Financing fees are capitalized and amortized over the debt term."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "What's management rollover?",
+      "difficulty": "follow-up",
+      "teaser": "Existing management reinvests part of their proceeds in the new deal instead of cashing out.",
+      "body": "Existing management reinvests part of their proceeds in the new deal instead of cashing out. It aligns incentives and reduces the sponsor's equity check. Sponsors also set aside an option pool (often 5–10%) for management."
+    },
+    {
+      "type": "deepDive",
+      "id": "b9",
+      "title": "Why might a sponsor leave a minimum cash balance?",
+      "difficulty": "advanced",
+      "teaser": "The company needs operating cash.",
+      "body": "The company needs operating cash. So not all cash can go toward the purchase price or debt paydown."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b10",
+      "title": "Say it out loud",
+      "prompts": [
+        "Build sources & uses for a $1,000 EV deal at 5x leverage on $100 EBITDA."
+      ],
+      "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b11",
+      "workbook": "PEB_07_LBO",
+      "body": "Build it in the workbook."
+    }
+  ]
+}

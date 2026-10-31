@@ -1,0 +1,140 @@
+{
+  "id": "11-2",
+  "slug": "interview-math-and-brain-teasers",
+  "module": 11,
+  "moduleTitle": "Mental Math & Brain Teasers",
+  "title": "Interview math and brain teasers",
+  "difficulty": "follow-up",
+  "estMinutes": 10,
+  "prerequisites": [
+    "11-1"
+  ],
+  "relatedQuestionTags": [
+    "market sizing",
+    "math"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Brain teasers / mental math"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Brain Teasers"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Do five mental-math problems in under two minutes."
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "Percentages: 15% of 240 = 10% (24) + 5% (12) = 36."
+        },
+        {
+          "body": "Compounding: 10% growth for 3 years ≈ 1.1 × 1.1 × 1.1 = 1.331, so ~33%."
+        },
+        {
+          "body": "Squaring numbers near 50 or 100: 48² = (50 − 2)² = 2,500 − 200 + 4 = 2,304."
+        },
+        {
+          "body": "Always talk through your reasoning — the process is graded as much as the answer."
+        }
+      ]
+    },
+    {
+      "type": "calc",
+      "id": "b2",
+      "prompt": "15% of 240 = **?**",
+      "answer": 36,
+      "tolerance": 0,
+      "solution": "15% of 240 = 36"
+    },
+    {
+      "type": "calc",
+      "id": "b3",
+      "prompt": "48² = **?**",
+      "answer": 2304,
+      "tolerance": 1,
+      "solution": "48² = 2,304"
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "10% annual growth for 3 years ≈ {{1}} total growth",
+      "blanks": {
+        "1": {
+          "numeric": 33,
+          "tolerance": 0.5,
+          "accept": [
+            "33%"
+          ],
+          "hint": "Enter a number."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b5",
+      "title": "What's the angle between the clock hands at 3:15?",
+      "difficulty": "follow-up",
+      "teaser": "The minute hand is at 90°.",
+      "body": "The minute hand is at 90°. The hour hand moves 30° per hour plus 0.5° per minute: 90° + 7.5° = 97.5°. Difference: 7.5°.\n\n**Interview answer:** \"The hour hand moves half a degree per minute, so at 3:15 it's 7.5 degrees past the 3, while the minute hand is on the 3. So 7.5 degrees.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b6",
+      "prompt": "What's the angle between the clock hands at 3:15?",
+      "options": [
+        {
+          "id": "a",
+          "text": "0°"
+        },
+        {
+          "id": "b",
+          "text": "7.5°"
+        },
+        {
+          "id": "c",
+          "text": "15°"
+        },
+        {
+          "id": "d",
+          "text": "90°"
+        }
+      ],
+      "correct": "b",
+      "explanation": "The hour hand moves 0.5° per minute, so at 3:15 it's 7.5° past the 3, while the minute hand is on the 3."
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "How do you approach a market-sizing question?",
+      "difficulty": "follow-up",
+      "teaser": "State assumptions clearly, break the problem into pieces (population → segment → usage → price), estimate each, and sanity-check the result.",
+      "body": "State assumptions clearly, break the problem into pieces (population → segment → usage → price), estimate each, and sanity-check the result. Example: US coffee shop revenue ≈ adults × share who buy coffee out × cups per week × price × 52."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "What if you get a math question wrong?",
+      "difficulty": "core",
+      "teaser": "Stay calm, recheck out loud, and correct yourself.",
+      "body": "Stay calm, recheck out loud, and correct yourself. Interviewers respect catching your own error more than a silent guess."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b9",
+      "title": "Say it out loud",
+      "prompts": [
+        "Do five mental-math problems in under two minutes."
+      ],
+      "selfGrade": true
+    }
+  ]
+}

@@ -1,0 +1,237 @@
+{
+  "id": "2-2",
+  "slug": "the-ev-bridge",
+  "module": 2,
+  "moduleTitle": "Equity Value & Enterprise Value",
+  "title": "The EV bridge",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "2-1"
+  ],
+  "relatedQuestionTags": [
+    "enterprise value",
+    "ev"
+  ],
+  "workbook": "PEB_02_EV_Equity_Bridge",
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Equity Value & Enterprise Value"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Enterprise Value"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Walk me through the bridge.",
+    "Answer out loud: Why subtract cash?",
+    "Answer out loud: Why add NCI?"
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "id": "b1",
+      "body": "EV = Equity value + Debt + Preferred stock + Noncontrolling interest − Cash − Non-operating assets (equity investments)."
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "\\text{EV} = \\text{Equity value} + \\text{Debt} + \\text{Preferred} + \\text{NCI} - \\text{Cash} - \\text{Equity investments}",
+      "caption": "The EV bridge",
+      "legend": [
+        {
+          "symbol": "\\text{NCI}",
+          "meaning": "Noncontrolling interest (minority interest)"
+        },
+        {
+          "symbol": "\\text{Equity investments}",
+          "meaning": "Stakes in associates — non-operating assets"
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "Cash is {{1}} in the bridge",
+      "blanks": {
+        "1": {
+          "accept": [
+            "subtracted",
+            "subtract",
+            "deducted",
+            "minus",
+            "removed",
+            "taken out",
+            "less"
+          ],
+          "hint": "Starts with “S”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "Noncontrolling interest is {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "added",
+            "add",
+            "plus",
+            "included",
+            "added back"
+          ],
+          "hint": "Starts with “A”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b5",
+      "prompt": "Fill in the blank",
+      "template": "Equity investments (associates) are {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "subtracted",
+            "subtract",
+            "deducted",
+            "minus",
+            "removed",
+            "taken out",
+            "less"
+          ],
+          "hint": "Starts with “S”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b6",
+      "prompt": "Fill in the blank",
+      "template": "Preferred stock is {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "added",
+            "add",
+            "plus",
+            "included",
+            "added back"
+          ],
+          "hint": "Starts with “A”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "Why subtract cash?",
+      "difficulty": "core",
+      "teaser": "Cash isn't part of core operations.",
+      "body": "Cash isn't part of core operations. If you bought the company, you'd get the cash and could use it to pay part of the price, so it effectively lowers what you're paying for the business. It also doesn't generate EBITDA, so leaving it in would mismatch EV and EBITDA.\n\n**Interview answer:** \"Cash is non-operating, and an acquirer effectively gets it back. Also, it doesn't produce EBITDA, so removing it keeps EV and EBITDA consistent.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "Why add debt?",
+      "difficulty": "core",
+      "teaser": "Debt holders have a claim on the business.",
+      "body": "Debt holders have a claim on the business. An acquirer must repay or assume the debt, so it's part of the cost of owning the operations."
+    },
+    {
+      "type": "deepDive",
+      "id": "b9",
+      "title": "Why add noncontrolling interest?",
+      "difficulty": "follow-up",
+      "teaser": "If a company owns 70% of a subsidiary, it consolidates 100% of that subsidiary's revenue and EBITDA.",
+      "body": "If a company owns 70% of a subsidiary, it consolidates 100% of that subsidiary's revenue and EBITDA. But its equity value only reflects its 70% ownership. Adding the 30% NCI makes EV cover 100% of the subsidiary, matching the 100% in EBITDA.\n\n**Interview answer:** \"The parent consolidates 100% of the sub's EBITDA but owns less than 100%. Adding NCI makes EV match that EBITDA.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b10",
+      "prompt": "A parent owns 70% of a subsidiary and consolidates it. Why is NCI added in the EV bridge?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Because NCI is a form of debt"
+        },
+        {
+          "id": "b",
+          "text": "Because EBITDA includes 100% of the sub, but equity value only reflects 70%"
+        },
+        {
+          "id": "c",
+          "text": "Because the parent will have to buy out the minority holders"
+        },
+        {
+          "id": "d",
+          "text": "Because NCI earns interest"
+        }
+      ],
+      "correct": "b",
+      "explanation": "The parent consolidates 100% of the sub's EBITDA but only owns 70% — adding the 30% NCI makes EV match the EBITDA it's paired with."
+    },
+    {
+      "type": "deepDive",
+      "id": "b11",
+      "title": "Why subtract equity investments?",
+      "difficulty": "follow-up",
+      "teaser": "The reverse of NCI.",
+      "body": "The reverse of NCI. If the company owns 30% of another business, it doesn't consolidate that business's EBITDA — it just records its share of net income below EBITDA. The value of that stake is in equity value, so remove it to keep EV and EBITDA consistent."
+    },
+    {
+      "type": "deepDive",
+      "id": "b12",
+      "title": "Why add preferred stock?",
+      "difficulty": "follow-up",
+      "teaser": "Preferred acts like debt: fixed dividends and priority over common shareholders in a liquidation.",
+      "body": "Preferred acts like debt: fixed dividends and priority over common shareholders in a liquidation. An acquirer has to pay it off."
+    },
+    {
+      "type": "deepDive",
+      "id": "b13",
+      "title": "Do you subtract all cash or only \"excess\" cash?",
+      "difficulty": "gotcha",
+      "teaser": "In interviews and most banking work, all cash.",
+      "body": "In interviews and most banking work, all cash. In practice, some businesses need a minimum operating cash balance (e.g., retailers with cash in registers), and some analysts only subtract cash above that. Trapped cash overseas may also be discounted for repatriation tax."
+    },
+    {
+      "type": "deepDive",
+      "id": "b14",
+      "title": "What about unfunded pensions, operating leases, and other debt-like items?",
+      "difficulty": "advanced",
+      "teaser": "Unfunded pension obligations are debt-like and often added (after-tax).",
+      "body": "Unfunded pension obligations are debt-like and often added (after-tax). Lease liabilities are added only if EBITDA excludes lease costs (see 1.7). The rule: anything that's a claim on the business and *isn't* reflected in EBITDA gets added."
+    },
+    {
+      "type": "deepDive",
+      "id": "b15",
+      "title": "Why isn't accounts payable added like debt?",
+      "difficulty": "follow-up",
+      "teaser": "AP is an operating liability — part of working capital, which is reflected in operating cash flow.",
+      "body": "AP is an operating liability — part of working capital, which is reflected in operating cash flow. Only financing claims go in the bridge.\n\n**Interview answer:** \"AP is part of operations and already reflected in cash flow. The bridge only includes financing claims.\""
+    },
+    {
+      "type": "checkpoint",
+      "id": "b16",
+      "title": "Say it out loud",
+      "prompts": [
+        "Walk me through the bridge.",
+        "Why subtract cash?",
+        "Why add NCI?"
+      ],
+      "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b17",
+      "workbook": "PEB_02_EV_Equity_Bridge",
+      "body": "Work it in the “EV Bridge” tab."
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "id": "3-3",
+  "slug": "the-football-field",
+  "module": 3,
+  "moduleTitle": "Valuation Overview",
+  "title": "The football field",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "3-2"
+  ],
+  "relatedQuestionTags": [
+    "football field",
+    "valuation"
+  ],
+  "workbook": "PEB_05_Comps_Precedents_FootballField",
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Valuation"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Valuation"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: What's a football field and how is it used?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "A horizontal bar chart: each bar shows the low–high per-share value from one method."
+        },
+        {
+          "body": "Usually includes the 52-week trading range for context."
+        },
+        {
+          "body": "Bankers use it to frame a price range for a sale, a fairness opinion, or a pitch."
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b2",
+      "prompt": "Fill in the blank",
+      "template": "A football field shows {{1}}, not single values",
+      "blanks": {
+        "1": {
+          "accept": [
+            "ranges",
+            "a range",
+            "range",
+            "value ranges"
+          ],
+          "hint": "Starts with “R”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "The 52-week range is a {{1}}, not a valuation method",
+      "blanks": {
+        "1": {
+          "accept": [
+            "reference point",
+            "a reference point",
+            "reference",
+            "benchmark"
+          ],
+          "hint": "Starts with “R”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b4",
+      "title": "Why show ranges instead of a single number?",
+      "difficulty": "core",
+      "teaser": "Every method depends on assumptions.",
+      "body": "Every method depends on assumptions. Showing ranges is honest about uncertainty and shows where methods overlap — the overlap is often where the negotiated price lands.\n\n**Interview answer:** \"Every method has uncertainty, so ranges are more honest, and the overlap between methods shows the defensible price.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b5",
+      "title": "Why include the 52-week trading range?",
+      "difficulty": "follow-up",
+      "teaser": "It shows where the market has actually valued the stock.",
+      "body": "It shows where the market has actually valued the stock. A buyer offering below the 52-week low would struggle to get shareholder approval."
+    },
+    {
+      "type": "mcq",
+      "id": "b6",
+      "prompt": "Why include the 52-week trading range on a football field?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It's the most reliable valuation method"
+        },
+        {
+          "id": "b",
+          "text": "It shows where the market has actually valued the stock — a reference point"
+        },
+        {
+          "id": "c",
+          "text": "It replaces the DCF for public companies"
+        },
+        {
+          "id": "d",
+          "text": "Regulators require it in every pitch"
+        }
+      ],
+      "correct": "b",
+      "explanation": "It's a reference point, not a valuation method — an offer below the 52-week low would struggle to win shareholder approval."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b7",
+      "title": "Say it out loud",
+      "prompts": [
+        "What's a football field and how is it used?"
+      ],
+      "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b8",
+      "workbook": "PEB_05_Comps_Precedents_FootballField",
+      "body": "Build it in the “Football Field” tab."
+    }
+  ]
+}

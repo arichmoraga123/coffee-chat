@@ -1,0 +1,129 @@
+{
+  "id": "2-4",
+  "slug": "can-ev-or-equity-value-be-negative",
+  "module": 2,
+  "moduleTitle": "Equity Value & Enterprise Value",
+  "title": "Can EV or equity value be negative?",
+  "difficulty": "follow-up",
+  "estMinutes": 10,
+  "prerequisites": [
+    "2-3"
+  ],
+  "relatedQuestionTags": [
+    "enterprise value",
+    "negative"
+  ],
+  "workbook": "PEB_02_EV_Equity_Bridge",
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Equity Value & Enterprise Value"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Enterprise Value"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Can EV be negative?",
+    "Answer out loud: Can equity value?",
+    "Answer out loud: What about book equity?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "Equity value can't be negative: it's share price × shares, and with limited liability a share can't be worth less than zero."
+        },
+        {
+          "body": "EV *can* be negative if cash exceeds equity value + debt + other claims."
+        }
+      ]
+    },
+    {
+      "type": "calc",
+      "id": "b2",
+      "prompt": "Market cap $150, debt $20, cash $260 → EV = **?**",
+      "answer": -90,
+      "tolerance": 0,
+      "unit": "$",
+      "solution": "Market cap $150, debt $20, cash $260 → EV = −$90"
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "Market equity value can't be negative because of {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "limited liability",
+            "limited-liability"
+          ],
+          "hint": "Starts with “L”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b4",
+      "title": "What does a negative EV signal?",
+      "difficulty": "follow-up",
+      "teaser": "The market values the operating business at less than zero.",
+      "body": "The market values the operating business at less than zero. Investors expect the company to burn through its cash, or don't trust management to return it. It shows up in struggling biotechs and companies with heavy losses.\n\n**Interview answer:** \"The market thinks the business will destroy value — burn its cash — so it values operations below zero.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b5",
+      "prompt": "A biotech has market cap $150, debt $20 and cash $260. What's its EV, and what does it signal?",
+      "options": [
+        {
+          "id": "a",
+          "text": "+$90; the business is undervalued"
+        },
+        {
+          "id": "b",
+          "text": "−$90; the market expects the company to burn its cash"
+        },
+        {
+          "id": "c",
+          "text": "+$430; cash is added in the bridge"
+        },
+        {
+          "id": "d",
+          "text": "EV can't be negative, so it's $0"
+        }
+      ],
+      "correct": "b",
+      "explanation": "EV = 150 + 20 − 260 = −$90. A negative EV means the market values the operations below zero — it expects the cash to be burned."
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "Can book equity be negative?",
+      "difficulty": "follow-up",
+      "teaser": "Yes.",
+      "body": "Yes. Large buybacks or accumulated losses can push shareholders' equity on the balance sheet below zero, even for healthy companies (McDonald's and Starbucks have had negative book equity from years of buybacks). That's an accounting figure, not market value."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b7",
+      "title": "Say it out loud",
+      "prompts": [
+        "Can EV be negative?",
+        "Can equity value?",
+        "What about book equity?"
+      ],
+      "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b8",
+      "workbook": "PEB_02_EV_Equity_Bridge",
+      "body": "Practice in the “Negative EV” tab."
+    }
+  ]
+}

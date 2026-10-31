@@ -1,0 +1,199 @@
+{
+  "id": "4-2",
+  "slug": "calculating-and-applying-multiples",
+  "module": 4,
+  "moduleTitle": "Comps & Precedents",
+  "title": "Calculating and applying multiples",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "4-1"
+  ],
+  "relatedQuestionTags": [
+    "comps",
+    "multiples",
+    "ltm"
+  ],
+  "workbook": "PEB_05_Comps_Precedents_FootballField",
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Valuation — Comparables"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Comparable Companies & Precedent Transactions"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Walk me through building a comps table.",
+    "Answer out loud: Why median?",
+    "Answer out loud: How do you calculate LTM?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "Gather share price, diluted shares, debt, cash, and financials for each comp."
+        },
+        {
+          "body": "Calculate equity value and EV for each."
+        },
+        {
+          "body": "Calculate LTM and forward (NTM) multiples."
+        },
+        {
+          "body": "Summarize: max, 75th percentile, median, 25th percentile, min."
+        },
+        {
+          "body": "Apply the 25th–75th percentile range to the target's metric → implied EV → bridge to equity value → per share."
+        }
+      ]
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "\\text{LTM} = \\text{FY} + \\text{YTD}_{\\text{current}} - \\text{YTD}_{\\text{prior}}",
+      "caption": "Last twelve months",
+      "legend": [
+        {
+          "symbol": "\\text{FY}",
+          "meaning": "Most recent full fiscal year"
+        },
+        {
+          "symbol": "\\text{YTD}",
+          "meaning": "Year-to-date period"
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "Bankers typically use the {{1}} rather than the mean",
+      "blanks": {
+        "1": {
+          "accept": [
+            "median",
+            "the median"
+          ],
+          "hint": "Starts with “M”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "LTM = last fiscal year + current YTD − {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "prior-year YTD"
+          ],
+          "hint": "Starts with “P”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b5",
+      "prompt": "Fill in the blank",
+      "template": "After applying an EV multiple, you bridge to {{1}} to get a share price",
+      "blanks": {
+        "1": {
+          "accept": [
+            "equity value",
+            "equity"
+          ],
+          "hint": "Starts with “E”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "Why the median over the mean?",
+      "difficulty": "core",
+      "teaser": "One outlier (a company trading at 40x on a takeover rumor) can drag the mean far from the typical multiple.",
+      "body": "One outlier (a company trading at 40x on a takeover rumor) can drag the mean far from the typical multiple. The median ignores the extremes."
+    },
+    {
+      "type": "mcq",
+      "id": "b7",
+      "prompt": "Why do bankers usually use the median multiple rather than the mean?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The median is always higher"
+        },
+        {
+          "id": "b",
+          "text": "The median reduces distortion from outliers"
+        },
+        {
+          "id": "c",
+          "text": "The mean can't be calculated for multiples"
+        },
+        {
+          "id": "d",
+          "text": "Regulators require the median"
+        }
+      ],
+      "correct": "b",
+      "explanation": "One outlier (say, 40x on a takeover rumor) can drag the mean; the median ignores the extremes."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "How do you calculate LTM?",
+      "difficulty": "follow-up",
+      "teaser": "Take the most recent full fiscal year, add the current year-to-date, and subtract the same year-to-date period from last year.",
+      "body": "Take the most recent full fiscal year, add the current year-to-date, and subtract the same year-to-date period from last year. LTM revenue through Q2 2026 = FY2025 + H1 2026 − H1 2025."
+    },
+    {
+      "type": "deepDive",
+      "id": "b9",
+      "title": "What's calendarization?",
+      "difficulty": "advanced",
+      "teaser": "If one comp's fiscal year ends in June and the rest in December, you convert its numbers to a December year-end by weighting the overlapping periods.",
+      "body": "If one comp's fiscal year ends in June and the rest in December, you convert its numbers to a December year-end by weighting the overlapping periods. Otherwise you'd be comparing different time periods."
+    },
+    {
+      "type": "deepDive",
+      "id": "b10",
+      "title": "What adjustments do you make to comps' financials?",
+      "difficulty": "follow-up",
+      "teaser": "Remove non-recurring items — restructuring charges, litigation settlements, asset-sale gains, impairments — so multiples reflect ongoing earnings.",
+      "body": "Remove non-recurring items — restructuring charges, litigation settlements, asset-sale gains, impairments — so multiples reflect ongoing earnings.\n\n**Interview answer:** \"I normalize for one-time items so the multiples reflect recurring earnings.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b11",
+      "title": "LTM or forward multiples?",
+      "difficulty": "follow-up",
+      "teaser": "Forward multiples are better for growth companies, since LTM understates where they're heading, and markets price on the future.",
+      "body": "Forward multiples are better for growth companies, since LTM understates where they're heading, and markets price on the future. LTM is based on actual results and better for stable businesses or when forecasts are unreliable. Use both and be consistent."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b12",
+      "title": "Say it out loud",
+      "prompts": [
+        "Walk me through building a comps table.",
+        "Why median?",
+        "How do you calculate LTM?"
+      ],
+      "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b13",
+      "workbook": "PEB_05_Comps_Precedents_FootballField",
+      "body": "Practice in the “Trading Comps” tab."
+    }
+  ]
+}

@@ -1,0 +1,184 @@
+{
+  "id": "8-1",
+  "slug": "lbo-intuition",
+  "module": 8,
+  "moduleTitle": "LBO",
+  "title": "LBO intuition",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "7-5"
+  ],
+  "relatedQuestionTags": [
+    "lbo"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "LBO Models"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Leveraged Buyouts"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Walk me through an LBO.",
+    "Answer out loud: Why does leverage increase returns?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "A PE firm buys a company using a large amount of debt (often 50–70% of the price) and its own equity."
+        },
+        {
+          "body": "The company's cash flow pays interest and pays down the debt over the holding period (3–7 years)."
+        },
+        {
+          "body": "The firm sells (exits) the company. Equity value at exit = exit EV − remaining net debt."
+        },
+        {
+          "body": "Because the sponsor put in relatively little equity, gains on the total enterprise translate into larger percentage returns on equity."
+        },
+        {
+          "body": "Sponsors typically target 20%+ IRR and 2.0–3.0x MOIC."
+        }
+      ]
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "\\text{Exit equity} = \\text{Exit EV} - \\text{Net debt}",
+      "caption": "What the sponsor gets back",
+      "legend": [
+        {
+          "symbol": "\\text{Exit EV}",
+          "meaning": "Exit EBITDA × exit multiple"
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "Leverage increases returns because the sponsor contributes {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "less equity",
+            "a smaller equity check",
+            "less of its own money",
+            "less capital"
+          ],
+          "hint": "Starts with “L”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "Typical PE target IRR: {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "20–25%",
+            "20-25",
+            "20 to 25",
+            "20-25%",
+            "20%-25%",
+            "20% to 25%"
+          ],
+          "hint": "Starts with “2”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b5",
+      "prompt": "Fill in the blank",
+      "template": "Equity at exit = exit EV − {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "net debt",
+            "remaining net debt",
+            "debt"
+          ],
+          "hint": "Starts with “N”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "“Walk me through an LBO.”",
+      "difficulty": "core",
+      "teaser": "Includes a model interview answer",
+      "body": "**Interview answer:** \"A PE firm buys a company using a mix of debt and equity. First, set the purchase price and build sources and uses — how much debt and how much sponsor equity. Then project the company's financials over five years or so, using free cash flow to pay down debt. At exit, assume a sale at an EBITDA multiple, subtract remaining net debt to get the sponsor's equity, and calculate IRR and MOIC.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "Why does leverage boost returns?",
+      "difficulty": "core",
+      "teaser": "Example: buy a company for $100 and sell it for $150.",
+      "body": "Example: buy a company for $100 and sell it for $150. With all equity, the return is 1.5x. With $60 of debt and $40 of equity (debt unchanged at exit), equity at exit is $90 — 2.25x on $40. The debt doesn't share in the upside.\n\n**Interview answer:** \"Debt has a fixed claim, so all the gain in value goes to equity, and a smaller equity check gets a bigger percentage return.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b8",
+      "prompt": "Buy for $100 with $60 debt and $40 equity; sell for $150 with debt unchanged. What's the MOIC?",
+      "options": [
+        {
+          "id": "a",
+          "text": "1.5x"
+        },
+        {
+          "id": "b",
+          "text": "2.25x"
+        },
+        {
+          "id": "c",
+          "text": "3.75x"
+        },
+        {
+          "id": "d",
+          "text": "2.5x"
+        }
+      ],
+      "correct": "b",
+      "explanation": "Exit equity = $150 − $60 = $90; $90 ÷ $40 = 2.25x. With all equity it would only be 1.5x — the debt doesn't share in the upside."
+    },
+    {
+      "type": "deepDive",
+      "id": "b9",
+      "title": "What's the downside of leverage?",
+      "difficulty": "core",
+      "teaser": "It magnifies losses too, adds fixed interest costs, and can lead to covenant breaches or bankruptcy if performance dips.",
+      "body": "It magnifies losses too, adds fixed interest costs, and can lead to covenant breaches or bankruptcy if performance dips."
+    },
+    {
+      "type": "deepDive",
+      "id": "b10",
+      "title": "Why is an LBO like buying a house with a mortgage?",
+      "difficulty": "core",
+      "teaser": "You put down 20%, borrow 80%, pay down the mortgage from rental income, and sell later.",
+      "body": "You put down 20%, borrow 80%, pay down the mortgage from rental income, and sell later. Even modest appreciation produces a large return on your down payment."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b11",
+      "title": "Say it out loud",
+      "prompts": [
+        "Walk me through an LBO.",
+        "Why does leverage increase returns?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}

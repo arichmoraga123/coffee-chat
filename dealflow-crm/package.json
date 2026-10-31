@@ -10,7 +10,11 @@
     "postinstall": "prisma generate",
     "db:seed": "prisma db seed",
     "db:publish-deals": "npx tsx prisma/publish-deals.ts",
-    "check:mcq": "npx tsx scripts/check-mcq.ts"
+    "check:mcq": "npx tsx scripts/check-mcq.ts",
+    "validate-lessons": "npx tsx scripts/validate-lessons.ts",
+    "prebuild": "npm run validate-lessons",
+    "learn:convert": "npx tsx scripts/learn/convert-content.ts && npm run validate-lessons",
+    "learn:check": "npx tsx scripts/learn/check-fidelity.ts"
   },
   "prisma": {
     "seed": "npx tsx prisma/seed.ts"
@@ -29,6 +33,7 @@
     "@radix-ui/react-slot": "^1.2.4",
     "@stripe/stripe-js": "^9.4.0",
     "@supabase/supabase-js": "^2.105.2",
+    "@vercel/blob": "^2.8.2",
     "bcryptjs": "^3.0.3",
     "canvas": "^3.2.3",
     "canvas-confetti": "^1.9.3",
@@ -36,6 +41,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "googleapis": "^171.4.0",
+    "katex": "^0.19.1",
     "lucide-react": "^1.14.0",
     "next": "16.2.4",
     "next-auth": "^4.24.14",
@@ -45,7 +51,9 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-hook-form": "^7.75.0",
+    "react-markdown": "^10.1.0",
     "recharts": "^2.15.3",
+    "remark-gfm": "^4.0.1",
     "server-only": "^0.0.1",
     "sharp": "^0.34.5",
     "sonner": "^2.0.7",
@@ -56,6 +64,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/katex": "^0.16.8",
     "@types/node": "^20",
     "@types/papaparse": "^5.5.2",
     "@types/react": "^19",

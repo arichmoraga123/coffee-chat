@@ -1,0 +1,189 @@
+{
+  "id": "6-2",
+  "slug": "building-unlevered-free-cash-flow",
+  "module": 6,
+  "moduleTitle": "DCF",
+  "title": "Building unlevered free cash flow",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "6-1"
+  ],
+  "relatedQuestionTags": [
+    "free cash flow",
+    "dcf"
+  ],
+  "workbook": "PEB_04_DCF",
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "DCF"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Discounted Cash Flow"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Build UFCF from revenue.",
+    "Answer out loud: UFCF vs. levered FCF?"
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "id": "b1",
+      "body": "UFCF = EBIT × (1 − t) + D&A − CapEx − increase in NWC."
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "\\text{UFCF} = \\text{EBIT} \\times (1 - t) + \\text{D\\&A} - \\text{CapEx} - \\Delta \\text{NWC}",
+      "caption": "Unlevered free cash flow",
+      "legend": [
+        {
+          "symbol": "\\text{EBIT} \\times (1 - t)",
+          "meaning": "NOPAT — operating profit after tax"
+        },
+        {
+          "symbol": "\\text{D\\&A}",
+          "meaning": "Depreciation & amortization (non-cash, added back)"
+        },
+        {
+          "symbol": "\\Delta \\text{NWC}",
+          "meaning": "Increase in net working capital (uses cash)"
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "UFCF starts from {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "EBIT",
+            "operating income",
+            "operating profit"
+          ],
+          "hint": "Starts with “E”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "EBIT × (1 − tax rate) is called {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "NOPAT",
+            "net operating profit after tax",
+            "net operating profit after taxes"
+          ],
+          "hint": "Starts with “N”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b5",
+      "prompt": "Fill in the blank",
+      "template": "An increase in net working capital {{1}} free cash flow",
+      "blanks": {
+        "1": {
+          "accept": [
+            "reduces",
+            "decreases",
+            "lowers",
+            "reduce",
+            "lower"
+          ],
+          "hint": "Starts with “R”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "Why start from EBIT and not net income?",
+      "difficulty": "core",
+      "teaser": "UFCF is the cash available to all investors, before any payments to lenders.",
+      "body": "UFCF is the cash available to *all* investors, before any payments to lenders. Net income is already after interest, so it belongs only to equity.\n\n**Interview answer:** \"Unlevered cash flow is before debt payments, so we exclude interest by starting from EBIT.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "Why tax EBIT rather than use actual taxes?",
+      "difficulty": "follow-up",
+      "teaser": "Actual taxes are reduced by the interest tax shield.",
+      "body": "Actual taxes are reduced by the interest tax shield. In an unlevered DCF, the tax shield is captured in WACC (the after-tax cost of debt). Using actual taxes would count it twice."
+    },
+    {
+      "type": "mcq",
+      "id": "b8",
+      "prompt": "In UFCF, why apply the tax rate to EBIT instead of using the company's actual taxes?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Actual taxes are hard to find"
+        },
+        {
+          "id": "b",
+          "text": "Actual taxes include the interest tax shield, which WACC already captures"
+        },
+        {
+          "id": "c",
+          "text": "EBIT is always higher than pre-tax income"
+        },
+        {
+          "id": "d",
+          "text": "Tax rules require it"
+        }
+      ],
+      "correct": "b",
+      "explanation": "Using actual taxes would count the interest tax shield twice — once in the cash flows and once in the after-tax cost of debt in WACC."
+    },
+    {
+      "type": "deepDive",
+      "id": "b9",
+      "title": "Unlevered vs. levered FCF?",
+      "difficulty": "core",
+      "teaser": "Unlevered: before interest and debt repayments, available to all investors, discounted at WACC → EV.",
+      "body": "Unlevered: before interest and debt repayments, available to all investors, discounted at WACC → EV. Levered: after interest and mandatory debt repayments, available to shareholders, discounted at cost of equity → equity value."
+    },
+    {
+      "type": "deepDive",
+      "id": "b10",
+      "title": "Should you add back stock-based comp?",
+      "difficulty": "gotcha",
+      "teaser": "Genuinely debated.",
+      "body": "Genuinely debated. Adding it back (treating it as non-cash) inflates FCF unless you also account for the future dilution. Conservative practice treats SBC as a cash cost, since the company would otherwise pay it in cash. Know both sides.\n\n**Interview answer:** \"It's debated. It's non-cash, but it's a real cost through dilution, so the conservative approach treats it as a cash expense.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b11",
+      "title": "How do you treat one-time items?",
+      "difficulty": "follow-up",
+      "teaser": "Exclude non-recurring items (restructuring, litigation) from projected cash flows, since the DCF should reflect ongoing operations.",
+      "body": "Exclude non-recurring items (restructuring, litigation) from projected cash flows, since the DCF should reflect ongoing operations."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b12",
+      "title": "Say it out loud",
+      "prompts": [
+        "Build UFCF from revenue.",
+        "UFCF vs. levered FCF?"
+      ],
+      "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b13",
+      "workbook": "PEB_04_DCF",
+      "body": "Build it in the “DCF” tab."
+    }
+  ]
+}

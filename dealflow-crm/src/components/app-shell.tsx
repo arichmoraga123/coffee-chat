@@ -50,6 +50,7 @@ const COLLAPSIBLE_GROUPS: CollapsibleGroup[] = [
     id: "prep",
     title: "📚 Prep",
     items: [
+      { href: "/learn", label: "Learn (lessons)" },
       { href: "/questions", label: "Question Bank" },
       { href: "/mock-interview", label: "Mock Interview" },
       { href: "/pitch-builder", label: "Stock Pitch Builder" },
@@ -94,6 +95,15 @@ const COLLAPSIBLE_GROUPS: CollapsibleGroup[] = [
   },
 ];
 
+const MENTOR_GROUP: CollapsibleGroup = {
+  id: "mentor",
+  title: "🎓 Mentor",
+  items: [
+    { href: "/admin/learn/questions", label: "Mentor queue" },
+    { href: "/admin/learn/cohort", label: "Cohort progress" },
+  ],
+};
+
 const ADMIN_GROUP: CollapsibleGroup = {
   id: "admin",
   title: "🛡️ Admin",
@@ -101,6 +111,9 @@ const ADMIN_GROUP: CollapsibleGroup = {
     { href: "/admin", label: "Overview" },
     { href: "/admin/questions", label: "Questions" },
     { href: "/admin/deals", label: "Deals" },
+    { href: "/admin/learn/questions", label: "Learn: mentor queue" },
+    { href: "/admin/learn/cohort", label: "Learn: cohort" },
+    { href: "/admin/learn/resources", label: "Learn: workbooks" },
     { href: "/admin#admin-users", label: "Users" },
     { href: "/schools", label: "Schools" },
     { href: "/comp", label: "Comp Data" },
@@ -109,7 +122,7 @@ const ADMIN_GROUP: CollapsibleGroup = {
 };
 
 function defaultsForViewport(isMobile: boolean): Record<string, boolean> {
-  const allIds = [...COLLAPSIBLE_GROUPS.map((g) => g.id), ADMIN_GROUP.id];
+  const allIds = [...COLLAPSIBLE_GROUPS.map((g) => g.id), ADMIN_GROUP.id, MENTOR_GROUP.id];
   const base: Record<string, boolean> = {};
   for (const id of allIds) {
     base[id] = false;
@@ -180,10 +193,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const isPublicPage = pathname === "/" || pathname === "/pricing" || pathname.startsWith("/join");
   const isAdminRoute = pathname.startsWith("/admin");
   const isAdminUser = session?.user?.role === "ADMIN";
+  const isMentorUser = session?.user?.role === "MENTOR";
 
   const groupsToRender = useMemo(() => {
-    return isAdminUser ? [...COLLAPSIBLE_GROUPS, ADMIN_GROUP] : COLLAPSIBLE_GROUPS;
-  }, [isAdminUser]);
+    if (isAdminUser) return [...COLLAPSIBLE_GROUPS, ADMIN_GROUP];
+    return isMentorUser ? [...COLLAPSIBLE_GROUPS, MENTOR_GROUP] : COLLAPSIBLE_GROUPS;
+  }, [isAdminUser, isMentorUser]);
 
   const closeMobile = () => setMobileOpen(false);
 

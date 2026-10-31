@@ -8,7 +8,8 @@ import { getAuthoredMcq } from "@/lib/drill-mcq";
 
 export const dynamic = "force-dynamic";
 
-export default async function QuestionsPage() {
+export default async function QuestionsPage({ searchParams }: { searchParams: Promise<{ tags?: string }> }) {
+  const { tags } = await searchParams;
   const userId = await requireUserId();
   const [questions, progressRows, user, leaderboard] = await Promise.all([
     prisma.question.findMany({
@@ -59,6 +60,7 @@ export default async function QuestionsPage() {
         drillStreak={user?.drillStreak ?? 0}
         weeklyXP={user?.weeklyXP ?? 0}
         totalXP={user?.xp ?? 0}
+        initialTagFilter={typeof tags === "string" ? tags.slice(0, 200) : ""}
       />
 
       <Card className="border-zinc-800 bg-zinc-900/50 p-4">

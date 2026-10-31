@@ -1,0 +1,126 @@
+{
+  "id": "4-1",
+  "slug": "selecting-comparable-companies",
+  "module": 4,
+  "moduleTitle": "Comps & Precedents",
+  "title": "Selecting comparable companies",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "3-3"
+  ],
+  "relatedQuestionTags": [
+    "comps",
+    "comparable"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Valuation — Comparables"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Comparable Companies & Precedent Transactions"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: How do you choose comps?",
+    "Answer out loud: What if there aren't any?"
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "id": "b1",
+      "body": "Screen on: industry/business model, size (revenue, market cap), growth, margins, geography, and customer type. Aim for 5–10 good comps rather than 20 loose ones."
+    },
+    {
+      "type": "fillBlank",
+      "id": "b2",
+      "prompt": "Fill in the blank",
+      "template": "A typical comps set has about {{1}} companies",
+      "blanks": {
+        "1": {
+          "accept": [
+            "5–10",
+            "5-10",
+            "5 to 10"
+          ],
+          "hint": "Starts with “5”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "Comps are selected on business model, size, {{1}}, margins, and geography",
+      "blanks": {
+        "1": {
+          "accept": [
+            "growth"
+          ],
+          "hint": "Starts with “G”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b4",
+      "title": "What if there are no good comps?",
+      "difficulty": "follow-up",
+      "teaser": "Widen the criteria (adjacent industries, different geographies), weight the closest comps more heavily, lean more on the DCF, or use a sum-of-the-par…",
+      "body": "Widen the criteria (adjacent industries, different geographies), weight the closest comps more heavily, lean more on the DCF, or use a sum-of-the-parts with different comps for each segment.\n\n**Interview answer:** \"I'd widen the screen to adjacent businesses, lean more on the DCF, and be clear about which comps are closest.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b5",
+      "title": "Why isn't \"same industry\" enough?",
+      "difficulty": "follow-up",
+      "teaser": "A 30%-growth SaaS company and a 3%-growth legacy software company are both \"software\" but deserve very different multiples.",
+      "body": "A 30%-growth SaaS company and a 3%-growth legacy software company are both \"software\" but deserve very different multiples. Business model, growth, and margins matter more than the label."
+    },
+    {
+      "type": "mcq",
+      "id": "b6",
+      "prompt": "Two software companies: one growing 30%, one growing 3%. Should they trade at the same multiple?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Yes — same industry means same multiple"
+        },
+        {
+          "id": "b",
+          "text": "No — business model, growth and margins matter more than the industry label"
+        },
+        {
+          "id": "c",
+          "text": "Yes, as long as they're the same size"
+        },
+        {
+          "id": "d",
+          "text": "No — the slower grower should trade higher because it's safer"
+        }
+      ],
+      "correct": "b",
+      "explanation": "Comps need similar growth, margins and business model, not just the same label."
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "Should a small company be valued at the same multiple as large peers?",
+      "difficulty": "gotcha",
+      "teaser": "Often not.",
+      "body": "Often not. Smaller companies usually carry a discount for less liquidity, customer concentration, and higher risk."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b8",
+      "title": "Say it out loud",
+      "prompts": [
+        "How do you choose comps?",
+        "What if there aren't any?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}

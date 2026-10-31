@@ -1,0 +1,213 @@
+{
+  "id": "1-1",
+  "slug": "the-three-financial-statements",
+  "module": 1,
+  "moduleTitle": "Accounting",
+  "title": "The three financial statements",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "0-3"
+  ],
+  "relatedQuestionTags": [
+    "three statements",
+    "cash flow",
+    "income statement"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Accounting"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Accounting"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Walk me through the three statements.",
+    "Answer out loud: Why do we need a cash flow statement?",
+    "Answer out loud: Which statement matters most?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "heading": "Income statement",
+          "body": "revenue, expenses, and profit over a *period*. Ends in net income."
+        },
+        {
+          "heading": "Balance sheet",
+          "body": "what the company owns (assets), owes (liabilities), and what's left for owners (equity), at a *point in time*. Assets = Liabilities + Equity."
+        },
+        {
+          "heading": "Cash flow statement",
+          "body": "reconciles net income to the actual change in cash. Three sections — operating, investing, financing."
+        },
+        {
+          "body": "The IS uses **accrual accounting**: revenue when earned, expenses when incurred — not when cash moves. The CFS exists to bridge that gap."
+        }
+      ]
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "\\text{Assets} = \\text{Liabilities} + \\text{Equity}",
+      "caption": "The balance sheet identity",
+      "legend": [
+        {
+          "symbol": "\\text{Assets}",
+          "meaning": "What the company owns"
+        },
+        {
+          "symbol": "\\text{Liabilities}",
+          "meaning": "What it owes"
+        },
+        {
+          "symbol": "\\text{Equity}",
+          "meaning": "What's left for owners"
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "Assets = Liabilities + {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "Equity",
+            "shareholders equity",
+            "stockholders equity",
+            "owners equity",
+            "shareholders' equity"
+          ],
+          "hint": "Starts with “E”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "The balance sheet shows a company at a {{1}}; the IS and CFS cover a {{2}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "point in time",
+            "a point in time",
+            "single point in time",
+            "specific date"
+          ],
+          "hint": "Starts with “P”."
+        },
+        "2": {
+          "accept": [
+            "period",
+            "a period",
+            "period of time",
+            "time period"
+          ],
+          "hint": "Starts with “P”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b5",
+      "prompt": "Fill in the blank",
+      "template": "Revenue is recognized when it is {{1}}, not when cash is received",
+      "blanks": {
+        "1": {
+          "accept": [
+            "earned",
+            "it is earned",
+            "delivered",
+            "performed"
+          ],
+          "hint": "Starts with “E”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "If you could only use one statement to judge a company, which?",
+      "difficulty": "core",
+      "teaser": "The cash flow statement — it shows whether the business actually generates cash, which is what keeps it alive.",
+      "body": "The cash flow statement — it shows whether the business actually generates cash, which is what keeps it alive. With two statements, pick the BS and IS: you can rebuild the CFS from two balance sheets and an income statement.\n\n**Interview answer:** \"The cash flow statement, because cash is what keeps a company solvent. With two, the balance sheet and income statement, since you can derive the cash flow statement from them.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "Why isn't net income the same as cash flow?",
+      "difficulty": "core",
+      "teaser": "Three reasons: (1) non-cash expenses like D&A and stock-based comp reduce net income without using cash; (2) working capital — revenue on credit incr…",
+      "body": "Three reasons: (1) non-cash expenses like D&A and stock-based comp reduce net income without using cash; (2) working capital — revenue on credit increases net income before cash arrives; (3) some cash uses never hit the IS: CapEx, debt principal, dividends.\n\n**Interview answer:** \"Non-cash charges, working capital timing, and items like CapEx and debt repayment that skip the income statement.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b8",
+      "prompt": "Which of these is NOT a reason net income differs from cash flow?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Non-cash expenses like D&A and SBC"
+        },
+        {
+          "id": "b",
+          "text": "Working capital timing, like sales made on credit"
+        },
+        {
+          "id": "c",
+          "text": "Cash uses that skip the IS, like CapEx and debt principal"
+        },
+        {
+          "id": "d",
+          "text": "Revenue is recorded when cash is received"
+        }
+      ],
+      "correct": "d",
+      "explanation": "Under accrual accounting, revenue is recorded when earned, not when cash arrives — that mismatch is exactly why the CFS exists."
+    },
+    {
+      "type": "deepDive",
+      "id": "b9",
+      "title": "Examples of items on the IS but not the CFS, and vice versa?",
+      "difficulty": "follow-up",
+      "teaser": "IS but not cash: D&A, stock-based comp, impairments, unrealized gains.",
+      "body": "IS but not cash: D&A, stock-based comp, impairments, unrealized gains. Cash but not IS: CapEx, buying inventory, issuing or repaying debt principal, dividends, share buybacks."
+    },
+    {
+      "type": "deepDive",
+      "id": "b10",
+      "title": "Where do dividends show up?",
+      "difficulty": "follow-up",
+      "teaser": "Not on the income statement.",
+      "body": "Not on the income statement. They're paid from net income, so they reduce retained earnings on the balance sheet and appear as a financing outflow on the CFS. *Preferred* dividends are subtracted to get net income available to common shareholders.\n\n**Interview answer:** \"Dividends aren't an expense. They hit retained earnings and the financing section of the cash flow statement.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b11",
+      "title": "Accrual vs. cash accounting — give an example.",
+      "difficulty": "core",
+      "teaser": "A software company bills $1,200 upfront for a 12-month subscription.",
+      "body": "A software company bills $1,200 upfront for a 12-month subscription. Cash basis: $1,200 of revenue in month one. Accrual basis: $100 of revenue each month, with the unearned remainder sitting in deferred revenue (a liability)."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b12",
+      "title": "Say it out loud",
+      "prompts": [
+        "Walk me through the three statements.",
+        "Why do we need a cash flow statement?",
+        "Which statement matters most?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}

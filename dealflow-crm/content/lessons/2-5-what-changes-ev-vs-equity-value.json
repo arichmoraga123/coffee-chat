@@ -1,0 +1,199 @@
+{
+  "id": "2-5",
+  "slug": "what-changes-ev-vs-equity-value",
+  "module": 2,
+  "moduleTitle": "Equity Value & Enterprise Value",
+  "title": "What changes EV vs. equity value",
+  "difficulty": "follow-up",
+  "estMinutes": 10,
+  "prerequisites": [
+    "2-4"
+  ],
+  "relatedQuestionTags": [
+    "enterprise value",
+    "equity value"
+  ],
+  "workbook": "PEB_02_EV_Equity_Bridge",
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Equity Value & Enterprise Value"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Enterprise Value"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Five rapid-fire \"what happens to EV and equity value\" scenarios."
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "id": "b1",
+      "body": "The test: **does the action change the core business, or just how it's financed?** Financing changes move equity value but not EV. Changes to operations move EV."
+    },
+    {
+      "type": "fillBlank",
+      "id": "b2",
+      "prompt": "Fill in the blank",
+      "template": "Issue $100 of stock, hold the cash → equity value {{1}}, EV {{2}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "up $100",
+            "+100",
+            "+$100",
+            "up 100",
+            "increases by 100",
+            "rises by 100"
+          ],
+          "hint": "Starts with “U”."
+        },
+        "2": {
+          "accept": [
+            "unchanged",
+            "no change",
+            "the same",
+            "flat",
+            "same",
+            "no impact"
+          ],
+          "hint": "Starts with “U”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "Issue $100 of debt, buy $100 of PP&E → EV {{1}}, equity value {{2}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "up $100",
+            "+100",
+            "+$100",
+            "up 100",
+            "increases by 100",
+            "rises by 100"
+          ],
+          "hint": "Starts with “U”."
+        },
+        "2": {
+          "accept": [
+            "unchanged",
+            "no change",
+            "the same",
+            "flat",
+            "same",
+            "no impact"
+          ],
+          "hint": "Starts with “U”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "Pay a $50 dividend → equity value {{1}}, EV {{2}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "down $50",
+            "-50",
+            "-$50",
+            "down 50",
+            "decreases by 50",
+            "falls by 50"
+          ],
+          "hint": "Starts with “D”."
+        },
+        "2": {
+          "accept": [
+            "unchanged",
+            "no change",
+            "the same",
+            "flat",
+            "same",
+            "no impact"
+          ],
+          "hint": "Starts with “U”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b5",
+      "title": "Issue $100 of debt and hold the cash — what happens?",
+      "difficulty": "follow-up",
+      "teaser": "Equity unchanged.",
+      "body": "Equity unchanged. EV: debt +$100, cash +$100 → unchanged."
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "Use $100 of cash to buy another company.",
+      "difficulty": "follow-up",
+      "teaser": "Equity unchanged (one asset swapped for another).",
+      "body": "Equity unchanged (one asset swapped for another). EV up $100: less cash, more operating business."
+    },
+    {
+      "type": "mcq",
+      "id": "b7",
+      "prompt": "A company uses $100 of cash to buy another company. What happens?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Equity value down $100, EV unchanged"
+        },
+        {
+          "id": "b",
+          "text": "Equity value unchanged, EV up $100"
+        },
+        {
+          "id": "c",
+          "text": "Both up $100"
+        },
+        {
+          "id": "d",
+          "text": "Equity value unchanged, EV down $100"
+        }
+      ],
+      "correct": "b",
+      "explanation": "Equity value doesn't change (one asset swapped for another). EV rises $100: less cash, more operating business."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "Is EV truly independent of capital structure?",
+      "difficulty": "gotcha",
+      "teaser": "Mostly, but not perfectly.",
+      "body": "Mostly, but not perfectly. Debt creates interest tax shields (raising value) and distress risk (lowering it). In practice, adding moderate leverage can raise EV a little; too much lowers it.\n\n**Interview answer:** \"In theory EV is capital-structure neutral, but tax shields and distress costs mean leverage can shift it at the margins.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b9",
+      "title": "If a company's share price rises 10%, what happens?",
+      "difficulty": "core",
+      "teaser": "Equity value up 10%.",
+      "body": "Equity value up 10%. EV up by the same dollar amount (debt and cash unchanged), which is less than 10% in percentage terms if the company has net debt."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b10",
+      "title": "Say it out loud",
+      "prompts": [
+        "Five rapid-fire \"what happens to EV and equity value\" scenarios."
+      ],
+      "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b11",
+      "workbook": "PEB_02_EV_Equity_Bridge",
+      "body": "Practice all nine scenarios in the workbook."
+    }
+  ]
+}

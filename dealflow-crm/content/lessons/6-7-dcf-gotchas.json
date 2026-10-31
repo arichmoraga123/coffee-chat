@@ -1,0 +1,114 @@
+{
+  "id": "6-7",
+  "slug": "dcf-gotchas",
+  "module": 6,
+  "moduleTitle": "DCF",
+  "title": "DCF gotchas",
+  "difficulty": "advanced",
+  "estMinutes": 10,
+  "prerequisites": [
+    "6-6"
+  ],
+  "relatedQuestionTags": [
+    "dcf"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "DCF"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Discounted Cash Flow"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: DCF gives 3x the market price — what do you check?",
+    "Answer out loud: Can you DCF a bank?"
+  ],
+  "blocks": [
+    {
+      "type": "deepDive",
+      "id": "b1",
+      "title": "How do you value a company with negative cash flow?",
+      "difficulty": "follow-up",
+      "teaser": "Extend the projection period until the company reaches positive, stable cash flow, then apply TV.",
+      "body": "Extend the projection period until the company reaches positive, stable cash flow, then apply TV. Accept that most of the value will be in TV and the result is highly uncertain. Cross-check with EV/revenue comps."
+    },
+    {
+      "type": "deepDive",
+      "id": "b2",
+      "title": "Can you use a DCF for a bank?",
+      "difficulty": "follow-up",
+      "teaser": "Not a standard one.",
+      "body": "Not a standard one. For banks, interest and debt are core operations, so \"unlevered FCF\" isn't meaningful. Use a dividend discount model or P/BV instead (see 10.1)."
+    },
+    {
+      "type": "deepDive",
+      "id": "b3",
+      "title": "Your DCF gives a share price 3x the current price. What do you check?",
+      "difficulty": "follow-up",
+      "teaser": "(1) Terminal value assumptions (growth too high?",
+      "body": "(1) Terminal value assumptions (growth too high? exit multiple above comps?); (2) projections far more aggressive than history or consensus; (3) WACC too low; (4) mistakes like double-counting cash or using EBITDA where you meant UFCF; (5) whether the final year is normalized.\n\n**Interview answer:** \"Terminal value first, then whether projections are realistic versus history, then WACC, then mechanical errors like double-counting.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b4",
+      "prompt": "Your DCF says the stock is worth 3x its current price. What do you check first?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Terminal value assumptions"
+        },
+        {
+          "id": "b",
+          "text": "The company's dividend policy"
+        },
+        {
+          "id": "c",
+          "text": "The 52-week low"
+        },
+        {
+          "id": "d",
+          "text": "Whether the company has an IFRS auditor"
+        }
+      ],
+      "correct": "a",
+      "explanation": "TV usually dominates the value, so check terminal growth or the exit multiple first, then projections vs. history, then WACC, then mechanical errors."
+    },
+    {
+      "type": "deepDive",
+      "id": "b5",
+      "title": "Should a DCF include synergies?",
+      "difficulty": "gotcha",
+      "teaser": "For valuing a company on a standalone basis, no.",
+      "body": "For valuing a company on a standalone basis, no. For an acquirer deciding its maximum price, it can run a separate synergies case — but paying for synergies hands that value to the seller."
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "Should cash be in the DCF projections?",
+      "difficulty": "gotcha",
+      "teaser": "No.",
+      "body": "No. Interest income on cash isn't part of UFCF, and the cash is added back in the EV → equity bridge. Including both double-counts."
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "How does growth relate to reinvestment?",
+      "difficulty": "advanced",
+      "teaser": "Sustainable growth ≈ reinvestment rate × return on invested capital.",
+      "body": "Sustainable growth ≈ reinvestment rate × return on invested capital. A company can't grow 10% forever while reinvesting nothing. If terminal growth is high but final-year CapEx and working capital investment are low, the TV is inconsistent."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b8",
+      "title": "Say it out loud",
+      "prompts": [
+        "DCF gives 3x the market price — what do you check?",
+        "Can you DCF a bank?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}

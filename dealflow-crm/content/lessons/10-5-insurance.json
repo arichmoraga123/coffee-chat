@@ -1,0 +1,146 @@
+{
+  "id": "10-5",
+  "slug": "insurance",
+  "module": 10,
+  "moduleTitle": "Industry-Specific Valuation",
+  "title": "Insurance",
+  "difficulty": "advanced",
+  "estMinutes": 10,
+  "prerequisites": [
+    "10-4"
+  ],
+  "relatedQuestionTags": [
+    "insurance",
+    "combined ratio"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Industry-specific valuation"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Industry Valuation"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: What's a combined ratio?",
+    "Answer out loud: What's float?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "Insurers collect premiums upfront and pay claims later. The money held in between is \"float,\" invested for returns."
+        },
+        {
+          "body": "Like banks, they're valued on equity metrics: P/BV, P/E, plus ROE vs. cost of equity."
+        }
+      ]
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "\\text{Combined ratio} = \\frac{\\text{Claims} + \\text{Expenses}}{\\text{Premiums earned}}",
+      "caption": "Below 100% = underwriting profit",
+      "legend": [
+        {
+          "symbol": "\\text{Premiums earned}",
+          "meaning": "Premium revenue recognized in the period"
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "A combined ratio below {{1}} means an underwriting profit",
+      "blanks": {
+        "1": {
+          "numeric": 100,
+          "tolerance": 0.5,
+          "accept": [
+            "100%"
+          ],
+          "hint": "Enter a number."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "The premiums held before claims are paid are called {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "float"
+          ],
+          "hint": "Starts with “F”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b5",
+      "title": "What's the combined ratio?",
+      "difficulty": "advanced",
+      "teaser": "(Claims + expenses) ÷ premiums earned.",
+      "body": "(Claims + expenses) ÷ premiums earned. Below 100% means underwriting is profitable on its own; above 100% means the insurer relies on investment returns from the float.\n\n**Interview answer:** \"Claims plus expenses over premiums — under 100% means the insurer profits from underwriting before any investment income.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b6",
+      "prompt": "An insurer's combined ratio is 103%. What does that tell you?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It made a 3% underwriting profit"
+        },
+        {
+          "id": "b",
+          "text": "It lost money on underwriting and relies on investment income from the float"
+        },
+        {
+          "id": "c",
+          "text": "Its reserves are 3% too high"
+        },
+        {
+          "id": "d",
+          "text": "It grew premiums 3%"
+        }
+      ],
+      "correct": "b",
+      "explanation": "Above 100% means claims plus expenses exceed premiums — underwriting loses money, so profit depends on investing the float."
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "Why does float matter?",
+      "difficulty": "advanced",
+      "teaser": "The insurer invests money it will eventually pay out.",
+      "body": "The insurer invests money it will eventually pay out. If underwriting breaks even, the float is effectively free capital. This is the core of Berkshire Hathaway's model."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "Why are reserves a key risk?",
+      "difficulty": "advanced",
+      "teaser": "Insurers estimate future claims and set aside reserves.",
+      "body": "Insurers estimate future claims and set aside reserves. If those estimates are too low, they must take charges later that reduce book value."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b9",
+      "title": "Say it out loud",
+      "prompts": [
+        "What's a combined ratio?",
+        "What's float?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}

@@ -1,0 +1,189 @@
+{
+  "id": "1-7",
+  "slug": "accounting-standards-leases-and-inventory",
+  "module": 1,
+  "moduleTitle": "Accounting",
+  "title": "Accounting standards, leases, and inventory",
+  "difficulty": "advanced",
+  "estMinutes": 10,
+  "prerequisites": [
+    "1-6"
+  ],
+  "relatedQuestionTags": [
+    "ifrs",
+    "lease",
+    "lifo"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Accounting"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Accounting"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: How do leases affect EBITDA under each standard?",
+    "Answer out loud: LIFO vs. FIFO in inflation?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "US companies use US GAAP; most of the rest of the world uses IFRS. The differences matter when comparing international comps."
+        },
+        {
+          "body": "Under US GAAP (ASC 842), operating leases go on the balance sheet as a right-of-use asset and lease liability, but the expense stays as one straight-line operating cost — EBITDA unchanged."
+        },
+        {
+          "body": "Under IFRS 16, nearly all leases are treated like finance leases: expense splits into depreciation + interest, both *below* EBITDA. So EBITDA is higher for IFRS companies."
+        },
+        {
+          "body": "Inventory methods (FIFO, LIFO) change COGS and taxes when prices move."
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b2",
+      "prompt": "Fill in the blank",
+      "template": "Under IFRS 16, lease costs are split into {{1}} and {{2}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "depreciation",
+            "d&a",
+            "depreciation expense"
+          ],
+          "hint": "Starts with “D”."
+        },
+        "2": {
+          "accept": [
+            "interest",
+            "interest expense"
+          ],
+          "hint": "Starts with “I”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "LIFO is {{1}} under IFRS",
+      "blanks": {
+        "1": {
+          "accept": [
+            "not permitted",
+            "not allowed",
+            "prohibited",
+            "banned",
+            "not permitted under ifrs"
+          ],
+          "hint": "Starts with “N”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "With rising prices, LIFO produces {{1}} COGS and {{2}} taxes",
+      "blanks": {
+        "1": {
+          "accept": [
+            "higher",
+            "more",
+            "greater",
+            "increases",
+            "larger",
+            "rises"
+          ],
+          "hint": "Starts with “H”."
+        },
+        "2": {
+          "accept": [
+            "lower",
+            "less",
+            "decreases",
+            "smaller",
+            "falls"
+          ],
+          "hint": "Starts with “L”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b5",
+      "title": "Why do leases matter for EV/EBITDA?",
+      "difficulty": "advanced",
+      "teaser": "Consistency.",
+      "body": "Consistency. If EBITDA excludes lease costs (IFRS), the lease liability must be in EV. If EBITDA includes lease costs (US GAAP operating leases), leave lease liabilities out of EV. Comparing a US retailer to a European one without adjusting can mislead by a full turn of EBITDA or more.\n\n**Interview answer:** \"Under IFRS, lease costs sit below EBITDA, so you'd add lease liabilities to EV. Under US GAAP they're in EBITDA, so you don't. Mixing them breaks comparability.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b6",
+      "prompt": "A European retailer reports under IFRS 16. To keep EV/EBITDA consistent, what should you do with its lease liabilities?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Leave them out of EV, since leases are operating items"
+        },
+        {
+          "id": "b",
+          "text": "Add them to EV, since IFRS EBITDA excludes lease costs"
+        },
+        {
+          "id": "c",
+          "text": "Subtract them from EV"
+        },
+        {
+          "id": "d",
+          "text": "Add them to EBITDA"
+        }
+      ],
+      "correct": "b",
+      "explanation": "Under IFRS 16, lease costs sit below EBITDA (depreciation + interest), so the lease liability belongs in EV to match."
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "What's EBITDAR?",
+      "difficulty": "advanced",
+      "teaser": "EBITDA before rent.",
+      "body": "EBITDA before rent. It strips out lease costs so you can compare companies that own their real estate against those that lease. Pair it with EV including capitalized leases."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "LIFO vs. FIFO — what changes when prices are rising?",
+      "difficulty": "follow-up",
+      "teaser": "FIFO sells the oldest (cheapest) inventory first → lower COGS, higher profit, higher taxes, and inventory on the BS closer to current cost.",
+      "body": "FIFO sells the oldest (cheapest) inventory first → lower COGS, higher profit, higher taxes, and inventory on the BS closer to current cost. LIFO sells the newest (most expensive) first → higher COGS, lower profit, lower taxes, more cash. IFRS bans LIFO.\n\n**Interview answer:** \"With rising prices, LIFO raises COGS and lowers taxes, so more cash. FIFO shows higher profit. IFRS doesn't allow LIFO.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b9",
+      "title": "Other IFRS differences worth knowing?",
+      "difficulty": "advanced",
+      "teaser": "IFRS lets companies put interest paid and dividends paid in either operating or financing cash flow — so CFO can be inconsistent across companies.",
+      "body": "IFRS lets companies put interest paid and dividends paid in either operating or financing cash flow — so CFO can be inconsistent across companies. IFRS also allows capitalizing some development costs that US GAAP expenses."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b10",
+      "title": "Say it out loud",
+      "prompts": [
+        "How do leases affect EBITDA under each standard?",
+        "LIFO vs. FIFO in inflation?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}

@@ -1,0 +1,160 @@
+{
+  "id": "6-3",
+  "slug": "discounting-and-the-mid-year-convention",
+  "module": 6,
+  "moduleTitle": "DCF",
+  "title": "Discounting and the mid-year convention",
+  "difficulty": "follow-up",
+  "estMinutes": 10,
+  "prerequisites": [
+    "6-2"
+  ],
+  "relatedQuestionTags": [
+    "mid-year",
+    "dcf"
+  ],
+  "workbook": "PEB_04_DCF",
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "DCF"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Discounted Cash Flow"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: What does the mid-year convention do and why?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "Discount factor = 1 ÷ (1 + WACC)^t."
+        },
+        {
+          "body": "End-of-year convention assumes each year's cash arrives on Dec 31."
+        },
+        {
+          "body": "Mid-year convention assumes cash arrives evenly through the year, so discount periods are 0.5, 1.5, 2.5…"
+        }
+      ]
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "\\text{Discount factor} = \\frac{1}{(1 + \\text{WACC})^t}",
+      "caption": "Mid-year convention: t = 0.5, 1.5, 2.5, …",
+      "legend": [
+        {
+          "symbol": "t",
+          "meaning": "Discount period in years"
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "With the mid-year convention, year 1 cash flow is discounted {{1}} years",
+      "blanks": {
+        "1": {
+          "numeric": 0.5,
+          "tolerance": 0.05,
+          "accept": [
+            "0.5"
+          ],
+          "hint": "Enter a number."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "The mid-year convention {{1}} valuation",
+      "blanks": {
+        "1": {
+          "accept": [
+            "increases",
+            "rises",
+            "goes up",
+            "increase",
+            "higher",
+            "up",
+            "grows"
+          ],
+          "hint": "Starts with “I”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b5",
+      "title": "Why use the mid-year convention?",
+      "difficulty": "follow-up",
+      "teaser": "Businesses earn cash throughout the year, not in one lump at year-end.",
+      "body": "Businesses earn cash throughout the year, not in one lump at year-end. Mid-year is more realistic and gives a slightly higher value."
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "How does the mid-year convention affect terminal value?",
+      "difficulty": "advanced",
+      "teaser": "For perpetuity growth TV (built from cash flows), use the mid-year discount period (e.g., 4.5 for a 5-year model).",
+      "body": "For perpetuity growth TV (built from cash flows), use the mid-year discount period (e.g., 4.5 for a 5-year model). For exit-multiple TV (an assumed sale at year-end), discount the full 5 years.\n\n**Interview answer:** \"Perpetuity growth TV uses the mid-year period because it's built from cash flows; exit-multiple TV assumes a sale at year-end, so it uses the full period.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b7",
+      "prompt": "5-year DCF with the mid-year convention. Which discount period is used for an exit-multiple terminal value?",
+      "options": [
+        {
+          "id": "a",
+          "text": "4.5"
+        },
+        {
+          "id": "b",
+          "text": "5.0"
+        },
+        {
+          "id": "c",
+          "text": "5.5"
+        },
+        {
+          "id": "d",
+          "text": "2.5"
+        }
+      ],
+      "correct": "b",
+      "explanation": "An exit multiple assumes a sale at year-end, so discount the full 5 years. A perpetuity-growth TV uses the mid-year period (4.5)."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "What's a stub period?",
+      "difficulty": "advanced",
+      "teaser": "If the valuation date is mid-year (say, Sept 30), the first projected period is only a partial year.",
+      "body": "If the valuation date is mid-year (say, Sept 30), the first projected period is only a partial year. You include only the remaining cash flow for that stub and adjust all later discount periods accordingly."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b9",
+      "title": "Say it out loud",
+      "prompts": [
+        "What does the mid-year convention do and why?"
+      ],
+      "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b10",
+      "workbook": "PEB_04_DCF",
+      "body": "Toggle it on and off in the workbook."
+    }
+  ]
+}

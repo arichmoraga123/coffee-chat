@@ -1,0 +1,184 @@
+{
+  "id": "3-2",
+  "slug": "pairing-metrics-with-multiples",
+  "module": 3,
+  "moduleTitle": "Valuation Overview",
+  "title": "Pairing metrics with multiples",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "3-1"
+  ],
+  "relatedQuestionTags": [
+    "multiples",
+    "ebitda"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Valuation"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Valuation"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Why can't you use EV/Net income?",
+    "Answer out loud: What are EBITDA's weaknesses?",
+    "Answer out loud: When use EV/revenue?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "The **consistency rule:** the numerator and denominator must refer to the same group of investors."
+        },
+        {
+          "body": "EV (all investors) pairs with metrics *before* interest: revenue, EBITDA, EBIT, unlevered FCF."
+        },
+        {
+          "body": "Equity value (shareholders only) pairs with metrics *after* interest: net income (P/E), EPS, levered FCF."
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b2",
+      "prompt": "Fill in the blank",
+      "template": "EV / {{1}} is valid; EV / {{2}} is not",
+      "blanks": {
+        "1": {
+          "accept": [
+            "EBITDA",
+            "ebitda"
+          ],
+          "hint": "Starts with “E”."
+        },
+        "2": {
+          "accept": [
+            "Net income",
+            "ni",
+            "earnings"
+          ],
+          "hint": "Starts with “N”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "P/E = share price ÷ {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "EPS"
+          ],
+          "hint": "Starts with “E”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "For an unprofitable company, use EV / {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "revenue"
+          ],
+          "hint": "Starts with “R”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b5",
+      "title": "Why can't you use EV / Net income?",
+      "difficulty": "core",
+      "teaser": "EV covers all investors, but net income is what's left after debt holders get paid interest.",
+      "body": "EV covers all investors, but net income is what's left *after* debt holders get paid interest. The numerator includes debt holders; the denominator excludes them.\n\n**Interview answer:** \"EV belongs to all investors, but net income only belongs to shareholders, since interest is already paid. The two don't match.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b6",
+      "prompt": "Which multiple pairing is INCONSISTENT?",
+      "options": [
+        {
+          "id": "a",
+          "text": "EV / EBITDA"
+        },
+        {
+          "id": "b",
+          "text": "EV / Revenue"
+        },
+        {
+          "id": "c",
+          "text": "Equity value / Net income"
+        },
+        {
+          "id": "d",
+          "text": "EV / Net income"
+        }
+      ],
+      "correct": "d",
+      "explanation": "EV belongs to all investors; net income is after interest, so it belongs only to shareholders. The numerator and denominator don't match."
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "Why is EV/EBITDA so popular?",
+      "difficulty": "core",
+      "teaser": "It's capital-structure neutral (comparable across companies with different debt), unaffected by tax differences, and EBITDA roughly proxies operating…",
+      "body": "It's capital-structure neutral (comparable across companies with different debt), unaffected by tax differences, and EBITDA roughly proxies operating cash flow. It's the default for most industries."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "What are EBITDA's weaknesses?",
+      "difficulty": "follow-up",
+      "teaser": "It ignores CapEx (a company with huge capital needs looks better than it is), working capital, taxes, and SBC if added back.",
+      "body": "It ignores CapEx (a company with huge capital needs looks better than it is), working capital, taxes, and SBC if added back. For capital-intensive businesses, EV/EBIT or EV/(EBITDA − CapEx) is more honest.\n\n**Interview answer:** \"It ignores CapEx and working capital, so it flatters capital-intensive businesses. For them I'd look at EV/EBIT or EBITDA minus CapEx.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b9",
+      "title": "Why is P/E distorted by capital structure?",
+      "difficulty": "follow-up",
+      "teaser": "Two identical businesses with different debt levels have different interest costs, so different net income, so different P/E.",
+      "body": "Two identical businesses with different debt levels have different interest costs, so different net income, so different P/E. EV/EBITDA strips that out."
+    },
+    {
+      "type": "deepDive",
+      "id": "b10",
+      "title": "Why might two companies with similar growth trade at different EV/EBITDA multiples?",
+      "difficulty": "advanced",
+      "teaser": "Differences in margins, return on capital (how much reinvestment growth requires), risk/cyclicality, capital intensity, quality of management, or bus…",
+      "body": "Differences in margins, return on capital (how much reinvestment growth requires), risk/cyclicality, capital intensity, quality of management, or business model durability. Growth alone doesn't determine the multiple."
+    },
+    {
+      "type": "deepDive",
+      "id": "b11",
+      "title": "What's the PEG ratio?",
+      "difficulty": "advanced",
+      "teaser": "P/E ÷ expected EPS growth rate.",
+      "body": "P/E ÷ expected EPS growth rate. It adjusts P/E for growth so fast- and slow-growing companies can be compared. A PEG around 1.0 is often read as \"fair.\""
+    },
+    {
+      "type": "checkpoint",
+      "id": "b12",
+      "title": "Say it out loud",
+      "prompts": [
+        "Why can't you use EV/Net income?",
+        "What are EBITDA's weaknesses?",
+        "When use EV/revenue?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}

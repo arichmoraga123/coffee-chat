@@ -1,0 +1,122 @@
+{
+  "id": "8-7",
+  "slug": "lbo-gotchas",
+  "module": 8,
+  "moduleTitle": "LBO",
+  "title": "LBO gotchas",
+  "difficulty": "advanced",
+  "estMinutes": 10,
+  "prerequisites": [
+    "8-6"
+  ],
+  "relatedQuestionTags": [
+    "lbo",
+    "circularity"
+  ],
+  "workbook": "PEB_07_LBO",
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "LBO Models"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Leveraged Buyouts"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: What causes circularity?",
+    "Answer out loud: Is more leverage always better?"
+  ],
+  "blocks": [
+    {
+      "type": "deepDive",
+      "id": "b1",
+      "title": "What creates circularity in an LBO model?",
+      "difficulty": "advanced",
+      "teaser": "Interest depends on the average debt balance, which depends on how much debt is paid down, which depends on cash flow, which depends on interest.",
+      "body": "Interest depends on the average debt balance, which depends on how much debt is paid down, which depends on cash flow, which depends on interest. Fix by using beginning-of-period balances (as in PEB_07) or enabling iterative calculation."
+    },
+    {
+      "type": "deepDive",
+      "id": "b2",
+      "title": "Is more leverage always better?",
+      "difficulty": "core",
+      "teaser": "No.",
+      "body": "No. It raises IRR on paper but increases interest costs, covenant risk, and bankruptcy risk. Lenders also cap leverage based on cash flow. Optimal leverage balances return against the risk of losing the equity."
+    },
+    {
+      "type": "deepDive",
+      "id": "b3",
+      "title": "Why does IRR fall if the sponsor contributes more equity?",
+      "difficulty": "follow-up",
+      "teaser": "Same dollar gain, larger base → lower percentage return.",
+      "body": "Same dollar gain, larger base → lower percentage return. Less debt also means less leverage amplification."
+    },
+    {
+      "type": "deepDive",
+      "id": "b4",
+      "title": "LBO vs. DCF — why do they give different values?",
+      "difficulty": "advanced",
+      "teaser": "A DCF tells you what the company is worth intrinsically.",
+      "body": "A DCF tells you what the company is worth intrinsically. An LBO tells you what a sponsor can pay to hit a target return given debt capacity. The LBO is a price constraint, not a value estimate.\n\n**Interview answer:** \"A DCF estimates intrinsic value; an LBO tells you the maximum price a sponsor can pay and still hit its return target.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b5",
+      "prompt": "Why can an LBO analysis and a DCF give different values for the same company?",
+      "options": [
+        {
+          "id": "a",
+          "text": "One of them must contain an error"
+        },
+        {
+          "id": "b",
+          "text": "A DCF estimates intrinsic value; an LBO gives the max price a sponsor can pay and still hit its return"
+        },
+        {
+          "id": "c",
+          "text": "The LBO ignores debt"
+        },
+        {
+          "id": "d",
+          "text": "The DCF ignores taxes"
+        }
+      ],
+      "correct": "b",
+      "explanation": "The LBO is a price constraint driven by return targets and debt capacity, not an estimate of intrinsic value."
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "Why would a sponsor accept a lower IRR?",
+      "difficulty": "advanced",
+      "teaser": "A larger equity check in a high-quality, lower-risk business; deploying capital from a large fund; or strategic value as a platform for add-on acquis…",
+      "body": "A larger equity check in a high-quality, lower-risk business; deploying capital from a large fund; or strategic value as a platform for add-on acquisitions."
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "What's a dividend recap?",
+      "difficulty": "follow-up",
+      "teaser": "The company borrows new debt and pays the proceeds to the sponsor as a dividend.",
+      "body": "The company borrows new debt and pays the proceeds to the sponsor as a dividend. It returns capital early (boosting IRR) without selling the company, but increases leverage and risk."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b8",
+      "title": "Say it out loud",
+      "prompts": [
+        "What causes circularity?",
+        "Is more leverage always better?"
+      ],
+      "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b9",
+      "workbook": "PEB_07_LBO",
+      "body": "Practice this lesson's mechanics in the matching workbook."
+    }
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "id": "6-4",
+  "slug": "terminal-value",
+  "module": 6,
+  "moduleTitle": "DCF",
+  "title": "Terminal value",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "6-3"
+  ],
+  "relatedQuestionTags": [
+    "terminal value"
+  ],
+  "workbook": "PEB_04_DCF",
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "DCF"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Discounted Cash Flow"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Two TV methods?",
+    "Answer out loud: Which do you prefer?",
+    "Answer out loud: How do you sanity-check TV?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "Perpetuity growth (Gordon Growth): TV = final-year UFCF × (1 + g) ÷ (WACC − g)."
+        },
+        {
+          "body": "Exit multiple: TV = final-year EBITDA × multiple from comps."
+        },
+        {
+          "body": "Discount TV back to today."
+        },
+        {
+          "body": "Cross-check: the perpetuity method implies an exit multiple; the exit method implies a growth rate."
+        }
+      ]
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "\\text{TV}_{\\text{GGM}} = \\frac{\\text{UFCF}_n \\times (1 + g)}{\\text{WACC} - g} \\qquad \\text{TV}_{\\text{exit}} = \\text{EBITDA}_n \\times \\text{Multiple}",
+      "caption": "Perpetuity growth vs. exit multiple",
+      "legend": [
+        {
+          "symbol": "\\text{UFCF}_n",
+          "meaning": "Final projection-year unlevered FCF"
+        },
+        {
+          "symbol": "g",
+          "meaning": "Terminal growth rate (below long-run nominal GDP growth)"
+        },
+        {
+          "symbol": "\\text{EBITDA}_n",
+          "meaning": "Final projection-year EBITDA"
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "Terminal growth should stay below long-run {{1}} growth",
+      "blanks": {
+        "1": {
+          "accept": [
+            "nominal GDP",
+            "gdp",
+            "nominal gdp growth",
+            "gdp growth",
+            "long-run gdp"
+          ],
+          "hint": "Starts with “N”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "TV is often {{1}} of a DCF's enterprise value",
+      "blanks": {
+        "1": {
+          "accept": [
+            "60–80%",
+            "60-80",
+            "60 to 80",
+            "60-80%",
+            "60%-80%",
+            "60% to 80%"
+          ],
+          "hint": "Starts with “6”."
+        }
+      }
+    },
+    {
+      "type": "calc",
+      "id": "b5",
+      "prompt": "Final-year UFCF $100, WACC 10%, g 2% → TV = **?**",
+      "answer": 1275,
+      "tolerance": 1,
+      "unit": "$",
+      "solution": "Final-year UFCF $100, WACC 10%, g 2% → TV = $1,275"
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "Which TV method is better?",
+      "difficulty": "follow-up",
+      "teaser": "Perpetuity growth is more theoretically consistent (intrinsic), but small changes in g swing the value a lot.",
+      "body": "Perpetuity growth is more theoretically consistent (intrinsic), but small changes in g swing the value a lot. Exit multiple is grounded in market data that bankers can defend, but it makes the \"intrinsic\" DCF partly a relative valuation. Bankers often use exit multiple; academics prefer perpetuity growth. Best practice: use one and cross-check with the other.\n\n**Interview answer:** \"Exit multiple is easier to defend with market data; perpetuity growth is more theoretically pure. I'd use one and check the implied figure from the other.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b7",
+      "prompt": "Final-year UFCF $100, WACC 10%, g 2%. What's the Gordon Growth terminal value?",
+      "options": [
+        {
+          "id": "a",
+          "text": "$1,250"
+        },
+        {
+          "id": "b",
+          "text": "$1,275"
+        },
+        {
+          "id": "c",
+          "text": "$1,020"
+        },
+        {
+          "id": "d",
+          "text": "$1,000"
+        }
+      ],
+      "correct": "b",
+      "explanation": "$100 × 1.02 ÷ (10% − 2%) = $102 ÷ 0.08 = $1,275. $1,250 forgets the (1 + g)."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "How do you cross-check them?",
+      "difficulty": "follow-up",
+      "teaser": "From perpetuity TV, divide by final-year EBITDA → implied exit multiple; does it look reasonable vs.",
+      "body": "From perpetuity TV, divide by final-year EBITDA → implied exit multiple; does it look reasonable vs. comps? From exit-multiple TV, solve for g → implied growth; is it below GDP growth? Practice in PEB_04 \"Cross-checks.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b9",
+      "title": "What does it mean if TV is 90%+ of value?",
+      "difficulty": "follow-up",
+      "teaser": "The valuation rests almost entirely on assumptions about the distant future.",
+      "body": "The valuation rests almost entirely on assumptions about the distant future. Usually this means the projection period is too short (the company is still growing fast in the final year), or the business genuinely produces little cash today."
+    },
+    {
+      "type": "deepDive",
+      "id": "b10",
+      "title": "Why is TV so large in the first place?",
+      "difficulty": "core",
+      "teaser": "It captures every year after the projection period — potentially decades of cash flow — while the projection captures only 5–10.",
+      "body": "It captures every year after the projection period — potentially decades of cash flow — while the projection captures only 5–10."
+    },
+    {
+      "type": "deepDive",
+      "id": "b11",
+      "title": "Can terminal growth be negative?",
+      "difficulty": "gotcha",
+      "teaser": "Yes, for a business in permanent decline (legacy print media, coal).",
+      "body": "Yes, for a business in permanent decline (legacy print media, coal). The formula still works as long as WACC − g is positive."
+    },
+    {
+      "type": "deepDive",
+      "id": "b12",
+      "title": "What should the final projection year look like?",
+      "difficulty": "advanced",
+      "teaser": "A steady state: growth near the terminal rate, stable margins, and CapEx roughly in line with (or slightly above) D&A.",
+      "body": "A steady state: growth near the terminal rate, stable margins, and CapEx roughly in line with (or slightly above) D&A. If CapEx is far below D&A in the final year, the TV assumes the company can grow without reinvesting, which overstates value.\n\n**Interview answer:** \"A normalized year — stable growth and margins, with CapEx at or slightly above D&A so growth is actually funded.\""
+    },
+    {
+      "type": "checkpoint",
+      "id": "b13",
+      "title": "Say it out loud",
+      "prompts": [
+        "Two TV methods?",
+        "Which do you prefer?",
+        "How do you sanity-check TV?"
+      ],
+      "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b14",
+      "workbook": "PEB_04_DCF",
+      "body": "Practice this lesson's mechanics in the matching workbook."
+    }
+  ]
+}

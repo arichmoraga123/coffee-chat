@@ -1,0 +1,165 @@
+{
+  "id": "5-5",
+  "slug": "country-risk-and-emerging-markets",
+  "module": 5,
+  "moduleTitle": "Cost of Capital",
+  "title": "Country risk and emerging markets",
+  "difficulty": "advanced",
+  "estMinutes": 10,
+  "prerequisites": [
+    "5-4"
+  ],
+  "relatedQuestionTags": [
+    "country risk",
+    "wacc"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "DCF — WACC and Cost of Equity"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Discounted Cash Flow — Cost of Capital"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: How would you adjust WACC for an emerging-market company?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "Investing in emerging markets carries extra risk: currency, political, sovereign default."
+        },
+        {
+          "body": "Add a country risk premium (CRP) to cost of equity."
+        },
+        {
+          "body": "Match the currency of the cash flows and the discount rate."
+        }
+      ]
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "R_e = R_f + \\beta \\times \\text{ERP} + \\text{CRP}",
+      "caption": "CAPM with a country risk premium",
+      "legend": [
+        {
+          "symbol": "\\text{CRP}",
+          "meaning": "Country risk premium"
+        },
+        {
+          "symbol": "\\text{ERP}",
+          "meaning": "Equity risk premium"
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "A common CRP estimate uses the country's sovereign bond {{1}} over US Treasuries",
+      "blanks": {
+        "1": {
+          "accept": [
+            "spread"
+          ],
+          "hint": "Starts with “S”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "USD cash flows should be discounted with a {{1}} discount rate",
+      "blanks": {
+        "1": {
+          "accept": [
+            "USD"
+          ],
+          "hint": "Starts with “U”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b5",
+      "title": "How do you estimate a country risk premium?",
+      "difficulty": "advanced",
+      "teaser": "Simplest: the spread of the country's USD-denominated government bonds over US Treasuries.",
+      "body": "Simplest: the spread of the country's USD-denominated government bonds over US Treasuries. A refinement scales that spread by how much more volatile the country's stock market is than its bond market. Damodaran publishes country risk premiums annually.\n\n**Interview answer:** \"Start with the country's sovereign bond spread over Treasuries, sometimes scaled for equity market volatility, and add it to the cost of equity.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "Where does the CRP go in CAPM?",
+      "difficulty": "advanced",
+      "teaser": "Usually added to the cost of equity: Re = Rf + β × ERP + CRP.",
+      "body": "Usually added to the cost of equity: Re = Rf + β × ERP + CRP. Some apply it via beta (exposure-weighted), reflecting that a company exporting most of its output is less exposed to local risk."
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "Should a company's country risk depend on where it's headquartered or where it sells?",
+      "difficulty": "gotcha",
+      "teaser": "Where it operates and earns.",
+      "body": "Where it operates and earns. A Singapore-listed company with most revenue in Indonesia carries Indonesian risk."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "Why does currency matching matter?",
+      "difficulty": "advanced",
+      "teaser": "Local-currency cash flows include local inflation expectations; so must the discount rate.",
+      "body": "Local-currency cash flows include local inflation expectations; so must the discount rate. Discount Indonesian rupiah cash flows at a rupiah-based rate (or convert cash flows to USD using forward rates and use a USD rate). Mixing them misstates value."
+    },
+    {
+      "type": "mcq",
+      "id": "b9",
+      "prompt": "You're valuing an Indonesian company's rupiah cash flows. Which discount rate is consistent?",
+      "options": [
+        {
+          "id": "a",
+          "text": "A USD WACC built on US Treasuries"
+        },
+        {
+          "id": "b",
+          "text": "A rupiah-based discount rate (or convert the cash flows to USD at forward rates)"
+        },
+        {
+          "id": "c",
+          "text": "Any rate, as long as you add a country risk premium"
+        },
+        {
+          "id": "d",
+          "text": "The US WACC minus expected inflation"
+        }
+      ],
+      "correct": "b",
+      "explanation": "Local-currency cash flows embed local inflation, so the discount rate must too — or convert the cash flows to USD and use a USD rate."
+    },
+    {
+      "type": "deepDive",
+      "id": "b10",
+      "title": "What if the local government bond market is thin or unreliable?",
+      "difficulty": "advanced",
+      "teaser": "Build the local risk-free rate synthetically: the US Treasury yield plus the expected inflation differential between the two countries.",
+      "body": "Build the local risk-free rate synthetically: the US Treasury yield plus the expected inflation differential between the two countries."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b11",
+      "title": "Say it out loud",
+      "prompts": [
+        "How would you adjust WACC for an emerging-market company?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}

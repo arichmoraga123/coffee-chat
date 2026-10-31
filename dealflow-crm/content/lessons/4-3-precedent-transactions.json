@@ -1,0 +1,155 @@
+{
+  "id": "4-3",
+  "slug": "precedent-transactions",
+  "module": 4,
+  "moduleTitle": "Comps & Precedents",
+  "title": "Precedent transactions",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "4-2"
+  ],
+  "relatedQuestionTags": [
+    "precedents",
+    "control premium"
+  ],
+  "workbook": "PEB_05_Comps_Precedents_FootballField",
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Valuation — Comparables"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Comparable Companies & Precedent Transactions"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Why are precedents higher than comps?",
+    "Answer out loud: Strategic vs. financial buyers?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "Find past acquisitions of similar companies (industry, size, recency — typically last 3–5 years)."
+        },
+        {
+          "body": "Calculate transaction EV ÷ the target's LTM revenue and EBITDA at announcement."
+        },
+        {
+          "body": "Summarize and apply like comps."
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b2",
+      "prompt": "Fill in the blank",
+      "template": "Precedent multiples are usually based on {{1}} metrics at announcement",
+      "blanks": {
+        "1": {
+          "accept": [
+            "LTM"
+          ],
+          "hint": "Starts with “L”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "A typical control premium is about {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "20–40%",
+            "20-40",
+            "20 to 40",
+            "20-40%",
+            "20%-40%",
+            "20% to 40%"
+          ],
+          "hint": "Starts with “2”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b4",
+      "title": "Why do precedents usually show higher multiples?",
+      "difficulty": "core",
+      "teaser": "Buyers pay a control premium to take control of the company's cash flows and strategy.",
+      "body": "Buyers pay a control premium to take control of the company's cash flows and strategy. Strategic buyers may also pay for synergies.\n\n**Interview answer:** \"Acquirers pay for control — and sometimes synergies — so deal multiples run above trading multiples.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b5",
+      "prompt": "Why do precedent transaction multiples usually exceed trading multiples?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Precedents use forward metrics"
+        },
+        {
+          "id": "b",
+          "text": "Buyers pay a control premium, and strategics may pay for synergies"
+        },
+        {
+          "id": "c",
+          "text": "Private companies always trade at a premium"
+        },
+        {
+          "id": "d",
+          "text": "Precedents exclude debt"
+        }
+      ],
+      "correct": "b",
+      "explanation": "Acquirers pay for control (typically a 20–40% premium) and sometimes synergies, which pushes deal multiples above trading multiples."
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "Strategic vs. financial buyers — who pays more?",
+      "difficulty": "follow-up",
+      "teaser": "Strategic buyers usually, because they can realize synergies (cost cuts, cross-selling) and have a lower cost of capital.",
+      "body": "Strategic buyers usually, because they can realize synergies (cost cuts, cross-selling) and have a lower cost of capital. Financial buyers are limited by return targets, though in strong credit markets sponsors can compete aggressively."
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "Why are old deals less useful?",
+      "difficulty": "follow-up",
+      "teaser": "Interest rates, credit availability, and market multiples change.",
+      "body": "Interest rates, credit availability, and market multiples change. A deal from a zero-rate era can overstate what a buyer would pay today."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "What's a premiums-paid analysis?",
+      "difficulty": "advanced",
+      "teaser": "For public targets, look at the premium buyers paid over the pre-announcement share price in comparable deals, then apply that range to the target's…",
+      "body": "For public targets, look at the premium buyers paid over the pre-announcement share price in comparable deals, then apply that range to the target's current price."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b9",
+      "title": "Say it out loud",
+      "prompts": [
+        "Why are precedents higher than comps?",
+        "Strategic vs. financial buyers?"
+      ],
+      "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b10",
+      "workbook": "PEB_05_Comps_Precedents_FootballField",
+      "body": "Practice in the “Precedents” tab."
+    }
+  ]
+}

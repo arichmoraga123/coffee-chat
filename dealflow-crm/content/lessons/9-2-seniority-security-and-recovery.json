@@ -1,0 +1,149 @@
+{
+  "id": "9-2",
+  "slug": "seniority-security-and-recovery",
+  "module": 9,
+  "moduleTitle": "Credit & Leveraged Finance",
+  "title": "Seniority, security, and recovery",
+  "difficulty": "follow-up",
+  "estMinutes": 10,
+  "prerequisites": [
+    "9-1"
+  ],
+  "relatedQuestionTags": [
+    "seniority",
+    "bankruptcy",
+    "restructuring"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Debt & Leveraged Finance"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Leveraged Finance"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: What's the absolute priority rule?",
+    "Answer out loud: What's structural subordination?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "**Secured** debt is backed by specific collateral; **unsecured** relies on the general claim."
+        },
+        {
+          "body": "In bankruptcy, the **absolute priority rule** says senior claims are paid in full before junior claims get anything."
+        },
+        {
+          "body": "Order: secured debt → senior unsecured → subordinated → preferred → common equity."
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b2",
+      "prompt": "Fill in the blank",
+      "template": "In bankruptcy, {{1}} is paid last",
+      "blanks": {
+        "1": {
+          "accept": [
+            "common equity",
+            "equity",
+            "common stock",
+            "common shareholders"
+          ],
+          "hint": "Starts with “C”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "Secured debt is backed by {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "collateral",
+            "specific collateral",
+            "assets"
+          ],
+          "hint": "Starts with “C”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b4",
+      "title": "What's structural subordination?",
+      "difficulty": "advanced",
+      "teaser": "Debt at a holding company is effectively junior to debt at its operating subsidiaries, because the subsidiaries' creditors get paid from the subsidia…",
+      "body": "Debt at a holding company is effectively junior to debt at its operating subsidiaries, because the subsidiaries' creditors get paid from the subsidiaries' assets before any value flows up to the holdco.\n\n**Interview answer:** \"Holdco debt only gets what's left after opco creditors are paid, so it's effectively junior even if it's labeled senior.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b5",
+      "prompt": "Senior notes are issued at the holding company; term loans sit at the operating subsidiary. Who is effectively senior?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The holdco senior notes, because they're labeled senior"
+        },
+        {
+          "id": "b",
+          "text": "The opco term loans, because they're paid from the subsidiary's assets first"
+        },
+        {
+          "id": "c",
+          "text": "They rank equally"
+        },
+        {
+          "id": "d",
+          "text": "Whichever was issued first"
+        }
+      ],
+      "correct": "b",
+      "explanation": "Structural subordination: holdco creditors only get what flows up after opco creditors are paid, even if labeled \"senior.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "Chapter 11 vs. Chapter 7?",
+      "difficulty": "follow-up",
+      "teaser": "Chapter 11 is a reorganization: the company keeps operating while restructuring debt (often converting debt to equity).",
+      "body": "Chapter 11 is a reorganization: the company keeps operating while restructuring debt (often converting debt to equity). Chapter 7 is liquidation: assets are sold and proceeds distributed by priority."
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "What's DIP financing?",
+      "difficulty": "advanced",
+      "teaser": "Debtor-in-possession financing — new loans to a company in Chapter 11.",
+      "body": "Debtor-in-possession financing — new loans to a company in Chapter 11. It gets super-priority over existing debt so lenders are willing to fund a bankrupt company."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "Why does recovery vary by tranche?",
+      "difficulty": "follow-up",
+      "teaser": "Senior secured lenders often recover most or all of their principal; unsecured and subordinated holders recover far less; equity is often wiped out.",
+      "body": "Senior secured lenders often recover most or all of their principal; unsecured and subordinated holders recover far less; equity is often wiped out."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b9",
+      "title": "Say it out loud",
+      "prompts": [
+        "What's the absolute priority rule?",
+        "What's structural subordination?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}

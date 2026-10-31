@@ -1,0 +1,123 @@
+{
+  "id": "11-1",
+  "slug": "rules-of-thumb",
+  "module": 11,
+  "moduleTitle": "Mental Math & Brain Teasers",
+  "title": "Rules of thumb",
+  "difficulty": "core",
+  "estMinutes": 10,
+  "prerequisites": [
+    "10-5"
+  ],
+  "relatedQuestionTags": [
+    "irr",
+    "rule of 72"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Brain teasers / mental math"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Brain Teasers"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Rattle off all five anchors."
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "id": "b1",
+      "body": "Memorize these until they're automatic:\n\n| MOIC | Years | IRR |\n|---|---|---|\n| 2.0x | 3 | ~26% |\n| 2.0x | 5 | ~15% |\n| 2.5x | 5 | ~20% |\n| 3.0x | 3 | ~44% |\n| 3.0x | 5 | ~25% |\n\nRule of 72: years to double ≈ 72 ÷ annual return. At 8%, ~9 years; at 12%, ~6 years."
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "\\text{Years to double} \\approx \\frac{72}{\\text{Annual return (\\%)}}",
+      "caption": "Rule of 72",
+      "legend": [
+        {
+          "symbol": "72",
+          "meaning": "Works best for returns between about 6% and 12%"
+        }
+      ]
+    },
+    {
+      "type": "calc",
+      "id": "b3",
+      "prompt": "2x in 5 years ≈ **?**",
+      "answer": 15,
+      "tolerance": 0.5,
+      "unit": "%",
+      "solution": "2x in 5 years ≈ 15%"
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "At 9%, money doubles in about {{1}} years (Rule of 72)",
+      "blanks": {
+        "1": {
+          "numeric": 8,
+          "tolerance": 0,
+          "accept": [
+            "8"
+          ],
+          "hint": "Enter a number."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b5",
+      "title": "How do you estimate an unusual IRR, like 2.2x in 4 years?",
+      "difficulty": "follow-up",
+      "teaser": "Bracket it with anchors.",
+      "body": "Bracket it with anchors. 2x in 4 years ≈ 19% (between 26% at 3 years and 15% at 5). 2.2x is a bit higher, so roughly 22%. Exact: 2.2^(1/4) − 1 ≈ 21.8%."
+    },
+    {
+      "type": "mcq",
+      "id": "b6",
+      "prompt": "Roughly what IRR is 2.2x in 4 years?",
+      "options": [
+        {
+          "id": "a",
+          "text": "~15%"
+        },
+        {
+          "id": "b",
+          "text": "~19%"
+        },
+        {
+          "id": "c",
+          "text": "~22%"
+        },
+        {
+          "id": "d",
+          "text": "~30%"
+        }
+      ],
+      "correct": "c",
+      "explanation": "2x in 4 years ≈ 19%; 2.2x is a bit higher, so ≈ 22% (exact: 2.2^(1/4) − 1 ≈ 21.8%)."
+    },
+    {
+      "type": "deepDive",
+      "id": "b7",
+      "title": "Why do interviewers ask mental math?",
+      "difficulty": "core",
+      "teaser": "To see whether you can sanity-check numbers quickly in a meeting without a spreadsheet, and how you stay composed under pressure.",
+      "body": "To see whether you can sanity-check numbers quickly in a meeting without a spreadsheet, and how you stay composed under pressure. Think out loud."
+    },
+    {
+      "type": "checkpoint",
+      "id": "b8",
+      "title": "Say it out loud",
+      "prompts": [
+        "Rattle off all five anchors."
+      ],
+      "selfGrade": true
+    }
+  ]
+}

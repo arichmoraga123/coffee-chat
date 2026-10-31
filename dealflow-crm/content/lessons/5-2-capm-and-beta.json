@@ -1,0 +1,251 @@
+{
+  "id": "5-2",
+  "slug": "capm-and-beta",
+  "module": 5,
+  "moduleTitle": "Cost of Capital",
+  "title": "CAPM & Beta",
+  "difficulty": "core",
+  "estMinutes": 25,
+  "prerequisites": [
+    "0-1",
+    "5-1"
+  ],
+  "relatedQuestionTags": [
+    "capm",
+    "beta",
+    "wacc",
+    "cost-of-equity"
+  ],
+  "workbook": "PEB_03_CAPM_Beta_WACC",
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "DCF — WACC and Cost of Equity"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Discounted Cash Flow — Cost of Capital"
+    }
+  ],
+  "objectives": [
+    "Explain what the cost of equity represents and why it's higher than the cost of debt",
+    "Calculate cost of equity with CAPM",
+    "Explain what beta measures and how it's calculated",
+    "Answer the 'can beta be negative?' follow-up with both the theory and the practical answer"
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "id": "b1",
+      "body": "In a DCF, the discount rate is the return investors require for the risk they take. Debt investors have a contractual rate, so their required return is easy to observe. Equity investors have no contract. They get whatever is left after everyone else is paid. So we need a model to estimate what return they *require*. The standard model is the **Capital Asset Pricing Model (CAPM)**."
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "R_e = R_f + \\beta \\times (R_m - R_f)",
+      "legend": [
+        {
+          "symbol": "R_e",
+          "meaning": "Cost of equity — the return equity investors require"
+        },
+        {
+          "symbol": "R_f",
+          "meaning": "Risk-free rate — usually the 10-year government bond yield"
+        },
+        {
+          "symbol": "\\beta",
+          "meaning": "Beta — how much the stock moves relative to the market"
+        },
+        {
+          "symbol": "R_m - R_f",
+          "meaning": "Equity risk premium (ERP) — extra return the market earns over risk-free"
+        }
+      ]
+    },
+    {
+      "type": "stepThrough",
+      "id": "b3",
+      "title": "Build the formula one piece at a time",
+      "steps": [
+        {
+          "heading": "Start with the risk-free rate",
+          "body": "Any investor can earn the risk-free rate with no risk. So no one would accept less from a stock. That's the floor."
+        },
+        {
+          "heading": "Add a premium for market risk",
+          "body": "Investing in the stock market as a whole earns an extra return over the risk-free rate, historically around 4–6%. That's the equity risk premium."
+        },
+        {
+          "heading": "Scale the premium by how risky *this* stock is",
+          "body": "A stock that swings twice as much as the market should demand twice the premium. A stock that barely moves with the market should demand less. Beta is that scaling factor."
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Complete the sentence.",
+      "template": "If a stock has a beta of 1.0, it is expected to move {{1}} the market. A beta of 1.5 means the stock tends to move {{2}}% for every 1% the market moves.",
+      "blanks": {
+        "1": {
+          "accept": [
+            "with",
+            "in line with",
+            "the same as",
+            "exactly with",
+            "in step with"
+          ],
+          "hint": "Think 'same direction, same size'."
+        },
+        "2": {
+          "numeric": 1.5,
+          "tolerance": 0,
+          "hint": "Beta is a multiplier."
+        }
+      }
+    },
+    {
+      "type": "calc",
+      "id": "b5",
+      "prompt": "Risk-free rate = 4.0%, beta = 1.2, equity risk premium = 5.5%. What's the cost of equity? (Enter as a percent, e.g. 10.5)",
+      "answer": 10.6,
+      "tolerance": 0.05,
+      "unit": "%",
+      "solution": "4.0% + 1.2 × 5.5% = 4.0% + 6.6% = 10.6%"
+    },
+    {
+      "type": "text",
+      "id": "b6",
+      "body": "## What beta actually measures\n\nBeta measures **systematic risk**: how much a stock's returns move with the overall market. It is calculated by regressing the stock's returns against the market's returns over a period (often 2 years of weekly or 5 years of monthly data). The slope of that regression line is beta."
+    },
+    {
+      "type": "formula",
+      "id": "b7",
+      "latex": "\\beta = \\frac{\\text{Cov}(R_{stock}, R_{market})}{\\text{Var}(R_{market})}",
+      "legend": [
+        {
+          "symbol": "\\text{Cov}",
+          "meaning": "How the stock and market move together"
+        },
+        {
+          "symbol": "\\text{Var}",
+          "meaning": "How much the market moves on its own"
+        }
+      ]
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "Why does CAPM only reward *systematic* risk?",
+      "difficulty": "follow-up",
+      "body": "Total risk = systematic risk (the market) + idiosyncratic risk (company-specific: a CEO leaving, a failed product launch). CAPM assumes investors hold diversified portfolios. In a diversified portfolio, company-specific surprises cancel out. You can't diversify away a recession. Since idiosyncratic risk can be eliminated for free, the market doesn't pay you for bearing it. Only risk you *can't* diversify away earns a premium. Beta measures exactly that risk.\n\n**Interview line:** \"Beta captures only the risk that can't be diversified away, because CAPM assumes investors are diversified, and the market only compensates for undiversifiable risk.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b9",
+      "title": "Can beta be negative?",
+      "difficulty": "gotcha",
+      "body": "**Yes, mathematically.** Beta is covariance divided by variance. Variance is always positive, but covariance can be negative if a stock tends to go up when the market goes down.\n\n**Real examples:**\n- Gold and some gold miners in certain periods (investors flee to gold in crashes)\n- Inverse ETFs (built to move opposite to an index)\n- Put options on the market\n- Some volatility products\n\n**What CAPM implies:** plug a negative beta in and the cost of equity is *below* the risk-free rate. With Rf = 4%, ERP = 5%, β = −0.5: Re = 4% − 2.5% = 1.5%. In theory that makes sense: the asset acts as insurance for a portfolio, so investors accept a lower return to hold it, the same way you pay an insurance premium.\n\n**What bankers actually do:** for an operating company in a DCF, you would almost never use a negative beta. A business with real customers, employees, and costs isn't truly a hedge against the economy over the long term. A negative raw beta is usually a quirk of the time period or a thinly traded stock. In practice you'd use a bottom-up beta from comparable companies, or a floor, so the discount rate makes economic sense.\n\n**Interview answer (≈30 sec):** \"Yes. Beta is covariance over variance, and covariance can be negative if the asset moves opposite the market, like gold or an inverse ETF. CAPM would then give a cost of equity below the risk-free rate, since the asset acts as a hedge. But for valuing an operating company, I wouldn't use a negative beta. It usually reflects the sample period, so I'd use a beta based on comparable companies instead.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b10",
+      "prompt": "A stock has a beta of −0.4. The risk-free rate is 4% and the ERP is 5%. What does CAPM give for its cost of equity?",
+      "options": [
+        {
+          "id": "a",
+          "text": "6.0%"
+        },
+        {
+          "id": "b",
+          "text": "2.0%"
+        },
+        {
+          "id": "c",
+          "text": "4.0% — beta can't be negative, so floor it at zero"
+        },
+        {
+          "id": "d",
+          "text": "−2.0%"
+        }
+      ],
+      "correct": "b",
+      "explanation": "4% + (−0.4 × 5%) = 4% − 2% = 2%. Below the risk-free rate, because the stock behaves like a hedge."
+    },
+    {
+      "type": "deepDive",
+      "id": "b11",
+      "title": "What's the beta of cash? Of the market itself?",
+      "difficulty": "follow-up",
+      "body": "**Cash: beta = 0.** Its return doesn't move with the market. This matters when a company holds a lot of cash: the observed beta is a blend of risky operations and zero-beta cash, so the operating business's beta is *higher* than what you observe.\n\n**The market: beta = 1.0** by definition (the market's covariance with itself equals its variance)."
+    },
+    {
+      "type": "deepDive",
+      "id": "b12",
+      "title": "Beta vs. volatility — aren't they the same?",
+      "difficulty": "gotcha",
+      "body": "No. Volatility (standard deviation) is total risk. Beta is only the part that moves with the market. A biotech awaiting an FDA decision can be extremely volatile but have a low beta, because its swings have nothing to do with the S&P 500. Beta = correlation × (stock volatility / market volatility), so a volatile stock with low correlation can still have a low beta."
+    },
+    {
+      "type": "deepDive",
+      "id": "b13",
+      "title": "Raw vs. adjusted (Blume) beta",
+      "difficulty": "advanced",
+      "body": "Betas tend to drift toward 1.0 over time. Bloomberg reports an **adjusted beta** = 0.67 × raw beta + 0.33 × 1.0. A raw beta of 1.6 becomes about 1.40. Be aware which one you're using, and be consistent across comps."
+    },
+    {
+      "type": "deepDive",
+      "id": "b14",
+      "title": "Which risk-free rate should you use?",
+      "difficulty": "follow-up",
+      "body": "Usually the 10-year government bond yield in the currency of the cash flows. The key principle is **matching**: long-duration cash flows → long-term rate; USD cash flows → US Treasury; local-currency cash flows → that country's bond (with adjustments if that country has default risk — see Lesson 5.5)."
+    },
+    {
+      "type": "deepDive",
+      "id": "b18",
+      "title": "Where does the equity risk premium come from?",
+      "difficulty": "follow-up",
+      "teaser": "Two approaches: historical (average past excess return of stocks over bonds, typically 4–6% depending on period and method) or implied (backed out of…",
+      "body": "Two approaches: historical (average past excess return of stocks over bonds, typically 4–6% depending on period and method) or implied (backed out of current market prices and expected cash flows). Practitioners often use a published source such as Kroll or Damodaran. There's no single \"right\" number — be consistent.\n\n**Interview answer:** \"Either the historical average return of stocks over bonds or an implied premium from current prices — usually somewhere around 4 to 6 percent.\""
+    },
+    {
+      "type": "deepDive",
+      "id": "b19",
+      "title": "What kinds of stocks have betas above 1?",
+      "difficulty": "core",
+      "teaser": "Cyclical, levered, or growth-heavy businesses: tech, airlines, luxury goods, homebuilders.",
+      "body": "Cyclical, levered, or growth-heavy businesses: tech, airlines, luxury goods, homebuilders. Betas below 1: utilities, consumer staples, healthcare."
+    },
+    {
+      "type": "orderSteps",
+      "id": "b15",
+      "prompt": "Put the steps for calculating a cost of equity for a private company in order.",
+      "items": [
+        "Find comparable public companies",
+        "Get each comp's levered beta",
+        "Unlever each beta using that comp's D/E and tax rate",
+        "Take the median unlevered beta",
+        "Relever at the target's capital structure",
+        "Plug into CAPM"
+      ]
+    },
+    {
+      "type": "checkpoint",
+      "id": "b16",
+      "title": "Say it out loud",
+      "prompts": [
+        "What does the cost of equity represent?",
+        "Walk me through CAPM.",
+        "Can beta be negative? What would you do in a DCF?",
+        "Why don't investors get paid for company-specific risk?"
+      ],
+      "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b17",
+      "workbook": "PEB_03_CAPM_Beta_WACC",
+      "body": "Calculate a beta from 24 months of returns three different ways, unlever and relever comps, and see a negative-beta asset in action."
+    }
+  ]
+}

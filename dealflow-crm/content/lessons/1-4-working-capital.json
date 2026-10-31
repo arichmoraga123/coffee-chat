@@ -1,0 +1,190 @@
+{
+  "id": "1-4",
+  "slug": "working-capital",
+  "module": 1,
+  "moduleTitle": "Accounting",
+  "title": "Working capital",
+  "difficulty": "follow-up",
+  "estMinutes": 10,
+  "prerequisites": [
+    "1-3"
+  ],
+  "relatedQuestionTags": [
+    "working capital"
+  ],
+  "sourceRefs": [
+    {
+      "guide": "BIWS 400 Questions",
+      "section": "Accounting"
+    },
+    {
+      "guide": "WSP Red Book",
+      "section": "Accounting"
+    }
+  ],
+  "objectives": [
+    "Answer out loud: Define working capital.",
+    "Answer out loud: Can it be negative?",
+    "Answer out loud: Why exclude cash?"
+  ],
+  "blocks": [
+    {
+      "type": "stepThrough",
+      "id": "b1",
+      "title": "Walk through it",
+      "steps": [
+        {
+          "body": "Operating working capital = current operating assets (AR, inventory, prepaid expenses) − current operating liabilities (AP, accrued expenses, deferred revenue)."
+        },
+        {
+          "body": "Cash and debt are excluded — they're financing items, not operations."
+        },
+        {
+          "body": "On the CFS, an increase in net working capital uses cash; a decrease provides cash."
+        }
+      ]
+    },
+    {
+      "type": "formula",
+      "id": "b2",
+      "latex": "\\text{CCC} = \\text{DSO} + \\text{DIO} - \\text{DPO}",
+      "caption": "Cash conversion cycle",
+      "legend": [
+        {
+          "symbol": "\\text{DSO}",
+          "meaning": "Days sales outstanding = AR ÷ revenue × 365"
+        },
+        {
+          "symbol": "\\text{DIO}",
+          "meaning": "Days inventory outstanding = inventory ÷ COGS × 365"
+        },
+        {
+          "symbol": "\\text{DPO}",
+          "meaning": "Days payable outstanding = AP ÷ COGS × 365"
+        }
+      ]
+    },
+    {
+      "type": "fillBlank",
+      "id": "b3",
+      "prompt": "Fill in the blank",
+      "template": "Operating working capital excludes {{1}} and {{2}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "cash",
+            "cash and equivalents"
+          ],
+          "hint": "Starts with “C”."
+        },
+        "2": {
+          "accept": [
+            "debt",
+            "borrowings"
+          ],
+          "hint": "Starts with “D”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b4",
+      "prompt": "Fill in the blank",
+      "template": "Cash conversion cycle = DSO + DIO − {{1}}",
+      "blanks": {
+        "1": {
+          "accept": [
+            "DPO"
+          ],
+          "hint": "Starts with “D”."
+        }
+      }
+    },
+    {
+      "type": "fillBlank",
+      "id": "b5",
+      "prompt": "Fill in the blank",
+      "template": "If NWC increases by $20, cash flow is {{1}} by $20",
+      "blanks": {
+        "1": {
+          "accept": [
+            "reduced",
+            "decreased",
+            "lowered",
+            "reduces",
+            "lower"
+          ],
+          "hint": "Starts with “R”."
+        }
+      }
+    },
+    {
+      "type": "deepDive",
+      "id": "b6",
+      "title": "Can working capital be negative? Is that bad?",
+      "difficulty": "follow-up",
+      "teaser": "Yes, and it's often good.",
+      "body": "Yes, and it's often good. Negative NWC means the company collects cash from customers before paying suppliers. Subscription businesses, retailers with fast inventory turns, and airlines (tickets sold before flights) run negative NWC. It's only a red flag if it comes from failing to pay suppliers.\n\n**Interview answer:** \"Yes — it means customers pay before the company pays suppliers, which is common for subscription businesses and retailers. It's a strength, unless it comes from stretching payables because the company is struggling.\""
+    },
+    {
+      "type": "mcq",
+      "id": "b7",
+      "prompt": "A subscription software company has negative net working capital. What does that most likely mean?",
+      "options": [
+        {
+          "id": "a",
+          "text": "It's running out of cash and can't pay suppliers"
+        },
+        {
+          "id": "b",
+          "text": "Customers pay before the company delivers or pays suppliers"
+        },
+        {
+          "id": "c",
+          "text": "Its accounts receivable are larger than its payables"
+        },
+        {
+          "id": "d",
+          "text": "It has more debt than cash"
+        }
+      ],
+      "correct": "b",
+      "explanation": "Negative NWC usually means cash comes in before it goes out (deferred revenue from upfront billing) — often a strength, unless it comes from stretching payables."
+    },
+    {
+      "type": "deepDive",
+      "id": "b8",
+      "title": "Why is cash excluded from working capital?",
+      "difficulty": "follow-up",
+      "teaser": "Cash is the result of operations, not part of them.",
+      "body": "Cash is the *result* of operations, not part of them. Including it would double-count when you calculate cash flow from changes in working capital. Debt is financing."
+    },
+    {
+      "type": "deepDive",
+      "id": "b9",
+      "title": "DSO, DIO, DPO — what do they tell you?",
+      "difficulty": "advanced",
+      "teaser": "Days sales outstanding (AR ÷ revenue × 365): how fast customers pay.",
+      "body": "Days sales outstanding (AR ÷ revenue × 365): how fast customers pay. Days inventory outstanding (inventory ÷ COGS × 365): how long stock sits. Days payable outstanding (AP ÷ COGS × 365): how long the company takes to pay suppliers. Cash conversion cycle = DSO + DIO − DPO — the days cash is tied up. Shorter is better."
+    },
+    {
+      "type": "deepDive",
+      "id": "b10",
+      "title": "What's a working capital true-up at deal close?",
+      "difficulty": "advanced",
+      "teaser": "The buyer and seller agree on a \"normal\" level of working capital (the peg).",
+      "body": "The buyer and seller agree on a \"normal\" level of working capital (the peg). If the target delivers less at closing, the price falls dollar-for-dollar; more, and it rises. This stops the seller from boosting cash by delaying payables or rushing collections right before closing.\n\n**Interview answer:** \"The price adjusts if delivered working capital differs from an agreed normal level, so the seller can't game it before closing.\""
+    },
+    {
+      "type": "checkpoint",
+      "id": "b11",
+      "title": "Say it out loud",
+      "prompts": [
+        "Define working capital.",
+        "Can it be negative?",
+        "Why exclude cash?"
+      ],
+      "selfGrade": true
+    }
+  ]
+}
