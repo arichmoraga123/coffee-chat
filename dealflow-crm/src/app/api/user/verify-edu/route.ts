@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { completeReferralForUser } from "@/lib/referrals";
+import { syncRosterMembership } from "@/lib/club-roster";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
@@ -27,6 +28,7 @@ export async function GET(req: Request) {
       eduVerificationExpires: null,
     },
   });
+  await syncRosterMembership(user.id).catch((e) => console.error("roster sync failed", e));
   const referral = await completeReferralForUser(user.id);
   const target = new URL("/profile?eduVerified=1", base);
   if (referral?.referrerName) target.searchParams.set("referredBy", referral.referrerName);

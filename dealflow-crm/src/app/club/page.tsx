@@ -4,14 +4,38 @@ import { requireUserId } from "@/lib/auth";
 import { resolveClubIdForUser } from "@/lib/club-server";
 import { getClubDashboardPayload } from "@/lib/club-data";
 import { Card } from "@/components/ui/card";
+import { prisma } from "@/lib/prisma";
+import { PE_BROAD_NAME } from "@/lib/club-roster";
+import { JoinPeBroadButton } from "@/components/club/join-pebroad-button";
+
+/** Verified @msu.edu students who aren't PE@Broad members can ask to join. */
+async function peBroadJoinState(userId: string) {
+  const [user, club] = await Promise.all([
+    prisma.user.findUnique({ where: { id: userId }, select: { eduEmail: true, eduVerified: true } }),
+    prisma.club.findFirst({ where: { name: PE_BROAD_NAME }, select: { id: true } }),
+  ]);
+  if (!club || !user?.eduVerified || !user.eduEmail?.toLowerCase().endsWith("@msu.edu")) return null;
+  const [member, request] = await Promise.all([
+    prisma.clubMember.findUnique({ where: { clubId_userId: { clubId: club.id, userId } }, select: { active: true } }),
+    prisma.clubJoinRequest.findUnique({ where: { clubId_userId: { clubId: club.id, userId } }, select: { status: true } }),
+  ]);
+  if (member?.active) return null;
+  return request?.status === "pending" ? "pending" : request?.status === "denied" ? "denied" : "none";
+}
 
 export const dynamic = "force-dynamic";
 
 export default async function ClubHubPage() {
   const userId = await requireUserId();
-  const clubId = await resolveClubIdForUser(userId);
+  const [clubId, joinState] = await Promise.all([resolveClubIdForUser(userId), peBroadJoinState(userId)]);
+  const joinBanner = joinState ? (
+    <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#4a6fa5]/40 bg-[#4a6fa5]/10 p-4">
+      <p className="text-sm text-zinc-200">You&apos;re not on the PE@Broad roster yet.</p>
+      <JoinPeBroadButton initialStatus={joinState} />
+    </div>
+  ) : null;
   if (!clubId) {
-    return (
+    return joinBanner ?? (
       <p className="text-sm text-zinc-400">
         No club is linked yet. Set your school in onboarding or ask an officer to add you to your club roster.
       </p>
@@ -25,6 +49,7 @@ export default async function ClubHubPage() {
 
   return (
     <div className="space-y-8">
+      {joinBanner}
       <header className="space-y-1">
         <h1 className="text-2xl font-semibold tracking-tight text-zinc-50">{d.club.name}</h1>
         <p className="text-sm text-zinc-500">

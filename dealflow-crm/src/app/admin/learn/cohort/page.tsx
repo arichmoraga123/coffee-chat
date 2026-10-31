@@ -23,7 +23,7 @@ export default async function CohortPage({ searchParams }: { searchParams: Promi
   const members = selected
     ? (
         await prisma.clubMember.findMany({
-          where: { clubId: selected.id },
+          where: { clubId: selected.id, active: true },
           include: { user: { select: { id: true, name: true, email: true } } },
         })
       ).map((m) => m.user)

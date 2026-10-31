@@ -45,7 +45,7 @@ export async function POST(req: Request) {
   const member = await prisma.clubMember.findUnique({
     where: { clubId_userId: { clubId, userId } },
   });
-  if (!officer && !member) return NextResponse.json({ error: "Not a member" }, { status: 403 });
+  if (!officer && !member?.active) return NextResponse.json({ error: "Not a member" }, { status: 403 });
 
   const title = String(body.title ?? "").trim();
   const content = String(body.content ?? "").trim();

@@ -16,9 +16,9 @@ export async function getClubDashboardPayload(clubId: string, userId: string) {
       where: { id: clubId },
       include: { school: { select: { name: true, shortName: true, domain: true } } },
     }),
-    prisma.clubMember.count({ where: { clubId } }),
+    prisma.clubMember.count({ where: { clubId, active: true } }),
     prisma.clubMember.findMany({
-      where: { clubId, role: { in: ["president", "vp", "sector_head"] } },
+      where: { clubId, active: true, role: { in: ["president", "vp", "sector_head", "admin"] } },
       include: { user: { select: { id: true, name: true, email: true, careerTracks: true } } },
       orderBy: { joinedAt: "asc" },
     }),

@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 /** Resolve the club dashboard context: membership first, then first club at user's school, then PE@Broad. */
 export async function resolveClubIdForUser(userId: string): Promise<string | null> {
   const membership = await prisma.clubMember.findFirst({
-    where: { userId },
+    where: { userId, active: true },
     orderBy: { joinedAt: "asc" },
     select: { clubId: true },
   });
@@ -44,14 +44,14 @@ export async function resolveClubIdForUser(userId: string): Promise<string | nul
   return broad?.id ?? null;
 }
 
-export const OFFICER_ROLES = new Set(["president", "vp", "sector_head"]);
+export const OFFICER_ROLES = new Set(["president", "vp", "sector_head", "admin"]);
 
 export async function userClubRole(userId: string, clubId: string): Promise<string | null> {
   const row = await prisma.clubMember.findUnique({
     where: { clubId_userId: { clubId, userId } },
-    select: { role: true },
+    select: { role: true, active: true },
   });
-  return row?.role ?? null;
+  return row?.active ? row.role : null;
 }
 
 export async function isClubOfficer(userId: string, clubId: string): Promise<boolean> {

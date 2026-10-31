@@ -5,6 +5,7 @@ import AzureADProvider from "next-auth/providers/azure-ad";
 import { compare } from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import { env } from "@/lib/env";
+import { syncRosterMembership } from "@/lib/club-roster";
 
 const googleId = process.env.GOOGLE_CLIENT_ID?.trim();
 const googleSecret = process.env.GOOGLE_CLIENT_SECRET?.trim();
@@ -85,6 +86,22 @@ export const authOptions: NextAuthOptions = {
         ]
       : []),
   ],
+  events: {
+    // PE@Broad roster: match login + verified .edu email on every sign-in.
+    async signIn({ user }) {
+      const email = user?.email?.trim().toLowerCase();
+      if (!email) return;
+      try {
+        const dbUser = await prisma.user.findFirst({
+          where: { email: { equals: email, mode: "insensitive" } },
+          select: { id: true },
+        });
+        if (dbUser) await syncRosterMembership(dbUser.id);
+      } catch (e) {
+        console.error("roster sync failed", e);
+      }
+    },
+  },
   callbacks: {
     async signIn({ account, profile }) {
       if (account?.provider === "google" || account?.provider === "azure-ad") {

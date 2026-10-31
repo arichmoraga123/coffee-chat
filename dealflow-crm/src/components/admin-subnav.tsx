@@ -9,6 +9,7 @@ const links = [
   { href: "/admin/questions", label: "Questions", exact: false, adminOnly: true },
   { href: "/admin/recruiting-calendar", label: "Recruiting calendar", exact: false, adminOnly: true },
   { href: "/admin/deals", label: "Deals", exact: false, adminOnly: true, showDraftBadge: true as const },
+  { href: "/admin/club/roster", label: "PE@Broad roster", exact: false, adminOnly: true },
   { href: "/admin/learn/questions", label: "Learn: mentor queue", exact: false, adminOnly: false, showMentorBadge: true as const },
   { href: "/admin/learn/cohort", label: "Learn: cohort", exact: false, adminOnly: false },
   { href: "/admin/learn/resources", label: "Learn: workbooks", exact: false, adminOnly: true },

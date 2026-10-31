@@ -12,7 +12,7 @@ export default async function ClubMembersPage() {
 
   const [rows, officer] = await Promise.all([
     prisma.clubMember.findMany({
-      where: { clubId },
+      where: { clubId, active: true },
       orderBy: { joinedAt: "asc" },
       include: { user: { select: { id: true, name: true, email: true, careerTracks: true } } },
     }),

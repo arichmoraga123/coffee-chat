@@ -15,7 +15,7 @@ export async function GET(req: Request) {
   const viewerOfficer = await isClubOfficer(userId, clubId);
 
   const rows = await prisma.clubMember.findMany({
-    where: { clubId },
+    where: { clubId, active: true },
     orderBy: { joinedAt: "asc" },
     include: {
       user: { select: { id: true, name: true, email: true, careerTracks: true } },
