@@ -1,76 +1,12 @@
+import type { DrillMcq } from "@/lib/drill-mcq/types";
+
 export type McqDistractorSource = { id: string; answer: string; category: string };
 
 export type McqOption = { key: string; text: string; isCorrect: boolean };
 
-/** Display cap — only truncate beyond this at a sentence boundary. */
-const MCQ_ANSWER_MAX_LEN = 400;
-
-/**
- * Categories often studied together; used for distractors when same-category pool is thin.
- * (e.g. LBO ↔ Valuation / DCF / merger math)
- */
-const MCQ_CATEGORY_CLUSTERS: string[][] = [
-  ["LBO Models", "Valuation", "DCF", "Merger Models", "Equity Value & Enterprise Value"],
-  ["Accounting", "Finance Concepts", "Equity Value & Enterprise Value"],
-  ["Behavioral", "Consulting - Behavioral", "Finance Concepts"],
-  ["Consulting", "Consulting - Behavioral", "Consulting - Case Math", "Finance Concepts"],
-  ["Capital Markets", "Finance Concepts", "Valuation"],
-  ["Asset Management", "Valuation", "Finance Concepts"],
-  ["Wealth Management", "Asset Management", "Finance Concepts"],
-  ["Big 4 Accounting", "Accounting", "Finance Concepts"],
-];
-
-function adjacentCategories(category: string): Set<string> {
-  const out = new Set<string>();
-  for (const cluster of MCQ_CATEGORY_CLUSTERS) {
-    if (!cluster.includes(category)) continue;
-    for (const c of cluster) {
-      if (c !== category) out.add(c);
-    }
-  }
-  return out;
-}
-
-/** Normalize whitespace for MCQ choice display and deduplication. */
+/** Normalize whitespace for MCQ choice display and deduplication. Never truncates. */
 export function normalizeMcqAnswerText(s: string): string {
   return s.trim().replace(/\s+/g, " ");
-}
-
-/**
- * Truncates only when text exceeds `max` (default 400) and only at a complete
- * sentence boundary (. ? !). Returns full text otherwise — never mid-word cuts.
- */
-export function truncateAnswerForMcq(s: string, max = MCQ_ANSWER_MAX_LEN): string {
-  const t = normalizeMcqAnswerText(s);
-  if (t.length <= max) return t;
-
-  const slice = t.slice(0, max);
-
-  let bestSentenceEnd = -1;
-  for (let i = slice.length - 1; i >= 0; i--) {
-    const ch = slice[i];
-    if (ch !== "." && ch !== "!" && ch !== "?") continue;
-    const after = slice[i + 1];
-    if (after === undefined || after === " ") {
-      bestSentenceEnd = i;
-      break;
-    }
-  }
-
-  if (bestSentenceEnd >= 0) {
-    const atSentence = slice.slice(0, bestSentenceEnd + 1).trim();
-    if (atSentence.length > 0) {
-      return atSentence.length < t.length ? `${atSentence}…` : atSentence;
-    }
-  }
-
-  // No sentence boundary within limit — show full text rather than clip mid-sentence.
-  return t;
-}
-
-/** @deprecated Use truncateAnswerForMcq — kept for any external imports */
-export function truncateAnswer(s: string, max = MCQ_ANSWER_MAX_LEN): string {
-  return truncateAnswerForMcq(s, max);
 }
 
 function shuffle<T>(arr: T[]): T[] {
@@ -82,72 +18,72 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
+/** Drill-style options from hand-authored or AI-generated near-miss choices. */
+export function buildMcqFromDrill(mcq: DrillMcq): McqOption[] {
+  return shuffle([
+    { key: "c", text: normalizeMcqAnswerText(mcq.c), isCorrect: true },
+    ...mcq.w.map((text, i) => ({ key: `w${i}`, text: normalizeMcqAnswerText(text), isCorrect: false })),
+  ]);
+}
+
 /**
- * One correct + three wrong answers (same category → adjacent categories → rest), shuffled.
- * Choice text is shown in full (no truncation under 400 chars).
+ * Categories often studied together; used for fallback distractors when same-category pool is thin.
  */
-export function buildMcqOptions(
-  current: McqDistractorSource,
-  pool: McqDistractorSource[],
-): McqOption[] {
+const MCQ_CATEGORY_CLUSTERS: string[][] = [
+  ["LBO Models", "Valuation", "DCF", "Merger Models", "Equity Value & Enterprise Value"],
+  ["Accounting", "Finance Concepts", "Equity Value & Enterprise Value"],
+  ["Behavioral", "Consulting - Behavioral", "Finance Concepts"],
+  ["Consulting", "Consulting - Behavioral", "Consulting - Case Math", "Finance Concepts"],
+  ["Capital Markets", "Finance Concepts", "Valuation"],
+  ["Asset Management", "Valuation", "Finance Concepts"],
+  ["Wealth Management", "Asset Management", "Finance Concepts"],
+  ["Big 4 Accounting", "Accounting", "Finance Concepts"],
+  ["Restructuring", "Credit", "Finance Concepts"],
+];
+
+function adjacentCategories(category: string): Set<string> {
+  const out = new Set<string>();
+  for (const cluster of MCQ_CATEGORY_CLUSTERS) {
+    if (!cluster.includes(category)) continue;
+    for (const c of cluster) if (c !== category) out.add(c);
+  }
+  return out;
+}
+
+/**
+ * Last-resort fallback when no drill choices exist (and AI generation is unavailable):
+ * one correct answer + three answers from related questions, preferring similar lengths
+ * so the correct one doesn't stand out. Full text, never truncated.
+ */
+export function buildMcqOptions(current: McqDistractorSource, pool: McqDistractorSource[]): McqOption[] {
   const correctText = normalizeMcqAnswerText(current.answer);
-  const wrongPool = pool.filter((q) => q.id !== current.id);
-  const picked: string[] = [];
-
-  const tryAdd = (raw: string) => {
-    const t = normalizeMcqAnswerText(raw);
-    if (!t || t === correctText || picked.includes(t)) return false;
-    picked.push(t);
-    return true;
-  };
-
+  const target = correctText.length;
   const cat = current.category.trim();
   const adjacent = adjacentCategories(cat);
 
-  const sameCat = shuffle(wrongPool.filter((q) => q.category.trim() === cat));
-  for (const q of sameCat) {
-    if (picked.length >= 3) break;
-    tryAdd(q.answer);
-  }
+  const candidates = pool
+    .filter((q) => q.id !== current.id)
+    .map((q) => ({ text: normalizeMcqAnswerText(q.answer), cat: q.category.trim() }))
+    .filter((q) => q.text && q.text !== correctText);
 
-  const adjCat = shuffle(
-    wrongPool.filter((q) => {
-      const c = q.category.trim();
-      return c !== cat && adjacent.has(c);
-    }),
+  const tier = (c: string) => (c === cat ? 0 : adjacent.has(c) ? 1 : 2);
+  // Prefer same topic, then closest length (random tiebreak).
+  const ranked = shuffle(candidates).sort(
+    (a, b) => tier(a.cat) - tier(b.cat) || Math.abs(a.text.length - target) - Math.abs(b.text.length - target),
   );
-  for (const q of adjCat) {
+
+  const picked: string[] = [];
+  for (const c of ranked) {
     if (picked.length >= 3) break;
-    tryAdd(q.answer);
+    if (!picked.includes(c.text)) picked.push(c.text);
   }
 
-  const rest = shuffle(
-    wrongPool.filter((q) => {
-      const c = q.category.trim();
-      return c !== cat && !adjacent.has(c);
-    }),
-  );
-  for (const q of rest) {
-    if (picked.length >= 3) break;
-    tryAdd(q.answer);
-  }
-
-  for (const q of shuffle(wrongPool)) {
-    if (picked.length >= 3) break;
-    tryAdd(q.answer);
-  }
-
-  while (picked.length < 3) {
-    picked.push(`(Alternative perspective ${picked.length + 1})`);
-  }
-
-  const opts: McqOption[] = [
+  return shuffle([
     { key: "c", text: correctText, isCorrect: true },
-    ...picked.slice(0, 3).map((text, i) => ({ key: `w${i}`, text, isCorrect: false })),
-  ];
-  return shuffle(opts);
+    ...picked.map((text, i) => ({ key: `w${i}`, text, isCorrect: false })),
+  ]);
 }
 
-/** Shared Tailwind classes for MCQ answer choice buttons. */
+/** Shared Tailwind classes for MCQ answer choice buttons (wraps long text, never clips). */
 export const MCQ_CHOICE_BUTTON_CLASS =
-  "w-full h-auto min-h-[60px] overflow-visible whitespace-normal break-words rounded-xl border px-4 py-3 text-left text-sm leading-relaxed sm:text-[15px]";
+  "w-full h-auto min-h-[60px] overflow-visible whitespace-normal break-words [overflow-wrap:anywhere] rounded-xl border px-4 py-3 text-left text-sm leading-relaxed sm:text-[15px]";

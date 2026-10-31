@@ -450,7 +450,7 @@ export function MockInterviewView() {
                       onClick={() => openPractice(q.id)}
                     >
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm text-zinc-100">{q.question}</p>
+                        <p className="whitespace-normal break-words text-sm text-zinc-100">{q.question}</p>
                         <div className="mt-1 flex flex-wrap gap-2 text-xs text-zinc-400">
                           <span className="rounded bg-zinc-800 px-1.5 py-0.5">{q.category}</span>
                           <span className="rounded border border-zinc-700 px-1.5 py-0.5">{q.difficulty}</span>

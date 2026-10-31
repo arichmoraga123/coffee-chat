@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { requireCronSecret } from "@/lib/cron-auth";
 import { refreshNewsFromApi } from "@/lib/news-ingest";
 
+export const maxDuration = 300;
+
 export async function GET(req: Request) {
   const denied = requireCronSecret(req);
   if (denied) return denied;

@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession } from "@/lib/auth";
 import { matchesCareerTracks } from "@/lib/career-tracks";
 import { getRelevantCategories } from "@/lib/track-utils";
+import { getAuthoredMcq } from "@/lib/drill-mcq";
 
 function utcDayString(d: Date) {
   return d.toISOString().slice(0, 10);
@@ -124,7 +125,7 @@ export async function POST() {
 
   return NextResponse.json({
     completed: false,
-    questions: selected,
+    questions: selected.map((q) => ({ ...q, mcq: getAuthoredMcq(q.question) })),
     mcqPool,
     drillStreak: user.drillStreak,
     xp: user.xp,

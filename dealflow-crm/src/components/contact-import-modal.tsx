@@ -146,8 +146,11 @@ export function ContactImportModal({ open, onClose, onImported }: Props) {
           <p className="rounded border border-amber-500/20 bg-amber-500/5 px-3 py-2 text-xs text-amber-200/90">
             Pro tip: Export your LinkedIn connections from LinkedIn Settings → Data Privacy → Get a copy of your data → Connections
           </p>
+          {/* API file download, not a page navigation */}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a
             href="/api/contacts/import-template"
+            download
             className="inline-block text-sm text-zinc-400 underline-offset-4 hover:text-zinc-200 hover:underline"
           >
             Download sample CSV template

@@ -12,6 +12,8 @@ import { QuestionMcqDeck } from "@/components/question-mcq-deck";
 import { ReportContentAction } from "@/components/report-content-action";
 import { EmptyState } from "@/components/ui/empty-state";
 import type { McqDistractorSource } from "@/lib/question-mcq";
+import type { DrillMcq } from "@/lib/drill-mcq/types";
+import { firmsFromTags } from "@/lib/drill-mcq/firms";
 import { gradeAnswerByKeywords, type KeywordGradeResult } from "@/lib/answer-grader";
 import { PracticeModal } from "@/components/practice-modal";
 import { getRelevantCategories, getTrackLearningPath } from "@/lib/track-utils";
@@ -31,11 +33,11 @@ export type QuestionDTO = {
   tags: string[];
   keywords: string[];
   careerTracks: string[];
+  mcq?: DrillMcq | null;
 };
 
 type ProgressMap = Record<string, "known" | "review" | "unseen">;
 
-const TARGET_TOTAL = 400;
 
 function shuffleArray<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -65,6 +67,7 @@ export function QuestionsBank({
   const [category, setCategory] = useState<string>("all");
   const [difficulty, setDifficulty] = useState<string>("all");
   const [tagFilter, setTagFilter] = useState("");
+  const [firm, setFirm] = useState<string>("all");
   const [status, setStatus] = useState<string>("all");
   const [practiceOpen, setPracticeOpen] = useState(false);
   const [practiceIndex, setPracticeIndex] = useState(0);
@@ -112,6 +115,16 @@ export function QuestionsBank({
   const relevantCategories = useMemo(() => getRelevantCategories(careerTracks), [careerTracks]);
   const learningPath = useMemo(() => getTrackLearningPath(careerTracks), [careerTracks]);
 
+  const firms = useMemo(() => {
+    const s = new Set<string>();
+    for (const q of trackFiltered) for (const f of firmsFromTags(q.tags)) s.add(f);
+    return Array.from(s).sort();
+  }, [trackFiltered]);
+  const matchesFirm = useCallback(
+    (q: QuestionDTO) => firm === "all" || firmsFromTags(q.tags).includes(firm),
+    [firm],
+  );
+
   const categories = useMemo(() => {
     const s = new Set(trackFiltered.map((q) => q.category));
     return ["all", ...Array.from(s).sort()];
@@ -140,9 +153,10 @@ export function QuestionsBank({
       if (difficulty !== "all" && q.difficulty !== difficulty) return false;
       if (status !== "all" && statusOf(q.id) !== status) return false;
       if (tagNeedle && !q.tags.some((t) => t.toLowerCase().includes(tagNeedle))) return false;
+      if (!matchesFirm(q)) return false;
       return true;
     });
-  }, [trackFiltered, category, difficulty, status, tagFilter, statusOf, relevantCategories]);
+  }, [trackFiltered, category, difficulty, status, tagFilter, statusOf, relevantCategories, matchesFirm]);
 
   const dedupedFilteredBrowse = useMemo(() => {
     const seen = new Set<string>();
@@ -255,6 +269,7 @@ export function QuestionsBank({
     let pool = trackFiltered.filter((q) => {
       if (drillCategory !== "all" && q.category !== drillCategory) return false;
       if (drillDifficulty !== "all" && q.difficulty !== drillDifficulty) return false;
+      if (!matchesFirm(q)) return false;
       return true;
     });
     if (pool.length === 0) return;
@@ -289,7 +304,8 @@ export function QuestionsBank({
     setPracticeOpen(true);
   };
 
-  const filtersActive = category !== "all" || difficulty !== "all" || status !== "all" || tagFilter.trim().length > 0;
+  const filtersActive =
+    category !== "all" || difficulty !== "all" || status !== "all" || firm !== "all" || tagFilter.trim().length > 0;
 
   useEffect(() => {
     if (!filtersActive) return;
@@ -431,6 +447,19 @@ export function QuestionsBank({
             <option value="review">Review</option>
             <option value="unseen">Unseen</option>
           </select>
+          <label className="mb-1 block text-xs text-zinc-500">Firm (reported questions)</label>
+          <select
+            className="mb-2 w-full rounded border border-white/10 bg-zinc-950 px-2 py-1.5 text-sm"
+            value={firm}
+            onChange={(e) => setFirm(e.target.value)}
+          >
+            <option value="all">All firms</option>
+            {firms.map((f) => (
+              <option key={f} value={f}>
+                {f}
+              </option>
+            ))}
+          </select>
           <label className="mb-1 block text-xs text-zinc-500">Tags</label>
           <Input
             placeholder="e.g. WACC"
@@ -488,7 +517,7 @@ export function QuestionsBank({
           <div>
             <h1 className="page-title">Question Bank</h1>
             <p className="text-sm text-zinc-400">
-              Mastered {knownCount} / {TARGET_TOTAL} (showing {trackFiltered.length} for your career tracks)
+              Mastered {knownCount} / {trackFiltered.length} questions for your career tracks
             </p>
             <p className="text-sm text-[#888888]">
               Streak: <span className="text-[#c9a84c]">{streakDisplay}</span> day(s) · Weekly XP{" "}
@@ -513,7 +542,7 @@ export function QuestionsBank({
           <div className="h-2.5 w-full max-w-xs overflow-hidden rounded-full bg-zinc-800/90 ring-1 ring-white/5 sm:w-48">
             <div
               className="h-full rounded-full bg-[#4a6fa5] transition-[width] duration-500 ease-out"
-              style={{ width: `${Math.min(100, (knownCount / TARGET_TOTAL) * 100)}%` }}
+              style={{ width: `${Math.min(100, (knownCount / Math.max(1, trackFiltered.length)) * 100)}%` }}
             />
           </div>
         </div>

@@ -129,7 +129,7 @@ export function RecruitingSeasonCalendarView() {
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h1 className="page-title">Recruiting calendar</h1>
+        <h2 className="text-lg font-semibold text-zinc-100">Events calendar</h2>
         <Button size="sm" onClick={() => setModalOpen(true)}>
           Submit event
         </Button>

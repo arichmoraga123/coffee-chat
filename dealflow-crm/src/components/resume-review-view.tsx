@@ -117,6 +117,8 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
   const [active, setActive] = useState<ReviewRow | null>(null);
   const [loading, setLoading] = useState(false);
   const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const [earlyScore, setEarlyScore] = useState<number | null>(null);
   const [error, setError] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [targetTrack, setTargetTrack] = useState<string>(() => getPrimaryTrack(careerTracks));
@@ -155,7 +157,7 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
     }
     const timer = window.setInterval(() => {
       setLoadingMessageIndex((prev) => (prev + 1) % LOADING_MESSAGES.length);
-    }, 5000);
+    }, 3500);
     return () => window.clearInterval(timer);
   }, [loading]);
 
@@ -166,21 +168,51 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
     const fd = new FormData();
     fd.append("file", file);
     fd.append("targetTrack", targetTrack);
+    setProgress(2);
+    setEarlyScore(null);
     try {
       const res = await fetch("/api/resume/review", { method: "POST", body: fd, credentials: "same-origin" });
-      let data: { review?: ReviewRow; error?: string } = {};
-      try {
-        data = (await res.json()) as { review?: ReviewRow; error?: string };
-      } catch {
-        data = { error: "Server returned an unreadable response." };
-      }
-      if (!res.ok) {
-        setError(`Review failed: ${data.error ?? "Upload failed"}`);
+      if (!res.ok || !res.body) {
+        let msg = "Upload failed";
+        try {
+          msg = ((await res.json()) as { error?: string }).error ?? msg;
+        } catch {
+          /* non-JSON error */
+        }
+        setError(`Review failed: ${msg}`);
         return;
       }
-      if (data.review) {
-        setActive(data.review);
-        await load();
+      // The server streams newline-delimited JSON progress events.
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let finished = false;
+      while (!finished) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        let nl: number;
+        while ((nl = buffer.indexOf("\n")) >= 0) {
+          const line = buffer.slice(0, nl).trim();
+          buffer = buffer.slice(nl + 1);
+          if (!line) continue;
+          const ev = JSON.parse(line) as
+            | { type: "progress"; pct: number }
+            | { type: "score"; score: number }
+            | { type: "done"; review: ReviewRow }
+            | { type: "error"; error: string };
+          if (ev.type === "progress") setProgress(ev.pct);
+          else if (ev.type === "score") setEarlyScore(ev.score);
+          else if (ev.type === "error") {
+            setError(`Review failed: ${ev.error}`);
+            finished = true;
+          } else if (ev.type === "done") {
+            setProgress(100);
+            setActive(ev.review);
+            finished = true;
+            void load();
+          }
+        }
       }
     } catch (e) {
       setError(`Review failed: ${e instanceof Error ? e.message : "Network error"}`);
@@ -328,7 +360,24 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
           </div>
         ) : null}
         {loading ? (
-          <p className="mt-4 text-center text-sm text-zinc-400">{LOADING_MESSAGES[loadingMessageIndex]}</p>
+          <div className="mt-4 space-y-2">
+            <div className="flex items-center justify-between text-xs text-zinc-400">
+              <span>{LOADING_MESSAGES[loadingMessageIndex]}</span>
+              <span className="font-mono">{progress}%</span>
+            </div>
+            <div className="h-2 w-full overflow-hidden rounded-full bg-zinc-800">
+              <div
+                className="h-full rounded-full bg-gradient-to-r from-[#3d5d8c] to-[#5a7fb5] transition-[width] duration-500"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+            {earlyScore !== null ? (
+              <p className="text-center text-sm text-zinc-200">
+                Overall score: <span className="font-mono text-lg font-semibold text-[#c9a84c]">{earlyScore}</span>
+                <span className="text-zinc-500"> / 100 — writing detailed feedback…</span>
+              </p>
+            ) : null}
+          </div>
         ) : null}
       </Card>
 

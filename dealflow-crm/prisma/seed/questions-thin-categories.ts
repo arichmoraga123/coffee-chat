@@ -163,7 +163,7 @@ export const SEED_THIN_CATEGORY_QUESTIONS: SeedTrackQuestion[] = [
   {
     question: "What is a block trade and how does it differ from a regular secondary offering?",
     answer:
-      "A block trade is a large sale of shares (typically 10,000+ shares or $200K+) executed quickly, usually overnight, to minimize market impact. Investment bank buys the block from the seller (usually a large shareholder or PE firm exiting) at a discount to market price, then resells to institutional investors. Speed is critical — completed in hours vs weeks for traditional secondary. Risk: bank takes balance sheet risk if they can't place shares. Used frequently by PE firms for portfolio company exits.",
+      "A block trade is a large sale of shares (often hundreds of millions of dollars in ECM; the exchange definition is just 10,000+ shares) executed quickly, usually overnight, to minimize market impact. Investment bank buys the block from the seller (usually a large shareholder or PE firm exiting) at a discount to market price, then resells to institutional investors. Speed is critical — completed in hours vs weeks for traditional secondary. Risk: bank takes balance sheet risk if they can't place shares. Used frequently by PE firms for portfolio company exits.",
     category: "Capital Markets",
     difficulty: "Medium",
     tags: ["CM", "block", "secondary"],

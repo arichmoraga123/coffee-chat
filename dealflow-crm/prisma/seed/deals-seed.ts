@@ -61,7 +61,7 @@ export const SEED_DEALS = [
     risks:
       "Intel's foundry business is not yet profitable and faces intense competition from TSMC and Samsung. Execution risk on Intel's turnaround is high. Capital intensity of semiconductor manufacturing is extreme.",
     sourceUrl: null,
-    announcedAt: new Date("2024-09-16"),
+    announcedAt: new Date("2024-06-04"),
     dedupeKey: dk("Apollo / Intel Fab", "2024-09-16"),
     careerTracks: ["Private Equity", "Private Credit", "Investment Banking"],
   },

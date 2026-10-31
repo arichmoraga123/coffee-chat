@@ -144,7 +144,7 @@ const BASE_SEED_QUESTIONS_EXTENDED = [
   {
     question: "What is the difference between investment grade and high yield (leveraged) credit?",
     answer:
-      "Investment grade: rated BBB-/Baa3 or higher by S&P/Moody's. Lower leverage (typically <3x Net Debt/EBITDA), investment-grade covenants (maintenance), lower interest rates. High yield (junk): rated BB+/Ba1 or lower. Higher leverage (typically 4-7x+ in LBOs), incurrence-based covenants (only triggered by actions, not maintenance), higher interest rates reflecting higher default risk. LBO financing is almost always high yield / leveraged loans.",
+      "Investment grade: rated BBB-/Baa3 or higher by S&P/Moody's. Lower leverage (often <3x Net Debt/EBITDA), light covenant packages, and tighter spreads. High yield (junk): rated BB+/Ba1 or lower. Higher leverage (typically 4-7x in LBOs), incurrence-based covenants in bonds, and wider spreads reflecting higher default risk. Bank loans (revolvers, term loan A, private credit) are where maintenance covenants usually live, though many institutional leveraged loans are now cov-lite. LBO financing is almost always high yield bonds and/or leveraged loans.",
     category: "Finance Concepts",
     subcategory: "Concepts",
     difficulty: "Medium",
@@ -164,7 +164,7 @@ const BASE_SEED_QUESTIONS_EXTENDED = [
   {
     question: "What is the difference between maintenance covenants and incurrence covenants?",
     answer:
-      "Maintenance covenants (investment grade): must be met continuously — e.g., Net Debt/EBITDA must stay below 3x at all times. Tested quarterly. Breach triggers technical default. Incurrence covenants (high yield/leveraged loans): only triggered when the borrower takes a specific action — e.g., can only incur additional debt if pro forma leverage stays below 4.5x. No breach if company deteriorates passively. HY bond issuers prefer incurrence covenants because they can't default passively.",
+      "Maintenance covenants must be met every period — e.g., Net Debt/EBITDA must stay below 4.0x, tested quarterly — and a breach is a default even if the company did nothing. They are typical of bank loans (revolvers, term loan A) and private credit. Incurrence covenants are only tested when the borrower takes a specific action — e.g., it can only add debt if pro forma leverage stays below 4.5x — so passive deterioration is not a default. They are typical of high yield bonds and cov-lite institutional term loans. Investment grade bonds usually carry very light covenants of either kind.",
     category: "Finance Concepts",
     subcategory: "Concepts",
     difficulty: "Hard",

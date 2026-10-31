@@ -1,66 +1,46 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession } from "@/lib/auth";
-import { getAnthropicApiKey } from "@/lib/anthropic";
+import { anthropicJsonWithProgress, getAnthropicApiKey } from "@/lib/anthropic";
 import { CAREER_TRACK_OPTIONS } from "@/lib/career-tracks";
 import { getPrimaryTrack } from "@/lib/track-utils";
 
 const CAREER_TRACK_SET = new Set<string>(CAREER_TRACK_OPTIONS);
 
-export const maxDuration = 60;
-const MAX_RETRIES = 3;
+export const maxDuration = 120;
 
-const COMMON_SCHEMA_PROMPT = `Return ONLY valid JSON with no markdown or explanation using this exact structure:
-{
-  "overallScore": number,
-  "oneLiner": string,
-  "recruitingReadiness": string,
-  "targetTrack": string,
-  "top5Improvements": string[],
-  "sections": {
-    "formatting": {
-      "grade": string,
-      "feedback": string,
-      "issues": string[],
-      "fixes": string[]
-    },
-    "experience": {
-      "grade": string,
-      "feedback": string,
-      "weakBullets": [
-        {
-          "original": string,
-          "problem": string,
-          "rewritten": string
-        }
-      ]
-    },
-    "education": {
-      "grade": string,
-      "feedback": string,
-      "issues": string[]
-    },
-    "skills": {
-      "grade": string,
-      "feedback": string,
-      "missing": string[],
-      "suggestions": string[]
-    },
-    "trackSpecific": {
-      "grade": string,
-      "feedback": string,
-      "strengths": string[],
-      "gaps": string[]
-    }
-  },
-  "topFirmsMatch": [
-    {
-      "firm": string,
-      "fitScore": number,
-      "reason": string
-    }
-  ]
-}`;
+const str = { type: "string" };
+const strArr = { type: "array", items: str };
+const obj = (properties: Record<string, unknown>) => ({
+  type: "object",
+  properties,
+  required: Object.keys(properties),
+  additionalProperties: false,
+});
+
+/** Structured-output schema: the API guarantees the reply matches it (no JSON retries). */
+const REVIEW_SCHEMA = obj({
+  overallScore: { type: "integer" },
+  oneLiner: str,
+  recruitingReadiness: { type: "string", enum: ["Not Ready", "Developing", "Ready", "Strong"] },
+  targetTrack: str,
+  top5Improvements: strArr,
+  sections: obj({
+    formatting: obj({ grade: str, feedback: str, issues: strArr, fixes: strArr }),
+    experience: obj({
+      grade: str,
+      feedback: str,
+      weakBullets: { type: "array", items: obj({ original: str, problem: str, rewritten: str }) },
+    }),
+    education: obj({ grade: str, feedback: str, issues: strArr }),
+    skills: obj({ grade: str, feedback: str, missing: strArr, suggestions: strArr }),
+    trackSpecific: obj({ grade: str, feedback: str, strengths: strArr, gaps: strArr }),
+  }),
+  topFirmsMatch: { type: "array", items: obj({ firm: str, fitScore: { type: "integer" }, reason: str }) },
+});
+
+/** Rough size of a complete review, used only to drive the progress bar. */
+const EXPECTED_REVIEW_CHARS = 5500;
 
 const TRACK_PROMPTS: Record<string, string> = {
   "Investment Banking":
@@ -103,25 +83,6 @@ const FALLBACK_PROMPT =
 const JSON_INSTRUCTION =
   "Analyze the resume document deeply. Infer formatting quality from extracted structure and text patterns where needed. Detect date formatting consistency, bullet character consistency, line-length alignment patterns, and capitalization consistency. Prioritize specific fixes and quantifiable rewrite guidance.";
 
-type AnthropicResponse = {
-  content?: Array<{ type?: string; text?: string }>;
-  usage?: { input_tokens?: number; output_tokens?: number };
-  error?: { message?: string };
-};
-
-function extractJSON(text: string): string {
-  try {
-    JSON.parse(text);
-    return text;
-  } catch {}
-  const start = text.indexOf("{");
-  const end = text.lastIndexOf("}");
-  if (start !== -1 && end !== -1 && end > start) {
-    return text.slice(start, end + 1);
-  }
-  throw new Error("No JSON found in response");
-}
-
 function resolveTargetTrack(requestedTrack: string, careerTracks: string[]): string {
   const req = requestedTrack.trim();
   if (careerTracks.length > 0) {
@@ -158,76 +119,44 @@ function getTrackPrompt(track: string) {
           : track === "Wealth Management" || track === "Tech/Startup"
             ? "Scoring weights: Experience 35%, trackSpecific 25%, Formatting 20%, Education 12%, Skills 8%."
             : "Scoring weights: equal weight across sections.";
-  return `${singleTrack}\n\n${base}\n${scoring}\nKeep all text values SHORT. Feedback strings max 2 sentences. Issue/fix strings max 1 sentence. This ensures the response fits within token limits.\n${COMMON_SCHEMA_PROMPT}`;
+  return `${singleTrack}\n\n${base}\n${scoring}\noverallScore is 0-100. Keep text SHORT: feedback max 2 sentences, issues/fixes max 1 sentence each. Give 3-5 weakBullets quoted verbatim from the resume with strong rewrites (action verb + what + quantified result). top5Improvements must be specific and ordered by impact. topFirmsMatch: 3-5 realistic target firms for this candidate.`;
 }
 
-async function analyzeWithClaude(userId: string, pdfBase64: string, track: string, retryAttempt: number) {
-  const apiKey = getAnthropicApiKey();
-  if (!apiKey) throw new Error("AI is not configured");
-  const retryPrefix =
-    retryAttempt > 0 ? "Previous attempt failed. Return ONLY valid JSON, nothing else.\n\n" : "";
+type ReviewJson = { overallScore: number } & Record<string, unknown>;
 
-  const content: Array<
-    | { type: "text"; text: string }
-    | { type: "document"; source: { type: "base64"; media_type: "application/pdf"; data: string } }
-  > = [
-    {
-      type: "text",
-      text: `${retryPrefix}${JSON_INSTRUCTION}\nTarget track: ${track}\n\nAnalyze the PDF directly. If visual layout is imperfectly recoverable, infer likely visual issues from document structure.\n\nCRITICAL: Your entire response must be a single valid JSON object. No text before or after. No markdown. No backticks. Start with { and end with }. Nothing else.`,
-    },
-    {
-      type: "document",
-      source: {
-        type: "base64",
-        media_type: "application/pdf",
-        data: pdfBase64,
+async function analyzeWithClaude(
+  userId: string,
+  pdfBase64: string,
+  track: string,
+  onText: (soFar: string) => void,
+): Promise<ReviewJson> {
+  return anthropicJsonWithProgress<ReviewJson>(
+    [
+      { type: "document", source: { type: "base64", media_type: "application/pdf", data: pdfBase64 } },
+      {
+        type: "text",
+        text: `${JSON_INSTRUCTION}\nTarget track: ${track}\n\nAnalyze the PDF directly, including its visual layout.`,
       },
-    },
-  ];
-
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      "x-api-key": apiKey,
-      "anthropic-version": "2023-06-01",
-    },
-    body: JSON.stringify({
-      model: "claude-sonnet-4-5",
-      max_tokens: 2500,
+    ],
+    REVIEW_SCHEMA,
+    {
       system: getTrackPrompt(track),
-      messages: [{ role: "user", content }],
-    }),
-  });
-
-  const raw = await res.text();
-  if (!res.ok) throw new Error(`Anthropic API error ${res.status}: ${raw.slice(0, 400)}`);
-  const parsed = JSON.parse(raw) as AnthropicResponse;
-  if (parsed.error?.message) throw new Error(parsed.error.message);
-  const textOut = parsed.content?.find((b) => b.type === "text")?.text?.trim();
-  if (!textOut) throw new Error("Anthropic returned no text content");
-
-  void prisma.apiUsageLog.create({
-    data: {
-      userId,
-      feature: "resume-review",
-      inputTokens: parsed.usage?.input_tokens ?? 0,
-      outputTokens: parsed.usage?.output_tokens ?? 0,
+      maxTokens: 6000,
+      effort: "low",
+      usageLog: { userId, feature: "resume-review" },
     },
-  });
-  return textOut;
+    onText,
+  );
 }
 
 export async function POST(req: Request) {
   try {
-    console.log("[resume-review] POST start");
     const userId = await getUserIdFromSession();
     if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     if (!getAnthropicApiKey()) {
       return NextResponse.json({ error: "AI is not configured" }, { status: 503 });
     }
 
-    console.log("[resume-review] parsing formData");
     const form = await req.formData();
     const profile = await prisma.user.findUnique({
       where: { id: userId },
@@ -241,7 +170,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "PDF only" }, { status: 400 });
     }
 
-    console.log("[resume-review] reading file buffer + encoding base64");
+    if (file.size > 8 * 1024 * 1024) {
+      return NextResponse.json({ error: "PDF is too large (max 8 MB). Export a smaller file and try again." }, { status: 400 });
+    }
     const buf = Buffer.from(await file.arrayBuffer());
     const pdfBase64 = buf.toString("base64");
     if (!pdfBase64.length) {
@@ -250,73 +181,70 @@ export async function POST(req: Request) {
     const requestedTrack = String(form.get("targetTrack") ?? "").trim();
     const careerTracks = profile?.careerTracks ?? [];
     const targetTrack = resolveTargetTrack(requestedTrack, careerTracks);
-    console.log("[resume-review] target track", targetTrack, "requested", requestedTrack);
 
-    console.log("[resume-review] calling claude with retry");
-    let feedback: unknown = null;
-    let attempt = 0;
-    while (attempt < MAX_RETRIES && !feedback) {
-      try {
-        const raw = await analyzeWithClaude(userId, pdfBase64, targetTrack, attempt);
-        feedback = JSON.parse(extractJSON(raw));
-      } catch (error) {
-        attempt += 1;
-        console.log(`[resume-review] attempt ${attempt} failed, retrying...`);
-        if (attempt === MAX_RETRIES) {
-          console.error("[resume-review] invalid json after retries", error);
-          return NextResponse.json({ error: "AI returned invalid JSON — try again" }, { status: 500 });
-        }
-      }
-    }
+    const fileName = file.name.slice(0, 255);
 
-    const score =
-      typeof feedback === "object" &&
-      feedback !== null &&
-      "overallScore" in feedback &&
-      typeof (feedback as { overallScore: unknown }).overallScore === "number"
-        ? Math.min(100, Math.max(0, Math.round((feedback as { overallScore: number }).overallScore)))
-        : 0;
+    // Stream newline-delimited JSON events so the UI can show live progress and the score early.
+    const encoder = new TextEncoder();
+    const body = new ReadableStream<Uint8Array>({
+      async start(controller) {
+        const send = (event: Record<string, unknown>) =>
+          controller.enqueue(encoder.encode(`${JSON.stringify(event)}\n`));
+        let lastPct = 0;
+        let sentScore = false;
+        try {
+          send({ type: "progress", pct: 3, stage: "Reading your resume" });
+          const feedback = await analyzeWithClaude(userId, pdfBase64, targetTrack, (soFar) => {
+            const pct = Math.min(95, 5 + Math.round((soFar.length / EXPECTED_REVIEW_CHARS) * 90));
+            if (!sentScore) {
+              const m = /"overallScore"\s*:\s*(\d+)\s*[,}]/.exec(soFar);
+              if (m) {
+                sentScore = true;
+                send({ type: "score", score: Math.min(100, Number(m[1])) });
+              }
+            }
+            if (pct >= lastPct + 3) {
+              lastPct = pct;
+              send({ type: "progress", pct });
+            }
+          });
 
-    const feedbackWithMeta =
-      typeof feedback === "object" && feedback !== null
-        ? {
-            ...(feedback as Record<string, unknown>),
-            targetTrack,
-            visualAnalysisUnavailable: false,
-            visualAnalysisNote: null,
+          const score = Math.min(100, Math.max(0, Math.round(Number(feedback.overallScore) || 0)));
+          const review = await prisma.resumeReview.create({
+            data: {
+              userId,
+              fileName,
+              score,
+              feedback: { ...feedback, targetTrack, visualAnalysisUnavailable: false, visualAnalysisNote: null },
+            },
+          });
+
+          const extras = await prisma.resumeReview.findMany({
+            where: { userId },
+            orderBy: { createdAt: "desc" },
+            skip: 3,
+            select: { id: true },
+          });
+          if (extras.length) {
+            await prisma.resumeReview.deleteMany({ where: { id: { in: extras.map((e) => e.id) } } });
           }
-        : feedback;
-
-    console.log("[resume-review] saving review");
-    const review = await prisma.resumeReview.create({
-      data: {
-        userId,
-        fileName: file.name.slice(0, 255),
-        score,
-        feedback: feedbackWithMeta as object,
+          send({ type: "done", review });
+        } catch (error) {
+          console.error("[resume-review] failed", error);
+          send({ type: "error", error: error instanceof Error ? error.message : "Resume review failed" });
+        } finally {
+          controller.close();
+        }
       },
     });
 
-    const extras = await prisma.resumeReview.findMany({
-      where: { userId },
-      orderBy: { createdAt: "desc" },
-      skip: 3,
-      select: { id: true },
+    return new Response(body, {
+      headers: { "content-type": "application/x-ndjson; charset=utf-8", "cache-control": "no-store", "x-accel-buffering": "no" },
     });
-    if (extras.length) {
-      await prisma.resumeReview.deleteMany({
-        where: { id: { in: extras.map((e) => e.id) } },
-      });
-    }
-
-    console.log("[resume-review] POST success");
-    return NextResponse.json({ review });
   } catch (error) {
     console.error("[resume-review] unexpected error", error);
     return NextResponse.json(
-      {
-        error: error instanceof Error ? error.message : "Resume review failed unexpectedly",
-      },
+      { error: error instanceof Error ? error.message : "Resume review failed unexpectedly" },
       { status: 500 },
     );
   }

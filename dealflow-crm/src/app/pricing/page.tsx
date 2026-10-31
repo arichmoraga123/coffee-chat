@@ -111,7 +111,7 @@ export default function PricingPage() {
         return;
       }
       if (data.url) {
-        window.location.href = data.url;
+        window.location.assign(data.url);
         return;
       }
       setCheckoutError(data.error ?? "Stripe did not return a checkout URL.");

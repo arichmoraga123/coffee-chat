@@ -5,7 +5,7 @@ import { getUserIdFromSession, requireAdminUserId } from "@/lib/auth";
 import { dealDedupeKey } from "@/lib/deal-dedupe";
 import { DEAL_TYPE_SET, normalizeVertical } from "@/lib/deal-taxonomy";
 
-/** Members — published, plus legacy draft rows (seeded defaults) until backfilled (see prisma/publish-deals.ts). */
+/** Members — published deals only (drafts are an admin review queue). */
 export async function GET(req: Request) {
   const userId = await getUserIdFromSession();
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -15,7 +15,7 @@ export async function GET(req: Request) {
   const size = searchParams.get("size");
   const vertical = searchParams.get("vertical");
   const where: Prisma.DealWhereInput = {
-    status: { in: ["published", "draft"] },
+    status: "published",
   };
   if (dealType) where.dealType = dealType;
   if (vertical) where.vertical = vertical;

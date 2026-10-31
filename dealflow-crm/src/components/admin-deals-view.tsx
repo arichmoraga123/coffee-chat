@@ -101,6 +101,20 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
     router.refresh();
   };
 
+  const [ingesting, setIngesting] = useState(false);
+  const ingestNow = async () => {
+    setIngesting(true);
+    try {
+      const res = await fetch("/api/admin/deals/ingest", { method: "POST", credentials: "same-origin" });
+      const d = (await res.json()) as { dealsInserted?: number; error?: string };
+      if (!res.ok || d.error) alert(d.error ?? "Ingest failed");
+      else alert(`Published ${d.dealsInserted ?? 0} new deal(s) from the news.`);
+      await refresh();
+    } finally {
+      setIngesting(false);
+    }
+  };
+
   const openCreate = () => {
     setEditingId(null);
     setForm(emptyForm());
@@ -226,12 +240,18 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
         <div>
           <h1 className="page-title">Deal management</h1>
           <p className="mt-1 text-sm text-zinc-500">
-            Drafts: auto-ingested from news (review before publish). Published: visible on /deals.
+            News is scanned daily: real transactions with a disclosed dollar value are published to /deals automatically.
+            Drafts are older or manual entries awaiting review.
           </p>
         </div>
-        <Button size="sm" onClick={openCreate}>
-          Add Deal
-        </Button>
+        <div className="flex gap-2">
+          <Button size="sm" variant="outline" disabled={ingesting} onClick={() => void ingestNow()}>
+            {ingesting ? "Pulling news…" : "Pull latest deals now"}
+          </Button>
+          <Button size="sm" onClick={openCreate}>
+            Add Deal
+          </Button>
+        </div>
       </div>
 
       <div className="flex flex-wrap gap-2 border-b border-zinc-800 pb-2">
@@ -337,7 +357,7 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
         </div>
         {filtered.length === 0 ? (
           <p className="border-t border-zinc-800 px-3 py-4 text-sm text-zinc-500">
-            {listTab === "drafts" ? "No drafts — ingest runs on the news cron." : "No published deals yet."}
+            {listTab === "drafts" ? "No drafts — real transactions with dollar values are published automatically." : "No published deals yet."}
           </p>
         ) : null}
       </Card>

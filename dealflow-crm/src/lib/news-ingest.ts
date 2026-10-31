@@ -4,6 +4,7 @@ import { env } from "@/lib/env";
 import { buildNewsDealRow, matchesDealKeywords } from "@/lib/deal-from-news";
 
 const CATEGORY_QUERIES: { category: string; q: string }[] = [
+  { category: "M&A", q: '(acquire OR acquisition OR "take private" OR buyout OR merger) AND (billion OR million)' },
   { category: "M&A", q: "mergers acquisitions deal" },
   { category: "PE/VC", q: "private equity venture capital" },
   { category: "Markets", q: "S&P 500 federal reserve interest rates" },
@@ -35,7 +36,8 @@ export async function refreshNewsFromApi(): Promise<{
   }
 
   let inserted = 0;
-  const dealRows: Prisma.DealCreateManyInput[] = [];
+  const errors: string[] = [];
+  const dealCandidates: { title: string; description: string | null; url: string; announcedAt: Date }[] = [];
 
   for (const { category, q } of CATEGORY_QUERIES) {
     const url = new URL("https://newsapi.org/v2/everything");
@@ -45,10 +47,11 @@ export async function refreshNewsFromApi(): Promise<{
     url.searchParams.set("pageSize", "15");
     url.searchParams.set("apiKey", key);
 
-    const res = await fetch(url.toString(), { next: { revalidate: 0 } });
+    const res = await fetch(url.toString(), { cache: "no-store" });
     if (!res.ok) {
       const text = await res.text();
-      return { inserted, dealsInserted: 0, error: `NewsAPI error ${res.status}: ${text.slice(0, 200)}` };
+      errors.push(`NewsAPI error ${res.status} for "${q}": ${text.slice(0, 200)}`);
+      continue;
     }
     const data = (await res.json()) as NewsApiResponse;
     if (data.status !== "ok" || !data.articles?.length) continue;
@@ -82,16 +85,25 @@ export async function refreshNewsFromApi(): Promise<{
       if (
         (category === "M&A" || category === "PE/VC") &&
         matchesDealKeywords(a.title, a.description) &&
-        a.url
+        !dealCandidates.some((c) => c.url === a.url)
       ) {
-        const row = await buildNewsDealRow({
-          title: a.title,
-          description: a.description,
-          url: a.url,
-          announcedAt: publishedAt,
-        });
-        if (row) dealRows.push(row);
+        dealCandidates.push({ title: a.title, description: a.description, url: a.url, announcedAt: publishedAt });
       }
+    }
+  }
+
+  // Skip articles we've already turned into deals, then classify the rest in parallel (5 at a time).
+  const known = await prisma.deal.findMany({
+    where: { sourceUrl: { in: dealCandidates.map((c) => c.url) } },
+    select: { sourceUrl: true },
+  });
+  const knownUrls = new Set(known.map((k) => k.sourceUrl));
+  const fresh = dealCandidates.filter((c) => !knownUrls.has(c.url)).slice(0, 40);
+  const dealRows: Prisma.DealCreateManyInput[] = [];
+  for (let i = 0; i < fresh.length; i += 5) {
+    const built = await Promise.all(fresh.slice(i, i + 5).map((c) => buildNewsDealRow(c).catch(() => null)));
+    for (const row of built) {
+      if (row && !dealRows.some((r) => r.dedupeKey === row.dedupeKey)) dealRows.push(row);
     }
   }
 
@@ -104,5 +116,5 @@ export async function refreshNewsFromApi(): Promise<{
     dealsInserted = created.count;
   }
 
-  return { inserted, dealsInserted };
+  return { inserted, dealsInserted, ...(errors.length ? { error: errors.join(" | ") } : {}) };
 }

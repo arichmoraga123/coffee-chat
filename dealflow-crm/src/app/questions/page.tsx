@@ -4,6 +4,7 @@ import { QuestionsBank } from "@/components/questions-bank";
 import { QuestionSubmitDialog } from "@/components/question-submit-dialog";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { getAuthoredMcq } from "@/lib/drill-mcq";
 
 export const dynamic = "force-dynamic";
 
@@ -53,7 +54,7 @@ export default async function QuestionsPage() {
         <QuestionSubmitDialog />
       </div>
       <QuestionsBank
-        questions={questions}
+        questions={questions.map((q) => ({ ...q, mcq: getAuthoredMcq(q.question) }))}
         initialProgress={initialProgress}
         drillStreak={user?.drillStreak ?? 0}
         weeklyXP={user?.weeklyXP ?? 0}

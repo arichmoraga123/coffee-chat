@@ -16,6 +16,7 @@ import {
 } from "@/lib/question-mode-storage";
 
 type Q = {
+  mcq?: import("@/lib/drill-mcq/types").DrillMcq | null;
   id: string;
   question: string;
   answer: string;

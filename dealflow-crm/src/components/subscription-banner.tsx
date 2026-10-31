@@ -1,6 +1,10 @@
 import { prisma } from "@/lib/prisma";
 import { resolveClubIdForUser, isClubOfficer } from "@/lib/club-server";
 
+function nowMs() {
+  return Date.now();
+}
+
 export async function SubscriptionBanner({ userId }: { userId: string }) {
   const clubId = await resolveClubIdForUser(userId);
   if (!clubId) return null;
@@ -12,7 +16,7 @@ export async function SubscriptionBanner({ userId }: { userId: string }) {
   });
   if (!club?.subscriptionStatus) return null;
 
-  const now = Date.now();
+  const now = nowMs();
   const daysLeft = club.trialEndsAt ? Math.ceil((club.trialEndsAt.getTime() - now) / (1000 * 60 * 60 * 24)) : null;
   let text: string | null = null;
   if (club.subscriptionStatus === "trialing" && daysLeft !== null && daysLeft <= 3) {

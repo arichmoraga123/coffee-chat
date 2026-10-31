@@ -5,6 +5,7 @@ import { AppShell } from "@/components/app-shell";
 import { AuthSessionProvider } from "@/components/session-provider";
 import { CareerTrackProvider } from "@/components/career-track-provider";
 import { PwaRegister } from "@/components/pwa-register";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,6 +42,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-zinc-950 text-zinc-100">
         <PwaRegister />
+        <Toaster theme="dark" position="bottom-right" richColors />
         <AuthSessionProvider>
           <CareerTrackProvider>
             <AppShell>{children}</AppShell>

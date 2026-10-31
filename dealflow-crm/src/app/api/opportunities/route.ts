@@ -23,14 +23,19 @@ export async function POST(req: Request) {
   } else {
     const firmName = String(body.firmName ?? "").trim();
     if (!firmName) return NextResponse.json({ error: "Firm is required." }, { status: 400 });
+    // Reuse the user's existing firm with the same name instead of creating duplicates.
+    const existingFirm = await prisma.firm.findFirst({
+      where: { userId, name: { equals: firmName, mode: "insensitive" } },
+      select: { id: true },
+    });
     const firmType = parseFirmType(body.firmType);
-    if (!firmType) {
+    if (!existingFirm && !firmType) {
       return NextResponse.json({ error: "Firm type is required when creating a firm." }, { status: 400 });
     }
-    const createdFirm = await prisma.firm.create({
+    const createdFirm = existingFirm ?? await prisma.firm.create({
       data: {
         name: firmName,
-        type: firmType,
+        type: firmType ?? "OTHER",
         location: "Unknown",
         focus: "Generalist",
         userId,

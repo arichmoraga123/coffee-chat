@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { DEAL_TYPE_OPTIONS, VERTICAL_OPTIONS } from "@/lib/deal-taxonomy";
 import { useCareerTracks } from "@/components/career-track-provider";
 import { matchesCareerTracks } from "@/lib/career-tracks";
+import { DealDetailPanel } from "@/components/deal-detail-panel";
 
 type Deal = {
   id: string;
@@ -44,7 +45,7 @@ export function DealsView({
   const [bookmarks, setBookmarks] = useState<Record<string, string | null | undefined>>(initialBookmarks);
   const [filters, setFilters] = useState({ dealType: "", vertical: "", sector: "", size: "" });
   const [tab, setTab] = useState<"current" | "archive">("current");
-  const [practice, setPractice] = useState<string | null>(null);
+  const [openDealId, setOpenDealId] = useState<string | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
 
   const tabDeals = useMemo(() => {
@@ -97,28 +98,21 @@ export function DealsView({
     }
   };
 
-  const practiceQs = async (id: string) => {
-    setPractice("…");
-    const res = await fetch(`/api/deals/${id}/practice`, {
-      method: "POST",
-      credentials: "same-origin",
-    });
-    setPractice(null);
-    if (!res.ok) {
-      const e = (await res.json()) as { error?: string };
-      alert(e.error ?? "Failed");
-      return;
-    }
-    const { questions } = (await res.json()) as { questions: string };
-    alert(questions);
-  };
+  // Deep link: /deals#<id> opens that deal.
+  useEffect(() => {
+    const id = window.location.hash.slice(1);
+    if (id) setOpenDealId(id);
+  }, []);
+
+  const openDeal = deals.find((d) => d.id === openDealId) ?? null;
 
   return (
     <div className="space-y-4">
       <div>
         <h1 className="page-title">Deal Tracker</h1>
         <p className="mt-1 text-sm text-[#888888]">
-          <span className="text-[#f0f0f0]">SHARED</span> feed · <span className="text-[#c9a84c]">PRIVATE</span> bookmarks
+          Real announced transactions, updated daily from the news. Click any deal to prep it for &ldquo;tell me about a
+          deal&rdquo; or turn it into a stock pitch.
         </p>
       </div>
 
@@ -207,7 +201,17 @@ export function DealsView({
           </p>
         ) : null}
         {tabDeals.map((d) => (
-          <Card key={d.id} id={d.id} className="space-y-2 border-zinc-800 bg-zinc-900/50 p-4">
+          <Card
+            key={d.id}
+            id={d.id}
+            role="button"
+            tabIndex={0}
+            onClick={() => setOpenDealId(d.id)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") setOpenDealId(d.id);
+            }}
+            className="cursor-pointer space-y-2 border-zinc-800 bg-zinc-900/50 p-4 transition hover:border-[#4a6fa5]/50 hover:bg-zinc-900/80"
+          >
             <div className="flex flex-wrap items-start justify-between gap-2">
               <div>
                 <h2 className="font-semibold text-zinc-100">{d.title}</h2>
@@ -226,7 +230,7 @@ export function DealsView({
               {d.vertical ? ` · ${d.vertical}` : ""}
               {d.sector ? ` · ${d.sector}` : ""}
             </p>
-            <p className="text-sm text-zinc-300">{d.summary}</p>
+            <p className="line-clamp-3 text-sm text-zinc-300">{d.summary}</p>
             {d.keyThesis ? (
               <div>
                 <p className="text-xs font-semibold text-zinc-500">Why this deal</p>
@@ -234,12 +238,21 @@ export function DealsView({
               </div>
             ) : null}
             {d.risks ? <p className="text-xs text-red-300/90">Risks: {d.risks}</p> : null}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2" onClick={(e) => e.stopPropagation()}>
+              <Button size="sm" onClick={() => setOpenDealId(d.id)}>
+                Tell me about this deal
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => {
+                  setOpenDealId(d.id);
+                }}
+              >
+                Practice · Stock pitch
+              </Button>
               <Button size="sm" variant="outline" onClick={() => void toggleBm(d.id)}>
                 {bookmarks[d.id] !== undefined ? "Remove bookmark" : "Bookmark"}
-              </Button>
-              <Button size="sm" variant="outline" disabled={practice === "…"} onClick={() => void practiceQs(d.id)}>
-                Practice questions
               </Button>
               {d.sourceUrl ? (
                 <Button asChild size="sm" variant="ghost">
@@ -255,6 +268,15 @@ export function DealsView({
           </Card>
         ))}
       </div>
+      {openDeal ? (
+        <DealDetailPanel
+          deal={openDeal}
+          onClose={() => {
+            setOpenDealId(null);
+            if (window.location.hash) history.replaceState(null, "", window.location.pathname);
+          }}
+        />
+      ) : null}
     </div>
   );
 }

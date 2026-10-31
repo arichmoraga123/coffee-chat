@@ -7,10 +7,13 @@ import { mockInterviewSeedRows } from "./seed/mock-interview-questions";
 import { SEED_FIRM_RESEARCH } from "./seed/firm-research";
 import { SEED_EMAIL_TEMPLATES } from "./seed/email-templates-seed";
 import { SEED_DEALS } from "./seed/deals-seed";
-import { SEED_RECRUITING_CALENDAR } from "./seed/recruiting-calendar-seed";
+import { SEED_RECENT_DEALS } from "./seed/deals-recent";
+import { SEED_RECRUITING_CALENDAR, STALE_CALENDAR_DEDUPE_PREFIX } from "./seed/recruiting-calendar-seed";
 import { SEED_TRACK_QUESTIONS } from "./seed/track-questions";
 import { SEED_THIN_CATEGORY_QUESTIONS } from "./seed/questions-thin-categories";
 import { SEED_CONSULTING_CASES } from "./seed/consulting-cases";
+import { FIRM_DRILL_QUESTIONS } from "../src/lib/drill-mcq/firm-questions";
+import { FIRM_TAG_PREFIX } from "../src/lib/drill-mcq";
 import { PROSPECT_SCHOOL_SEED } from "./seed/prospect-schools";
 import { randomReferralCode } from "../src/lib/referral-code";
 
@@ -115,6 +118,29 @@ async function main() {
   }
   console.log(`Thin-category questions upserted (${SEED_THIN_CATEGORY_QUESTIONS.length}).`);
 
+  for (const q of FIRM_DRILL_QUESTIONS) {
+    const dedupeKey = dedupeKeyFor(q.question);
+    const tags = [...q.topics, ...q.firms.map((f) => `${FIRM_TAG_PREFIX}${f}`)];
+    const keywords = Array.from(new Set(q.topics.map((t) => t.toLowerCase()))).slice(0, 5);
+    const source = `Reported ${q.firms[0]} interview question type (Glassdoor / WSO reports)`;
+    const data = {
+      answer: q.answer,
+      category: q.category,
+      difficulty: q.difficulty,
+      tags,
+      keywords,
+      source,
+      status: "active",
+      careerTracks: q.careerTracks,
+    };
+    await prisma.question.upsert({
+      where: { dedupeKey },
+      create: { question: q.question, subcategory: null, dedupeKey, ...data },
+      update: data,
+    });
+  }
+  console.log(`Firm-specific drill questions upserted (${FIRM_DRILL_QUESTIONS.length}).`);
+
   for (const t of SEED_TIMELINES) {
     const existing = await prisma.firmTimeline.findFirst({
       where: { firmName: t.firmName, role: t.role, year: t.year },
@@ -217,7 +243,7 @@ async function main() {
   console.log(`Email templates seed (new rows ~${etCount}).`);
 
   const { count: dealCount } = await prisma.deal.createMany({
-    data: SEED_DEALS.map((d) => ({
+    data: [...SEED_DEALS, ...SEED_RECENT_DEALS].map((d) => ({
       title: d.title,
       acquirer: d.acquirer,
       target: d.target,
@@ -238,6 +264,9 @@ async function main() {
   });
   console.log(`Deals seed (inserted new rows ~${dealCount}, existing deals preserved).`);
 
+  await prisma.recruitingCalendarEvent.deleteMany({
+    where: { dedupeKey: { startsWith: STALE_CALENDAR_DEDUPE_PREFIX } },
+  });
   const { count: rcCount } = await prisma.recruitingCalendarEvent.createMany({
     data: SEED_RECRUITING_CALENDAR.map((r) => ({
       ...r,
