@@ -27,7 +27,7 @@ export async function POST(req: Request) {
   const auth = await requireAdminSession();
   if ("error" in auth) return auth.error;
   if (!blobConfigured()) {
-    return NextResponse.json({ error: "BLOB_READ_WRITE_TOKEN is not set — connect a Vercel Blob store first." }, { status: 503 });
+    return NextResponse.json({ error: "No Blob read-write token found — connect a Vercel Blob store with a read-write token, then redeploy." }, { status: 503 });
   }
 
   const form = await req.formData();

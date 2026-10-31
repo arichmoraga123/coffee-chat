@@ -36,7 +36,7 @@ export default async function LearnResourcesPage() {
       {!blobConfigured() ? (
         <p className="rounded-lg border border-amber-700/50 bg-amber-950/30 p-3 text-sm text-amber-200">
           Storage isn&apos;t connected yet. In Vercel, add a Blob store to this project (Storage → Blob) so
-          BLOB_READ_WRITE_TOKEN is set, then redeploy.
+          a read-write token env var (e.g. BLOB_READ_WRITE_TOKEN) is set, then redeploy.
         </p>
       ) : null}
       <WorkbookUploader keys={keys} />

@@ -4,8 +4,22 @@ import { get, put } from "@vercel/blob";
 export const XLSX_MIME = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 export const MAX_WORKBOOK_BYTES = 10 * 1024 * 1024;
 
+/**
+ * The Blob read-write token. Vercel names it after the prefix chosen when connecting the store
+ * (BLOB_READ_WRITE_TOKEN by default, e.g. Lesson_READ_WRITE_TOKEN with a "Lesson" prefix), so accept any
+ * *_READ_WRITE_TOKEN env var holding a Vercel Blob token.
+ */
+export function blobToken(): string | undefined {
+  const direct = process.env.BLOB_READ_WRITE_TOKEN?.trim() || process.env.Lesson_READ_WRITE_TOKEN?.trim();
+  if (direct) return direct;
+  for (const [key, value] of Object.entries(process.env)) {
+    if (key.endsWith("_READ_WRITE_TOKEN") && value?.trim().startsWith("vercel_blob_rw_")) return value.trim();
+  }
+  return undefined;
+}
+
 export function blobConfigured(): boolean {
-  return Boolean(process.env.BLOB_READ_WRITE_TOKEN?.trim());
+  return Boolean(blobToken());
 }
 
 /**
@@ -15,11 +29,11 @@ export function blobConfigured(): boolean {
  */
 export async function storeWorkbook(pathname: string, data: Buffer): Promise<{ url: string }> {
   try {
-    const r = await put(pathname, data, { access: "private", addRandomSuffix: true, contentType: XLSX_MIME });
+    const r = await put(pathname, data, { access: "private", addRandomSuffix: true, contentType: XLSX_MIME, token: blobToken() });
     return { url: r.url };
   } catch (e) {
     console.warn("[learn] private blob upload failed, retrying as public with random suffix:", (e as Error).message);
-    const r = await put(pathname, data, { access: "public", addRandomSuffix: true, contentType: XLSX_MIME });
+    const r = await put(pathname, data, { access: "public", addRandomSuffix: true, contentType: XLSX_MIME, token: blobToken() });
     return { url: r.url };
   }
 }
@@ -28,7 +42,7 @@ export async function storeWorkbook(pathname: string, data: Buffer): Promise<{ u
 export async function openWorkbook(url: string): Promise<ReadableStream<Uint8Array> | null> {
   for (const access of ["private", "public"] as const) {
     try {
-      const r = await get(url, { access });
+      const r = await get(url, { access, token: blobToken() });
       if (r && r.statusCode === 200) return r.stream;
     } catch {
       /* try the other access mode */
