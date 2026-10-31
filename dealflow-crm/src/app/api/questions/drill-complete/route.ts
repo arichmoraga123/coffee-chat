@@ -1,85 +1,47 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession } from "@/lib/auth";
-
-function utcDayString(d: Date) {
-  return d.toISOString().slice(0, 10);
-}
+import { utcDay } from "@/lib/mcq/server";
 
 function addUtcDays(dayStr: string, delta: number) {
   const [y, m, d] = dayStr.split("-").map(Number);
-  const dt = new Date(Date.UTC(y, m - 1, d + delta));
-  return dt.toISOString().slice(0, 10);
+  return new Date(Date.UTC(y, m - 1, d + delta)).toISOString().slice(0, 10);
 }
 
 function nextStreak(lastDrillDay: string | null, today: string, current: number): number {
   if (!lastDrillDay) return 1;
   if (lastDrillDay === today) return current;
-  const yesterday = addUtcDays(today, -1);
-  if (lastDrillDay === yesterday) return current + 1;
-  return 1;
+  return lastDrillDay === addUtcDays(today, -1) ? current + 1 : 1;
 }
 
-type Action = "known" | "partial" | "review" | "skip";
-
-export async function POST(req: Request) {
+/**
+ * Closes out today's daily set. The score comes from the server-graded attempts logged for today's set —
+ * nothing the browser reports is trusted. +10 XP per correct answer, +2 per attempted miss.
+ */
+export async function POST() {
   const userId = await getUserIdFromSession();
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const body = (await req.json()) as {
-    results?: { questionId: string; action: Action }[];
-    format?: "flashcard" | "mcq";
-  };
-  const results = body.results ?? [];
-  const format = body.format === "mcq" ? "mcq" : "flashcard";
-  if (!Array.isArray(results) || results.length === 0) {
-    return NextResponse.json({ error: "results required" }, { status: 400 });
-  }
+  const today = utcDay();
+  const [dup, set] = await Promise.all([
+    prisma.dailyDrillLog.findUnique({ where: { userId_date: { userId, date: today } } }),
+    prisma.dailyQuestionSet.findUnique({ where: { userId_date: { userId, date: today } } }),
+  ]);
+  if (dup) return NextResponse.json({ error: "Daily drill already completed" }, { status: 409 });
+  if (!set) return NextResponse.json({ error: "No daily set for today" }, { status: 400 });
 
-  const today = utcDayString(new Date());
-
-  const dup = await prisma.dailyDrillLog.findUnique({
-    where: { userId_date: { userId, date: today } },
+  const attempts = await prisma.questionAttempt.findMany({
+    where: { userId, context: "drill", questionId: { in: set.questionIds }, createdAt: { gte: new Date(`${today}T00:00:00Z`) } },
+    orderBy: { createdAt: "asc" },
+    select: { questionId: true, correct: true },
   });
-  if (dup) {
-    return NextResponse.json({ error: "Daily drill already completed" }, { status: 409 });
-  }
-
-  let xpSession = 0;
-  let correct = 0;
-  let answered = 0;
-
-  for (const row of results) {
-    const action = row.action;
-    const qid = String(row.questionId ?? "");
-    if (!qid || !["known", "partial", "review", "skip"].includes(action)) continue;
-    if (action === "known") {
-      xpSession += 10;
-      correct += 1;
-      answered += 1;
-      await prisma.userQuestionProgress.upsert({
-        where: { userId_questionId: { userId, questionId: qid } },
-        create: { userId, questionId: qid, status: "known" },
-        update: { status: "known", lastSeen: new Date() },
-      });
-    } else if (action === "partial") {
-      xpSession += 5;
-      answered += 1;
-      await prisma.userQuestionProgress.upsert({
-        where: { userId_questionId: { userId, questionId: qid } },
-        create: { userId, questionId: qid, status: "review" },
-        update: { status: "review", lastSeen: new Date() },
-      });
-    } else if (action === "review") {
-      xpSession += format === "mcq" ? 0 : 2;
-      answered += 1;
-      await prisma.userQuestionProgress.upsert({
-        where: { userId_questionId: { userId, questionId: qid } },
-        create: { userId, questionId: qid, status: "review" },
-        update: { status: "review", lastSeen: new Date() },
-      });
-    }
-  }
+  // First attempt per question counts.
+  const first = new Map<string, boolean>();
+  for (const a of attempts) if (!first.has(a.questionId)) first.set(a.questionId, a.correct);
+  const answered = first.size;
+  if (answered === 0) return NextResponse.json({ error: "Answer at least one question first" }, { status: 400 });
+  const correct = [...first.values()].filter(Boolean).length;
+  const xpSession = correct * 10 + (answered - correct) * 2;
 
   const user = await prisma.user.findUnique({
     where: { id: userId },
@@ -91,46 +53,25 @@ export async function POST(req: Request) {
   const nextXp = user.xp + xpSession;
   const nextWeekly = user.weeklyXP + xpSession;
 
-  await prisma.$transaction([
-    prisma.dailyDrillLog.create({
-      data: {
-        userId,
-        date: today,
-        questionsAnswered: answered,
-        correct,
-        xpEarned: xpSession,
-      },
-    }),
-    prisma.user.update({
-      where: { id: userId },
-      data: {
-        drillStreak: streak,
-        lastDrillDay: today,
-        xp: nextXp,
-        weeklyXP: nextWeekly,
-      },
-    }),
-    prisma.leaderboardEntry.upsert({
-      where: { userId },
-      create: {
-        userId,
-        username: user.name,
-        weeklyXP: nextWeekly,
-        totalXP: nextXp,
-        streak,
-      },
-      update: {
-        username: user.name,
-        weeklyXP: nextWeekly,
-        totalXP: nextXp,
-        streak,
-      },
-    }),
-  ]);
+  try {
+    await prisma.$transaction([
+      prisma.dailyDrillLog.create({ data: { userId, date: today, questionsAnswered: answered, correct, xpEarned: xpSession } }),
+      prisma.user.update({
+        where: { id: userId },
+        data: { drillStreak: streak, lastDrillDay: today, xp: { increment: xpSession }, weeklyXP: { increment: xpSession } },
+      }),
+      prisma.leaderboardEntry.upsert({
+        where: { userId },
+        create: { userId, username: user.name, weeklyXP: nextWeekly, totalXP: nextXp, streak },
+        update: { username: user.name, weeklyXP: nextWeekly, totalXP: nextXp, streak },
+      }),
+    ]);
+  } catch {
+    // Unique (userId, date) — a double-submit lost the race.
+    return NextResponse.json({ error: "Daily drill already completed" }, { status: 409 });
+  }
 
-  const milestone =
-    streak === 7 || streak === 30 || streak === 100 ? streak : null;
-
+  const milestone = streak === 7 || streak === 30 || streak === 100 ? streak : null;
   return NextResponse.json({
     drillStreak: streak,
     xp: nextXp,
@@ -138,6 +79,7 @@ export async function POST(req: Request) {
     xpEarned: xpSession,
     correct,
     answered,
+    total: set.questionIds.length,
     milestoneStreak: milestone,
   });
 }

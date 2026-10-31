@@ -56,6 +56,9 @@ model User {
   tasks                     Task[]
   questionProgress          UserQuestionProgress[]
   lessonProgress            LessonProgress[]
+  questionAttempts          QuestionAttempt[]
+  dailyQuestionSets         DailyQuestionSet[]
+  clubJoinRequests          ClubJoinRequest[]
   reviewItems               ReviewItem[]
   mentorQuestions           MentorQuestion[]         @relation("MentorQuestionAsker")
   resourceBookmarks         ResourceBookmark[]
@@ -104,9 +107,17 @@ model Question {
   schoolId      String?
   scope         String                 @default("global") // global | school | club
   upvotes       Int                    @default(0)
+  /// Hand-written MCQ options (exactly 4). Only questions with mcqEligible = true are shown as MCQs.
+  options       String[]               @default([])
+  correctIndex  Int?
+  explanation   String?
+  /// Learn lesson this question belongs to, e.g. "2-2"
+  lessonId      String?
+  mcqEligible   Boolean                @default(false)
   createdAt     DateTime               @default(now())
   updatedAt     DateTime               @default(now()) @updatedAt
   userProgress  UserQuestionProgress[]
+  attempts      QuestionAttempt[]
   submitter     User?                  @relation("QuestionSubmitter", fields: [submittedById], references: [id], onDelete: SetNull)
   school        School?                @relation(fields: [schoolId], references: [id], onDelete: SetNull)
 }
@@ -826,6 +837,8 @@ model Club {
   projects             ClubProject[]
   events               ClubEvent[]
   announcements        ClubAnnouncement[]
+  rosterEntries        ClubRosterEntry[]
+  joinRequests         ClubJoinRequest[]
   stripeCustomerId     String?
   stripeSubscriptionId String?
   stripePriceId        String?
@@ -841,6 +854,8 @@ model ClubMember {
   clubId   String
   userId   String
   role     String   @default("member")
+  /// false when the member's roster entry is deactivated (their data is kept)
+  active   Boolean  @default(true)
   joinedAt DateTime @default(now())
   club     Club     @relation(fields: [clubId], references: [id], onDelete: Cascade)
   user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -1068,4 +1083,62 @@ model MentorQuestion {
 
   @@index([lessonId, status])
   @@index([userId])
+}
+
+// ── PE@Broad club: question bank + roster ─────────────────────
+
+model QuestionAttempt {
+  id         String   @id @default(cuid())
+  userId     String
+  questionId String
+  correct    Boolean
+  chosenText String
+  msToAnswer Int
+  context    String // "drill" | "practice" | "challenge"
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@index([userId, questionId])
+  @@index([userId, createdAt])
+}
+
+/// The 5 questions picked for a user's daily set, fixed for the day so a refresh doesn't reshuffle.
+model DailyQuestionSet {
+  id          String   @id @default(cuid())
+  userId      String
+  date        String // YYYY-MM-DD (UTC)
+  questionIds String[]
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
+}
+
+model ClubRosterEntry {
+  id      String   @id @default(cuid())
+  clubId  String
+  email   String // lowercase
+  name    String?
+  role    String   @default("member") // "member" | "admin"
+  active  Boolean  @default(true)
+  addedAt DateTime @default(now())
+  club    Club     @relation(fields: [clubId], references: [id], onDelete: Cascade)
+
+  @@unique([clubId, email])
+}
+
+model ClubJoinRequest {
+  id        String    @id @default(cuid())
+  clubId    String
+  userId    String
+  status    String    @default("pending") // pending | approved | denied
+  createdAt DateTime  @default(now())
+  decidedAt DateTime?
+  decidedBy String?
+  club      Club      @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([clubId, userId])
+  @@index([clubId, status])
 }

@@ -7,6 +7,7 @@ import type { BlockOf } from "@/lib/learn/schema";
 import type { BlockStateMap } from "@/lib/learn/progress-server";
 import { isMentorRole, latestResources } from "@/lib/learn/resources-server";
 import { LessonPlayer } from "@/components/learn/lesson-player";
+import { MCQ_WHERE } from "@/lib/mcq/server";
 import { LessonHelp } from "@/components/learn/lesson-help";
 
 export const dynamic = "force-dynamic";
@@ -27,7 +28,7 @@ export default async function LessonPage({ params }: { params: Promise<{ lessonI
     new Set([lesson.workbook, ...lesson.blocks.map((b) => (b.type === "excelLink" ? b.workbook : undefined))].filter(Boolean) as string[]),
   );
 
-  const [progress, user, resources, faqRows, myQuestions] = await Promise.all([
+  const [progress, user, resources, faqRows, myQuestions, practiceCount] = await Promise.all([
     prisma.lessonProgress.findUnique({ where: { userId_lessonId: { userId, lessonId } } }),
     prisma.user.findUnique({ where: { id: userId }, select: { role: true } }),
     latestResources(workbookKeys),
@@ -41,6 +42,7 @@ export default async function LessonPage({ params }: { params: Promise<{ lessonI
       orderBy: { createdAt: "desc" },
       select: { id: true, question: true, answer: true, status: true, blockId: true, createdAt: true },
     }),
+    prisma.question.count({ where: { ...MCQ_WHERE, lessonId } }),
   ]);
 
   // Mark this user's newly answered questions as seen.
@@ -70,6 +72,7 @@ export default async function LessonPage({ params }: { params: Promise<{ lessonI
       resources={resources}
       faqs={faqs}
       next={next ? { id: next.id, title: next.title } : null}
+      practiceCount={practiceCount}
       footer={
         <LessonHelp
           key="lesson-help"

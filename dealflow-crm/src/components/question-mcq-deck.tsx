@@ -1,211 +1,117 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import {
-  buildMcqFromDrill,
-  buildMcqOptions,
-  MCQ_CHOICE_BUTTON_CLASS,
-  type McqDistractorSource,
-  type McqOption,
-} from "@/lib/question-mcq";
-import type { DrillMcq } from "@/lib/drill-mcq/types";
+import type { PublicMcq, GradeResult } from "@/lib/mcq/types";
 import { cn } from "@/lib/utils";
 
-export type QuestionMcqRow = {
-  id: string;
-  question: string;
-  answer: string;
-  category: string;
-  subcategory: string | null;
-  difficulty: string;
-  tags: string[];
-  /** Hand-authored near-miss choices (attached server-side). */
-  mcq?: DrillMcq | null;
-};
-
-type DrillResult = { questionId: string; action: "known" | "review" | "skip" };
+export type McqSessionResult = { questionId: string; correct: boolean };
 
 type Props = {
-  questions: QuestionMcqRow[];
-  distractorPool: McqDistractorSource[];
-  onComplete: (results: DrillResult[]) => void;
+  questions: PublicMcq[];
+  /** "drill" = today's daily set (XP awarded at the end); "practice" = free practice (+10 XP on first mastery). */
+  context: "drill" | "practice";
+  onComplete: (results: McqSessionResult[]) => void;
   onExit: () => void;
-  /** When true, PATCH progress after each answer (bank). When false, only accumulate for batch (daily drill). */
-  persistEachAnswer?: boolean;
+  /** Called after each graded answer, e.g. to update a session panel. */
+  onAnswered?: (q: PublicMcq, result: GradeResult) => void;
+  finishLabel?: string;
 };
 
 const LETTERS = ["A", "B", "C", "D"];
-const GENERATED_CACHE_KEY = "df-mcq-generated-v1";
+const CHOICE_CLASS =
+  "w-full h-auto min-h-[60px] overflow-visible whitespace-normal break-words [overflow-wrap:anywhere] rounded-xl border px-4 py-3 text-left text-sm leading-relaxed sm:text-[15px]";
 
-function readGeneratedCache(): Record<string, DrillMcq> {
-  try {
-    return JSON.parse(sessionStorage.getItem(GENERATED_CACHE_KEY) ?? "{}") as Record<string, DrillMcq>;
-  } catch {
-    return {};
-  }
-}
-
-function writeGeneratedCache(v: Record<string, DrillMcq>) {
-  try {
-    sessionStorage.setItem(GENERATED_CACHE_KEY, JSON.stringify(v));
-  } catch {
-    /* storage unavailable */
-  }
-}
-
-export function QuestionMcqDeck({
-  questions,
-  distractorPool,
-  onComplete,
-  onExit,
-  persistEachAnswer = false,
-}: Props) {
+export function QuestionMcqDeck({ questions, context, onComplete, onExit, onAnswered, finishLabel }: Props) {
   const [index, setIndex] = useState(0);
-  const [phase, setPhase] = useState<"pick" | "show">("pick");
-  const [pickedKey, setPickedKey] = useState<string | null>(null);
+  const [phase, setPhase] = useState<"pick" | "grading" | "show">("pick");
+  const [picked, setPicked] = useState<number | null>(null);
+  const [result, setResult] = useState<GradeResult | null>(null);
   const [correctCount, setCorrectCount] = useState(0);
   const [streak, setStreak] = useState(0);
-  const [generated, setGenerated] = useState<Record<string, DrillMcq>>({});
-  const [pending, setPending] = useState<Set<string>>(() => new Set(questions.filter((q) => !q.mcq).map((q) => q.id)));
-  const resultsRef = useRef<DrillResult[]>([]);
-  const questionStartRef = useRef<number>(0);
   const [elapsed, setElapsed] = useState(0);
+  const resultsRef = useRef<McqSessionResult[]>([]);
+  const startRef = useRef(0);
 
   const current = questions[index];
 
-  // Fetch AI-generated near-miss choices for questions that don't have authored ones.
-  useEffect(() => {
-    const cached = readGeneratedCache();
-    setGenerated(cached);
-    const need = questions.filter((q) => !q.mcq && !cached[q.id]).map((q) => q.id);
-    setPending(new Set(need));
-    if (!need.length) return;
-    let cancelled = false;
-    (async () => {
-      for (let i = 0; i < need.length; i += 12) {
-        const batch = need.slice(i, i + 12);
-        try {
-          const res = await fetch("/api/questions/mcq", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            credentials: "same-origin",
-            body: JSON.stringify({ ids: batch }),
-          });
-          const data = res.ok ? ((await res.json()) as { mcqs?: Record<string, DrillMcq> }) : {};
-          if (cancelled) return;
-          setGenerated((prev) => {
-            const next = { ...prev, ...(data.mcqs ?? {}) };
-            writeGeneratedCache(next);
-            return next;
-          });
-        } catch {
-          /* fall back to bank-built choices */
-        }
-        if (cancelled) return;
-        setPending((prev) => {
-          const next = new Set(prev);
-          batch.forEach((id) => next.delete(id));
-          return next;
-        });
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [questions]);
-
-  const drill = current ? (current.mcq ?? generated[current.id] ?? null) : null;
-  const waitingForChoices = Boolean(current && !drill && pending.has(current.id));
-
-  const options = useMemo<McqOption[]>(() => {
-    if (!current || waitingForChoices) return [];
-    if (drill) return buildMcqFromDrill(drill);
-    return buildMcqOptions(current, distractorPool.length ? distractorPool : [current]);
-  }, [current, drill, waitingForChoices, distractorPool]);
-
   useEffect(() => {
     setPhase("pick");
-    setPickedKey(null);
-    questionStartRef.current = Date.now();
+    setPicked(null);
+    setResult(null);
+    startRef.current = Date.now();
     setElapsed(0);
   }, [index]);
 
   useEffect(() => {
     if (phase !== "pick") return;
-    const t = window.setInterval(() => setElapsed(Math.floor((Date.now() - questionStartRef.current) / 1000)), 1000);
+    const t = window.setInterval(() => setElapsed(Math.floor((Date.now() - startRef.current) / 1000)), 1000);
     return () => window.clearInterval(t);
   }, [phase, index]);
 
-  const patchProgress = useCallback(
-    async (questionId: string, correct: boolean) => {
-      if (!persistEachAnswer) return;
-      await fetch("/api/questions/progress", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          questionId,
-          status: correct ? "known" : "review",
-          ...(correct ? { source: "mcq_quiz" } : {}),
-        }),
-      });
-    },
-    [persistEachAnswer],
-  );
-
   const goNext = useCallback(() => {
-    const nextIndex = index + 1;
-    if (nextIndex >= questions.length) onComplete(resultsRef.current);
-    else setIndex(nextIndex);
+    if (index + 1 >= questions.length) onComplete(resultsRef.current);
+    else setIndex(index + 1);
   }, [index, questions.length, onComplete]);
 
   const onPick = useCallback(
-    (opt: McqOption) => {
+    async (i: number) => {
       if (phase !== "pick" || !current) return;
-      setPhase("show");
-      setPickedKey(opt.key);
-      const correct = opt.isCorrect;
-      resultsRef.current = [...resultsRef.current, { questionId: current.id, action: correct ? "known" : "review" }];
-      if (correct) {
-        setCorrectCount((c) => c + 1);
-        setStreak((s) => s + 1);
-      } else {
-        setStreak(0);
+      setPicked(i);
+      setPhase("grading");
+      try {
+        const res = await fetch("/api/mcq/answer", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            questionId: current.id,
+            chosenText: current.options[i],
+            msToAnswer: Date.now() - startRef.current,
+            context,
+          }),
+        });
+        if (!res.ok) throw new Error();
+        const r = (await res.json()) as GradeResult;
+        setResult(r);
+        setPhase("show");
+        resultsRef.current = [...resultsRef.current, { questionId: current.id, correct: r.correct }];
+        if (r.correct) {
+          setCorrectCount((c) => c + 1);
+          setStreak((s) => s + 1);
+        } else setStreak(0);
+        if (r.xpAwarded > 0) toast.success(`+${r.xpAwarded} XP`, { duration: 1200 });
+        onAnswered?.(current, r);
+      } catch {
+        toast.error("Couldn't check that answer — try again.");
+        setPicked(null);
+        setPhase("pick");
       }
-      if (persistEachAnswer) void patchProgress(current.id, correct);
     },
-    [phase, current, persistEachAnswer, patchProgress],
+    [phase, current, context, onAnswered],
   );
 
-  const onSkip = useCallback(() => {
-    if (!current || phase !== "pick") return;
-    resultsRef.current = [...resultsRef.current, { questionId: current.id, action: "skip" }];
-    setStreak(0);
-    goNext();
-  }, [current, phase, goNext]);
-
-  // Keyboard: 1-4 / A-D to answer, Enter or → for next, S to skip.
+  // Keyboard: 1–4 / A–D to answer, Enter or → for next.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      const target = e.target as HTMLElement | null;
-      if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA")) return;
-      if (phase === "pick") {
+      const t = e.target as HTMLElement | null;
+      if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.tagName === "SELECT")) return;
+      if (phase === "pick" && current) {
         const k = e.key.toUpperCase();
-        const idx = ["1", "2", "3", "4"].includes(k) ? Number(k) - 1 : LETTERS.indexOf(k);
-        if (idx >= 0 && options[idx]) {
+        const i = ["1", "2", "3", "4"].includes(k) ? Number(k) - 1 : LETTERS.indexOf(k);
+        if (i >= 0 && i < current.options.length) {
           e.preventDefault();
-          onPick(options[idx]);
-        } else if (k === "S") {
-          onSkip();
+          void onPick(i);
         }
-      } else if (e.key === "Enter" || e.key === "ArrowRight") {
+      } else if (phase === "show" && (e.key === "Enter" || e.key === "ArrowRight")) {
         e.preventDefault();
         goNext();
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [phase, options, onPick, onSkip, goNext]);
+  }, [phase, current, onPick, goNext]);
 
   if (!current) {
     return (
@@ -220,8 +126,7 @@ export function QuestionMcqDeck({
 
   const answered = index + (phase === "show" ? 1 : 0);
   const pct = Math.round((answered / questions.length) * 100);
-  const pickedCorrect = pickedKey ? options.find((o) => o.key === pickedKey)?.isCorrect : false;
-  const firmTags = current.tags.filter((t) => t.startsWith("firm:")).map((t) => t.slice(5));
+  const correctNorm = result?.correctText.trim().toLowerCase();
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
@@ -255,6 +160,7 @@ export function QuestionMcqDeck({
         <div className="rounded-xl border border-white/10 bg-gradient-to-br from-zinc-900/90 to-zinc-950 px-4 py-4 shadow-inner sm:p-6">
           <div className="mb-2 flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-zinc-500">
             <span>{current.category}</span>
+            {current.lessonId ? <span className="normal-case tracking-normal">· Lesson {current.lessonId.replace("-", ".")}</span> : null}
             <span
               className={cn(
                 "rounded px-1.5 py-0.5 normal-case tracking-normal",
@@ -267,96 +173,85 @@ export function QuestionMcqDeck({
             >
               {current.difficulty}
             </span>
-            {firmTags.slice(0, 3).map((f) => (
-              <span key={f} className="rounded bg-[#4a6fa5]/20 px-1.5 py-0.5 normal-case tracking-normal text-[#a8c0e6]">
-                {f}
-              </span>
-            ))}
           </div>
-          <p className="text-base font-medium leading-relaxed text-zinc-100 [overflow-wrap:anywhere] sm:text-lg">
-            {drill?.stem ?? current.question}
+          <p className="whitespace-pre-wrap text-base font-medium leading-relaxed text-zinc-100 [overflow-wrap:anywhere] sm:text-lg">
+            {current.question}
           </p>
         </div>
 
-        {waitingForChoices ? (
-          <div className="space-y-3" aria-busy="true">
-            <p className="text-center text-xs text-zinc-500">Building answer choices…</p>
-            {[0, 1, 2, 3].map((i) => (
-              <div key={i} className="h-16 animate-pulse rounded-xl bg-zinc-900" />
-            ))}
-          </div>
-        ) : (
-          <div className="flex flex-col gap-3">
-            {options.map((opt, i) => {
-              const isPicked = pickedKey === opt.key;
-              const showCorrect = phase === "show" && opt.isCorrect;
-              const showWrong = phase === "show" && isPicked && !opt.isCorrect;
-              return (
-                <button
-                  key={opt.key}
-                  type="button"
-                  disabled={phase === "show"}
-                  onClick={() => onPick(opt)}
+        <div className="flex flex-col gap-3">
+          {current.options.map((text, i) => {
+            const isPicked = picked === i;
+            const isCorrect = phase === "show" && text.trim().toLowerCase() === correctNorm;
+            const isWrong = phase === "show" && isPicked && !isCorrect;
+            return (
+              <button
+                key={`${current.id}-${i}`}
+                type="button"
+                disabled={phase !== "pick"}
+                onClick={() => void onPick(i)}
+                className={cn(
+                  CHOICE_CLASS,
+                  "flex items-start gap-3 transition-all duration-200",
+                  phase === "pick" &&
+                    "border-white/10 bg-zinc-950/90 hover:border-[#4a6fa5]/50 hover:bg-zinc-900/95 hover:shadow-[0_0_20px_-8px_rgba(74,111,165,0.3)]",
+                  phase === "grading" && (isPicked ? "border-[#4a6fa5] bg-zinc-900" : "border-white/[0.06] opacity-60"),
+                  isCorrect && "animate-df-flash-green border-emerald-500/70 bg-emerald-950/50 text-emerald-50",
+                  isWrong && "animate-df-shake border-red-500/80 bg-red-950/50 text-red-50",
+                  phase === "show" && !isCorrect && !isWrong && "border-white/[0.06] opacity-50",
+                )}
+              >
+                <span
                   className={cn(
-                    MCQ_CHOICE_BUTTON_CLASS,
-                    "flex items-start gap-3 transition-all duration-200",
-                    phase === "pick" &&
-                      "border-white/10 bg-zinc-950/90 hover:border-[#4a6fa5]/50 hover:bg-zinc-900/95 hover:shadow-[0_0_20px_-8px_rgba(74,111,165,0.3)]",
-                    showCorrect && "animate-df-flash-green border-emerald-500/70 bg-emerald-950/50 text-emerald-50",
-                    showWrong && "animate-df-shake border-red-500/80 bg-red-950/50 text-red-50",
-                    phase === "show" && !showCorrect && !showWrong && "border-white/[0.06] opacity-50",
+                    "mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md border text-xs font-semibold",
+                    isCorrect
+                      ? "border-emerald-400 bg-emerald-500/20 text-emerald-200"
+                      : isWrong
+                        ? "border-red-400 bg-red-500/20 text-red-200"
+                        : "border-zinc-600 text-zinc-400",
                   )}
                 >
-                  <span
-                    className={cn(
-                      "mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md border text-xs font-semibold",
-                      showCorrect
-                        ? "border-emerald-400 bg-emerald-500/20 text-emerald-200"
-                        : showWrong
-                          ? "border-red-400 bg-red-500/20 text-red-200"
-                          : "border-zinc-600 text-zinc-400",
-                    )}
-                  >
-                    {LETTERS[i]}
-                  </span>
-                  <span className="min-w-0 flex-1">{opt.text}</span>
-                </button>
-              );
-            })}
-          </div>
-        )}
+                  {LETTERS[i]}
+                </span>
+                <span className="min-w-0 flex-1">{text}</span>
+              </button>
+            );
+          })}
+        </div>
 
-        {phase === "show" ? (
+        {phase === "show" && result ? (
           <div className="rounded-xl border border-white/10 bg-zinc-900/70 p-4 text-sm shadow-inner">
             <p className="mb-2 text-sm font-semibold">
-              {pickedCorrect ? (
-                <span className="text-emerald-400">{persistEachAnswer ? "Correct · +10 XP if newly mastered" : "Correct"}</span>
+              {result.correct ? (
+                <span className="text-emerald-400">Correct{result.xpAwarded ? ` · +${result.xpAwarded} XP` : ""}</span>
               ) : (
-                <span className="text-red-400">{persistEachAnswer ? "Incorrect · added to your review list" : "Incorrect"}</span>
+                <span className="text-red-400">Incorrect · it&apos;ll come back for review</span>
               )}
             </p>
-            {drill?.why ? (
-              <p className="mb-3 rounded-lg border border-amber-500/20 bg-amber-950/20 px-3 py-2 text-amber-100/90">
-                <span className="font-semibold">The trap: </span>
-                {drill.why}
-              </p>
+            {result.explanation ? (
+              <p className="whitespace-pre-wrap leading-relaxed text-zinc-200">{result.explanation}</p>
             ) : null}
-            <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-zinc-500">Full answer</p>
-            <p className="whitespace-pre-wrap leading-relaxed text-zinc-200">{current.answer}</p>
-            <div className="mt-4 flex items-center justify-between gap-2">
-              <span className="hidden text-xs text-zinc-500 sm:inline">Press Enter for next</span>
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
+              {result.lessonId ? (
+                <Link
+                  href={`/learn/${result.lessonId}`}
+                  target="_blank"
+                  className="text-xs font-medium text-[#a8c0e6] hover:underline"
+                >
+                  Review lesson {result.lessonId.replace("-", ".")} ↗
+                </Link>
+              ) : (
+                <span className="hidden text-xs text-zinc-500 sm:inline">Press Enter for next</span>
+              )}
               <Button type="button" onClick={goNext} autoFocus>
-                {index + 1 >= questions.length ? "Finish" : "Next question →"}
+                {index + 1 >= questions.length ? (finishLabel ?? "Finish") : "Next question →"}
               </Button>
             </div>
           </div>
         ) : (
-          <div className="flex items-center justify-between">
-            <span className="hidden text-xs text-zinc-600 sm:inline">Keys: 1–4 or A–D to answer · S to skip</span>
-            <Button type="button" variant="ghost" size="sm" onClick={onSkip} disabled={waitingForChoices}>
-              Skip
-            </Button>
-          </div>
+          <p className="hidden text-xs text-zinc-600 sm:block">
+            {phase === "grading" ? "Checking…" : "Keys: 1–4 or A–D to answer · Enter for next"}
+          </p>
         )}
       </div>
     </div>

@@ -17,7 +17,14 @@ type QRow = {
   source: string | null;
   status: string;
   submittedById: string | null;
+  options: string[];
+  correctIndex: number | null;
+  explanation: string | null;
+  lessonId: string | null;
+  mcqEligible: boolean;
 };
+
+const padOptions = (o: string[]) => [0, 1, 2, 3].map((i) => o[i] ?? "");
 
 export function AdminQuestionsPanel() {
   const [q, setQ] = useState("");
@@ -29,6 +36,7 @@ export function AdminQuestionsPanel() {
   const [bulkOpen, setBulkOpen] = useState(false);
   const [bulkText, setBulkText] = useState("");
   const [edit, setEdit] = useState<QRow | null>(null);
+  const [editErrors, setEditErrors] = useState<string[]>([]);
 
   const load = useCallback(async () => {
     const params = new URLSearchParams();
@@ -77,9 +85,14 @@ export function AdminQuestionsPanel() {
     void load();
   };
 
+  const openEdit = (r: QRow) => {
+    setEditErrors([]);
+    setEdit({ ...r, options: padOptions(r.options ?? []) });
+  };
+
   const saveEdit = async () => {
     if (!edit) return;
-    await fetch(`/api/admin/questions/${edit.id}`, {
+    const res = await fetch(`/api/admin/questions/${edit.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -91,8 +104,18 @@ export function AdminQuestionsPanel() {
         tags: edit.tags,
         source: edit.source,
         status: edit.status,
+        mcqEligible: edit.mcqEligible,
+        ...(edit.mcqEligible || edit.options.some((o) => o.trim())
+          ? { options: edit.options, correctIndex: edit.correctIndex, explanation: edit.explanation ?? "" }
+          : {}),
+        lessonId: edit.lessonId ?? null,
       }),
     });
+    if (!res.ok) {
+      const data = (await res.json().catch(() => ({}))) as { errors?: string[]; error?: string };
+      setEditErrors(data.errors ?? [data.error ?? "Save failed"]);
+      return;
+    }
     setEdit(null);
     void load();
     void loadPending();
@@ -207,6 +230,7 @@ export function AdminQuestionsPanel() {
                 <th className="py-2 pr-2">Question</th>
                 <th className="py-2 pr-2">Cat</th>
                 <th className="py-2 pr-2">Diff</th>
+                <th className="py-2 pr-2">MCQ</th>
                 <th className="py-2 pr-2">Status</th>
                 <th className="py-2">Actions</th>
               </tr>
@@ -219,9 +243,12 @@ export function AdminQuestionsPanel() {
                   </td>
                   <td className="py-2 pr-2 align-top text-zinc-400">{r.category}</td>
                   <td className="py-2 pr-2 align-top text-zinc-400">{r.difficulty}</td>
+                  <td className="py-2 pr-2 align-top text-zinc-400">
+                    {r.mcqEligible ? `✓ ${r.lessonId ? r.lessonId.replace("-", ".") : ""}` : "—"}
+                  </td>
                   <td className="py-2 pr-2 align-top text-zinc-400">{r.status}</td>
                   <td className="py-2 align-top">
-                    <Button size="sm" variant="outline" onClick={() => setEdit(r)}>
+                    <Button size="sm" variant="outline" onClick={() => openEdit(r)}>
                       Edit
                     </Button>
                     <Button
@@ -269,14 +296,75 @@ export function AdminQuestionsPanel() {
               value={edit.question}
               onChange={(e) => setEdit({ ...edit, question: e.target.value })}
             />
-            <textarea
-              className="min-h-[120px] w-full rounded border border-zinc-700 bg-zinc-950 p-2"
-              value={edit.answer}
-              onChange={(e) => setEdit({ ...edit, answer: e.target.value })}
-            />
-            <div className="grid grid-cols-2 gap-2">
-              <Input value={edit.category} onChange={(e) => setEdit({ ...edit, category: e.target.value })} />
-              <Input value={edit.difficulty} onChange={(e) => setEdit({ ...edit, difficulty: e.target.value })} />
+            {edit.mcqEligible ? null : (
+              <textarea
+                className="min-h-[120px] w-full rounded border border-zinc-700 bg-zinc-950 p-2"
+                value={edit.answer}
+                placeholder="Flashcard answer"
+                onChange={(e) => setEdit({ ...edit, answer: e.target.value })}
+              />
+            )}
+            <label className="flex items-center gap-2 text-zinc-300">
+              <input
+                type="checkbox"
+                checked={edit.mcqEligible}
+                onChange={(e) => setEdit({ ...edit, mcqEligible: e.target.checked })}
+              />
+              Multiple choice (shows in Practice and the daily drill)
+            </label>
+            {edit.mcqEligible ? (
+              <div className="space-y-1.5 rounded border border-zinc-800 p-2">
+                <p className="text-[10px] uppercase tracking-wide text-zinc-500">Options — select the correct one</p>
+                {edit.options.map((o, i) => (
+                  <div key={i} className="flex items-start gap-2">
+                    <input
+                      type="radio"
+                      name="correct"
+                      className="mt-2"
+                      checked={edit.correctIndex === i}
+                      onChange={() => setEdit({ ...edit, correctIndex: i })}
+                      aria-label={`Option ${"ABCD"[i]} is correct`}
+                    />
+                    <span className="mt-1.5 w-3 text-zinc-500">{"ABCD"[i]}</span>
+                    <textarea
+                      className="min-h-[38px] flex-1 rounded border border-zinc-700 bg-zinc-950 p-1.5"
+                      value={o}
+                      onChange={(e) => {
+                        const options = [...edit.options];
+                        options[i] = e.target.value;
+                        setEdit({ ...edit, options });
+                      }}
+                    />
+                  </div>
+                ))}
+                <textarea
+                  className="min-h-[70px] w-full rounded border border-zinc-700 bg-zinc-950 p-2"
+                  placeholder="Explanation (shown after answering)"
+                  value={edit.explanation ?? ""}
+                  onChange={(e) => setEdit({ ...edit, explanation: e.target.value })}
+                />
+              </div>
+            ) : null}
+            <div className="grid grid-cols-3 gap-2">
+              <Input
+                value={edit.category}
+                placeholder="Category"
+                onChange={(e) => setEdit({ ...edit, category: e.target.value })}
+              />
+              <select
+                className="rounded border border-zinc-700 bg-zinc-950 px-2"
+                value={edit.difficulty}
+                onChange={(e) => setEdit({ ...edit, difficulty: e.target.value })}
+              >
+                {["Easy", "Medium", "Hard"].map((d) => (
+                  <option key={d}>{d}</option>
+                ))}
+              </select>
+              <Input
+                value={edit.lessonId ? edit.lessonId.replace("-", ".") : ""}
+                placeholder="Lesson, e.g. 2.2"
+                onChange={(e) => setEdit({ ...edit, lessonId: e.target.value || null })}
+              />
             </div>
             <Input
               value={edit.tags.join(", ")}
@@ -301,6 +389,13 @@ export function AdminQuestionsPanel() {
                 </option>
               ))}
             </select>
+            {editErrors.length ? (
+              <ul className="list-disc rounded border border-red-900 bg-red-950/40 p-2 pl-5 text-red-200">
+                {editErrors.map((e) => (
+                  <li key={e}>{e}</li>
+                ))}
+              </ul>
+            ) : null}
             <div className="flex justify-end gap-2 pt-2">
               <Button variant="ghost" onClick={() => setEdit(null)}>
                 Cancel

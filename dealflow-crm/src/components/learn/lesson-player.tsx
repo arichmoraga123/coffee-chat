@@ -64,6 +64,7 @@ export function LessonPlayer({
   resources,
   faqs,
   next,
+  practiceCount = 0,
   footer,
 }: {
   lesson: Lesson;
@@ -76,6 +77,8 @@ export function LessonPlayer({
   /** Mentor answers promoted to FAQs, shown as extra deep dives. */
   faqs: BlockOf<"deepDive">[];
   next: { id: string; title: string } | null;
+  /** MCQs in the question bank tagged to this lesson. */
+  practiceCount?: number;
   footer?: ReactNode;
 }) {
   const [stateMap, setStateMap] = useState<BlockStateMap>(initialState);
@@ -278,12 +281,12 @@ export function LessonPlayer({
           ) : null}
 
           <div className="flex flex-col gap-3 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
-            {lesson.relatedQuestionTags.length ? (
+            {practiceCount > 0 ? (
               <Link
-                href={`/questions?tags=${encodeURIComponent(lesson.relatedQuestionTags.join(","))}`}
+                href={`/practice?lesson=${lesson.id}`}
                 className="rounded-lg border border-white/15 px-4 py-2.5 text-center text-sm font-medium text-zinc-100 hover:border-[#4a6fa5]"
               >
-                Drill related questions
+                Practice {practiceCount} related question{practiceCount === 1 ? "" : "s"}
               </Link>
             ) : (
               <span />

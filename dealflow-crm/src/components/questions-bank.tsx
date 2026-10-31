@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -8,20 +9,12 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useCareerTracks } from "@/components/career-track-provider";
 import { matchesCareerTracks } from "@/lib/career-tracks";
-import { QuestionMcqDeck } from "@/components/question-mcq-deck";
 import { ReportContentAction } from "@/components/report-content-action";
 import { EmptyState } from "@/components/ui/empty-state";
-import type { McqDistractorSource } from "@/lib/question-mcq";
-import type { DrillMcq } from "@/lib/drill-mcq/types";
 import { firmsFromTags } from "@/lib/drill-mcq/firms";
 import { gradeAnswerByKeywords, type KeywordGradeResult } from "@/lib/answer-grader";
 import { PracticeModal } from "@/components/practice-modal";
 import { getRelevantCategories, getTrackLearningPath } from "@/lib/track-utils";
-import {
-  readStoredQuestionMode,
-  writeStoredQuestionMode,
-  type QuestionPracticeMode,
-} from "@/lib/question-mode-storage";
 
 export type QuestionDTO = {
   id: string;
@@ -33,7 +26,6 @@ export type QuestionDTO = {
   tags: string[];
   keywords: string[];
   careerTracks: string[];
-  mcq?: DrillMcq | null;
 };
 
 type ProgressMap = Record<string, "known" | "review" | "unseen">;
@@ -76,15 +68,11 @@ export function QuestionsBank({
   const [practiceIndex, setPracticeIndex] = useState(0);
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
 
-  const [practiceMode, setPracticeMode] = useState<QuestionPracticeMode>("mcq");
   const [drillOpen, setDrillOpen] = useState(false);
-  const [drillUseMcq, setDrillUseMcq] = useState(false);
-  const [mcqBrowseOpen, setMcqBrowseOpen] = useState(false);
   const [drillCategory, setDrillCategory] = useState("all");
   const [drillDifficulty, setDrillDifficulty] = useState("all");
   const [shuffle, setShuffle] = useState(true);
   const [drillQueue, setDrillQueue] = useState<QuestionDTO[]>([]);
-  const [browseMcqQueue, setBrowseMcqQueue] = useState<QuestionDTO[]>([]);
   const [drillIndex, setDrillIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [typedAnswer, setTypedAnswer] = useState("");
@@ -94,17 +82,6 @@ export function QuestionsBank({
   const [sessionSkipped, setSessionSkipped] = useState(0);
   const [endScreen, setEndScreen] = useState(false);
   const [streakDisplay, setStreakDisplay] = useState(drillStreak);
-  const [mcqSummary, setMcqSummary] = useState<{
-    score: number;
-    total: number;
-    xpEarned: number;
-    ms: number;
-  } | null>(null);
-  const sessionStartRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    setPracticeMode(readStoredQuestionMode());
-  }, []);
 
   const progressSnap = JSON.stringify(initialProgress);
   useEffect(() => {
@@ -133,10 +110,6 @@ export function QuestionsBank({
     return ["all", ...Array.from(s).sort()];
   }, [trackFiltered]);
 
-  const distractorPool: McqDistractorSource[] = useMemo(
-    () => trackFiltered.map((q) => ({ id: q.id, answer: q.answer, category: q.category })),
-    [trackFiltered],
-  );
 
   const statusOf = useCallback(
     (id: string) => progress[id] ?? "unseen",
@@ -276,11 +249,6 @@ export function QuestionsBank({
     if (!opts?.skipRefresh) router.refresh();
   };
 
-  const setModeAndStore = (m: QuestionPracticeMode) => {
-    setPracticeMode(m);
-    writeStoredQuestionMode(m);
-  };
-
   const startDrill = () => {
     let pool = trackFiltered.filter((q) => {
       if (drillCategory !== "all" && q.category !== drillCategory) return false;
@@ -291,7 +259,6 @@ export function QuestionsBank({
     if (pool.length === 0) return;
     if (shuffle) pool = shuffleArray(pool);
     setDrillQueue(pool);
-    setDrillUseMcq(practiceMode === "mcq");
     setDrillIndex(0);
     setFlipped(false);
     setTypedAnswer("");
@@ -300,17 +267,7 @@ export function QuestionsBank({
     setSessionReview(0);
     setSessionSkipped(0);
     setEndScreen(false);
-    setMcqSummary(null);
-    sessionStartRef.current = Date.now();
     setDrillOpen(true);
-  };
-
-  const startBrowseMcq = () => {
-    if (filteredBrowse.length === 0) return;
-    setBrowseMcqQueue(shuffleArray([...filteredBrowse]));
-    setMcqBrowseOpen(true);
-    setMcqSummary(null);
-    sessionStartRef.current = Date.now();
   };
 
   const openPracticeFor = (questionId: string) => {
@@ -358,8 +315,6 @@ export function QuestionsBank({
   const closeDrill = () => {
     setDrillOpen(false);
     setEndScreen(false);
-    setDrillUseMcq(false);
-    setMcqSummary(null);
     setTypedAnswer("");
     setGradedResult(null);
   };
@@ -381,39 +336,6 @@ export function QuestionsBank({
       }
       return next;
     });
-  };
-
-  const closeBrowseMcq = () => {
-    setMcqBrowseOpen(false);
-    setMcqSummary(null);
-  };
-
-  const onMcqDrillComplete = (results: { questionId: string; action: "known" | "review" | "skip" }[]) => {
-    const started = sessionStartRef.current ?? Date.now();
-    const score = results.filter((r) => r.action === "known").length;
-    const xpEarned = score * 10;
-    setMcqSummary({
-      score,
-      total: results.length,
-      xpEarned,
-      ms: Date.now() - started,
-    });
-    setEndScreen(true);
-    void router.refresh();
-  };
-
-  const onMcqBrowseComplete = (results: { questionId: string; action: "known" | "review" | "skip" }[]) => {
-    const started = sessionStartRef.current ?? Date.now();
-    const score = results.filter((r) => r.action === "known").length;
-    const xpEarned = score * 10;
-    setMcqSummary({
-      score,
-      total: results.length,
-      xpEarned,
-      ms: Date.now() - started,
-    });
-    setMcqBrowseOpen(false);
-    void router.refresh();
   };
 
   const difficultyBadge = (d: string) =>
@@ -487,15 +409,6 @@ export function QuestionsBank({
 
         <Card className="p-3 text-sm">
           <p className="mb-2 font-semibold text-zinc-200">Drill setup</p>
-          <label className="mb-1 block text-xs text-zinc-500">Mode (saved)</label>
-          <select
-            className="mb-2 w-full rounded border border-white/10 bg-zinc-950 px-2 py-1.5"
-            value={practiceMode}
-            onChange={(e) => setModeAndStore(e.target.value as QuestionPracticeMode)}
-          >
-            <option value="mcq">MCQ (auto-graded)</option>
-            <option value="flashcard">Study Mode (flashcard)</option>
-          </select>
           <select
             className="mb-2 w-full rounded border border-white/10 bg-zinc-950 px-2 py-1.5"
             value={drillCategory}
@@ -523,7 +436,7 @@ export function QuestionsBank({
             Shuffle
           </label>
           <Button className="animate-df-pulse-glow w-full" size="sm" variant="cta" onClick={startDrill}>
-            Start drill ({practiceMode === "mcq" ? "MCQ" : "Study Mode"})
+            Start flashcards
           </Button>
         </Card>
       </aside>
@@ -540,20 +453,12 @@ export function QuestionsBank({
               <span className="text-[#4a6fa5]">{weeklyXP}</span> · Total XP {totalXP}
             </p>
             <p className="text-xs text-zinc-500">Daily streak updates from the dashboard daily drill.</p>
-            <div className="mt-3 flex flex-wrap items-center gap-2">
-              <span className="text-xs text-zinc-500">Default mode:</span>
-              <select
-                className="rounded border border-white/10 bg-zinc-950 px-2 py-1 text-xs"
-                value={practiceMode}
-                onChange={(e) => setModeAndStore(e.target.value as QuestionPracticeMode)}
-              >
-                <option value="mcq">MCQ (auto-graded)</option>
-                <option value="flashcard">Study Mode (flashcard)</option>
-              </select>
-              <Button size="sm" variant="outline" disabled={filteredBrowse.length === 0} onClick={startBrowseMcq}>
-                MCQ quiz · filtered ({filteredBrowse.length})
-              </Button>
-            </div>
+            <p className="mt-2 text-xs text-zinc-400">
+              Study mode — flip cards and say the answer out loud. For graded multiple choice from the PE@Broad bank,{" "}
+              <Link href="/practice" className="font-medium text-[#a8c0e6] hover:underline">
+                go to Practice →
+              </Link>
+            </p>
           </div>
           <div className="h-2.5 w-full max-w-xs overflow-hidden rounded-full bg-zinc-800/90 ring-1 ring-white/5 sm:w-48">
             <div
@@ -727,20 +632,9 @@ export function QuestionsBank({
           {endScreen ? (
             <div className="mx-auto flex max-w-lg flex-1 flex-col items-center justify-center text-center">
               <h2 className="text-2xl font-semibold">Session complete</h2>
-              {drillUseMcq && mcqSummary ? (
-                <>
-                  <p className="mt-4 text-lg text-zinc-200">
-                    Score {mcqSummary.score}/{mcqSummary.total}
-                  </p>
-                  <p className="mt-2 text-zinc-400">
-                    +{mcqSummary.xpEarned} XP · {(mcqSummary.ms / 1000).toFixed(1)}s
-                  </p>
-                </>
-              ) : (
-                <p className="mt-4 text-zinc-400">
-                  Known: {sessionKnown} · Review: {sessionReview} · Skipped: {sessionSkipped}
-                </p>
-              )}
+              <p className="mt-4 text-zinc-400">
+                Known: {sessionKnown} · Review: {sessionReview} · Skipped: {sessionSkipped}
+              </p>
               <p className="mt-2 text-[#888888]">
                 Streak: <span className="text-[#c9a84c]">{streakDisplay}</span> day(s)
               </p>
@@ -748,14 +642,6 @@ export function QuestionsBank({
                 Close
               </Button>
             </div>
-          ) : drillUseMcq && drillQueue.length ? (
-            <QuestionMcqDeck
-              questions={drillQueue}
-              distractorPool={distractorPool}
-              persistEachAnswer
-              onComplete={onMcqDrillComplete}
-              onExit={closeDrill}
-            />
           ) : currentDrill ? (
             <>
               <div className="mb-4 flex items-center justify-between text-sm text-zinc-400">
@@ -844,17 +730,6 @@ export function QuestionsBank({
         </div>
       ) : null}
 
-      {mcqBrowseOpen && browseMcqQueue.length ? (
-        <div className="fixed inset-0 z-50 flex flex-col bg-zinc-950/98 p-4 text-zinc-100 backdrop-blur">
-          <QuestionMcqDeck
-            questions={browseMcqQueue}
-            distractorPool={distractorPool}
-            persistEachAnswer
-            onComplete={onMcqBrowseComplete}
-            onExit={closeBrowseMcq}
-          />
-        </div>
-      ) : null}
       <PracticeModal
         open={practiceOpen}
         title="Question Practice"

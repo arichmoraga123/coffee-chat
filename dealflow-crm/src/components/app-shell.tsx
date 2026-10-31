@@ -51,6 +51,7 @@ const COLLAPSIBLE_GROUPS: CollapsibleGroup[] = [
     title: "📚 Prep",
     items: [
       { href: "/learn", label: "Learn (lessons)" },
+      { href: "/practice", label: "Practice (MCQ)" },
       { href: "/questions", label: "Question Bank" },
       { href: "/mock-interview", label: "Mock Interview" },
       { href: "/pitch-builder", label: "Stock Pitch Builder" },

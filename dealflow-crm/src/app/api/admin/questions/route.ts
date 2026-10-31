@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { requireAdminSession } from "@/lib/admin-auth";
 import { questionDedupeKey } from "@/lib/question-dedupe";
+import { parseMcqFields } from "@/lib/mcq/admin";
 
 export async function GET(req: Request) {
   const auth = await requireAdminSession();
@@ -36,6 +37,11 @@ export async function GET(req: Request) {
       keywords: true,
       source: true,
       status: true,
+      options: true,
+      correctIndex: true,
+      explanation: true,
+      lessonId: true,
+      mcqEligible: true,
       submittedById: true,
       createdAt: true,
     },
@@ -50,7 +56,9 @@ export async function POST(req: Request) {
 
   const body = await req.json();
   const question = String(body.question ?? "").trim();
-  const answer = String(body.answer ?? "").trim();
+  const mcq = parseMcqFields(body);
+  if (mcq.errors.length) return NextResponse.json({ error: mcq.errors.join(" · "), errors: mcq.errors }, { status: 400 });
+  const answer = String(mcq.data.answer ?? body.answer ?? "").trim();
   const category = String(body.category ?? "").trim();
   const difficulty = String(body.difficulty ?? "Medium");
   const tags = Array.isArray(body.tags) ? body.tags.map((t: unknown) => String(t)) : [];
@@ -64,13 +72,14 @@ export async function POST(req: Request) {
   const row = await prisma.question.create({
     data: {
       question,
-      answer,
       category,
       subcategory: body.subcategory ? String(body.subcategory) : null,
       difficulty: ["Easy", "Medium", "Hard"].includes(difficulty) ? difficulty : "Medium",
       tags,
       keywords,
       source,
+      ...mcq.data,
+      answer,
       status: "active",
       dedupeKey: questionDedupeKey(question),
     },

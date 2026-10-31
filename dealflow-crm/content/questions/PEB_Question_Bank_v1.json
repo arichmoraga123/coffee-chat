@@ -1,0 +1,5452 @@
+[
+ {
+  "id": "peb-0001",
+  "lessonId": "0.1",
+  "module": 0,
+  "category": "Finance Foundations",
+  "difficulty": "easy",
+  "question": "What is the present value of $1,000 received in 3 years at a 10% discount rate?",
+  "options": [
+   "$769",
+   "$751",
+   "$729",
+   "$909"
+  ],
+  "correctIndex": 1,
+  "answer": "$751",
+  "explanation": "PV = 1,000 / 1.10^3 = 1,000 / 1.331 = $751. $769 uses simple interest (1,000 / 1.30). $729 multiplies by 0.9 three times, which isn't how discounting works. $909 only discounts one year.",
+  "keywords": [
+   "discount",
+   "compound",
+   "1.331"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0002",
+  "lessonId": "0.1",
+  "module": 0,
+  "category": "Finance Foundations",
+  "difficulty": "medium",
+  "question": "Interest rates rise from 5% to 6%. Which asset's present value falls the most in percentage terms?",
+  "options": [
+   "A zero-coupon bond paying $1,000 in 30 years",
+   "A zero-coupon bond paying $1,000 in 1 year",
+   "They all fall by the same percentage",
+   "A bond paying $500 in 1 year and $500 in 2 years"
+  ],
+  "correctIndex": 0,
+  "answer": "A zero-coupon bond paying $1,000 in 30 years",
+  "explanation": "Discounting compounds, so distant cash flows are hit hardest. This is why long-duration assets (growth stocks, long bonds) are the most rate-sensitive.",
+  "keywords": [
+   "duration",
+   "compounding",
+   "long-dated"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0003",
+  "lessonId": "0.1",
+  "module": 0,
+  "category": "Finance Foundations",
+  "difficulty": "hard",
+  "question": "An analyst projects cash flows that include 3% annual price increases, then discounts them at a 4% real discount rate. What's the effect?",
+  "options": [
+   "Value is overstated because nominal cash flows are discounted at a real rate",
+   "Value is understated because inflation is counted twice",
+   "Only the terminal value is affected, not the projection period",
+   "No effect, because inflation cancels out over time"
+  ],
+  "correctIndex": 0,
+  "answer": "Value is overstated because nominal cash flows are discounted at a real rate",
+  "explanation": "Nominal cash flows (with inflation) need a nominal discount rate. A real rate is too low for them, so value is overstated.",
+  "keywords": [
+   "nominal",
+   "real",
+   "consistency"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0004",
+  "lessonId": "0.1",
+  "module": 0,
+  "category": "Finance Foundations",
+  "difficulty": "medium",
+  "question": "A loan charges 12% per year, compounded monthly. What is the effective annual rate?",
+  "options": [
+   "Exactly 12.0%",
+   "About 12.7%",
+   "About 12.4%",
+   "About 13.0%"
+  ],
+  "correctIndex": 1,
+  "answer": "About 12.7%",
+  "explanation": "(1 + 0.12/12)^12 − 1 = 1.01^12 − 1 ≈ 12.68%. 12.36% would be semiannual compounding.",
+  "keywords": [
+   "compounding",
+   "effective annual rate"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0005",
+  "lessonId": "0.2",
+  "module": 0,
+  "category": "Finance Foundations",
+  "difficulty": "easy",
+  "question": "You invest $100 and receive $200 at the end of year 4, with nothing in between. What is the IRR?",
+  "options": [
+   "About 22%",
+   "About 19%",
+   "About 15%",
+   "25%"
+  ],
+  "correctIndex": 1,
+  "answer": "About 19%",
+  "explanation": "2^(1/4) − 1 ≈ 18.9%. 25% is the \"100% gain ÷ 4 years\" mistake, which ignores compounding.",
+  "keywords": [
+   "IRR",
+   "compounding",
+   "MOIC"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0006",
+  "lessonId": "0.2",
+  "module": 0,
+  "category": "Finance Foundations",
+  "difficulty": "medium",
+  "question": "Fund A returns 1.5x in 1 year. Fund B returns 3.0x in 6 years. Which statement is correct?",
+  "options": [
+   "Fund B has both the higher IRR and the higher MOIC",
+   "Fund A has the higher IRR; Fund B has the higher MOIC",
+   "Fund A has both the higher IRR and the higher MOIC",
+   "Both funds have roughly the same IRR"
+  ],
+  "correctIndex": 1,
+  "answer": "Fund A has the higher IRR; Fund B has the higher MOIC",
+  "explanation": "Fund A: 50% IRR, 1.5x. Fund B: 3^(1/6) − 1 ≈ 20% IRR, 3.0x. IRR rewards speed; MOIC rewards magnitude.",
+  "keywords": [
+   "IRR",
+   "MOIC",
+   "speed",
+   "magnitude"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0007",
+  "lessonId": "0.2",
+  "module": 0,
+  "category": "Finance Foundations",
+  "difficulty": "medium",
+  "question": "A project's NPV at a 12% hurdle rate is −$5. What can you conclude about its IRR?",
+  "options": [
+   "The IRR is below 12%",
+   "The IRR is exactly 7%",
+   "The IRR is above 12%",
+   "Nothing — NPV and IRR are unrelated"
+  ],
+  "correctIndex": 0,
+  "answer": "The IRR is below 12%",
+  "explanation": "NPV is negative when the discount rate is above the IRR. So the IRR must be below the 12% hurdle.",
+  "keywords": [
+   "NPV",
+   "IRR",
+   "hurdle"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0008",
+  "lessonId": "0.2",
+  "module": 0,
+  "category": "Finance Foundations",
+  "difficulty": "medium",
+  "question": "A sponsor does a dividend recap in year 2 and exits in year 5. Compared with no recap, what usually happens?",
+  "options": [
+   "IRR falls because leverage increases",
+   "IRR rises; MOIC is flat or slightly lower",
+   "MOIC rises; IRR is unchanged",
+   "Both IRR and MOIC fall"
+  ],
+  "correctIndex": 1,
+  "answer": "IRR rises; MOIC is flat or slightly lower",
+  "explanation": "Cash returned earlier raises IRR. The new debt adds interest and reduces exit equity, so total dollars returned (MOIC) don't rise and may fall.",
+  "keywords": [
+   "dividend recap",
+   "IRR",
+   "MOIC",
+   "timing"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0009",
+  "lessonId": "0.2",
+  "module": 0,
+  "category": "Finance Foundations",
+  "difficulty": "hard",
+  "question": "Project X has a 50% IRR on $10k. Project Y has a 20% IRR on $10M. Both have the same risk and you can only pick one. Which is generally the better choice and why?",
+  "options": [
+   "Project X, because smaller projects carry less risk",
+   "Project X, because a higher IRR always means a better project",
+   "Project Y, because it creates more total value (higher NPV)",
+   "They're equivalent, since IRR already adjusts for size"
+  ],
+  "correctIndex": 2,
+  "answer": "Project Y, because it creates more total value (higher NPV)",
+  "explanation": "IRR ignores scale. A 20% return on $10M creates far more value than 50% on $10k. NPV is the better rule for mutually exclusive projects.",
+  "keywords": [
+   "NPV",
+   "scale",
+   "IRR"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0010",
+  "lessonId": "0.3",
+  "module": 0,
+  "category": "Finance Foundations",
+  "difficulty": "easy",
+  "question": "Final-year free cash flow is $100, the discount rate is 10%, and the growth rate is 3%. What is the Gordon Growth terminal value?",
+  "options": [
+   "$1,030",
+   "$1,471",
+   "$1,000",
+   "$1,429"
+  ],
+  "correctIndex": 1,
+  "answer": "$1,471",
+  "explanation": "TV = 100 × 1.03 / (0.10 − 0.03) = 103 / 0.07 = $1,471. $1,429 forgets to grow the cash flow by (1 + g) first.",
+  "keywords": [
+   "Gordon Growth",
+   "next year",
+   "(1+g)"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0011",
+  "lessonId": "0.3",
+  "module": 0,
+  "category": "Finance Foundations",
+  "difficulty": "medium",
+  "question": "A perpetuity pays $60 a year forever, with the FIRST payment made today. The discount rate is 8%. What's it worth?",
+  "options": [
+   "$480",
+   "$810",
+   "$694",
+   "$750"
+  ],
+  "correctIndex": 1,
+  "answer": "$810",
+  "explanation": "The standard formula CF / r = $750 values payments starting one year from now. Add today's $60: $810.",
+  "keywords": [
+   "perpetuity",
+   "timing"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0012",
+  "lessonId": "0.3",
+  "module": 0,
+  "category": "Finance Foundations",
+  "difficulty": "easy",
+  "question": "Why must a company's perpetual growth rate stay below long-run GDP growth?",
+  "options": [
+   "Otherwise the company would eventually become larger than the entire economy",
+   "Because terminal value must be less than 50% of the DCF",
+   "Because growth above GDP makes the discount rate negative",
+   "Because the formula requires g to be below inflation"
+  ],
+  "correctIndex": 0,
+  "answer": "Otherwise the company would eventually become larger than the entire economy",
+  "explanation": "Growing faster than the economy forever is impossible. Separately, g must also stay below the discount rate or the formula breaks.",
+  "keywords": [
+   "GDP",
+   "terminal growth"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0013",
+  "lessonId": "1.1",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "easy",
+  "question": "In an interview, which answer best explains why the cash flow statement is often called the most important statement?",
+  "options": [
+   "It shows net income, which drives EPS and the P/E multiple",
+   "It shows actual cash generation, which drives both solvency and valuation",
+   "It uses accrual accounting, which is more accurate than cash",
+   "It shows every asset and liability at a single point in time"
+  ],
+  "correctIndex": 1,
+  "answer": "It shows actual cash generation, which drives both solvency and valuation",
+  "explanation": "Cash keeps a company alive and is what a DCF values. Net income includes non-cash items and timing differences.",
+  "keywords": [
+   "cash flow statement",
+   "cash generation",
+   "solvency"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0014",
+  "lessonId": "1.1",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "medium",
+  "question": "You can only use two financial statements to analyze a company. Which pair should you choose?",
+  "options": [
+   "Balance sheet and cash flow statement",
+   "Income statement and cash flow statement",
+   "Any two, since each can be fully derived from the other two",
+   "Balance sheet and income statement"
+  ],
+  "correctIndex": 3,
+  "answer": "Balance sheet and income statement",
+  "explanation": "With the income statement plus a beginning and ending balance sheet, you can rebuild the cash flow statement. The reverse doesn't work as cleanly.",
+  "keywords": [
+   "balance sheet",
+   "income statement",
+   "rebuild"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0015",
+  "lessonId": "1.1",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "easy",
+  "question": "A company completes a $50 service in December and bills the client on 60-day terms. What does it record in December?",
+  "options": [
+   "$50 of revenue and $50 of cash, since the work is done",
+   "$50 of revenue and $50 of accounts receivable; no cash",
+   "$50 of deferred revenue until the 60-day term ends",
+   "No revenue or receivable until the client actually pays"
+  ],
+  "correctIndex": 1,
+  "answer": "$50 of revenue and $50 of accounts receivable; no cash",
+  "explanation": "Under accrual accounting, revenue is recognized when earned. The unpaid amount is accounts receivable.",
+  "keywords": [
+   "accrual",
+   "revenue recognition",
+   "accounts receivable"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0016",
+  "lessonId": "1.1",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "medium",
+  "question": "Which item reduces net income but has no effect on cash in the period?",
+  "options": [
+   "A goodwill impairment",
+   "Capital expenditures",
+   "A dividend payment",
+   "Repaying debt principal"
+  ],
+  "correctIndex": 0,
+  "answer": "A goodwill impairment",
+  "explanation": "An impairment is a non-cash expense. Dividends, CapEx, and debt repayment use cash but never hit the income statement.",
+  "keywords": [
+   "non-cash",
+   "impairment"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0017",
+  "lessonId": "1.1",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "medium",
+  "question": "Which of these appears on the cash flow statement but never on the income statement?",
+  "options": [
+   "Interest expense",
+   "Share repurchases",
+   "Amortization of intangibles",
+   "Stock-based compensation"
+  ],
+  "correctIndex": 1,
+  "answer": "Share repurchases",
+  "explanation": "Buybacks are a financing cash outflow. Interest, SBC, and amortization all appear on the income statement.",
+  "keywords": [
+   "financing",
+   "buyback",
+   "income statement"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0018",
+  "lessonId": "1.1",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "hard",
+  "question": "How are preferred dividends treated?",
+  "options": [
+   "Ignored, since only common dividends affect the statements",
+   "Recorded as an operating expense above EBIT",
+   "Subtracted from net income to get income available to common shareholders",
+   "Recorded as interest expense, so they're tax-deductible"
+  ],
+  "correctIndex": 2,
+  "answer": "Subtracted from net income to get income available to common shareholders",
+  "explanation": "Preferred dividends aren't tax-deductible expenses. They come after net income, reducing what's available to common shareholders.",
+  "keywords": [
+   "preferred dividends",
+   "common shareholders"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0019",
+  "lessonId": "1.2",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "easy",
+  "question": "Accounts payable increases by $20 and nothing else changes. What happens to cash flow from operations?",
+  "options": [
+   "Increases by $20",
+   "Decreases by $20",
+   "Increases by $12 after tax",
+   "No change, because AP is a balance sheet item"
+  ],
+  "correctIndex": 0,
+  "answer": "Increases by $20",
+  "explanation": "An increase in an operating liability means the company hasn't paid cash it owes yet, so cash is higher.",
+  "keywords": [
+   "accounts payable",
+   "source of cash",
+   "working capital"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0020",
+  "lessonId": "1.2",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "medium",
+  "question": "Equipment with a $80 book value is sold for $100. Tax rate 25%. What is the net change in cash?",
+  "options": [
+   "+$80",
+   "+$95",
+   "+$100",
+   "+$115"
+  ],
+  "correctIndex": 1,
+  "answer": "+$95",
+  "explanation": "Gain = $20; tax = $5; net income +$15. CFO: +15 − 20 (remove gain) = −5. CFI: +100. Net = +95.",
+  "keywords": [
+   "gain on sale",
+   "proceeds",
+   "investing"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0021",
+  "lessonId": "1.2",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "medium",
+  "question": "Why is depreciation added back on the cash flow statement?",
+  "options": [
+   "Because depreciation increases taxes, which must be reversed",
+   "Because GAAP requires it to be shown twice",
+   "The cash left when the asset was bought, already shown as CapEx in investing",
+   "Because depreciation isn't a real economic cost"
+  ],
+  "correctIndex": 2,
+  "answer": "The cash left when the asset was bought, already shown as CapEx in investing",
+  "explanation": "Depreciation spreads a past purchase over time. The cash outflow was CapEx. Adding back avoids counting it twice.",
+  "keywords": [
+   "non-cash",
+   "CapEx",
+   "double count"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0022",
+  "lessonId": "1.2",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "hard",
+  "question": "A model's liabilities plus equity exceed its assets by exactly the amount of dividends paid. What's the most likely error?",
+  "options": [
+   "Dividends were added to cash instead of subtracted",
+   "Dividends weren't subtracted from retained earnings",
+   "Dividends were recorded as an expense on the income statement",
+   "Dividends are missing from the financing section of the CFS"
+  ],
+  "correctIndex": 1,
+  "answer": "Dividends weren't subtracted from retained earnings",
+  "explanation": "If cash falls (CFS is right) but retained earnings doesn't, equity is too high by the dividend. Missing dividends on the CFS would make assets too high instead.",
+  "keywords": [
+   "retained earnings",
+   "dividends",
+   "balance check"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0023",
+  "lessonId": "1.2",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "easy",
+  "question": "Inventory decreases by $15 because goods were sold. What's the effect on cash flow from operations, all else equal?",
+  "options": [
+   "Increases by $9 after tax",
+   "Decreases by $15",
+   "No effect",
+   "Increases by $15"
+  ],
+  "correctIndex": 3,
+  "answer": "Increases by $15",
+  "explanation": "A decrease in an operating asset is a source of cash.",
+  "keywords": [
+   "inventory",
+   "working capital"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0024",
+  "lessonId": "1.3",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "easy",
+  "question": "Depreciation increases by $10. Tax rate 25%. What happens to cash?",
+  "options": [
+   "Up $10.00",
+   "Down $7.50",
+   "Down $2.50",
+   "Up $2.50"
+  ],
+  "correctIndex": 3,
+  "answer": "Up $2.50",
+  "explanation": "Net income falls $7.50, add back $10 of non-cash depreciation → cash up $2.50. That's the tax shield: $10 × 25%.",
+  "keywords": [
+   "tax shield",
+   "depreciation",
+   "add back"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0025",
+  "lessonId": "1.3",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "medium",
+  "question": "A company records $20 of stock-based compensation. Tax rate 25%. What happens to total shareholders' equity?",
+  "options": [
+   "No change",
+   "Up $5",
+   "Up $20",
+   "Down $15"
+  ],
+  "correctIndex": 1,
+  "answer": "Up $5",
+  "explanation": "Net income falls $15 (retained earnings −15), but new stock issued adds $20 to common stock/APIC. Net +$5, matching cash +$5.",
+  "keywords": [
+   "SBC",
+   "APIC",
+   "retained earnings"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0026",
+  "lessonId": "1.3",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "easy",
+  "question": "A company raises $100 of debt and immediately uses it to buy $100 of PP&E. What happens to total assets?",
+  "options": [
+   "Down $100",
+   "No change",
+   "Up $100",
+   "Up $200"
+  ],
+  "correctIndex": 2,
+  "answer": "Up $100",
+  "explanation": "Cash +100 then −100 (net 0), PP&E +100. Assets +100, matched by debt +100.",
+  "keywords": [
+   "debt",
+   "PP&E",
+   "assets"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0027",
+  "lessonId": "1.3",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "medium",
+  "question": "Inventory is written down by $30. Tax rate 40%; the write-down is tax-deductible. What happens to total assets?",
+  "options": [
+   "Down $12",
+   "Up $12",
+   "Down $18",
+   "Down $30"
+  ],
+  "correctIndex": 2,
+  "answer": "Down $18",
+  "explanation": "Net income −18, add back 30 → cash +12. Inventory −30. Assets: +12 − 30 = −18. Equity also −18.",
+  "keywords": [
+   "write-down",
+   "non-cash",
+   "inventory"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0028",
+  "lessonId": "1.3",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "medium",
+  "question": "A company repays $50 of debt principal and pays $10 of interest. Tax rate 40%. What happens to cash?",
+  "options": [
+   "Down $60",
+   "Down $50",
+   "Down $54",
+   "Down $56"
+  ],
+  "correctIndex": 3,
+  "answer": "Down $56",
+  "explanation": "Interest after tax costs $6 (net income −6). Principal is −50 in financing. Total −56.",
+  "keywords": [
+   "principal",
+   "interest",
+   "after-tax"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0029",
+  "lessonId": "1.3",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "easy",
+  "question": "A customer prepays $40 for service to be delivered next year. What's the income statement impact this year?",
+  "options": [
+   "Revenue +$40",
+   "Revenue +$24 after tax",
+   "Revenue +$40 and an expense of $40",
+   "None"
+  ],
+  "correctIndex": 3,
+  "answer": "None",
+  "explanation": "The revenue isn't earned yet. Cash +40 and deferred revenue (a liability) +40.",
+  "keywords": [
+   "deferred revenue",
+   "liability"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0030",
+  "lessonId": "1.3",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "easy",
+  "question": "A $10 sale is made on credit. Tax rate 40%. What happens to cash?",
+  "options": [
+   "No change",
+   "Down $4",
+   "Down $10",
+   "Up $6"
+  ],
+  "correctIndex": 1,
+  "answer": "Down $4",
+  "explanation": "Net income +6, but AR +10 is subtracted on the CFS. Cash −4: the company owes tax on revenue it hasn't collected.",
+  "keywords": [
+   "accounts receivable",
+   "taxes"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0031",
+  "lessonId": "1.3",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "medium",
+  "question": "A $10 bonus is expensed but not yet paid. Tax rate 40%. What happens to total assets?",
+  "options": [
+   "No change",
+   "Up $4",
+   "Up $10",
+   "Down $6"
+  ],
+  "correctIndex": 1,
+  "answer": "Up $4",
+  "explanation": "Net income −6, add back +10 increase in accrued expenses → cash +4. Liabilities +10, equity −6, assets +4.",
+  "keywords": [
+   "accrued expenses",
+   "source of cash"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0032",
+  "lessonId": "1.3",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "medium",
+  "question": "Inventory bought last year for $10 is sold this year for $15. Tax rate 40%. What happens to cash THIS year?",
+  "options": [
+   "Up $3",
+   "Up $15",
+   "Up $13",
+   "Up $5"
+  ],
+  "correctIndex": 2,
+  "answer": "Up $13",
+  "explanation": "Net income +3 ((15 − 10) × 60%). Inventory falls $10 → +10 on the CFS. Cash +13. The cash spent buying it was last year.",
+  "keywords": [
+   "inventory",
+   "COGS",
+   "timing"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0033",
+  "lessonId": "1.3",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "hard",
+  "question": "A $10 goodwill impairment is NOT tax-deductible. What happens to cash?",
+  "options": [
+   "Up $4",
+   "Down $6",
+   "No change",
+   "Down $10"
+  ],
+  "correctIndex": 2,
+  "answer": "No change",
+  "explanation": "Net income falls the full $10 (no tax savings). Add back $10 non-cash → cash unchanged. No tax shield because it isn't deductible.",
+  "keywords": [
+   "impairment",
+   "non-deductible",
+   "tax shield"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0034",
+  "lessonId": "1.4",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "easy",
+  "question": "Which item is NOT part of operating working capital?",
+  "options": [
+   "Short-term debt",
+   "Deferred revenue",
+   "Accrued expenses",
+   "Prepaid expenses"
+  ],
+  "correctIndex": 0,
+  "answer": "Short-term debt",
+  "explanation": "Debt is a financing item. Deferred revenue and accrued expenses are operating liabilities; prepaids are an operating asset.",
+  "keywords": [
+   "working capital",
+   "financing"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0035",
+  "lessonId": "1.4",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "medium",
+  "question": "DSO is 45 days, DIO is 60 days, and DPO is 30 days. What is the cash conversion cycle?",
+  "options": [
+   "105 days",
+   "15 days",
+   "135 days",
+   "75 days"
+  ],
+  "correctIndex": 3,
+  "answer": "75 days",
+  "explanation": "CCC = DSO + DIO − DPO = 45 + 60 − 30 = 75.",
+  "keywords": [
+   "cash conversion cycle",
+   "DSO",
+   "DIO",
+   "DPO"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0036",
+  "lessonId": "1.4",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "medium",
+  "question": "A subscription software company has negative working capital. What's the most likely reason?",
+  "options": [
+   "It carries far more inventory than it needs relative to sales volume",
+   "It has drawn heavily on a short-term revolver classified as current",
+   "It is stretching supplier payments because it's running short on cash",
+   "It collects cash upfront and records deferred revenue before delivering service"
+  ],
+  "correctIndex": 3,
+  "answer": "It collects cash upfront and records deferred revenue before delivering service",
+  "explanation": "Upfront billing creates a large deferred revenue liability. That's usually a strength, not a warning.",
+  "keywords": [
+   "negative working capital",
+   "deferred revenue"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0037",
+  "lessonId": "1.4",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "hard",
+  "question": "A deal has a $50 working capital peg. The seller delivers $42 of working capital at closing. What happens to the price?",
+  "options": [
+   "No change; the peg is just a target",
+   "It rises by $8",
+   "It falls by $8",
+   "It falls by $42"
+  ],
+  "correctIndex": 2,
+  "answer": "It falls by $8",
+  "explanation": "The price adjusts dollar for dollar for the shortfall versus the agreed normal level.",
+  "keywords": [
+   "true-up",
+   "peg",
+   "closing"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0038",
+  "lessonId": "1.4",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "medium",
+  "question": "Revenue grows from $500 to $600. Net working capital is 15% of revenue. How much does the change in NWC reduce free cash flow?",
+  "options": [
+   "$90",
+   "$15",
+   "$75",
+   "$0"
+  ],
+  "correctIndex": 1,
+  "answer": "$15",
+  "explanation": "NWC goes from $75 to $90. The increase, $15, is the cash used. $90 and $75 are the levels, not the change.",
+  "keywords": [
+   "change in NWC",
+   "levels vs change"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0039",
+  "lessonId": "1.5",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "medium",
+  "question": "Tax depreciation is $30 and book depreciation is $20 this year. Tax rate 25%. What's the change in the deferred tax liability?",
+  "options": [
+   "Up $10.00",
+   "Up $7.50",
+   "Down $2.50",
+   "Up $2.50"
+  ],
+  "correctIndex": 3,
+  "answer": "Up $2.50",
+  "explanation": "Cash taxes are lower than book taxes by ($30 − $20) × 25% = $2.50, which is owed later. DTL +$2.50.",
+  "keywords": [
+   "DTL",
+   "timing difference"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0040",
+  "lessonId": "1.5",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "hard",
+  "question": "A US company has $100 of NOLs generated after 2017 and $80 of taxable income this year. How much NOL can it use this year?",
+  "options": [
+   "$80",
+   "$64",
+   "$100",
+   "$16"
+  ],
+  "correctIndex": 1,
+  "answer": "$64",
+  "explanation": "Post-2017 NOLs can offset up to 80% of taxable income: 80% × $80 = $64. The rest carries forward indefinitely.",
+  "keywords": [
+   "NOL",
+   "80% limit"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0041",
+  "lessonId": "1.5",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "medium",
+  "question": "What is the purpose of Section 382?",
+  "options": [
+   "It converts NOLs into tax credits for the acquirer",
+   "It limits annual NOL usage after a more-than-50% ownership change",
+   "It requires acquired NOLs to be written off immediately",
+   "It allows NOLs to be carried back 10 years after an acquisition"
+  ],
+  "correctIndex": 1,
+  "answer": "It limits annual NOL usage after a more-than-50% ownership change",
+  "explanation": "It stops companies from buying shells just for their losses. The annual limit is roughly equity value × a long-term tax-exempt rate.",
+  "keywords": [
+   "Section 382",
+   "ownership change",
+   "limit"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0042",
+  "lessonId": "1.5",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "medium",
+  "question": "When does a company record a valuation allowance against a deferred tax asset?",
+  "options": [
+   "When tax rates are expected to rise",
+   "Whenever the company has a DTL larger than its DTA",
+   "When it's more likely than not that the DTA won't be realized",
+   "Every year, to amortize the DTA evenly"
+  ],
+  "correctIndex": 2,
+  "answer": "When it's more likely than not that the DTA won't be realized",
+  "explanation": "If the company may not earn enough taxable income to use the DTA (e.g., NOLs), it reduces the DTA with an allowance.",
+  "keywords": [
+   "valuation allowance",
+   "realization"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0043",
+  "lessonId": "1.5",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "hard",
+  "question": "Which statement about stock-based compensation in a DCF is most accurate?",
+  "options": [
+   "SBC should always be added back because it never uses cash",
+   "SBC reduces both cash flow and share count, so it double-counts if expensed",
+   "Adding SBC back to free cash flow without counting dilution overstates value",
+   "SBC should be ignored since it's not in EBITDA"
+  ],
+  "correctIndex": 2,
+  "answer": "Adding SBC back to free cash flow without counting dilution overstates value",
+  "explanation": "SBC is non-cash but costs shareholders through dilution. Adding it back and ignoring future dilution inflates value.",
+  "keywords": [
+   "SBC",
+   "dilution",
+   "DCF"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0044",
+  "lessonId": "1.6",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "easy",
+  "question": "A company pays $500 for a target with $200 of book equity. Identifiable assets are written up by $100. Ignoring taxes, what is goodwill?",
+  "options": [
+   "$300",
+   "$100",
+   "$200",
+   "$400"
+  ],
+  "correctIndex": 2,
+  "answer": "$200",
+  "explanation": "Goodwill = 500 − (200 + 100) = $200. $300 forgets the write-up.",
+  "keywords": [
+   "goodwill",
+   "write-up",
+   "plug"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0045",
+  "lessonId": "1.6",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "hard",
+  "question": "Same deal: $500 price, $200 book equity, $100 asset write-up, but it's a stock deal with a 25% tax rate. What is goodwill?",
+  "options": [
+   "$225",
+   "$200",
+   "$175",
+   "$300"
+  ],
+  "correctIndex": 0,
+  "answer": "$225",
+  "explanation": "The write-up creates a DTL of $25 (100 × 25%), a new liability that reduces net assets. Goodwill = 500 − 200 − 100 + 25 = $225.",
+  "keywords": [
+   "DTL",
+   "stock deal",
+   "goodwill"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0046",
+  "lessonId": "1.6",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "medium",
+  "question": "In an asset purchase, how is goodwill treated for US tax purposes?",
+  "options": [
+   "Not deductible, just like in a stock deal",
+   "Amortized over 15 years, creating tax deductions",
+   "Expensed immediately in the year of purchase",
+   "Amortized over 40 years"
+  ],
+  "correctIndex": 1,
+  "answer": "Amortized over 15 years, creating tax deductions",
+  "explanation": "An asset deal steps up the tax basis. Goodwill (a Section 197 intangible) is amortized over 15 years for tax.",
+  "keywords": [
+   "asset deal",
+   "15 years",
+   "tax amortization"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0047",
+  "lessonId": "1.6",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "medium",
+  "question": "A buyer pays $90 for a business whose net identifiable assets have a fair value of $100. What happens?",
+  "options": [
+   "$10 of negative goodwill is recorded as a liability",
+   "Goodwill of $10 is recorded",
+   "Assets are written down to $90 and nothing else happens",
+   "A $10 gain is recognized on the income statement"
+  ],
+  "correctIndex": 3,
+  "answer": "A $10 gain is recognized on the income statement",
+  "explanation": "This is a bargain purchase. The $10 is recognized as a gain (after re-checking the fair values).",
+  "keywords": [
+   "bargain purchase",
+   "negative goodwill"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0048",
+  "lessonId": "1.6",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "easy",
+  "question": "Which statement about a goodwill impairment is correct?",
+  "options": [
+   "It reduces net income and goodwill, with no effect on cash",
+   "It's recorded only on the balance sheet, not the income statement",
+   "It increases EBITDA because it reduces taxes",
+   "It reduces cash because goodwill must be paid down"
+  ],
+  "correctIndex": 0,
+  "answer": "It reduces net income and goodwill, with no effect on cash",
+  "explanation": "It's a non-cash charge on the income statement, typically excluded from adjusted EBITDA and EPS.",
+  "keywords": [
+   "impairment",
+   "non-cash"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0049",
+  "lessonId": "1.7",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "medium",
+  "question": "The same company reports under IFRS 16 instead of US GAAP (with operating leases). What happens to EBITDA?",
+  "options": [
+   "It's identical under both standards",
+   "It's lower under IFRS 16",
+   "It's higher under IFRS 16",
+   "It depends on the depreciation method chosen"
+  ],
+  "correctIndex": 2,
+  "answer": "It's higher under IFRS 16",
+  "explanation": "IFRS 16 moves lease costs into depreciation and interest, both below EBITDA. US GAAP operating lease expense stays above EBITDA.",
+  "keywords": [
+   "IFRS 16",
+   "lease",
+   "EBITDA"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0050",
+  "lessonId": "1.7",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "hard",
+  "question": "You compare a European retailer (IFRS) with a US retailer (US GAAP, operating leases) on EV/EBITDA. To make the IFRS company consistent, what should its EV include?",
+  "options": [
+   "Only the current portion of lease liabilities",
+   "Lease liabilities, but only if the leases are over 10 years",
+   "Nothing extra; lease liabilities never belong in EV",
+   "Lease liabilities, since its EBITDA excludes lease costs"
+  ],
+  "correctIndex": 3,
+  "answer": "Lease liabilities, since its EBITDA excludes lease costs",
+  "explanation": "If EBITDA excludes lease costs, the lease claim must be in EV. Otherwise the IFRS company looks artificially cheap.",
+  "keywords": [
+   "consistency",
+   "lease liabilities",
+   "EV"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0051",
+  "lessonId": "1.7",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "medium",
+  "question": "Prices are rising. A company switches from FIFO to LIFO. What happens?",
+  "options": [
+   "Net income rises because inventory is valued higher",
+   "COGS rises, taxes fall, and cash flow improves",
+   "No change to cash, since it's only an accounting choice",
+   "COGS falls, taxes rise, and cash flow falls"
+  ],
+  "correctIndex": 1,
+  "answer": "COGS rises, taxes fall, and cash flow improves",
+  "explanation": "LIFO expenses the newest, most expensive inventory first. Higher COGS → lower taxable income → less cash tax.",
+  "keywords": [
+   "LIFO",
+   "COGS",
+   "taxes"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0052",
+  "lessonId": "1.7",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "medium",
+  "question": "Under IFRS, where can interest paid appear on the cash flow statement?",
+  "options": [
+   "Only in financing, alongside debt repayments",
+   "In either operating or financing activities",
+   "Only in investing, alongside capital spending",
+   "Only in operating, the same as under US GAAP"
+  ],
+  "correctIndex": 1,
+  "answer": "In either operating or financing activities",
+  "explanation": "IFRS gives companies a choice, which can make CFO inconsistent across international comps. US GAAP puts it in CFO.",
+  "keywords": [
+   "IFRS",
+   "interest paid",
+   "classification"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0053",
+  "lessonId": "1.7",
+  "module": 1,
+  "category": "Accounting",
+  "difficulty": "easy",
+  "question": "What does EBITDAR add back compared to EBITDA?",
+  "options": [
+   "Rent (lease) expense",
+   "Research and development",
+   "Receivables write-offs",
+   "Restructuring charges"
+  ],
+  "correctIndex": 0,
+  "answer": "Rent (lease) expense",
+  "explanation": "EBITDAR strips out rent so companies that lease property can be compared with those that own it.",
+  "keywords": [
+   "EBITDAR",
+   "rent"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0054",
+  "lessonId": "2.1",
+  "module": 2,
+  "category": "Enterprise & Equity Value",
+  "difficulty": "easy",
+  "question": "Which statement best describes enterprise value?",
+  "options": [
+   "Market capitalization plus all cash",
+   "The value of all assets to common shareholders only",
+   "The book value of total assets",
+   "The value of the core business to all capital providers"
+  ],
+  "correctIndex": 3,
+  "answer": "The value of the core business to all capital providers",
+  "explanation": "EV = core operations, all investors. Equity value = all assets, common shareholders only.",
+  "keywords": [
+   "enterprise value",
+   "core operations",
+   "all investors"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0055",
+  "lessonId": "2.1",
+  "module": 2,
+  "category": "Enterprise & Equity Value",
+  "difficulty": "easy",
+  "question": "You buy a $600k house with a $450k mortgage. What are the \"enterprise value\" and \"equity value\"?",
+  "options": [
+   "EV $600k; equity value $150k",
+   "EV $150k; equity value $600k",
+   "EV $1,050k; equity value $600k",
+   "EV $450k; equity value $150k"
+  ],
+  "correctIndex": 0,
+  "answer": "EV $600k; equity value $150k",
+  "explanation": "The house (the asset) is worth $600k. Your equity is what's left after the mortgage.",
+  "keywords": [
+   "house analogy"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0056",
+  "lessonId": "2.1",
+  "module": 2,
+  "category": "Enterprise & Equity Value",
+  "difficulty": "medium",
+  "question": "A company has a $1,000 market cap, no debt, and $200 of cash. What is its enterprise value?",
+  "options": [
+   "$800",
+   "$1,200",
+   "$200",
+   "$1,000"
+  ],
+  "correctIndex": 0,
+  "answer": "$800",
+  "explanation": "EV = equity value + debt − cash = 1,000 + 0 − 200 = $800.",
+  "keywords": [
+   "subtract cash"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0057",
+  "lessonId": "2.2",
+  "module": 2,
+  "category": "Enterprise & Equity Value",
+  "difficulty": "medium",
+  "question": "Equity value $1,000; debt $300; cash $100; preferred $50; noncontrolling interest $40; equity investments $30. What is EV?",
+  "options": [
+   "$1,260",
+   "$1,200",
+   "$1,520",
+   "$1,320"
+  ],
+  "correctIndex": 0,
+  "answer": "$1,260",
+  "explanation": "1,000 + 300 + 50 + 40 − 100 − 30 = 1,260. $1,320 adds equity investments instead of subtracting them.",
+  "keywords": [
+   "bridge",
+   "NCI",
+   "equity investments"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0058",
+  "lessonId": "2.2",
+  "module": 2,
+  "category": "Enterprise & Equity Value",
+  "difficulty": "medium",
+  "question": "Why is noncontrolling interest added in the EV bridge?",
+  "options": [
+   "NCI represents cash the parent must pay out",
+   "Minority shareholders have a senior claim like debt holders",
+   "To offset equity investments, which are subtracted",
+   "The parent consolidates 100% of the subsidiary's EBITDA but owns less than 100%"
+  ],
+  "correctIndex": 3,
+  "answer": "The parent consolidates 100% of the subsidiary's EBITDA but owns less than 100%",
+  "explanation": "Adding NCI makes EV cover 100% of the subsidiary, consistent with the 100% of its EBITDA in the denominator.",
+  "keywords": [
+   "NCI",
+   "consolidation",
+   "consistency"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0059",
+  "lessonId": "2.2",
+  "module": 2,
+  "category": "Enterprise & Equity Value",
+  "difficulty": "medium",
+  "question": "A company owns 25% of an affiliate (equity method). How does that stake affect the EV bridge?",
+  "options": [
+   "It's ignored, since the stake is already reflected in market cap",
+   "Its value is added, the same way noncontrolling interest is added",
+   "Its value is subtracted, since the affiliate's EBITDA isn't consolidated",
+   "25% of the affiliate's debt is added, since the parent shares it"
+  ],
+  "correctIndex": 2,
+  "answer": "Its value is subtracted, since the affiliate's EBITDA isn't consolidated",
+  "explanation": "Only the parent's share of the affiliate's net income shows up, below EBITDA. Removing its value keeps EV and EBITDA consistent.",
+  "keywords": [
+   "equity investments",
+   "equity method"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0060",
+  "lessonId": "2.2",
+  "module": 2,
+  "category": "Enterprise & Equity Value",
+  "difficulty": "easy",
+  "question": "Which item is NOT added to equity value in the EV bridge?",
+  "options": [
+   "Noncontrolling interest",
+   "Accounts payable",
+   "Preferred stock",
+   "Total debt"
+  ],
+  "correctIndex": 1,
+  "answer": "Accounts payable",
+  "explanation": "AP is an operating liability within working capital. Only financing claims go in the bridge.",
+  "keywords": [
+   "accounts payable",
+   "operating liability"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0061",
+  "lessonId": "2.2",
+  "module": 2,
+  "category": "Enterprise & Equity Value",
+  "difficulty": "hard",
+  "question": "How is an unfunded pension obligation typically treated in the EV bridge?",
+  "options": [
+   "Ignored, since pensions are operating costs",
+   "Added as a debt-like item, often on an after-tax basis",
+   "Added at double its value to reflect risk",
+   "Subtracted, like cash"
+  ],
+  "correctIndex": 1,
+  "answer": "Added as a debt-like item, often on an after-tax basis",
+  "explanation": "Underfunding is a claim on the business similar to debt. Contributions are tax-deductible, so it's often tax-effected.",
+  "keywords": [
+   "pension",
+   "debt-like"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0062",
+  "lessonId": "2.2",
+  "module": 2,
+  "category": "Enterprise & Equity Value",
+  "difficulty": "hard",
+  "question": "Which reason for subtracting cash in the EV bridge is most complete?",
+  "options": [
+   "It's non-operating, an acquirer effectively gets it back, and it doesn't generate EBITDA",
+   "Cash is only subtracted when it exceeds total debt, to avoid a negative EV",
+   "Market cap already double counts cash, so the bridge removes the duplicate",
+   "Cash is owed back to shareholders, so it works like a liability to the buyer"
+  ],
+  "correctIndex": 0,
+  "answer": "It's non-operating, an acquirer effectively gets it back, and it doesn't generate EBITDA",
+  "explanation": "Both the \"acquirer gets it back\" logic and the EV/EBITDA consistency logic matter.",
+  "keywords": [
+   "cash",
+   "non-operating",
+   "consistency"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0063",
+  "lessonId": "2.3",
+  "module": 2,
+  "category": "Enterprise & Equity Value",
+  "difficulty": "easy",
+  "question": "Share price $40. There are 10 options with a $25 strike. Using the treasury stock method, how many net new shares are added?",
+  "options": [
+   "3.75",
+   "10.00",
+   "6.25",
+   "0"
+  ],
+  "correctIndex": 0,
+  "answer": "3.75",
+  "explanation": "Proceeds = 10 × $25 = $250; shares repurchased = 250 / 40 = 6.25; net = 10 − 6.25 = 3.75. 6.25 is the buyback, not the net.",
+  "keywords": [
+   "treasury stock method",
+   "net shares"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0064",
+  "lessonId": "2.3",
+  "module": 2,
+  "category": "Enterprise & Equity Value",
+  "difficulty": "easy",
+  "question": "Share price $50. There are 5 options with a $60 strike. How many net new shares are added?",
+  "options": [
+   "−0.83",
+   "5.00",
+   "0.83",
+   "0"
+  ],
+  "correctIndex": 3,
+  "answer": "0",
+  "explanation": "The options are out of the money, so no one would exercise. Excluded.",
+  "keywords": [
+   "out of the money"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0065",
+  "lessonId": "2.3",
+  "module": 2,
+  "category": "Enterprise & Equity Value",
+  "difficulty": "medium",
+  "question": "A $300 convertible bond has a $30 conversion price. The share price is $45. How do you treat it?",
+  "options": [
+   "Add 6.67 shares (300 / 45) and remove it from debt",
+   "Keep it as $300 of debt; don't add shares",
+   "Add 10 shares and keep the $300 in debt",
+   "Add 10 shares to the diluted count and remove the $300 from debt"
+  ],
+  "correctIndex": 3,
+  "answer": "Add 10 shares to the diluted count and remove the $300 from debt",
+  "explanation": "In the money (45 > 30), so assume conversion: 300 / 30 = 10 shares. Counting it as debt too would double count.",
+  "keywords": [
+   "if-converted",
+   "convertible",
+   "double count"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0066",
+  "lessonId": "2.3",
+  "module": 2,
+  "category": "Enterprise & Equity Value",
+  "difficulty": "medium",
+  "question": "A $500 convertible has a $50 conversion price. The share price is $40. How is it treated?",
+  "options": [
+   "As $500 of debt, with no new shares",
+   "As 10 new shares, with no debt",
+   "Half as debt and half as shares",
+   "As 12.5 new shares (500 / 40)"
+  ],
+  "correctIndex": 0,
+  "answer": "As $500 of debt, with no new shares",
+  "explanation": "Out of the money, so holders wouldn't convert. It stays as debt.",
+  "keywords": [
+   "convertible",
+   "out of the money"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0067",
+  "lessonId": "2.3",
+  "module": 2,
+  "category": "Enterprise & Equity Value",
+  "difficulty": "hard",
+  "question": "Why does calculating an implied share price with options create circularity?",
+  "options": [
+   "Options must first be valued with Black-Scholes, which itself requires an implied volatility input",
+   "TSM only works with the current share price, so the implied price can never be used for dilution",
+   "The implied price determines which options are in the money, which changes dilution, which changes the price",
+   "RSUs vest based on the implied share price, so the share count keeps changing as the price moves"
+  ],
+  "correctIndex": 2,
+  "answer": "The implied price determines which options are in the money, which changes dilution, which changes the price",
+  "explanation": "Models solve this with iteration or by approximating with the current diluted share count.",
+  "keywords": [
+   "circularity",
+   "dilution",
+   "implied price"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0068",
+  "lessonId": "2.4",
+  "module": 2,
+  "category": "Enterprise & Equity Value",
+  "difficulty": "easy",
+  "question": "Which of these can be negative?",
+  "options": [
+   "Enterprise value and book equity, but not market equity value",
+   "Market equity value only",
+   "Neither enterprise value nor equity value",
+   "All three: EV, market equity value, and book equity"
+  ],
+  "correctIndex": 0,
+  "answer": "Enterprise value and book equity, but not market equity value",
+  "explanation": "Market equity = price × shares ≥ 0 (limited liability). EV can be negative if cash is huge. Book equity can be negative from buybacks or losses.",
+  "keywords": [
+   "negative EV",
+   "book equity",
+   "limited liability"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0069",
+  "lessonId": "2.4",
+  "module": 2,
+  "category": "Enterprise & Equity Value",
+  "difficulty": "easy",
+  "question": "Market cap $200, debt $50, cash $300. What is EV?",
+  "options": [
+   "$450",
+   "$150",
+   "$550",
+   "−$50"
+  ],
+  "correctIndex": 3,
+  "answer": "−$50",
+  "explanation": "200 + 50 − 300 = −50.",
+  "keywords": [
+   "negative EV"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0070",
+  "lessonId": "2.4",
+  "module": 2,
+  "category": "Enterprise & Equity Value",
+  "difficulty": "medium",
+  "question": "What does a negative enterprise value usually signal?",
+  "options": [
+   "The stock is mispriced and will rise until EV returns to zero",
+   "The market expects the business to burn cash or distrusts management with it",
+   "An error in the balance sheet, since EV can't mathematically be negative",
+   "The company has more debt than market equity, so its leverage is excessive"
+  ],
+  "correctIndex": 1,
+  "answer": "The market expects the business to burn cash or distrusts management with it",
+  "explanation": "Investors value the operations below zero. It's common in cash-burning biotechs.",
+  "keywords": [
+   "cash burn",
+   "market signal"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0071",
+  "lessonId": "2.5",
+  "module": 2,
+  "category": "Enterprise & Equity Value",
+  "difficulty": "easy",
+  "question": "A company issues $200 of new stock and holds the cash. What happens?",
+  "options": [
+   "Equity value up $200; EV up $200",
+   "Equity value unchanged; EV up $200",
+   "Equity value up $200; EV unchanged",
+   "Both unchanged"
+  ],
+  "correctIndex": 2,
+  "answer": "Equity value up $200; EV unchanged",
+  "explanation": "Cash +200 is subtracted in the bridge, offsetting the equity increase.",
+  "keywords": [
+   "issue stock",
+   "cash"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0072",
+  "lessonId": "2.5",
+  "module": 2,
+  "category": "Enterprise & Equity Value",
+  "difficulty": "medium",
+  "question": "A company issues $100 of debt and uses it to repurchase $100 of stock. What happens?",
+  "options": [
+   "Both down $100",
+   "Equity value unchanged; EV up $100",
+   "Equity value down $100; EV down $100",
+   "Equity value down $100; EV unchanged"
+  ],
+  "correctIndex": 3,
+  "answer": "Equity value down $100; EV unchanged",
+  "explanation": "Equity falls by the shares bought back; debt rises by the same amount. EV is unchanged (ignoring tax shield effects).",
+  "keywords": [
+   "recapitalization",
+   "capital structure"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0073",
+  "lessonId": "2.5",
+  "module": 2,
+  "category": "Enterprise & Equity Value",
+  "difficulty": "medium",
+  "question": "Market cap $1,000 and net debt $500. The share price rises 10%. By about what percentage does EV change?",
+  "options": [
+   "0%",
+   "5%",
+   "10%",
+   "About 6.7%"
+  ],
+  "correctIndex": 3,
+  "answer": "About 6.7%",
+  "explanation": "Equity +100 → EV goes from 1,500 to 1,600 = +6.7%. Same dollar change, smaller percentage.",
+  "keywords": [
+   "EV",
+   "net debt",
+   "percentage"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0074",
+  "lessonId": "2.5",
+  "module": 2,
+  "category": "Enterprise & Equity Value",
+  "difficulty": "easy",
+  "question": "A company uses $100 of cash to buy 100% of another business. What happens?",
+  "options": [
+   "EV down $100; equity value unchanged",
+   "EV up $100; equity value unchanged",
+   "Both up $100",
+   "EV unchanged; equity value down $100"
+  ],
+  "correctIndex": 1,
+  "answer": "EV up $100; equity value unchanged",
+  "explanation": "Non-operating cash becomes an operating business. Equity is unchanged (asset swap).",
+  "keywords": [
+   "acquisition",
+   "cash",
+   "operations"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0075",
+  "lessonId": "2.5",
+  "module": 2,
+  "category": "Enterprise & Equity Value",
+  "difficulty": "medium",
+  "question": "A convertible bond converts into common shares. What happens?",
+  "options": [
+   "Both unchanged",
+   "Equity value up; EV up",
+   "Equity value unchanged; EV down",
+   "Equity value up; EV unchanged"
+  ],
+  "correctIndex": 3,
+  "answer": "Equity value up; EV unchanged",
+  "explanation": "Debt becomes equity. Total claims on the business don't change.",
+  "keywords": [
+   "conversion",
+   "capital structure"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0076",
+  "lessonId": "3.1",
+  "module": 3,
+  "category": "Valuation",
+  "difficulty": "easy",
+  "question": "Which valuation method usually produces the highest values, and why?",
+  "options": [
+   "The DCF, because it includes terminal value",
+   "Trading comps, because public markets price in future growth",
+   "Precedent transactions, because buyers pay a control premium",
+   "The LBO, because leverage increases the price a buyer can pay"
+  ],
+  "correctIndex": 2,
+  "answer": "Precedent transactions, because buyers pay a control premium",
+  "explanation": "Deal multiples include a control premium (typically 20–40%) and sometimes synergies. The DCF can land anywhere depending on assumptions.",
+  "keywords": [
+   "precedents",
+   "control premium"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0077",
+  "lessonId": "3.1",
+  "module": 3,
+  "category": "Valuation",
+  "difficulty": "medium",
+  "question": "Why is an LBO analysis often treated as the floor of a valuation range?",
+  "options": [
+   "Leverage lowers what any buyer can pay, so the LBO gives the lowest number",
+   "Sponsors are required by their LPs to bid at the lowest defensible value",
+   "A financial buyer could pay at least that much and still hit its target return",
+   "LBO prices never include a control premium, unlike every other method"
+  ],
+  "correctIndex": 2,
+  "answer": "A financial buyer could pay at least that much and still hit its target return",
+  "explanation": "If a sale price fell below what a sponsor could pay while earning 20%+, a sponsor would step in.",
+  "keywords": [
+   "LBO",
+   "floor",
+   "target return"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0078",
+  "lessonId": "3.1",
+  "module": 3,
+  "category": "Valuation",
+  "difficulty": "hard",
+  "question": "When could trading comps imply a higher value than precedent transactions?",
+  "options": [
+   "When the precedent deals were done by strategic buyers rather than sponsors",
+   "When market multiples have risen sharply since the precedent deals were done",
+   "Never, since every precedent includes a control premium on top of trading value",
+   "When the target has negative EBITDA, which makes precedent multiples unusable"
+  ],
+  "correctIndex": 1,
+  "answer": "When market multiples have risen sharply since the precedent deals were done",
+  "explanation": "If deals were struck in a weaker market, even with a control premium they can sit below today's trading multiples.",
+  "keywords": [
+   "market conditions",
+   "precedents vs comps"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0079",
+  "lessonId": "3.1",
+  "module": 3,
+  "category": "Valuation",
+  "difficulty": "medium",
+  "question": "A company has a fast-growing software division and a slow-growing manufacturing division. Which method best captures its value?",
+  "options": [
+   "Liquidation value",
+   "A single EV/EBITDA multiple from manufacturing comps",
+   "Sum-of-the-parts, valuing each segment with its own peers",
+   "A single EV/EBITDA multiple from software comps"
+  ],
+  "correctIndex": 2,
+  "answer": "Sum-of-the-parts, valuing each segment with its own peers",
+  "explanation": "Segments with different growth and margins deserve different multiples. Value each, then adjust for corporate costs and net debt.",
+  "keywords": [
+   "sum-of-the-parts",
+   "segments"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0080",
+  "lessonId": "3.1",
+  "module": 3,
+  "category": "Valuation",
+  "difficulty": "medium",
+  "question": "For a company in bankruptcy where continued operation is doubtful, which method is most relevant?",
+  "options": [
+   "Liquidation value",
+   "Precedent transactions",
+   "Gordon Growth DCF",
+   "Trading comps on forward EBITDA"
+  ],
+  "correctIndex": 0,
+  "answer": "Liquidation value",
+  "explanation": "If it may not survive as a going concern, value what the assets would fetch, minus liabilities.",
+  "keywords": [
+   "liquidation",
+   "distressed"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0081",
+  "lessonId": "3.2",
+  "module": 3,
+  "category": "Valuation",
+  "difficulty": "easy",
+  "question": "Which valuation multiple is mismatched?",
+  "options": [
+   "EV / Revenue",
+   "Equity value / Levered free cash flow",
+   "EV / Net income",
+   "EV / EBIT"
+  ],
+  "correctIndex": 2,
+  "answer": "EV / Net income",
+  "explanation": "EV belongs to all investors; net income is after interest, so it belongs only to shareholders.",
+  "keywords": [
+   "consistency",
+   "EV",
+   "net income"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0082",
+  "lessonId": "3.2",
+  "module": 3,
+  "category": "Valuation",
+  "difficulty": "medium",
+  "question": "Two companies have identical operations. One has no debt; the other is heavily levered. Which multiple will differ most between them?",
+  "options": [
+   "EV/EBITDA",
+   "EV/Revenue",
+   "EV/EBIT",
+   "P/E"
+  ],
+  "correctIndex": 3,
+  "answer": "P/E",
+  "explanation": "Interest expense reduces the levered company's net income, so P/E changes. EV-based multiples are capital-structure neutral.",
+  "keywords": [
+   "P/E",
+   "capital structure"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0083",
+  "lessonId": "3.2",
+  "module": 3,
+  "category": "Valuation",
+  "difficulty": "medium",
+  "question": "For a capital-intensive business with heavy ongoing CapEx, which multiple is usually more meaningful than EV/EBITDA?",
+  "options": [
+   "EV / Revenue",
+   "EV / EBITDAR",
+   "P / Book value",
+   "EV / (EBITDA − CapEx)"
+  ],
+  "correctIndex": 3,
+  "answer": "EV / (EBITDA − CapEx)",
+  "explanation": "EBITDA ignores CapEx. For capital-heavy businesses, EBITDA − CapEx (or EBIT) better reflects cash generation.",
+  "keywords": [
+   "CapEx",
+   "EBITDA weakness"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0084",
+  "lessonId": "3.2",
+  "module": 3,
+  "category": "Valuation",
+  "difficulty": "easy",
+  "question": "A pre-profit SaaS company is growing 60% a year. Which multiple is most commonly used?",
+  "options": [
+   "P / E",
+   "EV / NTM revenue",
+   "P / Book value",
+   "EV / LTM EBITDA"
+  ],
+  "correctIndex": 1,
+  "answer": "EV / NTM revenue",
+  "explanation": "With negative earnings, profit-based multiples are meaningless. Forward revenue captures growth.",
+  "keywords": [
+   "EV/revenue",
+   "unprofitable"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0085",
+  "lessonId": "3.2",
+  "module": 3,
+  "category": "Valuation",
+  "difficulty": "medium",
+  "question": "A stock has a P/E of 30x and expected EPS growth of 15%. What is its PEG ratio?",
+  "options": [
+   "4.5",
+   "15.0",
+   "2.0",
+   "0.5"
+  ],
+  "correctIndex": 2,
+  "answer": "2.0",
+  "explanation": "PEG = P/E ÷ growth rate (as a whole number) = 30 / 15 = 2.0.",
+  "keywords": [
+   "PEG"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0086",
+  "lessonId": "3.2",
+  "module": 3,
+  "category": "Valuation",
+  "difficulty": "hard",
+  "question": "Two companies grow at the same rate, but Company A trades at a much higher EV/EBITDA. What's the most plausible explanation?",
+  "options": [
+   "A's EBITDA includes more depreciation, which inflates the EV it trades at",
+   "A pays a higher tax rate, so the market expects more EBITDA growth later",
+   "A earns a higher return on capital, so its growth requires less reinvestment",
+   "A carries more debt, which raises its EV relative to EBITDA"
+  ],
+  "correctIndex": 2,
+  "answer": "A earns a higher return on capital, so its growth requires less reinvestment",
+  "explanation": "Growth that requires little reinvestment converts more EBITDA into free cash flow, so it's worth more per dollar of EBITDA.",
+  "keywords": [
+   "ROIC",
+   "reinvestment",
+   "multiple"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0087",
+  "lessonId": "3.3",
+  "module": 3,
+  "category": "Valuation",
+  "difficulty": "easy",
+  "question": "What role does the 52-week trading range play on a football field?",
+  "options": [
+   "It's the most reliable valuation method",
+   "It's a market reference point, not a valuation method",
+   "It replaces the DCF for public companies",
+   "It sets the floor of the valuation range"
+  ],
+  "correctIndex": 1,
+  "answer": "It's a market reference point, not a valuation method",
+  "explanation": "It shows where the market has valued the stock. An offer below the 52-week low would be hard to sell to shareholders.",
+  "keywords": [
+   "52-week range",
+   "reference"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0088",
+  "lessonId": "3.3",
+  "module": 3,
+  "category": "Valuation",
+  "difficulty": "medium",
+  "question": "Why does a football field show ranges instead of point estimates?",
+  "options": [
+   "Regulators require ranges in every fairness opinion and sell-side pitch book",
+   "Ranges let bankers show the client the highest value each method can support",
+   "Every method depends on assumptions, and overlapping ranges show a defensible price",
+   "Comps and precedents can't produce a point estimate, only a set of multiples"
+  ],
+  "correctIndex": 2,
+  "answer": "Every method depends on assumptions, and overlapping ranges show a defensible price",
+  "explanation": "Ranges are honest about uncertainty. Where methods overlap is often where negotiated prices land.",
+  "keywords": [
+   "ranges",
+   "uncertainty",
+   "overlap"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0089",
+  "lessonId": "4.1",
+  "module": 4,
+  "category": "Valuation",
+  "difficulty": "easy",
+  "question": "The target is a US regional HVAC distributor with $500M of revenue. Which is the best comparable?",
+  "options": [
+   "A US software company serving HVAC contractors",
+   "A $50B diversified industrial conglomerate",
+   "A European HVAC equipment manufacturer with $500M of revenue",
+   "A US HVAC distributor with $600M of revenue"
+  ],
+  "correctIndex": 3,
+  "answer": "A US HVAC distributor with $600M of revenue",
+  "explanation": "Match business model, geography, and size. Same industry isn't enough: distributors and manufacturers have different economics.",
+  "keywords": [
+   "comp selection",
+   "business model",
+   "size"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0090",
+  "lessonId": "4.1",
+  "module": 4,
+  "category": "Valuation",
+  "difficulty": "medium",
+  "question": "How should a small company typically be valued relative to much larger peers?",
+  "options": [
+   "At a discount, for lower liquidity and higher risk",
+   "At a premium, because it's a likely acquisition target",
+   "At exactly the peer median",
+   "At a premium, because small companies grow faster"
+  ],
+  "correctIndex": 0,
+  "answer": "At a discount, for lower liquidity and higher risk",
+  "explanation": "Size discounts reflect liquidity, customer concentration, and risk. Takeover potential can partly offset this, but the default is a discount.",
+  "keywords": [
+   "size discount"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0091",
+  "lessonId": "4.2",
+  "module": 4,
+  "category": "Valuation",
+  "difficulty": "easy",
+  "question": "FY2025 revenue was $1,000. H1 2025 revenue was $480 and H1 2026 revenue was $540. What is LTM revenue through H1 2026?",
+  "options": [
+   "$1,060",
+   "$1,540",
+   "$940",
+   "$1,020"
+  ],
+  "correctIndex": 0,
+  "answer": "$1,060",
+  "explanation": "LTM = FY + current YTD − prior YTD = 1,000 + 540 − 480 = 1,060.",
+  "keywords": [
+   "LTM",
+   "calculation"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0092",
+  "lessonId": "4.2",
+  "module": 4,
+  "category": "Valuation",
+  "difficulty": "easy",
+  "question": "Why do bankers usually use the median multiple instead of the mean?",
+  "options": [
+   "The mean can't be calculated with negative numbers",
+   "The median isn't distorted by outliers",
+   "The median is always higher, which helps the client",
+   "Regulators require the median"
+  ],
+  "correctIndex": 1,
+  "answer": "The median isn't distorted by outliers",
+  "explanation": "One comp at 40x on takeover rumors would pull the mean far from the typical multiple.",
+  "keywords": [
+   "median",
+   "outliers"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0093",
+  "lessonId": "4.2",
+  "module": 4,
+  "category": "Valuation",
+  "difficulty": "medium",
+  "question": "The comps' 25th–75th percentile EV/EBITDA is 8.0x–10.0x. The target has EBITDA of $50, net debt of $100, and 20 shares. What is the implied share price range?",
+  "options": [
+   "$20–$25",
+   "$15–$20",
+   "$25–$30",
+   "$15–$25"
+  ],
+  "correctIndex": 1,
+  "answer": "$15–$20",
+  "explanation": "EV $400–$500 → equity $300–$400 → $15–$20. $20–$25 forgets to subtract net debt; $25–$30 adds it.",
+  "keywords": [
+   "implied price",
+   "bridge",
+   "net debt"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0094",
+  "lessonId": "4.2",
+  "module": 4,
+  "category": "Valuation",
+  "difficulty": "medium",
+  "question": "A comp has EV of $1,200 and reported EBITDA of $100, which includes a one-time $20 restructuring charge. What is its normalized EV/EBITDA?",
+  "options": [
+   "10.0x",
+   "12.0x",
+   "11.0x",
+   "14.4x"
+  ],
+  "correctIndex": 0,
+  "answer": "10.0x",
+  "explanation": "Add back the one-time charge: adjusted EBITDA = $120. 1,200 / 120 = 10.0x.",
+  "keywords": [
+   "normalize",
+   "non-recurring"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0095",
+  "lessonId": "4.2",
+  "module": 4,
+  "category": "Valuation",
+  "difficulty": "medium",
+  "question": "One comp has a June fiscal year-end and the rest end in December. What should you do?",
+  "options": [
+   "Adjust the other comps to a June year-end",
+   "Use its numbers as reported",
+   "Calendarize its financials to a December year-end",
+   "Exclude it, since fiscal years must match"
+  ],
+  "correctIndex": 2,
+  "answer": "Calendarize its financials to a December year-end",
+  "explanation": "Calendarizing converts its figures to the same period as the other comps so the multiples compare like with like.",
+  "keywords": [
+   "calendarization"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0096",
+  "lessonId": "4.2",
+  "module": 4,
+  "category": "Valuation",
+  "difficulty": "medium",
+  "question": "For a high-growth company, which multiples are generally more meaningful?",
+  "options": [
+   "Forward (NTM) multiples",
+   "Book value multiples",
+   "Multiples based on the prior fiscal year",
+   "LTM multiples"
+  ],
+  "correctIndex": 0,
+  "answer": "Forward (NTM) multiples",
+  "explanation": "LTM understates where a fast-growing company is heading, and markets price on expected future results.",
+  "keywords": [
+   "forward multiples",
+   "growth"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0097",
+  "lessonId": "4.3",
+  "module": 4,
+  "category": "Valuation",
+  "difficulty": "easy",
+  "question": "What is a typical control premium in a public company acquisition?",
+  "options": [
+   "About 20–40%",
+   "There's no premium in most deals",
+   "About 75–100%",
+   "About 2–5%"
+  ],
+  "correctIndex": 0,
+  "answer": "About 20–40%",
+  "explanation": "Buyers usually pay 20–40% over the unaffected share price to gain control.",
+  "keywords": [
+   "control premium"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0098",
+  "lessonId": "4.3",
+  "module": 4,
+  "category": "Valuation",
+  "difficulty": "medium",
+  "question": "Why can a strategic buyer usually pay more than a financial buyer?",
+  "options": [
+   "It doesn't need to earn a return on the investment",
+   "It can use more leverage than a PE firm",
+   "It can realize synergies from combining the businesses",
+   "It always has more cash on hand"
+  ],
+  "correctIndex": 2,
+  "answer": "It can realize synergies from combining the businesses",
+  "explanation": "Cost savings and revenue opportunities let a strategic buyer justify a higher price.",
+  "keywords": [
+   "strategic buyer",
+   "synergies"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0099",
+  "lessonId": "4.3",
+  "module": 4,
+  "category": "Valuation",
+  "difficulty": "medium",
+  "question": "A precedent deal was done in 2021, when interest rates were near zero. How might it affect today's valuation?",
+  "options": [
+   "It's the most relevant deal, because it's recent",
+   "It has no effect, since multiples don't depend on rates",
+   "It may overstate what a buyer would pay today",
+   "It understates value, since 2021 multiples were low"
+  ],
+  "correctIndex": 2,
+  "answer": "It may overstate what a buyer would pay today",
+  "explanation": "Cheap financing supported higher multiples. With higher rates, buyers pay less per dollar of EBITDA.",
+  "keywords": [
+   "rates",
+   "precedent relevance"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0100",
+  "lessonId": "4.3",
+  "module": 4,
+  "category": "Valuation",
+  "difficulty": "medium",
+  "question": "The target's unaffected share price is $30. The median premium in comparable deals is 30%. What price does a premiums-paid analysis imply?",
+  "options": [
+   "$33",
+   "$30",
+   "$43",
+   "$39"
+  ],
+  "correctIndex": 3,
+  "answer": "$39",
+  "explanation": "$30 × 1.30 = $39.",
+  "keywords": [
+   "premiums paid"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0101",
+  "lessonId": "4.4",
+  "module": 4,
+  "category": "Valuation",
+  "difficulty": "easy",
+  "question": "A comp has negative EBITDA. How do you treat its EV/EBITDA multiple?",
+  "options": [
+   "Replace it with the highest positive multiple in the set to stay conservative",
+   "Keep the negative multiple in, since the median isn't affected by outliers",
+   "Mark it not meaningful and exclude it from that column's statistics",
+   "Use the absolute value of the multiple so it can be included in the range"
+  ],
+  "correctIndex": 2,
+  "answer": "Mark it not meaningful and exclude it from that column's statistics",
+  "explanation": "A negative multiple has no meaning. Exclude it, and consider EV/revenue instead.",
+  "keywords": [
+   "NM",
+   "negative EBITDA"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0102",
+  "lessonId": "4.4",
+  "module": 4,
+  "category": "Valuation",
+  "difficulty": "medium",
+  "question": "Interest rates rise sharply while a company's earnings are unchanged. What usually happens to its valuation multiples?",
+  "options": [
+   "They expand",
+   "They stay the same",
+   "Only forward multiples change",
+   "They compress"
+  ],
+  "correctIndex": 3,
+  "answer": "They compress",
+  "explanation": "Higher rates raise discount rates, so investors pay less per dollar of earnings.",
+  "keywords": [
+   "multiple compression",
+   "rates"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0103",
+  "lessonId": "4.4",
+  "module": 4,
+  "category": "Valuation",
+  "difficulty": "medium",
+  "question": "One comp trades at 40x EBITDA because of takeover rumors; the rest trade at 8–11x. What should you do?",
+  "options": [
+   "Average it in with the mean instead of the median",
+   "Keep it, since all comps must be included",
+   "Exclude it as an outlier and disclose why",
+   "Use it as the high end of the valuation range"
+  ],
+  "correctIndex": 2,
+  "answer": "Exclude it as an outlier and disclose why",
+  "explanation": "Its multiple reflects a potential deal, not normal trading value. Remove it and note the reason.",
+  "keywords": [
+   "outlier"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0104",
+  "lessonId": "5.1",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "easy",
+  "question": "Equity is 60% and debt is 40% of capital. Cost of equity 12%, pre-tax cost of debt 6%, tax rate 25%. What is WACC?",
+  "options": [
+   "9.0%",
+   "12.0%",
+   "9.6%",
+   "7.5%"
+  ],
+  "correctIndex": 0,
+  "answer": "9.0%",
+  "explanation": "0.6 × 12% + 0.4 × 6% × (1 − 0.25) = 7.2% + 1.8% = 9.0%. 9.6% forgets the tax shield; 7.5% swaps the weights.",
+  "keywords": [
+   "WACC",
+   "after-tax",
+   "weights"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0105",
+  "lessonId": "5.1",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "easy",
+  "question": "Which pairing of cash flow and discount rate is correct?",
+  "options": [
+   "Unlevered FCF with cost of equity; levered FCF with WACC",
+   "Unlevered FCF with WACC; levered FCF with cost of equity",
+   "Both with the cost of debt",
+   "Both with WACC"
+  ],
+  "correctIndex": 1,
+  "answer": "Unlevered FCF with WACC; levered FCF with cost of equity",
+  "explanation": "Match cash flows to the investors who receive them.",
+  "keywords": [
+   "matching",
+   "WACC",
+   "cost of equity"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0106",
+  "lessonId": "5.1",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "medium",
+  "question": "Why should WACC weights use market values rather than book values?",
+  "options": [
+   "Market values are always lower, giving a conservative WACC",
+   "Book values aren't reported in financial statements",
+   "Book values exclude debt",
+   "Investors' required returns apply to what their capital is worth today"
+  ],
+  "correctIndex": 3,
+  "answer": "Investors' required returns apply to what their capital is worth today",
+  "explanation": "Book equity is historical and can even be negative. WACC reflects current opportunity cost.",
+  "keywords": [
+   "market value weights"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0107",
+  "lessonId": "5.1",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "easy",
+  "question": "What is the WACC of a company with no debt?",
+  "options": [
+   "The risk-free rate",
+   "Its cost of equity times (1 − tax rate)",
+   "Its cost of equity",
+   "Zero"
+  ],
+  "correctIndex": 2,
+  "answer": "Its cost of equity",
+  "explanation": "With 100% equity, the only capital provider is shareholders.",
+  "keywords": [
+   "all-equity"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0108",
+  "lessonId": "5.1",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "medium",
+  "question": "A company is temporarily over-levered after an acquisition and plans to pay debt down. Which capital structure should you use in WACC?",
+  "options": [
+   "The industry's average book capital structure",
+   "The current, temporary capital structure",
+   "100% equity, to be conservative",
+   "The long-term target capital structure"
+  ],
+  "correctIndex": 3,
+  "answer": "The long-term target capital structure",
+  "explanation": "A DCF projects the long-term future, so use the structure the company will maintain.",
+  "keywords": [
+   "target capital structure"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0109",
+  "lessonId": "5.2",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "easy",
+  "question": "Risk-free rate 4%, beta 1.5, equity risk premium 5%. What is the cost of equity?",
+  "options": [
+   "7.5%",
+   "11.5%",
+   "13.5%",
+   "10.0%"
+  ],
+  "correctIndex": 1,
+  "answer": "11.5%",
+  "explanation": "4% + 1.5 × 5% = 11.5%.",
+  "keywords": [
+   "CAPM"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0110",
+  "lessonId": "5.2",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "medium",
+  "question": "The expected market return is 9% and the risk-free rate is 4%. A stock has a beta of 1.2. What is its cost of equity?",
+  "options": [
+   "14.8%",
+   "9.0%",
+   "10.0%",
+   "10.8%"
+  ],
+  "correctIndex": 2,
+  "answer": "10.0%",
+  "explanation": "ERP = 9% − 4% = 5%. Re = 4% + 1.2 × 5% = 10%. 14.8% multiplies beta by the full market return instead of the premium.",
+  "keywords": [
+   "ERP",
+   "market return",
+   "CAPM"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0111",
+  "lessonId": "5.2",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "medium",
+  "question": "A stock has a beta of −0.5. The risk-free rate is 4% and the ERP is 5%. What does CAPM give?",
+  "options": [
+   "6.5%",
+   "1.5%",
+   "4.0%",
+   "−1.5%"
+  ],
+  "correctIndex": 1,
+  "answer": "1.5%",
+  "explanation": "4% − 0.5 × 5% = 1.5%. Below the risk-free rate, because the stock behaves like a hedge.",
+  "keywords": [
+   "negative beta"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0112",
+  "lessonId": "5.2",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "hard",
+  "question": "A stock's raw beta is negative. You're valuing it as an operating company in a DCF. What should you generally do?",
+  "options": [
+   "Use the negative beta, since CAPM is still valid",
+   "Use the absolute value of the beta",
+   "Set the cost of equity equal to the risk-free rate",
+   "Use a bottom-up beta from comparable companies instead"
+  ],
+  "correctIndex": 3,
+  "answer": "Use a bottom-up beta from comparable companies instead",
+  "explanation": "A long-run negative beta isn't sensible for an operating business; it usually reflects the sample period.",
+  "keywords": [
+   "negative beta",
+   "bottom-up"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0113",
+  "lessonId": "5.2",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "medium",
+  "question": "A biotech awaiting an FDA decision is extremely volatile but has a low beta. How?",
+  "options": [
+   "Its beta is low because it has no debt",
+   "Its price swings have little correlation with the overall market",
+   "Low-volume stocks always have low volatility",
+   "Volatility and beta are the same thing, so it's a data error"
+  ],
+  "correctIndex": 1,
+  "answer": "Its price swings have little correlation with the overall market",
+  "explanation": "Beta = correlation × (stock volatility / market volatility). High volatility with near-zero correlation gives a low beta.",
+  "keywords": [
+   "beta vs volatility",
+   "correlation"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0114",
+  "lessonId": "5.2",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "medium",
+  "question": "Correlation with the market is 0.5, the stock's volatility is 40%, and the market's is 20%. What is beta?",
+  "options": [
+   "0.5",
+   "2.0",
+   "0.25",
+   "1.0"
+  ],
+  "correctIndex": 3,
+  "answer": "1.0",
+  "explanation": "0.5 × (40% / 20%) = 1.0.",
+  "keywords": [
+   "beta",
+   "correlation",
+   "volatility"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0115",
+  "lessonId": "5.2",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "medium",
+  "question": "A stock's raw beta is 1.6. What is its Blume-adjusted beta?",
+  "options": [
+   "About 1.07",
+   "About 1.93",
+   "1.60",
+   "About 1.40"
+  ],
+  "correctIndex": 3,
+  "answer": "About 1.40",
+  "explanation": "0.67 × 1.6 + 0.33 = 1.402. Adjusted beta pulls toward 1.0.",
+  "keywords": [
+   "Blume",
+   "adjusted beta"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0116",
+  "lessonId": "5.2",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "easy",
+  "question": "What is the beta of cash?",
+  "options": [
+   "1.0",
+   "Equal to the company's beta",
+   "0",
+   "Negative"
+  ],
+  "correctIndex": 2,
+  "answer": "0",
+  "explanation": "Cash returns don't move with the market. That's why large cash balances drag observed beta down.",
+  "keywords": [
+   "beta of cash"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0117",
+  "lessonId": "5.2",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "medium",
+  "question": "Why does CAPM only compensate investors for systematic risk?",
+  "options": [
+   "Regulators require it",
+   "Company-specific risk can be diversified away at no cost",
+   "Company-specific risk doesn't exist in public markets",
+   "Systematic risk is easier to measure"
+  ],
+  "correctIndex": 1,
+  "answer": "Company-specific risk can be diversified away at no cost",
+  "explanation": "Diversified investors eliminate idiosyncratic risk, so the market only pays for risk that can't be diversified away.",
+  "keywords": [
+   "systematic risk",
+   "diversification"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0118",
+  "lessonId": "5.3",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "easy",
+  "question": "Levered beta 1.30, D/E 50%, tax rate 20%. What is the unlevered beta?",
+  "options": [
+   "About 1.82",
+   "About 0.93",
+   "About 0.87",
+   "About 1.04"
+  ],
+  "correctIndex": 1,
+  "answer": "About 0.93",
+  "explanation": "βU = 1.30 / [1 + (1 − 0.20) × 0.50] = 1.30 / 1.40 = 0.93. 0.87 ignores taxes.",
+  "keywords": [
+   "Hamada",
+   "unlever"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0119",
+  "lessonId": "5.3",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "medium",
+  "question": "Unlevered beta 0.90. Relever it at a target D/E of 60% with a 25% tax rate.",
+  "options": [
+   "About 1.31",
+   "About 1.13",
+   "About 1.44",
+   "About 0.62"
+  ],
+  "correctIndex": 0,
+  "answer": "About 1.31",
+  "explanation": "0.90 × [1 + 0.75 × 0.60] = 0.90 × 1.45 = 1.305. 1.44 ignores taxes; 0.62 divides instead of multiplies.",
+  "keywords": [
+   "relever",
+   "Hamada"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0120",
+  "lessonId": "5.3",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "easy",
+  "question": "How do you estimate beta for a private company?",
+  "options": [
+   "Assume a beta of 1.0, since private companies have no market data at all",
+   "Regress the private company's quarterly earnings growth against S&P 500 returns",
+   "Unlever comparable public companies' betas, take the median, relever at the target's structure",
+   "Use the levered beta of the largest public competitor without any adjustment"
+  ],
+  "correctIndex": 2,
+  "answer": "Unlever comparable public companies' betas, take the median, relever at the target's structure",
+  "explanation": "It has no trading history, so use the bottom-up method from public comps.",
+  "keywords": [
+   "bottom-up beta",
+   "private"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0121",
+  "lessonId": "5.3",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "hard",
+  "question": "What key assumption does the standard Hamada formula make?",
+  "options": [
+   "Debt has a beta of zero",
+   "The company holds no cash",
+   "The company pays no taxes",
+   "Equity and debt have equal betas"
+  ],
+  "correctIndex": 0,
+  "answer": "Debt has a beta of zero",
+  "explanation": "For highly levered companies, debt carries real market risk, so Hamada overstates levered beta.",
+  "keywords": [
+   "Hamada",
+   "debt beta"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0122",
+  "lessonId": "5.3",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "hard",
+  "question": "A company holds a huge cash balance relative to its market cap. What does its observed beta likely do?",
+  "options": [
+   "Equal zero, because cash has zero beta",
+   "Accurately reflect operating risk, since cash isn't in EV",
+   "Overstate the risk of its operating business",
+   "Understate the risk of its operating business"
+  ],
+  "correctIndex": 3,
+  "answer": "Understate the risk of its operating business",
+  "explanation": "Observed beta blends risky operations with zero-beta cash, so the operating beta is higher than what you observe.",
+  "keywords": [
+   "cash",
+   "beta",
+   "operating risk"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0123",
+  "lessonId": "5.4",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "easy",
+  "question": "A company's bonds have a 5% coupon but trade at a yield to maturity of 8%. What pre-tax cost of debt should you use?",
+  "options": [
+   "5%",
+   "6.5%",
+   "8%",
+   "3%"
+  ],
+  "correctIndex": 2,
+  "answer": "8%",
+  "explanation": "The coupon was set at issuance. YTM is what investors require today.",
+  "keywords": [
+   "YTM",
+   "cost of debt"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0124",
+  "lessonId": "5.4",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "hard",
+  "question": "A company has large NOLs and no taxable income for the foreseeable future. What's its after-tax cost of debt?",
+  "options": [
+   "Higher than the pre-tax cost",
+   "Zero, since interest is deductible",
+   "Pre-tax cost × (1 − statutory tax rate)",
+   "Equal to its pre-tax cost of debt"
+  ],
+  "correctIndex": 3,
+  "answer": "Equal to its pre-tax cost of debt",
+  "explanation": "It can't use the interest tax shield, so there's no tax benefit to apply.",
+  "keywords": [
+   "tax shield",
+   "NOLs"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0125",
+  "lessonId": "5.4",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "medium",
+  "question": "A company keeps adding debt. What happens to WACC?",
+  "options": [
+   "It rises continuously, since debt adds risk",
+   "It falls at first, then rises as distress risk increases",
+   "It falls continuously, since debt is cheaper",
+   "It stays constant, since weights always sum to 100%"
+  ],
+  "correctIndex": 1,
+  "answer": "It falls at first, then rises as distress risk increases",
+  "explanation": "Cheap, tax-deductible debt lowers WACC until bankruptcy risk raises both the cost of equity and the cost of debt.",
+  "keywords": [
+   "U-shape",
+   "optimal capital structure"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0126",
+  "lessonId": "5.4",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "hard",
+  "question": "Under Modigliani-Miller with no taxes and no bankruptcy costs, how does capital structure affect firm value?",
+  "options": [
+   "Value is maximized at 50% debt",
+   "More debt always increases value",
+   "It has no effect",
+   "More debt always decreases value"
+  ],
+  "correctIndex": 2,
+  "answer": "It has no effect",
+  "explanation": "Real-world effects come from what MM assumes away: tax shields (add value) and distress costs (reduce it).",
+  "keywords": [
+   "Modigliani-Miller"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0127",
+  "lessonId": "5.4",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "medium",
+  "question": "A company has no publicly traded debt. How can you estimate its cost of debt?",
+  "options": [
+   "Infer a synthetic credit rating from metrics like interest coverage and use that rating's spread",
+   "Use its cost of equity, since debt and equity costs converge for private firms",
+   "Use the risk-free rate, since bank loans are secured and nearly riskless",
+   "Use the coupon on its existing bank loan, even though it was set 10 years ago"
+  ],
+  "correctIndex": 0,
+  "answer": "Infer a synthetic credit rating from metrics like interest coverage and use that rating's spread",
+  "explanation": "Interest coverage maps to a typical rating; add that rating's spread to the risk-free rate.",
+  "keywords": [
+   "synthetic rating",
+   "spread"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0128",
+  "lessonId": "5.5",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "hard",
+  "question": "US Treasury yield 4.5%, beta 1.1, ERP 5%, and a 2% country risk premium added directly to the cost of equity. What is the cost of equity?",
+  "options": [
+   "8.0%",
+   "12.0%",
+   "14.0%",
+   "10.0%"
+  ],
+  "correctIndex": 1,
+  "answer": "12.0%",
+  "explanation": "4.5% + 1.1 × 5% + 2% = 12.0%. 14.0% double-counts by also adding the spread to the risk-free rate.",
+  "keywords": [
+   "country risk premium",
+   "CAPM"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0129",
+  "lessonId": "5.5",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "hard",
+  "question": "You discount Indonesian rupiah cash flows using a USD discount rate. What's the likely effect?",
+  "options": [
+   "Value is overstated, because the USD rate excludes higher rupiah inflation",
+   "Value is understated, because USD rates are higher",
+   "No effect, as long as you convert at today's exchange rate",
+   "Only the terminal value is affected"
+  ],
+  "correctIndex": 0,
+  "answer": "Value is overstated, because the USD rate excludes higher rupiah inflation",
+  "explanation": "Rupiah cash flows include higher expected inflation; they need a rupiah-based rate that reflects it.",
+  "keywords": [
+   "currency matching",
+   "inflation"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0130",
+  "lessonId": "5.5",
+  "module": 5,
+  "category": "WACC & Cost of Capital",
+  "difficulty": "medium",
+  "question": "A company is listed in Singapore but earns 80% of its revenue in Indonesia. Which country risk matters more?",
+  "options": [
+   "Indonesia, where it operates and earns",
+   "The US, since ERP is US-based",
+   "Singapore, where it's listed",
+   "Neither, since diversification removes country risk"
+  ],
+  "correctIndex": 0,
+  "answer": "Indonesia, where it operates and earns",
+  "explanation": "Country risk follows where cash flows are generated, not the listing location.",
+  "keywords": [
+   "country risk",
+   "exposure"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0131",
+  "lessonId": "6.1",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "easy",
+  "question": "What is the correct sequence for an unlevered DCF?",
+  "options": [
+   "Project UFCF → discount at WACC → add PV of terminal value → bridge to equity value",
+   "Calculate terminal value → project UFCF → discount at cost of equity",
+   "Project net income → discount at WACC → subtract cash → divide by shares",
+   "Project UFCF → discount at cost of equity → add net debt"
+  ],
+  "correctIndex": 0,
+  "answer": "Project UFCF → discount at WACC → add PV of terminal value → bridge to equity value",
+  "explanation": "Unlevered FCF at WACC gives EV. Subtract net debt to get equity value, then divide by diluted shares.",
+  "keywords": [
+   "DCF steps"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0132",
+  "lessonId": "6.1",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "medium",
+  "question": "You're building a DCF for a company growing 40% a year. How should you set the projection period?",
+  "options": [
+   "Use exactly 5 years, as is standard",
+   "Use 3 years to limit forecasting error",
+   "It doesn't matter, since terminal value adjusts for growth",
+   "Extend it until growth slows toward a steady state"
+  ],
+  "correctIndex": 3,
+  "answer": "Extend it until growth slows toward a steady state",
+  "explanation": "Starting terminal value while the company is still growing fast forces unrealistic assumptions into TV.",
+  "keywords": [
+   "projection period",
+   "steady state"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0133",
+  "lessonId": "6.1",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "medium",
+  "question": "For which company is a standard unlevered DCF least appropriate?",
+  "options": [
+   "A commercial bank",
+   "A regulated utility",
+   "An industrial manufacturer",
+   "A mature consumer staples company"
+  ],
+  "correctIndex": 0,
+  "answer": "A commercial bank",
+  "explanation": "For banks, interest and debt are core operations, so unlevered FCF isn't meaningful.",
+  "keywords": [
+   "banks",
+   "DCF limitations"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0134",
+  "lessonId": "6.2",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "easy",
+  "question": "EBIT $200, tax 25%, D&A $40, CapEx $60, increase in NWC $10. What is unlevered FCF?",
+  "options": [
+   "$120",
+   "$40",
+   "$170",
+   "$140"
+  ],
+  "correctIndex": 0,
+  "answer": "$120",
+  "explanation": "200 × 0.75 = 150; + 40 − 60 − 10 = 120. $140 adds the NWC increase; $170 skips taxes; $40 subtracts D&A.",
+  "keywords": [
+   "UFCF",
+   "NOPAT"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0135",
+  "lessonId": "6.2",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "medium",
+  "question": "Why does an unlevered DCF apply the tax rate to EBIT rather than using the company's actual taxes?",
+  "options": [
+   "Actual taxes are not reported in the financial statements",
+   "EBIT is always taxed at a higher rate",
+   "To include interest expense in the cash flow",
+   "Actual taxes include the interest tax shield, which WACC already captures"
+  ],
+  "correctIndex": 3,
+  "answer": "Actual taxes include the interest tax shield, which WACC already captures",
+  "explanation": "Using actual taxes would count the tax benefit of debt twice: once in cash flow and again in the after-tax cost of debt.",
+  "keywords": [
+   "tax shield",
+   "NOPAT",
+   "WACC"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0136",
+  "lessonId": "6.2",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "easy",
+  "question": "How is interest expense treated in unlevered free cash flow?",
+  "options": [
+   "Subtracted after tax, since the tax shield is part of operating cash flow",
+   "Excluded, because UFCF is cash available before payments to lenders",
+   "Added back like D&A, because interest is a non-cash accounting charge",
+   "Subtracted before tax, the same way it appears on the income statement"
+  ],
+  "correctIndex": 1,
+  "answer": "Excluded, because UFCF is cash available before payments to lenders",
+  "explanation": "UFCF belongs to all capital providers. Interest goes to lenders, so it's not deducted.",
+  "keywords": [
+   "unlevered",
+   "interest"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0137",
+  "lessonId": "6.2",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "hard",
+  "question": "What is the most defensible statement about adding back SBC in a DCF?",
+  "options": [
+   "It's debated; adding it back without counting dilution overstates value",
+   "It must always be added back since it's non-cash",
+   "It doesn't matter, since SBC is immaterial for most companies",
+   "It must always be excluded under GAAP"
+  ],
+  "correctIndex": 0,
+  "answer": "It's debated; adding it back without counting dilution overstates value",
+  "explanation": "Know both sides. Conservative practice treats SBC as a cash expense.",
+  "keywords": [
+   "SBC",
+   "debate",
+   "dilution"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0138",
+  "lessonId": "6.3",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "easy",
+  "question": "Using the mid-year convention, what discount period applies to year 3's cash flow?",
+  "options": [
+   "2.5",
+   "3.0",
+   "3.5",
+   "1.5"
+  ],
+  "correctIndex": 0,
+  "answer": "2.5",
+  "explanation": "Cash arrives evenly through the year, so each period is moved back half a year.",
+  "keywords": [
+   "mid-year convention"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0139",
+  "lessonId": "6.3",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "medium",
+  "question": "What does switching on the mid-year convention do to the valuation?",
+  "options": [
+   "Increases only the terminal value",
+   "Increases it",
+   "Decreases it",
+   "No change, since total cash is the same"
+  ],
+  "correctIndex": 1,
+  "answer": "Increases it",
+  "explanation": "Cash flows are discounted for less time, so their present value rises.",
+  "keywords": [
+   "mid-year",
+   "value"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0140",
+  "lessonId": "6.3",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "hard",
+  "question": "In a 5-year DCF using the mid-year convention, which discount periods should the two terminal value methods use?",
+  "options": [
+   "Perpetuity growth TV: 5.0 years; exit multiple TV: 4.5 years",
+   "Perpetuity growth TV: 4.5 years; exit multiple TV: 5.0 years",
+   "Both: 4.5 years",
+   "Both: 5.0 years"
+  ],
+  "correctIndex": 1,
+  "answer": "Perpetuity growth TV: 4.5 years; exit multiple TV: 5.0 years",
+  "explanation": "Gordon TV is built from mid-year cash flows. Exit-multiple TV assumes a sale at year-end.",
+  "keywords": [
+   "terminal value",
+   "mid-year",
+   "discount period"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0141",
+  "lessonId": "6.3",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "hard",
+  "question": "The valuation date is September 30 and the company's fiscal year ends December 31. What's the first projection period?",
+  "options": [
+   "It's skipped; projections start next fiscal year",
+   "A full fiscal year",
+   "Nine months",
+   "A stub period of about one quarter"
+  ],
+  "correctIndex": 3,
+  "answer": "A stub period of about one quarter",
+  "explanation": "Only the remaining Q4 cash flow belongs to the buyer, and all later discount periods shift accordingly.",
+  "keywords": [
+   "stub period"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0142",
+  "lessonId": "6.4",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "medium",
+  "question": "Final-year UFCF is $120, WACC 9%, terminal growth 2.5%. What is the Gordon Growth terminal value (undiscounted)?",
+  "options": [
+   "About $1,846",
+   "About $1,892",
+   "About $1,333",
+   "About $4,920"
+  ],
+  "correctIndex": 1,
+  "answer": "About $1,892",
+  "explanation": "120 × 1.025 / (0.09 − 0.025) = 123 / 0.065 ≈ $1,892. $1,846 forgets the (1 + g); $4,920 divides by g.",
+  "keywords": [
+   "Gordon Growth",
+   "terminal value"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0143",
+  "lessonId": "6.4",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "medium",
+  "question": "A perpetuity growth TV is $1,800 and final-year EBITDA is $200. What exit multiple does it imply?",
+  "options": [
+   "0.11x",
+   "7.2x",
+   "11.1x",
+   "9.0x"
+  ],
+  "correctIndex": 3,
+  "answer": "9.0x",
+  "explanation": "1,800 / 200 = 9.0x. Compare this with comps to sanity-check the growth assumption. (Ignores mid-year adjustments.)",
+  "keywords": [
+   "implied multiple",
+   "cross-check"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0144",
+  "lessonId": "6.4",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "hard",
+  "question": "Exit-multiple TV is $2,000, WACC is 10%, and final-year UFCF is $120. What perpetuity growth rate does it imply?",
+  "options": [
+   "2.5%",
+   "4.0%",
+   "6.0%",
+   "About 3.8%"
+  ],
+  "correctIndex": 3,
+  "answer": "About 3.8%",
+  "explanation": "g = (TV × WACC − FCF) / (TV + FCF) = (200 − 120) / 2,120 ≈ 3.8%. 4.0% ignores the (1 + g) in the numerator.",
+  "keywords": [
+   "implied growth"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0145",
+  "lessonId": "6.4",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "medium",
+  "question": "Terminal value makes up 92% of a DCF's enterprise value. What's the most likely issue?",
+  "options": [
+   "The discount rate is too high, which shrinks projection-period values",
+   "The projection period ends before the company reaches a steady state",
+   "Nothing; 90%+ is typical and not worth investigating further",
+   "The company carries too much debt relative to its equity value"
+  ],
+  "correctIndex": 1,
+  "answer": "The projection period ends before the company reaches a steady state",
+  "explanation": "TV of 60–80% is common. 90%+ often means the company is still growing fast in the final year.",
+  "keywords": [
+   "TV percentage",
+   "steady state"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0146",
+  "lessonId": "6.4",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "hard",
+  "question": "In the final projection year, CapEx is far below D&A while revenue grows 4%. What does this do to terminal value?",
+  "options": [
+   "No effect, since the terminal value is based on EBITDA only",
+   "Overstates it, because growth isn't being funded by reinvestment",
+   "Makes it more conservative, since D&A lowers taxable income",
+   "Understates it, because the CapEx gap reduces free cash flow"
+  ],
+  "correctIndex": 1,
+  "answer": "Overstates it, because growth isn't being funded by reinvestment",
+  "explanation": "A normalized final year has CapEx at or slightly above D&A. Growing without reinvesting inflates FCF and TV.",
+  "keywords": [
+   "normalization",
+   "CapEx",
+   "D&A"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0147",
+  "lessonId": "6.4",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "medium",
+  "question": "Can the terminal growth rate be negative?",
+  "options": [
+   "No, the Gordon Growth formula breaks down with any negative growth rate",
+   "Yes, but only when WACC is also negative, so the denominator stays positive",
+   "No, terminal growth must at least equal expected long-run inflation",
+   "Yes, for a business in permanent decline, as long as WACC − g stays positive"
+  ],
+  "correctIndex": 3,
+  "answer": "Yes, for a business in permanent decline, as long as WACC − g stays positive",
+  "explanation": "Declining businesses (legacy print, coal) can have negative long-run growth.",
+  "keywords": [
+   "negative growth"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0148",
+  "lessonId": "6.5",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "medium",
+  "question": "Which change usually moves a DCF valuation more: +1% WACC or +1% terminal growth?",
+  "options": [
+   "Neither affects the valuation",
+   "They always have exactly the same impact",
+   "+1% WACC",
+   "+1% terminal growth"
+  ],
+  "correctIndex": 2,
+  "answer": "+1% WACC",
+  "explanation": "WACC hits every discount factor and the TV denominator. Growth only changes the TV.",
+  "keywords": [
+   "sensitivity",
+   "WACC"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0149",
+  "lessonId": "6.5",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "hard",
+  "question": "D&A increases by $10 in every projected year (CapEx unchanged). TV uses an EBITDA exit multiple. What happens to the DCF value?",
+  "options": [
+   "It rises slightly from the PV of extra tax shields; TV is unchanged",
+   "It rises by the full $10 per year, since D&A is added back to FCF",
+   "It falls, because the extra D&A reduces EBIT and NOPAT each year",
+   "No change at all, since D&A is non-cash and gets added back"
+  ],
+  "correctIndex": 0,
+  "answer": "It rises slightly from the PV of extra tax shields; TV is unchanged",
+  "explanation": "Higher D&A lowers taxes on EBIT; UFCF rises by $10 × tax rate. EBITDA is unchanged, so exit-multiple TV doesn't move.",
+  "keywords": [
+   "tax shield",
+   "D&A",
+   "exit multiple"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0150",
+  "lessonId": "6.5",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "medium",
+  "question": "The tax rate rises from 21% to 28%. What usually happens to the DCF value?",
+  "options": [
+   "No change, since taxes are excluded from unlevered FCF",
+   "It falls, but only through a higher WACC on the cost of debt",
+   "It falls, though a slightly lower WACC partly offsets it",
+   "It rises, because the larger tax shield lowers WACC"
+  ],
+  "correctIndex": 2,
+  "answer": "It falls, though a slightly lower WACC partly offsets it",
+  "explanation": "NOPAT and UFCF fall. The after-tax cost of debt also falls, lowering WACC a bit, but the cash flow hit usually dominates.",
+  "keywords": [
+   "tax rate",
+   "UFCF",
+   "WACC"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0151",
+  "lessonId": "6.6",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "easy",
+  "question": "What does a levered DCF produce, and at what rate?",
+  "options": [
+   "Enterprise value, discounting at the cost of equity",
+   "Equity value, discounting at the cost of equity",
+   "Enterprise value, discounting at WACC",
+   "Equity value, discounting at WACC"
+  ],
+  "correctIndex": 1,
+  "answer": "Equity value, discounting at the cost of equity",
+  "explanation": "Levered FCF goes to shareholders only, so use the cost of equity, which gives equity value directly.",
+  "keywords": [
+   "levered DCF"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0152",
+  "lessonId": "6.6",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "medium",
+  "question": "Which item is included in levered FCF but not unlevered FCF?",
+  "options": [
+   "Depreciation and amortization on new capital spending",
+   "Changes in operating working capital such as receivables",
+   "Net new borrowing (debt issued minus debt repaid)",
+   "Capital expenditures for maintenance and growth projects"
+  ],
+  "correctIndex": 2,
+  "answer": "Net new borrowing (debt issued minus debt repaid)",
+  "explanation": "Levered FCF is after interest and net debt flows, because it's the cash left for equity.",
+  "keywords": [
+   "levered FCF",
+   "borrowing"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0153",
+  "lessonId": "6.7",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "medium",
+  "question": "Your DCF implies a share price 3x the current price. What should you check first?",
+  "options": [
+   "The company's dividend policy",
+   "The 52-week trading range",
+   "Terminal value assumptions",
+   "The diluted share count"
+  ],
+  "correctIndex": 2,
+  "answer": "Terminal value assumptions",
+  "explanation": "TV dominates the value. Then check whether projections are realistic, then WACC, then mechanical errors.",
+  "keywords": [
+   "sanity check",
+   "terminal value"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0154",
+  "lessonId": "6.7",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "hard",
+  "question": "An analyst includes interest income on the company's cash in projected UFCF AND adds cash in the equity bridge. What's the problem?",
+  "options": [
+   "Nothing; both are standard",
+   "Cash should be added to EV, not equity value",
+   "The interest should be in WACC instead",
+   "The cash is counted twice"
+  ],
+  "correctIndex": 3,
+  "answer": "The cash is counted twice",
+  "explanation": "Cash is non-operating and handled in the bridge. Its income shouldn't also be in operating cash flow.",
+  "keywords": [
+   "double count",
+   "cash"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0155",
+  "lessonId": "6.7",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "medium",
+  "question": "Should a standalone DCF of an acquisition target include synergies?",
+  "options": [
+   "Only if the target is private",
+   "Yes, but only revenue synergies",
+   "Yes, always, since they're part of the company's value",
+   "No; synergies belong in a separate buyer-specific analysis"
+  ],
+  "correctIndex": 3,
+  "answer": "No; synergies belong in a separate buyer-specific analysis",
+  "explanation": "Standalone value excludes what a particular buyer brings. Paying for synergies transfers that value to the seller.",
+  "keywords": [
+   "synergies",
+   "standalone"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0156",
+  "lessonId": "6.7",
+  "module": 6,
+  "category": "DCF",
+  "difficulty": "hard",
+  "question": "A company reinvests 30% of its after-tax operating profit at a 10% return on invested capital. What growth rate is sustainable?",
+  "options": [
+   "3%",
+   "30%",
+   "13%",
+   "10%"
+  ],
+  "correctIndex": 0,
+  "answer": "3%",
+  "explanation": "g ≈ reinvestment rate × ROIC = 30% × 10% = 3%.",
+  "keywords": [
+   "reinvestment",
+   "ROIC",
+   "growth"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0157",
+  "lessonId": "7.1",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "easy",
+  "question": "What's the strongest general reason to acquire a company instead of building the capability internally?",
+  "options": [
+   "Acquisitions avoid the shareholder approval that large internal projects require",
+   "Buying is consistently cheaper than building because it avoids R&D spending",
+   "Speed and certainty: the target already has the product, customers, or capabilities",
+   "Acquisitions reliably increase EPS, which supports the acquirer's stock price"
+  ],
+  "correctIndex": 2,
+  "answer": "Speed and certainty: the target already has the product, customers, or capabilities",
+  "explanation": "Buying gets you there faster and with less execution risk, though often at a premium.",
+  "keywords": [
+   "build vs buy",
+   "speed"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0158",
+  "lessonId": "7.1",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "easy",
+  "question": "Why are cost synergies usually valued more highly than revenue synergies?",
+  "options": [
+   "Cost synergies are usually several times larger in dollar terms than revenue synergies",
+   "They're within management's control, while revenue synergies depend on customer behavior",
+   "Accounting rules prevent revenue synergies from being recognized until two years after close",
+   "Cost savings aren't taxed, while new revenue from synergies is taxed at the full rate"
+  ],
+  "correctIndex": 1,
+  "answer": "They're within management's control, while revenue synergies depend on customer behavior",
+  "explanation": "Closing a duplicate office is controllable. Cross-selling to customers often doesn't materialize.",
+  "keywords": [
+   "cost synergies",
+   "revenue synergies"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0159",
+  "lessonId": "7.1",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "medium",
+  "question": "What's the most common reason acquisitions destroy value for the buyer?",
+  "options": [
+   "Paying with cash instead of stock",
+   "Overpaying, often with optimistic synergy estimates",
+   "Acquiring companies in the same industry",
+   "Using an investment bank"
+  ],
+  "correctIndex": 1,
+  "answer": "Overpaying, often with optimistic synergy estimates",
+  "explanation": "Competitive auctions push prices up (the winner's curse), and synergies are frequently overestimated.",
+  "keywords": [
+   "overpaying",
+   "winner's curse"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0160",
+  "lessonId": "7.1",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "easy",
+  "question": "What best distinguishes a financial buyer from a strategic buyer?",
+  "options": [
+   "A financial buyer funds deals entirely with equity from its LPs",
+   "A financial buyer consistently pays more because it has no integration costs",
+   "A financial buyer targets a return over a holding period and plans to exit",
+   "A financial buyer must be publicly listed to raise acquisition capital"
+  ],
+  "correctIndex": 2,
+  "answer": "A financial buyer targets a return over a holding period and plans to exit",
+  "explanation": "PE firms buy to sell later at a profit, usually with leverage. Strategics buy to integrate and hold.",
+  "keywords": [
+   "financial buyer",
+   "exit"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0161",
+  "lessonId": "7.2",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "easy",
+  "question": "An acquirer with a 20x P/E buys a target at a 15x purchase P/E, all in stock. Ignoring synergies, is the deal accretive or dilutive?",
+  "options": [
+   "Can't tell without the share count",
+   "Accretive",
+   "Neutral",
+   "Dilutive"
+  ],
+  "correctIndex": 1,
+  "answer": "Accretive",
+  "explanation": "In an all-stock deal, if the acquirer's P/E exceeds the P/E paid, its stock is \"expensive currency\" and the deal is accretive.",
+  "keywords": [
+   "P/E rule",
+   "all-stock"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0162",
+  "lessonId": "7.2",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "medium",
+  "question": "An acquirer with a 12x P/E buys a target at an 18x purchase P/E, all in stock. Ignoring synergies, what's the result?",
+  "options": [
+   "Neutral",
+   "Accretive",
+   "Accretive only if the target grows faster",
+   "Dilutive"
+  ],
+  "correctIndex": 3,
+  "answer": "Dilutive",
+  "explanation": "The acquirer issues cheap stock (low P/E) to buy expensive earnings. The cost exceeds the earnings acquired.",
+  "keywords": [
+   "P/E rule",
+   "dilutive"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0163",
+  "lessonId": "7.2",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "medium",
+  "question": "Acquirer: net income $100, 50 shares (EPS $2.00). It buys a target with $20 of net income for $300, financed entirely with debt at 6%. Tax rate 25%. What's the EPS accretion?",
+  "options": [
+   "20.0%",
+   "About 2.0%",
+   "About 6.5%",
+   "About −6.5%"
+  ],
+  "correctIndex": 2,
+  "answer": "About 6.5%",
+  "explanation": "Pro forma NI = 100 + 20 − 300 × 6% × 0.75 = 106.5. EPS = 2.13, +6.5%. 2.0% forgets to tax-effect the interest.",
+  "keywords": [
+   "accretion",
+   "after-tax interest"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0164",
+  "lessonId": "7.2",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "hard",
+  "question": "Acquirer: net income $100, 50 shares, share price $40. It buys a target with $20 of net income for $300, all in stock. What's the EPS accretion?",
+  "options": [
+   "20.0%",
+   "About 4.3%",
+   "About −4.3%",
+   "10.0%"
+  ],
+  "correctIndex": 1,
+  "answer": "About 4.3%",
+  "explanation": "New shares = 300 / 40 = 7.5. Pro forma EPS = 120 / 57.5 = $2.087 vs $2.00 → +4.3%.",
+  "keywords": [
+   "all-stock",
+   "new shares",
+   "accretion"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0165",
+  "lessonId": "7.2",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "easy",
+  "question": "The acquirer earns 4% interest on its cash. Tax rate 25%. What's the after-tax cost of using that cash in a deal?",
+  "options": [
+   "3%",
+   "5%",
+   "1%",
+   "4%"
+  ],
+  "correctIndex": 0,
+  "answer": "3%",
+  "explanation": "The cost is the after-tax interest income given up: 4% × (1 − 0.25) = 3%.",
+  "keywords": [
+   "cost of cash",
+   "foregone interest"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0166",
+  "lessonId": "7.2",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "hard",
+  "question": "A deal is funded 50% with cash (after-tax cost 3%) and 50% with stock (acquirer P/E 20x). The target is bought at a 22x P/E. Before synergies, is it accretive?",
+  "options": [
+   "Accretive: target earnings yield 4.5% exceeds the 4.0% weighted cost",
+   "Dilutive: the purchase P/E is higher than the acquirer's",
+   "Neutral: the costs exactly offset",
+   "Dilutive: the stock component costs more than the cash"
+  ],
+  "correctIndex": 0,
+  "answer": "Accretive: target earnings yield 4.5% exceeds the 4.0% weighted cost",
+  "explanation": "Cost of stock = 1/20 = 5%; weighted = 4.0%. Target yield = 1/22 ≈ 4.5%. Yield > cost → accretive, despite the higher P/E.",
+  "keywords": [
+   "weighted cost",
+   "earnings yield",
+   "shortcut"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0167",
+  "lessonId": "7.2",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "medium",
+  "question": "A deal is significantly EPS-accretive. What can you conclude?",
+  "options": [
+   "Only that the earnings acquired exceed the after-tax financing cost",
+   "That the deal creates value for the acquirer's shareholders",
+   "That the projected synergies will be realized on schedule",
+   "That the acquirer paid a fair price relative to the target's value"
+  ],
+  "correctIndex": 0,
+  "answer": "Only that the earnings acquired exceed the after-tax financing cost",
+  "explanation": "Cheap debt can make an overpriced deal accretive. Value creation depends on returns vs. cost of capital.",
+  "keywords": [
+   "accretion not value creation"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0168",
+  "lessonId": "7.2",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "medium",
+  "question": "In most interest-rate environments, which financing method is usually cheapest for an acquirer?",
+  "options": [
+   "New debt",
+   "Cash on hand",
+   "New stock",
+   "They always cost the same"
+  ],
+  "correctIndex": 1,
+  "answer": "Cash on hand",
+  "explanation": "Foregone after-tax interest on cash is usually low. Debt is next; stock (1 / P/E) is usually most expensive.",
+  "keywords": [
+   "financing cost",
+   "cash"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0169",
+  "lessonId": "7.3",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "hard",
+  "question": "Purchase price $1,000. Target book equity $400, which includes $100 of existing goodwill. Assets are written up $200. Stock deal, 25% tax rate. What is the new goodwill?",
+  "options": [
+   "$500",
+   "$450",
+   "$700",
+   "$550"
+  ],
+  "correctIndex": 3,
+  "answer": "$550",
+  "explanation": "Remove old goodwill: tangible book = 300. Goodwill = 1,000 − 300 − 200 + 50 (DTL) = 550. $450 forgets to write off old goodwill.",
+  "keywords": [
+   "goodwill",
+   "old goodwill",
+   "DTL"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0170",
+  "lessonId": "7.3",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "medium",
+  "question": "Why does a buyer generally prefer an asset deal over a stock deal?",
+  "options": [
+   "It gets a stepped-up tax basis and can leave unwanted liabilities behind",
+   "It avoids most due diligence, since only selected assets are bought",
+   "It avoids paying transfer and capital gains taxes on the purchase",
+   "It's always faster and cheaper to complete than buying the shares"
+  ],
+  "correctIndex": 0,
+  "answer": "It gets a stepped-up tax basis and can leave unwanted liabilities behind",
+  "explanation": "Higher tax basis means more tax-deductible D&A. The buyer chooses which liabilities to assume.",
+  "keywords": [
+   "asset deal",
+   "step-up"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0171",
+  "lessonId": "7.3",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "medium",
+  "question": "Why does a C-corporation seller usually prefer a stock deal?",
+  "options": [
+   "Stock deals skip the antitrust and regulatory reviews that asset sales require",
+   "An asset sale can trigger tax at the corporate level and again when proceeds are distributed",
+   "In an asset deal the seller keeps every liability, including the ones tied to sold assets",
+   "Buyers always pay a higher headline price for shares than for the same assets"
+  ],
+  "correctIndex": 1,
+  "answer": "An asset sale can trigger tax at the corporate level and again when proceeds are distributed",
+  "explanation": "Asset sales by C-corps face double taxation; selling shares avoids the corporate-level tax.",
+  "keywords": [
+   "double taxation",
+   "stock deal"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0172",
+  "lessonId": "7.3",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "hard",
+  "question": "What does a 338(h)(10) election do?",
+  "options": [
+   "Treats a legal stock purchase as an asset purchase for tax purposes",
+   "Eliminates the deferred tax liability normally created in asset deals",
+   "Converts the target's debt into acquirer equity at closing",
+   "Lets the seller defer capital gains taxes for up to 10 years"
+  ],
+  "correctIndex": 0,
+  "answer": "Treats a legal stock purchase as an asset purchase for tax purposes",
+  "explanation": "The buyer gets a stepped-up basis while the transaction stays a stock deal legally. Available only for certain targets.",
+  "keywords": [
+   "338(h)(10)"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0173",
+  "lessonId": "7.3",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "hard",
+  "question": "How are M&A advisory fees and debt financing fees typically treated?",
+  "options": [
+   "Advisory fees are expensed; financing fees are capitalized and amortized",
+   "Both are expensed immediately",
+   "Advisory fees are capitalized; financing fees are expensed",
+   "Both are capitalized into goodwill"
+  ],
+  "correctIndex": 0,
+  "answer": "Advisory fees are expensed; financing fees are capitalized and amortized",
+  "explanation": "Financing fees are amortized over the debt's term; advisory fees reduce equity.",
+  "keywords": [
+   "transaction fees",
+   "capitalize"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0174",
+  "lessonId": "7.3",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "medium",
+  "question": "An asset write-up of $400 is depreciated over 10 years. Tax rate 25%. By how much does it reduce pro forma net income each year?",
+  "options": [
+   "$100",
+   "$10",
+   "$40",
+   "$30"
+  ],
+  "correctIndex": 3,
+  "answer": "$30",
+  "explanation": "Extra D&A = 400 / 10 = $40 pre-tax; after tax, $30.",
+  "keywords": [
+   "write-up",
+   "D&A",
+   "after-tax"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0175",
+  "lessonId": "7.4",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "medium",
+  "question": "Standalone acquirer EPS is $2.00. Pro forma shares are 60 and pro forma net income before synergies is $114. Tax rate 25%. What are the breakeven pre-tax synergies?",
+  "options": [
+   "$4.50",
+   "$8",
+   "$120",
+   "$6"
+  ],
+  "correctIndex": 1,
+  "answer": "$8",
+  "explanation": "Needed NI = 2.00 × 60 = 120. Shortfall = 6 after tax → 6 / 0.75 = $8 pre-tax.",
+  "keywords": [
+   "breakeven synergies"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0176",
+  "lessonId": "7.4",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "medium",
+  "question": "Why does year-one accretion often look worse than steady state?",
+  "options": [
+   "The target's revenue drops in year one by rule",
+   "Synergies phase in over time and integration costs come upfront",
+   "Interest rates are always higher in the first year",
+   "Goodwill is amortized only in year one"
+  ],
+  "correctIndex": 1,
+  "answer": "Synergies phase in over time and integration costs come upfront",
+  "explanation": "Synergies typically take 2–3 years; severance and systems costs hit early.",
+  "keywords": [
+   "phase-in",
+   "integration costs"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0177",
+  "lessonId": "7.5",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "medium",
+  "question": "In a fixed exchange ratio stock deal, what is fixed and what floats?",
+  "options": [
+   "Both the share count and the deal value float until the deal closes",
+   "Both the share count and the deal value are locked in at signing",
+   "The deal value is fixed; the number of shares issued adjusts with the price",
+   "The shares issued are fixed; the deal value floats with the acquirer's stock price"
+  ],
+  "correctIndex": 3,
+  "answer": "The shares issued are fixed; the deal value floats with the acquirer's stock price",
+  "explanation": "Floating ratios lock the value instead. Collars limit how far either can move.",
+  "keywords": [
+   "exchange ratio",
+   "fixed",
+   "floating"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0178",
+  "lessonId": "7.5",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "easy",
+  "question": "Why does an acquirer's stock often fall when a deal is announced?",
+  "options": [
+   "The market worries it's overpaying or that synergies are overstated",
+   "Regulators require a price adjustment",
+   "The target's debt is added to the acquirer's market cap",
+   "Acquirers must issue stock in every deal"
+  ],
+  "correctIndex": 0,
+  "answer": "The market worries it's overpaying or that synergies are overstated",
+  "explanation": "Target stock usually rises toward the offer; acquirer stock often falls on overpayment fears.",
+  "keywords": [
+   "announcement",
+   "overpaying"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0179",
+  "lessonId": "7.5",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "medium",
+  "question": "Why might a buyer and seller agree to an earnout?",
+  "options": [
+   "To lower the buyer's tax rate",
+   "To bridge a disagreement about the target's future performance",
+   "To avoid paying any upfront price",
+   "Because regulators require it in private deals"
+  ],
+  "correctIndex": 1,
+  "answer": "To bridge a disagreement about the target's future performance",
+  "explanation": "Part of the price is paid only if the target hits agreed targets.",
+  "keywords": [
+   "earnout"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0180",
+  "lessonId": "7.5",
+  "module": 7,
+  "category": "Merger Models",
+  "difficulty": "easy",
+  "question": "An acquirer with 80 shares issues 20 new shares to target shareholders. What does the target's group own afterward?",
+  "options": [
+   "80%",
+   "16%",
+   "20%",
+   "25%"
+  ],
+  "correctIndex": 2,
+  "answer": "20%",
+  "explanation": "20 / (80 + 20) = 20%. 25% divides by the acquirer's old share count.",
+  "keywords": [
+   "pro forma ownership"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0181",
+  "lessonId": "8.1",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "easy",
+  "question": "A sponsor buys a company for $100 using $60 of debt and $40 of equity. It sells for $150 with the debt still at $60. What is the MOIC?",
+  "options": [
+   "1.50x",
+   "2.25x",
+   "3.75x",
+   "2.50x"
+  ],
+  "correctIndex": 1,
+  "answer": "2.25x",
+  "explanation": "Exit equity = 150 − 60 = 90. 90 / 40 = 2.25x. 1.5x is the unlevered return.",
+  "keywords": [
+   "leverage",
+   "MOIC"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0182",
+  "lessonId": "8.1",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "medium",
+  "question": "Same deal ($100 price, $60 debt, $40 equity), but debt is paid down to $30 and the company sells for $150. MOIC?",
+  "options": [
+   "3.75x",
+   "2.25x",
+   "3.0x",
+   "2.5x"
+  ],
+  "correctIndex": 2,
+  "answer": "3.0x",
+  "explanation": "Exit equity = 150 − 30 = 120. 120 / 40 = 3.0x. Debt paydown adds directly to equity.",
+  "keywords": [
+   "debt paydown",
+   "MOIC"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0183",
+  "lessonId": "8.1",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "medium",
+  "question": "A sponsor buys a company for $100 with $70 of debt and $30 of equity. It sells for $80 with debt still at $70. What happens?",
+  "options": [
+   "Equity falls to $24, a 0.8x return",
+   "Equity is unchanged because debt absorbs the loss",
+   "The sponsor loses 20%, the same as the company",
+   "Equity falls to $10, a 0.33x return"
+  ],
+  "correctIndex": 3,
+  "answer": "Equity falls to $10, a 0.33x return",
+  "explanation": "A 20% drop in value wipes out two-thirds of the equity. Leverage magnifies losses.",
+  "keywords": [
+   "leverage",
+   "downside"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0184",
+  "lessonId": "8.1",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "easy",
+  "question": "What IRR do PE firms typically target?",
+  "options": [
+   "About 50%+",
+   "About 5–8%",
+   "About 20–25%",
+   "About 10–12%"
+  ],
+  "correctIndex": 2,
+  "answer": "About 20–25%",
+  "explanation": "Plus a MOIC of around 2.0–3.0x over a 3–7 year hold.",
+  "keywords": [
+   "target IRR"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0185",
+  "lessonId": "8.2",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "medium",
+  "question": "EBITDA $50, entry multiple 10x, fees 2% of EV, debt 5x EBITDA. What is the sponsor's equity check?",
+  "options": [
+   "$250",
+   "$260",
+   "$510",
+   "$240"
+  ],
+  "correctIndex": 1,
+  "answer": "$260",
+  "explanation": "Uses = 500 + 10 fees = 510. Debt = 250. Equity = 510 − 250 = 260. $250 forgets the fees.",
+  "keywords": [
+   "sources and uses",
+   "plug"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0186",
+  "lessonId": "8.2",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "easy",
+  "question": "What does a \"cash-free, debt-free\" purchase mean?",
+  "options": [
+   "The target must pay off all its debt and spend its cash before signing",
+   "The buyer pays enterprise value; the seller keeps the cash and repays the debt",
+   "The buyer pays entirely in stock and doesn't assume any of the debt",
+   "The buyer keeps the target's cash and the seller keeps the debt"
+  ],
+  "correctIndex": 1,
+  "answer": "The buyer pays enterprise value; the seller keeps the cash and repays the debt",
+  "explanation": "It simplifies the negotiation to a single EV number.",
+  "keywords": [
+   "cash-free debt-free"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0187",
+  "lessonId": "8.2",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "medium",
+  "question": "What is the main effect of management rolling over equity in an LBO?",
+  "options": [
+   "It aligns management with the sponsor and reduces the sponsor's equity check",
+   "It makes management the controlling owner of the company post-close",
+   "It replaces most of the debt the sponsor would otherwise need to raise",
+   "It raises the purchase price, since management demands a premium to stay"
+  ],
+  "correctIndex": 0,
+  "answer": "It aligns management with the sponsor and reduces the sponsor's equity check",
+  "explanation": "Management reinvests part of its proceeds. Sponsors also set aside a separate option pool.",
+  "keywords": [
+   "rollover",
+   "alignment"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0188",
+  "lessonId": "8.3",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "easy",
+  "question": "Which ranks the capital structure from most senior to most junior?",
+  "options": [
+   "Senior notes → term loans → revolver → equity",
+   "Revolver/term loans → senior notes → subordinated notes → equity",
+   "Equity → subordinated notes → senior notes → term loans",
+   "Subordinated notes → revolver → senior notes → equity"
+  ],
+  "correctIndex": 1,
+  "answer": "Revolver/term loans → senior notes → subordinated notes → equity",
+  "explanation": "Secured bank debt is most senior; equity is last.",
+  "keywords": [
+   "seniority",
+   "debt stack"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0189",
+  "lessonId": "8.3",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "easy",
+  "question": "How much does a Term Loan B typically amortize each year?",
+  "options": [
+   "About 1%",
+   "0%; it's always a bullet",
+   "50%",
+   "About 10–20%"
+  ],
+  "correctIndex": 0,
+  "answer": "About 1%",
+  "explanation": "TLBs have minimal amortization and are often prepaid with excess cash. TLAs amortize much faster.",
+  "keywords": [
+   "TLB",
+   "amortization"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0190",
+  "lessonId": "8.3",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "medium",
+  "question": "$100 of debt carries 10% PIK interest. No cash payments are made. What is the balance after 2 years?",
+  "options": [
+   "$100",
+   "$121",
+   "$120",
+   "$110"
+  ],
+  "correctIndex": 1,
+  "answer": "$121",
+  "explanation": "PIK interest compounds onto principal: 100 × 1.1 × 1.1 = 121.",
+  "keywords": [
+   "PIK",
+   "compounding"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0191",
+  "lessonId": "8.3",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "medium",
+  "question": "What's the difference between maintenance and incurrence covenants?",
+  "options": [
+   "There is no difference in practice",
+   "Incurrence covenants are tested quarterly; maintenance covenants only at maturity",
+   "Maintenance covenants are tested regularly; incurrence covenants apply only when the company takes an action",
+   "Maintenance covenants apply to bonds; incurrence covenants apply to loans"
+  ],
+  "correctIndex": 2,
+  "answer": "Maintenance covenants are tested regularly; incurrence covenants apply only when the company takes an action",
+  "explanation": "Bank loans usually have maintenance covenants; bonds and cov-lite loans have incurrence covenants.",
+  "keywords": [
+   "covenants",
+   "maintenance",
+   "incurrence"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0192",
+  "lessonId": "8.3",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "medium",
+  "question": "Interest rates rise by 2%. Which part of an LBO's debt stack is most directly affected?",
+  "options": [
+   "PIK preferred stock",
+   "Sponsor equity",
+   "Fixed-rate senior notes",
+   "Floating-rate term loans"
+  ],
+  "correctIndex": 3,
+  "answer": "Floating-rate term loans",
+  "explanation": "Loans float with SOFR, so interest costs rise immediately. Bonds are usually fixed.",
+  "keywords": [
+   "floating rate"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0193",
+  "lessonId": "8.3",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "hard",
+  "question": "What does a call schedule of 104 / 102 / 100 on a bond mean?",
+  "options": [
+   "The coupon steps down from 4% over par to 2% and then to par",
+   "The bond can mature at 104, 102, or 100 months at the issuer's option",
+   "The bond's trading price is guaranteed to stay at or above par until maturity",
+   "Repaying early costs 104% of par in the first callable year, 102% the next, then par"
+  ],
+  "correctIndex": 3,
+  "answer": "Repaying early costs 104% of par in the first callable year, 102% the next, then par",
+  "explanation": "Call premiums compensate lenders for losing expected interest if the company refinances early.",
+  "keywords": [
+   "call protection",
+   "call premium"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0194",
+  "lessonId": "8.4",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "medium",
+  "question": "Two deals both return 2.5x. Deal A takes 3 years; Deal B takes 6 years. Which is correct?",
+  "options": [
+   "Deal A has a much higher IRR (about 36% vs. 17%)",
+   "They have the same IRR, since MOIC is the same",
+   "Deal B has the higher IRR, since it compounds longer",
+   "Deal A has the higher MOIC"
+  ],
+  "correctIndex": 0,
+  "answer": "Deal A has a much higher IRR (about 36% vs. 17%)",
+  "explanation": "2.5^(1/3) − 1 ≈ 35.7%; 2.5^(1/6) − 1 ≈ 16.5%. Same MOIC, faster is better on IRR.",
+  "keywords": [
+   "holding period",
+   "IRR"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0195",
+  "lessonId": "8.4",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "hard",
+  "question": "Entry: EBITDA $100 at 10x. Exit: EBITDA $130 at 11x. Net debt falls from $600 to $400. How much of the equity gain comes from multiple expansion?",
+  "options": [
+   "$130",
+   "$143",
+   "$300",
+   "$100"
+  ],
+  "correctIndex": 0,
+  "answer": "$130",
+  "explanation": "Multiple expansion = (11 − 10) × exit EBITDA 130 = $130. EBITDA growth = 30 × 10 = $300. Debt paydown = $200. Total $630.",
+  "keywords": [
+   "returns attribution",
+   "multiple expansion"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0196",
+  "lessonId": "8.4",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "medium",
+  "question": "Which LBO return driver is considered highest quality?",
+  "options": [
+   "Dividend recaps that return capital early",
+   "EBITDA growth from operational improvements",
+   "Multiple expansion between entry and exit",
+   "Using higher leverage at entry to boost returns"
+  ],
+  "correctIndex": 1,
+  "answer": "EBITDA growth from operational improvements",
+  "explanation": "It's repeatable and within the sponsor's control. Multiple expansion depends on markets.",
+  "keywords": [
+   "return drivers",
+   "quality"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0197",
+  "lessonId": "8.4",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "medium",
+  "question": "Why do sponsors usually assume the exit multiple equals the entry multiple?",
+  "options": [
+   "Multiple expansion depends on markets they don't control, so it's not underwritten",
+   "Accounting rules require exit and entry multiples to match in fund reporting",
+   "Industry multiples historically don't change over a typical 5-year hold",
+   "Lenders require it as a covenant condition before funding the debt"
+  ],
+  "correctIndex": 0,
+  "answer": "Multiple expansion depends on markets they don't control, so it's not underwritten",
+  "explanation": "The deal should work on growth and deleveraging alone.",
+  "keywords": [
+   "exit multiple",
+   "conservatism"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0198",
+  "lessonId": "8.5",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "medium",
+  "question": "Paper LBO: EBITDA $100, 8x entry, 5x leverage. EBITDA grows to $120 by year 5, and $200 of debt is paid down. Exit at 8x. What is the IRR?",
+  "options": [
+   "About 25%",
+   "About 12%",
+   "About 22%",
+   "About 17%"
+  ],
+  "correctIndex": 3,
+  "answer": "About 17%",
+  "explanation": "Entry: EV 800, debt 500, equity 300. Exit: EV 960, debt 300, equity 660. MOIC 2.2x → 2.2^(1/5) ≈ 17%.",
+  "keywords": [
+   "paper LBO",
+   "MOIC",
+   "IRR"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0199",
+  "lessonId": "8.5",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "hard",
+  "question": "A sponsor targets 25% IRR over 5 years (about 3.0x). Expected exit equity is $900, and it can raise $400 of debt at entry. What's the maximum purchase price?",
+  "options": [
+   "$500",
+   "$700",
+   "$1,300",
+   "$300"
+  ],
+  "correctIndex": 1,
+  "answer": "$700",
+  "explanation": "Required equity = 900 / 3.0 = 300. Max price = 300 equity + 400 debt = 700.",
+  "keywords": [
+   "solve backwards",
+   "max price"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0200",
+  "lessonId": "8.5",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "easy",
+  "question": "What IRR does 3.0x in 3 years correspond to?",
+  "options": [
+   "About 44%",
+   "About 26%",
+   "About 33%",
+   "About 100%"
+  ],
+  "correctIndex": 0,
+  "answer": "About 44%",
+  "explanation": "3^(1/3) − 1 ≈ 44%.",
+  "keywords": [
+   "rule of thumb"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0201",
+  "lessonId": "8.5",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "easy",
+  "question": "What IRR does 2.5x in 5 years correspond to?",
+  "options": [
+   "About 30%",
+   "About 15%",
+   "About 25%",
+   "About 20%"
+  ],
+  "correctIndex": 3,
+  "answer": "About 20%",
+  "explanation": "2.5^(1/5) − 1 ≈ 20.1%.",
+  "keywords": [
+   "rule of thumb"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0202",
+  "lessonId": "8.6",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "easy",
+  "question": "Which company is the best LBO candidate?",
+  "options": [
+   "A market-leading B2B services firm with recurring revenue and low CapEx",
+   "A cyclical steel producer with heavy CapEx and hard assets for collateral",
+   "A hardware startup reinvesting all its cash flow into rapid growth",
+   "A fast-growing biotech with a promising drug but no revenue yet"
+  ],
+  "correctIndex": 0,
+  "answer": "A market-leading B2B services firm with recurring revenue and low CapEx",
+  "explanation": "Stable, predictable cash flow with low reinvestment needs can reliably service debt.",
+  "keywords": [
+   "LBO candidate",
+   "stable cash flow"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0203",
+  "lessonId": "8.6",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "medium",
+  "question": "Why do PE firms value recurring revenue so highly?",
+  "options": [
+   "It requires little customer service, which keeps operating costs low",
+   "It's taxed at a lower rate than one-time product revenue",
+   "It makes cash flow predictable, which supports more debt safely",
+   "It always grows faster than one-time revenue, boosting the exit multiple"
+  ],
+  "correctIndex": 2,
+  "answer": "It makes cash flow predictable, which supports more debt safely",
+  "explanation": "Predictability lets lenders and sponsors comfortably size leverage.",
+  "keywords": [
+   "recurring revenue",
+   "debt capacity"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0204",
+  "lessonId": "8.7",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "medium",
+  "question": "What creates circularity in an LBO model?",
+  "options": [
+   "Sources must equal uses, and sponsor equity depends on the total of both",
+   "Interest depends on debt balances, which depend on cash flow, which depends on interest",
+   "Taxes depend on pre-tax income, which depends on the tax rate assumption",
+   "Exit value depends on the exit multiple, which depends on the entry multiple"
+  ],
+  "correctIndex": 1,
+  "answer": "Interest depends on debt balances, which depend on cash flow, which depends on interest",
+  "explanation": "Fix with beginning-of-period balances or iterative calculation.",
+  "keywords": [
+   "circularity",
+   "interest"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0205",
+  "lessonId": "8.7",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "easy",
+  "question": "Is using the maximum possible leverage always optimal for an LBO?",
+  "options": [
+   "No; lenders cap every LBO at 1x leverage, so maximum leverage isn't possible",
+   "No; it raises IRR on paper but increases interest, covenant, and bankruptcy risk",
+   "Yes; more debt always means a smaller equity check and higher returns",
+   "Yes, as long as the interest rate stays below the company's target IRR"
+  ],
+  "correctIndex": 1,
+  "answer": "No; it raises IRR on paper but increases interest, covenant, and bankruptcy risk",
+  "explanation": "Optimal leverage balances return against the risk of losing the equity.",
+  "keywords": [
+   "leverage",
+   "risk"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0206",
+  "lessonId": "8.7",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "medium",
+  "question": "Holding everything else equal, the sponsor contributes more equity and less debt. What happens to IRR?",
+  "options": [
+   "It falls",
+   "It depends only on the exit multiple",
+   "It rises",
+   "No change"
+  ],
+  "correctIndex": 0,
+  "answer": "It falls",
+  "explanation": "The same dollar gain spread over a larger equity base gives a lower percentage return.",
+  "keywords": [
+   "equity contribution",
+   "IRR"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0207",
+  "lessonId": "8.7",
+  "module": 8,
+  "category": "LBO",
+  "difficulty": "hard",
+  "question": "Why can a DCF value and an LBO price differ for the same company?",
+  "options": [
+   "An LBO ignores the company's cash flows and relies only on exit multiples",
+   "A DCF estimates intrinsic value; an LBO shows what a sponsor can pay to hit its target return",
+   "They should always be identical, so any difference signals a model error",
+   "A DCF includes the effect of leverage, while an LBO ignores capital structure"
+  ],
+  "correctIndex": 1,
+  "answer": "A DCF estimates intrinsic value; an LBO shows what a sponsor can pay to hit its target return",
+  "explanation": "The LBO is a price constraint driven by return targets and debt capacity, not an estimate of intrinsic value.",
+  "keywords": [
+   "DCF vs LBO"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0208",
+  "lessonId": "9.1",
+  "module": 9,
+  "category": "Credit Analysis",
+  "difficulty": "easy",
+  "question": "Debt $600, cash $100, EBITDA $120. What is net leverage?",
+  "options": [
+   "5.0x",
+   "About 4.2x",
+   "About 0.24x",
+   "About 5.8x"
+  ],
+  "correctIndex": 1,
+  "answer": "About 4.2x",
+  "explanation": "Net debt = 500; 500 / 120 ≈ 4.2x. Gross leverage would be 5.0x.",
+  "keywords": [
+   "net leverage"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0209",
+  "lessonId": "9.1",
+  "module": 9,
+  "category": "Credit Analysis",
+  "difficulty": "medium",
+  "question": "EBITDA $100, CapEx $40, interest $30. What is (EBITDA − CapEx) / interest?",
+  "options": [
+   "About 3.3x",
+   "About 1.3x",
+   "2.0x",
+   "About 4.7x"
+  ],
+  "correctIndex": 2,
+  "answer": "2.0x",
+  "explanation": "(100 − 40) / 30 = 2.0x. EBITDA / interest alone would be 3.3x.",
+  "keywords": [
+   "coverage",
+   "CapEx"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0210",
+  "lessonId": "9.1",
+  "module": 9,
+  "category": "Credit Analysis",
+  "difficulty": "easy",
+  "question": "What do lenders care about most?",
+  "options": [
+   "The equity multiple the sponsor earns at exit",
+   "Revenue growth upside over the life of the loan",
+   "Downside protection: stable cash flow, coverage, and collateral",
+   "A steady dividend policy to signal financial health"
+  ],
+  "correctIndex": 2,
+  "answer": "Downside protection: stable cash flow, coverage, and collateral",
+  "explanation": "Lenders don't share in the upside, so they focus on getting repaid.",
+  "keywords": [
+   "lenders",
+   "downside"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0211",
+  "lessonId": "9.2",
+  "module": 9,
+  "category": "Credit Analysis",
+  "difficulty": "easy",
+  "question": "Under the absolute priority rule, what happens in bankruptcy?",
+  "options": [
+   "Recoveries are split evenly between debt and equity",
+   "Equity is paid before unsecured debt",
+   "Senior claims are paid in full before junior claims receive anything",
+   "All creditors receive the same percentage recovery"
+  ],
+  "correctIndex": 2,
+  "answer": "Senior claims are paid in full before junior claims receive anything",
+  "explanation": "Secured → senior unsecured → subordinated → preferred → common.",
+  "keywords": [
+   "absolute priority"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0212",
+  "lessonId": "9.2",
+  "module": 9,
+  "category": "Credit Analysis",
+  "difficulty": "hard",
+  "question": "Debt at a holding company is labeled \"senior.\" Its operating subsidiaries also have their own debt. What's the holdco debt's real position?",
+  "options": [
+   "Senior to the subsidiaries' debt",
+   "Effectively junior to the subsidiaries' debt",
+   "Equal in priority with the subsidiaries' debt",
+   "Senior to all claims in the group"
+  ],
+  "correctIndex": 1,
+  "answer": "Effectively junior to the subsidiaries' debt",
+  "explanation": "Subsidiary creditors are paid from subsidiary assets first; holdco lenders get what flows up. This is structural subordination.",
+  "keywords": [
+   "structural subordination"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0213",
+  "lessonId": "9.2",
+  "module": 9,
+  "category": "Credit Analysis",
+  "difficulty": "easy",
+  "question": "What's the difference between Chapter 11 and Chapter 7?",
+  "options": [
+   "Chapter 11 reorganizes the company; Chapter 7 liquidates it",
+   "Chapter 11 applies only to individuals",
+   "They're the same process under different names",
+   "Chapter 7 reorganizes the company; Chapter 11 liquidates it"
+  ],
+  "correctIndex": 0,
+  "answer": "Chapter 11 reorganizes the company; Chapter 7 liquidates it",
+  "explanation": "In Chapter 11, debt is often converted to equity while the company keeps operating.",
+  "keywords": [
+   "Chapter 11",
+   "Chapter 7"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0214",
+  "lessonId": "9.2",
+  "module": 9,
+  "category": "Credit Analysis",
+  "difficulty": "hard",
+  "question": "Why are lenders willing to provide DIP financing to a bankrupt company?",
+  "options": [
+   "DIP loans convert to equity at a discount automatically",
+   "The government guarantees DIP loans",
+   "DIP loans get super-priority over existing claims",
+   "DIP lenders are repaid before employees and taxes by law in all cases"
+  ],
+  "correctIndex": 2,
+  "answer": "DIP loans get super-priority over existing claims",
+  "explanation": "Priority over existing debt makes lending to a company in Chapter 11 attractive.",
+  "keywords": [
+   "DIP financing",
+   "super-priority"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0215",
+  "lessonId": "9.3",
+  "module": 9,
+  "category": "Credit Analysis",
+  "difficulty": "hard",
+  "question": "A one-year loan with an 8% coupon is issued at 98 (OID) and repaid at 100. Roughly what yield does the lender earn?",
+  "options": [
+   "10.0%",
+   "About 6.0%",
+   "8.0%",
+   "About 10.2%"
+  ],
+  "correctIndex": 3,
+  "answer": "About 10.2%",
+  "explanation": "(8 coupon + 2 discount) / 98 ≈ 10.2%. OID raises the effective yield above the coupon.",
+  "keywords": [
+   "OID",
+   "yield"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0216",
+  "lessonId": "9.3",
+  "module": 9,
+  "category": "Credit Analysis",
+  "difficulty": "easy",
+  "question": "Market interest rates rise. What happens to the price of an existing fixed-rate bond?",
+  "options": [
+   "It rises",
+   "It falls",
+   "No change",
+   "It rises if the bond is investment grade"
+  ],
+  "correctIndex": 1,
+  "answer": "It falls",
+  "explanation": "Its fixed coupon is less attractive, so its price falls until its yield matches the market.",
+  "keywords": [
+   "bond price",
+   "rates"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0217",
+  "lessonId": "9.3",
+  "module": 9,
+  "category": "Credit Analysis",
+  "difficulty": "easy",
+  "question": "What is the lowest investment-grade credit rating (S&P scale)?",
+  "options": [
+   "A−",
+   "BBB−",
+   "BB+",
+   "B"
+  ],
+  "correctIndex": 1,
+  "answer": "BBB−",
+  "explanation": "BB+ and below is high yield. LBO debt is almost always high yield.",
+  "keywords": [
+   "investment grade"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0218",
+  "lessonId": "9.3",
+  "module": 9,
+  "category": "Credit Analysis",
+  "difficulty": "medium",
+  "question": "What defines a \"covenant-lite\" loan?",
+  "options": [
+   "It can't be prepaid before maturity without a penalty",
+   "It's unsecured and ranks behind all other debt",
+   "It has no maintenance covenants, only incurrence covenants",
+   "It accrues interest instead of paying cash (PIK)"
+  ],
+  "correctIndex": 2,
+  "answer": "It has no maintenance covenants, only incurrence covenants",
+  "explanation": "Borrowers get flexibility; lenders lose early-warning signals.",
+  "keywords": [
+   "cov-lite"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0219",
+  "lessonId": "10.1",
+  "module": 10,
+  "category": "Industry Valuation",
+  "difficulty": "easy",
+  "question": "Why isn't EV/EBITDA used to value banks?",
+  "options": [
+   "Interest and debt are core operations for a bank, not financing choices",
+   "Banks aren't allowed to report EBITDA under banking regulations",
+   "Banks hold no debt, so EV and equity value are the same",
+   "Bank EBITDA is usually negative because of loan-loss provisions"
+  ],
+  "correctIndex": 0,
+  "answer": "Interest and debt are core operations for a bank, not financing choices",
+  "explanation": "Deposits are a bank's raw material. Use P/E, P/BV, and P/TBV instead.",
+  "keywords": [
+   "banks",
+   "EV/EBITDA"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0220",
+  "lessonId": "10.1",
+  "module": 10,
+  "category": "Industry Valuation",
+  "difficulty": "medium",
+  "question": "A bank's ROE is 15% and its cost of equity is 10%. Where should it trade relative to book value?",
+  "options": [
+   "Below book value",
+   "It depends only on its dividend yield",
+   "Exactly at book value",
+   "Above book value"
+  ],
+  "correctIndex": 3,
+  "answer": "Above book value",
+  "explanation": "When ROE exceeds the cost of equity, each dollar of equity creates value, so P/BV > 1.0x.",
+  "keywords": [
+   "ROE",
+   "P/BV"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0221",
+  "lessonId": "10.1",
+  "module": 10,
+  "category": "Industry Valuation",
+  "difficulty": "medium",
+  "question": "Which intrinsic valuation method is standard for banks?",
+  "options": [
+   "LBO analysis",
+   "Dividend discount model",
+   "Unlevered DCF",
+   "Liquidation value"
+  ],
+  "correctIndex": 1,
+  "answer": "Dividend discount model",
+  "explanation": "Regulatory capital requirements limit payouts, so dividends best measure cash available to shareholders.",
+  "keywords": [
+   "DDM",
+   "banks"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0222",
+  "lessonId": "10.2",
+  "module": 10,
+  "category": "Industry Valuation",
+  "difficulty": "medium",
+  "question": "A REIT has net income of $100, real estate D&A of $60, and a $20 gain on a property sale. What is FFO?",
+  "options": [
+   "$180",
+   "$160",
+   "$120",
+   "$140"
+  ],
+  "correctIndex": 3,
+  "answer": "$140",
+  "explanation": "FFO = NI + real estate D&A − gains on sale = 100 + 60 − 20 = 140.",
+  "keywords": [
+   "FFO"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0223",
+  "lessonId": "10.2",
+  "module": 10,
+  "category": "Industry Valuation",
+  "difficulty": "easy",
+  "question": "A property generates $8M of net operating income. Comparable properties trade at a 6.4% cap rate. What is it worth?",
+  "options": [
+   "$125M",
+   "$51.2M",
+   "$64M",
+   "$80M"
+  ],
+  "correctIndex": 0,
+  "answer": "$125M",
+  "explanation": "Value = NOI / cap rate = 8 / 0.064 = $125M.",
+  "keywords": [
+   "cap rate",
+   "NOI"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0224",
+  "lessonId": "10.2",
+  "module": 10,
+  "category": "Industry Valuation",
+  "difficulty": "medium",
+  "question": "What does AFFO subtract that FFO doesn't?",
+  "options": [
+   "Recurring maintenance CapEx (and straight-line rent adjustments)",
+   "Gains on property sales and other one-time items",
+   "Real estate depreciation and amortization of leases",
+   "Dividends paid to shareholders during the period"
+  ],
+  "correctIndex": 0,
+  "answer": "Recurring maintenance CapEx (and straight-line rent adjustments)",
+  "explanation": "AFFO is closer to the cash actually available to pay dividends.",
+  "keywords": [
+   "AFFO"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0225",
+  "lessonId": "10.3",
+  "module": 10,
+  "category": "Industry Valuation",
+  "difficulty": "medium",
+  "question": "Why do analysts use EBITDAX for oil and gas companies?",
+  "options": [
+   "It removes the effect of oil and gas price swings so different years can be compared",
+   "It adds back exploration expense, so successful-efforts and full-cost companies are comparable",
+   "It replaces depreciation, which oil companies don't record, with an exploration charge",
+   "It excludes export and severance taxes, which vary widely between producing regions"
+  ],
+  "correctIndex": 1,
+  "answer": "It adds back exploration expense, so successful-efforts and full-cost companies are comparable",
+  "explanation": "The two accounting methods treat failed exploration differently. Adding it back levels the comparison.",
+  "keywords": [
+   "EBITDAX",
+   "successful efforts"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0226",
+  "lessonId": "10.3",
+  "module": 10,
+  "category": "Industry Valuation",
+  "difficulty": "hard",
+  "question": "Why do E&P valuations often use an NAV model rather than a DCF with perpetual terminal value?",
+  "options": [
+   "Oil companies can't forecast production more than a year ahead",
+   "NAV avoids having to assume any commodity price forecast",
+   "The SEC requires NAV-based valuations for energy companies",
+   "Reserves are finite and deplete, so cash flows don't continue forever"
+  ],
+  "correctIndex": 3,
+  "answer": "Reserves are finite and deplete, so cash flows don't continue forever",
+  "explanation": "NAV projects production from reserves to depletion and discounts it (often at 10%).",
+  "keywords": [
+   "NAV",
+   "depletion"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0227",
+  "lessonId": "10.4",
+  "module": 10,
+  "category": "Industry Valuation",
+  "difficulty": "medium",
+  "question": "Customers who existed a year ago paid $100 then. This year, after churn and upsells, the same group paid $115. What is net revenue retention?",
+  "options": [
+   "87%",
+   "15%",
+   "115%",
+   "100%"
+  ],
+  "correctIndex": 2,
+  "answer": "115%",
+  "explanation": "NRR = this year's revenue from last year's customers / last year's = 115%.",
+  "keywords": [
+   "NRR"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0228",
+  "lessonId": "10.4",
+  "module": 10,
+  "category": "Industry Valuation",
+  "difficulty": "medium",
+  "question": "A SaaS company grows revenue 25% with a 10% FCF margin. Does it meet the Rule of 40?",
+  "options": [
+   "Yes; 25% growth alone exceeds 20%",
+   "Yes; 25% × 10% exceeds 2%",
+   "No; it needs 40% growth alone",
+   "No; 25% + 10% = 35%"
+  ],
+  "correctIndex": 3,
+  "answer": "No; 25% + 10% = 35%",
+  "explanation": "The rule sums growth and margin. 35% falls short of 40%.",
+  "keywords": [
+   "Rule of 40"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0229",
+  "lessonId": "10.5",
+  "module": 10,
+  "category": "Industry Valuation",
+  "difficulty": "medium",
+  "question": "An insurer has a combined ratio of 97%. What does that mean?",
+  "options": [
+   "It earns a 3% underwriting profit before investment income",
+   "It retains 97% of customers",
+   "It pays out 97% of investment income as dividends",
+   "It loses 3% on underwriting"
+  ],
+  "correctIndex": 0,
+  "answer": "It earns a 3% underwriting profit before investment income",
+  "explanation": "(Claims + expenses) / premiums < 100% means underwriting is profitable on its own.",
+  "keywords": [
+   "combined ratio"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0230",
+  "lessonId": "10.5",
+  "module": 10,
+  "category": "Industry Valuation",
+  "difficulty": "medium",
+  "question": "What is insurance \"float\"?",
+  "options": [
+   "Premiums collected and invested before claims are paid",
+   "The difference between book and market value",
+   "Reinsurance purchased from other insurers",
+   "The insurer's excess capital above regulatory requirements"
+  ],
+  "correctIndex": 0,
+  "answer": "Premiums collected and invested before claims are paid",
+  "explanation": "If underwriting breaks even, float is effectively free capital to invest.",
+  "keywords": [
+   "float"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0231",
+  "lessonId": "11.1",
+  "module": 11,
+  "category": "Mental Math",
+  "difficulty": "easy",
+  "question": "Using the Rule of 72, how long does money take to double at 9%?",
+  "options": [
+   "About 12 years",
+   "About 9 years",
+   "About 6 years",
+   "About 8 years"
+  ],
+  "correctIndex": 3,
+  "answer": "About 8 years",
+  "explanation": "72 / 9 = 8.",
+  "keywords": [
+   "Rule of 72"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0232",
+  "lessonId": "11.1",
+  "module": 11,
+  "category": "Mental Math",
+  "difficulty": "medium",
+  "question": "Roughly what IRR does 2.2x in 4 years correspond to?",
+  "options": [
+   "About 55%",
+   "About 22%",
+   "About 15%",
+   "About 30%"
+  ],
+  "correctIndex": 1,
+  "answer": "About 22%",
+  "explanation": "2x in 4 years ≈ 19%, so a bit more for 2.2x. Exact: 2.2^(1/4) − 1 ≈ 21.8%. 30% is 120% ÷ 4, ignoring compounding.",
+  "keywords": [
+   "interpolation",
+   "IRR"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0233",
+  "lessonId": "11.2",
+  "module": 11,
+  "category": "Mental Math",
+  "difficulty": "medium",
+  "question": "What is the angle between the hour and minute hands at 3:15?",
+  "options": [
+   "7.5°",
+   "15°",
+   "0°",
+   "90°"
+  ],
+  "correctIndex": 0,
+  "answer": "7.5°",
+  "explanation": "The hour hand moves 0.5° per minute, so at 3:15 it's 7.5° past the 3, where the minute hand sits.",
+  "keywords": [
+   "clock angle"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0234",
+  "lessonId": "11.2",
+  "module": 11,
+  "category": "Mental Math",
+  "difficulty": "easy",
+  "question": "What is 15% of 240?",
+  "options": [
+   "36",
+   "24",
+   "32",
+   "40"
+  ],
+  "correctIndex": 0,
+  "answer": "36",
+  "explanation": "10% = 24, 5% = 12, total 36.",
+  "keywords": [
+   "mental math"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0235",
+  "lessonId": "11.2",
+  "module": 11,
+  "category": "Mental Math",
+  "difficulty": "easy",
+  "question": "What is 48²?",
+  "options": [
+   "2,296",
+   "2,204",
+   "2,404",
+   "2,304"
+  ],
+  "correctIndex": 3,
+  "answer": "2,304",
+  "explanation": "(50 − 2)² = 2,500 − 200 + 4 = 2,304.",
+  "keywords": [
+   "squares"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ },
+ {
+  "id": "peb-0236",
+  "lessonId": "11.2",
+  "module": 11,
+  "category": "Mental Math",
+  "difficulty": "easy",
+  "question": "Revenue grows 10% a year for 3 years. What's the total growth?",
+  "options": [
+   "About 27%",
+   "About 36%",
+   "About 33%",
+   "30%"
+  ],
+  "correctIndex": 2,
+  "answer": "About 33%",
+  "explanation": "1.1³ = 1.331. Compounding adds 3.1 points beyond simple growth.",
+  "keywords": [
+   "compounding"
+  ],
+  "source": "PE@Broad Technical Bank v1",
+  "mcqEligible": true
+ }
+]

@@ -47,3 +47,6 @@ next-env.d.ts
 
 # Paid reference guides (BIWS, WSP) — never commit or serve
 /content/sources/
+
+# Club roster and other student personal data — never commit
+/content/private/

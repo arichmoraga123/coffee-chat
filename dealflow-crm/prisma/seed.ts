@@ -13,7 +13,8 @@ import { SEED_TRACK_QUESTIONS } from "./seed/track-questions";
 import { SEED_THIN_CATEGORY_QUESTIONS } from "./seed/questions-thin-categories";
 import { SEED_CONSULTING_CASES } from "./seed/consulting-cases";
 import { FIRM_DRILL_QUESTIONS } from "../src/lib/drill-mcq/firm-questions";
-import { FIRM_TAG_PREFIX } from "../src/lib/drill-mcq";
+import { FIRM_TAG_PREFIX } from "../src/lib/drill-mcq/firms";
+import { seedPebQuestions } from "./seed/questions-peb-v1";
 import { PROSPECT_SCHOOL_SEED } from "./seed/prospect-schools";
 import { randomReferralCode } from "../src/lib/referral-code";
 
@@ -140,6 +141,8 @@ async function main() {
     });
   }
   console.log(`Firm-specific drill questions upserted (${FIRM_DRILL_QUESTIONS.length}).`);
+
+  await seedPebQuestions(prisma);
 
   for (const t of SEED_TIMELINES) {
     const existing = await prisma.firmTimeline.findFirst({

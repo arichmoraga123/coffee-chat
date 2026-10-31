@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { requireAdminSession } from "@/lib/admin-auth";
 import { questionDedupeKey } from "@/lib/question-dedupe";
+import { parseMcqFields } from "@/lib/mcq/admin";
 
 export async function PATCH(
   req: Request,
@@ -27,6 +28,10 @@ export async function PATCH(
   if (Array.isArray(body.tags)) data.tags = body.tags.map((t: unknown) => String(t));
   if (typeof body.source === "string" || body.source === null) data.source = body.source;
   if (typeof body.status === "string") data.status = body.status;
+
+  const mcq = parseMcqFields(body, existing);
+  if (mcq.errors.length) return NextResponse.json({ error: mcq.errors.join(" · "), errors: mcq.errors }, { status: 400 });
+  Object.assign(data, mcq.data);
 
   if (typeof data.question === "string") {
     data.dedupeKey = questionDedupeKey(data.question as string);
