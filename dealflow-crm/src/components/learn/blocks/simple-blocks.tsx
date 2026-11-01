@@ -242,7 +242,7 @@ export function ExcelLinkView({ block }: { block: BlockOf<"excelLink"> }) {
             </Button>
           ) : (
             <Button size="sm" variant="outline" disabled title="Finish the lesson to unlock the answer key">
-              🔒 Finish the lesson to unlock the answer key
+              Finish the lesson to unlock the answer key
             </Button>
           )
         ) : null}

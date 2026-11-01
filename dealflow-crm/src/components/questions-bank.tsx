@@ -652,36 +652,42 @@ export function QuestionsBank({
                   Exit
                 </Button>
               </div>
-              <div className="perspective-flip mx-auto w-full max-w-3xl flex-1">
-                <button
-                  type="button"
-                  className="relative w-full cursor-pointer border-0 bg-transparent p-0 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
-                  onClick={onFlashcardFlip}
-                >
-                  <div className={cn("flip-card-inner ", flipped && "is-flipped")}>
-                    <div className="flip-card-face border border-border   ">
-                      <p className="mb-2 text-xs uppercase tracking-[0.18em] text-ink-3">Question</p>
-                      <p className="text-lg font-medium text-ink">{currentDrill.question}</p>
-                      <div className="mt-5">
-                        <label className="mb-1 block text-xs uppercase tracking-[0.14em] text-ink-3">
-                          Type your answer (optional)
-                        </label>
-                        <textarea
-                          className="min-h-24 w-full rounded border border-border bg-surface px-3 py-2 text-sm text-ink outline-none focus:border-border-strong focus:ring-1 focus:ring-accent"
-                          placeholder="Write your answer before flipping..."
-                          value={typedAnswer}
-                          onChange={(e) => setTypedAnswer(e.target.value)}
-                          onClick={(e) => e.stopPropagation()}
-                        />
-                      </div>
-                      <p className="mt-6 text-xs text-ink-3">Tap to flip · reveal answer</p>
+              <div className="mx-auto w-full max-w-3xl flex-1 space-y-4 overflow-y-auto">
+                <section className="rounded-[var(--radius-lg)] border border-border bg-surface p-5 sm:p-6">
+                  <p className="eyebrow mb-2">Question</p>
+                  <p className="whitespace-pre-wrap text-lg font-medium leading-snug text-ink [overflow-wrap:anywhere]">{currentDrill.question}</p>
+                  {!flipped ? (
+                    <div className="mt-5">
+                      <label htmlFor="flash-answer" className="eyebrow mb-1 block">
+                        Your answer (optional)
+                      </label>
+                      <textarea
+                        id="flash-answer"
+                        className="min-h-24 w-full rounded-[var(--radius)] border border-border-strong bg-surface px-3 py-2 text-sm leading-relaxed text-ink placeholder:text-ink-3 focus-visible:border-accent focus-visible:outline-none"
+                        placeholder="Write your answer before revealing it…"
+                        value={typedAnswer}
+                        onChange={(e) => setTypedAnswer(e.target.value)}
+                      />
+                      <Button variant="primary" className="mt-3" onClick={onFlashcardFlip}>
+                        Show answer
+                      </Button>
                     </div>
-                    <div className="flip-card-face flip-card-back border border-border bg-surface">
-                      <p className="mb-2 text-xs uppercase tracking-[0.18em] text-ink-3">Answer</p>
-                      <p className="text-base text-ink">{currentDrill.answer}</p>
+                  ) : (
+                    <div className="mt-5 border-t border-divider pt-4">
+                      <p className="eyebrow mb-2">Answer</p>
+                      <p className="whitespace-pre-wrap text-base leading-relaxed text-ink [overflow-wrap:anywhere]">{currentDrill.answer}</p>
+                      {typedAnswer.trim() ? (
+                        <div className="mt-4 rounded-[var(--radius)] bg-surface-2 p-3">
+                          <p className="eyebrow mb-1">You wrote</p>
+                          <p className="whitespace-pre-wrap text-sm text-ink-2 [overflow-wrap:anywhere]">{typedAnswer}</p>
+                        </div>
+                      ) : null}
+                      <button type="button" onClick={onFlashcardFlip} className="mt-3 text-[13px] text-accent hover:underline">
+                        Hide answer
+                      </button>
                     </div>
-                  </div>
-                </button>
+                  )}
+                </section>
               </div>
               <div className="mx-auto mt-6 flex max-w-3xl flex-wrap justify-center gap-2">
                 {flipped && gradedResult ? (

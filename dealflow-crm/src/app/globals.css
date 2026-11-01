@@ -131,35 +131,6 @@ body {
     line-height: 1.65;
   }
 
-  /* Flashcard flip */
-  .perspective-flip {
-    perspective: 1200px;
-  }
-  .flip-card-inner {
-    position: relative;
-    width: 100%;
-    min-height: min(50vh, 520px);
-    transition: transform 0.5s ease;
-    transform-style: preserve-3d;
-  }
-  .flip-card-inner.is-flipped {
-    transform: rotateY(180deg);
-  }
-  .flip-card-face {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--radius-lg);
-    padding: 2rem;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-  }
-  .flip-card-back {
-    transform: rotateY(180deg);
-  }
 }
 
 @keyframes df-shimmer {
@@ -184,9 +155,6 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .flip-card-inner {
-    transition: none;
-  }
   .skeleton-shimmer::after {
     animation: none;
   }

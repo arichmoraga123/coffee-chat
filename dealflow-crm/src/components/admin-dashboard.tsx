@@ -545,20 +545,12 @@ export function AdminDashboard() {
           <div className="grid gap-6 lg:grid-cols-2">
             <ChartCard title="Most drilled categories (sample)">
               <ResponsiveContainer width="100%" height={280}>
-                <BarChart data={analytics.categoryBars} margin={{ bottom: 48 }}>
+                <BarChart data={analytics.categoryBars} layout="vertical" margin={{ left: 8, right: 8 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="var(--divider)" />
-                  <XAxis
-                    dataKey="name"
-                    stroke="var(--ink-3)"
-                    tick={{ fontSize: 10 }}
-                    interval={0}
-                    angle={-30}
-                    textAnchor="end"
-                    height={70}
-                  />
-                  <YAxis stroke="var(--ink-3)" tick={{ fontSize: 11 }} />
+                  <XAxis type="number" allowDecimals={false} stroke="var(--ink-3)" tick={{ fontSize: 11 }} />
+                  <YAxis dataKey="name" type="category" width={130} interval={0} stroke="var(--ink-3)" tick={{ fontSize: 11 }} />
                   <Tooltip {...chartTooltip} />
-                  <Bar dataKey="value" fill="var(--accent)" radius={[4, 4, 0, 0]} name="Progress rows" />
+                  <Bar dataKey="value" fill="var(--accent)" radius={[0, 4, 4, 0]} name="Progress rows" />
                 </BarChart>
               </ResponsiveContainer>
             </ChartCard>

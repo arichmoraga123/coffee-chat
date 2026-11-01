@@ -69,7 +69,7 @@ export function ContactEmailDropdown({ contactId, size = "sm" }: Props) {
                     className="block w-full px-3 py-1.5 text-left text-xs text-ink-2 hover:bg-surface-2"
                     onClick={() => void draft(key)}
                   >
-                    {t.icon} {t.label}
+                    {t.label}
                   </button>
                 ),
               )}
