@@ -49,7 +49,7 @@ export const NAV_GROUPS: NavGroup[] = [
     label: "Recruiting",
     items: [
       { href: "/pipeline", label: "Pipeline", icon: TrendingUp, also: ["/offers"] },
-      { href: "/contacts", label: "Contacts", icon: Users, also: ["/tasks", "/debriefs"] },
+      { href: "/contacts", label: "Contacts", icon: Users, also: ["/tasks", "/debriefs", "/emails"] },
       { href: "/firms", label: "Firms", icon: Building2, also: ["/deals", "/timelines", "/research"] },
       { href: "/calendar", label: "Calendar", icon: CalendarDays, also: ["/recruiting-calendar", "/roadmap"] },
     ],
@@ -113,9 +113,10 @@ export const SECTION_TABS: { match: string[]; tabs: { href: string; label: strin
   },
   { match: ["/pipeline", "/offers"], tabs: [{ href: "/pipeline", label: "Pipeline" }, { href: "/offers", label: "Offers" }] },
   {
-    match: ["/contacts", "/tasks", "/debriefs"],
+    match: ["/contacts", "/tasks", "/debriefs", "/emails"],
     tabs: [
       { href: "/contacts", label: "Contacts" },
+      { href: "/emails", label: "Email writer" },
       { href: "/tasks", label: "Tasks" },
       { href: "/debriefs", label: "Debriefs" },
     ],
@@ -193,7 +194,7 @@ export const MOBILE_TABS: { href: string; label: string; icon: LucideIcon; match
     href: "/pipeline",
     label: "Recruiting",
     icon: TrendingUp,
-    match: ["/pipeline", "/offers", "/contacts", "/tasks", "/debriefs", "/firms", "/deals", "/timelines", "/research", "/calendar", "/recruiting-calendar", "/roadmap"],
+    match: ["/pipeline", "/offers", "/contacts", "/tasks", "/debriefs", "/emails", "/firms", "/deals", "/timelines", "/research", "/calendar", "/recruiting-calendar", "/roadmap"],
   },
   { href: "/club", label: "Club", icon: Users, match: ["/club", "/groups", "/messages", "/challenges"] },
 ];

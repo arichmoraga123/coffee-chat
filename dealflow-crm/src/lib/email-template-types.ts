@@ -23,6 +23,21 @@ export const EMAIL_TEMPLATE_TYPES = {
     prompt:
       "Draft a re-engagement email after a period of silence. Be brief, reference past connection, and propose a low-pressure catch-up. Under 120 words.",
   },
+  bump: {
+    label: "Bump (no reply)",
+    icon: "↩",
+    prompt: "A short bump on an unanswered cold email.",
+  },
+  "referral-ask": {
+    label: "Referral / resume ask",
+    icon: "📄",
+    prompt: "Ask a contact you've spoken with to pass along your resume or flag your application.",
+  },
+  linkedin: {
+    label: "LinkedIn note (280 chars)",
+    icon: "in",
+    prompt: "A LinkedIn connection note.",
+  },
   "request-intro": {
     label: "Request Intro",
     icon: "🤝",
@@ -45,5 +60,20 @@ export function subjectLineForContact(
   if (templateType === "thank-you") return `Thank you — great conversation`;
   if (templateType === "follow-up") return `Following up`;
   if (templateType === "re-engage") return `Checking in`;
+  if (templateType === "bump") return `Re: quick question`;
+  if (templateType === "referral-ask") return `Application to ${firm}`;
+  if (templateType === "linkedin") return ``;
   return `Introduction request`;
 }
+
+/** Contact-page template types → the shared email writer's kinds. */
+export const TEMPLATE_TO_KIND = {
+  "cold-outreach": "cold",
+  "thank-you": "thank-you",
+  "follow-up": "follow-up",
+  "re-engage": "re-engage",
+  bump: "bump",
+  "referral-ask": "referral-ask",
+  linkedin: "linkedin",
+  "request-intro": "intro-request",
+} as const satisfies Record<EmailTemplateType, string>;

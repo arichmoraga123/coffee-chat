@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession } from "@/lib/auth";
-import { anthropicMessage, getAnthropicApiKey } from "@/lib/anthropic";
-import { contactProfileBlock, interactionBlock } from "@/lib/contact-profile";
+import { getAnthropicApiKey } from "@/lib/anthropic";
+import { draftToText, generateEmail } from "@/lib/email-ai";
 
 export async function POST(
   req: Request,
@@ -15,7 +15,7 @@ export async function POST(
   }
 
   const { id: contactId } = await params;
-  const body = (await req.json().catch(() => ({}))) as { interactionId?: string };
+  const body = (await req.json().catch(() => ({}))) as { interactionId?: string; kind?: "thank-you" | "follow-up"; extra?: string };
   const interactionId = String(body.interactionId ?? "");
   if (!interactionId) {
     return NextResponse.json({ error: "interactionId is required" }, { status: 400 });
@@ -31,12 +31,7 @@ export async function POST(
     }),
     prisma.user.findUnique({
       where: { id: userId },
-      select: {
-        name: true,
-        recruitingTarget: true,
-        targetFirms: true,
-        dailyGoal: true,
-      },
+      select: { id: true },
     }),
   ]);
 
@@ -44,36 +39,17 @@ export async function POST(
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  const userBlock = [
-    `Name: ${me.name}`,
-    me.recruitingTarget.length ? `Recruiting goals (targets): ${me.recruitingTarget.join(", ")}` : null,
-    me.targetFirms.length ? `Target firms: ${me.targetFirms.join(", ")}` : null,
-    `Daily question goal: ${me.dailyGoal}`,
-    "(School/clubs for the user are not stored in the app yet.)",
-  ]
-    .filter(Boolean)
-    .join("\n");
-
-  const prompt = [
-    `Draft a personalized follow-up email from ${me.name} to ${contact.fullName} after their ${interaction.type} on ${interaction.date.toISOString().slice(0, 10)}.`,
-    "",
-    "Contact profile:",
-    contactProfileBlock(contact),
-    "",
-    "User (sender) context:",
-    userBlock,
-    "",
-    "This interaction:",
-    interactionBlock(interaction),
-    "",
-    `Instructions: Draft a personalized follow-up email from ${me.name} to ${contact.fullName} after their ${interaction.type} on ${interaction.date.toISOString().slice(0, 10)}. Reference specific things discussed. Be warm but professional. Under 150 words. Include specific callbacks to what was discussed and any action items.`,
-  ].join("\n");
-
   try {
-    const text = await anthropicMessage(prompt, {
-      usageLog: { userId, feature: "follow-up" },
+    const history = await prisma.interaction.findMany({
+      where: { userId, contactId, id: { not: interaction.id } },
+      orderBy: { date: "desc" },
+      take: 3,
     });
-    return NextResponse.json({ text });
+    // A call in the last week gets a thank-you; older ones get an update-style follow-up.
+    const daysSince = (Date.now() - interaction.date.getTime()) / 86_400_000;
+    const kind = body.kind ?? (daysSince <= 7 ? "thank-you" : "follow-up");
+    const draft = await generateEmail({ userId, kind, contact, interaction, history, extra: body.extra, feature: "follow-up" });
+    return NextResponse.json({ text: draftToText(draft), draft, kind });
   } catch (e) {
     const msg = e instanceof Error ? e.message : "AI request failed";
     return NextResponse.json({ error: msg }, { status: 502 });

@@ -1,12 +1,9 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession } from "@/lib/auth";
-import { anthropicMessage, getAnthropicApiKey } from "@/lib/anthropic";
-import { contactProfileBlock } from "@/lib/contact-profile";
-import {
-  EMAIL_TEMPLATE_TYPES,
-  type EmailTemplateType,
-} from "@/lib/email-template-types";
+import { getAnthropicApiKey } from "@/lib/anthropic";
+import { draftToText, generateEmail } from "@/lib/email-ai";
+import { EMAIL_TEMPLATE_TYPES, TEMPLATE_TO_KIND, type EmailTemplateType } from "@/lib/email-template-types";
 
 export async function POST(
   req: Request,
@@ -22,6 +19,7 @@ export async function POST(
   const body = (await req.json().catch(() => ({}))) as {
     templateType?: EmailTemplateType;
     interactionId?: string;
+    extra?: string;
   };
   const templateType = (body.templateType ?? "cold-outreach") as EmailTemplateType;
   const template = EMAIL_TEMPLATE_TYPES[templateType];
@@ -36,12 +34,7 @@ export async function POST(
     }),
     prisma.user.findUnique({
       where: { id: userId },
-      select: {
-        name: true,
-        recruitingTarget: true,
-        targetFirms: true,
-        school: { select: { name: true, shortName: true } },
-      },
+      select: { id: true },
     }),
     body.interactionId
       ? prisma.interaction.findFirst({
@@ -57,41 +50,18 @@ export async function POST(
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  const schoolLabel = me.school?.shortName ?? me.school?.name ?? "their school";
-  const userBlock = [
-    `Name: ${me.name}`,
-    `School: ${schoolLabel}`,
-    me.recruitingTarget.length ? `Recruiting goals: ${me.recruitingTarget.join(", ")}` : null,
-    me.targetFirms.length ? `Target firms: ${me.targetFirms.join(", ")}` : null,
-  ]
-    .filter(Boolean)
-    .join("\n");
-
-  const interactionBlock = lastInteraction
-    ? `Last interaction (${lastInteraction.type} on ${lastInteraction.date.toISOString().slice(0, 10)}): ${lastInteraction.notes ?? "no notes"}`
-    : "No prior interactions logged.";
-
-  const prompt = [
-    `Draft a ${template.label} email from ${me.name} to ${contact.fullName}.`,
-    "",
-    template.prompt,
-    "",
-    "Contact profile:",
-    contactProfileBlock(contact),
-    "",
-    "Sender context:",
-    userBlock,
-    "",
-    interactionBlock,
-    "",
-    "Output only the email body. No subject line unless naturally included.",
-  ].join("\n");
-
   try {
-    const text = await anthropicMessage(prompt, {
-      maxTokens: 800,
-      usageLog: { userId, feature: "contact-email" },
+    const history = await prisma.interaction.findMany({ where: { userId, contactId }, orderBy: { date: "desc" }, take: 3 });
+    const draft = await generateEmail({
+      userId,
+      kind: TEMPLATE_TO_KIND[templateType],
+      contact,
+      interaction: lastInteraction,
+      history: history.filter((h) => h.id !== lastInteraction?.id),
+      extra: body.extra,
+      feature: "contact-email",
     });
+    const text = draftToText(draft);
 
     await prisma.contactEmailDraft.create({
       data: {
@@ -102,7 +72,7 @@ export async function POST(
       },
     });
 
-    return NextResponse.json({ text, templateType });
+    return NextResponse.json({ text, draft, templateType });
   } catch (e) {
     const msg = e instanceof Error ? e.message : "AI request failed";
     return NextResponse.json({ error: msg }, { status: 502 });
