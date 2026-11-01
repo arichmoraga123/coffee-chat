@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { PageHeader } from "@/components/ui/page-header";
 import { ThemeSetting } from "@/components/theme/theme-setting";
 import { DataRepairCard } from "@/components/settings/data-repair-card";
+import { NotificationSettings } from "@/components/settings/notification-settings";
 import { ProfileDrillChart } from "@/components/profile-drill-chart";
 import { ProfileNameForm } from "@/components/profile-name-form";
 import { CalendarIntegrationPanel } from "@/components/calendar-integration-panel";
@@ -83,6 +84,9 @@ export default async function ProfilePage({ searchParams }: { searchParams: Prom
           <p className="text-sm text-ink-2">Theme</p>
           <ThemeSetting />
         </div>
+      </Card>
+      <Card title="Notifications" id="notifications" className="scroll-mt-6">
+        <NotificationSettings />
       </Card>
       <Card title="Data">
         <DataRepairCard />

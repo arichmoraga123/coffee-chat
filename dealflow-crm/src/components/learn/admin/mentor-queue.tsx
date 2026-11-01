@@ -17,6 +17,8 @@ export type QueueItem = {
   public: boolean;
   asker: string;
   createdAt: string;
+  /** "Waiting 26 hours" for open questions (computed on the server). */
+  waiting?: string | null;
   answeredBy: string | null;
 };
 
@@ -50,6 +52,7 @@ function QuestionCard({ item, onSaved }: { item: QueueItem; onSaved: (q: QueueIt
       <div className="flex flex-wrap items-center gap-2 text-xs text-ink-2">
         <span className="font-medium text-ink">{item.asker}</span>
         <span>· {new Date(item.createdAt).toLocaleDateString()}</span>
+        {item.status === "open" && item.waiting ? <span className="font-medium text-warn">· {item.waiting}</span> : null}
         {item.blockLabel ? (
           <Link href={`/learn/${item.lessonId}#${item.blockLabel.split(" · ")[0]}`} className="text-accent hover:underline">
             · {item.blockLabel}

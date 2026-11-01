@@ -9,6 +9,13 @@ function daysAgo(n: number) {
   return new Date(Date.now() - n * 86_400_000);
 }
 
+function waitingLabel(d: Date) {
+  const h = Math.floor((Date.now() - d.getTime()) / 3_600_000);
+  if (h < 1) return "Waiting under an hour";
+  if (h < 48) return `Waiting ${h} hour${h === 1 ? "" : "s"}`;
+  return `Waiting ${Math.floor(h / 24)} days`;
+}
+
 export default async function MentorQuestionsPage() {
   await requireMentorUserId();
   const rows = await prisma.mentorQuestion.findMany({
@@ -33,6 +40,7 @@ export default async function MentorQuestionsPage() {
       asker: q.user.name,
       createdAt: q.createdAt.toISOString(),
       answeredBy: q.answeredBy,
+      waiting: q.status === "open" ? waitingLabel(q.createdAt) : null,
     };
   });
 

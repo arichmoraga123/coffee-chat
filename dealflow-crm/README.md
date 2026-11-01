@@ -27,6 +27,13 @@ question sets, deals and recruiting calendar events without touching user data.
 | `NEWS_API_KEY` | for live news/deals | NewsAPI key used by the daily news + deal ingest |
 | `CRON_SECRET` | for cron | Protects `/api/cron/*` (Vercel sends it automatically) |
 | `BLOB_READ_WRITE_TOKEN` | for Learn workbooks | Vercel Blob store for the Excel workbooks (Storage → Blob in Vercel) |
+| `RESEND_API_KEY` | for email | Notification emails (daily digest, mentor alerts, club posts). Verify your sending domain in Resend |
+| `EMAIL_FROM` | for email | Sender, e.g. `Prospect <notifications@prospectapp.co>` |
+| `APP_URL` | no | Base URL used in email and text links; defaults to `NEXTAUTH_URL` |
+| `SMS_ENABLED` | no | `true` turns on text messages. Leave off until Twilio approves your A2P 10DLC or toll-free registration |
+| `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN` | for texts | Twilio account |
+| `TWILIO_MESSAGING_SERVICE_SID` | for texts | Messaging Service with Advanced Opt-Out on. Point its incoming webhook at `/api/notifications/twilio` |
+| `TWILIO_VERIFY_SERVICE_SID` | for texts | Verify service for the phone-number code |
 
 ## How content updates
 

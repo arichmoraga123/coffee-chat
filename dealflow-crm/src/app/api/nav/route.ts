@@ -33,7 +33,7 @@ export async function GET() {
       ])
     : [0, 0];
   const isMentor = user?.role === "ADMIN" || user?.role === "MENTOR";
-  const tasksDue = await tasksDueCount(userId);
+  const [tasksDue, notificationsUnread] = await Promise.all([tasksDueCount(userId), prisma.notification.count({ where: { userId, readAt: null } })]);
   const mentorOpen = isMentor ? await prisma.mentorQuestion.count({ where: { status: "open" } }) : 0;
   return NextResponse.json({
     name: user?.name ?? "",
@@ -45,5 +45,6 @@ export async function GET() {
     unread,
     pendingChallenges,
     tasksDue,
+    notificationsUnread,
   });
 }

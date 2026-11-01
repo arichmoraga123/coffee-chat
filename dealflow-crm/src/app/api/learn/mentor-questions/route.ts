@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession } from "@/lib/auth";
 import { getLesson } from "@/lib/learn/lessons";
+import { alertNewMentorQuestion } from "@/lib/mentor-alerts";
 
 /** Student — send a question about a lesson (optionally a specific block) to the PE@Broad mentors. */
 export async function POST(req: Request) {
@@ -24,5 +25,6 @@ export async function POST(req: Request) {
     data: { userId, lessonId: lesson.id, blockId, question },
     select: { id: true, question: true, answer: true, status: true, blockId: true, createdAt: true },
   });
+  await alertNewMentorQuestion({ id: q.id, lessonId: lesson.id, question, userId }).catch((e) => console.error("mentor alert failed", e));
   return NextResponse.json({ question: { ...q, createdAt: q.createdAt.toISOString() } }, { status: 201 });
 }

@@ -6,6 +6,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { LogOut, MoreHorizontal, Search, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { NotificationBell } from "@/components/notifications/notification-bell";
 import { Avatar } from "@/components/ui/avatar";
 import { CountPill } from "@/components/ui/badge";
 import { Tabs } from "@/components/ui/tabs";
@@ -23,7 +24,7 @@ import {
   type NavItem,
 } from "@/components/nav/nav-config";
 
-type NavCounts = { name: string; role: string; clubMember: boolean; clubRole: string | null; dailyLeft: number; mentorOpen: number; unread: number; pendingChallenges: number; tasksDue: number };
+type NavCounts = { name: string; role: string; clubMember: boolean; clubRole: string | null; dailyLeft: number; mentorOpen: number; unread: number; pendingChallenges: number; tasksDue: number; notificationsUnread: number };
 
 const ROLE_LABEL: Record<string, string> = { ADMIN: "Admin", MENTOR: "Mentor", USER: "Member" };
 
@@ -194,8 +195,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     </div>
   );
 
+  const bell = (align: "left" | "right") => <NotificationBell unread={counts?.notificationsUnread ?? 0} onChange={() => void refreshCounts()} align={align} />;
+
   const brand = (compact: boolean) => (
-    <Link href="/dashboard" className={cn("mb-4 flex items-center gap-2.5", compact && "justify-center")}>
+    <div className={cn("mb-4 flex items-center gap-1", compact ? "flex-col" : "justify-between")}>
+    <Link href="/dashboard" className={cn("flex min-w-0 items-center gap-2.5", compact && "justify-center")}>
       <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--radius)] bg-accent text-sm font-bold text-on-accent">P</span>
       {compact ? null : (
         <span className="min-w-0">
@@ -204,6 +208,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </span>
       )}
     </Link>
+    {bell("left")}
+    </div>
   );
 
   const mobileActive = MOBILE_TABS.find((t) => t.match.some((m) => pathMatches(pathname, m)))?.href ?? (moreOpen ? "more" : null);
@@ -237,14 +243,17 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <span className="flex h-7 w-7 items-center justify-center rounded-[var(--radius-sm)] bg-accent text-xs font-bold text-on-accent">P</span>
             <span className="text-[15px] font-semibold">Prospect</span>
           </Link>
-          <button
-            type="button"
-            onClick={() => setPaletteOpen(true)}
-            className="flex h-11 w-11 items-center justify-center rounded-[var(--radius)] text-ink-2"
-            aria-label="Search"
-          >
-            <Search className="h-5 w-5" />
-          </button>
+          <div className="flex items-center">
+            {bell("right")}
+            <button
+              type="button"
+              onClick={() => setPaletteOpen(true)}
+              className="flex h-11 w-11 items-center justify-center rounded-[var(--radius)] text-ink-2"
+              aria-label="Search"
+            >
+              <Search className="h-5 w-5" />
+            </button>
+          </div>
         </header>
 
         <main className="mx-auto w-full min-w-0 max-w-[1200px] flex-1 space-y-6 px-4 pb-24 pt-4 md:px-8 md:pb-10 md:pt-8 lg:px-10">

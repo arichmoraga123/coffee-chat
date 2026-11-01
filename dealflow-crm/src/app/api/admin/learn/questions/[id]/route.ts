@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth-options";
 import { prisma } from "@/lib/prisma";
+import { notifyQuestionAnswered } from "@/lib/mentor-alerts";
 
 /** Mentor/admin — answer a student question; `public: true` adds it to the lesson as an FAQ deep dive. */
 export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -14,7 +15,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
   }
   const { id } = await params;
   const body = (await req.json().catch(() => ({}))) as { answer?: unknown; public?: unknown };
-  const existing = await prisma.mentorQuestion.findUnique({ where: { id }, select: { id: true, answer: true } });
+  const existing = await prisma.mentorQuestion.findUnique({ where: { id }, select: { id: true, answer: true, status: true } });
   if (!existing) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
   const answer = body.answer !== undefined ? String(body.answer).trim().slice(0, 6000) : undefined;
@@ -33,5 +34,8 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
       ...(isPublic !== undefined ? { public: isPublic } : {}),
     },
   });
+  if (answer !== undefined && existing.status !== "answered") {
+    await notifyQuestionAnswered({ id: row.id, userId: row.userId, lessonId: row.lessonId, answeredBy: row.answeredBy }).catch((e) => console.error("answer notify failed", e));
+  }
   return NextResponse.json({ question: row });
 }
