@@ -10,6 +10,7 @@ import { DEAL_TYPE_OPTIONS, VERTICAL_OPTIONS } from "@/lib/deal-taxonomy";
 import { useCareerTracks } from "@/components/career-track-provider";
 import { matchesCareerTracks } from "@/lib/career-tracks";
 import { DealDetailPanel } from "@/components/deal-detail-panel";
+import { Select } from "@/components/ui/select";
 
 type Deal = {
   id: string;
@@ -150,8 +151,8 @@ export function DealsView({
       <Card className="flex flex-wrap items-center gap-2 border-border bg-surface p-3">
         <label className="text-xs text-ink-3">
           <span className="mb-0.5 block">Deal type</span>
-          <select
-            className="h-9 min-w-[140px] rounded border border-border-strong bg-surface px-2 text-sm text-ink"
+          <Select
+            className="min-w-[140px]"
             value={filters.dealType}
             onChange={(e) => setFilters((f) => ({ ...f, dealType: e.target.value }))}
           >
@@ -161,12 +162,12 @@ export function DealsView({
                 {t}
               </option>
             ))}
-          </select>
+          </Select>
         </label>
         <label className="text-xs text-ink-3">
           <span className="mb-0.5 block">Vertical</span>
-          <select
-            className="h-9 min-w-[160px] rounded border border-border-strong bg-surface px-2 text-sm text-ink"
+          <Select
+            className="min-w-[160px]"
             value={filters.vertical}
             onChange={(e) => setFilters((f) => ({ ...f, vertical: e.target.value }))}
           >
@@ -176,7 +177,7 @@ export function DealsView({
                 {v}
               </option>
             ))}
-          </select>
+          </Select>
         </label>
         <Input
           placeholder="Sector"

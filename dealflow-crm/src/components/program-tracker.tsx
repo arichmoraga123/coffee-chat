@@ -17,6 +17,7 @@ import {
   type ProgramBucket,
   type ProgramWindow,
 } from "@/lib/recruiting-programs-2028";
+import { Select } from "@/components/ui/select";
 
 const BUCKETS: ProgramBucket[] = ["Bulge Bracket", "Elite Boutique", "Middle Market", "Buy-Side"];
 
@@ -191,8 +192,8 @@ export function ProgramTracker() {
         </label>
         <label className="text-xs text-ink-3">
           <span className="mb-0.5 block">Group</span>
-          <select
-            className="h-9 rounded border border-border-strong bg-surface px-2 text-sm text-ink"
+          <Select
+            
             value={bucket}
             onChange={(e) => setBucket(e.target.value as typeof bucket)}
           >
@@ -202,12 +203,12 @@ export function ProgramTracker() {
                 {b}
               </option>
             ))}
-          </select>
+          </Select>
         </label>
         <label className="text-xs text-ink-3">
           <span className="mb-0.5 block">Status</span>
-          <select
-            className="h-9 rounded border border-border-strong bg-surface px-2 text-sm text-ink"
+          <Select
+            
             value={windowFilter}
             onChange={(e) => setWindowFilter(e.target.value as typeof windowFilter)}
           >
@@ -217,7 +218,7 @@ export function ProgramTracker() {
             <option value="not-yet-open">Not open yet</option>
             <option value="closed">Closed</option>
             <option value="mine">My applications</option>
-          </select>
+          </Select>
         </label>
       </Card>
 
@@ -264,7 +265,7 @@ export function ProgramTracker() {
                       w === "closed" && "opacity-60",
                     )}
                   >
-                    <select
+                    <Select
                       aria-label={`My status for ${p.company}`}
                       className={cn("h-8 w-full rounded border border-border bg-surface px-1.5 text-xs", STATUS_STYLE[my])}
                       value={my}
@@ -275,7 +276,7 @@ export function ProgramTracker() {
                           {s}
                         </option>
                       ))}
-                    </select>
+                    </Select>
                     <span className="font-medium text-accent">{p.company}</span>
                     <span className="text-ink">{p.program}</span>
                     <span

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Select } from "@/components/ui/select";
 
 type Doc = {
   id: string;
@@ -129,10 +130,10 @@ export function VaultView() {
       <Card className="space-y-2 border-border bg-surface p-4">
         <p className="font-medium text-ink">Submit document</p>
         <div className="grid gap-2 sm:grid-cols-2">
-          <select className="rounded border border-border-strong bg-surface px-2 py-2 text-sm" value={form.type} onChange={(e) => setForm((f) => ({ ...f, type: e.target.value }))}>
+          <Select  value={form.type} onChange={(e) => setForm((f) => ({ ...f, type: e.target.value }))}>
             <option>Resume</option>
             <option>Cover Letter</option>
-          </select>
+          </Select>
           <Input placeholder="Target firm" value={form.targetFirm} onChange={(e) => setForm((f) => ({ ...f, targetFirm: e.target.value }))} />
           <Input placeholder="Role" value={form.targetRole} onChange={(e) => setForm((f) => ({ ...f, targetRole: e.target.value }))} />
           <Input placeholder="Outcome" value={form.outcome} onChange={(e) => setForm((f) => ({ ...f, outcome: e.target.value }))} />

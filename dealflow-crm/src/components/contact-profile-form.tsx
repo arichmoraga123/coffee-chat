@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Select } from "@/components/ui/select";
 
 export type ContactProfilePayload = {
   id: string;
@@ -216,13 +217,13 @@ export function ContactProfileForm({
             value={linkedinUrl}
             onChange={(e) => setLinkedinUrl(e.target.value)}
           />
-          <select className={fieldClass} value={firmId} onChange={(e) => setFirmId(e.target.value)}>
+          <Select className={fieldClass} value={firmId} onChange={(e) => setFirmId(e.target.value)}>
             {firms.map((f) => (
               <option key={f.id} value={f.id}>
                 {f.name}
               </option>
             ))}
-          </select>
+          </Select>
           <Input className={fieldClass} placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
           <Input className={fieldClass} placeholder="Group" value={group} onChange={(e) => setGroup(e.target.value)} />
           <Input
@@ -232,7 +233,7 @@ export function ContactProfileForm({
             onChange={(e) => setLocation(e.target.value)}
           />
           <Input className={fieldClass} placeholder="School" value={school} onChange={(e) => setSchool(e.target.value)} />
-          <select
+          <Select
             className={fieldClass}
             value={recruitingCategory}
             onChange={(e) => setRecruitingCategory(e.target.value)}
@@ -242,7 +243,7 @@ export function ContactProfileForm({
                 {c}
               </option>
             ))}
-          </select>
+          </Select>
           <Input
             className={fieldClass}
             type="number"
@@ -251,7 +252,7 @@ export function ContactProfileForm({
             value={relationshipStrength}
             onChange={(e) => setRelationshipStrength(Number(e.target.value))}
           />
-          <select
+          <Select
             className={fieldClass}
             value={referralProbability}
             onChange={(e) => setReferralProbability(e.target.value)}
@@ -261,7 +262,7 @@ export function ContactProfileForm({
                 {c}
               </option>
             ))}
-          </select>
+          </Select>
           <textarea
             className={`${fieldClass} min-h-[72px] sm:col-span-2`}
             placeholder="General notes"
@@ -358,13 +359,13 @@ export function ContactProfileForm({
             value={mutualConnections}
             onChange={(e) => setMutualConnections(e.target.value)}
           />
-          <select className={`${fieldClass} sm:col-span-2`} value={warmthScore} onChange={(e) => setWarmthScore(e.target.value)}>
+          <Select className={`${fieldClass} sm:col-span-2`} value={warmthScore} onChange={(e) => setWarmthScore(e.target.value)}>
             {["COLD", "WARM", "HOT", "ADVOCATE"].map((w) => (
               <option key={w} value={w}>
                 {w}
               </option>
             ))}
-          </select>
+          </Select>
         </div>
       </Card>
 
@@ -383,7 +384,7 @@ export function ContactProfileForm({
             value={whatTheyLookFor}
             onChange={(e) => setWhatTheyLookFor(e.target.value)}
           />
-          <select
+          <Select
             className={fieldClass}
             value={referralPotential || ""}
             onChange={(e) => setReferralPotential(e.target.value)}
@@ -394,7 +395,7 @@ export function ContactProfileForm({
                 {r}
               </option>
             ))}
-          </select>
+          </Select>
           <Input
             className={fieldClass}
             placeholder="Open roles"

@@ -44,7 +44,7 @@ export async function resolveClubIdForUser(userId: string): Promise<string | nul
   return broad?.id ?? null;
 }
 
-export const OFFICER_ROLES = new Set(["president", "vp", "sector_head", "admin"]);
+export const OFFICER_ROLES = new Set(["president", "vp", "sector_head", "admin", "officer"]);
 
 export async function userClubRole(userId: string, clubId: string): Promise<string | null> {
   const row = await prisma.clubMember.findUnique({

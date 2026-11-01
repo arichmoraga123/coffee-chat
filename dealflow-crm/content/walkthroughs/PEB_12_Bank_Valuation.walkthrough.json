@@ -1,0 +1,534 @@
+{
+ "workbookKey": "PEB_12_Bank_Valuation",
+ "studentFile": "PEB_12_Bank_Valuation.xlsx",
+ "answerKeyFile": "PEB_12_Bank_Valuation_KEY.xlsx",
+ "sheets": [
+  "Bank Valuation"
+ ],
+ "stepCount": 17,
+ "steps": [
+  {
+   "id": "s001",
+   "kind": "formula",
+   "expectedFormula": "=B4*B5",
+   "expectedValue": 4800,
+   "tolerance": 24.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B4",
+     "label": "Share price",
+     "value": 48
+    },
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B5",
+     "label": "Shares outstanding (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Bank Valuation",
+   "cell": "B13",
+   "label": "Market cap",
+   "header": null,
+   "instruction": "Calculate Market cap.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s002",
+   "kind": "formula",
+   "expectedFormula": "=B6/B5",
+   "expectedValue": 40,
+   "tolerance": 0.2,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B6",
+     "label": "Book value of equity ($mm)",
+     "value": 4000
+    },
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B5",
+     "label": "Shares outstanding (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Bank Valuation",
+   "cell": "B14",
+   "label": "Book value per share",
+   "header": null,
+   "instruction": "Calculate Book value per share.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s003",
+   "kind": "formula",
+   "expectedFormula": "=(B6-B7)/B5",
+   "expectedValue": 34,
+   "tolerance": 0.17,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B6",
+     "label": "Book value of equity ($mm)",
+     "value": 4000
+    },
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B7",
+     "label": "Goodwill & intangibles ($mm)",
+     "value": 600
+    },
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B5",
+     "label": "Shares outstanding (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Bank Valuation",
+   "cell": "B15",
+   "label": "Tangible book value per share",
+   "header": null,
+   "instruction": "Calculate Tangible book value per share.",
+   "hint": "Strip out goodwill and intangibles",
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s004",
+   "kind": "formula",
+   "expectedFormula": "=B8/B5",
+   "expectedValue": 5.2,
+   "tolerance": 0.026000000000000002,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B8",
+     "label": "Net income ($mm)",
+     "value": 520
+    },
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B5",
+     "label": "Shares outstanding (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Bank Valuation",
+   "cell": "B16",
+   "label": "EPS",
+   "header": null,
+   "instruction": "Calculate EPS.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s005",
+   "kind": "formula",
+   "expectedFormula": "=B4/B14",
+   "expectedValue": 1.2,
+   "tolerance": 0.006,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B4",
+     "label": "Share price",
+     "value": 48
+    },
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B14",
+     "label": "Book value per share",
+     "value": 40
+    }
+   ],
+   "sheet": "Bank Valuation",
+   "cell": "B17",
+   "label": "P / BV",
+   "header": null,
+   "instruction": "Calculate P / BV.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s006",
+   "kind": "formula",
+   "expectedFormula": "=B4/B15",
+   "expectedValue": 1.411765,
+   "tolerance": 0.007058823529411749,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B4",
+     "label": "Share price",
+     "value": 48
+    },
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B15",
+     "label": "Tangible book value per share",
+     "value": 34
+    }
+   ],
+   "sheet": "Bank Valuation",
+   "cell": "B18",
+   "label": "P / TBV",
+   "header": null,
+   "instruction": "Calculate P / TBV.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s007",
+   "kind": "formula",
+   "expectedFormula": "=B4/B16",
+   "expectedValue": 9.230769,
+   "tolerance": 0.04615384615384615,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B4",
+     "label": "Share price",
+     "value": 48
+    },
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B16",
+     "label": "EPS",
+     "value": 5.2
+    }
+   ],
+   "sheet": "Bank Valuation",
+   "cell": "B19",
+   "label": "P / E",
+   "header": null,
+   "instruction": "Calculate P / E.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s008",
+   "kind": "formula",
+   "expectedFormula": "=B8/B6",
+   "expectedValue": 0.13,
+   "tolerance": 0.0006500000000000001,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B8",
+     "label": "Net income ($mm)",
+     "value": 520
+    },
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B6",
+     "label": "Book value of equity ($mm)",
+     "value": 4000
+    }
+   ],
+   "sheet": "Bank Valuation",
+   "cell": "B20",
+   "label": "ROE",
+   "header": null,
+   "instruction": "Calculate ROE.",
+   "hint": "Net income ÷ book equity",
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s009",
+   "kind": "formula",
+   "expectedFormula": "=B8/(B6-B7)",
+   "expectedValue": 0.152941,
+   "tolerance": 0.00076470588235294,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B8",
+     "label": "Net income ($mm)",
+     "value": 520
+    },
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B6",
+     "label": "Book value of equity ($mm)",
+     "value": 4000
+    },
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B7",
+     "label": "Goodwill & intangibles ($mm)",
+     "value": 600
+    }
+   ],
+   "sheet": "Bank Valuation",
+   "cell": "B21",
+   "label": "ROTE",
+   "header": null,
+   "instruction": "Calculate ROTE.",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s010",
+   "kind": "formula",
+   "expectedFormula": "=B9/B16",
+   "expectedValue": 0.769231,
+   "tolerance": 0.0038461538461538455,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B9",
+     "label": "Dividends per share",
+     "value": 4
+    },
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B16",
+     "label": "EPS",
+     "value": 5.2
+    }
+   ],
+   "sheet": "Bank Valuation",
+   "cell": "B22",
+   "label": "Payout ratio",
+   "header": null,
+   "instruction": "Calculate Payout ratio.",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s011",
+   "kind": "formula",
+   "expectedFormula": "=B20*(1-B22)",
+   "expectedValue": 0.03,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B20",
+     "label": "ROE",
+     "value": 0.13
+    },
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B22",
+     "label": "Payout ratio",
+     "value": 0.769231
+    }
+   ],
+   "sheet": "Bank Valuation",
+   "cell": "B23",
+   "label": "Sustainable growth = ROE × (1 − payout)",
+   "header": null,
+   "instruction": "Calculate Sustainable growth = ROE × (1 − payout).",
+   "hint": "Should match the growth input — if not, the assumptions conflict.",
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s012",
+   "kind": "formula",
+   "expectedFormula": "=(B20-B11)/(B10-B11)",
+   "expectedValue": 1.428571,
+   "tolerance": 0.00714285714285715,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B20",
+     "label": "ROE",
+     "value": 0.13
+    },
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B11",
+     "label": "Long-term growth",
+     "value": 0.03
+    },
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B10",
+     "label": "Cost of equity",
+     "value": 0.1
+    }
+   ],
+   "sheet": "Bank Valuation",
+   "cell": "B24",
+   "label": "Justified P / BV = (ROE − g) ÷ (Ke − g)",
+   "header": null,
+   "instruction": "Calculate Justified P / BV = (ROE − g) ÷ (Ke − g).",
+   "hint": "ROE above cost of equity → trades above book",
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s013",
+   "kind": "formula",
+   "expectedFormula": "=B24*B14",
+   "expectedValue": 57.142857,
+   "tolerance": 0.28571428571428553,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B24",
+     "label": "Justified P / BV = (ROE − g) ÷ (Ke − g)",
+     "value": 1.428571
+    },
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B14",
+     "label": "Book value per share",
+     "value": 40
+    }
+   ],
+   "sheet": "Bank Valuation",
+   "cell": "B25",
+   "label": "Implied price (justified P/BV)",
+   "header": null,
+   "instruction": "Calculate Implied price (justified P/BV).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s014",
+   "kind": "formula",
+   "expectedFormula": "=B9*(1+B11)/(B10-B11)",
+   "expectedValue": 58.857143,
+   "tolerance": 0.2942857142857145,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B9",
+     "label": "Dividends per share",
+     "value": 4
+    },
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B11",
+     "label": "Long-term growth",
+     "value": 0.03
+    },
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B10",
+     "label": "Cost of equity",
+     "value": 0.1
+    }
+   ],
+   "sheet": "Bank Valuation",
+   "cell": "B26",
+   "label": "DDM value: next year's dividend ÷ (Ke − g)",
+   "header": null,
+   "instruction": "Calculate DDM value: next year's dividend ÷ (Ke − g).",
+   "hint": "Gordon Growth on dividends",
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s015",
+   "kind": "formula",
+   "expectedFormula": "=B26/B4-1",
+   "expectedValue": 0.22619,
+   "tolerance": 0.00113095238095238,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B26",
+     "label": "DDM value: next year's dividend ÷ (Ke − g)",
+     "value": 58.857143
+    },
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B4",
+     "label": "Share price",
+     "value": 48
+    }
+   ],
+   "sheet": "Bank Valuation",
+   "cell": "B27",
+   "label": "Upside vs. current price (DDM)",
+   "header": null,
+   "instruction": "Calculate Upside vs. current price (DDM).",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s016",
+   "kind": "formula",
+   "expectedFormula": "=B30/B31",
+   "expectedValue": 0.106667,
+   "tolerance": 0.0005333333333333351,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B30",
+     "label": "CET1 capital ($mm)",
+     "value": 3200
+    },
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B31",
+     "label": "Risk-weighted assets ($mm)",
+     "value": 30000
+    }
+   ],
+   "sheet": "Bank Valuation",
+   "cell": "B33",
+   "label": "CET1 ratio",
+   "header": null,
+   "instruction": "Calculate CET1 ratio.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s017",
+   "kind": "formula",
+   "expectedFormula": "=B30-B31*B32",
+   "expectedValue": 200,
+   "tolerance": 1.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B30",
+     "label": "CET1 capital ($mm)",
+     "value": 3200
+    },
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B31",
+     "label": "Risk-weighted assets ($mm)",
+     "value": 30000
+    },
+    {
+     "sheet": "Bank Valuation",
+     "ref": "B32",
+     "label": "Required CET1 ratio (incl. buffers)",
+     "value": 0.1
+    }
+   ],
+   "sheet": "Bank Valuation",
+   "cell": "B34",
+   "label": "Excess capital above requirement",
+   "header": null,
+   "instruction": "Calculate Excess capital above requirement.",
+   "hint": "Capital above the requirement is what a bank can return through dividends and buybacks.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  }
+ ]
+}

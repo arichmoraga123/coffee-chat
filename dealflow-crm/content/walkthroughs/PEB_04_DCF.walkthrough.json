@@ -1,0 +1,6453 @@
+{
+ "workbookKey": "PEB_04_DCF",
+ "studentFile": "PEB_04_DCF.xlsx",
+ "answerKeyFile": "PEB_04_DCF_KEY.xlsx",
+ "sheets": [
+  "DCF",
+  "Sensitivity"
+ ],
+ "stepCount": 139,
+ "steps": [
+  {
+   "id": "s001",
+   "kind": "formula",
+   "expectedFormula": "=B22*(1+C19)",
+   "expectedValue": 2200,
+   "tolerance": 11.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "B22",
+     "label": "Revenue (2026A)",
+     "value": 2000
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C19",
+     "label": "Revenue growth (2027E)",
+     "value": 0.1
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C22",
+   "label": "Revenue",
+   "header": "2027E",
+   "instruction": "Calculate Revenue for 2027E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s002",
+   "kind": "formula",
+   "expectedFormula": "=C22*(1+D19)",
+   "expectedValue": 2398,
+   "tolerance": 11.99,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C22",
+     "label": "Revenue (2027E)",
+     "value": 2200
+    },
+    {
+     "sheet": "DCF",
+     "ref": "D19",
+     "label": "Revenue growth (2028E)",
+     "value": 0.09
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "D22",
+   "label": "Revenue",
+   "header": "2028E",
+   "instruction": "Calculate Revenue for 2028E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s003",
+   "kind": "formula",
+   "expectedFormula": "=D22*(1+E19)",
+   "expectedValue": 2589.84,
+   "tolerance": 12.949200000000001,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "D22",
+     "label": "Revenue (2028E)",
+     "value": 2398
+    },
+    {
+     "sheet": "DCF",
+     "ref": "E19",
+     "label": "Revenue growth (2029E)",
+     "value": 0.08
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "E22",
+   "label": "Revenue",
+   "header": "2029E",
+   "instruction": "Calculate Revenue for 2029E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s004",
+   "kind": "formula",
+   "expectedFormula": "=E22*(1+F19)",
+   "expectedValue": 2745.2304,
+   "tolerance": 13.726151999999999,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "E22",
+     "label": "Revenue (2029E)",
+     "value": 2589.84
+    },
+    {
+     "sheet": "DCF",
+     "ref": "F19",
+     "label": "Revenue growth (2030E)",
+     "value": 0.06
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "F22",
+   "label": "Revenue",
+   "header": "2030E",
+   "instruction": "Calculate Revenue for 2030E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s005",
+   "kind": "formula",
+   "expectedFormula": "=F22*(1+G19)",
+   "expectedValue": 2882.49192,
+   "tolerance": 14.4124596,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "F22",
+     "label": "Revenue (2030E)",
+     "value": 2745.2304
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G19",
+     "label": "Revenue growth (2031E)",
+     "value": 0.05
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "G22",
+   "label": "Revenue",
+   "header": "2031E",
+   "instruction": "Calculate Revenue for 2031E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s006",
+   "kind": "formula",
+   "expectedFormula": "=B22*B20",
+   "expectedValue": 350,
+   "tolerance": 1.75,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "B22",
+     "label": "Revenue (2026A)",
+     "value": 2000
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B20",
+     "label": "EBITDA margin (2026A)",
+     "value": 0.175
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "B23",
+   "label": "EBITDA",
+   "header": "2026A",
+   "instruction": "Calculate EBITDA for 2026A.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s007",
+   "kind": "formula",
+   "expectedFormula": "=C22*C20",
+   "expectedValue": 396,
+   "tolerance": 1.98,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C22",
+     "label": "Revenue (2027E)",
+     "value": 2200
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C20",
+     "label": "EBITDA margin (2027E)",
+     "value": 0.18
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C23",
+   "label": "EBITDA",
+   "header": "2027E",
+   "instruction": "Calculate EBITDA for 2027E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s008",
+   "kind": "formula",
+   "expectedFormula": "=D22*D20",
+   "expectedValue": 443.63,
+   "tolerance": 2.21815,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "D22",
+     "label": "Revenue (2028E)",
+     "value": 2398
+    },
+    {
+     "sheet": "DCF",
+     "ref": "D20",
+     "label": "EBITDA margin (2028E)",
+     "value": 0.185
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "D23",
+   "label": "EBITDA",
+   "header": "2028E",
+   "instruction": "Calculate EBITDA for 2028E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s009",
+   "kind": "formula",
+   "expectedFormula": "=E22*E20",
+   "expectedValue": 492.0696,
+   "tolerance": 2.4603479999999998,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "E22",
+     "label": "Revenue (2029E)",
+     "value": 2589.84
+    },
+    {
+     "sheet": "DCF",
+     "ref": "E20",
+     "label": "EBITDA margin (2029E)",
+     "value": 0.19
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "E23",
+   "label": "EBITDA",
+   "header": "2029E",
+   "instruction": "Calculate EBITDA for 2029E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s010",
+   "kind": "formula",
+   "expectedFormula": "=F22*F20",
+   "expectedValue": 535.319928,
+   "tolerance": 2.67659964,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "F22",
+     "label": "Revenue (2030E)",
+     "value": 2745.2304
+    },
+    {
+     "sheet": "DCF",
+     "ref": "F20",
+     "label": "EBITDA margin (2030E)",
+     "value": 0.195
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "F23",
+   "label": "EBITDA",
+   "header": "2030E",
+   "instruction": "Calculate EBITDA for 2030E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s011",
+   "kind": "formula",
+   "expectedFormula": "=G22*G20",
+   "expectedValue": 576.498384,
+   "tolerance": 2.88249192,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "G22",
+     "label": "Revenue (2031E)",
+     "value": 2882.49192
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G20",
+     "label": "EBITDA margin (2031E)",
+     "value": 0.2
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "G23",
+   "label": "EBITDA",
+   "header": "2031E",
+   "instruction": "Calculate EBITDA for 2031E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s012",
+   "kind": "formula",
+   "expectedFormula": "=C22*$B$7",
+   "expectedValue": 88,
+   "tolerance": 0.44,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C22",
+     "label": "Revenue (2027E)",
+     "value": 2200
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B7",
+     "label": "D&A (% of revenue)",
+     "value": 0.04
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C24",
+   "label": "D&A",
+   "header": "2027E",
+   "instruction": "Calculate D&A for 2027E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s013",
+   "kind": "formula",
+   "expectedFormula": "=D22*$B$7",
+   "expectedValue": 95.92,
+   "tolerance": 0.4796,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "D22",
+     "label": "Revenue (2028E)",
+     "value": 2398
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B7",
+     "label": "D&A (% of revenue)",
+     "value": 0.04
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "D24",
+   "label": "D&A",
+   "header": "2028E",
+   "instruction": "Calculate D&A for 2028E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s014",
+   "kind": "formula",
+   "expectedFormula": "=E22*$B$7",
+   "expectedValue": 103.5936,
+   "tolerance": 0.517968,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "E22",
+     "label": "Revenue (2029E)",
+     "value": 2589.84
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B7",
+     "label": "D&A (% of revenue)",
+     "value": 0.04
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "E24",
+   "label": "D&A",
+   "header": "2029E",
+   "instruction": "Calculate D&A for 2029E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s015",
+   "kind": "formula",
+   "expectedFormula": "=F22*$B$7",
+   "expectedValue": 109.809216,
+   "tolerance": 0.54904608,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "F22",
+     "label": "Revenue (2030E)",
+     "value": 2745.2304
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B7",
+     "label": "D&A (% of revenue)",
+     "value": 0.04
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "F24",
+   "label": "D&A",
+   "header": "2030E",
+   "instruction": "Calculate D&A for 2030E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s016",
+   "kind": "formula",
+   "expectedFormula": "=G22*$B$7",
+   "expectedValue": 115.299677,
+   "tolerance": 0.576498384,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "G22",
+     "label": "Revenue (2031E)",
+     "value": 2882.49192
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B7",
+     "label": "D&A (% of revenue)",
+     "value": 0.04
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "G24",
+   "label": "D&A",
+   "header": "2031E",
+   "instruction": "Calculate D&A for 2031E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s017",
+   "kind": "formula",
+   "expectedFormula": "=C23-C24",
+   "expectedValue": 308,
+   "tolerance": 1.54,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C23",
+     "label": "EBITDA (2027E)",
+     "value": 396
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C24",
+     "label": "D&A (2027E)",
+     "value": 88
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C25",
+   "label": "EBIT",
+   "header": "2027E",
+   "instruction": "Calculate EBIT for 2027E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s018",
+   "kind": "formula",
+   "expectedFormula": "=D23-D24",
+   "expectedValue": 347.71,
+   "tolerance": 1.73855,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "D23",
+     "label": "EBITDA (2028E)",
+     "value": 443.63
+    },
+    {
+     "sheet": "DCF",
+     "ref": "D24",
+     "label": "D&A (2028E)",
+     "value": 95.92
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "D25",
+   "label": "EBIT",
+   "header": "2028E",
+   "instruction": "Calculate EBIT for 2028E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s019",
+   "kind": "formula",
+   "expectedFormula": "=E23-E24",
+   "expectedValue": 388.476,
+   "tolerance": 1.94238,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "E23",
+     "label": "EBITDA (2029E)",
+     "value": 492.0696
+    },
+    {
+     "sheet": "DCF",
+     "ref": "E24",
+     "label": "D&A (2029E)",
+     "value": 103.5936
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "E25",
+   "label": "EBIT",
+   "header": "2029E",
+   "instruction": "Calculate EBIT for 2029E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s020",
+   "kind": "formula",
+   "expectedFormula": "=F23-F24",
+   "expectedValue": 425.510712,
+   "tolerance": 2.12755356,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "F23",
+     "label": "EBITDA (2030E)",
+     "value": 535.319928
+    },
+    {
+     "sheet": "DCF",
+     "ref": "F24",
+     "label": "D&A (2030E)",
+     "value": 109.809216
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "F25",
+   "label": "EBIT",
+   "header": "2030E",
+   "instruction": "Calculate EBIT for 2030E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s021",
+   "kind": "formula",
+   "expectedFormula": "=G23-G24",
+   "expectedValue": 461.198707,
+   "tolerance": 2.305993536,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G24",
+     "label": "D&A (2031E)",
+     "value": 115.299677
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "G25",
+   "label": "EBIT",
+   "header": "2031E",
+   "instruction": "Calculate EBIT for 2031E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s022",
+   "kind": "formula",
+   "expectedFormula": "=C25*$B$6",
+   "expectedValue": 77,
+   "tolerance": 0.385,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C25",
+     "label": "EBIT (2027E)",
+     "value": 308
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B6",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C26",
+   "label": "Taxes on EBIT",
+   "header": "2027E",
+   "instruction": "Calculate Taxes on EBIT for 2027E.",
+   "hint": "Tax EBIT, not pre-tax income: UFCF ignores interest.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s023",
+   "kind": "formula",
+   "expectedFormula": "=D25*$B$6",
+   "expectedValue": 86.9275,
+   "tolerance": 0.4346375,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "D25",
+     "label": "EBIT (2028E)",
+     "value": 347.71
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B6",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "D26",
+   "label": "Taxes on EBIT",
+   "header": "2028E",
+   "instruction": "Calculate Taxes on EBIT for 2028E.",
+   "hint": "Tax EBIT, not pre-tax income: UFCF ignores interest.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s024",
+   "kind": "formula",
+   "expectedFormula": "=E25*$B$6",
+   "expectedValue": 97.119,
+   "tolerance": 0.485595,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "E25",
+     "label": "EBIT (2029E)",
+     "value": 388.476
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B6",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "E26",
+   "label": "Taxes on EBIT",
+   "header": "2029E",
+   "instruction": "Calculate Taxes on EBIT for 2029E.",
+   "hint": "Tax EBIT, not pre-tax income: UFCF ignores interest.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s025",
+   "kind": "formula",
+   "expectedFormula": "=F25*$B$6",
+   "expectedValue": 106.377678,
+   "tolerance": 0.53188839,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "F25",
+     "label": "EBIT (2030E)",
+     "value": 425.510712
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B6",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "F26",
+   "label": "Taxes on EBIT",
+   "header": "2030E",
+   "instruction": "Calculate Taxes on EBIT for 2030E.",
+   "hint": "Tax EBIT, not pre-tax income: UFCF ignores interest.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s026",
+   "kind": "formula",
+   "expectedFormula": "=G25*$B$6",
+   "expectedValue": 115.299677,
+   "tolerance": 0.576498384,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "G25",
+     "label": "EBIT (2031E)",
+     "value": 461.198707
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B6",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "G26",
+   "label": "Taxes on EBIT",
+   "header": "2031E",
+   "instruction": "Calculate Taxes on EBIT for 2031E.",
+   "hint": "Tax EBIT, not pre-tax income: UFCF ignores interest.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s027",
+   "kind": "formula",
+   "expectedFormula": "=C25-C26",
+   "expectedValue": 231,
+   "tolerance": 1.155,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C25",
+     "label": "EBIT (2027E)",
+     "value": 308
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C26",
+     "label": "Taxes on EBIT (2027E)",
+     "value": 77
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C27",
+   "label": "NOPAT",
+   "header": "2027E",
+   "instruction": "Calculate NOPAT for 2027E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s028",
+   "kind": "formula",
+   "expectedFormula": "=D25-D26",
+   "expectedValue": 260.7825,
+   "tolerance": 1.3039125000000003,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "D25",
+     "label": "EBIT (2028E)",
+     "value": 347.71
+    },
+    {
+     "sheet": "DCF",
+     "ref": "D26",
+     "label": "Taxes on EBIT (2028E)",
+     "value": 86.9275
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "D27",
+   "label": "NOPAT",
+   "header": "2028E",
+   "instruction": "Calculate NOPAT for 2028E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s029",
+   "kind": "formula",
+   "expectedFormula": "=E25-E26",
+   "expectedValue": 291.357,
+   "tolerance": 1.4567850000000002,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "E25",
+     "label": "EBIT (2029E)",
+     "value": 388.476
+    },
+    {
+     "sheet": "DCF",
+     "ref": "E26",
+     "label": "Taxes on EBIT (2029E)",
+     "value": 97.119
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "E27",
+   "label": "NOPAT",
+   "header": "2029E",
+   "instruction": "Calculate NOPAT for 2029E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s030",
+   "kind": "formula",
+   "expectedFormula": "=F25-F26",
+   "expectedValue": 319.133034,
+   "tolerance": 1.5956651700000002,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "F25",
+     "label": "EBIT (2030E)",
+     "value": 425.510712
+    },
+    {
+     "sheet": "DCF",
+     "ref": "F26",
+     "label": "Taxes on EBIT (2030E)",
+     "value": 106.377678
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "F27",
+   "label": "NOPAT",
+   "header": "2030E",
+   "instruction": "Calculate NOPAT for 2030E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s031",
+   "kind": "formula",
+   "expectedFormula": "=G25-G26",
+   "expectedValue": 345.89903,
+   "tolerance": 1.7294951520000001,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "G25",
+     "label": "EBIT (2031E)",
+     "value": 461.198707
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G26",
+     "label": "Taxes on EBIT (2031E)",
+     "value": 115.299677
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "G27",
+   "label": "NOPAT",
+   "header": "2031E",
+   "instruction": "Calculate NOPAT for 2031E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s032",
+   "kind": "formula",
+   "expectedFormula": "=C24",
+   "expectedValue": 88,
+   "tolerance": 0.44,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C24",
+     "label": "D&A (2027E)",
+     "value": 88
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C28",
+   "label": "Plus: D&A",
+   "header": "2027E",
+   "instruction": "Calculate Plus: D&A for 2027E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s033",
+   "kind": "formula",
+   "expectedFormula": "=D24",
+   "expectedValue": 95.92,
+   "tolerance": 0.4796,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "D24",
+     "label": "D&A (2028E)",
+     "value": 95.92
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "D28",
+   "label": "Plus: D&A",
+   "header": "2028E",
+   "instruction": "Calculate Plus: D&A for 2028E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s034",
+   "kind": "formula",
+   "expectedFormula": "=E24",
+   "expectedValue": 103.5936,
+   "tolerance": 0.517968,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "E24",
+     "label": "D&A (2029E)",
+     "value": 103.5936
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "E28",
+   "label": "Plus: D&A",
+   "header": "2029E",
+   "instruction": "Calculate Plus: D&A for 2029E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s035",
+   "kind": "formula",
+   "expectedFormula": "=F24",
+   "expectedValue": 109.809216,
+   "tolerance": 0.54904608,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "F24",
+     "label": "D&A (2030E)",
+     "value": 109.809216
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "F28",
+   "label": "Plus: D&A",
+   "header": "2030E",
+   "instruction": "Calculate Plus: D&A for 2030E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s036",
+   "kind": "formula",
+   "expectedFormula": "=G24",
+   "expectedValue": 115.299677,
+   "tolerance": 0.576498384,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "G24",
+     "label": "D&A (2031E)",
+     "value": 115.299677
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "G28",
+   "label": "Plus: D&A",
+   "header": "2031E",
+   "instruction": "Calculate Plus: D&A for 2031E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s037",
+   "kind": "formula",
+   "expectedFormula": "=-C22*$B$8",
+   "expectedValue": -110,
+   "tolerance": 0.55,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C22",
+     "label": "Revenue (2027E)",
+     "value": 2200
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B8",
+     "label": "CapEx (% of revenue)",
+     "value": 0.05
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C29",
+   "label": "Less: CapEx",
+   "header": "2027E",
+   "instruction": "Calculate Less: CapEx for 2027E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s038",
+   "kind": "formula",
+   "expectedFormula": "=-D22*$B$8",
+   "expectedValue": -119.9,
+   "tolerance": 0.5995,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "D22",
+     "label": "Revenue (2028E)",
+     "value": 2398
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B8",
+     "label": "CapEx (% of revenue)",
+     "value": 0.05
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "D29",
+   "label": "Less: CapEx",
+   "header": "2028E",
+   "instruction": "Calculate Less: CapEx for 2028E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s039",
+   "kind": "formula",
+   "expectedFormula": "=-E22*$B$8",
+   "expectedValue": -129.492,
+   "tolerance": 0.6474599999999999,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "E22",
+     "label": "Revenue (2029E)",
+     "value": 2589.84
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B8",
+     "label": "CapEx (% of revenue)",
+     "value": 0.05
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "E29",
+   "label": "Less: CapEx",
+   "header": "2029E",
+   "instruction": "Calculate Less: CapEx for 2029E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s040",
+   "kind": "formula",
+   "expectedFormula": "=-F22*$B$8",
+   "expectedValue": -137.26152,
+   "tolerance": 0.6863076,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "F22",
+     "label": "Revenue (2030E)",
+     "value": 2745.2304
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B8",
+     "label": "CapEx (% of revenue)",
+     "value": 0.05
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "F29",
+   "label": "Less: CapEx",
+   "header": "2030E",
+   "instruction": "Calculate Less: CapEx for 2030E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s041",
+   "kind": "formula",
+   "expectedFormula": "=-G22*$B$8",
+   "expectedValue": -144.124596,
+   "tolerance": 0.72062298,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "G22",
+     "label": "Revenue (2031E)",
+     "value": 2882.49192
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B8",
+     "label": "CapEx (% of revenue)",
+     "value": 0.05
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "G29",
+   "label": "Less: CapEx",
+   "header": "2031E",
+   "instruction": "Calculate Less: CapEx for 2031E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s042",
+   "kind": "formula",
+   "expectedFormula": "=-(C22-B22)*$B$9",
+   "expectedValue": -24,
+   "tolerance": 0.12,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C22",
+     "label": "Revenue (2027E)",
+     "value": 2200
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B22",
+     "label": "Revenue (2026A)",
+     "value": 2000
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B9",
+     "label": "Net working capital (% of revenue)",
+     "value": 0.12
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C30",
+   "label": "Less: increase in NWC",
+   "header": "2027E",
+   "instruction": "Calculate Less: increase in NWC for 2027E.",
+   "hint": "NWC grows with revenue: 12% × change in revenue.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s043",
+   "kind": "formula",
+   "expectedFormula": "=-(D22-C22)*$B$9",
+   "expectedValue": -23.76,
+   "tolerance": 0.11880000000000002,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "D22",
+     "label": "Revenue (2028E)",
+     "value": 2398
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C22",
+     "label": "Revenue (2027E)",
+     "value": 2200
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B9",
+     "label": "Net working capital (% of revenue)",
+     "value": 0.12
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "D30",
+   "label": "Less: increase in NWC",
+   "header": "2028E",
+   "instruction": "Calculate Less: increase in NWC for 2028E.",
+   "hint": "NWC grows with revenue: 12% × change in revenue.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s044",
+   "kind": "formula",
+   "expectedFormula": "=-(E22-D22)*$B$9",
+   "expectedValue": -23.0208,
+   "tolerance": 0.11510400000000001,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "E22",
+     "label": "Revenue (2029E)",
+     "value": 2589.84
+    },
+    {
+     "sheet": "DCF",
+     "ref": "D22",
+     "label": "Revenue (2028E)",
+     "value": 2398
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B9",
+     "label": "Net working capital (% of revenue)",
+     "value": 0.12
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "E30",
+   "label": "Less: increase in NWC",
+   "header": "2029E",
+   "instruction": "Calculate Less: increase in NWC for 2029E.",
+   "hint": "NWC grows with revenue: 12% × change in revenue.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s045",
+   "kind": "formula",
+   "expectedFormula": "=-(F22-E22)*$B$9",
+   "expectedValue": -18.646848,
+   "tolerance": 0.09323424,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "F22",
+     "label": "Revenue (2030E)",
+     "value": 2745.2304
+    },
+    {
+     "sheet": "DCF",
+     "ref": "E22",
+     "label": "Revenue (2029E)",
+     "value": 2589.84
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B9",
+     "label": "Net working capital (% of revenue)",
+     "value": 0.12
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "F30",
+   "label": "Less: increase in NWC",
+   "header": "2030E",
+   "instruction": "Calculate Less: increase in NWC for 2030E.",
+   "hint": "NWC grows with revenue: 12% × change in revenue.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s046",
+   "kind": "formula",
+   "expectedFormula": "=-(G22-F22)*$B$9",
+   "expectedValue": -16.471382,
+   "tolerance": 0.082356912,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "G22",
+     "label": "Revenue (2031E)",
+     "value": 2882.49192
+    },
+    {
+     "sheet": "DCF",
+     "ref": "F22",
+     "label": "Revenue (2030E)",
+     "value": 2745.2304
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B9",
+     "label": "Net working capital (% of revenue)",
+     "value": 0.12
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "G30",
+   "label": "Less: increase in NWC",
+   "header": "2031E",
+   "instruction": "Calculate Less: increase in NWC for 2031E.",
+   "hint": "NWC grows with revenue: 12% × change in revenue.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s047",
+   "kind": "formula",
+   "expectedFormula": "=C27+C28+C29+C30",
+   "expectedValue": 185,
+   "tolerance": 0.925,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C27",
+     "label": "NOPAT (2027E)",
+     "value": 231
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C28",
+     "label": "Plus: D&A (2027E)",
+     "value": 88
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C29",
+     "label": "Less: CapEx (2027E)",
+     "value": -110
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C30",
+     "label": "Less: increase in NWC (2027E)",
+     "value": -24
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C31",
+   "label": "Unlevered free cash flow",
+   "header": "2027E",
+   "instruction": "Calculate Unlevered free cash flow for 2027E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s048",
+   "kind": "formula",
+   "expectedFormula": "=D27+D28+D29+D30",
+   "expectedValue": 213.0425,
+   "tolerance": 1.0652125,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "D27",
+     "label": "NOPAT (2028E)",
+     "value": 260.7825
+    },
+    {
+     "sheet": "DCF",
+     "ref": "D28",
+     "label": "Plus: D&A (2028E)",
+     "value": 95.92
+    },
+    {
+     "sheet": "DCF",
+     "ref": "D29",
+     "label": "Less: CapEx (2028E)",
+     "value": -119.9
+    },
+    {
+     "sheet": "DCF",
+     "ref": "D30",
+     "label": "Less: increase in NWC (2028E)",
+     "value": -23.76
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "D31",
+   "label": "Unlevered free cash flow",
+   "header": "2028E",
+   "instruction": "Calculate Unlevered free cash flow for 2028E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s049",
+   "kind": "formula",
+   "expectedFormula": "=E27+E28+E29+E30",
+   "expectedValue": 242.4378,
+   "tolerance": 1.2121890000000002,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "E27",
+     "label": "NOPAT (2029E)",
+     "value": 291.357
+    },
+    {
+     "sheet": "DCF",
+     "ref": "E28",
+     "label": "Plus: D&A (2029E)",
+     "value": 103.5936
+    },
+    {
+     "sheet": "DCF",
+     "ref": "E29",
+     "label": "Less: CapEx (2029E)",
+     "value": -129.492
+    },
+    {
+     "sheet": "DCF",
+     "ref": "E30",
+     "label": "Less: increase in NWC (2029E)",
+     "value": -23.0208
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "E31",
+   "label": "Unlevered free cash flow",
+   "header": "2029E",
+   "instruction": "Calculate Unlevered free cash flow for 2029E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s050",
+   "kind": "formula",
+   "expectedFormula": "=F27+F28+F29+F30",
+   "expectedValue": 273.033882,
+   "tolerance": 1.36516941,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "F27",
+     "label": "NOPAT (2030E)",
+     "value": 319.133034
+    },
+    {
+     "sheet": "DCF",
+     "ref": "F28",
+     "label": "Plus: D&A (2030E)",
+     "value": 109.809216
+    },
+    {
+     "sheet": "DCF",
+     "ref": "F29",
+     "label": "Less: CapEx (2030E)",
+     "value": -137.26152
+    },
+    {
+     "sheet": "DCF",
+     "ref": "F30",
+     "label": "Less: increase in NWC (2030E)",
+     "value": -18.646848
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "F31",
+   "label": "Unlevered free cash flow",
+   "header": "2030E",
+   "instruction": "Calculate Unlevered free cash flow for 2030E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s051",
+   "kind": "formula",
+   "expectedFormula": "=G27+G28+G29+G30",
+   "expectedValue": 300.602729,
+   "tolerance": 1.5030136440000001,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "G27",
+     "label": "NOPAT (2031E)",
+     "value": 345.89903
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G28",
+     "label": "Plus: D&A (2031E)",
+     "value": 115.299677
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G29",
+     "label": "Less: CapEx (2031E)",
+     "value": -144.124596
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G30",
+     "label": "Less: increase in NWC (2031E)",
+     "value": -16.471382
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "G31",
+   "label": "Unlevered free cash flow",
+   "header": "2031E",
+   "instruction": "Calculate Unlevered free cash flow for 2031E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s052",
+   "kind": "formula",
+   "expectedFormula": "=C33-0.5*$B$13",
+   "expectedValue": 0.5,
+   "tolerance": 0.0025,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C33",
+     "label": "Period (2027E)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C34",
+   "label": "Discount period",
+   "header": "2027E",
+   "instruction": "Calculate Discount period for 2027E.",
+   "hint": "Mid-year: cash arrives through the year, so on average half a year earlier.",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s053",
+   "kind": "formula",
+   "expectedFormula": "=D33-0.5*$B$13",
+   "expectedValue": 1.5,
+   "tolerance": 0.0075,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "D33",
+     "label": "Period (2028E)",
+     "value": 2
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "D34",
+   "label": "Discount period",
+   "header": "2028E",
+   "instruction": "Calculate Discount period for 2028E.",
+   "hint": "Mid-year: cash arrives through the year, so on average half a year earlier.",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s054",
+   "kind": "formula",
+   "expectedFormula": "=E33-0.5*$B$13",
+   "expectedValue": 2.5,
+   "tolerance": 0.0125,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "E33",
+     "label": "Period (2029E)",
+     "value": 3
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "E34",
+   "label": "Discount period",
+   "header": "2029E",
+   "instruction": "Calculate Discount period for 2029E.",
+   "hint": "Mid-year: cash arrives through the year, so on average half a year earlier.",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s055",
+   "kind": "formula",
+   "expectedFormula": "=F33-0.5*$B$13",
+   "expectedValue": 3.5,
+   "tolerance": 0.0175,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "F33",
+     "label": "Period (2030E)",
+     "value": 4
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "F34",
+   "label": "Discount period",
+   "header": "2030E",
+   "instruction": "Calculate Discount period for 2030E.",
+   "hint": "Mid-year: cash arrives through the year, so on average half a year earlier.",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s056",
+   "kind": "formula",
+   "expectedFormula": "=G33-0.5*$B$13",
+   "expectedValue": 4.5,
+   "tolerance": 0.0225,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "G34",
+   "label": "Discount period",
+   "header": "2031E",
+   "instruction": "Calculate Discount period for 2031E.",
+   "hint": "Mid-year: cash arrives through the year, so on average half a year earlier.",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s057",
+   "kind": "formula",
+   "expectedFormula": "=1/(1+$B$10)^C34",
+   "expectedValue": 0.957826,
+   "tolerance": 0.004789131426105755,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "B10",
+     "label": "WACC",
+     "value": 0.09
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34",
+     "label": "Discount period (2027E)",
+     "value": 0.5
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C35",
+   "label": "Discount factor",
+   "header": "2027E",
+   "instruction": "Calculate Discount factor for 2027E.",
+   "hint": null,
+   "numberFormat": "0.0000"
+  },
+  {
+   "id": "s058",
+   "kind": "formula",
+   "expectedFormula": "=1/(1+$B$10)^D34",
+   "expectedValue": 0.87874,
+   "tolerance": 0.004393698556060325,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "B10",
+     "label": "WACC",
+     "value": 0.09
+    },
+    {
+     "sheet": "DCF",
+     "ref": "D34",
+     "label": "Discount period (2028E)",
+     "value": 1.5
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "D35",
+   "label": "Discount factor",
+   "header": "2028E",
+   "instruction": "Calculate Discount factor for 2028E.",
+   "hint": null,
+   "numberFormat": "0.0000"
+  },
+  {
+   "id": "s059",
+   "kind": "formula",
+   "expectedFormula": "=1/(1+$B$10)^E34",
+   "expectedValue": 0.806183,
+   "tolerance": 0.004030916106477365,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "B10",
+     "label": "WACC",
+     "value": 0.09
+    },
+    {
+     "sheet": "DCF",
+     "ref": "E34",
+     "label": "Discount period (2029E)",
+     "value": 2.5
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "E35",
+   "label": "Discount factor",
+   "header": "2029E",
+   "instruction": "Calculate Discount factor for 2029E.",
+   "hint": null,
+   "numberFormat": "0.0000"
+  },
+  {
+   "id": "s060",
+   "kind": "formula",
+   "expectedFormula": "=1/(1+$B$10)^F34",
+   "expectedValue": 0.739618,
+   "tolerance": 0.00369808817108015,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "B10",
+     "label": "WACC",
+     "value": 0.09
+    },
+    {
+     "sheet": "DCF",
+     "ref": "F34",
+     "label": "Discount period (2030E)",
+     "value": 3.5
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "F35",
+   "label": "Discount factor",
+   "header": "2030E",
+   "instruction": "Calculate Discount factor for 2030E.",
+   "hint": null,
+   "numberFormat": "0.0000"
+  },
+  {
+   "id": "s061",
+   "kind": "formula",
+   "expectedFormula": "=1/(1+$B$10)^G34",
+   "expectedValue": 0.678548,
+   "tolerance": 0.003392741441357935,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "B10",
+     "label": "WACC",
+     "value": 0.09
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G34",
+     "label": "Discount period (2031E)",
+     "value": 4.5
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "G35",
+   "label": "Discount factor",
+   "header": "2031E",
+   "instruction": "Calculate Discount factor for 2031E.",
+   "hint": null,
+   "numberFormat": "0.0000"
+  },
+  {
+   "id": "s062",
+   "kind": "formula",
+   "expectedFormula": "=C31*C35",
+   "expectedValue": 177.197863,
+   "tolerance": 0.8859893138295649,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31",
+     "label": "Unlevered free cash flow (2027E)",
+     "value": 185
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C35",
+     "label": "Discount factor (2027E)",
+     "value": 0.957826
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C36",
+   "label": "PV of UFCF",
+   "header": "2027E",
+   "instruction": "Calculate PV of UFCF for 2027E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s063",
+   "kind": "formula",
+   "expectedFormula": "=D31*D35",
+   "expectedValue": 187.208905,
+   "tolerance": 0.9360445246294801,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "D31",
+     "label": "Unlevered free cash flow (2028E)",
+     "value": 213.0425
+    },
+    {
+     "sheet": "DCF",
+     "ref": "D35",
+     "label": "Discount factor (2028E)",
+     "value": 0.87874
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "D36",
+   "label": "PV of UFCF",
+   "header": "2028E",
+   "instruction": "Calculate PV of UFCF for 2028E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s064",
+   "kind": "formula",
+   "expectedFormula": "=E31*E35",
+   "expectedValue": 195.449287,
+   "tolerance": 0.97724643283894,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "E31",
+     "label": "Unlevered free cash flow (2029E)",
+     "value": 242.4378
+    },
+    {
+     "sheet": "DCF",
+     "ref": "E35",
+     "label": "Discount factor (2029E)",
+     "value": 0.806183
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "E36",
+   "label": "PV of UFCF",
+   "header": "2029E",
+   "instruction": "Calculate PV of UFCF for 2029E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s065",
+   "kind": "formula",
+   "expectedFormula": "=F31*F35",
+   "expectedValue": 201.940674,
+   "tolerance": 1.009703369328295,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "F31",
+     "label": "Unlevered free cash flow (2030E)",
+     "value": 273.033882
+    },
+    {
+     "sheet": "DCF",
+     "ref": "F35",
+     "label": "Discount factor (2030E)",
+     "value": 0.739618
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "F36",
+   "label": "PV of UFCF",
+   "header": "2030E",
+   "instruction": "Calculate PV of UFCF for 2030E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s066",
+   "kind": "formula",
+   "expectedFormula": "=G31*G35",
+   "expectedValue": 203.973467,
+   "tolerance": 1.01986733538504,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G35",
+     "label": "Discount factor (2031E)",
+     "value": 0.678548
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "G36",
+   "label": "PV of UFCF",
+   "header": "2031E",
+   "instruction": "Calculate PV of UFCF for 2031E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s067",
+   "kind": "formula",
+   "expectedFormula": "=SUM($C$36:$G$36)",
+   "expectedValue": 965.770195,
+   "tolerance": 4.82885097601132,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C36:G36",
+     "label": "PV of UFCF (2027E) … PV of UFCF (2031E)",
+     "value": null
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "B39",
+   "label": "Sum of PV of UFCF",
+   "header": "Perpetuity growth",
+   "instruction": "Calculate Sum of PV of UFCF for Perpetuity growth.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s068",
+   "kind": "formula",
+   "expectedFormula": "=SUM($C$36:$G$36)",
+   "expectedValue": 965.770195,
+   "tolerance": 4.82885097601132,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C36:G36",
+     "label": "PV of UFCF (2027E) … PV of UFCF (2031E)",
+     "value": null
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C39",
+   "label": "Sum of PV of UFCF",
+   "header": "Exit multiple",
+   "instruction": "Calculate Sum of PV of UFCF for Exit multiple.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s069",
+   "kind": "formula",
+   "expectedFormula": "=G31*(1+B11)/(B10-B11)",
+   "expectedValue": 4740.2738,
+   "tolerance": 23.701369001538453,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B11",
+     "label": "Terminal growth rate",
+     "value": 0.025
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B10",
+     "label": "WACC",
+     "value": 0.09
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "B40",
+   "label": "Terminal value (undiscounted)",
+   "header": "Perpetuity growth",
+   "instruction": "Calculate Terminal value (undiscounted) for Perpetuity growth.",
+   "hint": "GGM uses NEXT year's FCF: final UFCF × (1 + g).",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s070",
+   "kind": "formula",
+   "expectedFormula": "=G23*B12",
+   "expectedValue": 5188.485456,
+   "tolerance": 25.942427280000004,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B12",
+     "label": "Exit EV / EBITDA multiple",
+     "value": 9
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C40",
+   "label": "Terminal value (undiscounted)",
+   "header": "Exit multiple",
+   "instruction": "Calculate Terminal value (undiscounted) for Exit multiple.",
+   "hint": "GGM uses NEXT year's FCF: final UFCF × (1 + g).",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s071",
+   "kind": "formula",
+   "expectedFormula": "=G33-0.5*B13",
+   "expectedValue": 4.5,
+   "tolerance": 0.0225,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "B41",
+   "label": "TV discount period",
+   "header": "Perpetuity growth",
+   "instruction": "Calculate TV discount period for Perpetuity growth.",
+   "hint": "GGM TV is built from cash flows → mid-year; exit TV assumes a sale at year-end.",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s072",
+   "kind": "formula",
+   "expectedFormula": "=G33",
+   "expectedValue": 5,
+   "tolerance": 0.025,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C41",
+   "label": "TV discount period",
+   "header": "Exit multiple",
+   "instruction": "Calculate TV discount period for Exit multiple.",
+   "hint": "GGM TV is built from cash flows → mid-year; exit TV assumes a sale at year-end.",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s073",
+   "kind": "formula",
+   "expectedFormula": "=B40/(1+$B$10)^B41",
+   "expectedValue": 3216.504673,
+   "tolerance": 16.0825233656872,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "B40",
+     "label": "Terminal value (undiscounted) (Perpetuity growth)",
+     "value": 4740.2738
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B10",
+     "label": "WACC",
+     "value": 0.09
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B41",
+     "label": "TV discount period (Perpetuity growth)",
+     "value": 4.5
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "B42",
+   "label": "PV of terminal value",
+   "header": "Perpetuity growth",
+   "instruction": "Calculate PV of terminal value for Perpetuity growth.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s074",
+   "kind": "formula",
+   "expectedFormula": "=C40/(1+$B$10)^C41",
+   "expectedValue": 3372.159545,
+   "tolerance": 16.8607977260344,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C40",
+     "label": "Terminal value (undiscounted) (Exit multiple)",
+     "value": 5188.485456
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B10",
+     "label": "WACC",
+     "value": 0.09
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C41",
+     "label": "TV discount period (Exit multiple)",
+     "value": 5
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C42",
+   "label": "PV of terminal value",
+   "header": "Exit multiple",
+   "instruction": "Calculate PV of terminal value for Exit multiple.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s075",
+   "kind": "formula",
+   "expectedFormula": "=B39+B42",
+   "expectedValue": 4182.274868,
+   "tolerance": 20.9113743416985,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "B39",
+     "label": "Sum of PV of UFCF (Perpetuity growth)",
+     "value": 965.770195
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B42",
+     "label": "PV of terminal value (Perpetuity growth)",
+     "value": 3216.504673
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "B43",
+   "label": "Enterprise value",
+   "header": "Perpetuity growth",
+   "instruction": "Calculate Enterprise value for Perpetuity growth.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s076",
+   "kind": "formula",
+   "expectedFormula": "=C39+C42",
+   "expectedValue": 4337.92974,
+   "tolerance": 21.68964870204575,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C39",
+     "label": "Sum of PV of UFCF (Exit multiple)",
+     "value": 965.770195
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C42",
+     "label": "PV of terminal value (Exit multiple)",
+     "value": 3372.159545
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C43",
+   "label": "Enterprise value",
+   "header": "Exit multiple",
+   "instruction": "Calculate Enterprise value for Exit multiple.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s077",
+   "kind": "formula",
+   "expectedFormula": "=B42/B43",
+   "expectedValue": 0.76908,
+   "tolerance": 0.003845400857660915,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "B42",
+     "label": "PV of terminal value (Perpetuity growth)",
+     "value": 3216.504673
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B43",
+     "label": "Enterprise value (Perpetuity growth)",
+     "value": 4182.274868
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "B44",
+   "label": "TV as % of enterprise value",
+   "header": "Perpetuity growth",
+   "instruction": "Calculate TV as % of enterprise value for Perpetuity growth.",
+   "hint": "Usually 60–80%.",
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s078",
+   "kind": "formula",
+   "expectedFormula": "=C42/C43",
+   "expectedValue": 0.777366,
+   "tolerance": 0.003886830524010315,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C42",
+     "label": "PV of terminal value (Exit multiple)",
+     "value": 3372.159545
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C43",
+     "label": "Enterprise value (Exit multiple)",
+     "value": 4337.92974
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C44",
+   "label": "TV as % of enterprise value",
+   "header": "Exit multiple",
+   "instruction": "Calculate TV as % of enterprise value for Exit multiple.",
+   "hint": "Usually 60–80%.",
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s079",
+   "kind": "formula",
+   "expectedFormula": "=-$B$14",
+   "expectedValue": -900,
+   "tolerance": 4.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "B45",
+   "label": "Less: debt",
+   "header": "Perpetuity growth",
+   "instruction": "Calculate Less: debt for Perpetuity growth.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s080",
+   "kind": "formula",
+   "expectedFormula": "=-$B$14",
+   "expectedValue": -900,
+   "tolerance": 4.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C45",
+   "label": "Less: debt",
+   "header": "Exit multiple",
+   "instruction": "Calculate Less: debt for Exit multiple.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s081",
+   "kind": "formula",
+   "expectedFormula": "=$B$15",
+   "expectedValue": 250,
+   "tolerance": 1.25,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "B46",
+   "label": "Plus: cash",
+   "header": "Perpetuity growth",
+   "instruction": "Calculate Plus: cash for Perpetuity growth.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s082",
+   "kind": "formula",
+   "expectedFormula": "=$B$15",
+   "expectedValue": 250,
+   "tolerance": 1.25,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C46",
+   "label": "Plus: cash",
+   "header": "Exit multiple",
+   "instruction": "Calculate Plus: cash for Exit multiple.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s083",
+   "kind": "formula",
+   "expectedFormula": "=B43+B45+B46",
+   "expectedValue": 3532.274868,
+   "tolerance": 17.6613743416985,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "B43",
+     "label": "Enterprise value (Perpetuity growth)",
+     "value": 4182.274868
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B45",
+     "label": "Less: debt (Perpetuity growth)",
+     "value": -900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B46",
+     "label": "Plus: cash (Perpetuity growth)",
+     "value": 250
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "B47",
+   "label": "Equity value",
+   "header": "Perpetuity growth",
+   "instruction": "Calculate Equity value for Perpetuity growth.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s084",
+   "kind": "formula",
+   "expectedFormula": "=C43+C45+C46",
+   "expectedValue": 3687.92974,
+   "tolerance": 18.43964870204575,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C43",
+     "label": "Enterprise value (Exit multiple)",
+     "value": 4337.92974
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C45",
+     "label": "Less: debt (Exit multiple)",
+     "value": -900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C46",
+     "label": "Plus: cash (Exit multiple)",
+     "value": 250
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C47",
+   "label": "Equity value",
+   "header": "Exit multiple",
+   "instruction": "Calculate Equity value for Exit multiple.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s085",
+   "kind": "formula",
+   "expectedFormula": "=B47/$B$16",
+   "expectedValue": 35.322749,
+   "tolerance": 0.17661374341698502,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "B47",
+     "label": "Equity value (Perpetuity growth)",
+     "value": 3532.274868
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "B48",
+   "label": "Implied share price",
+   "header": "Perpetuity growth",
+   "instruction": "Calculate Implied share price for Perpetuity growth.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s086",
+   "kind": "formula",
+   "expectedFormula": "=C47/$B$16",
+   "expectedValue": 36.879297,
+   "tolerance": 0.18439648702045752,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C47",
+     "label": "Equity value (Exit multiple)",
+     "value": 3687.92974
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C48",
+   "label": "Implied share price",
+   "header": "Exit multiple",
+   "instruction": "Calculate Implied share price for Exit multiple.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s087",
+   "kind": "formula",
+   "expectedFormula": "=B40*(1+B10)^(0.5*B13)/G23",
+   "expectedValue": 8.584571,
+   "tolerance": 0.042922853545562197,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "B40",
+     "label": "Terminal value (undiscounted) (Perpetuity growth)",
+     "value": 4740.2738
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B10",
+     "label": "WACC",
+     "value": 0.09
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "B51",
+   "label": "Implied exit multiple (from perpetuity method)",
+   "header": "Perpetuity growth",
+   "instruction": "Calculate Implied exit multiple (from perpetuity method) for Perpetuity growth.",
+   "hint": "Roll the GGM TV forward half a year (if mid-year is on) so it's 'as of' year-end, then ÷ final EBITDA.",
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s088",
+   "kind": "formula",
+   "expectedFormula": "=(C40/(1+B10)^(0.5*B13)*B10-G31)/(C40/(1+B10)^(0.5*B13)+G31)",
+   "expectedValue": 0.027829,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C40",
+     "label": "Terminal value (undiscounted) (Exit multiple)",
+     "value": 5188.485456
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B10",
+     "label": "WACC",
+     "value": 0.09
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    }
+   ],
+   "sheet": "DCF",
+   "cell": "C52",
+   "label": "Implied perpetuity growth (from exit method)",
+   "header": "Exit multiple",
+   "instruction": "Calculate Implied perpetuity growth (from exit method) for Exit multiple.",
+   "hint": "Solve TV = FCF × (1+g) / (WACC − g) for g. Sanity check: is it below long-run GDP growth?",
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s089",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A6)^DCF!$C$34:$G$34)+DCF!$G$31*(1+B$5)/($A6-B$5)/(1+$A6)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 36.590134,
+   "tolerance": 0.182950672275357,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A6",
+     "label": "A6",
+     "value": 0.08
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "B5",
+     "label": "WACC \\ g",
+     "value": 0.015
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "B6",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": "Each cell re-runs the whole valuation with that WACC and g. SUMPRODUCT(UFCF, 1/(1+WACC)^period) discounts all five years at once.",
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s090",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A6)^DCF!$C$34:$G$34)+DCF!$G$31*(1+C$5)/($A6-C$5)/(1+$A6)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 39.533981,
+   "tolerance": 0.197669905141782,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A6",
+     "label": "A6",
+     "value": 0.08
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "C5",
+     "label": "WACC \\ g",
+     "value": 0.02
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "C6",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": "Each cell re-runs the whole valuation with that WACC and g. SUMPRODUCT(UFCF, 1/(1+WACC)^period) discounts all five years at once.",
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s091",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A6)^DCF!$C$34:$G$34)+DCF!$G$31*(1+D$5)/($A6-D$5)/(1+$A6)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 43.013072,
+   "tolerance": 0.2150653621657385,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A6",
+     "label": "A6",
+     "value": 0.08
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "D5",
+     "label": "WACC \\ g",
+     "value": 0.025
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "D6",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": "Each cell re-runs the whole valuation with that WACC and g. SUMPRODUCT(UFCF, 1/(1+WACC)^period) discounts all five years at once.",
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s092",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A6)^DCF!$C$34:$G$34)+DCF!$G$31*(1+E$5)/($A6-E$5)/(1+$A6)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 47.187982,
+   "tolerance": 0.23593991059448702,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A6",
+     "label": "A6",
+     "value": 0.08
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "E5",
+     "label": "WACC \\ g",
+     "value": 0.03
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "E6",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": "Each cell re-runs the whole valuation with that WACC and g. SUMPRODUCT(UFCF, 1/(1+WACC)^period) discounts all five years at once.",
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s093",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A6)^DCF!$C$34:$G$34)+DCF!$G$31*(1+F$5)/($A6-F$5)/(1+$A6)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 52.29065,
+   "tolerance": 0.2614532475629565,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A6",
+     "label": "A6",
+     "value": 0.08
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "F5",
+     "label": "WACC \\ g",
+     "value": 0.035
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "F6",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": "Each cell re-runs the whole valuation with that WACC and g. SUMPRODUCT(UFCF, 1/(1+WACC)^period) discounts all five years at once.",
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s094",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A7)^DCF!$C$34:$G$34)+DCF!$G$31*(1+B$5)/($A7-B$5)/(1+$A7)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 33.467179,
+   "tolerance": 0.167335896876927,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A7",
+     "label": "A7",
+     "value": 0.085
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "B5",
+     "label": "WACC \\ g",
+     "value": 0.015
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "B7",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s095",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A7)^DCF!$C$34:$G$34)+DCF!$G$31*(1+C$5)/($A7-C$5)/(1+$A7)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 35.950012,
+   "tolerance": 0.1797500599802595,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A7",
+     "label": "A7",
+     "value": 0.085
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "C5",
+     "label": "WACC \\ g",
+     "value": 0.02
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "C7",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s096",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A7)^DCF!$C$34:$G$34)+DCF!$G$31*(1+D$5)/($A7-D$5)/(1+$A7)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 38.84665,
+   "tolerance": 0.194233250267481,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A7",
+     "label": "A7",
+     "value": 0.085
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "D5",
+     "label": "WACC \\ g",
+     "value": 0.025
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "D7",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s097",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A7)^DCF!$C$34:$G$34)+DCF!$G$31*(1+E$5)/($A7-E$5)/(1+$A7)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 42.26995,
+   "tolerance": 0.211349747879652,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A7",
+     "label": "A7",
+     "value": 0.085
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "E5",
+     "label": "WACC \\ g",
+     "value": 0.03
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "E7",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s098",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A7)^DCF!$C$34:$G$34)+DCF!$G$31*(1+F$5)/($A7-F$5)/(1+$A7)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 46.377909,
+   "tolerance": 0.23188954501425701,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A7",
+     "label": "A7",
+     "value": 0.085
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "F5",
+     "label": "WACC \\ g",
+     "value": 0.035
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "F7",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s099",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A8)^DCF!$C$34:$G$34)+DCF!$G$31*(1+B$5)/($A8-B$5)/(1+$A8)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 30.762111,
+   "tolerance": 0.1538105558155555,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A8",
+     "label": "A8",
+     "value": 0.09
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "B5",
+     "label": "WACC \\ g",
+     "value": 0.015
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "B8",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s100",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A8)^DCF!$C$34:$G$34)+DCF!$G$31*(1+C$5)/($A8-C$5)/(1+$A8)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 32.87955,
+   "tolerance": 0.1643977500590765,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A8",
+     "label": "A8",
+     "value": 0.09
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "C5",
+     "label": "WACC \\ g",
+     "value": 0.02
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "C8",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s101",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A8)^DCF!$C$34:$G$34)+DCF!$G$31*(1+D$5)/($A8-D$5)/(1+$A8)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 35.322749,
+   "tolerance": 0.17661374341698502,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A8",
+     "label": "A8",
+     "value": 0.09
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "D5",
+     "label": "WACC \\ g",
+     "value": 0.025
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "D8",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s102",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A8)^DCF!$C$34:$G$34)+DCF!$G$31*(1+E$5)/($A8-E$5)/(1+$A8)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 38.173147,
+   "tolerance": 0.1908657356678785,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A8",
+     "label": "A8",
+     "value": 0.09
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "E5",
+     "label": "WACC \\ g",
+     "value": 0.03
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "E8",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s103",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A8)^DCF!$C$34:$G$34)+DCF!$G$31*(1+F$5)/($A8-F$5)/(1+$A8)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 41.5418,
+   "tolerance": 0.2077089992371165,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A8",
+     "label": "A8",
+     "value": 0.09
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "F5",
+     "label": "WACC \\ g",
+     "value": 0.035
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "F8",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s104",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A9)^DCF!$C$34:$G$34)+DCF!$G$31*(1+B$5)/($A9-B$5)/(1+$A9)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 28.396544,
+   "tolerance": 0.14198271897723552,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A9",
+     "label": "A9",
+     "value": 0.095
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "B5",
+     "label": "WACC \\ g",
+     "value": 0.015
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "B9",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s105",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A9)^DCF!$C$34:$G$34)+DCF!$G$31*(1+C$5)/($A9-C$5)/(1+$A9)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 30.219861,
+   "tolerance": 0.151099305537331,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A9",
+     "label": "A9",
+     "value": 0.095
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "C5",
+     "label": "WACC \\ g",
+     "value": 0.02
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "C9",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s106",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A9)^DCF!$C$34:$G$34)+DCF!$G$31*(1+D$5)/($A9-D$5)/(1+$A9)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 32.303652,
+   "tolerance": 0.16151826160601102,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A9",
+     "label": "A9",
+     "value": 0.095
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "D5",
+     "label": "WACC \\ g",
+     "value": 0.025
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "D9",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s107",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A9)^DCF!$C$34:$G$34)+DCF!$G$31*(1+E$5)/($A9-E$5)/(1+$A9)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 34.708027,
+   "tolerance": 0.17354013399294949,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A9",
+     "label": "A9",
+     "value": 0.095
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "E5",
+     "label": "WACC \\ g",
+     "value": 0.03
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "E9",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s108",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A9)^DCF!$C$34:$G$34)+DCF!$G$31*(1+F$5)/($A9-F$5)/(1+$A9)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 37.51313,
+   "tolerance": 0.187565651777711,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A9",
+     "label": "A9",
+     "value": 0.095
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "F5",
+     "label": "WACC \\ g",
+     "value": 0.035
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "F9",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s109",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A10)^DCF!$C$34:$G$34)+DCF!$G$31*(1+B$5)/($A10-B$5)/(1+$A10)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 26.310536,
+   "tolerance": 0.1315526792194285,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A10",
+     "label": "A10",
+     "value": 0.1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "B5",
+     "label": "WACC \\ g",
+     "value": 0.015
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "B10",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s110",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A10)^DCF!$C$34:$G$34)+DCF!$G$31*(1+C$5)/($A10-C$5)/(1+$A10)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 27.893896,
+   "tolerance": 0.13946947818018202,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A10",
+     "label": "A10",
+     "value": 0.1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "C5",
+     "label": "WACC \\ g",
+     "value": 0.02
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "C10",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s111",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A10)^DCF!$C$34:$G$34)+DCF!$G$31*(1+D$5)/($A10-D$5)/(1+$A10)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 29.68837,
+   "tolerance": 0.148441850335702,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A10",
+     "label": "A10",
+     "value": 0.1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "D5",
+     "label": "WACC \\ g",
+     "value": 0.025
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "D10",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s112",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A10)^DCF!$C$34:$G$34)+DCF!$G$31*(1+E$5)/($A10-E$5)/(1+$A10)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 31.739198,
+   "tolerance": 0.158695989942011,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A10",
+     "label": "A10",
+     "value": 0.1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "E5",
+     "label": "WACC \\ g",
+     "value": 0.03
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "E10",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s113",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A10)^DCF!$C$34:$G$34)+DCF!$G$31*(1+F$5)/($A10-F$5)/(1+$A10)^(DCF!$G$33-0.5*DCF!$B$13)-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 34.105538,
+   "tolerance": 0.170527689487752,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A10",
+     "label": "A10",
+     "value": 0.1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G31",
+     "label": "Unlevered free cash flow (2031E)",
+     "value": 300.602729
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "F5",
+     "label": "WACC \\ g",
+     "value": 0.035
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B13",
+     "label": "Mid-year convention (1 = on, 0 = off)",
+     "value": 1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "F10",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s114",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A15)^DCF!$C$34:$G$34)+DCF!$G$23*B$14/(1+$A15)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 34.778496,
+   "tolerance": 0.173892480255458,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A15",
+     "label": "A15",
+     "value": 0.08
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "B14",
+     "label": "WACC \\ multiple",
+     "value": 8
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "B15",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s115",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A15)^DCF!$C$34:$G$34)+DCF!$G$23*C$14/(1+$A15)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 36.740272,
+   "tolerance": 0.18370135808714602,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A15",
+     "label": "A15",
+     "value": 0.08
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "C14",
+     "label": "WACC \\ multiple",
+     "value": 8.5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "C15",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s116",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A15)^DCF!$C$34:$G$34)+DCF!$G$23*D$14/(1+$A15)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 38.702047,
+   "tolerance": 0.1935102359188335,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A15",
+     "label": "A15",
+     "value": 0.08
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "D14",
+     "label": "WACC \\ multiple",
+     "value": 9
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "D15",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s117",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A15)^DCF!$C$34:$G$34)+DCF!$G$23*E$14/(1+$A15)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 40.663823,
+   "tolerance": 0.2033191137505215,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A15",
+     "label": "A15",
+     "value": 0.08
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "E14",
+     "label": "WACC \\ multiple",
+     "value": 9.5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "E15",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s118",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A15)^DCF!$C$34:$G$34)+DCF!$G$23*F$14/(1+$A15)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 42.625598,
+   "tolerance": 0.21312799158220952,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A15",
+     "label": "A15",
+     "value": 0.08
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "F14",
+     "label": "WACC \\ multiple",
+     "value": 10
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "F15",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s119",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A16)^DCF!$C$34:$G$34)+DCF!$G$23*B$14/(1+$A16)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 33.94454,
+   "tolerance": 0.1697226999903805,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A16",
+     "label": "A16",
+     "value": 0.085
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "B14",
+     "label": "WACC \\ multiple",
+     "value": 8
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "B16",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s120",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A16)^DCF!$C$34:$G$34)+DCF!$G$23*C$14/(1+$A16)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 35.861528,
+   "tolerance": 0.17930764028569002,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A16",
+     "label": "A16",
+     "value": 0.085
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "C14",
+     "label": "WACC \\ multiple",
+     "value": 8.5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "C16",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s121",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A16)^DCF!$C$34:$G$34)+DCF!$G$23*D$14/(1+$A16)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 37.778516,
+   "tolerance": 0.18889258058099953,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A16",
+     "label": "A16",
+     "value": 0.085
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "D14",
+     "label": "WACC \\ multiple",
+     "value": 9
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "D16",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s122",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A16)^DCF!$C$34:$G$34)+DCF!$G$23*E$14/(1+$A16)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 39.695504,
+   "tolerance": 0.19847752087630902,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A16",
+     "label": "A16",
+     "value": 0.085
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "E14",
+     "label": "WACC \\ multiple",
+     "value": 9.5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "E16",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s123",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A16)^DCF!$C$34:$G$34)+DCF!$G$23*F$14/(1+$A16)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 41.612492,
+   "tolerance": 0.20806246117161853,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A16",
+     "label": "A16",
+     "value": 0.085
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "F14",
+     "label": "WACC \\ multiple",
+     "value": 10
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "F16",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s124",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A17)^DCF!$C$34:$G$34)+DCF!$G$23*B$14/(1+$A17)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 33.132453,
+   "tolerance": 0.1656622673248635,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A17",
+     "label": "A17",
+     "value": 0.09
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "B14",
+     "label": "WACC \\ multiple",
+     "value": 8
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "B17",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s125",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A17)^DCF!$C$34:$G$34)+DCF!$G$23*C$14/(1+$A17)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 35.005875,
+   "tolerance": 0.1750293771726605,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A17",
+     "label": "A17",
+     "value": 0.09
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "C14",
+     "label": "WACC \\ multiple",
+     "value": 8.5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "C17",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s126",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A17)^DCF!$C$34:$G$34)+DCF!$G$23*D$14/(1+$A17)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 36.879297,
+   "tolerance": 0.18439648702045752,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A17",
+     "label": "A17",
+     "value": 0.09
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "D14",
+     "label": "WACC \\ multiple",
+     "value": 9
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "D17",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s127",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A17)^DCF!$C$34:$G$34)+DCF!$G$23*E$14/(1+$A17)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 38.752719,
+   "tolerance": 0.193763596868254,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A17",
+     "label": "A17",
+     "value": 0.09
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "E14",
+     "label": "WACC \\ multiple",
+     "value": 9.5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "E17",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s128",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A17)^DCF!$C$34:$G$34)+DCF!$G$23*F$14/(1+$A17)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 40.626141,
+   "tolerance": 0.20313070671605102,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A17",
+     "label": "A17",
+     "value": 0.09
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "F14",
+     "label": "WACC \\ multiple",
+     "value": 10
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "F17",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s129",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A18)^DCF!$C$34:$G$34)+DCF!$G$23*B$14/(1+$A18)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 32.341558,
+   "tolerance": 0.16170778937052901,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A18",
+     "label": "A18",
+     "value": 0.095
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "B14",
+     "label": "WACC \\ multiple",
+     "value": 8
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "B18",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s130",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A18)^DCF!$C$34:$G$34)+DCF!$G$23*C$14/(1+$A18)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 34.172596,
+   "tolerance": 0.170862982433206,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A18",
+     "label": "A18",
+     "value": 0.095
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "C14",
+     "label": "WACC \\ multiple",
+     "value": 8.5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "C18",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s131",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A18)^DCF!$C$34:$G$34)+DCF!$G$23*D$14/(1+$A18)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 36.003635,
+   "tolerance": 0.180018175495883,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A18",
+     "label": "A18",
+     "value": 0.095
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "D14",
+     "label": "WACC \\ multiple",
+     "value": 9
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "D18",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s132",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A18)^DCF!$C$34:$G$34)+DCF!$G$23*E$14/(1+$A18)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 37.834674,
+   "tolerance": 0.1891733685585605,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A18",
+     "label": "A18",
+     "value": 0.095
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "E14",
+     "label": "WACC \\ multiple",
+     "value": 9.5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "E18",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s133",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A18)^DCF!$C$34:$G$34)+DCF!$G$23*F$14/(1+$A18)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 39.665712,
+   "tolerance": 0.19832856162123752,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A18",
+     "label": "A18",
+     "value": 0.095
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "F14",
+     "label": "WACC \\ multiple",
+     "value": 10
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "F18",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s134",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A19)^DCF!$C$34:$G$34)+DCF!$G$23*B$14/(1+$A19)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 31.571199,
+   "tolerance": 0.157855993932753,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A19",
+     "label": "A19",
+     "value": 0.1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "B14",
+     "label": "WACC \\ multiple",
+     "value": 8
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "B19",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s135",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A19)^DCF!$C$34:$G$34)+DCF!$G$23*C$14/(1+$A19)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 33.360999,
+   "tolerance": 0.16680499741612148,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A19",
+     "label": "A19",
+     "value": 0.1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "C14",
+     "label": "WACC \\ multiple",
+     "value": 8.5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "C19",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s136",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A19)^DCF!$C$34:$G$34)+DCF!$G$23*D$14/(1+$A19)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 35.1508,
+   "tolerance": 0.17575400089949,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A19",
+     "label": "A19",
+     "value": 0.1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "D14",
+     "label": "WACC \\ multiple",
+     "value": 9
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "D19",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s137",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A19)^DCF!$C$34:$G$34)+DCF!$G$23*E$14/(1+$A19)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 36.940601,
+   "tolerance": 0.1847030043828585,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A19",
+     "label": "A19",
+     "value": 0.1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "E14",
+     "label": "WACC \\ multiple",
+     "value": 9.5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "E19",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s138",
+   "kind": "formula",
+   "expectedFormula": "=(SUMPRODUCT(DCF!$C$31:$G$31,1/(1+$A19)^DCF!$C$34:$G$34)+DCF!$G$23*F$14/(1+$A19)^DCF!$G$33-DCF!$B$14+DCF!$B$15)/DCF!$B$16",
+   "expectedValue": 38.730402,
+   "tolerance": 0.19365200786622702,
+   "functions": [
+    "SUMPRODUCT"
+   ],
+   "references": [
+    {
+     "sheet": "DCF",
+     "ref": "C31:G31",
+     "label": "Unlevered free cash flow (2027E) … Unlevered free cash flow (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A19",
+     "label": "A19",
+     "value": 0.1
+    },
+    {
+     "sheet": "DCF",
+     "ref": "C34:G34",
+     "label": "Discount period (2027E) … Discount period (2031E)",
+     "value": null
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G23",
+     "label": "EBITDA (2031E)",
+     "value": 576.498384
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "F14",
+     "label": "WACC \\ multiple",
+     "value": 10
+    },
+    {
+     "sheet": "DCF",
+     "ref": "G33",
+     "label": "Period (2031E)",
+     "value": 5
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B14",
+     "label": "Total debt",
+     "value": 900
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B15",
+     "label": "Cash",
+     "value": 250
+    },
+    {
+     "sheet": "DCF",
+     "ref": "B16",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "F19",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s139",
+   "kind": "text",
+   "expectedValue": "WACC. It hits every discount factor AND the terminal value denominator, while g only changes the terminal value.",
+   "options": null,
+   "sheet": "Sensitivity",
+   "cell": "A22",
+   "label": null,
+   "header": null,
+   "instruction": "Answer in a sentence or two: Which input moves the price more: +0.5% WACC or +0.5% g? Why?",
+   "hint": null,
+   "numberFormat": "General"
+  }
+ ]
+}

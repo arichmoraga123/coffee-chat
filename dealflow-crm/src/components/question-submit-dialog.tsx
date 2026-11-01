@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
+import { Select } from "@/components/ui/select";
 
 export function QuestionSubmitDialog() {
   const router = useRouter();
@@ -76,8 +77,8 @@ export function QuestionSubmitDialog() {
             </div>
             <div>
               <label className="mb-1 block text-xs text-ink-3">Difficulty</label>
-              <select
-                className="w-full rounded border border-border-strong bg-surface px-2 py-2 text-sm"
+              <Select
+                className="w-full"
                 value={difficulty}
                 onChange={(e) => setDifficulty(e.target.value)}
               >
@@ -86,7 +87,7 @@ export function QuestionSubmitDialog() {
                     {d}
                   </option>
                 ))}
-              </select>
+              </Select>
             </div>
           </div>
           <div>

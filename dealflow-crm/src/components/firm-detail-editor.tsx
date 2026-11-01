@@ -12,6 +12,7 @@ import {
   parseFirmType,
 } from "@/lib/firm-type";
 import type { FirmType } from "@prisma/client";
+import { Select } from "@/components/ui/select";
 
 type FirmData = {
   id: string;
@@ -76,8 +77,8 @@ export function FirmDetailEditor({ firm }: { firm: FirmData }) {
       </div>
       <div>
         <label className="mb-1 block text-xs text-ink-3">Type</label>
-        <select
-          className="w-full rounded border border-border-strong bg-surface px-2 py-2"
+        <Select
+          className="w-full"
           value={type}
           onChange={(e) => setType((e.target.value || "") as FirmType | "")}
         >
@@ -87,7 +88,7 @@ export function FirmDetailEditor({ firm }: { firm: FirmData }) {
               {FIRM_TYPE_LABELS[t]}
             </option>
           ))}
-        </select>
+        </Select>
       </div>
       <div>
         <label className="mb-1 block text-xs text-ink-3">Location</label>

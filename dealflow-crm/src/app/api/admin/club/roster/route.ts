@@ -64,7 +64,7 @@ export async function GET() {
 const RowSchema = z.object({
   email: z.string().trim().toLowerCase().email(),
   name: z.string().trim().max(200).nullable().optional(),
-  role: z.enum(["member", "admin"]).default("member"),
+  role: z.enum(["member", "officer", "admin"]).default("member"),
 });
 const PostSchema = z.discriminatedUnion("action", [
   z.object({ action: z.literal("parse"), format: z.enum(["outlook", "csv"]), text: z.string().max(500_000) }),
@@ -108,7 +108,7 @@ export async function POST(req: Request) {
 
 const PatchSchema = z.object({
   id: z.string().min(1),
-  role: z.enum(["member", "admin"]).optional(),
+  role: z.enum(["member", "officer", "admin"]).optional(),
   active: z.boolean().optional(),
   name: z.string().trim().max(200).nullable().optional(),
 });

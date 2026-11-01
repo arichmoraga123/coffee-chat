@@ -1,0 +1,2977 @@
+{
+ "workbookKey": "PEB_01_Accounting_3Statement_Linking",
+ "studentFile": "PEB_01_Accounting_3Statement_Linking.xlsx",
+ "answerKeyFile": "PEB_01_Accounting_3Statement_Linking_KEY.xlsx",
+ "sheets": [
+  "Scenarios",
+  "Mini 3-Statement"
+ ],
+ "stepCount": 134,
+ "steps": [
+  {
+   "id": "s001",
+   "kind": "formula",
+   "expectedFormula": "=-B7",
+   "expectedValue": -10,
+   "tolerance": 0.05,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "B7",
+     "label": "Depreciation increases (Amount ($))",
+     "value": 10
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "C7",
+   "label": "Depreciation increases",
+   "header": "Pre-tax income Δ",
+   "instruction": "Calculate Depreciation increases for Pre-tax income Δ.",
+   "hint": "D&A is non-cash: add it back on the CFS. PP&E falls by the full amount.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s002",
+   "kind": "formula",
+   "expectedFormula": "=C7*(1-$C$4)",
+   "expectedValue": -6,
+   "tolerance": 0.03,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "C7",
+     "label": "Depreciation increases (Pre-tax income Δ)",
+     "value": -10
+    },
+    {
+     "sheet": "Scenarios",
+     "ref": "C4",
+     "label": "Tax rate",
+     "value": 0.4
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "D7",
+   "label": "Depreciation increases",
+   "header": "Net income Δ",
+   "instruction": "Calculate Depreciation increases for Net income Δ.",
+   "hint": "D&A is non-cash: add it back on the CFS. PP&E falls by the full amount.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s003",
+   "kind": "formula",
+   "expectedFormula": "=D7+B7",
+   "expectedValue": 4,
+   "tolerance": 0.02,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "D7",
+     "label": "Depreciation increases (Net income Δ)",
+     "value": -6
+    },
+    {
+     "sheet": "Scenarios",
+     "ref": "B7",
+     "label": "Depreciation increases (Amount ($))",
+     "value": 10
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "E7",
+   "label": "Depreciation increases",
+   "header": "CFO Δ",
+   "instruction": "Calculate Depreciation increases for CFO Δ.",
+   "hint": "D&A is non-cash: add it back on the CFS. PP&E falls by the full amount.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s004",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "F7",
+   "label": "Depreciation increases",
+   "header": "CFI Δ",
+   "instruction": "Calculate Depreciation increases for CFI Δ.",
+   "hint": "D&A is non-cash: add it back on the CFS. PP&E falls by the full amount.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s005",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "G7",
+   "label": "Depreciation increases",
+   "header": "CFF Δ",
+   "instruction": "Calculate Depreciation increases for CFF Δ.",
+   "hint": "D&A is non-cash: add it back on the CFS. PP&E falls by the full amount.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s006",
+   "kind": "formula",
+   "expectedFormula": "=SUM(E7:G7)",
+   "expectedValue": 4,
+   "tolerance": 0.02,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "E7:G7",
+     "label": "Depreciation increases (CFO Δ) … Depreciation increases (CFF Δ)",
+     "value": null
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "H7",
+   "label": "Depreciation increases",
+   "header": "Net change in cash",
+   "instruction": "Calculate Depreciation increases for Net change in cash.",
+   "hint": "D&A is non-cash: add it back on the CFS. PP&E falls by the full amount.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s007",
+   "kind": "formula",
+   "expectedFormula": "=H7-B7",
+   "expectedValue": -6,
+   "tolerance": 0.03,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "H7",
+     "label": "Depreciation increases (Net change in cash)",
+     "value": 4
+    },
+    {
+     "sheet": "Scenarios",
+     "ref": "B7",
+     "label": "Depreciation increases (Amount ($))",
+     "value": 10
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "I7",
+   "label": "Depreciation increases",
+   "header": "Total assets Δ",
+   "instruction": "Calculate Depreciation increases for Total assets Δ.",
+   "hint": "D&A is non-cash: add it back on the CFS. PP&E falls by the full amount.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s008",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "J7",
+   "label": "Depreciation increases",
+   "header": "Total liabilities Δ",
+   "instruction": "Calculate Depreciation increases for Total liabilities Δ.",
+   "hint": "D&A is non-cash: add it back on the CFS. PP&E falls by the full amount.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s009",
+   "kind": "formula",
+   "expectedFormula": "=D7",
+   "expectedValue": -6,
+   "tolerance": 0.03,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "D7",
+     "label": "Depreciation increases (Net income Δ)",
+     "value": -6
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "K7",
+   "label": "Depreciation increases",
+   "header": "Equity Δ",
+   "instruction": "Calculate Depreciation increases for Equity Δ.",
+   "hint": "D&A is non-cash: add it back on the CFS. PP&E falls by the full amount.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s010",
+   "kind": "formula",
+   "expectedFormula": "=-B8",
+   "expectedValue": -10,
+   "tolerance": 0.05,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "B8",
+     "label": "Inventory written down (Amount ($))",
+     "value": 10
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "C8",
+   "label": "Inventory written down",
+   "header": "Pre-tax income Δ",
+   "instruction": "Calculate Inventory written down for Pre-tax income Δ.",
+   "hint": "Same mechanics as depreciation: non-cash expense, inventory asset falls.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s011",
+   "kind": "formula",
+   "expectedFormula": "=C8*(1-$C$4)",
+   "expectedValue": -6,
+   "tolerance": 0.03,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "C8",
+     "label": "Inventory written down (Pre-tax income Δ)",
+     "value": -10
+    },
+    {
+     "sheet": "Scenarios",
+     "ref": "C4",
+     "label": "Tax rate",
+     "value": 0.4
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "D8",
+   "label": "Inventory written down",
+   "header": "Net income Δ",
+   "instruction": "Calculate Inventory written down for Net income Δ.",
+   "hint": "Same mechanics as depreciation: non-cash expense, inventory asset falls.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s012",
+   "kind": "formula",
+   "expectedFormula": "=D8+B8",
+   "expectedValue": 4,
+   "tolerance": 0.02,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "D8",
+     "label": "Inventory written down (Net income Δ)",
+     "value": -6
+    },
+    {
+     "sheet": "Scenarios",
+     "ref": "B8",
+     "label": "Inventory written down (Amount ($))",
+     "value": 10
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "E8",
+   "label": "Inventory written down",
+   "header": "CFO Δ",
+   "instruction": "Calculate Inventory written down for CFO Δ.",
+   "hint": "Same mechanics as depreciation: non-cash expense, inventory asset falls.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s013",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "F8",
+   "label": "Inventory written down",
+   "header": "CFI Δ",
+   "instruction": "Calculate Inventory written down for CFI Δ.",
+   "hint": "Same mechanics as depreciation: non-cash expense, inventory asset falls.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s014",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "G8",
+   "label": "Inventory written down",
+   "header": "CFF Δ",
+   "instruction": "Calculate Inventory written down for CFF Δ.",
+   "hint": "Same mechanics as depreciation: non-cash expense, inventory asset falls.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s015",
+   "kind": "formula",
+   "expectedFormula": "=SUM(E8:G8)",
+   "expectedValue": 4,
+   "tolerance": 0.02,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "E8:G8",
+     "label": "Inventory written down (CFO Δ) … Inventory written down (CFF Δ)",
+     "value": null
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "H8",
+   "label": "Inventory written down",
+   "header": "Net change in cash",
+   "instruction": "Calculate Inventory written down for Net change in cash.",
+   "hint": "Same mechanics as depreciation: non-cash expense, inventory asset falls.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s016",
+   "kind": "formula",
+   "expectedFormula": "=H8-B8",
+   "expectedValue": -6,
+   "tolerance": 0.03,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "H8",
+     "label": "Inventory written down (Net change in cash)",
+     "value": 4
+    },
+    {
+     "sheet": "Scenarios",
+     "ref": "B8",
+     "label": "Inventory written down (Amount ($))",
+     "value": 10
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "I8",
+   "label": "Inventory written down",
+   "header": "Total assets Δ",
+   "instruction": "Calculate Inventory written down for Total assets Δ.",
+   "hint": "Same mechanics as depreciation: non-cash expense, inventory asset falls.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s017",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "J8",
+   "label": "Inventory written down",
+   "header": "Total liabilities Δ",
+   "instruction": "Calculate Inventory written down for Total liabilities Δ.",
+   "hint": "Same mechanics as depreciation: non-cash expense, inventory asset falls.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s018",
+   "kind": "formula",
+   "expectedFormula": "=D8",
+   "expectedValue": -6,
+   "tolerance": 0.03,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "D8",
+     "label": "Inventory written down (Net income Δ)",
+     "value": -6
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "K8",
+   "label": "Inventory written down",
+   "header": "Equity Δ",
+   "instruction": "Calculate Inventory written down for Equity Δ.",
+   "hint": "Same mechanics as depreciation: non-cash expense, inventory asset falls.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s019",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "C9",
+   "label": "Buy PP&E with cash",
+   "header": "Pre-tax income Δ",
+   "instruction": "Calculate Buy PP&E with cash for Pre-tax income Δ.",
+   "hint": "No IS impact until it's depreciated. One asset (cash) swaps for another (PP&E).",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s020",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "D9",
+   "label": "Buy PP&E with cash",
+   "header": "Net income Δ",
+   "instruction": "Calculate Buy PP&E with cash for Net income Δ.",
+   "hint": "No IS impact until it's depreciated. One asset (cash) swaps for another (PP&E).",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s021",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "E9",
+   "label": "Buy PP&E with cash",
+   "header": "CFO Δ",
+   "instruction": "Calculate Buy PP&E with cash for CFO Δ.",
+   "hint": "No IS impact until it's depreciated. One asset (cash) swaps for another (PP&E).",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s022",
+   "kind": "formula",
+   "expectedFormula": "=-B9",
+   "expectedValue": -100,
+   "tolerance": 0.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "B9",
+     "label": "Buy PP&E with cash (Amount ($))",
+     "value": 100
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "F9",
+   "label": "Buy PP&E with cash",
+   "header": "CFI Δ",
+   "instruction": "Calculate Buy PP&E with cash for CFI Δ.",
+   "hint": "No IS impact until it's depreciated. One asset (cash) swaps for another (PP&E).",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s023",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "G9",
+   "label": "Buy PP&E with cash",
+   "header": "CFF Δ",
+   "instruction": "Calculate Buy PP&E with cash for CFF Δ.",
+   "hint": "No IS impact until it's depreciated. One asset (cash) swaps for another (PP&E).",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s024",
+   "kind": "formula",
+   "expectedFormula": "=SUM(E9:G9)",
+   "expectedValue": -100,
+   "tolerance": 0.5,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "E9:G9",
+     "label": "Buy PP&E with cash (CFO Δ) … Buy PP&E with cash (CFF Δ)",
+     "value": null
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "H9",
+   "label": "Buy PP&E with cash",
+   "header": "Net change in cash",
+   "instruction": "Calculate Buy PP&E with cash for Net change in cash.",
+   "hint": "No IS impact until it's depreciated. One asset (cash) swaps for another (PP&E).",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s025",
+   "kind": "formula",
+   "expectedFormula": "=H9+B9",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "H9",
+     "label": "Buy PP&E with cash (Net change in cash)",
+     "value": -100
+    },
+    {
+     "sheet": "Scenarios",
+     "ref": "B9",
+     "label": "Buy PP&E with cash (Amount ($))",
+     "value": 100
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "I9",
+   "label": "Buy PP&E with cash",
+   "header": "Total assets Δ",
+   "instruction": "Calculate Buy PP&E with cash for Total assets Δ.",
+   "hint": "No IS impact until it's depreciated. One asset (cash) swaps for another (PP&E).",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s026",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "J9",
+   "label": "Buy PP&E with cash",
+   "header": "Total liabilities Δ",
+   "instruction": "Calculate Buy PP&E with cash for Total liabilities Δ.",
+   "hint": "No IS impact until it's depreciated. One asset (cash) swaps for another (PP&E).",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s027",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "K9",
+   "label": "Buy PP&E with cash",
+   "header": "Equity Δ",
+   "instruction": "Calculate Buy PP&E with cash for Equity Δ.",
+   "hint": "No IS impact until it's depreciated. One asset (cash) swaps for another (PP&E).",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s028",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "C10",
+   "label": "Raise debt",
+   "header": "Pre-tax income Δ",
+   "instruction": "Calculate Raise debt for Pre-tax income Δ.",
+   "hint": "Financing inflow; cash and debt both rise.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s029",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "D10",
+   "label": "Raise debt",
+   "header": "Net income Δ",
+   "instruction": "Calculate Raise debt for Net income Δ.",
+   "hint": "Financing inflow; cash and debt both rise.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s030",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "E10",
+   "label": "Raise debt",
+   "header": "CFO Δ",
+   "instruction": "Calculate Raise debt for CFO Δ.",
+   "hint": "Financing inflow; cash and debt both rise.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s031",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "F10",
+   "label": "Raise debt",
+   "header": "CFI Δ",
+   "instruction": "Calculate Raise debt for CFI Δ.",
+   "hint": "Financing inflow; cash and debt both rise.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s032",
+   "kind": "formula",
+   "expectedFormula": "=B10",
+   "expectedValue": 100,
+   "tolerance": 0.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "B10",
+     "label": "Raise debt (Amount ($))",
+     "value": 100
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "G10",
+   "label": "Raise debt",
+   "header": "CFF Δ",
+   "instruction": "Calculate Raise debt for CFF Δ.",
+   "hint": "Financing inflow; cash and debt both rise.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s033",
+   "kind": "formula",
+   "expectedFormula": "=SUM(E10:G10)",
+   "expectedValue": 100,
+   "tolerance": 0.5,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "E10:G10",
+     "label": "Raise debt (CFO Δ) … Raise debt (CFF Δ)",
+     "value": null
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "H10",
+   "label": "Raise debt",
+   "header": "Net change in cash",
+   "instruction": "Calculate Raise debt for Net change in cash.",
+   "hint": "Financing inflow; cash and debt both rise.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s034",
+   "kind": "formula",
+   "expectedFormula": "=H10",
+   "expectedValue": 100,
+   "tolerance": 0.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "H10",
+     "label": "Raise debt (Net change in cash)",
+     "value": 100
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "I10",
+   "label": "Raise debt",
+   "header": "Total assets Δ",
+   "instruction": "Calculate Raise debt for Total assets Δ.",
+   "hint": "Financing inflow; cash and debt both rise.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s035",
+   "kind": "formula",
+   "expectedFormula": "=B10",
+   "expectedValue": 100,
+   "tolerance": 0.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "B10",
+     "label": "Raise debt (Amount ($))",
+     "value": 100
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "J10",
+   "label": "Raise debt",
+   "header": "Total liabilities Δ",
+   "instruction": "Calculate Raise debt for Total liabilities Δ.",
+   "hint": "Financing inflow; cash and debt both rise.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s036",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "K10",
+   "label": "Raise debt",
+   "header": "Equity Δ",
+   "instruction": "Calculate Raise debt for Equity Δ.",
+   "hint": "Financing inflow; cash and debt both rise.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s037",
+   "kind": "formula",
+   "expectedFormula": "=-B11",
+   "expectedValue": -10,
+   "tolerance": 0.05,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "B11",
+     "label": "Pay interest on debt (Amount ($))",
+     "value": 10
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "C11",
+   "label": "Pay interest on debt",
+   "header": "Pre-tax income Δ",
+   "instruction": "Calculate Pay interest on debt for Pre-tax income Δ.",
+   "hint": "Interest is a real cash expense and is tax-deductible.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s038",
+   "kind": "formula",
+   "expectedFormula": "=C11*(1-$C$4)",
+   "expectedValue": -6,
+   "tolerance": 0.03,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "C11",
+     "label": "Pay interest on debt (Pre-tax income Δ)",
+     "value": -10
+    },
+    {
+     "sheet": "Scenarios",
+     "ref": "C4",
+     "label": "Tax rate",
+     "value": 0.4
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "D11",
+   "label": "Pay interest on debt",
+   "header": "Net income Δ",
+   "instruction": "Calculate Pay interest on debt for Net income Δ.",
+   "hint": "Interest is a real cash expense and is tax-deductible.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s039",
+   "kind": "formula",
+   "expectedFormula": "=D11",
+   "expectedValue": -6,
+   "tolerance": 0.03,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "D11",
+     "label": "Pay interest on debt (Net income Δ)",
+     "value": -6
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "E11",
+   "label": "Pay interest on debt",
+   "header": "CFO Δ",
+   "instruction": "Calculate Pay interest on debt for CFO Δ.",
+   "hint": "Interest is a real cash expense and is tax-deductible.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s040",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "F11",
+   "label": "Pay interest on debt",
+   "header": "CFI Δ",
+   "instruction": "Calculate Pay interest on debt for CFI Δ.",
+   "hint": "Interest is a real cash expense and is tax-deductible.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s041",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "G11",
+   "label": "Pay interest on debt",
+   "header": "CFF Δ",
+   "instruction": "Calculate Pay interest on debt for CFF Δ.",
+   "hint": "Interest is a real cash expense and is tax-deductible.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s042",
+   "kind": "formula",
+   "expectedFormula": "=SUM(E11:G11)",
+   "expectedValue": -6,
+   "tolerance": 0.03,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "E11:G11",
+     "label": "Pay interest on debt (CFO Δ) … Pay interest on debt (CFF Δ)",
+     "value": null
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "H11",
+   "label": "Pay interest on debt",
+   "header": "Net change in cash",
+   "instruction": "Calculate Pay interest on debt for Net change in cash.",
+   "hint": "Interest is a real cash expense and is tax-deductible.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s043",
+   "kind": "formula",
+   "expectedFormula": "=H11",
+   "expectedValue": -6,
+   "tolerance": 0.03,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "H11",
+     "label": "Pay interest on debt (Net change in cash)",
+     "value": -6
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "I11",
+   "label": "Pay interest on debt",
+   "header": "Total assets Δ",
+   "instruction": "Calculate Pay interest on debt for Total assets Δ.",
+   "hint": "Interest is a real cash expense and is tax-deductible.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s044",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "J11",
+   "label": "Pay interest on debt",
+   "header": "Total liabilities Δ",
+   "instruction": "Calculate Pay interest on debt for Total liabilities Δ.",
+   "hint": "Interest is a real cash expense and is tax-deductible.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s045",
+   "kind": "formula",
+   "expectedFormula": "=D11",
+   "expectedValue": -6,
+   "tolerance": 0.03,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "D11",
+     "label": "Pay interest on debt (Net income Δ)",
+     "value": -6
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "K11",
+   "label": "Pay interest on debt",
+   "header": "Equity Δ",
+   "instruction": "Calculate Pay interest on debt for Equity Δ.",
+   "hint": "Interest is a real cash expense and is tax-deductible.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s046",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "C12",
+   "label": "Repay debt principal",
+   "header": "Pre-tax income Δ",
+   "instruction": "Calculate Repay debt principal for Pre-tax income Δ.",
+   "hint": "Principal never touches the income statement.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s047",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "D12",
+   "label": "Repay debt principal",
+   "header": "Net income Δ",
+   "instruction": "Calculate Repay debt principal for Net income Δ.",
+   "hint": "Principal never touches the income statement.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s048",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "E12",
+   "label": "Repay debt principal",
+   "header": "CFO Δ",
+   "instruction": "Calculate Repay debt principal for CFO Δ.",
+   "hint": "Principal never touches the income statement.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s049",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "F12",
+   "label": "Repay debt principal",
+   "header": "CFI Δ",
+   "instruction": "Calculate Repay debt principal for CFI Δ.",
+   "hint": "Principal never touches the income statement.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s050",
+   "kind": "formula",
+   "expectedFormula": "=-B12",
+   "expectedValue": -50,
+   "tolerance": 0.25,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "B12",
+     "label": "Repay debt principal (Amount ($))",
+     "value": 50
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "G12",
+   "label": "Repay debt principal",
+   "header": "CFF Δ",
+   "instruction": "Calculate Repay debt principal for CFF Δ.",
+   "hint": "Principal never touches the income statement.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s051",
+   "kind": "formula",
+   "expectedFormula": "=SUM(E12:G12)",
+   "expectedValue": -50,
+   "tolerance": 0.25,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "E12:G12",
+     "label": "Repay debt principal (CFO Δ) … Repay debt principal (CFF Δ)",
+     "value": null
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "H12",
+   "label": "Repay debt principal",
+   "header": "Net change in cash",
+   "instruction": "Calculate Repay debt principal for Net change in cash.",
+   "hint": "Principal never touches the income statement.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s052",
+   "kind": "formula",
+   "expectedFormula": "=H12",
+   "expectedValue": -50,
+   "tolerance": 0.25,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "H12",
+     "label": "Repay debt principal (Net change in cash)",
+     "value": -50
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "I12",
+   "label": "Repay debt principal",
+   "header": "Total assets Δ",
+   "instruction": "Calculate Repay debt principal for Total assets Δ.",
+   "hint": "Principal never touches the income statement.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s053",
+   "kind": "formula",
+   "expectedFormula": "=-B12",
+   "expectedValue": -50,
+   "tolerance": 0.25,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "B12",
+     "label": "Repay debt principal (Amount ($))",
+     "value": 50
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "J12",
+   "label": "Repay debt principal",
+   "header": "Total liabilities Δ",
+   "instruction": "Calculate Repay debt principal for Total liabilities Δ.",
+   "hint": "Principal never touches the income statement.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s054",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "K12",
+   "label": "Repay debt principal",
+   "header": "Equity Δ",
+   "instruction": "Calculate Repay debt principal for Equity Δ.",
+   "hint": "Principal never touches the income statement.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s055",
+   "kind": "formula",
+   "expectedFormula": "=-B13",
+   "expectedValue": -10,
+   "tolerance": 0.05,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "B13",
+     "label": "Stock-based compensation (Amount ($))",
+     "value": 10
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "C13",
+   "label": "Stock-based compensation",
+   "header": "Pre-tax income Δ",
+   "instruction": "Calculate Stock-based compensation for Pre-tax income Δ.",
+   "hint": "Non-cash: add back on CFS. Equity: NI falls but common stock/APIC rises by the full amount.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s056",
+   "kind": "formula",
+   "expectedFormula": "=C13*(1-$C$4)",
+   "expectedValue": -6,
+   "tolerance": 0.03,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "C13",
+     "label": "Stock-based compensation (Pre-tax income Δ)",
+     "value": -10
+    },
+    {
+     "sheet": "Scenarios",
+     "ref": "C4",
+     "label": "Tax rate",
+     "value": 0.4
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "D13",
+   "label": "Stock-based compensation",
+   "header": "Net income Δ",
+   "instruction": "Calculate Stock-based compensation for Net income Δ.",
+   "hint": "Non-cash: add back on CFS. Equity: NI falls but common stock/APIC rises by the full amount.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s057",
+   "kind": "formula",
+   "expectedFormula": "=D13+B13",
+   "expectedValue": 4,
+   "tolerance": 0.02,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "D13",
+     "label": "Stock-based compensation (Net income Δ)",
+     "value": -6
+    },
+    {
+     "sheet": "Scenarios",
+     "ref": "B13",
+     "label": "Stock-based compensation (Amount ($))",
+     "value": 10
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "E13",
+   "label": "Stock-based compensation",
+   "header": "CFO Δ",
+   "instruction": "Calculate Stock-based compensation for CFO Δ.",
+   "hint": "Non-cash: add back on CFS. Equity: NI falls but common stock/APIC rises by the full amount.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s058",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "F13",
+   "label": "Stock-based compensation",
+   "header": "CFI Δ",
+   "instruction": "Calculate Stock-based compensation for CFI Δ.",
+   "hint": "Non-cash: add back on CFS. Equity: NI falls but common stock/APIC rises by the full amount.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s059",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "G13",
+   "label": "Stock-based compensation",
+   "header": "CFF Δ",
+   "instruction": "Calculate Stock-based compensation for CFF Δ.",
+   "hint": "Non-cash: add back on CFS. Equity: NI falls but common stock/APIC rises by the full amount.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s060",
+   "kind": "formula",
+   "expectedFormula": "=SUM(E13:G13)",
+   "expectedValue": 4,
+   "tolerance": 0.02,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "E13:G13",
+     "label": "Stock-based compensation (CFO Δ) … Stock-based compensation (CFF Δ)",
+     "value": null
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "H13",
+   "label": "Stock-based compensation",
+   "header": "Net change in cash",
+   "instruction": "Calculate Stock-based compensation for Net change in cash.",
+   "hint": "Non-cash: add back on CFS. Equity: NI falls but common stock/APIC rises by the full amount.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s061",
+   "kind": "formula",
+   "expectedFormula": "=H13",
+   "expectedValue": 4,
+   "tolerance": 0.02,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "H13",
+     "label": "Stock-based compensation (Net change in cash)",
+     "value": 4
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "I13",
+   "label": "Stock-based compensation",
+   "header": "Total assets Δ",
+   "instruction": "Calculate Stock-based compensation for Total assets Δ.",
+   "hint": "Non-cash: add back on CFS. Equity: NI falls but common stock/APIC rises by the full amount.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s062",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "J13",
+   "label": "Stock-based compensation",
+   "header": "Total liabilities Δ",
+   "instruction": "Calculate Stock-based compensation for Total liabilities Δ.",
+   "hint": "Non-cash: add back on CFS. Equity: NI falls but common stock/APIC rises by the full amount.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s063",
+   "kind": "formula",
+   "expectedFormula": "=D13+B13",
+   "expectedValue": 4,
+   "tolerance": 0.02,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "D13",
+     "label": "Stock-based compensation (Net income Δ)",
+     "value": -6
+    },
+    {
+     "sheet": "Scenarios",
+     "ref": "B13",
+     "label": "Stock-based compensation (Amount ($))",
+     "value": 10
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "K13",
+   "label": "Stock-based compensation",
+   "header": "Equity Δ",
+   "instruction": "Calculate Stock-based compensation for Equity Δ.",
+   "hint": "Non-cash: add back on CFS. Equity: NI falls but common stock/APIC rises by the full amount.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s064",
+   "kind": "formula",
+   "expectedFormula": "=B14",
+   "expectedValue": 10,
+   "tolerance": 0.05,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "B14",
+     "label": "Revenue earned, not yet collected (AR up) (Amount ($))",
+     "value": 10
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "C14",
+   "label": "Revenue earned, not yet collected (AR up)",
+   "header": "Pre-tax income Δ",
+   "instruction": "Calculate Revenue earned, not yet collected (AR up) for Pre-tax income Δ.",
+   "hint": "AR up is a use of cash; you also pay tax on revenue you haven't collected.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s065",
+   "kind": "formula",
+   "expectedFormula": "=C14*(1-$C$4)",
+   "expectedValue": 6,
+   "tolerance": 0.03,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "C14",
+     "label": "Revenue earned, not yet collected (AR up) (Pre-tax income Δ)",
+     "value": 10
+    },
+    {
+     "sheet": "Scenarios",
+     "ref": "C4",
+     "label": "Tax rate",
+     "value": 0.4
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "D14",
+   "label": "Revenue earned, not yet collected (AR up)",
+   "header": "Net income Δ",
+   "instruction": "Calculate Revenue earned, not yet collected (AR up) for Net income Δ.",
+   "hint": "AR up is a use of cash; you also pay tax on revenue you haven't collected.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s066",
+   "kind": "formula",
+   "expectedFormula": "=D14-B14",
+   "expectedValue": -4,
+   "tolerance": 0.02,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "D14",
+     "label": "Revenue earned, not yet collected (AR up) (Net income Δ)",
+     "value": 6
+    },
+    {
+     "sheet": "Scenarios",
+     "ref": "B14",
+     "label": "Revenue earned, not yet collected (AR up) (Amount ($))",
+     "value": 10
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "E14",
+   "label": "Revenue earned, not yet collected (AR up)",
+   "header": "CFO Δ",
+   "instruction": "Calculate Revenue earned, not yet collected (AR up) for CFO Δ.",
+   "hint": "AR up is a use of cash; you also pay tax on revenue you haven't collected.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s067",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "F14",
+   "label": "Revenue earned, not yet collected (AR up)",
+   "header": "CFI Δ",
+   "instruction": "Calculate Revenue earned, not yet collected (AR up) for CFI Δ.",
+   "hint": "AR up is a use of cash; you also pay tax on revenue you haven't collected.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s068",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "G14",
+   "label": "Revenue earned, not yet collected (AR up)",
+   "header": "CFF Δ",
+   "instruction": "Calculate Revenue earned, not yet collected (AR up) for CFF Δ.",
+   "hint": "AR up is a use of cash; you also pay tax on revenue you haven't collected.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s069",
+   "kind": "formula",
+   "expectedFormula": "=SUM(E14:G14)",
+   "expectedValue": -4,
+   "tolerance": 0.02,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "E14:G14",
+     "label": "Revenue earned, not yet collected (AR up) (CFO Δ) … Revenue earned, not yet collected (AR up) (CFF Δ)",
+     "value": null
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "H14",
+   "label": "Revenue earned, not yet collected (AR up)",
+   "header": "Net change in cash",
+   "instruction": "Calculate Revenue earned, not yet collected (AR up) for Net change in cash.",
+   "hint": "AR up is a use of cash; you also pay tax on revenue you haven't collected.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s070",
+   "kind": "formula",
+   "expectedFormula": "=H14+B14",
+   "expectedValue": 6,
+   "tolerance": 0.03,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "H14",
+     "label": "Revenue earned, not yet collected (AR up) (Net change in cash)",
+     "value": -4
+    },
+    {
+     "sheet": "Scenarios",
+     "ref": "B14",
+     "label": "Revenue earned, not yet collected (AR up) (Amount ($))",
+     "value": 10
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "I14",
+   "label": "Revenue earned, not yet collected (AR up)",
+   "header": "Total assets Δ",
+   "instruction": "Calculate Revenue earned, not yet collected (AR up) for Total assets Δ.",
+   "hint": "AR up is a use of cash; you also pay tax on revenue you haven't collected.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s071",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "J14",
+   "label": "Revenue earned, not yet collected (AR up)",
+   "header": "Total liabilities Δ",
+   "instruction": "Calculate Revenue earned, not yet collected (AR up) for Total liabilities Δ.",
+   "hint": "AR up is a use of cash; you also pay tax on revenue you haven't collected.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s072",
+   "kind": "formula",
+   "expectedFormula": "=D14",
+   "expectedValue": 6,
+   "tolerance": 0.03,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "D14",
+     "label": "Revenue earned, not yet collected (AR up) (Net income Δ)",
+     "value": 6
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "K14",
+   "label": "Revenue earned, not yet collected (AR up)",
+   "header": "Equity Δ",
+   "instruction": "Calculate Revenue earned, not yet collected (AR up) for Equity Δ.",
+   "hint": "AR up is a use of cash; you also pay tax on revenue you haven't collected.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s073",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "C15",
+   "label": "Customer prepays (deferred revenue up)",
+   "header": "Pre-tax income Δ",
+   "instruction": "Calculate Customer prepays (deferred revenue up) for Pre-tax income Δ.",
+   "hint": "Cash in, but not yet earned. Deferred revenue is a liability. (Ignore tax timing.)",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s074",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "D15",
+   "label": "Customer prepays (deferred revenue up)",
+   "header": "Net income Δ",
+   "instruction": "Calculate Customer prepays (deferred revenue up) for Net income Δ.",
+   "hint": "Cash in, but not yet earned. Deferred revenue is a liability. (Ignore tax timing.)",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s075",
+   "kind": "formula",
+   "expectedFormula": "=B15",
+   "expectedValue": 10,
+   "tolerance": 0.05,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "B15",
+     "label": "Customer prepays (deferred revenue up) (Amount ($))",
+     "value": 10
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "E15",
+   "label": "Customer prepays (deferred revenue up)",
+   "header": "CFO Δ",
+   "instruction": "Calculate Customer prepays (deferred revenue up) for CFO Δ.",
+   "hint": "Cash in, but not yet earned. Deferred revenue is a liability. (Ignore tax timing.)",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s076",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "F15",
+   "label": "Customer prepays (deferred revenue up)",
+   "header": "CFI Δ",
+   "instruction": "Calculate Customer prepays (deferred revenue up) for CFI Δ.",
+   "hint": "Cash in, but not yet earned. Deferred revenue is a liability. (Ignore tax timing.)",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s077",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "G15",
+   "label": "Customer prepays (deferred revenue up)",
+   "header": "CFF Δ",
+   "instruction": "Calculate Customer prepays (deferred revenue up) for CFF Δ.",
+   "hint": "Cash in, but not yet earned. Deferred revenue is a liability. (Ignore tax timing.)",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s078",
+   "kind": "formula",
+   "expectedFormula": "=SUM(E15:G15)",
+   "expectedValue": 10,
+   "tolerance": 0.05,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "E15:G15",
+     "label": "Customer prepays (deferred revenue up) (CFO Δ) … Customer prepays (deferred revenue up) (CFF Δ)",
+     "value": null
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "H15",
+   "label": "Customer prepays (deferred revenue up)",
+   "header": "Net change in cash",
+   "instruction": "Calculate Customer prepays (deferred revenue up) for Net change in cash.",
+   "hint": "Cash in, but not yet earned. Deferred revenue is a liability. (Ignore tax timing.)",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s079",
+   "kind": "formula",
+   "expectedFormula": "=H15",
+   "expectedValue": 10,
+   "tolerance": 0.05,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "H15",
+     "label": "Customer prepays (deferred revenue up) (Net change in cash)",
+     "value": 10
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "I15",
+   "label": "Customer prepays (deferred revenue up)",
+   "header": "Total assets Δ",
+   "instruction": "Calculate Customer prepays (deferred revenue up) for Total assets Δ.",
+   "hint": "Cash in, but not yet earned. Deferred revenue is a liability. (Ignore tax timing.)",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s080",
+   "kind": "formula",
+   "expectedFormula": "=B15",
+   "expectedValue": 10,
+   "tolerance": 0.05,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "B15",
+     "label": "Customer prepays (deferred revenue up) (Amount ($))",
+     "value": 10
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "J15",
+   "label": "Customer prepays (deferred revenue up)",
+   "header": "Total liabilities Δ",
+   "instruction": "Calculate Customer prepays (deferred revenue up) for Total liabilities Δ.",
+   "hint": "Cash in, but not yet earned. Deferred revenue is a liability. (Ignore tax timing.)",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s081",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "K15",
+   "label": "Customer prepays (deferred revenue up)",
+   "header": "Equity Δ",
+   "instruction": "Calculate Customer prepays (deferred revenue up) for Equity Δ.",
+   "hint": "Cash in, but not yet earned. Deferred revenue is a liability. (Ignore tax timing.)",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s082",
+   "kind": "formula",
+   "expectedFormula": "=-B16",
+   "expectedValue": -10,
+   "tolerance": 0.05,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "B16",
+     "label": "Bonus expensed, not yet paid (accrued exp. up) (Amount ($))",
+     "value": 10
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "C16",
+   "label": "Bonus expensed, not yet paid (accrued exp. up)",
+   "header": "Pre-tax income Δ",
+   "instruction": "Calculate Bonus expensed, not yet paid (accrued exp. up) for Pre-tax income Δ.",
+   "hint": "Accrued expenses up is a source of cash.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s083",
+   "kind": "formula",
+   "expectedFormula": "=C16*(1-$C$4)",
+   "expectedValue": -6,
+   "tolerance": 0.03,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "C16",
+     "label": "Bonus expensed, not yet paid (accrued exp. up) (Pre-tax income Δ)",
+     "value": -10
+    },
+    {
+     "sheet": "Scenarios",
+     "ref": "C4",
+     "label": "Tax rate",
+     "value": 0.4
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "D16",
+   "label": "Bonus expensed, not yet paid (accrued exp. up)",
+   "header": "Net income Δ",
+   "instruction": "Calculate Bonus expensed, not yet paid (accrued exp. up) for Net income Δ.",
+   "hint": "Accrued expenses up is a source of cash.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s084",
+   "kind": "formula",
+   "expectedFormula": "=D16+B16",
+   "expectedValue": 4,
+   "tolerance": 0.02,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "D16",
+     "label": "Bonus expensed, not yet paid (accrued exp. up) (Net income Δ)",
+     "value": -6
+    },
+    {
+     "sheet": "Scenarios",
+     "ref": "B16",
+     "label": "Bonus expensed, not yet paid (accrued exp. up) (Amount ($))",
+     "value": 10
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "E16",
+   "label": "Bonus expensed, not yet paid (accrued exp. up)",
+   "header": "CFO Δ",
+   "instruction": "Calculate Bonus expensed, not yet paid (accrued exp. up) for CFO Δ.",
+   "hint": "Accrued expenses up is a source of cash.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s085",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "F16",
+   "label": "Bonus expensed, not yet paid (accrued exp. up)",
+   "header": "CFI Δ",
+   "instruction": "Calculate Bonus expensed, not yet paid (accrued exp. up) for CFI Δ.",
+   "hint": "Accrued expenses up is a source of cash.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s086",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "G16",
+   "label": "Bonus expensed, not yet paid (accrued exp. up)",
+   "header": "CFF Δ",
+   "instruction": "Calculate Bonus expensed, not yet paid (accrued exp. up) for CFF Δ.",
+   "hint": "Accrued expenses up is a source of cash.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s087",
+   "kind": "formula",
+   "expectedFormula": "=SUM(E16:G16)",
+   "expectedValue": 4,
+   "tolerance": 0.02,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "E16:G16",
+     "label": "Bonus expensed, not yet paid (accrued exp. up) (CFO Δ) … Bonus expensed, not yet paid (accrued exp. up) (CFF Δ)",
+     "value": null
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "H16",
+   "label": "Bonus expensed, not yet paid (accrued exp. up)",
+   "header": "Net change in cash",
+   "instruction": "Calculate Bonus expensed, not yet paid (accrued exp. up) for Net change in cash.",
+   "hint": "Accrued expenses up is a source of cash.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s088",
+   "kind": "formula",
+   "expectedFormula": "=H16",
+   "expectedValue": 4,
+   "tolerance": 0.02,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "H16",
+     "label": "Bonus expensed, not yet paid (accrued exp. up) (Net change in cash)",
+     "value": 4
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "I16",
+   "label": "Bonus expensed, not yet paid (accrued exp. up)",
+   "header": "Total assets Δ",
+   "instruction": "Calculate Bonus expensed, not yet paid (accrued exp. up) for Total assets Δ.",
+   "hint": "Accrued expenses up is a source of cash.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s089",
+   "kind": "formula",
+   "expectedFormula": "=B16",
+   "expectedValue": 10,
+   "tolerance": 0.05,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "B16",
+     "label": "Bonus expensed, not yet paid (accrued exp. up) (Amount ($))",
+     "value": 10
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "J16",
+   "label": "Bonus expensed, not yet paid (accrued exp. up)",
+   "header": "Total liabilities Δ",
+   "instruction": "Calculate Bonus expensed, not yet paid (accrued exp. up) for Total liabilities Δ.",
+   "hint": "Accrued expenses up is a source of cash.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s090",
+   "kind": "formula",
+   "expectedFormula": "=D16",
+   "expectedValue": -6,
+   "tolerance": 0.03,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "D16",
+     "label": "Bonus expensed, not yet paid (accrued exp. up) (Net income Δ)",
+     "value": -6
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "K16",
+   "label": "Bonus expensed, not yet paid (accrued exp. up)",
+   "header": "Equity Δ",
+   "instruction": "Calculate Bonus expensed, not yet paid (accrued exp. up) for Equity Δ.",
+   "hint": "Accrued expenses up is a source of cash.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s091",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "C17",
+   "label": "Pay a dividend",
+   "header": "Pre-tax income Δ",
+   "instruction": "Calculate Pay a dividend for Pre-tax income Δ.",
+   "hint": "Dividends never hit the IS — they reduce retained earnings.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s092",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "D17",
+   "label": "Pay a dividend",
+   "header": "Net income Δ",
+   "instruction": "Calculate Pay a dividend for Net income Δ.",
+   "hint": "Dividends never hit the IS — they reduce retained earnings.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s093",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "E17",
+   "label": "Pay a dividend",
+   "header": "CFO Δ",
+   "instruction": "Calculate Pay a dividend for CFO Δ.",
+   "hint": "Dividends never hit the IS — they reduce retained earnings.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s094",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "F17",
+   "label": "Pay a dividend",
+   "header": "CFI Δ",
+   "instruction": "Calculate Pay a dividend for CFI Δ.",
+   "hint": "Dividends never hit the IS — they reduce retained earnings.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s095",
+   "kind": "formula",
+   "expectedFormula": "=-B17",
+   "expectedValue": -10,
+   "tolerance": 0.05,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "B17",
+     "label": "Pay a dividend (Amount ($))",
+     "value": 10
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "G17",
+   "label": "Pay a dividend",
+   "header": "CFF Δ",
+   "instruction": "Calculate Pay a dividend for CFF Δ.",
+   "hint": "Dividends never hit the IS — they reduce retained earnings.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s096",
+   "kind": "formula",
+   "expectedFormula": "=SUM(E17:G17)",
+   "expectedValue": -10,
+   "tolerance": 0.05,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "E17:G17",
+     "label": "Pay a dividend (CFO Δ) … Pay a dividend (CFF Δ)",
+     "value": null
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "H17",
+   "label": "Pay a dividend",
+   "header": "Net change in cash",
+   "instruction": "Calculate Pay a dividend for Net change in cash.",
+   "hint": "Dividends never hit the IS — they reduce retained earnings.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s097",
+   "kind": "formula",
+   "expectedFormula": "=H17",
+   "expectedValue": -10,
+   "tolerance": 0.05,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "H17",
+     "label": "Pay a dividend (Net change in cash)",
+     "value": -10
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "I17",
+   "label": "Pay a dividend",
+   "header": "Total assets Δ",
+   "instruction": "Calculate Pay a dividend for Total assets Δ.",
+   "hint": "Dividends never hit the IS — they reduce retained earnings.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s098",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Scenarios",
+   "cell": "J17",
+   "label": "Pay a dividend",
+   "header": "Total liabilities Δ",
+   "instruction": "Calculate Pay a dividend for Total liabilities Δ.",
+   "hint": "Dividends never hit the IS — they reduce retained earnings.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s099",
+   "kind": "formula",
+   "expectedFormula": "=-B17",
+   "expectedValue": -10,
+   "tolerance": 0.05,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Scenarios",
+     "ref": "B17",
+     "label": "Pay a dividend (Amount ($))",
+     "value": 10
+    }
+   ],
+   "sheet": "Scenarios",
+   "cell": "K17",
+   "label": "Pay a dividend",
+   "header": "Equity Δ",
+   "instruction": "Calculate Pay a dividend for Equity Δ.",
+   "hint": "Dividends never hit the IS — they reduce retained earnings.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s100",
+   "kind": "formula",
+   "expectedFormula": "=$B$5",
+   "expectedValue": 1000,
+   "tolerance": 5.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B5",
+     "label": "Revenue",
+     "value": 1000
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C20",
+   "label": "Revenue",
+   "header": "Year 1",
+   "instruction": "Calculate Revenue for Year 1.",
+   "hint": "Pull from assumptions.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s101",
+   "kind": "formula",
+   "expectedFormula": "=C20*$B$6",
+   "expectedValue": 600,
+   "tolerance": 3.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C20",
+     "label": "Revenue (Year 1)",
+     "value": 1000
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B6",
+     "label": "COGS (% of revenue)",
+     "value": 0.6
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C21",
+   "label": "COGS",
+   "header": "Year 1",
+   "instruction": "Calculate COGS for Year 1.",
+   "hint": "Shown as a positive expense.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s102",
+   "kind": "formula",
+   "expectedFormula": "=C20-C21",
+   "expectedValue": 400,
+   "tolerance": 2.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C20",
+     "label": "Revenue (Year 1)",
+     "value": 1000
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C21",
+     "label": "COGS (Year 1)",
+     "value": 600
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C22",
+   "label": "Gross profit",
+   "header": "Year 1",
+   "instruction": "Calculate Gross profit for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s103",
+   "kind": "formula",
+   "expectedFormula": "=$B$7",
+   "expectedValue": 150,
+   "tolerance": 0.75,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B7",
+     "label": "SG&A",
+     "value": 150
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C23",
+   "label": "SG&A",
+   "header": "Year 1",
+   "instruction": "Calculate SG&A for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s104",
+   "kind": "formula",
+   "expectedFormula": "=C22-C23",
+   "expectedValue": 250,
+   "tolerance": 1.25,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C22",
+     "label": "Gross profit (Year 1)",
+     "value": 400
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C23",
+     "label": "SG&A (Year 1)",
+     "value": 150
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C24",
+   "label": "EBITDA",
+   "header": "Year 1",
+   "instruction": "Calculate EBITDA for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s105",
+   "kind": "formula",
+   "expectedFormula": "=$B$8",
+   "expectedValue": 50,
+   "tolerance": 0.25,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B8",
+     "label": "D&A",
+     "value": 50
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C25",
+   "label": "D&A",
+   "header": "Year 1",
+   "instruction": "Calculate D&A for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s106",
+   "kind": "formula",
+   "expectedFormula": "=C24-C25",
+   "expectedValue": 200,
+   "tolerance": 1.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C24",
+     "label": "EBITDA (Year 1)",
+     "value": 250
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C25",
+     "label": "D&A (Year 1)",
+     "value": 50
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C26",
+   "label": "EBIT",
+   "header": "Year 1",
+   "instruction": "Calculate EBIT for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s107",
+   "kind": "formula",
+   "expectedFormula": "=B53*$B$9",
+   "expectedValue": 18,
+   "tolerance": 0.09,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B53",
+     "label": "Debt (Year 0)",
+     "value": 300
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B9",
+     "label": "Interest rate (on beginning debt)",
+     "value": 0.06
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C27",
+   "label": "Interest expense",
+   "header": "Year 1",
+   "instruction": "Calculate Interest expense for Year 1.",
+   "hint": "Use the BEGINNING debt balance (Year 0) to avoid circularity.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s108",
+   "kind": "formula",
+   "expectedFormula": "=C26-C27",
+   "expectedValue": 182,
+   "tolerance": 0.91,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C26",
+     "label": "EBIT (Year 1)",
+     "value": 200
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C27",
+     "label": "Interest expense (Year 1)",
+     "value": 18
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C28",
+   "label": "Pre-tax income",
+   "header": "Year 1",
+   "instruction": "Calculate Pre-tax income for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s109",
+   "kind": "formula",
+   "expectedFormula": "=C28*$B$10",
+   "expectedValue": 45.5,
+   "tolerance": 0.2275,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C28",
+     "label": "Pre-tax income (Year 1)",
+     "value": 182
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B10",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C29",
+   "label": "Taxes",
+   "header": "Year 1",
+   "instruction": "Calculate Taxes for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s110",
+   "kind": "formula",
+   "expectedFormula": "=C28-C29",
+   "expectedValue": 136.5,
+   "tolerance": 0.6825,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C28",
+     "label": "Pre-tax income (Year 1)",
+     "value": 182
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C29",
+     "label": "Taxes (Year 1)",
+     "value": 45.5
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C30",
+   "label": "Net income",
+   "header": "Year 1",
+   "instruction": "Calculate Net income for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s111",
+   "kind": "formula",
+   "expectedFormula": "=C30",
+   "expectedValue": 136.5,
+   "tolerance": 0.6825,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C30",
+     "label": "Net income (Year 1)",
+     "value": 136.5
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C33",
+   "label": "Net income",
+   "header": "Year 1",
+   "instruction": "Calculate Net income for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s112",
+   "kind": "formula",
+   "expectedFormula": "=C25",
+   "expectedValue": 50,
+   "tolerance": 0.25,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C25",
+     "label": "D&A (Year 1)",
+     "value": 50
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C34",
+   "label": "Plus: D&A",
+   "header": "Year 1",
+   "instruction": "Calculate Plus: D&A for Year 1.",
+   "hint": "Non-cash expense.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s113",
+   "kind": "formula",
+   "expectedFormula": "=-$B$11",
+   "expectedValue": -80,
+   "tolerance": 0.4,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B11",
+     "label": "CapEx",
+     "value": 80
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C39",
+   "label": "CapEx",
+   "header": "Year 1",
+   "instruction": "Calculate CapEx for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s114",
+   "kind": "formula",
+   "expectedFormula": "=C39",
+   "expectedValue": -80,
+   "tolerance": 0.4,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C39",
+     "label": "CapEx (Year 1)",
+     "value": -80
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C40",
+   "label": "Cash flow from investing",
+   "header": "Year 1",
+   "instruction": "Calculate Cash flow from investing for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s115",
+   "kind": "formula",
+   "expectedFormula": "=-$B$13",
+   "expectedValue": -50,
+   "tolerance": 0.25,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B13",
+     "label": "Debt repayment",
+     "value": 50
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C41",
+   "label": "Debt repayment",
+   "header": "Year 1",
+   "instruction": "Calculate Debt repayment for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s116",
+   "kind": "formula",
+   "expectedFormula": "=-$B$12",
+   "expectedValue": -20,
+   "tolerance": 0.1,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B12",
+     "label": "Dividends",
+     "value": 20
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C42",
+   "label": "Dividends",
+   "header": "Year 1",
+   "instruction": "Calculate Dividends for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s117",
+   "kind": "formula",
+   "expectedFormula": "=C41+C42",
+   "expectedValue": -70,
+   "tolerance": 0.35000000000000003,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C41",
+     "label": "Debt repayment (Year 1)",
+     "value": -50
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C42",
+     "label": "Dividends (Year 1)",
+     "value": -20
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C43",
+   "label": "Cash flow from financing",
+   "header": "Year 1",
+   "instruction": "Calculate Cash flow from financing for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s118",
+   "kind": "formula",
+   "expectedFormula": "=C20*$B$14",
+   "expectedValue": 100,
+   "tolerance": 0.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C20",
+     "label": "Revenue (Year 1)",
+     "value": 1000
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B14",
+     "label": "Accounts receivable (% of revenue)",
+     "value": 0.1
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C48",
+   "label": "Accounts receivable",
+   "header": "Year 1",
+   "instruction": "Calculate Accounts receivable for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s119",
+   "kind": "formula",
+   "expectedFormula": "=B48-C48",
+   "expectedValue": -10,
+   "tolerance": 0.05,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B48",
+     "label": "Accounts receivable (Year 0)",
+     "value": 90
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C48",
+     "label": "Accounts receivable (Year 1)",
+     "value": 100
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C35",
+   "label": "(Increase)/decrease in AR",
+   "header": "Year 1",
+   "instruction": "Calculate (Increase)/decrease in AR for Year 1.",
+   "hint": "Asset up = cash down.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s120",
+   "kind": "formula",
+   "expectedFormula": "=C21*$B$15",
+   "expectedValue": 90,
+   "tolerance": 0.45,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C21",
+     "label": "COGS (Year 1)",
+     "value": 600
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B15",
+     "label": "Inventory (% of COGS)",
+     "value": 0.15
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C49",
+   "label": "Inventory",
+   "header": "Year 1",
+   "instruction": "Calculate Inventory for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s121",
+   "kind": "formula",
+   "expectedFormula": "=B49-C49",
+   "expectedValue": -5,
+   "tolerance": 0.025,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B49",
+     "label": "Inventory (Year 0)",
+     "value": 85
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C49",
+     "label": "Inventory (Year 1)",
+     "value": 90
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C36",
+   "label": "(Increase)/decrease in inventory",
+   "header": "Year 1",
+   "instruction": "Calculate (Increase)/decrease in inventory for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s122",
+   "kind": "formula",
+   "expectedFormula": "=B50+$B$11-C25",
+   "expectedValue": 530,
+   "tolerance": 2.65,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B50",
+     "label": "PP&E, net (Year 0)",
+     "value": 500
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B11",
+     "label": "CapEx",
+     "value": 80
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C25",
+     "label": "D&A (Year 1)",
+     "value": 50
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C50",
+   "label": "PP&E, net",
+   "header": "Year 1",
+   "instruction": "Calculate PP&E, net for Year 1.",
+   "hint": "Beginning + CapEx − D&A.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s123",
+   "kind": "formula",
+   "expectedFormula": "=C21*$B$16",
+   "expectedValue": 60,
+   "tolerance": 0.3,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C21",
+     "label": "COGS (Year 1)",
+     "value": 600
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B16",
+     "label": "Accounts payable (% of COGS)",
+     "value": 0.1
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C52",
+   "label": "Accounts payable",
+   "header": "Year 1",
+   "instruction": "Calculate Accounts payable for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s124",
+   "kind": "formula",
+   "expectedFormula": "=C52-B52",
+   "expectedValue": 5,
+   "tolerance": 0.025,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C52",
+     "label": "Accounts payable (Year 1)",
+     "value": 60
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B52",
+     "label": "Accounts payable (Year 0)",
+     "value": 55
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C37",
+   "label": "Increase/(decrease) in AP",
+   "header": "Year 1",
+   "instruction": "Calculate Increase/(decrease) in AP for Year 1.",
+   "hint": "Liability up = cash up.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s125",
+   "kind": "formula",
+   "expectedFormula": "=SUM(C33:C37)",
+   "expectedValue": 176.5,
+   "tolerance": 0.8825000000000001,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C33:C37",
+     "label": "Net income (Year 1) … Increase/(decrease) in AP (Year 1)",
+     "value": null
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C38",
+   "label": "Cash flow from operations",
+   "header": "Year 1",
+   "instruction": "Calculate Cash flow from operations for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s126",
+   "kind": "formula",
+   "expectedFormula": "=C38+C40+C43",
+   "expectedValue": 26.5,
+   "tolerance": 0.1325,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C38",
+     "label": "Cash flow from operations (Year 1)",
+     "value": 176.5
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C40",
+     "label": "Cash flow from investing (Year 1)",
+     "value": -80
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C43",
+     "label": "Cash flow from financing (Year 1)",
+     "value": -70
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C44",
+   "label": "Net change in cash",
+   "header": "Year 1",
+   "instruction": "Calculate Net change in cash for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s127",
+   "kind": "formula",
+   "expectedFormula": "=B47+C44",
+   "expectedValue": 126.5,
+   "tolerance": 0.6325000000000001,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B47",
+     "label": "Cash (Year 0)",
+     "value": 100
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C44",
+     "label": "Net change in cash (Year 1)",
+     "value": 26.5
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C47",
+   "label": "Cash",
+   "header": "Year 1",
+   "instruction": "Calculate Cash for Year 1.",
+   "hint": "Beginning cash + net change from the CFS.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s128",
+   "kind": "formula",
+   "expectedFormula": "=SUM(C47:C50)",
+   "expectedValue": 846.5,
+   "tolerance": 4.2325,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C47:C50",
+     "label": "Cash (Year 1) … PP&E, net (Year 1)",
+     "value": null
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C51",
+   "label": "Total assets",
+   "header": "Year 1",
+   "instruction": "Calculate Total assets for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s129",
+   "kind": "formula",
+   "expectedFormula": "=B53-$B$13",
+   "expectedValue": 250,
+   "tolerance": 1.25,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B53",
+     "label": "Debt (Year 0)",
+     "value": 300
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B13",
+     "label": "Debt repayment",
+     "value": 50
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C53",
+   "label": "Debt",
+   "header": "Year 1",
+   "instruction": "Calculate Debt for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s130",
+   "kind": "formula",
+   "expectedFormula": "=SUM(C52:C53)",
+   "expectedValue": 310,
+   "tolerance": 1.55,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C52:C53",
+     "label": "Accounts payable (Year 1) … Debt (Year 1)",
+     "value": null
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C54",
+   "label": "Total liabilities",
+   "header": "Year 1",
+   "instruction": "Calculate Total liabilities for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s131",
+   "kind": "formula",
+   "expectedFormula": "=B55",
+   "expectedValue": 200,
+   "tolerance": 1.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B55",
+     "label": "Common stock (Year 0)",
+     "value": 200
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C55",
+   "label": "Common stock",
+   "header": "Year 1",
+   "instruction": "Calculate Common stock for Year 1.",
+   "hint": "No new stock issued.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s132",
+   "kind": "formula",
+   "expectedFormula": "=B56+C30-$B$12",
+   "expectedValue": 336.5,
+   "tolerance": 1.6825,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B56",
+     "label": "Retained earnings (Year 0)",
+     "value": 220
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C30",
+     "label": "Net income (Year 1)",
+     "value": 136.5
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "B12",
+     "label": "Dividends",
+     "value": 20
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C56",
+   "label": "Retained earnings",
+   "header": "Year 1",
+   "instruction": "Calculate Retained earnings for Year 1.",
+   "hint": "Beginning + net income − dividends.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s133",
+   "kind": "formula",
+   "expectedFormula": "=SUM(C55:C56)",
+   "expectedValue": 536.5,
+   "tolerance": 2.6825,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C55:C56",
+     "label": "Common stock (Year 1) … Retained earnings (Year 1)",
+     "value": null
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C57",
+   "label": "Total equity",
+   "header": "Year 1",
+   "instruction": "Calculate Total equity for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s134",
+   "kind": "formula",
+   "expectedFormula": "=C54+C57",
+   "expectedValue": 846.5,
+   "tolerance": 4.2325,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C54",
+     "label": "Total liabilities (Year 1)",
+     "value": 310
+    },
+    {
+     "sheet": "Mini 3-Statement",
+     "ref": "C57",
+     "label": "Total equity (Year 1)",
+     "value": 536.5
+    }
+   ],
+   "sheet": "Mini 3-Statement",
+   "cell": "C58",
+   "label": "Total liabilities + equity",
+   "header": "Year 1",
+   "instruction": "Calculate Total liabilities + equity for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  }
+ ]
+}

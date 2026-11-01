@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { Select } from "@/components/ui/select";
 
 type Ev = {
   id: string;
@@ -224,8 +225,8 @@ export function AdminRecruitingCalendarManager() {
           <Input placeholder="Title *" value={form.title} onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))} />
           <Input placeholder="Firm" value={form.firmName} onChange={(e) => setForm((f) => ({ ...f, firmName: e.target.value }))} />
           <Input placeholder="Vertical (IB, PE, …)" value={form.vertical} onChange={(e) => setForm((f) => ({ ...f, vertical: e.target.value }))} />
-          <select
-            className="rounded border border-border bg-surface px-2 py-2 text-sm"
+          <Select
+            
             value={form.eventType}
             onChange={(e) => setForm((f) => ({ ...f, eventType: e.target.value as (typeof EVENT_TYPES)[number] }))}
           >
@@ -234,7 +235,7 @@ export function AdminRecruitingCalendarManager() {
                 {t}
               </option>
             ))}
-          </select>
+          </Select>
           <Input type="date" value={form.date} onChange={(e) => setForm((f) => ({ ...f, date: e.target.value }))} />
           <Input
             type="number"

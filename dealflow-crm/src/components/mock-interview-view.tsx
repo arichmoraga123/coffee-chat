@@ -12,6 +12,7 @@ import { matchesCareerTracks } from "@/lib/career-tracks";
 import { ConsultingCasePractice } from "@/components/consulting-case-practice";
 import { PracticeModal, type PracticeQuestion } from "@/components/practice-modal";
 import { getRelevantBanks } from "@/lib/track-utils";
+import { Select } from "@/components/ui/select";
 
 type Q = {
   id: string;
@@ -388,8 +389,8 @@ export function MockInterviewView() {
 
             <Card className="space-y-3 border-border bg-surface p-4">
               <div className="grid gap-2 sm:grid-cols-5">
-                <select
-                  className="rounded border border-border-strong bg-surface px-2 py-2 text-xs"
+                <Select
+                  
                   value={categoryFilter}
                   onChange={(e) => setCategoryFilter(e.target.value)}
                 >
@@ -398,9 +399,9 @@ export function MockInterviewView() {
                       {c === "all" ? "All categories" : c}
                     </option>
                   ))}
-                </select>
-                <select
-                  className="rounded border border-border-strong bg-surface px-2 py-2 text-xs"
+                </Select>
+                <Select
+                  
                   value={difficultyFilter}
                   onChange={(e) => setDifficultyFilter(e.target.value)}
                 >
@@ -409,9 +410,9 @@ export function MockInterviewView() {
                       {d === "all" ? "All difficulty" : d}
                     </option>
                   ))}
-                </select>
-                <select
-                  className="rounded border border-border-strong bg-surface px-2 py-2 text-xs"
+                </Select>
+                <Select
+                  
                   value={yearFilter}
                   onChange={(e) => setYearFilter(e.target.value)}
                 >
@@ -420,7 +421,7 @@ export function MockInterviewView() {
                       {y === "all" ? "All years" : y}
                     </option>
                   ))}
-                </select>
+                </Select>
                 <Input
                   className="sm:col-span-2"
                   placeholder="Search questions..."
@@ -493,8 +494,8 @@ export function MockInterviewView() {
             onChange={(e) => setSubmitQ((s) => ({ ...s, question: e.target.value }))}
           />
           <div className="grid gap-2 sm:grid-cols-2">
-            <select
-              className="rounded border border-border-strong bg-surface px-2 py-2 text-sm"
+            <Select
+              
               value={submitQ.bankSource}
               onChange={(e) => setSubmitQ((s) => ({ ...s, bankSource: e.target.value }))}
             >
@@ -503,9 +504,9 @@ export function MockInterviewView() {
                   {b}
                 </option>
               ))}
-            </select>
-            <select
-              className="rounded border border-border-strong bg-surface px-2 py-2 text-sm"
+            </Select>
+            <Select
+              
               value={submitQ.category}
               onChange={(e) => setSubmitQ((s) => ({ ...s, category: e.target.value }))}
             >
@@ -514,9 +515,9 @@ export function MockInterviewView() {
                   {c}
                 </option>
               ))}
-            </select>
-            <select
-              className="rounded border border-border-strong bg-surface px-2 py-2 text-sm"
+            </Select>
+            <Select
+              
               value={submitQ.difficulty}
               onChange={(e) => setSubmitQ((s) => ({ ...s, difficulty: e.target.value }))}
             >
@@ -525,7 +526,7 @@ export function MockInterviewView() {
                   {c}
                 </option>
               ))}
-            </select>
+            </Select>
             <Input
               placeholder="Year"
               value={submitQ.year}

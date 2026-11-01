@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { Select } from "@/components/ui/select";
 
 type Result = { fileName: string; ok: boolean; error?: string; version?: number };
 
@@ -81,21 +82,21 @@ export function WorkbookUploader({ keys }: { keys: string[] }) {
         <div className="grid gap-2 sm:grid-cols-2">
           <label className="text-xs text-ink-2">
             Workbook (blank = from file name)
-            <select value={key} onChange={(e) => setKey(e.target.value)} className="mt-1 block w-full rounded border border-border-strong bg-surface px-2 py-1.5 text-sm">
+            <Select value={key} onChange={(e) => setKey(e.target.value)} className="mt-1 block w-full rounded border border-border-strong bg-surface px-2 py-1.5 text-sm">
               <option value="">From file name</option>
               {keys.map((k) => (
                 <option key={k} value={k}>
                   {k}
                 </option>
               ))}
-            </select>
+            </Select>
           </label>
           <label className="text-xs text-ink-2">
             Kind
-            <select value={kind} onChange={(e) => setKind(e.target.value as typeof kind)} className="mt-1 block w-full rounded border border-border-strong bg-surface px-2 py-1.5 text-sm">
+            <Select value={kind} onChange={(e) => setKind(e.target.value as typeof kind)} className="mt-1 block w-full rounded border border-border-strong bg-surface px-2 py-1.5 text-sm">
               <option value="student">Student workbook</option>
               <option value="answer_key">Answer key</option>
-            </select>
+            </Select>
           </label>
           <label className="text-xs text-ink-2">
             Title (optional)

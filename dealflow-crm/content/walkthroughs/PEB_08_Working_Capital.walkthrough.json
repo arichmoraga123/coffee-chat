@@ -1,0 +1,2018 @@
+{
+ "workbookKey": "PEB_08_Working_Capital",
+ "studentFile": "PEB_08_Working_Capital.xlsx",
+ "answerKeyFile": "PEB_08_Working_Capital_KEY.xlsx",
+ "sheets": [
+  "NWC Schedule",
+  "Negative NWC",
+  "Peg True-Up"
+ ],
+ "stepCount": 67,
+ "steps": [
+  {
+   "id": "s001",
+   "kind": "formula",
+   "expectedFormula": "=D7*(1+E5)",
+   "expectedValue": 1100,
+   "tolerance": 5.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D7",
+     "label": "Revenue (2026A)",
+     "value": 1000
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E5",
+     "label": "Revenue growth (projected) (2027E)",
+     "value": 0.1
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "E7",
+   "label": "Revenue",
+   "header": "2027E",
+   "instruction": "Calculate Revenue for 2027E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s002",
+   "kind": "formula",
+   "expectedFormula": "=E7*(1+F5)",
+   "expectedValue": 1210,
+   "tolerance": 6.05,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E7",
+     "label": "Revenue (2027E)",
+     "value": 1100
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "F5",
+     "label": "Revenue growth (projected) (2028E)",
+     "value": 0.1
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "F7",
+   "label": "Revenue",
+   "header": "2028E",
+   "instruction": "Calculate Revenue for 2028E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s003",
+   "kind": "formula",
+   "expectedFormula": "=E7*E6",
+   "expectedValue": 660,
+   "tolerance": 3.3000000000000003,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E7",
+     "label": "Revenue (2027E)",
+     "value": 1100
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E6",
+     "label": "COGS % of revenue (projected) (2027E)",
+     "value": 0.6
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "E8",
+   "label": "COGS",
+   "header": "2027E",
+   "instruction": "Calculate COGS for 2027E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s004",
+   "kind": "formula",
+   "expectedFormula": "=F7*F6",
+   "expectedValue": 726,
+   "tolerance": 3.63,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "F7",
+     "label": "Revenue (2028E)",
+     "value": 1210
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "F6",
+     "label": "COGS % of revenue (projected) (2028E)",
+     "value": 0.6
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "F8",
+   "label": "COGS",
+   "header": "2028E",
+   "instruction": "Calculate COGS for 2028E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s005",
+   "kind": "formula",
+   "expectedFormula": "=E7*$D$12/$D$7",
+   "expectedValue": 14.3,
+   "tolerance": 0.07150000000000001,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E7",
+     "label": "Revenue (2027E)",
+     "value": 1100
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D12",
+     "label": "Prepaid expenses (2026A)",
+     "value": 13
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D7",
+     "label": "Revenue (2026A)",
+     "value": 1000
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "E12",
+   "label": "Prepaid expenses",
+   "header": "2027E",
+   "instruction": "Calculate Prepaid expenses for 2027E.",
+   "hint": "Prepaids, accrued, and deferred revenue: hold 2026A % of revenue.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s006",
+   "kind": "formula",
+   "expectedFormula": "=F7*$D$12/$D$7",
+   "expectedValue": 15.73,
+   "tolerance": 0.07865,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "F7",
+     "label": "Revenue (2028E)",
+     "value": 1210
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D12",
+     "label": "Prepaid expenses (2026A)",
+     "value": 13
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D7",
+     "label": "Revenue (2026A)",
+     "value": 1000
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "F12",
+   "label": "Prepaid expenses",
+   "header": "2028E",
+   "instruction": "Calculate Prepaid expenses for 2028E.",
+   "hint": "Prepaids, accrued, and deferred revenue: hold 2026A % of revenue.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s007",
+   "kind": "formula",
+   "expectedFormula": "=E7*$D$15/$D$7",
+   "expectedValue": 29.7,
+   "tolerance": 0.1485,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E7",
+     "label": "Revenue (2027E)",
+     "value": 1100
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D15",
+     "label": "Accrued expenses (2026A)",
+     "value": 27
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D7",
+     "label": "Revenue (2026A)",
+     "value": 1000
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "E15",
+   "label": "Accrued expenses",
+   "header": "2027E",
+   "instruction": "Calculate Accrued expenses for 2027E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s008",
+   "kind": "formula",
+   "expectedFormula": "=F7*$D$15/$D$7",
+   "expectedValue": 32.67,
+   "tolerance": 0.16335000000000002,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "F7",
+     "label": "Revenue (2028E)",
+     "value": 1210
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D15",
+     "label": "Accrued expenses (2026A)",
+     "value": 27
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D7",
+     "label": "Revenue (2026A)",
+     "value": 1000
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "F15",
+   "label": "Accrued expenses",
+   "header": "2028E",
+   "instruction": "Calculate Accrued expenses for 2028E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s009",
+   "kind": "formula",
+   "expectedFormula": "=E7*$D$16/$D$7",
+   "expectedValue": 22,
+   "tolerance": 0.11,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E7",
+     "label": "Revenue (2027E)",
+     "value": 1100
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D16",
+     "label": "Deferred revenue (2026A)",
+     "value": 20
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D7",
+     "label": "Revenue (2026A)",
+     "value": 1000
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "E16",
+   "label": "Deferred revenue",
+   "header": "2027E",
+   "instruction": "Calculate Deferred revenue for 2027E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s010",
+   "kind": "formula",
+   "expectedFormula": "=F7*$D$16/$D$7",
+   "expectedValue": 24.2,
+   "tolerance": 0.121,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "F7",
+     "label": "Revenue (2028E)",
+     "value": 1210
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D16",
+     "label": "Deferred revenue (2026A)",
+     "value": 20
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D7",
+     "label": "Revenue (2026A)",
+     "value": 1000
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "F16",
+   "label": "Deferred revenue",
+   "header": "2028E",
+   "instruction": "Calculate Deferred revenue for 2028E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s011",
+   "kind": "formula",
+   "expectedFormula": "=SUM(B10:B12)",
+   "expectedValue": 170,
+   "tolerance": 0.85,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "B10:B12",
+     "label": "Accounts receivable (2024A) … Prepaid expenses (2024A)",
+     "value": null
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "B18",
+   "label": "Total operating assets",
+   "header": "2024A",
+   "instruction": "Calculate Total operating assets for 2024A.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s012",
+   "kind": "formula",
+   "expectedFormula": "=SUM(C10:C12)",
+   "expectedValue": 201,
+   "tolerance": 1.0050000000000001,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "C10:C12",
+     "label": "Accounts receivable (2025A) … Prepaid expenses (2025A)",
+     "value": null
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "C18",
+   "label": "Total operating assets",
+   "header": "2025A",
+   "instruction": "Calculate Total operating assets for 2025A.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s013",
+   "kind": "formula",
+   "expectedFormula": "=SUM(D10:D12)",
+   "expectedValue": 229,
+   "tolerance": 1.145,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D10:D12",
+     "label": "Accounts receivable (2026A) … Prepaid expenses (2026A)",
+     "value": null
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "D18",
+   "label": "Total operating assets",
+   "header": "2026A",
+   "instruction": "Calculate Total operating assets for 2026A.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s014",
+   "kind": "formula",
+   "expectedFormula": "=SUM(B14:B16)",
+   "expectedValue": 83,
+   "tolerance": 0.41500000000000004,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "B14:B16",
+     "label": "Accounts payable (2024A) … Deferred revenue (2024A)",
+     "value": null
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "B19",
+   "label": "Total operating liabilities",
+   "header": "2024A",
+   "instruction": "Calculate Total operating liabilities for 2024A.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s015",
+   "kind": "formula",
+   "expectedFormula": "=SUM(C14:C16)",
+   "expectedValue": 94,
+   "tolerance": 0.47000000000000003,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "C14:C16",
+     "label": "Accounts payable (2025A) … Deferred revenue (2025A)",
+     "value": null
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "C19",
+   "label": "Total operating liabilities",
+   "header": "2025A",
+   "instruction": "Calculate Total operating liabilities for 2025A.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s016",
+   "kind": "formula",
+   "expectedFormula": "=SUM(D14:D16)",
+   "expectedValue": 105,
+   "tolerance": 0.525,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D14:D16",
+     "label": "Accounts payable (2026A) … Deferred revenue (2026A)",
+     "value": null
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "D19",
+   "label": "Total operating liabilities",
+   "header": "2026A",
+   "instruction": "Calculate Total operating liabilities for 2026A.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s017",
+   "kind": "formula",
+   "expectedFormula": "=B18-B19",
+   "expectedValue": 87,
+   "tolerance": 0.435,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "B18",
+     "label": "Total operating assets (2024A)",
+     "value": 170
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "B19",
+     "label": "Total operating liabilities (2024A)",
+     "value": 83
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "B20",
+   "label": "Net working capital",
+   "header": "2024A",
+   "instruction": "Calculate Net working capital for 2024A.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s018",
+   "kind": "formula",
+   "expectedFormula": "=C18-C19",
+   "expectedValue": 107,
+   "tolerance": 0.535,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "C18",
+     "label": "Total operating assets (2025A)",
+     "value": 201
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "C19",
+     "label": "Total operating liabilities (2025A)",
+     "value": 94
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "C20",
+   "label": "Net working capital",
+   "header": "2025A",
+   "instruction": "Calculate Net working capital for 2025A.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s019",
+   "kind": "formula",
+   "expectedFormula": "=D18-D19",
+   "expectedValue": 124,
+   "tolerance": 0.62,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D18",
+     "label": "Total operating assets (2026A)",
+     "value": 229
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D19",
+     "label": "Total operating liabilities (2026A)",
+     "value": 105
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "D20",
+   "label": "Net working capital",
+   "header": "2026A",
+   "instruction": "Calculate Net working capital for 2026A.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s020",
+   "kind": "formula",
+   "expectedFormula": "=-(C20-B20)",
+   "expectedValue": -20,
+   "tolerance": 0.1,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "C20",
+     "label": "Net working capital (2025A)",
+     "value": 107
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "B20",
+     "label": "Net working capital (2024A)",
+     "value": 87
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "C21",
+   "label": "(Increase) / decrease in NWC — cash flow impact",
+   "header": "2025A",
+   "instruction": "Calculate (Increase) / decrease in NWC — cash flow impact for 2025A.",
+   "hint": "NWC going up uses cash, so the cash flow impact is negative.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s021",
+   "kind": "formula",
+   "expectedFormula": "=-(D20-C20)",
+   "expectedValue": -17,
+   "tolerance": 0.085,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D20",
+     "label": "Net working capital (2026A)",
+     "value": 124
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "C20",
+     "label": "Net working capital (2025A)",
+     "value": 107
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "D21",
+   "label": "(Increase) / decrease in NWC — cash flow impact",
+   "header": "2026A",
+   "instruction": "Calculate (Increase) / decrease in NWC — cash flow impact for 2026A.",
+   "hint": "NWC going up uses cash, so the cash flow impact is negative.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s022",
+   "kind": "formula",
+   "expectedFormula": "=B10/B7*365",
+   "expectedValue": 40.15,
+   "tolerance": 0.20074999999999998,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "B10",
+     "label": "Accounts receivable (2024A)",
+     "value": 88
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "B7",
+     "label": "Revenue (2024A)",
+     "value": 800
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "B23",
+   "label": "DSO (days)",
+   "header": "2024A",
+   "instruction": "Calculate DSO (days) for 2024A.",
+   "hint": "How long customers take to pay",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s023",
+   "kind": "formula",
+   "expectedFormula": "=C10/C7*365",
+   "expectedValue": 42.177778,
+   "tolerance": 0.210888888888889,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "C10",
+     "label": "Accounts receivable (2025A)",
+     "value": 104
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "C7",
+     "label": "Revenue (2025A)",
+     "value": 900
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "C23",
+   "label": "DSO (days)",
+   "header": "2025A",
+   "instruction": "Calculate DSO (days) for 2025A.",
+   "hint": "How long customers take to pay",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s024",
+   "kind": "formula",
+   "expectedFormula": "=D10/D7*365",
+   "expectedValue": 43.8,
+   "tolerance": 0.219,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D10",
+     "label": "Accounts receivable (2026A)",
+     "value": 120
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D7",
+     "label": "Revenue (2026A)",
+     "value": 1000
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "D23",
+   "label": "DSO (days)",
+   "header": "2026A",
+   "instruction": "Calculate DSO (days) for 2026A.",
+   "hint": "How long customers take to pay",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s025",
+   "kind": "formula",
+   "expectedFormula": "=E7*$D$23/365",
+   "expectedValue": 132,
+   "tolerance": 0.66,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E7",
+     "label": "Revenue (2027E)",
+     "value": 1100
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D23",
+     "label": "DSO (days) (2026A)",
+     "value": 43.8
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "E10",
+   "label": "Accounts receivable",
+   "header": "2027E",
+   "instruction": "Calculate Accounts receivable for 2027E.",
+   "hint": "Projected AR = revenue × 2026A DSO ÷ 365. Inventory and AP use COGS.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s026",
+   "kind": "formula",
+   "expectedFormula": "=F7*$D$23/365",
+   "expectedValue": 145.2,
+   "tolerance": 0.726,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "F7",
+     "label": "Revenue (2028E)",
+     "value": 1210
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D23",
+     "label": "DSO (days) (2026A)",
+     "value": 43.8
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "F10",
+   "label": "Accounts receivable",
+   "header": "2028E",
+   "instruction": "Calculate Accounts receivable for 2028E.",
+   "hint": "Projected AR = revenue × 2026A DSO ÷ 365. Inventory and AP use COGS.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s027",
+   "kind": "formula",
+   "expectedFormula": "=E10/E7*365",
+   "expectedValue": 43.8,
+   "tolerance": 0.219,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E10",
+     "label": "Accounts receivable (2027E)",
+     "value": 132
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E7",
+     "label": "Revenue (2027E)",
+     "value": 1100
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "E23",
+   "label": "DSO (days)",
+   "header": "2027E",
+   "instruction": "Calculate DSO (days) for 2027E.",
+   "hint": "How long customers take to pay",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s028",
+   "kind": "formula",
+   "expectedFormula": "=F10/F7*365",
+   "expectedValue": 43.8,
+   "tolerance": 0.219,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "F10",
+     "label": "Accounts receivable (2028E)",
+     "value": 145.2
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "F7",
+     "label": "Revenue (2028E)",
+     "value": 1210
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "F23",
+   "label": "DSO (days)",
+   "header": "2028E",
+   "instruction": "Calculate DSO (days) for 2028E.",
+   "hint": "How long customers take to pay",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s029",
+   "kind": "formula",
+   "expectedFormula": "=B11/B8*365",
+   "expectedValue": 54.75,
+   "tolerance": 0.27375,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "B11",
+     "label": "Inventory (2024A)",
+     "value": 72
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "B8",
+     "label": "COGS (2024A)",
+     "value": 480
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "B24",
+   "label": "DIO (days)",
+   "header": "2024A",
+   "instruction": "Calculate DIO (days) for 2024A.",
+   "hint": "How long inventory sits (uses COGS)",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s030",
+   "kind": "formula",
+   "expectedFormula": "=C11/C8*365",
+   "expectedValue": 57.453704,
+   "tolerance": 0.28726851851851853,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "C11",
+     "label": "Inventory (2025A)",
+     "value": 85
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "C8",
+     "label": "COGS (2025A)",
+     "value": 540
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "C24",
+   "label": "DIO (days)",
+   "header": "2025A",
+   "instruction": "Calculate DIO (days) for 2025A.",
+   "hint": "How long inventory sits (uses COGS)",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s031",
+   "kind": "formula",
+   "expectedFormula": "=D11/D8*365",
+   "expectedValue": 58.4,
+   "tolerance": 0.292,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D11",
+     "label": "Inventory (2026A)",
+     "value": 96
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D8",
+     "label": "COGS (2026A)",
+     "value": 600
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "D24",
+   "label": "DIO (days)",
+   "header": "2026A",
+   "instruction": "Calculate DIO (days) for 2026A.",
+   "hint": "How long inventory sits (uses COGS)",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s032",
+   "kind": "formula",
+   "expectedFormula": "=E8*$D$24/365",
+   "expectedValue": 105.6,
+   "tolerance": 0.528,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E8",
+     "label": "COGS (2027E)",
+     "value": 660
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D24",
+     "label": "DIO (days) (2026A)",
+     "value": 58.4
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "E11",
+   "label": "Inventory",
+   "header": "2027E",
+   "instruction": "Calculate Inventory for 2027E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s033",
+   "kind": "formula",
+   "expectedFormula": "=F8*$D$24/365",
+   "expectedValue": 116.16,
+   "tolerance": 0.5808,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "F8",
+     "label": "COGS (2028E)",
+     "value": 726
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D24",
+     "label": "DIO (days) (2026A)",
+     "value": 58.4
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "F11",
+   "label": "Inventory",
+   "header": "2028E",
+   "instruction": "Calculate Inventory for 2028E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s034",
+   "kind": "formula",
+   "expectedFormula": "=SUM(E10:E12)",
+   "expectedValue": 251.9,
+   "tolerance": 1.2595,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E10:E12",
+     "label": "Accounts receivable (2027E) … Prepaid expenses (2027E)",
+     "value": null
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "E18",
+   "label": "Total operating assets",
+   "header": "2027E",
+   "instruction": "Calculate Total operating assets for 2027E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s035",
+   "kind": "formula",
+   "expectedFormula": "=SUM(F10:F12)",
+   "expectedValue": 277.09,
+   "tolerance": 1.3854499999999998,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "F10:F12",
+     "label": "Accounts receivable (2028E) … Prepaid expenses (2028E)",
+     "value": null
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "F18",
+   "label": "Total operating assets",
+   "header": "2028E",
+   "instruction": "Calculate Total operating assets for 2028E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s036",
+   "kind": "formula",
+   "expectedFormula": "=E11/E8*365",
+   "expectedValue": 58.4,
+   "tolerance": 0.292,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E11",
+     "label": "Inventory (2027E)",
+     "value": 105.6
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E8",
+     "label": "COGS (2027E)",
+     "value": 660
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "E24",
+   "label": "DIO (days)",
+   "header": "2027E",
+   "instruction": "Calculate DIO (days) for 2027E.",
+   "hint": "How long inventory sits (uses COGS)",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s037",
+   "kind": "formula",
+   "expectedFormula": "=F11/F8*365",
+   "expectedValue": 58.4,
+   "tolerance": 0.292,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "F11",
+     "label": "Inventory (2028E)",
+     "value": 116.16
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "F8",
+     "label": "COGS (2028E)",
+     "value": 726
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "F24",
+   "label": "DIO (days)",
+   "header": "2028E",
+   "instruction": "Calculate DIO (days) for 2028E.",
+   "hint": "How long inventory sits (uses COGS)",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s038",
+   "kind": "formula",
+   "expectedFormula": "=B14/B8*365",
+   "expectedValue": 36.5,
+   "tolerance": 0.1825,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "B14",
+     "label": "Accounts payable (2024A)",
+     "value": 48
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "B8",
+     "label": "COGS (2024A)",
+     "value": 480
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "B25",
+   "label": "DPO (days)",
+   "header": "2024A",
+   "instruction": "Calculate DPO (days) for 2024A.",
+   "hint": "How long the company takes to pay suppliers",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s039",
+   "kind": "formula",
+   "expectedFormula": "=C14/C8*365",
+   "expectedValue": 35.148148,
+   "tolerance": 0.1757407407407405,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "C14",
+     "label": "Accounts payable (2025A)",
+     "value": 52
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "C8",
+     "label": "COGS (2025A)",
+     "value": 540
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "C25",
+   "label": "DPO (days)",
+   "header": "2025A",
+   "instruction": "Calculate DPO (days) for 2025A.",
+   "hint": "How long the company takes to pay suppliers",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s040",
+   "kind": "formula",
+   "expectedFormula": "=D14/D8*365",
+   "expectedValue": 35.283333,
+   "tolerance": 0.17641666666666653,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D14",
+     "label": "Accounts payable (2026A)",
+     "value": 58
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D8",
+     "label": "COGS (2026A)",
+     "value": 600
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "D25",
+   "label": "DPO (days)",
+   "header": "2026A",
+   "instruction": "Calculate DPO (days) for 2026A.",
+   "hint": "How long the company takes to pay suppliers",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s041",
+   "kind": "formula",
+   "expectedFormula": "=E8*$D$25/365",
+   "expectedValue": 63.8,
+   "tolerance": 0.319,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E8",
+     "label": "COGS (2027E)",
+     "value": 660
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D25",
+     "label": "DPO (days) (2026A)",
+     "value": 35.283333
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "E14",
+   "label": "Accounts payable",
+   "header": "2027E",
+   "instruction": "Calculate Accounts payable for 2027E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s042",
+   "kind": "formula",
+   "expectedFormula": "=F8*$D$25/365",
+   "expectedValue": 70.18,
+   "tolerance": 0.35090000000000005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "F8",
+     "label": "COGS (2028E)",
+     "value": 726
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D25",
+     "label": "DPO (days) (2026A)",
+     "value": 35.283333
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "F14",
+   "label": "Accounts payable",
+   "header": "2028E",
+   "instruction": "Calculate Accounts payable for 2028E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s043",
+   "kind": "formula",
+   "expectedFormula": "=SUM(E14:E16)",
+   "expectedValue": 115.5,
+   "tolerance": 0.5775,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E14:E16",
+     "label": "Accounts payable (2027E) … Deferred revenue (2027E)",
+     "value": null
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "E19",
+   "label": "Total operating liabilities",
+   "header": "2027E",
+   "instruction": "Calculate Total operating liabilities for 2027E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s044",
+   "kind": "formula",
+   "expectedFormula": "=SUM(F14:F16)",
+   "expectedValue": 127.05,
+   "tolerance": 0.63525,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "F14:F16",
+     "label": "Accounts payable (2028E) … Deferred revenue (2028E)",
+     "value": null
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "F19",
+   "label": "Total operating liabilities",
+   "header": "2028E",
+   "instruction": "Calculate Total operating liabilities for 2028E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s045",
+   "kind": "formula",
+   "expectedFormula": "=E18-E19",
+   "expectedValue": 136.4,
+   "tolerance": 0.682,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E18",
+     "label": "Total operating assets (2027E)",
+     "value": 251.9
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E19",
+     "label": "Total operating liabilities (2027E)",
+     "value": 115.5
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "E20",
+   "label": "Net working capital",
+   "header": "2027E",
+   "instruction": "Calculate Net working capital for 2027E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s046",
+   "kind": "formula",
+   "expectedFormula": "=F18-F19",
+   "expectedValue": 150.04,
+   "tolerance": 0.7502,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "F18",
+     "label": "Total operating assets (2028E)",
+     "value": 277.09
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "F19",
+     "label": "Total operating liabilities (2028E)",
+     "value": 127.05
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "F20",
+   "label": "Net working capital",
+   "header": "2028E",
+   "instruction": "Calculate Net working capital for 2028E.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s047",
+   "kind": "formula",
+   "expectedFormula": "=-(E20-D20)",
+   "expectedValue": -12.4,
+   "tolerance": 0.062000000000000006,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E20",
+     "label": "Net working capital (2027E)",
+     "value": 136.4
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D20",
+     "label": "Net working capital (2026A)",
+     "value": 124
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "E21",
+   "label": "(Increase) / decrease in NWC — cash flow impact",
+   "header": "2027E",
+   "instruction": "Calculate (Increase) / decrease in NWC — cash flow impact for 2027E.",
+   "hint": "NWC going up uses cash, so the cash flow impact is negative.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s048",
+   "kind": "formula",
+   "expectedFormula": "=-(F20-E20)",
+   "expectedValue": -13.64,
+   "tolerance": 0.06820000000000001,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "F20",
+     "label": "Net working capital (2028E)",
+     "value": 150.04
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E20",
+     "label": "Net working capital (2027E)",
+     "value": 136.4
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "F21",
+   "label": "(Increase) / decrease in NWC — cash flow impact",
+   "header": "2028E",
+   "instruction": "Calculate (Increase) / decrease in NWC — cash flow impact for 2028E.",
+   "hint": "NWC going up uses cash, so the cash flow impact is negative.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s049",
+   "kind": "formula",
+   "expectedFormula": "=E14/E8*365",
+   "expectedValue": 35.283333,
+   "tolerance": 0.17641666666666653,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E14",
+     "label": "Accounts payable (2027E)",
+     "value": 63.8
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E8",
+     "label": "COGS (2027E)",
+     "value": 660
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "E25",
+   "label": "DPO (days)",
+   "header": "2027E",
+   "instruction": "Calculate DPO (days) for 2027E.",
+   "hint": "How long the company takes to pay suppliers",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s050",
+   "kind": "formula",
+   "expectedFormula": "=F14/F8*365",
+   "expectedValue": 35.283333,
+   "tolerance": 0.17641666666666653,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "F14",
+     "label": "Accounts payable (2028E)",
+     "value": 70.18
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "F8",
+     "label": "COGS (2028E)",
+     "value": 726
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "F25",
+   "label": "DPO (days)",
+   "header": "2028E",
+   "instruction": "Calculate DPO (days) for 2028E.",
+   "hint": "How long the company takes to pay suppliers",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s051",
+   "kind": "formula",
+   "expectedFormula": "=B23+B24-B25",
+   "expectedValue": 58.4,
+   "tolerance": 0.292,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "B23",
+     "label": "DSO (days) (2024A)",
+     "value": 40.15
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "B24",
+     "label": "DIO (days) (2024A)",
+     "value": 54.75
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "B25",
+     "label": "DPO (days) (2024A)",
+     "value": 36.5
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "B26",
+   "label": "Cash conversion cycle (days)",
+   "header": "2024A",
+   "instruction": "Calculate Cash conversion cycle (days) for 2024A.",
+   "hint": "DSO + DIO − DPO",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s052",
+   "kind": "formula",
+   "expectedFormula": "=C23+C24-C25",
+   "expectedValue": 64.483333,
+   "tolerance": 0.3224166666666665,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "C23",
+     "label": "DSO (days) (2025A)",
+     "value": 42.177778
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "C24",
+     "label": "DIO (days) (2025A)",
+     "value": 57.453704
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "C25",
+     "label": "DPO (days) (2025A)",
+     "value": 35.148148
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "C26",
+   "label": "Cash conversion cycle (days)",
+   "header": "2025A",
+   "instruction": "Calculate Cash conversion cycle (days) for 2025A.",
+   "hint": "DSO + DIO − DPO",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s053",
+   "kind": "formula",
+   "expectedFormula": "=D23+D24-D25",
+   "expectedValue": 66.916667,
+   "tolerance": 0.3345833333333335,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D23",
+     "label": "DSO (days) (2026A)",
+     "value": 43.8
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D24",
+     "label": "DIO (days) (2026A)",
+     "value": 58.4
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "D25",
+     "label": "DPO (days) (2026A)",
+     "value": 35.283333
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "D26",
+   "label": "Cash conversion cycle (days)",
+   "header": "2026A",
+   "instruction": "Calculate Cash conversion cycle (days) for 2026A.",
+   "hint": "DSO + DIO − DPO",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s054",
+   "kind": "formula",
+   "expectedFormula": "=E23+E24-E25",
+   "expectedValue": 66.916667,
+   "tolerance": 0.3345833333333335,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E23",
+     "label": "DSO (days) (2027E)",
+     "value": 43.8
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E24",
+     "label": "DIO (days) (2027E)",
+     "value": 58.4
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "E25",
+     "label": "DPO (days) (2027E)",
+     "value": 35.283333
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "E26",
+   "label": "Cash conversion cycle (days)",
+   "header": "2027E",
+   "instruction": "Calculate Cash conversion cycle (days) for 2027E.",
+   "hint": "DSO + DIO − DPO",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s055",
+   "kind": "formula",
+   "expectedFormula": "=F23+F24-F25",
+   "expectedValue": 66.916667,
+   "tolerance": 0.3345833333333335,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NWC Schedule",
+     "ref": "F23",
+     "label": "DSO (days) (2028E)",
+     "value": 43.8
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "F24",
+     "label": "DIO (days) (2028E)",
+     "value": 58.4
+    },
+    {
+     "sheet": "NWC Schedule",
+     "ref": "F25",
+     "label": "DPO (days) (2028E)",
+     "value": 35.283333
+    }
+   ],
+   "sheet": "NWC Schedule",
+   "cell": "F26",
+   "label": "Cash conversion cycle (days)",
+   "header": "2028E",
+   "instruction": "Calculate Cash conversion cycle (days) for 2028E.",
+   "hint": "DSO + DIO − DPO",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s056",
+   "kind": "formula",
+   "expectedFormula": "=B7*(1+$C$4)",
+   "expectedValue": 24,
+   "tolerance": 0.12,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Negative NWC",
+     "ref": "B7",
+     "label": "Accounts receivable (This year)",
+     "value": 20
+    },
+    {
+     "sheet": "Negative NWC",
+     "ref": "C4",
+     "label": "Revenue growth next year",
+     "value": 0.2
+    }
+   ],
+   "sheet": "Negative NWC",
+   "cell": "C7",
+   "label": "Accounts receivable",
+   "header": "Next year",
+   "instruction": "Calculate Accounts receivable for Next year.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s057",
+   "kind": "formula",
+   "expectedFormula": "=B8*(1+$C$4)",
+   "expectedValue": 6,
+   "tolerance": 0.03,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Negative NWC",
+     "ref": "B8",
+     "label": "Prepaid expenses (This year)",
+     "value": 5
+    },
+    {
+     "sheet": "Negative NWC",
+     "ref": "C4",
+     "label": "Revenue growth next year",
+     "value": 0.2
+    }
+   ],
+   "sheet": "Negative NWC",
+   "cell": "C8",
+   "label": "Prepaid expenses",
+   "header": "Next year",
+   "instruction": "Calculate Prepaid expenses for Next year.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s058",
+   "kind": "formula",
+   "expectedFormula": "=B9*(1+$C$4)",
+   "expectedValue": 18,
+   "tolerance": 0.09,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Negative NWC",
+     "ref": "B9",
+     "label": "Accounts payable (This year)",
+     "value": 15
+    },
+    {
+     "sheet": "Negative NWC",
+     "ref": "C4",
+     "label": "Revenue growth next year",
+     "value": 0.2
+    }
+   ],
+   "sheet": "Negative NWC",
+   "cell": "C9",
+   "label": "Accounts payable",
+   "header": "Next year",
+   "instruction": "Calculate Accounts payable for Next year.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s059",
+   "kind": "formula",
+   "expectedFormula": "=B10*(1+$C$4)",
+   "expectedValue": 12,
+   "tolerance": 0.06,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Negative NWC",
+     "ref": "B10",
+     "label": "Accrued expenses (This year)",
+     "value": 10
+    },
+    {
+     "sheet": "Negative NWC",
+     "ref": "C4",
+     "label": "Revenue growth next year",
+     "value": 0.2
+    }
+   ],
+   "sheet": "Negative NWC",
+   "cell": "C10",
+   "label": "Accrued expenses",
+   "header": "Next year",
+   "instruction": "Calculate Accrued expenses for Next year.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s060",
+   "kind": "formula",
+   "expectedFormula": "=B11*(1+$C$4)",
+   "expectedValue": 96,
+   "tolerance": 0.48,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Negative NWC",
+     "ref": "B11",
+     "label": "Deferred revenue (This year)",
+     "value": 80
+    },
+    {
+     "sheet": "Negative NWC",
+     "ref": "C4",
+     "label": "Revenue growth next year",
+     "value": 0.2
+    }
+   ],
+   "sheet": "Negative NWC",
+   "cell": "C11",
+   "label": "Deferred revenue",
+   "header": "Next year",
+   "instruction": "Calculate Deferred revenue for Next year.",
+   "hint": "Customers pay a year upfront, so deferred revenue is large.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s061",
+   "kind": "formula",
+   "expectedFormula": "=B7+B8-B9-B10-B11",
+   "expectedValue": -80,
+   "tolerance": 0.4,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Negative NWC",
+     "ref": "B7",
+     "label": "Accounts receivable (This year)",
+     "value": 20
+    },
+    {
+     "sheet": "Negative NWC",
+     "ref": "B8",
+     "label": "Prepaid expenses (This year)",
+     "value": 5
+    },
+    {
+     "sheet": "Negative NWC",
+     "ref": "B9",
+     "label": "Accounts payable (This year)",
+     "value": 15
+    },
+    {
+     "sheet": "Negative NWC",
+     "ref": "B10",
+     "label": "Accrued expenses (This year)",
+     "value": 10
+    },
+    {
+     "sheet": "Negative NWC",
+     "ref": "B11",
+     "label": "Deferred revenue (This year)",
+     "value": 80
+    }
+   ],
+   "sheet": "Negative NWC",
+   "cell": "B12",
+   "label": "Net working capital",
+   "header": "This year",
+   "instruction": "Calculate Net working capital for This year.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s062",
+   "kind": "formula",
+   "expectedFormula": "=C7+C8-C9-C10-C11",
+   "expectedValue": -96,
+   "tolerance": 0.48,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Negative NWC",
+     "ref": "C7",
+     "label": "Accounts receivable (Next year)",
+     "value": 24
+    },
+    {
+     "sheet": "Negative NWC",
+     "ref": "C8",
+     "label": "Prepaid expenses (Next year)",
+     "value": 6
+    },
+    {
+     "sheet": "Negative NWC",
+     "ref": "C9",
+     "label": "Accounts payable (Next year)",
+     "value": 18
+    },
+    {
+     "sheet": "Negative NWC",
+     "ref": "C10",
+     "label": "Accrued expenses (Next year)",
+     "value": 12
+    },
+    {
+     "sheet": "Negative NWC",
+     "ref": "C11",
+     "label": "Deferred revenue (Next year)",
+     "value": 96
+    }
+   ],
+   "sheet": "Negative NWC",
+   "cell": "C12",
+   "label": "Net working capital",
+   "header": "Next year",
+   "instruction": "Calculate Net working capital for Next year.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s063",
+   "kind": "formula",
+   "expectedFormula": "=-(C12-B12)",
+   "expectedValue": 16,
+   "tolerance": 0.08,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Negative NWC",
+     "ref": "C12",
+     "label": "Net working capital (Next year)",
+     "value": -96
+    },
+    {
+     "sheet": "Negative NWC",
+     "ref": "B12",
+     "label": "Net working capital (This year)",
+     "value": -80
+    }
+   ],
+   "sheet": "Negative NWC",
+   "cell": "C13",
+   "label": "Cash flow impact from the change in NWC",
+   "header": "Next year",
+   "instruction": "Calculate Cash flow impact from the change in NWC for Next year.",
+   "hint": "NWC becomes more negative as it grows, which PROVIDES cash.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s064",
+   "kind": "formula",
+   "expectedFormula": "=B7-B6",
+   "expectedValue": -8,
+   "tolerance": 0.04,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Peg True-Up",
+     "ref": "B7",
+     "label": "Working capital delivered at closing (Case 1)",
+     "value": 42
+    },
+    {
+     "sheet": "Peg True-Up",
+     "ref": "B6",
+     "label": "Working capital peg (agreed normal level) (Case 1)",
+     "value": 50
+    }
+   ],
+   "sheet": "Peg True-Up",
+   "cell": "B8",
+   "label": "Adjustment",
+   "header": "Case 1",
+   "instruction": "Calculate Adjustment for Case 1.",
+   "hint": "Dollar for dollar: short of the peg lowers the price.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s065",
+   "kind": "formula",
+   "expectedFormula": "=C7-C6",
+   "expectedValue": 7,
+   "tolerance": 0.035,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Peg True-Up",
+     "ref": "C7",
+     "label": "Working capital delivered at closing (Case 2)",
+     "value": 57
+    },
+    {
+     "sheet": "Peg True-Up",
+     "ref": "C6",
+     "label": "Working capital peg (agreed normal level) (Case 2)",
+     "value": 50
+    }
+   ],
+   "sheet": "Peg True-Up",
+   "cell": "C8",
+   "label": "Adjustment",
+   "header": "Case 2",
+   "instruction": "Calculate Adjustment for Case 2.",
+   "hint": "Dollar for dollar: short of the peg lowers the price.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s066",
+   "kind": "formula",
+   "expectedFormula": "=B5+B8",
+   "expectedValue": 992,
+   "tolerance": 4.96,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Peg True-Up",
+     "ref": "B5",
+     "label": "Headline purchase price (Case 1)",
+     "value": 1000
+    },
+    {
+     "sheet": "Peg True-Up",
+     "ref": "B8",
+     "label": "Adjustment (Case 1)",
+     "value": -8
+    }
+   ],
+   "sheet": "Peg True-Up",
+   "cell": "B9",
+   "label": "Final purchase price",
+   "header": "Case 1",
+   "instruction": "Calculate Final purchase price for Case 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s067",
+   "kind": "formula",
+   "expectedFormula": "=C5+C8",
+   "expectedValue": 1007,
+   "tolerance": 5.035,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Peg True-Up",
+     "ref": "C5",
+     "label": "Headline purchase price (Case 2)",
+     "value": 1000
+    },
+    {
+     "sheet": "Peg True-Up",
+     "ref": "C8",
+     "label": "Adjustment (Case 2)",
+     "value": 7
+    }
+   ],
+   "sheet": "Peg True-Up",
+   "cell": "C9",
+   "label": "Final purchase price",
+   "header": "Case 2",
+   "instruction": "Calculate Final purchase price for Case 2.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  }
+ ]
+}

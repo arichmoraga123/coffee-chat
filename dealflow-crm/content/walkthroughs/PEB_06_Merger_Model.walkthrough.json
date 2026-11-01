@@ -1,0 +1,3268 @@
+{
+ "workbookKey": "PEB_06_Merger_Model",
+ "studentFile": "PEB_06_Merger_Model.xlsx",
+ "answerKeyFile": "PEB_06_Merger_Model_KEY.xlsx",
+ "sheets": [
+  "Merger Model",
+  "Sensitivity"
+ ],
+ "stepCount": 54,
+ "steps": [
+  {
+   "id": "s001",
+   "kind": "formula",
+   "expectedFormula": "=B11*(1+B16)",
+   "expectedValue": 56,
+   "tolerance": 0.28,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 40
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B16",
+     "label": "Offer premium",
+     "value": 0.4
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B27",
+   "label": "Offer price per share",
+   "header": null,
+   "instruction": "Calculate Offer price per share.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s002",
+   "kind": "formula",
+   "expectedFormula": "=B27*B12",
+   "expectedValue": 5600,
+   "tolerance": 28.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B27",
+     "label": "Offer price per share",
+     "value": 56
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B12",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B28",
+   "label": "Purchase equity value",
+   "header": null,
+   "instruction": "Calculate Purchase equity value.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s003",
+   "kind": "formula",
+   "expectedFormula": "=B28/B13",
+   "expectedValue": 22.4,
+   "tolerance": 0.11199999999999999,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B28",
+     "label": "Purchase equity value",
+     "value": 5600
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B13",
+     "label": "Net income ($mm)",
+     "value": 250
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B29",
+   "label": "Purchase P/E",
+   "header": null,
+   "instruction": "Calculate Purchase P/E.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s004",
+   "kind": "formula",
+   "expectedFormula": "=B7/B6",
+   "expectedValue": 4,
+   "tolerance": 0.02,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B7",
+     "label": "Net income ($mm)",
+     "value": 2000
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B6",
+     "label": "Diluted shares (mm)",
+     "value": 500
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B30",
+   "label": "Acquirer standalone EPS",
+   "header": null,
+   "instruction": "Calculate Acquirer standalone EPS.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s005",
+   "kind": "formula",
+   "expectedFormula": "=B5/B30",
+   "expectedValue": 20,
+   "tolerance": 0.1,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B5",
+     "label": "Share price",
+     "value": 80
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B30",
+     "label": "Acquirer standalone EPS",
+     "value": 4
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B31",
+   "label": "Acquirer P/E",
+   "header": null,
+   "instruction": "Calculate Acquirer P/E.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s006",
+   "kind": "formula",
+   "expectedFormula": "=B28*B17",
+   "expectedValue": 1120,
+   "tolerance": 5.6000000000000005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B28",
+     "label": "Purchase equity value",
+     "value": 5600
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B17",
+     "label": "% cash",
+     "value": 0.2
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B33",
+   "label": "Cash used",
+   "header": null,
+   "instruction": "Calculate Cash used.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s007",
+   "kind": "formula",
+   "expectedFormula": "=B28*B18",
+   "expectedValue": 2240,
+   "tolerance": 11.200000000000001,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B28",
+     "label": "Purchase equity value",
+     "value": 5600
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B18",
+     "label": "% new debt",
+     "value": 0.4
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B34",
+   "label": "New debt raised",
+   "header": null,
+   "instruction": "Calculate New debt raised.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s008",
+   "kind": "formula",
+   "expectedFormula": "=B28*B19",
+   "expectedValue": 2240,
+   "tolerance": 11.200000000000001,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B28",
+     "label": "Purchase equity value",
+     "value": 5600
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B19",
+     "label": "% stock",
+     "value": 0.4
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B35",
+   "label": "Stock issued ($)",
+   "header": null,
+   "instruction": "Calculate Stock issued ($).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s009",
+   "kind": "formula",
+   "expectedFormula": "=B35/B5",
+   "expectedValue": 28,
+   "tolerance": 0.14,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B35",
+     "label": "Stock issued ($)",
+     "value": 2240
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B5",
+     "label": "Share price",
+     "value": 80
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B36",
+   "label": "New shares issued (mm)",
+   "header": null,
+   "instruction": "Calculate New shares issued (mm).",
+   "hint": "Issued at the ACQUIRER's share price.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s010",
+   "kind": "formula-text",
+   "expectedFormula": "=IF(B33<=B8,\"Yes\",\"No\")",
+   "expectedValue": "Yes",
+   "tolerance": null,
+   "functions": [
+    "IF"
+   ],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B33",
+     "label": "Cash used",
+     "value": 1120
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B8",
+     "label": "Cash on balance sheet ($mm)",
+     "value": 3000
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B37",
+   "label": "Enough cash on hand?",
+   "header": null,
+   "instruction": "Calculate Enough cash on hand?.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s011",
+   "kind": "formula",
+   "expectedFormula": "=B28",
+   "expectedValue": 5600,
+   "tolerance": 28.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B28",
+     "label": "Purchase equity value",
+     "value": 5600
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B39",
+   "label": "Purchase equity value",
+   "header": null,
+   "instruction": "Calculate Purchase equity value.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s012",
+   "kind": "formula",
+   "expectedFormula": "=-B14",
+   "expectedValue": -1800,
+   "tolerance": 9.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B14",
+     "label": "Book value of equity ($mm)",
+     "value": 1800
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B40",
+   "label": "Less: target book value",
+   "header": null,
+   "instruction": "Calculate Less: target book value.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s013",
+   "kind": "formula",
+   "expectedFormula": "=-B23",
+   "expectedValue": -400,
+   "tolerance": 2.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B23",
+     "label": "Asset write-up ($mm)",
+     "value": 400
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B41",
+   "label": "Less: asset write-up",
+   "header": null,
+   "instruction": "Calculate Less: asset write-up.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s014",
+   "kind": "formula",
+   "expectedFormula": "=B23*B21",
+   "expectedValue": 100,
+   "tolerance": 0.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B23",
+     "label": "Asset write-up ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B42",
+   "label": "Plus: new deferred tax liability",
+   "header": null,
+   "instruction": "Calculate Plus: new deferred tax liability.",
+   "hint": "Book basis steps up, tax basis doesn't (stock deal) → DTL.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s015",
+   "kind": "formula",
+   "expectedFormula": "=SUM(B39:B42)",
+   "expectedValue": 3500,
+   "tolerance": 17.5,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B39:B42",
+     "label": "Purchase equity value … Plus: new deferred tax liability",
+     "value": null
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B43",
+   "label": "Goodwill",
+   "header": null,
+   "instruction": "Calculate Goodwill.",
+   "hint": "The plug.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s016",
+   "kind": "formula",
+   "expectedFormula": "=B7",
+   "expectedValue": 2000,
+   "tolerance": 10.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B7",
+     "label": "Net income ($mm)",
+     "value": 2000
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B45",
+   "label": "Acquirer net income",
+   "header": null,
+   "instruction": "Calculate Acquirer net income.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s017",
+   "kind": "formula",
+   "expectedFormula": "=B13",
+   "expectedValue": 250,
+   "tolerance": 1.25,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B13",
+     "label": "Net income ($mm)",
+     "value": 250
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B46",
+   "label": "Target net income",
+   "header": null,
+   "instruction": "Calculate Target net income.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s018",
+   "kind": "formula",
+   "expectedFormula": "=-B33*B9*(1-B21)",
+   "expectedValue": -33.6,
+   "tolerance": 0.168,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B33",
+     "label": "Cash used",
+     "value": 1120
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B9",
+     "label": "Interest earned on cash",
+     "value": 0.04
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B47",
+   "label": "Foregone interest on cash (after-tax)",
+   "header": null,
+   "instruction": "Calculate Foregone interest on cash (after-tax).",
+   "hint": "The cash used was earning interest.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s019",
+   "kind": "formula",
+   "expectedFormula": "=-B34*B20*(1-B21)",
+   "expectedValue": -117.6,
+   "tolerance": 0.588,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B34",
+     "label": "New debt raised",
+     "value": 2240
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B20",
+     "label": "Interest rate on new debt",
+     "value": 0.07
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B48",
+   "label": "Interest on new debt (after-tax)",
+   "header": null,
+   "instruction": "Calculate Interest on new debt (after-tax).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s020",
+   "kind": "formula",
+   "expectedFormula": "=-(B23/B24)*(1-B21)",
+   "expectedValue": -30,
+   "tolerance": 0.15,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B23",
+     "label": "Asset write-up ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B24",
+     "label": "Write-up useful life (years)",
+     "value": 10
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B49",
+   "label": "Extra D&A from write-up (after-tax)",
+   "header": null,
+   "instruction": "Calculate Extra D&A from write-up (after-tax).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s021",
+   "kind": "formula",
+   "expectedFormula": "=B22*(1-B21)",
+   "expectedValue": 75,
+   "tolerance": 0.375,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B22",
+     "label": "Pre-tax synergies ($mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B50",
+   "label": "Synergies (after-tax)",
+   "header": null,
+   "instruction": "Calculate Synergies (after-tax).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s022",
+   "kind": "formula",
+   "expectedFormula": "=SUM(B45:B50)",
+   "expectedValue": 2143.8,
+   "tolerance": 10.719000000000001,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B45:B50",
+     "label": "Acquirer net income … Synergies (after-tax)",
+     "value": null
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B51",
+   "label": "Pro forma net income",
+   "header": null,
+   "instruction": "Calculate Pro forma net income.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s023",
+   "kind": "formula",
+   "expectedFormula": "=B6+B36",
+   "expectedValue": 528,
+   "tolerance": 2.64,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B6",
+     "label": "Diluted shares (mm)",
+     "value": 500
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B36",
+     "label": "New shares issued (mm)",
+     "value": 28
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B52",
+   "label": "Pro forma diluted shares (mm)",
+   "header": null,
+   "instruction": "Calculate Pro forma diluted shares (mm).",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s024",
+   "kind": "formula",
+   "expectedFormula": "=B51/B52",
+   "expectedValue": 4.060227,
+   "tolerance": 0.02030113636363635,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B51",
+     "label": "Pro forma net income",
+     "value": 2143.8
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B52",
+     "label": "Pro forma diluted shares (mm)",
+     "value": 528
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B53",
+   "label": "Pro forma EPS",
+   "header": null,
+   "instruction": "Calculate Pro forma EPS.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s025",
+   "kind": "formula",
+   "expectedFormula": "=B53-B30",
+   "expectedValue": 0.060227,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B53",
+     "label": "Pro forma EPS",
+     "value": 4.060227
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B30",
+     "label": "Acquirer standalone EPS",
+     "value": 4
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B54",
+   "label": "Accretion / (dilution) — $",
+   "header": null,
+   "instruction": "Calculate Accretion / (dilution) — $.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s026",
+   "kind": "formula",
+   "expectedFormula": "=B53/B30-1",
+   "expectedValue": 0.015057,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B53",
+     "label": "Pro forma EPS",
+     "value": 4.060227
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B30",
+     "label": "Acquirer standalone EPS",
+     "value": 4
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B55",
+   "label": "Accretion / (dilution) — %",
+   "header": null,
+   "instruction": "Calculate Accretion / (dilution) — %.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s027",
+   "kind": "formula-text",
+   "expectedFormula": "=IF(B55>=0,\"Accretive\",\"Dilutive\")",
+   "expectedValue": "Accretive",
+   "tolerance": null,
+   "functions": [
+    "IF"
+   ],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B55",
+     "label": "Accretion / (dilution) — %",
+     "value": 0.015057
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B56",
+   "label": "Accretive or dilutive?",
+   "header": null,
+   "instruction": "Calculate Accretive or dilutive?.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s028",
+   "kind": "formula",
+   "expectedFormula": "=(B30*B52-(B51-B50))/(1-B21)",
+   "expectedValue": 57.6,
+   "tolerance": 0.28799999999999903,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B30",
+     "label": "Acquirer standalone EPS",
+     "value": 4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B52",
+     "label": "Pro forma diluted shares (mm)",
+     "value": 528
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B51",
+     "label": "Pro forma net income",
+     "value": 2143.8
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B50",
+     "label": "Synergies (after-tax)",
+     "value": 75
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B58",
+   "label": "Breakeven pre-tax synergies",
+   "header": null,
+   "instruction": "Calculate Breakeven pre-tax synergies.",
+   "hint": "Synergies needed so pro forma EPS = standalone EPS.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s029",
+   "kind": "formula",
+   "expectedFormula": "=B9*(1-B21)",
+   "expectedValue": 0.03,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B9",
+     "label": "Interest earned on cash",
+     "value": 0.04
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B60",
+   "label": "After-tax cost of cash",
+   "header": null,
+   "instruction": "Calculate After-tax cost of cash.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s030",
+   "kind": "formula",
+   "expectedFormula": "=B20*(1-B21)",
+   "expectedValue": 0.0525,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B20",
+     "label": "Interest rate on new debt",
+     "value": 0.07
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B61",
+   "label": "After-tax cost of debt",
+   "header": null,
+   "instruction": "Calculate After-tax cost of debt.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s031",
+   "kind": "formula",
+   "expectedFormula": "=1/B31",
+   "expectedValue": 0.05,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B31",
+     "label": "Acquirer P/E",
+     "value": 20
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B62",
+   "label": "Cost of stock (acquirer earnings yield = 1 ÷ P/E)",
+   "header": null,
+   "instruction": "Calculate Cost of stock (acquirer earnings yield = 1 ÷ P/E).",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s032",
+   "kind": "formula",
+   "expectedFormula": "=B17*B60+B18*B61+B19*B62",
+   "expectedValue": 0.047,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B17",
+     "label": "% cash",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B60",
+     "label": "After-tax cost of cash",
+     "value": 0.03
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B18",
+     "label": "% new debt",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B61",
+     "label": "After-tax cost of debt",
+     "value": 0.0525
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B19",
+     "label": "% stock",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B62",
+     "label": "Cost of stock (acquirer earnings yield = 1 ÷ P/E)",
+     "value": 0.05
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B63",
+   "label": "Weighted cost of acquisition",
+   "header": null,
+   "instruction": "Calculate Weighted cost of acquisition.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s033",
+   "kind": "formula",
+   "expectedFormula": "=1/B29",
+   "expectedValue": 0.044643,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B29",
+     "label": "Purchase P/E",
+     "value": 22.4
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B64",
+   "label": "Target earnings yield at purchase price (1 ÷ purchase P/E)",
+   "header": null,
+   "instruction": "Calculate Target earnings yield at purchase price (1 ÷ purchase P/E).",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s034",
+   "kind": "formula-text",
+   "expectedFormula": "=IF(B64>B63,\"Accretive\",\"Dilutive\")",
+   "expectedValue": "Dilutive",
+   "tolerance": null,
+   "functions": [
+    "IF"
+   ],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B64",
+     "label": "Target earnings yield at purchase price (1 ÷ purchase P/E)",
+     "value": 0.044643
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B63",
+     "label": "Weighted cost of acquisition",
+     "value": 0.047
+    }
+   ],
+   "sheet": "Merger Model",
+   "cell": "B65",
+   "label": "Shortcut prediction (before synergies & D&A)",
+   "header": null,
+   "instruction": "Calculate Shortcut prediction (before synergies & D&A).",
+   "hint": "If what you're buying yields more than what you're paying for it, it's accretive.",
+   "numberFormat": "General"
+  },
+  {
+   "id": "s035",
+   "kind": "formula",
+   "expectedFormula": "=('Merger Model'!$B$7+'Merger Model'!$B$13-('Merger Model'!$B$11*(1+$A5)*'Merger Model'!$B$12)*'Merger Model'!$B$17*'Merger Model'!$B$9*(1-'Merger Model'!$B$21)-('Merger Model'!$B$11*(1+$A5)*'Merger Model'!$B$12)*'Merger Model'!$B$18*'Merger Model'!$B$20*(1-'Merger Model'!$B$21)-'Merger Model'!$B$23/'Merger Model'!$B$24*(1-'Merger Model'!$B$21)+B$4*(1-'Merger Model'!$B$21))/('Merger Model'!$B$6+('Merger Model'!$B$11*(1+$A5)*'Merger Model'!$B$12)*'Merger Model'!$B$19/'Merger Model'!$B$5)/('Merger Model'!$B$7/'Merger Model'!$B$6)-1",
+   "expectedValue": -0.002672,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B7",
+     "label": "Net income ($mm)",
+     "value": 2000
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B13",
+     "label": "Net income ($mm)",
+     "value": 250
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 40
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A5",
+     "label": "A5",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B12",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B17",
+     "label": "% cash",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B9",
+     "label": "Interest earned on cash",
+     "value": 0.04
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B18",
+     "label": "% new debt",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B20",
+     "label": "Interest rate on new debt",
+     "value": 0.07
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B23",
+     "label": "Asset write-up ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B24",
+     "label": "Write-up useful life (years)",
+     "value": 10
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "B4",
+     "label": "Premium \\ pre-tax synergies ($mm)",
+     "value": 0
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B6",
+     "label": "Diluted shares (mm)",
+     "value": 500
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B19",
+     "label": "% stock",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B5",
+     "label": "Share price",
+     "value": 80
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "B5",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s036",
+   "kind": "formula",
+   "expectedFormula": "=('Merger Model'!$B$7+'Merger Model'!$B$13-('Merger Model'!$B$11*(1+$A5)*'Merger Model'!$B$12)*'Merger Model'!$B$17*'Merger Model'!$B$9*(1-'Merger Model'!$B$21)-('Merger Model'!$B$11*(1+$A5)*'Merger Model'!$B$12)*'Merger Model'!$B$18*'Merger Model'!$B$20*(1-'Merger Model'!$B$21)-'Merger Model'!$B$23/'Merger Model'!$B$24*(1-'Merger Model'!$B$21)+C$4*(1-'Merger Model'!$B$21))/('Merger Model'!$B$6+('Merger Model'!$B$11*(1+$A5)*'Merger Model'!$B$12)*'Merger Model'!$B$19/'Merger Model'!$B$5)/('Merger Model'!$B$7/'Merger Model'!$B$6)-1",
+   "expectedValue": 0.015219,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B7",
+     "label": "Net income ($mm)",
+     "value": 2000
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B13",
+     "label": "Net income ($mm)",
+     "value": 250
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 40
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A5",
+     "label": "A5",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B12",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B17",
+     "label": "% cash",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B9",
+     "label": "Interest earned on cash",
+     "value": 0.04
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B18",
+     "label": "% new debt",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B20",
+     "label": "Interest rate on new debt",
+     "value": 0.07
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B23",
+     "label": "Asset write-up ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B24",
+     "label": "Write-up useful life (years)",
+     "value": 10
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "C4",
+     "label": "Premium \\ pre-tax synergies ($mm)",
+     "value": 50
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B6",
+     "label": "Diluted shares (mm)",
+     "value": 500
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B19",
+     "label": "% stock",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B5",
+     "label": "Share price",
+     "value": 80
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "C5",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s037",
+   "kind": "formula",
+   "expectedFormula": "=('Merger Model'!$B$7+'Merger Model'!$B$13-('Merger Model'!$B$11*(1+$A5)*'Merger Model'!$B$12)*'Merger Model'!$B$17*'Merger Model'!$B$9*(1-'Merger Model'!$B$21)-('Merger Model'!$B$11*(1+$A5)*'Merger Model'!$B$12)*'Merger Model'!$B$18*'Merger Model'!$B$20*(1-'Merger Model'!$B$21)-'Merger Model'!$B$23/'Merger Model'!$B$24*(1-'Merger Model'!$B$21)+D$4*(1-'Merger Model'!$B$21))/('Merger Model'!$B$6+('Merger Model'!$B$11*(1+$A5)*'Merger Model'!$B$12)*'Merger Model'!$B$19/'Merger Model'!$B$5)/('Merger Model'!$B$7/'Merger Model'!$B$6)-1",
+   "expectedValue": 0.033111,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B7",
+     "label": "Net income ($mm)",
+     "value": 2000
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B13",
+     "label": "Net income ($mm)",
+     "value": 250
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 40
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A5",
+     "label": "A5",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B12",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B17",
+     "label": "% cash",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B9",
+     "label": "Interest earned on cash",
+     "value": 0.04
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B18",
+     "label": "% new debt",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B20",
+     "label": "Interest rate on new debt",
+     "value": 0.07
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B23",
+     "label": "Asset write-up ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B24",
+     "label": "Write-up useful life (years)",
+     "value": 10
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "D4",
+     "label": "Premium \\ pre-tax synergies ($mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B6",
+     "label": "Diluted shares (mm)",
+     "value": 500
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B19",
+     "label": "% stock",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B5",
+     "label": "Share price",
+     "value": 80
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "D5",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s038",
+   "kind": "formula",
+   "expectedFormula": "=('Merger Model'!$B$7+'Merger Model'!$B$13-('Merger Model'!$B$11*(1+$A5)*'Merger Model'!$B$12)*'Merger Model'!$B$17*'Merger Model'!$B$9*(1-'Merger Model'!$B$21)-('Merger Model'!$B$11*(1+$A5)*'Merger Model'!$B$12)*'Merger Model'!$B$18*'Merger Model'!$B$20*(1-'Merger Model'!$B$21)-'Merger Model'!$B$23/'Merger Model'!$B$24*(1-'Merger Model'!$B$21)+E$4*(1-'Merger Model'!$B$21))/('Merger Model'!$B$6+('Merger Model'!$B$11*(1+$A5)*'Merger Model'!$B$12)*'Merger Model'!$B$19/'Merger Model'!$B$5)/('Merger Model'!$B$7/'Merger Model'!$B$6)-1",
+   "expectedValue": 0.051002,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B7",
+     "label": "Net income ($mm)",
+     "value": 2000
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B13",
+     "label": "Net income ($mm)",
+     "value": 250
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 40
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A5",
+     "label": "A5",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B12",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B17",
+     "label": "% cash",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B9",
+     "label": "Interest earned on cash",
+     "value": 0.04
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B18",
+     "label": "% new debt",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B20",
+     "label": "Interest rate on new debt",
+     "value": 0.07
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B23",
+     "label": "Asset write-up ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B24",
+     "label": "Write-up useful life (years)",
+     "value": 10
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "E4",
+     "label": "Premium \\ pre-tax synergies ($mm)",
+     "value": 150
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B6",
+     "label": "Diluted shares (mm)",
+     "value": 500
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B19",
+     "label": "% stock",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B5",
+     "label": "Share price",
+     "value": 80
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "E5",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s039",
+   "kind": "formula",
+   "expectedFormula": "=('Merger Model'!$B$7+'Merger Model'!$B$13-('Merger Model'!$B$11*(1+$A5)*'Merger Model'!$B$12)*'Merger Model'!$B$17*'Merger Model'!$B$9*(1-'Merger Model'!$B$21)-('Merger Model'!$B$11*(1+$A5)*'Merger Model'!$B$12)*'Merger Model'!$B$18*'Merger Model'!$B$20*(1-'Merger Model'!$B$21)-'Merger Model'!$B$23/'Merger Model'!$B$24*(1-'Merger Model'!$B$21)+F$4*(1-'Merger Model'!$B$21))/('Merger Model'!$B$6+('Merger Model'!$B$11*(1+$A5)*'Merger Model'!$B$12)*'Merger Model'!$B$19/'Merger Model'!$B$5)/('Merger Model'!$B$7/'Merger Model'!$B$6)-1",
+   "expectedValue": 0.068893,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B7",
+     "label": "Net income ($mm)",
+     "value": 2000
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B13",
+     "label": "Net income ($mm)",
+     "value": 250
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 40
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A5",
+     "label": "A5",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B12",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B17",
+     "label": "% cash",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B9",
+     "label": "Interest earned on cash",
+     "value": 0.04
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B18",
+     "label": "% new debt",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B20",
+     "label": "Interest rate on new debt",
+     "value": 0.07
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B23",
+     "label": "Asset write-up ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B24",
+     "label": "Write-up useful life (years)",
+     "value": 10
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "F4",
+     "label": "Premium \\ pre-tax synergies ($mm)",
+     "value": 200
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B6",
+     "label": "Diluted shares (mm)",
+     "value": 500
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B19",
+     "label": "% stock",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B5",
+     "label": "Share price",
+     "value": 80
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "F5",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s040",
+   "kind": "formula",
+   "expectedFormula": "=('Merger Model'!$B$7+'Merger Model'!$B$13-('Merger Model'!$B$11*(1+$A6)*'Merger Model'!$B$12)*'Merger Model'!$B$17*'Merger Model'!$B$9*(1-'Merger Model'!$B$21)-('Merger Model'!$B$11*(1+$A6)*'Merger Model'!$B$12)*'Merger Model'!$B$18*'Merger Model'!$B$20*(1-'Merger Model'!$B$21)-'Merger Model'!$B$23/'Merger Model'!$B$24*(1-'Merger Model'!$B$21)+B$4*(1-'Merger Model'!$B$21))/('Merger Model'!$B$6+('Merger Model'!$B$11*(1+$A6)*'Merger Model'!$B$12)*'Merger Model'!$B$19/'Merger Model'!$B$5)/('Merger Model'!$B$7/'Merger Model'!$B$6)-1",
+   "expectedValue": -0.011597,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B7",
+     "label": "Net income ($mm)",
+     "value": 2000
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B13",
+     "label": "Net income ($mm)",
+     "value": 250
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 40
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A6",
+     "label": "A6",
+     "value": 0.3
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B12",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B17",
+     "label": "% cash",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B9",
+     "label": "Interest earned on cash",
+     "value": 0.04
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B18",
+     "label": "% new debt",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B20",
+     "label": "Interest rate on new debt",
+     "value": 0.07
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B23",
+     "label": "Asset write-up ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B24",
+     "label": "Write-up useful life (years)",
+     "value": 10
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "B4",
+     "label": "Premium \\ pre-tax synergies ($mm)",
+     "value": 0
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B6",
+     "label": "Diluted shares (mm)",
+     "value": 500
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B19",
+     "label": "% stock",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B5",
+     "label": "Share price",
+     "value": 80
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "B6",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s041",
+   "kind": "formula",
+   "expectedFormula": "=('Merger Model'!$B$7+'Merger Model'!$B$13-('Merger Model'!$B$11*(1+$A6)*'Merger Model'!$B$12)*'Merger Model'!$B$17*'Merger Model'!$B$9*(1-'Merger Model'!$B$21)-('Merger Model'!$B$11*(1+$A6)*'Merger Model'!$B$12)*'Merger Model'!$B$18*'Merger Model'!$B$20*(1-'Merger Model'!$B$21)-'Merger Model'!$B$23/'Merger Model'!$B$24*(1-'Merger Model'!$B$21)+C$4*(1-'Merger Model'!$B$21))/('Merger Model'!$B$6+('Merger Model'!$B$11*(1+$A6)*'Merger Model'!$B$12)*'Merger Model'!$B$19/'Merger Model'!$B$5)/('Merger Model'!$B$7/'Merger Model'!$B$6)-1",
+   "expectedValue": 0.006226,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B7",
+     "label": "Net income ($mm)",
+     "value": 2000
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B13",
+     "label": "Net income ($mm)",
+     "value": 250
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 40
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A6",
+     "label": "A6",
+     "value": 0.3
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B12",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B17",
+     "label": "% cash",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B9",
+     "label": "Interest earned on cash",
+     "value": 0.04
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B18",
+     "label": "% new debt",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B20",
+     "label": "Interest rate on new debt",
+     "value": 0.07
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B23",
+     "label": "Asset write-up ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B24",
+     "label": "Write-up useful life (years)",
+     "value": 10
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "C4",
+     "label": "Premium \\ pre-tax synergies ($mm)",
+     "value": 50
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B6",
+     "label": "Diluted shares (mm)",
+     "value": 500
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B19",
+     "label": "% stock",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B5",
+     "label": "Share price",
+     "value": 80
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "C6",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s042",
+   "kind": "formula",
+   "expectedFormula": "=('Merger Model'!$B$7+'Merger Model'!$B$13-('Merger Model'!$B$11*(1+$A6)*'Merger Model'!$B$12)*'Merger Model'!$B$17*'Merger Model'!$B$9*(1-'Merger Model'!$B$21)-('Merger Model'!$B$11*(1+$A6)*'Merger Model'!$B$12)*'Merger Model'!$B$18*'Merger Model'!$B$20*(1-'Merger Model'!$B$21)-'Merger Model'!$B$23/'Merger Model'!$B$24*(1-'Merger Model'!$B$21)+D$4*(1-'Merger Model'!$B$21))/('Merger Model'!$B$6+('Merger Model'!$B$11*(1+$A6)*'Merger Model'!$B$12)*'Merger Model'!$B$19/'Merger Model'!$B$5)/('Merger Model'!$B$7/'Merger Model'!$B$6)-1",
+   "expectedValue": 0.024049,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B7",
+     "label": "Net income ($mm)",
+     "value": 2000
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B13",
+     "label": "Net income ($mm)",
+     "value": 250
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 40
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A6",
+     "label": "A6",
+     "value": 0.3
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B12",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B17",
+     "label": "% cash",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B9",
+     "label": "Interest earned on cash",
+     "value": 0.04
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B18",
+     "label": "% new debt",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B20",
+     "label": "Interest rate on new debt",
+     "value": 0.07
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B23",
+     "label": "Asset write-up ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B24",
+     "label": "Write-up useful life (years)",
+     "value": 10
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "D4",
+     "label": "Premium \\ pre-tax synergies ($mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B6",
+     "label": "Diluted shares (mm)",
+     "value": 500
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B19",
+     "label": "% stock",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B5",
+     "label": "Share price",
+     "value": 80
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "D6",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s043",
+   "kind": "formula",
+   "expectedFormula": "=('Merger Model'!$B$7+'Merger Model'!$B$13-('Merger Model'!$B$11*(1+$A6)*'Merger Model'!$B$12)*'Merger Model'!$B$17*'Merger Model'!$B$9*(1-'Merger Model'!$B$21)-('Merger Model'!$B$11*(1+$A6)*'Merger Model'!$B$12)*'Merger Model'!$B$18*'Merger Model'!$B$20*(1-'Merger Model'!$B$21)-'Merger Model'!$B$23/'Merger Model'!$B$24*(1-'Merger Model'!$B$21)+E$4*(1-'Merger Model'!$B$21))/('Merger Model'!$B$6+('Merger Model'!$B$11*(1+$A6)*'Merger Model'!$B$12)*'Merger Model'!$B$19/'Merger Model'!$B$5)/('Merger Model'!$B$7/'Merger Model'!$B$6)-1",
+   "expectedValue": 0.041873,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B7",
+     "label": "Net income ($mm)",
+     "value": 2000
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B13",
+     "label": "Net income ($mm)",
+     "value": 250
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 40
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A6",
+     "label": "A6",
+     "value": 0.3
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B12",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B17",
+     "label": "% cash",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B9",
+     "label": "Interest earned on cash",
+     "value": 0.04
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B18",
+     "label": "% new debt",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B20",
+     "label": "Interest rate on new debt",
+     "value": 0.07
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B23",
+     "label": "Asset write-up ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B24",
+     "label": "Write-up useful life (years)",
+     "value": 10
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "E4",
+     "label": "Premium \\ pre-tax synergies ($mm)",
+     "value": 150
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B6",
+     "label": "Diluted shares (mm)",
+     "value": 500
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B19",
+     "label": "% stock",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B5",
+     "label": "Share price",
+     "value": 80
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "E6",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s044",
+   "kind": "formula",
+   "expectedFormula": "=('Merger Model'!$B$7+'Merger Model'!$B$13-('Merger Model'!$B$11*(1+$A6)*'Merger Model'!$B$12)*'Merger Model'!$B$17*'Merger Model'!$B$9*(1-'Merger Model'!$B$21)-('Merger Model'!$B$11*(1+$A6)*'Merger Model'!$B$12)*'Merger Model'!$B$18*'Merger Model'!$B$20*(1-'Merger Model'!$B$21)-'Merger Model'!$B$23/'Merger Model'!$B$24*(1-'Merger Model'!$B$21)+F$4*(1-'Merger Model'!$B$21))/('Merger Model'!$B$6+('Merger Model'!$B$11*(1+$A6)*'Merger Model'!$B$12)*'Merger Model'!$B$19/'Merger Model'!$B$5)/('Merger Model'!$B$7/'Merger Model'!$B$6)-1",
+   "expectedValue": 0.059696,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B7",
+     "label": "Net income ($mm)",
+     "value": 2000
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B13",
+     "label": "Net income ($mm)",
+     "value": 250
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 40
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A6",
+     "label": "A6",
+     "value": 0.3
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B12",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B17",
+     "label": "% cash",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B9",
+     "label": "Interest earned on cash",
+     "value": 0.04
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B18",
+     "label": "% new debt",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B20",
+     "label": "Interest rate on new debt",
+     "value": 0.07
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B23",
+     "label": "Asset write-up ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B24",
+     "label": "Write-up useful life (years)",
+     "value": 10
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "F4",
+     "label": "Premium \\ pre-tax synergies ($mm)",
+     "value": 200
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B6",
+     "label": "Diluted shares (mm)",
+     "value": 500
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B19",
+     "label": "% stock",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B5",
+     "label": "Share price",
+     "value": 80
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "F6",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s045",
+   "kind": "formula",
+   "expectedFormula": "=('Merger Model'!$B$7+'Merger Model'!$B$13-('Merger Model'!$B$11*(1+$A7)*'Merger Model'!$B$12)*'Merger Model'!$B$17*'Merger Model'!$B$9*(1-'Merger Model'!$B$21)-('Merger Model'!$B$11*(1+$A7)*'Merger Model'!$B$12)*'Merger Model'!$B$18*'Merger Model'!$B$20*(1-'Merger Model'!$B$21)-'Merger Model'!$B$23/'Merger Model'!$B$24*(1-'Merger Model'!$B$21)+B$4*(1-'Merger Model'!$B$21))/('Merger Model'!$B$6+('Merger Model'!$B$11*(1+$A7)*'Merger Model'!$B$12)*'Merger Model'!$B$19/'Merger Model'!$B$5)/('Merger Model'!$B$7/'Merger Model'!$B$6)-1",
+   "expectedValue": -0.020455,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B7",
+     "label": "Net income ($mm)",
+     "value": 2000
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B13",
+     "label": "Net income ($mm)",
+     "value": 250
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 40
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A7",
+     "label": "A7",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B12",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B17",
+     "label": "% cash",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B9",
+     "label": "Interest earned on cash",
+     "value": 0.04
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B18",
+     "label": "% new debt",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B20",
+     "label": "Interest rate on new debt",
+     "value": 0.07
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B23",
+     "label": "Asset write-up ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B24",
+     "label": "Write-up useful life (years)",
+     "value": 10
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "B4",
+     "label": "Premium \\ pre-tax synergies ($mm)",
+     "value": 0
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B6",
+     "label": "Diluted shares (mm)",
+     "value": 500
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B19",
+     "label": "% stock",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B5",
+     "label": "Share price",
+     "value": 80
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "B7",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s046",
+   "kind": "formula",
+   "expectedFormula": "=('Merger Model'!$B$7+'Merger Model'!$B$13-('Merger Model'!$B$11*(1+$A7)*'Merger Model'!$B$12)*'Merger Model'!$B$17*'Merger Model'!$B$9*(1-'Merger Model'!$B$21)-('Merger Model'!$B$11*(1+$A7)*'Merger Model'!$B$12)*'Merger Model'!$B$18*'Merger Model'!$B$20*(1-'Merger Model'!$B$21)-'Merger Model'!$B$23/'Merger Model'!$B$24*(1-'Merger Model'!$B$21)+C$4*(1-'Merger Model'!$B$21))/('Merger Model'!$B$6+('Merger Model'!$B$11*(1+$A7)*'Merger Model'!$B$12)*'Merger Model'!$B$19/'Merger Model'!$B$5)/('Merger Model'!$B$7/'Merger Model'!$B$6)-1",
+   "expectedValue": -0.002699,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B7",
+     "label": "Net income ($mm)",
+     "value": 2000
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B13",
+     "label": "Net income ($mm)",
+     "value": 250
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 40
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A7",
+     "label": "A7",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B12",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B17",
+     "label": "% cash",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B9",
+     "label": "Interest earned on cash",
+     "value": 0.04
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B18",
+     "label": "% new debt",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B20",
+     "label": "Interest rate on new debt",
+     "value": 0.07
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B23",
+     "label": "Asset write-up ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B24",
+     "label": "Write-up useful life (years)",
+     "value": 10
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "C4",
+     "label": "Premium \\ pre-tax synergies ($mm)",
+     "value": 50
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B6",
+     "label": "Diluted shares (mm)",
+     "value": 500
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B19",
+     "label": "% stock",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B5",
+     "label": "Share price",
+     "value": 80
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "C7",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s047",
+   "kind": "formula",
+   "expectedFormula": "=('Merger Model'!$B$7+'Merger Model'!$B$13-('Merger Model'!$B$11*(1+$A7)*'Merger Model'!$B$12)*'Merger Model'!$B$17*'Merger Model'!$B$9*(1-'Merger Model'!$B$21)-('Merger Model'!$B$11*(1+$A7)*'Merger Model'!$B$12)*'Merger Model'!$B$18*'Merger Model'!$B$20*(1-'Merger Model'!$B$21)-'Merger Model'!$B$23/'Merger Model'!$B$24*(1-'Merger Model'!$B$21)+D$4*(1-'Merger Model'!$B$21))/('Merger Model'!$B$6+('Merger Model'!$B$11*(1+$A7)*'Merger Model'!$B$12)*'Merger Model'!$B$19/'Merger Model'!$B$5)/('Merger Model'!$B$7/'Merger Model'!$B$6)-1",
+   "expectedValue": 0.015057,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B7",
+     "label": "Net income ($mm)",
+     "value": 2000
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B13",
+     "label": "Net income ($mm)",
+     "value": 250
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 40
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A7",
+     "label": "A7",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B12",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B17",
+     "label": "% cash",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B9",
+     "label": "Interest earned on cash",
+     "value": 0.04
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B18",
+     "label": "% new debt",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B20",
+     "label": "Interest rate on new debt",
+     "value": 0.07
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B23",
+     "label": "Asset write-up ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B24",
+     "label": "Write-up useful life (years)",
+     "value": 10
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "D4",
+     "label": "Premium \\ pre-tax synergies ($mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B6",
+     "label": "Diluted shares (mm)",
+     "value": 500
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B19",
+     "label": "% stock",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B5",
+     "label": "Share price",
+     "value": 80
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "D7",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s048",
+   "kind": "formula",
+   "expectedFormula": "=('Merger Model'!$B$7+'Merger Model'!$B$13-('Merger Model'!$B$11*(1+$A7)*'Merger Model'!$B$12)*'Merger Model'!$B$17*'Merger Model'!$B$9*(1-'Merger Model'!$B$21)-('Merger Model'!$B$11*(1+$A7)*'Merger Model'!$B$12)*'Merger Model'!$B$18*'Merger Model'!$B$20*(1-'Merger Model'!$B$21)-'Merger Model'!$B$23/'Merger Model'!$B$24*(1-'Merger Model'!$B$21)+E$4*(1-'Merger Model'!$B$21))/('Merger Model'!$B$6+('Merger Model'!$B$11*(1+$A7)*'Merger Model'!$B$12)*'Merger Model'!$B$19/'Merger Model'!$B$5)/('Merger Model'!$B$7/'Merger Model'!$B$6)-1",
+   "expectedValue": 0.032813,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B7",
+     "label": "Net income ($mm)",
+     "value": 2000
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B13",
+     "label": "Net income ($mm)",
+     "value": 250
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 40
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A7",
+     "label": "A7",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B12",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B17",
+     "label": "% cash",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B9",
+     "label": "Interest earned on cash",
+     "value": 0.04
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B18",
+     "label": "% new debt",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B20",
+     "label": "Interest rate on new debt",
+     "value": 0.07
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B23",
+     "label": "Asset write-up ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B24",
+     "label": "Write-up useful life (years)",
+     "value": 10
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "E4",
+     "label": "Premium \\ pre-tax synergies ($mm)",
+     "value": 150
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B6",
+     "label": "Diluted shares (mm)",
+     "value": 500
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B19",
+     "label": "% stock",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B5",
+     "label": "Share price",
+     "value": 80
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "E7",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s049",
+   "kind": "formula",
+   "expectedFormula": "=('Merger Model'!$B$7+'Merger Model'!$B$13-('Merger Model'!$B$11*(1+$A7)*'Merger Model'!$B$12)*'Merger Model'!$B$17*'Merger Model'!$B$9*(1-'Merger Model'!$B$21)-('Merger Model'!$B$11*(1+$A7)*'Merger Model'!$B$12)*'Merger Model'!$B$18*'Merger Model'!$B$20*(1-'Merger Model'!$B$21)-'Merger Model'!$B$23/'Merger Model'!$B$24*(1-'Merger Model'!$B$21)+F$4*(1-'Merger Model'!$B$21))/('Merger Model'!$B$6+('Merger Model'!$B$11*(1+$A7)*'Merger Model'!$B$12)*'Merger Model'!$B$19/'Merger Model'!$B$5)/('Merger Model'!$B$7/'Merger Model'!$B$6)-1",
+   "expectedValue": 0.050568,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B7",
+     "label": "Net income ($mm)",
+     "value": 2000
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B13",
+     "label": "Net income ($mm)",
+     "value": 250
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 40
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A7",
+     "label": "A7",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B12",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B17",
+     "label": "% cash",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B9",
+     "label": "Interest earned on cash",
+     "value": 0.04
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B18",
+     "label": "% new debt",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B20",
+     "label": "Interest rate on new debt",
+     "value": 0.07
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B23",
+     "label": "Asset write-up ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B24",
+     "label": "Write-up useful life (years)",
+     "value": 10
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "F4",
+     "label": "Premium \\ pre-tax synergies ($mm)",
+     "value": 200
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B6",
+     "label": "Diluted shares (mm)",
+     "value": 500
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B19",
+     "label": "% stock",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B5",
+     "label": "Share price",
+     "value": 80
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "F7",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s050",
+   "kind": "formula",
+   "expectedFormula": "=('Merger Model'!$B$7+'Merger Model'!$B$13-('Merger Model'!$B$11*(1+$A8)*'Merger Model'!$B$12)*'Merger Model'!$B$17*'Merger Model'!$B$9*(1-'Merger Model'!$B$21)-('Merger Model'!$B$11*(1+$A8)*'Merger Model'!$B$12)*'Merger Model'!$B$18*'Merger Model'!$B$20*(1-'Merger Model'!$B$21)-'Merger Model'!$B$23/'Merger Model'!$B$24*(1-'Merger Model'!$B$21)+B$4*(1-'Merger Model'!$B$21))/('Merger Model'!$B$6+('Merger Model'!$B$11*(1+$A8)*'Merger Model'!$B$12)*'Merger Model'!$B$19/'Merger Model'!$B$5)/('Merger Model'!$B$7/'Merger Model'!$B$6)-1",
+   "expectedValue": -0.029245,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B7",
+     "label": "Net income ($mm)",
+     "value": 2000
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B13",
+     "label": "Net income ($mm)",
+     "value": 250
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 40
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A8",
+     "label": "A8",
+     "value": 0.5
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B12",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B17",
+     "label": "% cash",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B9",
+     "label": "Interest earned on cash",
+     "value": 0.04
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B18",
+     "label": "% new debt",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B20",
+     "label": "Interest rate on new debt",
+     "value": 0.07
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B23",
+     "label": "Asset write-up ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B24",
+     "label": "Write-up useful life (years)",
+     "value": 10
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "B4",
+     "label": "Premium \\ pre-tax synergies ($mm)",
+     "value": 0
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B6",
+     "label": "Diluted shares (mm)",
+     "value": 500
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B19",
+     "label": "% stock",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B5",
+     "label": "Share price",
+     "value": 80
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "B8",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s051",
+   "kind": "formula",
+   "expectedFormula": "=('Merger Model'!$B$7+'Merger Model'!$B$13-('Merger Model'!$B$11*(1+$A8)*'Merger Model'!$B$12)*'Merger Model'!$B$17*'Merger Model'!$B$9*(1-'Merger Model'!$B$21)-('Merger Model'!$B$11*(1+$A8)*'Merger Model'!$B$12)*'Merger Model'!$B$18*'Merger Model'!$B$20*(1-'Merger Model'!$B$21)-'Merger Model'!$B$23/'Merger Model'!$B$24*(1-'Merger Model'!$B$21)+C$4*(1-'Merger Model'!$B$21))/('Merger Model'!$B$6+('Merger Model'!$B$11*(1+$A8)*'Merger Model'!$B$12)*'Merger Model'!$B$19/'Merger Model'!$B$5)/('Merger Model'!$B$7/'Merger Model'!$B$6)-1",
+   "expectedValue": -0.011557,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B7",
+     "label": "Net income ($mm)",
+     "value": 2000
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B13",
+     "label": "Net income ($mm)",
+     "value": 250
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 40
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A8",
+     "label": "A8",
+     "value": 0.5
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B12",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B17",
+     "label": "% cash",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B9",
+     "label": "Interest earned on cash",
+     "value": 0.04
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B18",
+     "label": "% new debt",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B20",
+     "label": "Interest rate on new debt",
+     "value": 0.07
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B23",
+     "label": "Asset write-up ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B24",
+     "label": "Write-up useful life (years)",
+     "value": 10
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "C4",
+     "label": "Premium \\ pre-tax synergies ($mm)",
+     "value": 50
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B6",
+     "label": "Diluted shares (mm)",
+     "value": 500
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B19",
+     "label": "% stock",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B5",
+     "label": "Share price",
+     "value": 80
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "C8",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s052",
+   "kind": "formula",
+   "expectedFormula": "=('Merger Model'!$B$7+'Merger Model'!$B$13-('Merger Model'!$B$11*(1+$A8)*'Merger Model'!$B$12)*'Merger Model'!$B$17*'Merger Model'!$B$9*(1-'Merger Model'!$B$21)-('Merger Model'!$B$11*(1+$A8)*'Merger Model'!$B$12)*'Merger Model'!$B$18*'Merger Model'!$B$20*(1-'Merger Model'!$B$21)-'Merger Model'!$B$23/'Merger Model'!$B$24*(1-'Merger Model'!$B$21)+D$4*(1-'Merger Model'!$B$21))/('Merger Model'!$B$6+('Merger Model'!$B$11*(1+$A8)*'Merger Model'!$B$12)*'Merger Model'!$B$19/'Merger Model'!$B$5)/('Merger Model'!$B$7/'Merger Model'!$B$6)-1",
+   "expectedValue": 0.006132,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B7",
+     "label": "Net income ($mm)",
+     "value": 2000
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B13",
+     "label": "Net income ($mm)",
+     "value": 250
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 40
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A8",
+     "label": "A8",
+     "value": 0.5
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B12",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B17",
+     "label": "% cash",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B9",
+     "label": "Interest earned on cash",
+     "value": 0.04
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B18",
+     "label": "% new debt",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B20",
+     "label": "Interest rate on new debt",
+     "value": 0.07
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B23",
+     "label": "Asset write-up ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B24",
+     "label": "Write-up useful life (years)",
+     "value": 10
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "D4",
+     "label": "Premium \\ pre-tax synergies ($mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B6",
+     "label": "Diluted shares (mm)",
+     "value": 500
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B19",
+     "label": "% stock",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B5",
+     "label": "Share price",
+     "value": 80
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "D8",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s053",
+   "kind": "formula",
+   "expectedFormula": "=('Merger Model'!$B$7+'Merger Model'!$B$13-('Merger Model'!$B$11*(1+$A8)*'Merger Model'!$B$12)*'Merger Model'!$B$17*'Merger Model'!$B$9*(1-'Merger Model'!$B$21)-('Merger Model'!$B$11*(1+$A8)*'Merger Model'!$B$12)*'Merger Model'!$B$18*'Merger Model'!$B$20*(1-'Merger Model'!$B$21)-'Merger Model'!$B$23/'Merger Model'!$B$24*(1-'Merger Model'!$B$21)+E$4*(1-'Merger Model'!$B$21))/('Merger Model'!$B$6+('Merger Model'!$B$11*(1+$A8)*'Merger Model'!$B$12)*'Merger Model'!$B$19/'Merger Model'!$B$5)/('Merger Model'!$B$7/'Merger Model'!$B$6)-1",
+   "expectedValue": 0.023821,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B7",
+     "label": "Net income ($mm)",
+     "value": 2000
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B13",
+     "label": "Net income ($mm)",
+     "value": 250
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 40
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A8",
+     "label": "A8",
+     "value": 0.5
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B12",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B17",
+     "label": "% cash",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B9",
+     "label": "Interest earned on cash",
+     "value": 0.04
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B18",
+     "label": "% new debt",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B20",
+     "label": "Interest rate on new debt",
+     "value": 0.07
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B23",
+     "label": "Asset write-up ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B24",
+     "label": "Write-up useful life (years)",
+     "value": 10
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "E4",
+     "label": "Premium \\ pre-tax synergies ($mm)",
+     "value": 150
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B6",
+     "label": "Diluted shares (mm)",
+     "value": 500
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B19",
+     "label": "% stock",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B5",
+     "label": "Share price",
+     "value": 80
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "E8",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s054",
+   "kind": "formula",
+   "expectedFormula": "=('Merger Model'!$B$7+'Merger Model'!$B$13-('Merger Model'!$B$11*(1+$A8)*'Merger Model'!$B$12)*'Merger Model'!$B$17*'Merger Model'!$B$9*(1-'Merger Model'!$B$21)-('Merger Model'!$B$11*(1+$A8)*'Merger Model'!$B$12)*'Merger Model'!$B$18*'Merger Model'!$B$20*(1-'Merger Model'!$B$21)-'Merger Model'!$B$23/'Merger Model'!$B$24*(1-'Merger Model'!$B$21)+F$4*(1-'Merger Model'!$B$21))/('Merger Model'!$B$6+('Merger Model'!$B$11*(1+$A8)*'Merger Model'!$B$12)*'Merger Model'!$B$19/'Merger Model'!$B$5)/('Merger Model'!$B$7/'Merger Model'!$B$6)-1",
+   "expectedValue": 0.041509,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Merger Model",
+     "ref": "B7",
+     "label": "Net income ($mm)",
+     "value": 2000
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B13",
+     "label": "Net income ($mm)",
+     "value": 250
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 40
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "A8",
+     "label": "A8",
+     "value": 0.5
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B12",
+     "label": "Diluted shares (mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B17",
+     "label": "% cash",
+     "value": 0.2
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B9",
+     "label": "Interest earned on cash",
+     "value": 0.04
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B21",
+     "label": "Tax rate",
+     "value": 0.25
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B18",
+     "label": "% new debt",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B20",
+     "label": "Interest rate on new debt",
+     "value": 0.07
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B23",
+     "label": "Asset write-up ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B24",
+     "label": "Write-up useful life (years)",
+     "value": 10
+    },
+    {
+     "sheet": "Sensitivity",
+     "ref": "F4",
+     "label": "Premium \\ pre-tax synergies ($mm)",
+     "value": 200
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B6",
+     "label": "Diluted shares (mm)",
+     "value": 500
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B19",
+     "label": "% stock",
+     "value": 0.4
+    },
+    {
+     "sheet": "Merger Model",
+     "ref": "B5",
+     "label": "Share price",
+     "value": 80
+    }
+   ],
+   "sheet": "Sensitivity",
+   "cell": "F8",
+   "label": null,
+   "header": null,
+   "instruction": "Calculate this cell.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  }
+ ]
+}

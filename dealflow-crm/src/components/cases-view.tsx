@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { cn } from "@/lib/utils";
 import { ConsultingCaseLibrary } from "@/components/consulting-case-library";
+import { Select } from "@/components/ui/select";
 
 export type CaseDTO = {
   id: string;
@@ -286,8 +287,8 @@ export function CasesView() {
       <Card className="flex flex-wrap gap-3 p-3">
         <label className="text-xs text-ink-3">
           Result
-          <select
-            className="mt-1 block rounded border border-border bg-surface px-2 py-1.5 text-sm"
+          <Select
+            className="mt-1 block"
             value={resultFilter}
             onChange={(e) => setResultFilter(e.target.value as (typeof RESULT_FILTER)[number])}
           >
@@ -296,7 +297,7 @@ export function CasesView() {
             <option value="finalist">Finalist</option>
             <option value="participant">Participant</option>
             <option value="other">Other / unset</option>
-          </select>
+          </Select>
         </label>
         <label className="text-xs text-ink-3">
           Skill contains

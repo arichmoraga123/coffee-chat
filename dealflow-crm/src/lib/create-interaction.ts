@@ -3,6 +3,8 @@ import { InteractionType, TaskType } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { syncCoffeeFollowUpToExternalCalendars } from "@/lib/calendar-sync";
 import { normalizeStringArray, normalizeIntArray } from "@/lib/form-arrays";
+import { INTERACTION_KINDS, kindOf, stageFromKind, type InteractionKind } from "@/lib/followups";
+import { syncFollowupTasks } from "@/lib/followup-tasks";
 
 export function buildInteractionUncheckedData(
   body: Record<string, unknown>,
@@ -13,7 +15,9 @@ export function buildInteractionUncheckedData(
     throw new Error("date is required");
   }
 
-  const rawType = String(body.type ?? "COFFEE_CHAT").toUpperCase().replace(/-/g, "_");
+  // New fine-grained kinds map onto the older enum so existing views keep working.
+  const kind = typeof body.kind === "string" && body.kind in INTERACTION_KINDS ? (body.kind as InteractionKind) : null;
+  const rawType = kind ? INTERACTION_KINDS[kind].legacy : String(body.type ?? "COFFEE_CHAT").toUpperCase().replace(/-/g, "_");
   const allowedTypes = new Set<string>(Object.values(InteractionType));
   if (!allowedTypes.has(rawType)) {
     throw new Error(`Invalid interaction type: ${rawType}`);
@@ -21,6 +25,7 @@ export function buildInteractionUncheckedData(
   const interactionType = rawType as InteractionType;
 
   const interactionDate = new Date(String(body.date));
+  if (isNaN(interactionDate.getTime())) throw new Error("date is invalid");
   const adviceFromNew =
     body.adviceGiven != null && String(body.adviceGiven).trim()
       ? String(body.adviceGiven).trim()
@@ -66,6 +71,9 @@ export function buildInteractionUncheckedData(
         ? String(body.redFlags).trim()
         : null,
     followUpDate: body.followUpDate ? new Date(String(body.followUpDate)) : null,
+    kind: kind ?? kindOf({ type: interactionType, notes }),
+    nextStep: body.nextStep != null && String(body.nextStep).trim() ? String(body.nextStep).trim() : null,
+    nextStepDue: body.nextStepDue ? new Date(String(body.nextStepDue)) : null,
   };
 }
 
@@ -112,13 +120,19 @@ export async function createInteractionAndSideEffects(opts: {
   }
 
   const bonus = differenceInDays(new Date(), data.date) <= 14 ? 2 : 0;
+  const current = await prisma.contact.findUnique({ where: { id: contactId }, select: { lastInteractionDate: true, list: true } });
   await prisma.contact.update({
     where: { id: contactId },
     data: {
       relationshipStrength: { increment: 1 + bonus },
-      lastInteractionDate: data.date,
+      // Logging an older interaction never moves "last contacted" backwards.
+      lastInteractionDate: !current?.lastInteractionDate || current.lastInteractionDate < data.date ? data.date : current.lastInteractionDate,
+      relationshipStage: stageFromKind(data.kind as InteractionKind),
+      // Talking to someone on the Network list makes them an active contact.
+      ...(current?.list === "network" ? { list: "active" } : {}),
     },
   });
+  await syncFollowupTasks(userId, [contactId]).catch((e) => console.error("followup sync failed", e));
 
   if (body.followUpDate) {
     await prisma.task.create({

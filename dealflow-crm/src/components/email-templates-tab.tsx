@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { Star } from "lucide-react";
+import { Select } from "@/components/ui/select";
 
 type Tpl = {
   id: string;
@@ -130,13 +131,13 @@ export function EmailTemplatesTab() {
       <Card className="space-y-2 border-border bg-surface p-4">
         <p className="font-medium text-ink">Submit template</p>
         <Input placeholder="Title" value={submit.title} onChange={(e) => setSubmit((s) => ({ ...s, title: e.target.value }))} />
-        <select className="w-full rounded border border-border-strong bg-surface px-2 py-2 text-sm" value={submit.category} onChange={(e) => setSubmit((s) => ({ ...s, category: e.target.value }))}>
+        <Select className="w-full" value={submit.category} onChange={(e) => setSubmit((s) => ({ ...s, category: e.target.value }))}>
           {CATS.filter((c) => c !== "All").map((c) => (
             <option key={c} value={c}>
               {c}
             </option>
           ))}
-        </select>
+        </Select>
         <Input placeholder="Subject (optional)" value={submit.subject} onChange={(e) => setSubmit((s) => ({ ...s, subject: e.target.value }))} />
         <textarea className="min-h-[120px] w-full rounded border border-border-strong bg-surface p-2 text-sm" placeholder="Body" value={submit.body} onChange={(e) => setSubmit((s) => ({ ...s, body: e.target.value }))} />
         <Input placeholder="Tags comma-separated" value={submit.tags} onChange={(e) => setSubmit((s) => ({ ...s, tags: e.target.value }))} />

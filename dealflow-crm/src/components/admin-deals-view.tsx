@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { cn } from "@/lib/utils";
 import { DEAL_TYPE_OPTIONS, VERTICAL_OPTIONS } from "@/lib/deal-taxonomy";
+import { Select } from "@/components/ui/select";
 
 type DealRow = {
   id: string;
@@ -393,8 +394,8 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
             </label>
             <label>
               <span className="mb-1 block text-xs text-ink-3">Deal type</span>
-              <select
-                className="h-9 w-full rounded border border-border-strong bg-surface px-2 text-sm"
+              <Select
+                className="w-full"
                 value={form.dealType}
                 onChange={(e) => setForm((f) => ({ ...f, dealType: e.target.value }))}
               >
@@ -403,12 +404,12 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
                     {t}
                   </option>
                 ))}
-              </select>
+              </Select>
             </label>
             <label>
               <span className="mb-1 block text-xs text-ink-3">Vertical</span>
-              <select
-                className="h-9 w-full rounded border border-border-strong bg-surface px-2 text-sm"
+              <Select
+                className="w-full"
                 value={form.vertical}
                 onChange={(e) => setForm((f) => ({ ...f, vertical: e.target.value }))}
               >
@@ -418,7 +419,7 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
                     {v}
                   </option>
                 ))}
-              </select>
+              </Select>
             </label>
             <label className="sm:col-span-2">
               <span className="mb-1 block text-xs text-ink-3">Sector</span>

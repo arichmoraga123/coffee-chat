@@ -1,62 +1,49 @@
+import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import { ContactsView } from "@/components/contacts-view";
 import { requireUserId } from "@/lib/auth";
-import { getFollowUpStatus } from "@/lib/follow-up";
+import { contactListRows } from "@/lib/contacts-list";
+import { Button } from "@/components/ui/button";
+import { PageHeader } from "@/components/ui/page-header";
+import { ContactsTable } from "@/components/contacts/contacts-table";
+import { ContactsTabs } from "@/components/contacts/contacts-tabs";
+import { OutreachTracker } from "@/components/contacts/outreach-tracker";
+import { FindContactsButton } from "@/components/contacts/find-contacts-button";
 
 export const dynamic = "force-dynamic";
+export const metadata = { title: "Contacts" };
 
-export default async function ContactsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ tab?: string; filter?: string }>;
-}) {
+export default async function ContactsPage({ searchParams }: { searchParams: Promise<{ view?: string; tab?: string }> }) {
   const userId = await requireUserId();
-  const params = await searchParams;
-  const [contacts, firms, user] = await Promise.all([
-    prisma.contact.findMany({
-      where: { userId },
-      include: {
-        firm: true,
-        interactions: { orderBy: { date: "desc" }, take: 1 },
-      },
-      orderBy: { lastInteractionDate: "desc" },
-    }),
+  const sp = await searchParams;
+  const view = sp.view === "network" ? "network" : sp.view === "queue" || sp.tab === "queue" ? "queue" : "active";
+  const [counts, firms, me] = await Promise.all([
+    prisma.contact.groupBy({ by: ["list"], where: { userId, deletedAt: null }, _count: { _all: true } }),
     prisma.firm.findMany({ where: { userId }, select: { id: true, name: true }, orderBy: { name: "asc" } }),
-    prisma.user.findUnique({
-      where: { id: userId },
-      select: { school: { select: { name: true, shortName: true } } },
-    }),
+    prisma.user.findUnique({ where: { id: userId }, select: { school: { select: { name: true } } } }),
   ]);
-
-  const schoolName = user?.school?.name ?? "Michigan State";
+  const school = me?.school?.name ?? "Michigan State";
+  const n = (l: string) => counts.find((c) => c.list === l)?._count._all ?? 0;
 
   return (
-    <ContactsView
-      initialTab={params.tab ?? "all"}
-      importFilter={params.filter === "imported"}
-      schoolName={schoolName}
-      firms={firms}
-      initialContacts={contacts.map((c) => ({
-        id: c.id,
-        fullName: c.fullName,
-        email: c.email,
-        linkedinUrl: c.linkedinUrl,
-        firmName: c.firm.name,
-        firmType: c.firm.type,
-        firmId: c.firmId,
-        group: c.group,
-        title: c.title,
-        relationshipStrength: c.relationshipStrength,
-        referralProbability: c.referralProbability,
-        recruitingCategory: c.recruitingCategory,
-        lastInteractionDate: (c.lastInteractionDate ?? c.interactions[0]?.date)?.toISOString() ?? null,
-        followUpStatus: getFollowUpStatus(c.lastInteractionDate ?? c.interactions[0]?.date ?? null),
-        warmthScore: c.warmthScore,
-        source: c.source,
-        inOutreachQueue: c.inOutreachQueue,
-        queueExcluded: c.queueExcluded,
-        createdAt: c.createdAt.toISOString(),
-      }))}
-    />
+    <div className="space-y-5">
+      <PageHeader
+        title="Contacts"
+        subtitle="Everyone you're actively working. Network holds connections you're not reaching out to yet."
+        actions={
+          <>
+            <Button variant="secondary" asChild>
+              <Link href="/contacts/import">Import</Link>
+            </Button>
+            <FindContactsButton schoolName={school} />
+          </>
+        }
+      />
+      <ContactsTabs active={view} counts={{ active: n("active"), network: n("network") }} />
+      {view === "queue" ? (
+        <OutreachTracker userId={userId} />
+      ) : (
+        <ContactsTable rows={await contactListRows(userId, view)} view={view} firms={firms} />
+      )}
+    </div>
   );
 }

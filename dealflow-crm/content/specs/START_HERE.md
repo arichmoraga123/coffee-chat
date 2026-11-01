@@ -43,6 +43,20 @@ Everything for the redesign, the Learn section, the new question bank, and the P
 Open each session with:
 > Read `START_HERE.md` and `<the spec named in the table>`. Build **<Phase>** only. Don't change features outside what that phase lists.
 
+## 2b. Round 2: outreach, search, notifications, club posting, workbooks v2
+
+Spec: `CLAUDE_CODE_SPEC_Outreach_Club_Workbooks.md`. Run phases **G → H → I → J → K → L → M** after the steps above, one session each.
+
+| File | Put it at |
+|---|---|
+| `CLAUDE_CODE_SPEC_Outreach_Club_Workbooks.md` | repo root |
+| `Prospect_Rolodex_Import_Template.xlsx` | `public/templates/` |
+| `prospect-contacts-sample.csv`, `prospect-interactions-sample.csv` | `public/templates/` |
+| contents of `PEB_Walkthroughs.zip` (15 JSON files) | `content/walkthroughs/` |
+| `PEB_Practice_Workbooks_v2.zip` | Don't commit. Upload on the admin resources page in Phase M |
+
+Before Phase H's repair script runs for everyone, review its `--dry-run` output.
+
 ## 3. After each phase
 - `npm run build` passes, then deploy: `cd dealflow-crm && npx vercel --prod`.
 - Click through the new screens on your phone before moving on.

@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession } from "@/lib/auth";
 import { PIPELINE_STAGES } from "@/lib/constants";
 import { parseFirmType } from "@/lib/firm-type";
+import { applyOpportunityExtras } from "@/lib/opportunity-extras";
 import { syncOpportunityDeadlineToExternalCalendars } from "@/lib/calendar-sync";
 
 const STAGE_SET = new Set<string>(PIPELINE_STAGES);
@@ -68,6 +69,7 @@ export async function POST(req: Request) {
     include: { firm: true, contacts: { include: { contact: true } } },
   });
 
+  await applyOpportunityExtras(userId, opportunity.id, body as Record<string, unknown>);
   void syncOpportunityDeadlineToExternalCalendars(userId, opportunity.id);
 
   return NextResponse.json(opportunity);

@@ -2,7 +2,7 @@ import type { PrismaClient } from "@prisma/client";
 import { prisma as defaultPrisma } from "@/lib/prisma";
 
 export const PE_BROAD_NAME = "PE@Broad";
-export const ROSTER_ROLES = ["member", "admin"] as const;
+export const ROSTER_ROLES = ["member", "officer", "admin"] as const;
 export type RosterRole = (typeof ROSTER_ROLES)[number];
 
 export type RosterRow = { email: string; name: string | null; role: RosterRole };
@@ -98,7 +98,7 @@ export function parseRosterCsv(text: string): { rows: RosterRow[]; errors: strin
       return;
     }
     const roleRaw = ri >= 0 ? (cells[ri] ?? "").toLowerCase() : "member";
-    const role: RosterRole = roleRaw === "admin" ? "admin" : "member";
+    const role: RosterRole = roleRaw === "admin" ? "admin" : roleRaw === "officer" ? "officer" : "member";
     rows.set(email, { email, name: ni >= 0 ? normalizeName(cells[ni]) : null, role });
   });
   return { rows: [...rows.values()], errors };
@@ -107,7 +107,7 @@ export function parseRosterCsv(text: string): { rows: RosterRow[]; errors: strin
 /* ───────────── syncing ───────────── */
 
 /** Roster role → ClubMember role. Roster admins become club officers. */
-export const clubRoleFor = (rosterRole: string) => (rosterRole === "admin" ? "admin" : "member");
+export const clubRoleFor = (rosterRole: string) => (rosterRole === "admin" ? "admin" : rosterRole === "officer" ? "officer" : "member");
 
 /**
  * Matches one user against the roster by login email AND verified .edu email (lowercased).
@@ -132,7 +132,7 @@ export async function syncRosterMembership(userId: string, db: PrismaClient = de
   for (const [clubId, list] of byClub) {
     const active = list.filter((e) => e.active);
     if (active.length) {
-      const role = active.some((e) => e.role === "admin") ? "admin" : "member";
+      const role = active.some((e) => e.role === "admin") ? "admin" : active.some((e) => e.role === "officer") ? "officer" : "member";
       const before = await db.clubMember.findUnique({ where: { clubId_userId: { clubId, userId } }, select: { id: true } });
       await db.clubMember.upsert({
         where: { clubId_userId: { clubId, userId } },

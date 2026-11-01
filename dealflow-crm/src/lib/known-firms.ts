@@ -64,3 +64,12 @@ export function lookupKnownFirmType(firmName: string): FirmType | null {
   }
   return null;
 }
+
+/** Display names for target-firm suggestions (title case, aliases removed). */
+export const KNOWN_FIRM_NAMES: string[] = [
+  ...new Set(
+    Object.keys(KNOWN_FIRMS)
+      .filter((k) => k.includes(" ") || k.length > 6)
+      .map((k) => k.replace(/\b\w/g, (c) => c.toUpperCase()).replace(/\bJp\b/, "JP").replace(/\bKkr\b/, "KKR").replace(/\bPjt\b/, "PJT").replace(/\bTpg\b/, "TPG")),
+  ),
+].sort();

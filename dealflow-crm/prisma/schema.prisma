@@ -50,6 +50,8 @@ model User {
   shareTargets              Boolean                  @default(true)
   /// null = not asked yet
   shareFirms                Boolean?
+  /// Opportunity roles the user added themselves
+  customRoles               String[]                 @default([])
   createdAt                 DateTime                 @default(now())
   updatedAt                 DateTime                 @updatedAt
   school                    School?                  @relation(fields: [schoolId], references: [id], onDelete: SetNull)
@@ -78,6 +80,11 @@ model User {
   challengeParticipations   ChallengeParticipant[]
   challengeAnswers          ChallengeAnswer[]
   stories                   Story[]
+  importBatches             ImportBatch[]
+  notifications             Notification[]
+  notificationPref          NotificationPref?
+  workbookProgress          WorkbookProgress[]
+  clubPostProgress          ClubPostProgress[]
   clubJoinRequests          ClubJoinRequest[]
   reviewItems               ReviewItem[]
   mentorQuestions           MentorQuestion[]         @relation("MentorQuestionAsker")
@@ -353,6 +360,21 @@ model Contact {
   inOutreachQueue Boolean @default(false)
   queueExcluded   Boolean @default(false)
 
+  /// "active" (default) or "network" (connected, not actively working: no reminders, not in the default view)
+  list              String       @default("active")
+  doNotContact      Boolean      @default(false)
+  notPursuing       Boolean      @default(false)
+  /// A / B / C — sets the check-in cadence (6 / 8 / 12 weeks)
+  priority          String?
+  /// Emailed – no reply | Replied | Chatted | Referred me | Interviewing (from import or derived)
+  relationshipStage String?
+  tags              String[]     @default([])
+  connectedOn       DateTime?
+  /// Soft delete; purged after 30 days from Trash.
+  deletedAt         DateTime?
+  importBatchId     String?
+  importBatch       ImportBatch? @relation(fields: [importBatchId], references: [id], onDelete: SetNull)
+
   firm          Firm                 @relation(fields: [firmId], references: [id], onDelete: Cascade)
   user          User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
   interactions  Interaction[]
@@ -410,6 +432,15 @@ model Interaction {
   createdAt              DateTime        @default(now())
   contactId              String
   userId                 String
+  /// Fine-grained type: cold_email | linkedin_message | followup_email | replied | coffee_chat | phone_call | video_call | in_person | thank_you | referral | interview | event
+  kind                   String?
+  nextStep               String?
+  nextStepDue            DateTime?
+  /// True for rows the old importer created automatically (no real conversation).
+  autoCreated            Boolean         @default(false)
+  deletedAt              DateTime?
+  importBatchId          String?
+  importBatch            ImportBatch?    @relation(fields: [importBatchId], references: [id], onDelete: SetNull)
   contact                Contact         @relation(fields: [contactId], references: [id], onDelete: Cascade)
   user                   User            @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
@@ -424,6 +455,8 @@ model Opportunity {
   googleCalendarEventId  String?
   outlookCalendarEventId String?
   contactName            String               @default("")
+  group                  String?
+  location               String?
   createdAt              DateTime             @default(now())
   firmId                 String
   userId                 String
@@ -442,15 +475,26 @@ model OpportunityContact {
 }
 
 model Task {
-  id        String     @id @default(cuid())
-  dueDate   DateTime
-  taskType  TaskType
-  status    TaskStatus @default(PENDING)
-  notes     String     @default("")
-  contactId String
-  userId    String
-  contact   Contact    @relation(fields: [contactId], references: [id], onDelete: Cascade)
-  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String     @id @default(cuid())
+  dueDate      DateTime
+  taskType     TaskType
+  status       TaskStatus @default(PENDING)
+  notes        String     @default("")
+  contactId    String
+  userId       String
+  /// manual | followup (from the follow-up rules) | next_step (from an import or logged interaction)
+  kind         String     @default("manual")
+  /// Which follow-up rule produced it (e.g. "bump1:<interactionId>"); one open task per rule.
+  ruleKey      String?
+  reason       String?
+  snoozedUntil DateTime?
+  completedAt  DateTime?
+  dismissedAt  DateTime?
+  contact      Contact    @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([contactId, ruleKey])
+  @@index([userId, status, dueDate])
 }
 
 // --- Recruiting Hub: shared question bank, private sessions ---
@@ -887,19 +931,29 @@ model ClubMember {
 }
 
 model ClubPost {
-  id        String    @id @default(cuid())
-  clubId    String
-  authorId  String
-  title     String
-  content   String    @db.Text
-  type      String
-  dueDate   DateTime?
-  driveLink String?
-  isPinned  Boolean   @default(false)
-  readBy    String[]  @default([])
-  createdAt DateTime  @default(now())
-  club      Club      @relation(fields: [clubId], references: [id], onDelete: Cascade)
-  author    User      @relation("ClubPostAuthor", fields: [authorId], references: [id], onDelete: Cascade)
+  id         String             @id @default(cuid())
+  clubId     String
+  authorId   String
+  title      String
+  content    String             @db.Text
+  type       String
+  dueDate    DateTime?
+  driveLink  String?
+  isPinned   Boolean            @default(false)
+  readBy     String[]           @default([])
+  createdAt  DateTime           @default(now())
+  club       Club               @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  author     User               @relation("ClubPostAuthor", fields: [authorId], references: [id], onDelete: Cascade)
+  /// [{ name, url, size, contentType }] stored in Vercel Blob
+  files      Json               @default("[]")
+  links      String[]           @default([])
+  tags       String[]           @default([])
+  lessonIds  String[]           @default([])
+  /// { all: true } | { tracks: string[] } | { userIds: string[] }
+  audience   Json               @default("{\"all\":true}")
+  allowDone  Boolean            @default(false)
+  archivedAt DateTime?
+  progress   ClubPostProgress[]
 
   @@index([clubId, createdAt])
 }
@@ -913,6 +967,10 @@ model ClubProject {
   memberIds    String[]          @default([])
   driveLink    String?
   status       String            @default("active")
+  leadId       String?
+  files        Json              @default("[]")
+  links        String[]          @default([])
+  archivedAt   DateTime?
   createdAt    DateTime          @default(now())
   club         Club              @relation(fields: [clubId], references: [id], onDelete: Cascade)
   deliverables ClubDeliverable[]
@@ -934,18 +992,25 @@ model ClubDeliverable {
 }
 
 model ClubEvent {
-  id            String   @id @default(cuid())
-  clubId        String
-  title         String
-  description   String?  @db.Text
-  date          DateTime
-  location      String?
-  type          String
-  rsvpIds       String[] @default([])
-  capacity      Int?
-  materialsLink String?
-  createdAt     DateTime @default(now())
-  club          Club     @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  id             String    @id @default(cuid())
+  clubId         String
+  title          String
+  description    String?   @db.Text
+  date           DateTime
+  location       String?
+  type           String
+  rsvpIds        String[]  @default([])
+  capacity       Int?
+  materialsLink  String?
+  endDate        DateTime?
+  meetingLink    String?
+  rsvpOn         Boolean   @default(true)
+  declinedIds    String[]  @default([])
+  reminderSentAt DateTime?
+  createdById    String?
+  archivedAt     DateTime?
+  createdAt      DateTime  @default(now())
+  club           Club      @relation(fields: [clubId], references: [id], onDelete: Cascade)
 
   @@index([clubId, date])
 }
@@ -1101,6 +1166,7 @@ model MentorQuestion {
   /// When true the Q&A is shown on the lesson as an FAQ deep dive for everyone
   public     Boolean   @default(false)
   seenByUser Boolean   @default(false)
+  remindedAt DateTime?
   createdAt  DateTime  @default(now())
   user       User      @relation("MentorQuestionAsker", fields: [userId], references: [id], onDelete: Cascade)
 
@@ -1303,4 +1369,104 @@ model Story {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+}
+
+/// One upload of contacts/interactions, so it can be listed and undone.
+model ImportBatch {
+  id           String        @id @default(cuid())
+  userId       String
+  source       String // rolodex_template | linkedin | csv
+  fileName     String
+  /// { contactsNew, contactsUpdated, interactions, tasks, skipped, errors }
+  counts       Json          @default("{}")
+  status       String        @default("complete") // complete | undone
+  createdAt    DateTime      @default(now())
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  contacts     Contact[]
+  interactions Interaction[]
+
+  @@index([userId, createdAt])
+}
+
+model Notification {
+  id        String    @id @default(cuid())
+  userId    String
+  kind      String
+  title     String
+  body      String
+  url       String
+  readAt    DateTime?
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, readAt])
+}
+
+model NotificationPref {
+  userId           String    @id
+  timezone         String    @default("America/New_York")
+  email            Boolean   @default(true)
+  sms              Boolean   @default(false)
+  phone            String?
+  phoneVerifiedAt  DateTime?
+  smsConsentAt     DateTime?
+  smsConsentText   String?
+  quietStart       Int       @default(21)
+  quietEnd         Int       @default(8)
+  followupDigest   Boolean   @default(true)
+  mentorAlerts     Boolean   @default(true)
+  clubPosts        Boolean   @default(true)
+  challenges       Boolean   @default(true)
+  messages         Boolean   @default(true)
+  eventReminders   Boolean   @default(true)
+  /// Per-category unsubscribe token for email links
+  unsubscribeToken String    @unique @default(cuid())
+  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+/// Outbound email/SMS queue (sent by the notify() worker; SMS waits for quiet hours to end).
+model OutboundMessage {
+  id        String    @id @default(cuid())
+  userId    String
+  channel   String // email | sms
+  kind      String
+  subject   String?
+  body      String
+  url       String?
+  sendAfter DateTime  @default(now())
+  sentAt    DateTime?
+  error     String?
+  createdAt DateTime  @default(now())
+
+  @@index([sentAt, sendAfter])
+  @@index([userId, channel, createdAt])
+}
+
+/// Members marking a club post done, viewing it, and downloading its files.
+model ClubPostProgress {
+  postId    String
+  userId    String
+  viewedAt  DateTime?
+  doneAt    DateTime?
+  downloads Int       @default(0)
+  post      ClubPost  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([postId, userId])
+}
+
+/// Guided in-browser Excel: a student's saved cells and finished steps for one workbook.
+model WorkbookProgress {
+  userId           String
+  workbookKey      String
+  /// { "Sheet!A1": "=B2*C3" | 123 | "text" }
+  entries          Json      @default("{}")
+  completedStepIds String[]  @default([])
+  firstTryStepIds  String[]  @default([])
+  xpAwarded        Int       @default(0)
+  completedAt      DateTime?
+  updatedAt        DateTime  @updatedAt
+  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, workbookKey])
 }

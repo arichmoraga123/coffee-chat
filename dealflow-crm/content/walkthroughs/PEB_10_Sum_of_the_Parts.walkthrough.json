@@ -1,0 +1,802 @@
+{
+ "workbookKey": "PEB_10_Sum_of_the_Parts",
+ "studentFile": "PEB_10_Sum_of_the_Parts.xlsx",
+ "answerKeyFile": "PEB_10_Sum_of_the_Parts_KEY.xlsx",
+ "sheets": [
+  "SOTP"
+ ],
+ "stepCount": 29,
+ "steps": [
+  {
+   "id": "s001",
+   "kind": "formula",
+   "expectedFormula": "=B5*C5",
+   "expectedValue": 1920,
+   "tolerance": 9.6,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "B5",
+     "label": "Software (EBITDA)",
+     "value": 120
+    },
+    {
+     "sheet": "SOTP",
+     "ref": "C5",
+     "label": "Software (Low multiple)",
+     "value": 16
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "E5",
+   "label": "Software",
+   "header": "EV — low",
+   "instruction": "Calculate Software for EV — low.",
+   "hint": "Each segment gets multiples from its own peers.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s002",
+   "kind": "formula",
+   "expectedFormula": "=B5*D5",
+   "expectedValue": 2400,
+   "tolerance": 12.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "B5",
+     "label": "Software (EBITDA)",
+     "value": 120
+    },
+    {
+     "sheet": "SOTP",
+     "ref": "D5",
+     "label": "Software (High multiple)",
+     "value": 20
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "F5",
+   "label": "Software",
+   "header": "EV — high",
+   "instruction": "Calculate Software for EV — high.",
+   "hint": "Each segment gets multiples from its own peers.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s003",
+   "kind": "formula",
+   "expectedFormula": "=AVERAGE(E5:F5)",
+   "expectedValue": 2160,
+   "tolerance": 10.8,
+   "functions": [
+    "AVERAGE"
+   ],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "E5:F5",
+     "label": "Software (EV — low) … Software (EV — high)",
+     "value": null
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "G5",
+   "label": "Software",
+   "header": "EV — midpoint",
+   "instruction": "Calculate Software for EV — midpoint.",
+   "hint": "Each segment gets multiples from its own peers.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s004",
+   "kind": "formula",
+   "expectedFormula": "=B6*C6",
+   "expectedValue": 1600,
+   "tolerance": 8.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "B6",
+     "label": "Industrial products (EBITDA)",
+     "value": 200
+    },
+    {
+     "sheet": "SOTP",
+     "ref": "C6",
+     "label": "Industrial products (Low multiple)",
+     "value": 8
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "E6",
+   "label": "Industrial products",
+   "header": "EV — low",
+   "instruction": "Calculate Industrial products for EV — low.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s005",
+   "kind": "formula",
+   "expectedFormula": "=B6*D6",
+   "expectedValue": 2000,
+   "tolerance": 10.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "B6",
+     "label": "Industrial products (EBITDA)",
+     "value": 200
+    },
+    {
+     "sheet": "SOTP",
+     "ref": "D6",
+     "label": "Industrial products (High multiple)",
+     "value": 10
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "F6",
+   "label": "Industrial products",
+   "header": "EV — high",
+   "instruction": "Calculate Industrial products for EV — high.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s006",
+   "kind": "formula",
+   "expectedFormula": "=AVERAGE(E6:F6)",
+   "expectedValue": 1800,
+   "tolerance": 9.0,
+   "functions": [
+    "AVERAGE"
+   ],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "E6:F6",
+     "label": "Industrial products (EV — low) … Industrial products (EV — high)",
+     "value": null
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "G6",
+   "label": "Industrial products",
+   "header": "EV — midpoint",
+   "instruction": "Calculate Industrial products for EV — midpoint.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s007",
+   "kind": "formula",
+   "expectedFormula": "=B7*C7",
+   "expectedValue": 600,
+   "tolerance": 3.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "B7",
+     "label": "Services (EBITDA)",
+     "value": 60
+    },
+    {
+     "sheet": "SOTP",
+     "ref": "C7",
+     "label": "Services (Low multiple)",
+     "value": 10
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "E7",
+   "label": "Services",
+   "header": "EV — low",
+   "instruction": "Calculate Services for EV — low.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s008",
+   "kind": "formula",
+   "expectedFormula": "=B7*D7",
+   "expectedValue": 720,
+   "tolerance": 3.6,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "B7",
+     "label": "Services (EBITDA)",
+     "value": 60
+    },
+    {
+     "sheet": "SOTP",
+     "ref": "D7",
+     "label": "Services (High multiple)",
+     "value": 12
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "F7",
+   "label": "Services",
+   "header": "EV — high",
+   "instruction": "Calculate Services for EV — high.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s009",
+   "kind": "formula",
+   "expectedFormula": "=AVERAGE(E7:F7)",
+   "expectedValue": 660,
+   "tolerance": 3.3000000000000003,
+   "functions": [
+    "AVERAGE"
+   ],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "E7:F7",
+     "label": "Services (EV — low) … Services (EV — high)",
+     "value": null
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "G7",
+   "label": "Services",
+   "header": "EV — midpoint",
+   "instruction": "Calculate Services for EV — midpoint.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s010",
+   "kind": "formula",
+   "expectedFormula": "=B8*C8",
+   "expectedValue": -300,
+   "tolerance": 1.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "B8",
+     "label": "Unallocated corporate costs (EBITDA)",
+     "value": -30
+    },
+    {
+     "sheet": "SOTP",
+     "ref": "C8",
+     "label": "Unallocated corporate costs (Low multiple)",
+     "value": 10
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "E8",
+   "label": "Unallocated corporate costs",
+   "header": "EV — low",
+   "instruction": "Calculate Unallocated corporate costs for EV — low.",
+   "hint": "Head-office costs no segment carries. Capitalize them at a blended multiple — they reduce value.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s011",
+   "kind": "formula",
+   "expectedFormula": "=B8*D8",
+   "expectedValue": -300,
+   "tolerance": 1.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "B8",
+     "label": "Unallocated corporate costs (EBITDA)",
+     "value": -30
+    },
+    {
+     "sheet": "SOTP",
+     "ref": "D8",
+     "label": "Unallocated corporate costs (High multiple)",
+     "value": 10
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "F8",
+   "label": "Unallocated corporate costs",
+   "header": "EV — high",
+   "instruction": "Calculate Unallocated corporate costs for EV — high.",
+   "hint": "Head-office costs no segment carries. Capitalize them at a blended multiple — they reduce value.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s012",
+   "kind": "formula",
+   "expectedFormula": "=AVERAGE(E8:F8)",
+   "expectedValue": -300,
+   "tolerance": 1.5,
+   "functions": [
+    "AVERAGE"
+   ],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "E8:F8",
+     "label": "Unallocated corporate costs (EV — low) … Unallocated corporate costs (EV — high)",
+     "value": null
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "G8",
+   "label": "Unallocated corporate costs",
+   "header": "EV — midpoint",
+   "instruction": "Calculate Unallocated corporate costs for EV — midpoint.",
+   "hint": "Head-office costs no segment carries. Capitalize them at a blended multiple — they reduce value.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s013",
+   "kind": "formula",
+   "expectedFormula": "=SUM(B5:B8)",
+   "expectedValue": 350,
+   "tolerance": 1.75,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "B5:B8",
+     "label": "Software (EBITDA) … Unallocated corporate costs (EBITDA)",
+     "value": null
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "B9",
+   "label": "Implied enterprise value",
+   "header": "EBITDA",
+   "instruction": "Calculate Implied enterprise value for EBITDA.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s014",
+   "kind": "formula",
+   "expectedFormula": "=SUM(E5:E8)",
+   "expectedValue": 3820,
+   "tolerance": 19.1,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "E5:E8",
+     "label": "Software (EV — low) … Unallocated corporate costs (EV — low)",
+     "value": null
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "E9",
+   "label": "Implied enterprise value",
+   "header": "EV — low",
+   "instruction": "Calculate Implied enterprise value for EV — low.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s015",
+   "kind": "formula",
+   "expectedFormula": "=SUM(F5:F8)",
+   "expectedValue": 4820,
+   "tolerance": 24.1,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "F5:F8",
+     "label": "Software (EV — high) … Unallocated corporate costs (EV — high)",
+     "value": null
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "F9",
+   "label": "Implied enterprise value",
+   "header": "EV — high",
+   "instruction": "Calculate Implied enterprise value for EV — high.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s016",
+   "kind": "formula",
+   "expectedFormula": "=SUM(G5:G8)",
+   "expectedValue": 4320,
+   "tolerance": 21.6,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "G5:G8",
+     "label": "Software (EV — midpoint) … Unallocated corporate costs (EV — midpoint)",
+     "value": null
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "G9",
+   "label": "Implied enterprise value",
+   "header": "EV — midpoint",
+   "instruction": "Calculate Implied enterprise value for EV — midpoint.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s017",
+   "kind": "formula",
+   "expectedFormula": "=-$B$10",
+   "expectedValue": -900,
+   "tolerance": 4.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "B10",
+     "label": "Less: net debt (EBITDA)",
+     "value": 900
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "E10",
+   "label": "Less: net debt",
+   "header": "EV — low",
+   "instruction": "Calculate Less: net debt for EV — low.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s018",
+   "kind": "formula",
+   "expectedFormula": "=-$B$10",
+   "expectedValue": -900,
+   "tolerance": 4.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "B10",
+     "label": "Less: net debt (EBITDA)",
+     "value": 900
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "F10",
+   "label": "Less: net debt",
+   "header": "EV — high",
+   "instruction": "Calculate Less: net debt for EV — high.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s019",
+   "kind": "formula",
+   "expectedFormula": "=-$B$10",
+   "expectedValue": -900,
+   "tolerance": 4.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "B10",
+     "label": "Less: net debt (EBITDA)",
+     "value": 900
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "G10",
+   "label": "Less: net debt",
+   "header": "EV — midpoint",
+   "instruction": "Calculate Less: net debt for EV — midpoint.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s020",
+   "kind": "formula",
+   "expectedFormula": "=E9+E10",
+   "expectedValue": 2920,
+   "tolerance": 14.6,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "E9",
+     "label": "Implied enterprise value (EV — low)",
+     "value": 3820
+    },
+    {
+     "sheet": "SOTP",
+     "ref": "E10",
+     "label": "Less: net debt (EV — low)",
+     "value": -900
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "E11",
+   "label": "Implied equity value",
+   "header": "EV — low",
+   "instruction": "Calculate Implied equity value for EV — low.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s021",
+   "kind": "formula",
+   "expectedFormula": "=F9+F10",
+   "expectedValue": 3920,
+   "tolerance": 19.6,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "F9",
+     "label": "Implied enterprise value (EV — high)",
+     "value": 4820
+    },
+    {
+     "sheet": "SOTP",
+     "ref": "F10",
+     "label": "Less: net debt (EV — high)",
+     "value": -900
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "F11",
+   "label": "Implied equity value",
+   "header": "EV — high",
+   "instruction": "Calculate Implied equity value for EV — high.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s022",
+   "kind": "formula",
+   "expectedFormula": "=G9+G10",
+   "expectedValue": 3420,
+   "tolerance": 17.1,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "G9",
+     "label": "Implied enterprise value (EV — midpoint)",
+     "value": 4320
+    },
+    {
+     "sheet": "SOTP",
+     "ref": "G10",
+     "label": "Less: net debt (EV — midpoint)",
+     "value": -900
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "G11",
+   "label": "Implied equity value",
+   "header": "EV — midpoint",
+   "instruction": "Calculate Implied equity value for EV — midpoint.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s023",
+   "kind": "formula",
+   "expectedFormula": "=E11/$B$12",
+   "expectedValue": 29.2,
+   "tolerance": 0.146,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "E11",
+     "label": "Implied equity value (EV — low)",
+     "value": 2920
+    },
+    {
+     "sheet": "SOTP",
+     "ref": "B12",
+     "label": "Diluted shares (mm) (EBITDA)",
+     "value": 100
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "E13",
+   "label": "Implied share price",
+   "header": "EV — low",
+   "instruction": "Calculate Implied share price for EV — low.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s024",
+   "kind": "formula",
+   "expectedFormula": "=F11/$B$12",
+   "expectedValue": 39.2,
+   "tolerance": 0.196,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "F11",
+     "label": "Implied equity value (EV — high)",
+     "value": 3920
+    },
+    {
+     "sheet": "SOTP",
+     "ref": "B12",
+     "label": "Diluted shares (mm) (EBITDA)",
+     "value": 100
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "F13",
+   "label": "Implied share price",
+   "header": "EV — high",
+   "instruction": "Calculate Implied share price for EV — high.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s025",
+   "kind": "formula",
+   "expectedFormula": "=G11/$B$12",
+   "expectedValue": 34.2,
+   "tolerance": 0.171,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "G11",
+     "label": "Implied equity value (EV — midpoint)",
+     "value": 3420
+    },
+    {
+     "sheet": "SOTP",
+     "ref": "B12",
+     "label": "Diluted shares (mm) (EBITDA)",
+     "value": 100
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "G13",
+   "label": "Implied share price",
+   "header": "EV — midpoint",
+   "instruction": "Calculate Implied share price for EV — midpoint.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s026",
+   "kind": "formula",
+   "expectedFormula": "=B16*B12+B10",
+   "expectedValue": 3900,
+   "tolerance": 19.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "B16",
+     "label": "Current share price (EBITDA)",
+     "value": 30
+    },
+    {
+     "sheet": "SOTP",
+     "ref": "B12",
+     "label": "Diluted shares (mm) (EBITDA)",
+     "value": 100
+    },
+    {
+     "sheet": "SOTP",
+     "ref": "B10",
+     "label": "Less: net debt (EBITDA)",
+     "value": 900
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "B17",
+   "label": "Market enterprise value",
+   "header": "EBITDA",
+   "instruction": "Calculate Market enterprise value for EBITDA.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s027",
+   "kind": "formula",
+   "expectedFormula": "=1-B17/G9",
+   "expectedValue": 0.097222,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "B17",
+     "label": "Market enterprise value (EBITDA)",
+     "value": 3900
+    },
+    {
+     "sheet": "SOTP",
+     "ref": "G9",
+     "label": "Implied enterprise value (EV — midpoint)",
+     "value": 4320
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "B18",
+   "label": "Conglomerate discount (vs. SOTP midpoint)",
+   "header": "EBITDA",
+   "instruction": "Calculate Conglomerate discount (vs. SOTP midpoint) for EBITDA.",
+   "hint": "The market values the whole for less than the sum of its parts — a reason activists push for spin-offs.",
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s028",
+   "kind": "formula",
+   "expectedFormula": "=B9",
+   "expectedValue": 350,
+   "tolerance": 1.75,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "B9",
+     "label": "Implied enterprise value (EBITDA)",
+     "value": 350
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "B19",
+   "label": "Single blended multiple on consolidated EBITDA",
+   "header": "EBITDA",
+   "instruction": "Calculate Single blended multiple on consolidated EBITDA for EBITDA.",
+   "hint": "One average multiple undervalues the fast-growing software segment.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s029",
+   "kind": "formula",
+   "expectedFormula": "=B19*C19",
+   "expectedValue": 3850,
+   "tolerance": 19.25,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "SOTP",
+     "ref": "B19",
+     "label": "Single blended multiple on consolidated EBITDA (EBITDA)",
+     "value": 350
+    },
+    {
+     "sheet": "SOTP",
+     "ref": "C19",
+     "label": "Single blended multiple on consolidated EBITDA (Low multiple)",
+     "value": 11
+    }
+   ],
+   "sheet": "SOTP",
+   "cell": "E19",
+   "label": "Single blended multiple on consolidated EBITDA",
+   "header": "EV — low",
+   "instruction": "Calculate Single blended multiple on consolidated EBITDA for EV — low.",
+   "hint": "One average multiple undervalues the fast-growing software segment.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  }
+ ]
+}

@@ -1,0 +1,1138 @@
+{
+ "workbookKey": "PEB_11_Credit_Analysis_Recovery",
+ "studentFile": "PEB_11_Credit_Analysis_Recovery.xlsx",
+ "answerKeyFile": "PEB_11_Credit_Analysis_Recovery_KEY.xlsx",
+ "sheets": [
+  "Credit Metrics",
+  "Debt Capacity",
+  "Recovery Waterfall"
+ ],
+ "stepCount": 37,
+ "steps": [
+  {
+   "id": "s001",
+   "kind": "formula",
+   "expectedFormula": "=B8/B5",
+   "expectedValue": 5,
+   "tolerance": 0.025,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Credit Metrics",
+     "ref": "B8",
+     "label": "Total debt (2024A)",
+     "value": 750
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "B5",
+     "label": "EBITDA (2024A)",
+     "value": 150
+    }
+   ],
+   "sheet": "Credit Metrics",
+   "cell": "B12",
+   "label": "Total debt / EBITDA",
+   "header": "2024A",
+   "instruction": "Calculate Total debt / EBITDA for 2024A.",
+   "hint": "Leverage: years of EBITDA to repay",
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s002",
+   "kind": "formula",
+   "expectedFormula": "=C8/C5",
+   "expectedValue": 4.242424,
+   "tolerance": 0.021212121212121203,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Credit Metrics",
+     "ref": "C8",
+     "label": "Total debt (2025A)",
+     "value": 700
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "C5",
+     "label": "EBITDA (2025A)",
+     "value": 165
+    }
+   ],
+   "sheet": "Credit Metrics",
+   "cell": "C12",
+   "label": "Total debt / EBITDA",
+   "header": "2025A",
+   "instruction": "Calculate Total debt / EBITDA for 2025A.",
+   "hint": "Leverage: years of EBITDA to repay",
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s003",
+   "kind": "formula",
+   "expectedFormula": "=D8/D5",
+   "expectedValue": 3.555556,
+   "tolerance": 0.0177777777777778,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Credit Metrics",
+     "ref": "D8",
+     "label": "Total debt (2026A)",
+     "value": 640
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "D5",
+     "label": "EBITDA (2026A)",
+     "value": 180
+    }
+   ],
+   "sheet": "Credit Metrics",
+   "cell": "D12",
+   "label": "Total debt / EBITDA",
+   "header": "2026A",
+   "instruction": "Calculate Total debt / EBITDA for 2026A.",
+   "hint": "Leverage: years of EBITDA to repay",
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s004",
+   "kind": "formula",
+   "expectedFormula": "=(B8-B9)/B5",
+   "expectedValue": 4.666667,
+   "tolerance": 0.02333333333333335,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Credit Metrics",
+     "ref": "B8",
+     "label": "Total debt (2024A)",
+     "value": 750
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "B9",
+     "label": "Cash (2024A)",
+     "value": 50
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "B5",
+     "label": "EBITDA (2024A)",
+     "value": 150
+    }
+   ],
+   "sheet": "Credit Metrics",
+   "cell": "B13",
+   "label": "Net debt / EBITDA",
+   "header": "2024A",
+   "instruction": "Calculate Net debt / EBITDA for 2024A.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s005",
+   "kind": "formula",
+   "expectedFormula": "=(C8-C9)/C5",
+   "expectedValue": 3.878788,
+   "tolerance": 0.0193939393939394,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Credit Metrics",
+     "ref": "C8",
+     "label": "Total debt (2025A)",
+     "value": 700
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "C9",
+     "label": "Cash (2025A)",
+     "value": 60
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "C5",
+     "label": "EBITDA (2025A)",
+     "value": 165
+    }
+   ],
+   "sheet": "Credit Metrics",
+   "cell": "C13",
+   "label": "Net debt / EBITDA",
+   "header": "2025A",
+   "instruction": "Calculate Net debt / EBITDA for 2025A.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s006",
+   "kind": "formula",
+   "expectedFormula": "=(D8-D9)/D5",
+   "expectedValue": 3.111111,
+   "tolerance": 0.01555555555555555,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Credit Metrics",
+     "ref": "D8",
+     "label": "Total debt (2026A)",
+     "value": 640
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "D9",
+     "label": "Cash (2026A)",
+     "value": 80
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "D5",
+     "label": "EBITDA (2026A)",
+     "value": 180
+    }
+   ],
+   "sheet": "Credit Metrics",
+   "cell": "D13",
+   "label": "Net debt / EBITDA",
+   "header": "2026A",
+   "instruction": "Calculate Net debt / EBITDA for 2026A.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s007",
+   "kind": "formula",
+   "expectedFormula": "=B5/B7",
+   "expectedValue": 3.333333,
+   "tolerance": 0.01666666666666665,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Credit Metrics",
+     "ref": "B5",
+     "label": "EBITDA (2024A)",
+     "value": 150
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "B7",
+     "label": "Interest expense (2024A)",
+     "value": 45
+    }
+   ],
+   "sheet": "Credit Metrics",
+   "cell": "B14",
+   "label": "EBITDA / interest",
+   "header": "2024A",
+   "instruction": "Calculate EBITDA / interest for 2024A.",
+   "hint": "Coverage",
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s008",
+   "kind": "formula",
+   "expectedFormula": "=C5/C7",
+   "expectedValue": 3.928571,
+   "tolerance": 0.019642857142857153,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Credit Metrics",
+     "ref": "C5",
+     "label": "EBITDA (2025A)",
+     "value": 165
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "C7",
+     "label": "Interest expense (2025A)",
+     "value": 42
+    }
+   ],
+   "sheet": "Credit Metrics",
+   "cell": "C14",
+   "label": "EBITDA / interest",
+   "header": "2025A",
+   "instruction": "Calculate EBITDA / interest for 2025A.",
+   "hint": "Coverage",
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s009",
+   "kind": "formula",
+   "expectedFormula": "=D5/D7",
+   "expectedValue": 4.736842,
+   "tolerance": 0.0236842105263158,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Credit Metrics",
+     "ref": "D5",
+     "label": "EBITDA (2026A)",
+     "value": 180
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "D7",
+     "label": "Interest expense (2026A)",
+     "value": 38
+    }
+   ],
+   "sheet": "Credit Metrics",
+   "cell": "D14",
+   "label": "EBITDA / interest",
+   "header": "2026A",
+   "instruction": "Calculate EBITDA / interest for 2026A.",
+   "hint": "Coverage",
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s010",
+   "kind": "formula",
+   "expectedFormula": "=(B5-B6)/B7",
+   "expectedValue": 2.444444,
+   "tolerance": 0.012222222222222202,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Credit Metrics",
+     "ref": "B5",
+     "label": "EBITDA (2024A)",
+     "value": 150
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "B6",
+     "label": "CapEx (2024A)",
+     "value": 40
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "B7",
+     "label": "Interest expense (2024A)",
+     "value": 45
+    }
+   ],
+   "sheet": "Credit Metrics",
+   "cell": "B15",
+   "label": "(EBITDA − CapEx) / interest",
+   "header": "2024A",
+   "instruction": "Calculate (EBITDA − CapEx) / interest for 2024A.",
+   "hint": "Stricter: CapEx is a real cash need",
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s011",
+   "kind": "formula",
+   "expectedFormula": "=(C5-C6)/C7",
+   "expectedValue": 2.928571,
+   "tolerance": 0.014642857142857152,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Credit Metrics",
+     "ref": "C5",
+     "label": "EBITDA (2025A)",
+     "value": 165
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "C6",
+     "label": "CapEx (2025A)",
+     "value": 42
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "C7",
+     "label": "Interest expense (2025A)",
+     "value": 42
+    }
+   ],
+   "sheet": "Credit Metrics",
+   "cell": "C15",
+   "label": "(EBITDA − CapEx) / interest",
+   "header": "2025A",
+   "instruction": "Calculate (EBITDA − CapEx) / interest for 2025A.",
+   "hint": "Stricter: CapEx is a real cash need",
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s012",
+   "kind": "formula",
+   "expectedFormula": "=(D5-D6)/D7",
+   "expectedValue": 3.552632,
+   "tolerance": 0.01776315789473685,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Credit Metrics",
+     "ref": "D5",
+     "label": "EBITDA (2026A)",
+     "value": 180
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "D6",
+     "label": "CapEx (2026A)",
+     "value": 45
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "D7",
+     "label": "Interest expense (2026A)",
+     "value": 38
+    }
+   ],
+   "sheet": "Credit Metrics",
+   "cell": "D15",
+   "label": "(EBITDA − CapEx) / interest",
+   "header": "2026A",
+   "instruction": "Calculate (EBITDA − CapEx) / interest for 2026A.",
+   "hint": "Stricter: CapEx is a real cash need",
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s013",
+   "kind": "formula",
+   "expectedFormula": "=B10/B8",
+   "expectedValue": 0.06,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Credit Metrics",
+     "ref": "B10",
+     "label": "Levered free cash flow (2024A)",
+     "value": 45
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "B8",
+     "label": "Total debt (2024A)",
+     "value": 750
+    }
+   ],
+   "sheet": "Credit Metrics",
+   "cell": "B16",
+   "label": "FCF / total debt",
+   "header": "2024A",
+   "instruction": "Calculate FCF / total debt for 2024A.",
+   "hint": "Share of debt repayable from one year of FCF",
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s014",
+   "kind": "formula",
+   "expectedFormula": "=C10/C8",
+   "expectedValue": 0.078571,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Credit Metrics",
+     "ref": "C10",
+     "label": "Levered free cash flow (2025A)",
+     "value": 55
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "C8",
+     "label": "Total debt (2025A)",
+     "value": 700
+    }
+   ],
+   "sheet": "Credit Metrics",
+   "cell": "C16",
+   "label": "FCF / total debt",
+   "header": "2025A",
+   "instruction": "Calculate FCF / total debt for 2025A.",
+   "hint": "Share of debt repayable from one year of FCF",
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s015",
+   "kind": "formula",
+   "expectedFormula": "=D10/D8",
+   "expectedValue": 0.101562,
+   "tolerance": 0.0005078125,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Credit Metrics",
+     "ref": "D10",
+     "label": "Levered free cash flow (2026A)",
+     "value": 65
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "D8",
+     "label": "Total debt (2026A)",
+     "value": 640
+    }
+   ],
+   "sheet": "Credit Metrics",
+   "cell": "D16",
+   "label": "FCF / total debt",
+   "header": "2026A",
+   "instruction": "Calculate FCF / total debt for 2026A.",
+   "hint": "Share of debt repayable from one year of FCF",
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s016",
+   "kind": "formula-text",
+   "expectedFormula": "=IF(D12<=B19,\"Pass\",\"Breach\")",
+   "expectedValue": "Pass",
+   "tolerance": null,
+   "functions": [
+    "IF"
+   ],
+   "references": [
+    {
+     "sheet": "Credit Metrics",
+     "ref": "D12",
+     "label": "Total debt / EBITDA (2026A)",
+     "value": 3.555556
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "B19",
+     "label": "Maximum total leverage covenant (2024A)",
+     "value": 5
+    }
+   ],
+   "sheet": "Credit Metrics",
+   "cell": "B21",
+   "label": "Leverage test",
+   "header": "2024A",
+   "instruction": "Calculate Leverage test for 2024A.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s017",
+   "kind": "formula",
+   "expectedFormula": "=D8/B19",
+   "expectedValue": 128,
+   "tolerance": 0.64,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Credit Metrics",
+     "ref": "D8",
+     "label": "Total debt (2026A)",
+     "value": 640
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "B19",
+     "label": "Maximum total leverage covenant (2024A)",
+     "value": 5
+    }
+   ],
+   "sheet": "Credit Metrics",
+   "cell": "B22",
+   "label": "EBITDA that would breach leverage",
+   "header": "2024A",
+   "instruction": "Calculate EBITDA that would breach leverage for 2024A.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s018",
+   "kind": "formula",
+   "expectedFormula": "=1-B22/D5",
+   "expectedValue": 0.288889,
+   "tolerance": 0.0014444444444444448,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Credit Metrics",
+     "ref": "B22",
+     "label": "EBITDA that would breach leverage (2024A)",
+     "value": 128
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "D5",
+     "label": "EBITDA (2026A)",
+     "value": 180
+    }
+   ],
+   "sheet": "Credit Metrics",
+   "cell": "B23",
+   "label": "EBITDA cushion before breach",
+   "header": "2024A",
+   "instruction": "Calculate EBITDA cushion before breach for 2024A.",
+   "hint": "How far EBITDA can fall before the covenant trips.",
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s019",
+   "kind": "formula-text",
+   "expectedFormula": "=IF(D14>=B20,\"Pass\",\"Breach\")",
+   "expectedValue": "Pass",
+   "tolerance": null,
+   "functions": [
+    "IF"
+   ],
+   "references": [
+    {
+     "sheet": "Credit Metrics",
+     "ref": "D14",
+     "label": "EBITDA / interest (2026A)",
+     "value": 4.736842
+    },
+    {
+     "sheet": "Credit Metrics",
+     "ref": "B20",
+     "label": "Minimum EBITDA / interest covenant (2024A)",
+     "value": 2.5
+    }
+   ],
+   "sheet": "Credit Metrics",
+   "cell": "B24",
+   "label": "Coverage test",
+   "header": "2024A",
+   "instruction": "Calculate Coverage test for 2024A.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s020",
+   "kind": "formula",
+   "expectedFormula": "=B4*B7",
+   "expectedValue": 500,
+   "tolerance": 2.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Debt Capacity",
+     "ref": "B4",
+     "label": "EBITDA",
+     "value": 100
+    },
+    {
+     "sheet": "Debt Capacity",
+     "ref": "B7",
+     "label": "Maximum leverage lenders allow",
+     "value": 5
+    }
+   ],
+   "sheet": "Debt Capacity",
+   "cell": "B10",
+   "label": "Max debt by leverage",
+   "header": null,
+   "instruction": "Calculate Max debt by leverage.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s021",
+   "kind": "formula",
+   "expectedFormula": "=(B4-B5)/B8",
+   "expectedValue": 40,
+   "tolerance": 0.2,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Debt Capacity",
+     "ref": "B4",
+     "label": "EBITDA",
+     "value": 100
+    },
+    {
+     "sheet": "Debt Capacity",
+     "ref": "B5",
+     "label": "CapEx",
+     "value": 20
+    },
+    {
+     "sheet": "Debt Capacity",
+     "ref": "B8",
+     "label": "Minimum (EBITDA − CapEx) / interest",
+     "value": 2
+    }
+   ],
+   "sheet": "Debt Capacity",
+   "cell": "B11",
+   "label": "Max interest allowed by coverage",
+   "header": null,
+   "instruction": "Calculate Max interest allowed by coverage.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s022",
+   "kind": "formula",
+   "expectedFormula": "=B11/B6",
+   "expectedValue": 444.444444,
+   "tolerance": 2.22222222222222,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Debt Capacity",
+     "ref": "B11",
+     "label": "Max interest allowed by coverage",
+     "value": 40
+    },
+    {
+     "sheet": "Debt Capacity",
+     "ref": "B6",
+     "label": "Interest rate on new debt",
+     "value": 0.09
+    }
+   ],
+   "sheet": "Debt Capacity",
+   "cell": "B12",
+   "label": "Max debt by coverage",
+   "header": null,
+   "instruction": "Calculate Max debt by coverage.",
+   "hint": "Max interest ÷ interest rate",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s023",
+   "kind": "formula",
+   "expectedFormula": "=MIN(B10,B12)",
+   "expectedValue": 444.444444,
+   "tolerance": 2.22222222222222,
+   "functions": [
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "Debt Capacity",
+     "ref": "B10",
+     "label": "Max debt by leverage",
+     "value": 500
+    },
+    {
+     "sheet": "Debt Capacity",
+     "ref": "B12",
+     "label": "Max debt by coverage",
+     "value": 444.444444
+    }
+   ],
+   "sheet": "Debt Capacity",
+   "cell": "B13",
+   "label": "Debt capacity",
+   "header": null,
+   "instruction": "Calculate Debt capacity.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s024",
+   "kind": "formula-text",
+   "expectedFormula": "=IF(B12<B10,\"Coverage\",\"Leverage\")",
+   "expectedValue": "Coverage",
+   "tolerance": null,
+   "functions": [
+    "IF"
+   ],
+   "references": [
+    {
+     "sheet": "Debt Capacity",
+     "ref": "B12",
+     "label": "Max debt by coverage",
+     "value": 444.444444
+    },
+    {
+     "sheet": "Debt Capacity",
+     "ref": "B10",
+     "label": "Max debt by leverage",
+     "value": 500
+    }
+   ],
+   "sheet": "Debt Capacity",
+   "cell": "B14",
+   "label": "Binding constraint",
+   "header": null,
+   "instruction": "Calculate Binding constraint.",
+   "hint": "When rates rise, coverage usually binds first — so the same company can borrow less.",
+   "numberFormat": "General"
+  },
+  {
+   "id": "s025",
+   "kind": "formula",
+   "expectedFormula": "=B4",
+   "expectedValue": 600,
+   "tolerance": 3.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "B4",
+     "label": "Value available to distribute",
+     "value": 600
+    }
+   ],
+   "sheet": "Recovery Waterfall",
+   "cell": "C7",
+   "label": "First-lien debt (revolver + term loan)",
+   "header": "Value left before",
+   "instruction": "Calculate First-lien debt (revolver + term loan) for Value left before.",
+   "hint": "Absolute priority: each class is paid in full before the next gets anything.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s026",
+   "kind": "formula",
+   "expectedFormula": "=MIN(B7,C7)",
+   "expectedValue": 500,
+   "tolerance": 2.5,
+   "functions": [
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "B7",
+     "label": "First-lien debt (revolver + term loan) (Claim amount)",
+     "value": 500
+    },
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "C7",
+     "label": "First-lien debt (revolver + term loan) (Value left before)",
+     "value": 600
+    }
+   ],
+   "sheet": "Recovery Waterfall",
+   "cell": "D7",
+   "label": "First-lien debt (revolver + term loan)",
+   "header": "Recovery ($)",
+   "instruction": "Calculate First-lien debt (revolver + term loan) for Recovery ($).",
+   "hint": "Absolute priority: each class is paid in full before the next gets anything.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s027",
+   "kind": "formula",
+   "expectedFormula": "=D7/B7",
+   "expectedValue": 1,
+   "tolerance": 0.005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "D7",
+     "label": "First-lien debt (revolver + term loan) (Recovery ($))",
+     "value": 500
+    },
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "B7",
+     "label": "First-lien debt (revolver + term loan) (Claim amount)",
+     "value": 500
+    }
+   ],
+   "sheet": "Recovery Waterfall",
+   "cell": "E7",
+   "label": "First-lien debt (revolver + term loan)",
+   "header": "Recovery (%)",
+   "instruction": "Calculate First-lien debt (revolver + term loan) for Recovery (%).",
+   "hint": "Absolute priority: each class is paid in full before the next gets anything.",
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s028",
+   "kind": "formula",
+   "expectedFormula": "=C7-D7",
+   "expectedValue": 100,
+   "tolerance": 0.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "C7",
+     "label": "First-lien debt (revolver + term loan) (Value left before)",
+     "value": 600
+    },
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "D7",
+     "label": "First-lien debt (revolver + term loan) (Recovery ($))",
+     "value": 500
+    }
+   ],
+   "sheet": "Recovery Waterfall",
+   "cell": "C8",
+   "label": "Senior unsecured notes",
+   "header": "Value left before",
+   "instruction": "Calculate Senior unsecured notes for Value left before.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s029",
+   "kind": "formula",
+   "expectedFormula": "=MIN(B8,C8)",
+   "expectedValue": 100,
+   "tolerance": 0.5,
+   "functions": [
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "B8",
+     "label": "Senior unsecured notes (Claim amount)",
+     "value": 250
+    },
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "C8",
+     "label": "Senior unsecured notes (Value left before)",
+     "value": 100
+    }
+   ],
+   "sheet": "Recovery Waterfall",
+   "cell": "D8",
+   "label": "Senior unsecured notes",
+   "header": "Recovery ($)",
+   "instruction": "Calculate Senior unsecured notes for Recovery ($).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s030",
+   "kind": "formula",
+   "expectedFormula": "=D8/B8",
+   "expectedValue": 0.4,
+   "tolerance": 0.002,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "D8",
+     "label": "Senior unsecured notes (Recovery ($))",
+     "value": 100
+    },
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "B8",
+     "label": "Senior unsecured notes (Claim amount)",
+     "value": 250
+    }
+   ],
+   "sheet": "Recovery Waterfall",
+   "cell": "E8",
+   "label": "Senior unsecured notes",
+   "header": "Recovery (%)",
+   "instruction": "Calculate Senior unsecured notes for Recovery (%).",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s031",
+   "kind": "formula",
+   "expectedFormula": "=C8-D8",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "C8",
+     "label": "Senior unsecured notes (Value left before)",
+     "value": 100
+    },
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "D8",
+     "label": "Senior unsecured notes (Recovery ($))",
+     "value": 100
+    }
+   ],
+   "sheet": "Recovery Waterfall",
+   "cell": "C9",
+   "label": "Subordinated notes",
+   "header": "Value left before",
+   "instruction": "Calculate Subordinated notes for Value left before.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s032",
+   "kind": "formula",
+   "expectedFormula": "=MIN(B9,C9)",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "B9",
+     "label": "Subordinated notes (Claim amount)",
+     "value": 150
+    },
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "C9",
+     "label": "Subordinated notes (Value left before)",
+     "value": 0
+    }
+   ],
+   "sheet": "Recovery Waterfall",
+   "cell": "D9",
+   "label": "Subordinated notes",
+   "header": "Recovery ($)",
+   "instruction": "Calculate Subordinated notes for Recovery ($).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s033",
+   "kind": "formula",
+   "expectedFormula": "=D9/B9",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "D9",
+     "label": "Subordinated notes (Recovery ($))",
+     "value": 0
+    },
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "B9",
+     "label": "Subordinated notes (Claim amount)",
+     "value": 150
+    }
+   ],
+   "sheet": "Recovery Waterfall",
+   "cell": "E9",
+   "label": "Subordinated notes",
+   "header": "Recovery (%)",
+   "instruction": "Calculate Subordinated notes for Recovery (%).",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s034",
+   "kind": "formula",
+   "expectedFormula": "=C9-D9",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "C9",
+     "label": "Subordinated notes (Value left before)",
+     "value": 0
+    },
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "D9",
+     "label": "Subordinated notes (Recovery ($))",
+     "value": 0
+    }
+   ],
+   "sheet": "Recovery Waterfall",
+   "cell": "C10",
+   "label": "Preferred stock",
+   "header": "Value left before",
+   "instruction": "Calculate Preferred stock for Value left before.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s035",
+   "kind": "formula",
+   "expectedFormula": "=MIN(B10,C10)",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "B10",
+     "label": "Preferred stock (Claim amount)",
+     "value": 50
+    },
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "C10",
+     "label": "Preferred stock (Value left before)",
+     "value": 0
+    }
+   ],
+   "sheet": "Recovery Waterfall",
+   "cell": "D10",
+   "label": "Preferred stock",
+   "header": "Recovery ($)",
+   "instruction": "Calculate Preferred stock for Recovery ($).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s036",
+   "kind": "formula",
+   "expectedFormula": "=D10/B10",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "D10",
+     "label": "Preferred stock (Recovery ($))",
+     "value": 0
+    },
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "B10",
+     "label": "Preferred stock (Claim amount)",
+     "value": 50
+    }
+   ],
+   "sheet": "Recovery Waterfall",
+   "cell": "E10",
+   "label": "Preferred stock",
+   "header": "Recovery (%)",
+   "instruction": "Calculate Preferred stock for Recovery (%).",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s037",
+   "kind": "formula",
+   "expectedFormula": "=C10-D10",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "C10",
+     "label": "Preferred stock (Value left before)",
+     "value": 0
+    },
+    {
+     "sheet": "Recovery Waterfall",
+     "ref": "D10",
+     "label": "Preferred stock (Recovery ($))",
+     "value": 0
+    }
+   ],
+   "sheet": "Recovery Waterfall",
+   "cell": "D11",
+   "label": "Left for common equity",
+   "header": "Recovery ($)",
+   "instruction": "Calculate Left for common equity for Recovery ($).",
+   "hint": "Usually zero in a real restructuring — equity is wiped out.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  }
+ ]
+}

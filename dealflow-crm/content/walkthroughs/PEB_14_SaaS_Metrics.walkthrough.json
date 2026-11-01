@@ -1,0 +1,806 @@
+{
+ "workbookKey": "PEB_14_SaaS_Metrics",
+ "studentFile": "PEB_14_SaaS_Metrics.xlsx",
+ "answerKeyFile": "PEB_14_SaaS_Metrics_KEY.xlsx",
+ "sheets": [
+  "ARR Bridge",
+  "Unit Economics",
+  "Valuation"
+ ],
+ "stepCount": 27,
+ "steps": [
+  {
+   "id": "s001",
+   "kind": "formula",
+   "expectedFormula": "=SUM(B4:B8)",
+   "expectedValue": 136,
+   "tolerance": 0.68,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "ARR Bridge",
+     "ref": "B4:B8",
+     "label": "Beginning ARR … Churned ARR",
+     "value": null
+    }
+   ],
+   "sheet": "ARR Bridge",
+   "cell": "B9",
+   "label": "Ending ARR",
+   "header": null,
+   "instruction": "Calculate Ending ARR.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s002",
+   "kind": "formula",
+   "expectedFormula": "=B9/B4-1",
+   "expectedValue": 0.36,
+   "tolerance": 0.0018,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "ARR Bridge",
+     "ref": "B9",
+     "label": "Ending ARR",
+     "value": 136
+    },
+    {
+     "sheet": "ARR Bridge",
+     "ref": "B4",
+     "label": "Beginning ARR",
+     "value": 100
+    }
+   ],
+   "sheet": "ARR Bridge",
+   "cell": "B10",
+   "label": "ARR growth",
+   "header": null,
+   "instruction": "Calculate ARR growth.",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s003",
+   "kind": "formula",
+   "expectedFormula": "=(B4+B6+B7+B8)/B4",
+   "expectedValue": 1.06,
+   "tolerance": 0.0053,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "ARR Bridge",
+     "ref": "B4",
+     "label": "Beginning ARR",
+     "value": 100
+    },
+    {
+     "sheet": "ARR Bridge",
+     "ref": "B6",
+     "label": "Expansion (upsells)",
+     "value": 18
+    },
+    {
+     "sheet": "ARR Bridge",
+     "ref": "B7",
+     "label": "Contraction (downgrades)",
+     "value": -4
+    },
+    {
+     "sheet": "ARR Bridge",
+     "ref": "B8",
+     "label": "Churned ARR",
+     "value": -8
+    }
+   ],
+   "sheet": "ARR Bridge",
+   "cell": "B11",
+   "label": "Net revenue retention (NRR)",
+   "header": null,
+   "instruction": "Calculate Net revenue retention (NRR).",
+   "hint": "Existing customers only: expansion, contraction, churn. No new logos.",
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s004",
+   "kind": "formula",
+   "expectedFormula": "=(B4+B7+B8)/B4",
+   "expectedValue": 0.88,
+   "tolerance": 0.0044,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "ARR Bridge",
+     "ref": "B4",
+     "label": "Beginning ARR",
+     "value": 100
+    },
+    {
+     "sheet": "ARR Bridge",
+     "ref": "B7",
+     "label": "Contraction (downgrades)",
+     "value": -4
+    },
+    {
+     "sheet": "ARR Bridge",
+     "ref": "B8",
+     "label": "Churned ARR",
+     "value": -8
+    }
+   ],
+   "sheet": "ARR Bridge",
+   "cell": "B12",
+   "label": "Gross revenue retention (GRR)",
+   "header": null,
+   "instruction": "Calculate Gross revenue retention (GRR).",
+   "hint": "Like NRR but ignores expansion. Can't exceed 100%.",
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s005",
+   "kind": "formula",
+   "expectedFormula": "='ARR Bridge'!B5/B5",
+   "expectedValue": 0.1,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "ARR Bridge",
+     "ref": "B5",
+     "label": "New customer ARR",
+     "value": 30
+    },
+    {
+     "sheet": "Unit Economics",
+     "ref": "B5",
+     "label": "New customers added",
+     "value": 300
+    }
+   ],
+   "sheet": "Unit Economics",
+   "cell": "B9",
+   "label": "New ARR per new customer ($mm)",
+   "header": null,
+   "instruction": "Calculate New ARR per new customer ($mm).",
+   "hint": null,
+   "numberFormat": "0.000"
+  },
+  {
+   "id": "s006",
+   "kind": "formula",
+   "expectedFormula": "=B4/B5",
+   "expectedValue": 0.133333,
+   "tolerance": 0.000666666666666665,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Unit Economics",
+     "ref": "B4",
+     "label": "Sales & marketing spend ($mm)",
+     "value": 40
+    },
+    {
+     "sheet": "Unit Economics",
+     "ref": "B5",
+     "label": "New customers added",
+     "value": 300
+    }
+   ],
+   "sheet": "Unit Economics",
+   "cell": "B10",
+   "label": "CAC: cost to acquire a customer ($mm)",
+   "header": null,
+   "instruction": "Calculate CAC: cost to acquire a customer ($mm).",
+   "hint": "S&M ÷ new customers",
+   "numberFormat": "0.000"
+  },
+  {
+   "id": "s007",
+   "kind": "formula",
+   "expectedFormula": "=B10/(B9*B6)*12",
+   "expectedValue": 20.512821,
+   "tolerance": 0.1025641025641025,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Unit Economics",
+     "ref": "B10",
+     "label": "CAC: cost to acquire a customer ($mm)",
+     "value": 0.133333
+    },
+    {
+     "sheet": "Unit Economics",
+     "ref": "B9",
+     "label": "New ARR per new customer ($mm)",
+     "value": 0.1
+    },
+    {
+     "sheet": "Unit Economics",
+     "ref": "B6",
+     "label": "Gross margin",
+     "value": 0.78
+    }
+   ],
+   "sheet": "Unit Economics",
+   "cell": "B11",
+   "label": "CAC payback (months)",
+   "header": null,
+   "instruction": "Calculate CAC payback (months).",
+   "hint": "Months of gross profit to earn back CAC",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s008",
+   "kind": "formula",
+   "expectedFormula": "=1/B7",
+   "expectedValue": 6.666667,
+   "tolerance": 0.03333333333333335,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Unit Economics",
+     "ref": "B7",
+     "label": "Annual customer churn rate",
+     "value": 0.15
+    }
+   ],
+   "sheet": "Unit Economics",
+   "cell": "B12",
+   "label": "Customer lifetime (years)",
+   "header": null,
+   "instruction": "Calculate Customer lifetime (years).",
+   "hint": "1 ÷ churn rate",
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s009",
+   "kind": "formula",
+   "expectedFormula": "=B9*B6*B12",
+   "expectedValue": 0.52,
+   "tolerance": 0.0026000000000000003,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Unit Economics",
+     "ref": "B9",
+     "label": "New ARR per new customer ($mm)",
+     "value": 0.1
+    },
+    {
+     "sheet": "Unit Economics",
+     "ref": "B6",
+     "label": "Gross margin",
+     "value": 0.78
+    },
+    {
+     "sheet": "Unit Economics",
+     "ref": "B12",
+     "label": "Customer lifetime (years)",
+     "value": 6.666667
+    }
+   ],
+   "sheet": "Unit Economics",
+   "cell": "B13",
+   "label": "LTV ($mm)",
+   "header": null,
+   "instruction": "Calculate LTV ($mm).",
+   "hint": "Annual gross profit per customer × lifetime",
+   "numberFormat": "0.000"
+  },
+  {
+   "id": "s010",
+   "kind": "formula",
+   "expectedFormula": "=B13/B10",
+   "expectedValue": 3.9,
+   "tolerance": 0.0195,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Unit Economics",
+     "ref": "B13",
+     "label": "LTV ($mm)",
+     "value": 0.52
+    },
+    {
+     "sheet": "Unit Economics",
+     "ref": "B10",
+     "label": "CAC: cost to acquire a customer ($mm)",
+     "value": 0.133333
+    }
+   ],
+   "sheet": "Unit Economics",
+   "cell": "B14",
+   "label": "LTV / CAC",
+   "header": null,
+   "instruction": "Calculate LTV / CAC.",
+   "hint": "Above ~3x is generally considered healthy",
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s011",
+   "kind": "formula",
+   "expectedFormula": "=('ARR Bridge'!B9-'ARR Bridge'!B4)/B4",
+   "expectedValue": 0.9,
+   "tolerance": 0.0045000000000000005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "ARR Bridge",
+     "ref": "B9",
+     "label": "Ending ARR",
+     "value": 136
+    },
+    {
+     "sheet": "ARR Bridge",
+     "ref": "B4",
+     "label": "Beginning ARR",
+     "value": 100
+    },
+    {
+     "sheet": "Unit Economics",
+     "ref": "B4",
+     "label": "Sales & marketing spend ($mm)",
+     "value": 40
+    }
+   ],
+   "sheet": "Unit Economics",
+   "cell": "B15",
+   "label": "Magic number (net new ARR ÷ S&M)",
+   "header": null,
+   "instruction": "Calculate Magic number (net new ARR ÷ S&M).",
+   "hint": "Above ~0.75 suggests efficient growth",
+   "numberFormat": "0.00"
+  },
+  {
+   "id": "s012",
+   "kind": "formula",
+   "expectedFormula": "='ARR Bridge'!B10",
+   "expectedValue": 0.36,
+   "tolerance": 0.0018,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "ARR Bridge",
+     "ref": "B10",
+     "label": "ARR growth",
+     "value": 0.36
+    }
+   ],
+   "sheet": "Valuation",
+   "cell": "B4",
+   "label": "Revenue growth",
+   "header": null,
+   "instruction": "Calculate Revenue growth.",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s013",
+   "kind": "formula",
+   "expectedFormula": "=B4+B5",
+   "expectedValue": 0.44,
+   "tolerance": 0.0022,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Valuation",
+     "ref": "B4",
+     "label": "Revenue growth",
+     "value": 0.36
+    },
+    {
+     "sheet": "Valuation",
+     "ref": "B5",
+     "label": "FCF margin",
+     "value": 0.08
+    }
+   ],
+   "sheet": "Valuation",
+   "cell": "B6",
+   "label": "Rule of 40 score",
+   "header": null,
+   "instruction": "Calculate Rule of 40 score.",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s014",
+   "kind": "formula-text",
+   "expectedFormula": "=IF(B6>=0.4,\"Yes\",\"No\")",
+   "expectedValue": "Yes",
+   "tolerance": null,
+   "functions": [
+    "IF"
+   ],
+   "references": [
+    {
+     "sheet": "Valuation",
+     "ref": "B6",
+     "label": "Rule of 40 score",
+     "value": 0.44
+    }
+   ],
+   "sheet": "Valuation",
+   "cell": "B7",
+   "label": "Passes?",
+   "header": null,
+   "instruction": "Calculate Passes?.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s015",
+   "kind": "formula",
+   "expectedFormula": "=C10/(B10*100)",
+   "expectedValue": 0.24,
+   "tolerance": 0.0012,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Valuation",
+     "ref": "C10",
+     "label": "Comp A (EV / NTM revenue)",
+     "value": 6
+    },
+    {
+     "sheet": "Valuation",
+     "ref": "B10",
+     "label": "Comp A (NTM growth)",
+     "value": 0.25
+    }
+   ],
+   "sheet": "Valuation",
+   "cell": "D10",
+   "label": "Comp A",
+   "header": "Multiple ÷ growth (×100)",
+   "instruction": "Calculate Comp A for Multiple ÷ growth (×100).",
+   "hint": "Growth-adjusted multiple: how much investors pay per point of growth.",
+   "numberFormat": "0.000"
+  },
+  {
+   "id": "s016",
+   "kind": "formula",
+   "expectedFormula": "=C11/(B11*100)",
+   "expectedValue": 0.257143,
+   "tolerance": 0.001285714285714285,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Valuation",
+     "ref": "C11",
+     "label": "Comp B (EV / NTM revenue)",
+     "value": 9
+    },
+    {
+     "sheet": "Valuation",
+     "ref": "B11",
+     "label": "Comp B (NTM growth)",
+     "value": 0.35
+    }
+   ],
+   "sheet": "Valuation",
+   "cell": "D11",
+   "label": "Comp B",
+   "header": "Multiple ÷ growth (×100)",
+   "instruction": "Calculate Comp B for Multiple ÷ growth (×100).",
+   "hint": null,
+   "numberFormat": "0.000"
+  },
+  {
+   "id": "s017",
+   "kind": "formula",
+   "expectedFormula": "=C12/(B12*100)",
+   "expectedValue": 0.244444,
+   "tolerance": 0.00122222222222222,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Valuation",
+     "ref": "C12",
+     "label": "Comp C (EV / NTM revenue)",
+     "value": 11
+    },
+    {
+     "sheet": "Valuation",
+     "ref": "B12",
+     "label": "Comp C (NTM growth)",
+     "value": 0.45
+    }
+   ],
+   "sheet": "Valuation",
+   "cell": "D12",
+   "label": "Comp C",
+   "header": "Multiple ÷ growth (×100)",
+   "instruction": "Calculate Comp C for Multiple ÷ growth (×100).",
+   "hint": null,
+   "numberFormat": "0.000"
+  },
+  {
+   "id": "s018",
+   "kind": "formula",
+   "expectedFormula": "=C13/(B13*100)",
+   "expectedValue": 0.25,
+   "tolerance": 0.00125,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Valuation",
+     "ref": "C13",
+     "label": "Comp D (EV / NTM revenue)",
+     "value": 5
+    },
+    {
+     "sheet": "Valuation",
+     "ref": "B13",
+     "label": "Comp D (NTM growth)",
+     "value": 0.2
+    }
+   ],
+   "sheet": "Valuation",
+   "cell": "D13",
+   "label": "Comp D",
+   "header": "Multiple ÷ growth (×100)",
+   "instruction": "Calculate Comp D for Multiple ÷ growth (×100).",
+   "hint": null,
+   "numberFormat": "0.000"
+  },
+  {
+   "id": "s019",
+   "kind": "formula",
+   "expectedFormula": "=MEDIAN(B10:B13)",
+   "expectedValue": 0.3,
+   "tolerance": 0.0015,
+   "functions": [
+    "MEDIAN"
+   ],
+   "references": [
+    {
+     "sheet": "Valuation",
+     "ref": "B10:B13",
+     "label": "Comp A (NTM growth) … Comp D (NTM growth)",
+     "value": null
+    }
+   ],
+   "sheet": "Valuation",
+   "cell": "B14",
+   "label": "Median",
+   "header": "NTM growth",
+   "instruction": "Calculate Median for NTM growth.",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s020",
+   "kind": "formula",
+   "expectedFormula": "=MEDIAN(C10:C13)",
+   "expectedValue": 7.5,
+   "tolerance": 0.0375,
+   "functions": [
+    "MEDIAN"
+   ],
+   "references": [
+    {
+     "sheet": "Valuation",
+     "ref": "C10:C13",
+     "label": "Comp A (EV / NTM revenue) … Comp D (EV / NTM revenue)",
+     "value": null
+    }
+   ],
+   "sheet": "Valuation",
+   "cell": "C14",
+   "label": "Median",
+   "header": "EV / NTM revenue",
+   "instruction": "Calculate Median for EV / NTM revenue.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s021",
+   "kind": "formula",
+   "expectedFormula": "=MEDIAN(D10:D13)",
+   "expectedValue": 0.247222,
+   "tolerance": 0.0012361111111111101,
+   "functions": [
+    "MEDIAN"
+   ],
+   "references": [
+    {
+     "sheet": "Valuation",
+     "ref": "D10:D13",
+     "label": "Comp A (Multiple ÷ growth (×100)) … Comp D (Multiple ÷ growth (×100))",
+     "value": null
+    }
+   ],
+   "sheet": "Valuation",
+   "cell": "D14",
+   "label": "Median",
+   "header": "Multiple ÷ growth (×100)",
+   "instruction": "Calculate Median for Multiple ÷ growth (×100).",
+   "hint": null,
+   "numberFormat": "0.000"
+  },
+  {
+   "id": "s022",
+   "kind": "formula",
+   "expectedFormula": "=C14",
+   "expectedValue": 7.5,
+   "tolerance": 0.0375,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Valuation",
+     "ref": "C14",
+     "label": "Median (EV / NTM revenue)",
+     "value": 7.5
+    }
+   ],
+   "sheet": "Valuation",
+   "cell": "B21",
+   "label": "Median EV / NTM revenue",
+   "header": "Multiple",
+   "instruction": "Calculate Median EV / NTM revenue for Multiple.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s023",
+   "kind": "formula",
+   "expectedFormula": "=B21*$B$16",
+   "expectedValue": 1200,
+   "tolerance": 6.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Valuation",
+     "ref": "B21",
+     "label": "Median EV / NTM revenue (Multiple)",
+     "value": 7.5
+    },
+    {
+     "sheet": "Valuation",
+     "ref": "B16",
+     "label": "Target NTM revenue ($mm) (NTM growth)",
+     "value": 160
+    }
+   ],
+   "sheet": "Valuation",
+   "cell": "C21",
+   "label": "Median EV / NTM revenue",
+   "header": "Implied EV",
+   "instruction": "Calculate Median EV / NTM revenue for Implied EV.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s024",
+   "kind": "formula",
+   "expectedFormula": "=(C21+$B$17)/$B$18",
+   "expectedValue": 27,
+   "tolerance": 0.135,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Valuation",
+     "ref": "C21",
+     "label": "Median EV / NTM revenue (Implied EV)",
+     "value": 1200
+    },
+    {
+     "sheet": "Valuation",
+     "ref": "B17",
+     "label": "Net cash ($mm) (NTM growth)",
+     "value": 150
+    },
+    {
+     "sheet": "Valuation",
+     "ref": "B18",
+     "label": "Diluted shares (mm) (NTM growth)",
+     "value": 50
+    }
+   ],
+   "sheet": "Valuation",
+   "cell": "D21",
+   "label": "Median EV / NTM revenue",
+   "header": "Price per share",
+   "instruction": "Calculate Median EV / NTM revenue for Price per share.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s025",
+   "kind": "formula",
+   "expectedFormula": "=D14*B4*100",
+   "expectedValue": 8.9,
+   "tolerance": 0.044500000000000005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Valuation",
+     "ref": "D14",
+     "label": "Median (Multiple ÷ growth (×100))",
+     "value": 0.247222
+    },
+    {
+     "sheet": "Valuation",
+     "ref": "B4",
+     "label": "Revenue growth",
+     "value": 0.36
+    }
+   ],
+   "sheet": "Valuation",
+   "cell": "B22",
+   "label": "Growth-adjusted (median × target growth)",
+   "header": "Multiple",
+   "instruction": "Calculate Growth-adjusted (median × target growth) for Multiple.",
+   "hint": "The target grows faster than the median comp, so a growth-adjusted multiple gives it more credit.",
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s026",
+   "kind": "formula",
+   "expectedFormula": "=B22*$B$16",
+   "expectedValue": 1424,
+   "tolerance": 7.12,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Valuation",
+     "ref": "B22",
+     "label": "Growth-adjusted (median × target growth) (Multiple)",
+     "value": 8.9
+    },
+    {
+     "sheet": "Valuation",
+     "ref": "B16",
+     "label": "Target NTM revenue ($mm) (NTM growth)",
+     "value": 160
+    }
+   ],
+   "sheet": "Valuation",
+   "cell": "C22",
+   "label": "Growth-adjusted (median × target growth)",
+   "header": "Implied EV",
+   "instruction": "Calculate Growth-adjusted (median × target growth) for Implied EV.",
+   "hint": "The target grows faster than the median comp, so a growth-adjusted multiple gives it more credit.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s027",
+   "kind": "formula",
+   "expectedFormula": "=(C22+$B$17)/$B$18",
+   "expectedValue": 31.48,
+   "tolerance": 0.1574,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Valuation",
+     "ref": "C22",
+     "label": "Growth-adjusted (median × target growth) (Implied EV)",
+     "value": 1424
+    },
+    {
+     "sheet": "Valuation",
+     "ref": "B17",
+     "label": "Net cash ($mm) (NTM growth)",
+     "value": 150
+    },
+    {
+     "sheet": "Valuation",
+     "ref": "B18",
+     "label": "Diluted shares (mm) (NTM growth)",
+     "value": 50
+    }
+   ],
+   "sheet": "Valuation",
+   "cell": "D22",
+   "label": "Growth-adjusted (median × target growth)",
+   "header": "Price per share",
+   "instruction": "Calculate Growth-adjusted (median × target growth) for Price per share.",
+   "hint": "The target grows faster than the median comp, so a growth-adjusted multiple gives it more credit.",
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  }
+ ]
+}

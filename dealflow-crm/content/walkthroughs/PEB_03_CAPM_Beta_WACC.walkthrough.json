@@ -1,0 +1,1300 @@
+{
+ "workbookKey": "PEB_03_CAPM_Beta_WACC",
+ "studentFile": "PEB_03_CAPM_Beta_WACC.xlsx",
+ "answerKeyFile": "PEB_03_CAPM_Beta_WACC_KEY.xlsx",
+ "sheets": [
+  "Beta Regression",
+  "Bottom-Up Beta",
+  "WACC",
+  "Country Risk"
+ ],
+ "stepCount": 42,
+ "steps": [
+  {
+   "id": "s001",
+   "kind": "formula",
+   "expectedFormula": "=SLOPE(C8:C31,$B$8:$B$31)",
+   "expectedValue": 1.286917,
+   "tolerance": 0.0064345847024993,
+   "functions": [
+    "SLOPE"
+   ],
+   "references": [
+    {
+     "sheet": "Beta Regression",
+     "ref": "C8:C31",
+     "label": "Stock A return … Stock A return",
+     "value": null
+    },
+    {
+     "sheet": "Beta Regression",
+     "ref": "B8:B31",
+     "label": "Market return … Market return",
+     "value": null
+    }
+   ],
+   "sheet": "Beta Regression",
+   "cell": "G8",
+   "label": "Beta (SLOPE)",
+   "header": "Stock A",
+   "instruction": "Calculate Beta (SLOPE) for Stock A.",
+   "hint": "Slope of stock returns (y) vs. market returns (x).",
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s002",
+   "kind": "formula",
+   "expectedFormula": "=SLOPE(D8:D31,$B$8:$B$31)",
+   "expectedValue": -0.731472,
+   "tolerance": 0.003657359117623635,
+   "functions": [
+    "SLOPE"
+   ],
+   "references": [
+    {
+     "sheet": "Beta Regression",
+     "ref": "D8:D31",
+     "label": "Gold miner return … Gold miner return",
+     "value": null
+    },
+    {
+     "sheet": "Beta Regression",
+     "ref": "B8:B31",
+     "label": "Market return … Market return",
+     "value": null
+    }
+   ],
+   "sheet": "Beta Regression",
+   "cell": "H8",
+   "label": "Beta (SLOPE)",
+   "header": "Gold miner",
+   "instruction": "Calculate Beta (SLOPE) for Gold miner.",
+   "hint": "Slope of stock returns (y) vs. market returns (x).",
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s003",
+   "kind": "formula",
+   "expectedFormula": "=COVAR(C8:C31,$B$8:$B$31)/VARP($B$8:$B$31)",
+   "expectedValue": 1.286917,
+   "tolerance": 0.0064345847024993,
+   "functions": [
+    "COVAR",
+    "VARP"
+   ],
+   "references": [
+    {
+     "sheet": "Beta Regression",
+     "ref": "C8:C31",
+     "label": "Stock A return … Stock A return",
+     "value": null
+    },
+    {
+     "sheet": "Beta Regression",
+     "ref": "B8:B31",
+     "label": "Market return … Market return",
+     "value": null
+    }
+   ],
+   "sheet": "Beta Regression",
+   "cell": "G9",
+   "label": "Beta (Cov ÷ Var)",
+   "header": "Stock A",
+   "instruction": "Calculate Beta (Cov ÷ Var) for Stock A.",
+   "hint": "COVAR and VARP are both population measures, so they're consistent.",
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s004",
+   "kind": "formula",
+   "expectedFormula": "=COVAR(D8:D31,$B$8:$B$31)/VARP($B$8:$B$31)",
+   "expectedValue": -0.731472,
+   "tolerance": 0.003657359117623635,
+   "functions": [
+    "COVAR",
+    "VARP"
+   ],
+   "references": [
+    {
+     "sheet": "Beta Regression",
+     "ref": "D8:D31",
+     "label": "Gold miner return … Gold miner return",
+     "value": null
+    },
+    {
+     "sheet": "Beta Regression",
+     "ref": "B8:B31",
+     "label": "Market return … Market return",
+     "value": null
+    }
+   ],
+   "sheet": "Beta Regression",
+   "cell": "H9",
+   "label": "Beta (Cov ÷ Var)",
+   "header": "Gold miner",
+   "instruction": "Calculate Beta (Cov ÷ Var) for Gold miner.",
+   "hint": "COVAR and VARP are both population measures, so they're consistent.",
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s005",
+   "kind": "formula",
+   "expectedFormula": "=CORREL(C8:C31,$B$8:$B$31)",
+   "expectedValue": 0.862738,
+   "tolerance": 0.004313689588660455,
+   "functions": [
+    "CORREL"
+   ],
+   "references": [
+    {
+     "sheet": "Beta Regression",
+     "ref": "C8:C31",
+     "label": "Stock A return … Stock A return",
+     "value": null
+    },
+    {
+     "sheet": "Beta Regression",
+     "ref": "B8:B31",
+     "label": "Market return … Market return",
+     "value": null
+    }
+   ],
+   "sheet": "Beta Regression",
+   "cell": "G10",
+   "label": "Correlation with market",
+   "header": "Stock A",
+   "instruction": "Calculate Correlation with market for Stock A.",
+   "hint": null,
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s006",
+   "kind": "formula",
+   "expectedFormula": "=CORREL(D8:D31,$B$8:$B$31)",
+   "expectedValue": -0.749784,
+   "tolerance": 0.00374891765912572,
+   "functions": [
+    "CORREL"
+   ],
+   "references": [
+    {
+     "sheet": "Beta Regression",
+     "ref": "D8:D31",
+     "label": "Gold miner return … Gold miner return",
+     "value": null
+    },
+    {
+     "sheet": "Beta Regression",
+     "ref": "B8:B31",
+     "label": "Market return … Market return",
+     "value": null
+    }
+   ],
+   "sheet": "Beta Regression",
+   "cell": "H10",
+   "label": "Correlation with market",
+   "header": "Gold miner",
+   "instruction": "Calculate Correlation with market for Gold miner.",
+   "hint": null,
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s007",
+   "kind": "formula",
+   "expectedFormula": "=STDEV(C8:C31)*SQRT(12)",
+   "expectedValue": 0.234263,
+   "tolerance": 0.0011713157874429251,
+   "functions": [
+    "SQRT",
+    "STDEV"
+   ],
+   "references": [
+    {
+     "sheet": "Beta Regression",
+     "ref": "C8:C31",
+     "label": "Stock A return … Stock A return",
+     "value": null
+    }
+   ],
+   "sheet": "Beta Regression",
+   "cell": "G11",
+   "label": "Annualized volatility",
+   "header": "Stock A",
+   "instruction": "Calculate Annualized volatility for Stock A.",
+   "hint": "Monthly standard deviation × √12.",
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s008",
+   "kind": "formula",
+   "expectedFormula": "=STDEV(D8:D31)*SQRT(12)",
+   "expectedValue": 0.153212,
+   "tolerance": 0.0007660622633339601,
+   "functions": [
+    "SQRT",
+    "STDEV"
+   ],
+   "references": [
+    {
+     "sheet": "Beta Regression",
+     "ref": "D8:D31",
+     "label": "Gold miner return … Gold miner return",
+     "value": null
+    }
+   ],
+   "sheet": "Beta Regression",
+   "cell": "H11",
+   "label": "Annualized volatility",
+   "header": "Gold miner",
+   "instruction": "Calculate Annualized volatility for Gold miner.",
+   "hint": "Monthly standard deviation × √12.",
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s009",
+   "kind": "formula",
+   "expectedFormula": "=STDEV($B$8:$B$31)*SQRT(12)",
+   "expectedValue": 0.157048,
+   "tolerance": 0.0007852399107223899,
+   "functions": [
+    "SQRT",
+    "STDEV"
+   ],
+   "references": [
+    {
+     "sheet": "Beta Regression",
+     "ref": "B8:B31",
+     "label": "Market return … Market return",
+     "value": null
+    }
+   ],
+   "sheet": "Beta Regression",
+   "cell": "G12",
+   "label": "Market annualized volatility",
+   "header": "Stock A",
+   "instruction": "Calculate Market annualized volatility for Stock A.",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s010",
+   "kind": "formula",
+   "expectedFormula": "=STDEV($B$8:$B$31)*SQRT(12)",
+   "expectedValue": 0.157048,
+   "tolerance": 0.0007852399107223899,
+   "functions": [
+    "SQRT",
+    "STDEV"
+   ],
+   "references": [
+    {
+     "sheet": "Beta Regression",
+     "ref": "B8:B31",
+     "label": "Market return … Market return",
+     "value": null
+    }
+   ],
+   "sheet": "Beta Regression",
+   "cell": "H12",
+   "label": "Market annualized volatility",
+   "header": "Gold miner",
+   "instruction": "Calculate Market annualized volatility for Gold miner.",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s011",
+   "kind": "formula",
+   "expectedFormula": "=G10*G11/G12",
+   "expectedValue": 1.286917,
+   "tolerance": 0.0064345847024993,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Beta Regression",
+     "ref": "G10",
+     "label": "Correlation with market (Stock A)",
+     "value": 0.862738
+    },
+    {
+     "sheet": "Beta Regression",
+     "ref": "G11",
+     "label": "Annualized volatility (Stock A)",
+     "value": 0.234263
+    },
+    {
+     "sheet": "Beta Regression",
+     "ref": "G12",
+     "label": "Market annualized volatility (Stock A)",
+     "value": 0.157048
+    }
+   ],
+   "sheet": "Beta Regression",
+   "cell": "G13",
+   "label": "Beta (correl × σ stock ÷ σ mkt)",
+   "header": "Stock A",
+   "instruction": "Calculate Beta (correl × σ stock ÷ σ mkt) for Stock A.",
+   "hint": "Beta = correlation scaled by relative volatility.",
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s012",
+   "kind": "formula",
+   "expectedFormula": "=H10*H11/H12",
+   "expectedValue": -0.731472,
+   "tolerance": 0.003657359117623635,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Beta Regression",
+     "ref": "H10",
+     "label": "Correlation with market (Gold miner)",
+     "value": -0.749784
+    },
+    {
+     "sheet": "Beta Regression",
+     "ref": "H11",
+     "label": "Annualized volatility (Gold miner)",
+     "value": 0.153212
+    },
+    {
+     "sheet": "Beta Regression",
+     "ref": "H12",
+     "label": "Market annualized volatility (Gold miner)",
+     "value": 0.157048
+    }
+   ],
+   "sheet": "Beta Regression",
+   "cell": "H13",
+   "label": "Beta (correl × σ stock ÷ σ mkt)",
+   "header": "Gold miner",
+   "instruction": "Calculate Beta (correl × σ stock ÷ σ mkt) for Gold miner.",
+   "hint": "Beta = correlation scaled by relative volatility.",
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s013",
+   "kind": "formula",
+   "expectedFormula": "=0.67*G8+0.33",
+   "expectedValue": 1.192234,
+   "tolerance": 0.0059611717506745,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Beta Regression",
+     "ref": "G8",
+     "label": "Beta (SLOPE) (Stock A)",
+     "value": 1.286917
+    }
+   ],
+   "sheet": "Beta Regression",
+   "cell": "G14",
+   "label": "Adjusted (Blume) beta",
+   "header": "Stock A",
+   "instruction": "Calculate Adjusted (Blume) beta for Stock A.",
+   "hint": "Pulls beta toward 1.0 over time.",
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s014",
+   "kind": "formula",
+   "expectedFormula": "=0.67*H8+0.33",
+   "expectedValue": -0.160086,
+   "tolerance": 0.0008004306088078351,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Beta Regression",
+     "ref": "H8",
+     "label": "Beta (SLOPE) (Gold miner)",
+     "value": -0.731472
+    }
+   ],
+   "sheet": "Beta Regression",
+   "cell": "H14",
+   "label": "Adjusted (Blume) beta",
+   "header": "Gold miner",
+   "instruction": "Calculate Adjusted (Blume) beta for Gold miner.",
+   "hint": "Pulls beta toward 1.0 over time.",
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s015",
+   "kind": "formula",
+   "expectedFormula": "=$B$4+G8*$B$5",
+   "expectedValue": 0.11328,
+   "tolerance": 0.00056640215863746,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Beta Regression",
+     "ref": "B4",
+     "label": "Risk-free rate",
+     "value": 0.0425
+    },
+    {
+     "sheet": "Beta Regression",
+     "ref": "G8",
+     "label": "Beta (SLOPE) (Stock A)",
+     "value": 1.286917
+    },
+    {
+     "sheet": "Beta Regression",
+     "ref": "B5",
+     "label": "Equity risk premium",
+     "value": 0.055
+    }
+   ],
+   "sheet": "Beta Regression",
+   "cell": "G15",
+   "label": "Cost of equity (CAPM, raw beta)",
+   "header": "Stock A",
+   "instruction": "Calculate Cost of equity (CAPM, raw beta) for Stock A.",
+   "hint": "Rf + β × ERP.",
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s016",
+   "kind": "formula",
+   "expectedFormula": "=$B$4+H8*$B$5",
+   "expectedValue": 0.002269,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Beta Regression",
+     "ref": "B4",
+     "label": "Risk-free rate",
+     "value": 0.0425
+    },
+    {
+     "sheet": "Beta Regression",
+     "ref": "H8",
+     "label": "Beta (SLOPE) (Gold miner)",
+     "value": -0.731472
+    },
+    {
+     "sheet": "Beta Regression",
+     "ref": "B5",
+     "label": "Equity risk premium",
+     "value": 0.055
+    }
+   ],
+   "sheet": "Beta Regression",
+   "cell": "H15",
+   "label": "Cost of equity (CAPM, raw beta)",
+   "header": "Gold miner",
+   "instruction": "Calculate Cost of equity (CAPM, raw beta) for Gold miner.",
+   "hint": "Rf + β × ERP.",
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s017",
+   "kind": "formula",
+   "expectedFormula": "=G15-$B$4",
+   "expectedValue": 0.07078,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Beta Regression",
+     "ref": "G15",
+     "label": "Cost of equity (CAPM, raw beta) (Stock A)",
+     "value": 0.11328
+    },
+    {
+     "sheet": "Beta Regression",
+     "ref": "B4",
+     "label": "Risk-free rate",
+     "value": 0.0425
+    }
+   ],
+   "sheet": "Beta Regression",
+   "cell": "G16",
+   "label": "Cost of equity minus risk-free rate",
+   "header": "Stock A",
+   "instruction": "Calculate Cost of equity minus risk-free rate for Stock A.",
+   "hint": "Negative for the gold miner: it's acting as a hedge.",
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s018",
+   "kind": "formula",
+   "expectedFormula": "=H15-$B$4",
+   "expectedValue": -0.040231,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Beta Regression",
+     "ref": "H15",
+     "label": "Cost of equity (CAPM, raw beta) (Gold miner)",
+     "value": 0.002269
+    },
+    {
+     "sheet": "Beta Regression",
+     "ref": "B4",
+     "label": "Risk-free rate",
+     "value": 0.0425
+    }
+   ],
+   "sheet": "Beta Regression",
+   "cell": "H16",
+   "label": "Cost of equity minus risk-free rate",
+   "header": "Gold miner",
+   "instruction": "Calculate Cost of equity minus risk-free rate for Gold miner.",
+   "hint": "Negative for the gold miner: it's acting as a hedge.",
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s019",
+   "kind": "text",
+   "expectedValue": "A negative beta implies a cost of equity below the risk-free rate. For an operating company that's not economically sensible over the long run — it's usually a quirk of the sample period, so use a comps-based (bottom-up) beta instead.",
+   "options": null,
+   "sheet": "Beta Regression",
+   "cell": "F19",
+   "label": null,
+   "header": "Statistic",
+   "instruction": "Answer in a sentence or two: explain your reasoning",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s020",
+   "kind": "formula",
+   "expectedFormula": "=B7/(1+(1-D7)*C7)",
+   "expectedValue": 0.979592,
+   "tolerance": 0.00489795918367347,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "B7",
+     "label": "Summit Gear (Levered beta)",
+     "value": 1.2
+    },
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "D7",
+     "label": "Summit Gear (Tax rate)",
+     "value": 0.25
+    },
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "C7",
+     "label": "Summit Gear (Debt / equity (market))",
+     "value": 0.3
+    }
+   ],
+   "sheet": "Bottom-Up Beta",
+   "cell": "E7",
+   "label": "Summit Gear",
+   "header": "Unlevered beta",
+   "instruction": "Calculate Summit Gear for Unlevered beta.",
+   "hint": "βU = βL ÷ [1 + (1 − t) × D/E]",
+   "numberFormat": "0.000;\\(0.000\\);\\-"
+  },
+  {
+   "id": "s021",
+   "kind": "formula",
+   "expectedFormula": "=B8/(1+(1-D8)*C8)",
+   "expectedValue": 0.938757,
+   "tolerance": 0.00469378632096558,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "B8",
+     "label": "Trailhead Brands (Levered beta)",
+     "value": 1.05
+    },
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "D8",
+     "label": "Trailhead Brands (Tax rate)",
+     "value": 0.21
+    },
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "C8",
+     "label": "Trailhead Brands (Debt / equity (market))",
+     "value": 0.15
+    }
+   ],
+   "sheet": "Bottom-Up Beta",
+   "cell": "E8",
+   "label": "Trailhead Brands",
+   "header": "Unlevered beta",
+   "instruction": "Calculate Trailhead Brands for Unlevered beta.",
+   "hint": null,
+   "numberFormat": "0.000;\\(0.000\\);\\-"
+  },
+  {
+   "id": "s022",
+   "kind": "formula",
+   "expectedFormula": "=B9/(1+(1-D9)*C9)",
+   "expectedValue": 1,
+   "tolerance": 0.005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "B9",
+     "label": "Northwoods Apparel (Levered beta)",
+     "value": 1.45
+    },
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "D9",
+     "label": "Northwoods Apparel (Tax rate)",
+     "value": 0.25
+    },
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "C9",
+     "label": "Northwoods Apparel (Debt / equity (market))",
+     "value": 0.6
+    }
+   ],
+   "sheet": "Bottom-Up Beta",
+   "cell": "E9",
+   "label": "Northwoods Apparel",
+   "header": "Unlevered beta",
+   "instruction": "Calculate Northwoods Apparel for Unlevered beta.",
+   "hint": null,
+   "numberFormat": "0.000;\\(0.000\\);\\-"
+  },
+  {
+   "id": "s023",
+   "kind": "formula",
+   "expectedFormula": "=B10/(1+(1-D10)*C10)",
+   "expectedValue": 0.883721,
+   "tolerance": 0.00441860465116279,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "B10",
+     "label": "Basecamp Outfitters (Levered beta)",
+     "value": 0.95
+    },
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "D10",
+     "label": "Basecamp Outfitters (Tax rate)",
+     "value": 0.25
+    },
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "C10",
+     "label": "Basecamp Outfitters (Debt / equity (market))",
+     "value": 0.1
+    }
+   ],
+   "sheet": "Bottom-Up Beta",
+   "cell": "E10",
+   "label": "Basecamp Outfitters",
+   "header": "Unlevered beta",
+   "instruction": "Calculate Basecamp Outfitters for Unlevered beta.",
+   "hint": null,
+   "numberFormat": "0.000;\\(0.000\\);\\-"
+  },
+  {
+   "id": "s024",
+   "kind": "formula",
+   "expectedFormula": "=B11/(1+(1-D11)*C11)",
+   "expectedValue": 0.959056,
+   "tolerance": 0.0047952784950202896,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "B11",
+     "label": "Alpine Supply (Levered beta)",
+     "value": 1.3
+    },
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "D11",
+     "label": "Alpine Supply (Tax rate)",
+     "value": 0.21
+    },
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "C11",
+     "label": "Alpine Supply (Debt / equity (market))",
+     "value": 0.45
+    }
+   ],
+   "sheet": "Bottom-Up Beta",
+   "cell": "E11",
+   "label": "Alpine Supply",
+   "header": "Unlevered beta",
+   "instruction": "Calculate Alpine Supply for Unlevered beta.",
+   "hint": null,
+   "numberFormat": "0.000;\\(0.000\\);\\-"
+  },
+  {
+   "id": "s025",
+   "kind": "formula",
+   "expectedFormula": "=MEDIAN(E7:E11)",
+   "expectedValue": 0.959056,
+   "tolerance": 0.0047952784950202896,
+   "functions": [
+    "MEDIAN"
+   ],
+   "references": [
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "E7:E11",
+     "label": "Summit Gear (Unlevered beta) … Alpine Supply (Unlevered beta)",
+     "value": null
+    }
+   ],
+   "sheet": "Bottom-Up Beta",
+   "cell": "B13",
+   "label": "Median unlevered beta",
+   "header": "Levered beta",
+   "instruction": "Calculate Median unlevered beta for Levered beta.",
+   "hint": null,
+   "numberFormat": "0.000;\\(0.000\\);\\-"
+  },
+  {
+   "id": "s026",
+   "kind": "formula",
+   "expectedFormula": "=AVERAGE(E7:E11)",
+   "expectedValue": 0.952225,
+   "tolerance": 0.004761125730164425,
+   "functions": [
+    "AVERAGE"
+   ],
+   "references": [
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "E7:E11",
+     "label": "Summit Gear (Unlevered beta) … Alpine Supply (Unlevered beta)",
+     "value": null
+    }
+   ],
+   "sheet": "Bottom-Up Beta",
+   "cell": "B14",
+   "label": "Mean unlevered beta",
+   "header": "Levered beta",
+   "instruction": "Calculate Mean unlevered beta for Levered beta.",
+   "hint": null,
+   "numberFormat": "0.000;\\(0.000\\);\\-"
+  },
+  {
+   "id": "s027",
+   "kind": "formula",
+   "expectedFormula": "=B13*(1+(1-B16)*B15)",
+   "expectedValue": 1.246772,
+   "tolerance": 0.006233862043526351,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "B13",
+     "label": "Median unlevered beta (Levered beta)",
+     "value": 0.959056
+    },
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "B16",
+     "label": "Target tax rate (Levered beta)",
+     "value": 0.25
+    },
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "B15",
+     "label": "Target debt / equity (Levered beta)",
+     "value": 0.4
+    }
+   ],
+   "sheet": "Bottom-Up Beta",
+   "cell": "B17",
+   "label": "Relevered beta",
+   "header": "Levered beta",
+   "instruction": "Calculate Relevered beta for Levered beta.",
+   "hint": "βL = βU × [1 + (1 − t) × D/E] at the TARGET's capital structure.",
+   "numberFormat": "0.000;\\(0.000\\);\\-"
+  },
+  {
+   "id": "s028",
+   "kind": "formula",
+   "expectedFormula": "=B18+B17*B19",
+   "expectedValue": 0.111072,
+   "tolerance": 0.0005553624123939499,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "B18",
+     "label": "Risk-free rate (Levered beta)",
+     "value": 0.0425
+    },
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "B17",
+     "label": "Relevered beta (Levered beta)",
+     "value": 1.246772
+    },
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "B19",
+     "label": "Equity risk premium (Levered beta)",
+     "value": 0.055
+    }
+   ],
+   "sheet": "Bottom-Up Beta",
+   "cell": "B20",
+   "label": "Cost of equity",
+   "header": "Levered beta",
+   "instruction": "Calculate Cost of equity for Levered beta.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s029",
+   "kind": "formula",
+   "expectedFormula": "='Bottom-Up Beta'!B20",
+   "expectedValue": 0.111072,
+   "tolerance": 0.0005553624123939499,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Bottom-Up Beta",
+     "ref": "B20",
+     "label": "Cost of equity (Levered beta)",
+     "value": 0.111072
+    }
+   ],
+   "sheet": "WACC",
+   "cell": "B5",
+   "label": "Cost of equity",
+   "header": null,
+   "instruction": "Calculate Cost of equity.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s030",
+   "kind": "formula",
+   "expectedFormula": "=B6*(1-B7)",
+   "expectedValue": 0.0525,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "WACC",
+     "ref": "B6",
+     "label": "Pre-tax cost of debt",
+     "value": 0.07
+    },
+    {
+     "sheet": "WACC",
+     "ref": "B7",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "WACC",
+   "cell": "B8",
+   "label": "After-tax cost of debt",
+   "header": null,
+   "instruction": "Calculate After-tax cost of debt.",
+   "hint": "Interest is tax-deductible.",
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s031",
+   "kind": "formula",
+   "expectedFormula": "=B10+B11",
+   "expectedValue": 2100,
+   "tolerance": 10.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "WACC",
+     "ref": "B10",
+     "label": "Market value of equity ($mm)",
+     "value": 1500
+    },
+    {
+     "sheet": "WACC",
+     "ref": "B11",
+     "label": "Market value of debt ($mm)",
+     "value": 600
+    }
+   ],
+   "sheet": "WACC",
+   "cell": "B12",
+   "label": "Total capital",
+   "header": null,
+   "instruction": "Calculate Total capital.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s032",
+   "kind": "formula",
+   "expectedFormula": "=B10/B12",
+   "expectedValue": 0.714286,
+   "tolerance": 0.00357142857142857,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "WACC",
+     "ref": "B10",
+     "label": "Market value of equity ($mm)",
+     "value": 1500
+    },
+    {
+     "sheet": "WACC",
+     "ref": "B12",
+     "label": "Total capital",
+     "value": 2100
+    }
+   ],
+   "sheet": "WACC",
+   "cell": "B13",
+   "label": "Equity / total capital",
+   "header": null,
+   "instruction": "Calculate Equity / total capital.",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s033",
+   "kind": "formula",
+   "expectedFormula": "=B11/B12",
+   "expectedValue": 0.285714,
+   "tolerance": 0.0014285714285714299,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "WACC",
+     "ref": "B11",
+     "label": "Market value of debt ($mm)",
+     "value": 600
+    },
+    {
+     "sheet": "WACC",
+     "ref": "B12",
+     "label": "Total capital",
+     "value": 2100
+    }
+   ],
+   "sheet": "WACC",
+   "cell": "B14",
+   "label": "Debt / total capital",
+   "header": null,
+   "instruction": "Calculate Debt / total capital.",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s034",
+   "kind": "formula",
+   "expectedFormula": "=B13*B5+B14*B8",
+   "expectedValue": 0.094337,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "WACC",
+     "ref": "B13",
+     "label": "Equity / total capital",
+     "value": 0.714286
+    },
+    {
+     "sheet": "WACC",
+     "ref": "B5",
+     "label": "Cost of equity",
+     "value": 0.111072
+    },
+    {
+     "sheet": "WACC",
+     "ref": "B14",
+     "label": "Debt / total capital",
+     "value": 0.285714
+    },
+    {
+     "sheet": "WACC",
+     "ref": "B8",
+     "label": "After-tax cost of debt",
+     "value": 0.0525
+    }
+   ],
+   "sheet": "WACC",
+   "cell": "B16",
+   "label": "WACC",
+   "header": null,
+   "instruction": "Calculate WACC.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s035",
+   "kind": "formula",
+   "expectedFormula": "='Beta Regression'!B4+B20*'Beta Regression'!B5",
+   "expectedValue": 0.0205,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Beta Regression",
+     "ref": "B4",
+     "label": "Risk-free rate",
+     "value": 0.0425
+    },
+    {
+     "sheet": "WACC",
+     "ref": "B20",
+     "label": "Beta",
+     "value": -0.4
+    },
+    {
+     "sheet": "Beta Regression",
+     "ref": "B5",
+     "label": "Equity risk premium",
+     "value": 0.055
+    }
+   ],
+   "sheet": "WACC",
+   "cell": "B21",
+   "label": "Cost of equity",
+   "header": null,
+   "instruction": "Calculate Cost of equity.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s036",
+   "kind": "formula",
+   "expectedFormula": "=B13*B21+B14*B8",
+   "expectedValue": 0.029643,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "WACC",
+     "ref": "B13",
+     "label": "Equity / total capital",
+     "value": 0.714286
+    },
+    {
+     "sheet": "WACC",
+     "ref": "B21",
+     "label": "Cost of equity",
+     "value": 0.0205
+    },
+    {
+     "sheet": "WACC",
+     "ref": "B14",
+     "label": "Debt / total capital",
+     "value": 0.285714
+    },
+    {
+     "sheet": "WACC",
+     "ref": "B8",
+     "label": "After-tax cost of debt",
+     "value": 0.0525
+    }
+   ],
+   "sheet": "WACC",
+   "cell": "B22",
+   "label": "WACC",
+   "header": null,
+   "instruction": "Calculate WACC.",
+   "hint": "Cost of equity below the cost of debt — equity is junior to debt, so this makes no economic sense for an operating company.",
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s037",
+   "kind": "formula",
+   "expectedFormula": "=B8-B5",
+   "expectedValue": 0.02,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Country Risk",
+     "ref": "B8",
+     "label": "Country's USD-denominated government bond yield",
+     "value": 0.065
+    },
+    {
+     "sheet": "Country Risk",
+     "ref": "B5",
+     "label": "US 10-year Treasury yield",
+     "value": 0.045
+    }
+   ],
+   "sheet": "Country Risk",
+   "cell": "B13",
+   "label": "Sovereign spread (simple CRP)",
+   "header": null,
+   "instruction": "Calculate Sovereign spread (simple CRP).",
+   "hint": "Country's USD bond yield − US Treasury",
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s038",
+   "kind": "formula",
+   "expectedFormula": "=B13*B9",
+   "expectedValue": 0.03,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Country Risk",
+     "ref": "B13",
+     "label": "Sovereign spread (simple CRP)",
+     "value": 0.02
+    },
+    {
+     "sheet": "Country Risk",
+     "ref": "B9",
+     "label": "Equity market vol ÷ government bond vol",
+     "value": 1.5
+    }
+   ],
+   "sheet": "Country Risk",
+   "cell": "B14",
+   "label": "Scaled CRP (spread × relative volatility)",
+   "header": null,
+   "instruction": "Calculate Scaled CRP (spread × relative volatility).",
+   "hint": "Equities are riskier than bonds, so scale up",
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s039",
+   "kind": "formula",
+   "expectedFormula": "=B5+B6*B7",
+   "expectedValue": 0.1,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Country Risk",
+     "ref": "B5",
+     "label": "US 10-year Treasury yield",
+     "value": 0.045
+    },
+    {
+     "sheet": "Country Risk",
+     "ref": "B6",
+     "label": "Beta",
+     "value": 1.1
+    },
+    {
+     "sheet": "Country Risk",
+     "ref": "B7",
+     "label": "Equity risk premium (mature market)",
+     "value": 0.05
+    }
+   ],
+   "sheet": "Country Risk",
+   "cell": "B15",
+   "label": "Cost of equity (USD), no CRP",
+   "header": null,
+   "instruction": "Calculate Cost of equity (USD), no CRP.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s040",
+   "kind": "formula",
+   "expectedFormula": "=B15+B13",
+   "expectedValue": 0.12,
+   "tolerance": 0.0006,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Country Risk",
+     "ref": "B15",
+     "label": "Cost of equity (USD), no CRP",
+     "value": 0.1
+    },
+    {
+     "sheet": "Country Risk",
+     "ref": "B13",
+     "label": "Sovereign spread (simple CRP)",
+     "value": 0.02
+    }
+   ],
+   "sheet": "Country Risk",
+   "cell": "B16",
+   "label": "Cost of equity (USD), simple CRP",
+   "header": null,
+   "instruction": "Calculate Cost of equity (USD), simple CRP.",
+   "hint": "Add the CRP once — don't also add it to the risk-free rate.",
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s041",
+   "kind": "formula",
+   "expectedFormula": "=B15+B14",
+   "expectedValue": 0.13,
+   "tolerance": 0.0006500000000000001,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Country Risk",
+     "ref": "B15",
+     "label": "Cost of equity (USD), no CRP",
+     "value": 0.1
+    },
+    {
+     "sheet": "Country Risk",
+     "ref": "B14",
+     "label": "Scaled CRP (spread × relative volatility)",
+     "value": 0.03
+    }
+   ],
+   "sheet": "Country Risk",
+   "cell": "B17",
+   "label": "Cost of equity (USD), scaled CRP",
+   "header": null,
+   "instruction": "Calculate Cost of equity (USD), scaled CRP.",
+   "hint": null,
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  },
+  {
+   "id": "s042",
+   "kind": "formula",
+   "expectedFormula": "=(1+B17)*(1+B10)/(1+B11)-1",
+   "expectedValue": 0.152049,
+   "tolerance": 0.0007602439024390251,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Country Risk",
+     "ref": "B17",
+     "label": "Cost of equity (USD), scaled CRP",
+     "value": 0.13
+    },
+    {
+     "sheet": "Country Risk",
+     "ref": "B10",
+     "label": "Expected local inflation",
+     "value": 0.045
+    },
+    {
+     "sheet": "Country Risk",
+     "ref": "B11",
+     "label": "Expected US inflation",
+     "value": 0.025
+    }
+   ],
+   "sheet": "Country Risk",
+   "cell": "B18",
+   "label": "Cost of equity in local currency (scaled CRP)",
+   "header": null,
+   "instruction": "Calculate Cost of equity in local currency (scaled CRP).",
+   "hint": "Convert using the inflation difference so the rate matches local-currency cash flows.",
+   "numberFormat": "0.00%;\\(0.00%\\);\\-"
+  }
+ ]
+}

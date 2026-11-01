@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { cn } from "@/lib/utils";
+import { Select } from "@/components/ui/select";
 
 type Ev = {
   id: string;
@@ -138,8 +139,8 @@ export function RecruitingSeasonCalendarView() {
       <Card className="flex flex-wrap items-end gap-3 p-3">
         <label className="text-xs text-ink-3">
           Year
-          <select
-            className="mt-1 block rounded border border-border bg-surface px-2 py-1.5 text-sm"
+          <Select
+            className="mt-1 block"
             value={yearFilter}
             onChange={(e) => setYearFilter(e.target.value)}
           >
@@ -148,12 +149,12 @@ export function RecruitingSeasonCalendarView() {
                 {y}
               </option>
             ))}
-          </select>
+          </Select>
         </label>
         <label className="text-xs text-ink-3">
           Vertical
-          <select
-            className="mt-1 block rounded border border-border bg-surface px-2 py-1.5 text-sm"
+          <Select
+            className="mt-1 block"
             value={vertical}
             onChange={(e) => setVertical(e.target.value)}
           >
@@ -162,7 +163,7 @@ export function RecruitingSeasonCalendarView() {
                 {v === "all" ? "All" : v}
               </option>
             ))}
-          </select>
+          </Select>
         </label>
         <p className="text-xs text-ink-3">{loading ? "Loading…" : `${events.length} events`}</p>
       </Card>
@@ -274,8 +275,8 @@ export function RecruitingSeasonCalendarView() {
           <Input placeholder="Title" value={form.title} onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))} />
           <Input placeholder="Firm (optional)" value={form.firmName} onChange={(e) => setForm((f) => ({ ...f, firmName: e.target.value }))} />
           <Input placeholder="Vertical e.g. IB" value={form.vertical} onChange={(e) => setForm((f) => ({ ...f, vertical: e.target.value }))} />
-          <select
-            className="rounded border border-border bg-surface px-2 py-2"
+          <Select
+            
             value={form.eventType}
             onChange={(e) => setForm((f) => ({ ...f, eventType: e.target.value }))}
           >
@@ -284,7 +285,7 @@ export function RecruitingSeasonCalendarView() {
                 {t}
               </option>
             ))}
-          </select>
+          </Select>
           <Input type="date" value={form.date} onChange={(e) => setForm((f) => ({ ...f, date: e.target.value }))} />
           <Input
             type="number"

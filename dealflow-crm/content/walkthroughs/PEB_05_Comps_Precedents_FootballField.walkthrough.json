@@ -1,0 +1,3170 @@
+{
+ "workbookKey": "PEB_05_Comps_Precedents_FootballField",
+ "studentFile": "PEB_05_Comps_Precedents_FootballField.xlsx",
+ "answerKeyFile": "PEB_05_Comps_Precedents_FootballField_KEY.xlsx",
+ "sheets": [
+  "Trading Comps",
+  "Precedents",
+  "Football Field"
+ ],
+ "stepCount": 115,
+ "steps": [
+  {
+   "id": "s001",
+   "kind": "formula",
+   "expectedFormula": "=B5*C5",
+   "expectedValue": 3600,
+   "tolerance": 18.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "B5",
+     "label": "Summit Gear (Share price)",
+     "value": 45
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "C5",
+     "label": "Summit Gear (Diluted shares (mm))",
+     "value": 80
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "J5",
+   "label": "Summit Gear",
+   "header": "Equity value",
+   "instruction": "Calculate Summit Gear for Equity value.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s002",
+   "kind": "formula",
+   "expectedFormula": "=J5+D5-E5",
+   "expectedValue": 4500,
+   "tolerance": 22.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "J5",
+     "label": "Summit Gear (Equity value)",
+     "value": 3600
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "D5",
+     "label": "Summit Gear (Debt)",
+     "value": 1200
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "E5",
+     "label": "Summit Gear (Cash)",
+     "value": 300
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "K5",
+   "label": "Summit Gear",
+   "header": "Enterprise value",
+   "instruction": "Calculate Summit Gear for Enterprise value.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s003",
+   "kind": "formula",
+   "expectedFormula": "=K5/F5",
+   "expectedValue": 1.5,
+   "tolerance": 0.0075,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "K5",
+     "label": "Summit Gear (Enterprise value)",
+     "value": 4500
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "F5",
+     "label": "Summit Gear (LTM revenue)",
+     "value": 3000
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "L5",
+   "label": "Summit Gear",
+   "header": "EV / LTM revenue",
+   "instruction": "Calculate Summit Gear for EV / LTM revenue.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s004",
+   "kind": "formula",
+   "expectedFormula": "=K5/G5",
+   "expectedValue": 8.333333,
+   "tolerance": 0.04166666666666665,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "K5",
+     "label": "Summit Gear (Enterprise value)",
+     "value": 4500
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "G5",
+     "label": "Summit Gear (LTM EBITDA)",
+     "value": 540
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "M5",
+   "label": "Summit Gear",
+   "header": "EV / LTM EBITDA",
+   "instruction": "Calculate Summit Gear for EV / LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s005",
+   "kind": "formula",
+   "expectedFormula": "=K5/H5",
+   "expectedValue": 7.627119,
+   "tolerance": 0.038135593220339,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "K5",
+     "label": "Summit Gear (Enterprise value)",
+     "value": 4500
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "H5",
+     "label": "Summit Gear (NTM EBITDA)",
+     "value": 590
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "N5",
+   "label": "Summit Gear",
+   "header": "EV / NTM EBITDA",
+   "instruction": "Calculate Summit Gear for EV / NTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s006",
+   "kind": "formula",
+   "expectedFormula": "=B5/I5",
+   "expectedValue": 17.307692,
+   "tolerance": 0.0865384615384615,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "B5",
+     "label": "Summit Gear (Share price)",
+     "value": 45
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "I5",
+     "label": "Summit Gear (LTM EPS)",
+     "value": 2.6
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "O5",
+   "label": "Summit Gear",
+   "header": "P / E",
+   "instruction": "Calculate Summit Gear for P / E.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s007",
+   "kind": "formula",
+   "expectedFormula": "=B6*C6",
+   "expectedValue": 3600,
+   "tolerance": 18.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "B6",
+     "label": "Trailhead Brands (Share price)",
+     "value": 30
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "C6",
+     "label": "Trailhead Brands (Diluted shares (mm))",
+     "value": 120
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "J6",
+   "label": "Trailhead Brands",
+   "header": "Equity value",
+   "instruction": "Calculate Trailhead Brands for Equity value.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s008",
+   "kind": "formula",
+   "expectedFormula": "=J6+D6-E6",
+   "expectedValue": 4200,
+   "tolerance": 21.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "J6",
+     "label": "Trailhead Brands (Equity value)",
+     "value": 3600
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "D6",
+     "label": "Trailhead Brands (Debt)",
+     "value": 800
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "E6",
+     "label": "Trailhead Brands (Cash)",
+     "value": 200
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "K6",
+   "label": "Trailhead Brands",
+   "header": "Enterprise value",
+   "instruction": "Calculate Trailhead Brands for Enterprise value.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s009",
+   "kind": "formula",
+   "expectedFormula": "=K6/F6",
+   "expectedValue": 1.615385,
+   "tolerance": 0.008076923076923101,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "K6",
+     "label": "Trailhead Brands (Enterprise value)",
+     "value": 4200
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "F6",
+     "label": "Trailhead Brands (LTM revenue)",
+     "value": 2600
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "L6",
+   "label": "Trailhead Brands",
+   "header": "EV / LTM revenue",
+   "instruction": "Calculate Trailhead Brands for EV / LTM revenue.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s010",
+   "kind": "formula",
+   "expectedFormula": "=K6/G6",
+   "expectedValue": 9.333333,
+   "tolerance": 0.046666666666666655,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "K6",
+     "label": "Trailhead Brands (Enterprise value)",
+     "value": 4200
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "G6",
+     "label": "Trailhead Brands (LTM EBITDA)",
+     "value": 450
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "M6",
+   "label": "Trailhead Brands",
+   "header": "EV / LTM EBITDA",
+   "instruction": "Calculate Trailhead Brands for EV / LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s011",
+   "kind": "formula",
+   "expectedFormula": "=K6/H6",
+   "expectedValue": 8.75,
+   "tolerance": 0.043750000000000004,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "K6",
+     "label": "Trailhead Brands (Enterprise value)",
+     "value": 4200
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "H6",
+     "label": "Trailhead Brands (NTM EBITDA)",
+     "value": 480
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "N6",
+   "label": "Trailhead Brands",
+   "header": "EV / NTM EBITDA",
+   "instruction": "Calculate Trailhead Brands for EV / NTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s012",
+   "kind": "formula",
+   "expectedFormula": "=B6/I6",
+   "expectedValue": 20.689655,
+   "tolerance": 0.103448275862069,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "B6",
+     "label": "Trailhead Brands (Share price)",
+     "value": 30
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "I6",
+     "label": "Trailhead Brands (LTM EPS)",
+     "value": 1.45
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "O6",
+   "label": "Trailhead Brands",
+   "header": "P / E",
+   "instruction": "Calculate Trailhead Brands for P / E.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s013",
+   "kind": "formula",
+   "expectedFormula": "=B7*C7",
+   "expectedValue": 3100,
+   "tolerance": 15.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "B7",
+     "label": "Northwoods Apparel (Share price)",
+     "value": 62
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "C7",
+     "label": "Northwoods Apparel (Diluted shares (mm))",
+     "value": 50
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "J7",
+   "label": "Northwoods Apparel",
+   "header": "Equity value",
+   "instruction": "Calculate Northwoods Apparel for Equity value.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s014",
+   "kind": "formula",
+   "expectedFormula": "=J7+D7-E7",
+   "expectedValue": 3450,
+   "tolerance": 17.25,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "J7",
+     "label": "Northwoods Apparel (Equity value)",
+     "value": 3100
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "D7",
+     "label": "Northwoods Apparel (Debt)",
+     "value": 500
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "E7",
+     "label": "Northwoods Apparel (Cash)",
+     "value": 150
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "K7",
+   "label": "Northwoods Apparel",
+   "header": "Enterprise value",
+   "instruction": "Calculate Northwoods Apparel for Enterprise value.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s015",
+   "kind": "formula",
+   "expectedFormula": "=K7/F7",
+   "expectedValue": 1.815789,
+   "tolerance": 0.00907894736842105,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "K7",
+     "label": "Northwoods Apparel (Enterprise value)",
+     "value": 3450
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "F7",
+     "label": "Northwoods Apparel (LTM revenue)",
+     "value": 1900
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "L7",
+   "label": "Northwoods Apparel",
+   "header": "EV / LTM revenue",
+   "instruction": "Calculate Northwoods Apparel for EV / LTM revenue.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s016",
+   "kind": "formula",
+   "expectedFormula": "=K7/G7",
+   "expectedValue": 10.78125,
+   "tolerance": 0.05390625,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "K7",
+     "label": "Northwoods Apparel (Enterprise value)",
+     "value": 3450
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "G7",
+     "label": "Northwoods Apparel (LTM EBITDA)",
+     "value": 320
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "M7",
+   "label": "Northwoods Apparel",
+   "header": "EV / LTM EBITDA",
+   "instruction": "Calculate Northwoods Apparel for EV / LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s017",
+   "kind": "formula",
+   "expectedFormula": "=K7/H7",
+   "expectedValue": 9.857143,
+   "tolerance": 0.0492857142857143,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "K7",
+     "label": "Northwoods Apparel (Enterprise value)",
+     "value": 3450
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "H7",
+     "label": "Northwoods Apparel (NTM EBITDA)",
+     "value": 350
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "N7",
+   "label": "Northwoods Apparel",
+   "header": "EV / NTM EBITDA",
+   "instruction": "Calculate Northwoods Apparel for EV / NTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s018",
+   "kind": "formula",
+   "expectedFormula": "=B7/I7",
+   "expectedValue": 18.235294,
+   "tolerance": 0.09117647058823551,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "B7",
+     "label": "Northwoods Apparel (Share price)",
+     "value": 62
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "I7",
+     "label": "Northwoods Apparel (LTM EPS)",
+     "value": 3.4
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "O7",
+   "label": "Northwoods Apparel",
+   "header": "P / E",
+   "instruction": "Calculate Northwoods Apparel for P / E.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s019",
+   "kind": "formula",
+   "expectedFormula": "=B8*C8",
+   "expectedValue": 3600,
+   "tolerance": 18.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "B8",
+     "label": "Ridgeline Co. (Share price)",
+     "value": 18
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "C8",
+     "label": "Ridgeline Co. (Diluted shares (mm))",
+     "value": 200
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "J8",
+   "label": "Ridgeline Co.",
+   "header": "Equity value",
+   "instruction": "Calculate Ridgeline Co. for Equity value.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s020",
+   "kind": "formula",
+   "expectedFormula": "=J8+D8-E8",
+   "expectedValue": 4700,
+   "tolerance": 23.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "J8",
+     "label": "Ridgeline Co. (Equity value)",
+     "value": 3600
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "D8",
+     "label": "Ridgeline Co. (Debt)",
+     "value": 1500
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "E8",
+     "label": "Ridgeline Co. (Cash)",
+     "value": 400
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "K8",
+   "label": "Ridgeline Co.",
+   "header": "Enterprise value",
+   "instruction": "Calculate Ridgeline Co. for Enterprise value.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s021",
+   "kind": "formula",
+   "expectedFormula": "=K8/F8",
+   "expectedValue": 1.119048,
+   "tolerance": 0.0055952380952381,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "K8",
+     "label": "Ridgeline Co. (Enterprise value)",
+     "value": 4700
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "F8",
+     "label": "Ridgeline Co. (LTM revenue)",
+     "value": 4200
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "L8",
+   "label": "Ridgeline Co.",
+   "header": "EV / LTM revenue",
+   "instruction": "Calculate Ridgeline Co. for EV / LTM revenue.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s022",
+   "kind": "formula",
+   "expectedFormula": "=K8/G8",
+   "expectedValue": 7.704918,
+   "tolerance": 0.03852459016393445,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "K8",
+     "label": "Ridgeline Co. (Enterprise value)",
+     "value": 4700
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "G8",
+     "label": "Ridgeline Co. (LTM EBITDA)",
+     "value": 610
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "M8",
+   "label": "Ridgeline Co.",
+   "header": "EV / LTM EBITDA",
+   "instruction": "Calculate Ridgeline Co. for EV / LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s023",
+   "kind": "formula",
+   "expectedFormula": "=K8/H8",
+   "expectedValue": 6.911765,
+   "tolerance": 0.034558823529411746,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "K8",
+     "label": "Ridgeline Co. (Enterprise value)",
+     "value": 4700
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "H8",
+     "label": "Ridgeline Co. (NTM EBITDA)",
+     "value": 680
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "N8",
+   "label": "Ridgeline Co.",
+   "header": "EV / NTM EBITDA",
+   "instruction": "Calculate Ridgeline Co. for EV / NTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s024",
+   "kind": "formula",
+   "expectedFormula": "=B8/I8",
+   "expectedValue": 18.947368,
+   "tolerance": 0.09473684210526301,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "B8",
+     "label": "Ridgeline Co. (Share price)",
+     "value": 18
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "I8",
+     "label": "Ridgeline Co. (LTM EPS)",
+     "value": 0.95
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "O8",
+   "label": "Ridgeline Co.",
+   "header": "P / E",
+   "instruction": "Calculate Ridgeline Co. for P / E.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s025",
+   "kind": "formula",
+   "expectedFormula": "=B9*C9",
+   "expectedValue": 3000,
+   "tolerance": 15.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "B9",
+     "label": "Basecamp Outfitters (Share price)",
+     "value": 75
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "C9",
+     "label": "Basecamp Outfitters (Diluted shares (mm))",
+     "value": 40
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "J9",
+   "label": "Basecamp Outfitters",
+   "header": "Equity value",
+   "instruction": "Calculate Basecamp Outfitters for Equity value.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s026",
+   "kind": "formula",
+   "expectedFormula": "=J9+D9-E9",
+   "expectedValue": 3200,
+   "tolerance": 16.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "J9",
+     "label": "Basecamp Outfitters (Equity value)",
+     "value": 3000
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "D9",
+     "label": "Basecamp Outfitters (Debt)",
+     "value": 300
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "E9",
+     "label": "Basecamp Outfitters (Cash)",
+     "value": 100
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "K9",
+   "label": "Basecamp Outfitters",
+   "header": "Enterprise value",
+   "instruction": "Calculate Basecamp Outfitters for Enterprise value.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s027",
+   "kind": "formula",
+   "expectedFormula": "=K9/F9",
+   "expectedValue": 2.133333,
+   "tolerance": 0.01066666666666665,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "K9",
+     "label": "Basecamp Outfitters (Enterprise value)",
+     "value": 3200
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "F9",
+     "label": "Basecamp Outfitters (LTM revenue)",
+     "value": 1500
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "L9",
+   "label": "Basecamp Outfitters",
+   "header": "EV / LTM revenue",
+   "instruction": "Calculate Basecamp Outfitters for EV / LTM revenue.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s028",
+   "kind": "formula",
+   "expectedFormula": "=K9/G9",
+   "expectedValue": 10.666667,
+   "tolerance": 0.0533333333333335,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "K9",
+     "label": "Basecamp Outfitters (Enterprise value)",
+     "value": 3200
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "G9",
+     "label": "Basecamp Outfitters (LTM EBITDA)",
+     "value": 300
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "M9",
+   "label": "Basecamp Outfitters",
+   "header": "EV / LTM EBITDA",
+   "instruction": "Calculate Basecamp Outfitters for EV / LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s029",
+   "kind": "formula",
+   "expectedFormula": "=K9/H9",
+   "expectedValue": 9.69697,
+   "tolerance": 0.048484848484848506,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "K9",
+     "label": "Basecamp Outfitters (Enterprise value)",
+     "value": 3200
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "H9",
+     "label": "Basecamp Outfitters (NTM EBITDA)",
+     "value": 330
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "N9",
+   "label": "Basecamp Outfitters",
+   "header": "EV / NTM EBITDA",
+   "instruction": "Calculate Basecamp Outfitters for EV / NTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s030",
+   "kind": "formula",
+   "expectedFormula": "=B9/I9",
+   "expectedValue": 18.292683,
+   "tolerance": 0.0914634146341465,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "B9",
+     "label": "Basecamp Outfitters (Share price)",
+     "value": 75
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "I9",
+     "label": "Basecamp Outfitters (LTM EPS)",
+     "value": 4.1
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "O9",
+   "label": "Basecamp Outfitters",
+   "header": "P / E",
+   "instruction": "Calculate Basecamp Outfitters for P / E.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s031",
+   "kind": "formula",
+   "expectedFormula": "=B10*C10",
+   "expectedValue": 2430,
+   "tolerance": 12.15,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "B10",
+     "label": "Alpine Supply (Share price)",
+     "value": 27
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "C10",
+     "label": "Alpine Supply (Diluted shares (mm))",
+     "value": 90
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "J10",
+   "label": "Alpine Supply",
+   "header": "Equity value",
+   "instruction": "Calculate Alpine Supply for Equity value.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s032",
+   "kind": "formula",
+   "expectedFormula": "=J10+D10-E10",
+   "expectedValue": 2910,
+   "tolerance": 14.55,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "J10",
+     "label": "Alpine Supply (Equity value)",
+     "value": 2430
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "D10",
+     "label": "Alpine Supply (Debt)",
+     "value": 600
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "E10",
+     "label": "Alpine Supply (Cash)",
+     "value": 120
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "K10",
+   "label": "Alpine Supply",
+   "header": "Enterprise value",
+   "instruction": "Calculate Alpine Supply for Enterprise value.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s033",
+   "kind": "formula",
+   "expectedFormula": "=K10/F10",
+   "expectedValue": 1.616667,
+   "tolerance": 0.00808333333333335,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "K10",
+     "label": "Alpine Supply (Enterprise value)",
+     "value": 2910
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "F10",
+     "label": "Alpine Supply (LTM revenue)",
+     "value": 1800
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "L10",
+   "label": "Alpine Supply",
+   "header": "EV / LTM revenue",
+   "instruction": "Calculate Alpine Supply for EV / LTM revenue.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s034",
+   "kind": "formula",
+   "expectedFormula": "=K10/G10",
+   "expectedValue": 10.034483,
+   "tolerance": 0.0501724137931035,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "K10",
+     "label": "Alpine Supply (Enterprise value)",
+     "value": 2910
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "G10",
+     "label": "Alpine Supply (LTM EBITDA)",
+     "value": 290
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "M10",
+   "label": "Alpine Supply",
+   "header": "EV / LTM EBITDA",
+   "instruction": "Calculate Alpine Supply for EV / LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s035",
+   "kind": "formula",
+   "expectedFormula": "=K10/H10",
+   "expectedValue": 9.387097,
+   "tolerance": 0.04693548387096775,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "K10",
+     "label": "Alpine Supply (Enterprise value)",
+     "value": 2910
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "H10",
+     "label": "Alpine Supply (NTM EBITDA)",
+     "value": 310
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "N10",
+   "label": "Alpine Supply",
+   "header": "EV / NTM EBITDA",
+   "instruction": "Calculate Alpine Supply for EV / NTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s036",
+   "kind": "formula",
+   "expectedFormula": "=B10/I10",
+   "expectedValue": 18,
+   "tolerance": 0.09,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "B10",
+     "label": "Alpine Supply (Share price)",
+     "value": 27
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "I10",
+     "label": "Alpine Supply (LTM EPS)",
+     "value": 1.5
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "O10",
+   "label": "Alpine Supply",
+   "header": "P / E",
+   "instruction": "Calculate Alpine Supply for P / E.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s037",
+   "kind": "formula",
+   "expectedFormula": "=MAX(L5:L10)",
+   "expectedValue": 2.133333,
+   "tolerance": 0.01066666666666665,
+   "functions": [
+    "MAX"
+   ],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "L5:L10",
+     "label": "Summit Gear (EV / LTM revenue) … Alpine Supply (EV / LTM revenue)",
+     "value": null
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "L12",
+   "label": "Maximum",
+   "header": "EV / LTM revenue",
+   "instruction": "Calculate Maximum for EV / LTM revenue.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s038",
+   "kind": "formula",
+   "expectedFormula": "=MAX(M5:M10)",
+   "expectedValue": 10.78125,
+   "tolerance": 0.05390625,
+   "functions": [
+    "MAX"
+   ],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "M5:M10",
+     "label": "Summit Gear (EV / LTM EBITDA) … Alpine Supply (EV / LTM EBITDA)",
+     "value": null
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "M12",
+   "label": "Maximum",
+   "header": "EV / LTM EBITDA",
+   "instruction": "Calculate Maximum for EV / LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s039",
+   "kind": "formula",
+   "expectedFormula": "=MAX(N5:N10)",
+   "expectedValue": 9.857143,
+   "tolerance": 0.0492857142857143,
+   "functions": [
+    "MAX"
+   ],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "N5:N10",
+     "label": "Summit Gear (EV / NTM EBITDA) … Alpine Supply (EV / NTM EBITDA)",
+     "value": null
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "N12",
+   "label": "Maximum",
+   "header": "EV / NTM EBITDA",
+   "instruction": "Calculate Maximum for EV / NTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s040",
+   "kind": "formula",
+   "expectedFormula": "=MAX(O5:O10)",
+   "expectedValue": 20.689655,
+   "tolerance": 0.103448275862069,
+   "functions": [
+    "MAX"
+   ],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "O5:O10",
+     "label": "Summit Gear (P / E) … Alpine Supply (P / E)",
+     "value": null
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "O12",
+   "label": "Maximum",
+   "header": "P / E",
+   "instruction": "Calculate Maximum for P / E.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s041",
+   "kind": "formula",
+   "expectedFormula": "=QUARTILE(L5:L10,3)",
+   "expectedValue": 1.766009,
+   "tolerance": 0.008830043859649101,
+   "functions": [
+    "QUARTILE"
+   ],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "L5:L10",
+     "label": "Summit Gear (EV / LTM revenue) … Alpine Supply (EV / LTM revenue)",
+     "value": null
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "L13",
+   "label": "75th percentile",
+   "header": "EV / LTM revenue",
+   "instruction": "Calculate 75th percentile for EV / LTM revenue.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s042",
+   "kind": "formula",
+   "expectedFormula": "=QUARTILE(M5:M10,3)",
+   "expectedValue": 10.508621,
+   "tolerance": 0.052543103448276,
+   "functions": [
+    "QUARTILE"
+   ],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "M5:M10",
+     "label": "Summit Gear (EV / LTM EBITDA) … Alpine Supply (EV / LTM EBITDA)",
+     "value": null
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "M13",
+   "label": "75th percentile",
+   "header": "EV / LTM EBITDA",
+   "instruction": "Calculate 75th percentile for EV / LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s043",
+   "kind": "formula",
+   "expectedFormula": "=QUARTILE(N5:N10,3)",
+   "expectedValue": 9.619501,
+   "tolerance": 0.0480975073313783,
+   "functions": [
+    "QUARTILE"
+   ],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "N5:N10",
+     "label": "Summit Gear (EV / NTM EBITDA) … Alpine Supply (EV / NTM EBITDA)",
+     "value": null
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "N13",
+   "label": "75th percentile",
+   "header": "EV / NTM EBITDA",
+   "instruction": "Calculate 75th percentile for EV / NTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s044",
+   "kind": "formula",
+   "expectedFormula": "=QUARTILE(O5:O10,3)",
+   "expectedValue": 18.783697,
+   "tolerance": 0.09391848523748401,
+   "functions": [
+    "QUARTILE"
+   ],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "O5:O10",
+     "label": "Summit Gear (P / E) … Alpine Supply (P / E)",
+     "value": null
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "O13",
+   "label": "75th percentile",
+   "header": "P / E",
+   "instruction": "Calculate 75th percentile for P / E.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s045",
+   "kind": "formula",
+   "expectedFormula": "=MEDIAN(L5:L10)",
+   "expectedValue": 1.616026,
+   "tolerance": 0.0080801282051282,
+   "functions": [
+    "MEDIAN"
+   ],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "L5:L10",
+     "label": "Summit Gear (EV / LTM revenue) … Alpine Supply (EV / LTM revenue)",
+     "value": null
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "L14",
+   "label": "Median",
+   "header": "EV / LTM revenue",
+   "instruction": "Calculate Median for EV / LTM revenue.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s046",
+   "kind": "formula",
+   "expectedFormula": "=MEDIAN(M5:M10)",
+   "expectedValue": 9.683908,
+   "tolerance": 0.048419540229885046,
+   "functions": [
+    "MEDIAN"
+   ],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "M5:M10",
+     "label": "Summit Gear (EV / LTM EBITDA) … Alpine Supply (EV / LTM EBITDA)",
+     "value": null
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "M14",
+   "label": "Median",
+   "header": "EV / LTM EBITDA",
+   "instruction": "Calculate Median for EV / LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s047",
+   "kind": "formula",
+   "expectedFormula": "=MEDIAN(N5:N10)",
+   "expectedValue": 9.068548,
+   "tolerance": 0.045342741935483856,
+   "functions": [
+    "MEDIAN"
+   ],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "N5:N10",
+     "label": "Summit Gear (EV / NTM EBITDA) … Alpine Supply (EV / NTM EBITDA)",
+     "value": null
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "N14",
+   "label": "Median",
+   "header": "EV / NTM EBITDA",
+   "instruction": "Calculate Median for EV / NTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s048",
+   "kind": "formula",
+   "expectedFormula": "=MEDIAN(O5:O10)",
+   "expectedValue": 18.263989,
+   "tolerance": 0.091319942611191,
+   "functions": [
+    "MEDIAN"
+   ],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "O5:O10",
+     "label": "Summit Gear (P / E) … Alpine Supply (P / E)",
+     "value": null
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "O14",
+   "label": "Median",
+   "header": "P / E",
+   "instruction": "Calculate Median for P / E.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s049",
+   "kind": "formula",
+   "expectedFormula": "=QUARTILE(L5:L10,1)",
+   "expectedValue": 1.528846,
+   "tolerance": 0.00764423076923075,
+   "functions": [
+    "QUARTILE"
+   ],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "L5:L10",
+     "label": "Summit Gear (EV / LTM revenue) … Alpine Supply (EV / LTM revenue)",
+     "value": null
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "L15",
+   "label": "25th percentile",
+   "header": "EV / LTM revenue",
+   "instruction": "Calculate 25th percentile for EV / LTM revenue.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s050",
+   "kind": "formula",
+   "expectedFormula": "=QUARTILE(M5:M10,1)",
+   "expectedValue": 8.583333,
+   "tolerance": 0.04291666666666665,
+   "functions": [
+    "QUARTILE"
+   ],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "M5:M10",
+     "label": "Summit Gear (EV / LTM EBITDA) … Alpine Supply (EV / LTM EBITDA)",
+     "value": null
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "M15",
+   "label": "25th percentile",
+   "header": "EV / LTM EBITDA",
+   "instruction": "Calculate 25th percentile for EV / LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s051",
+   "kind": "formula",
+   "expectedFormula": "=QUARTILE(N5:N10,1)",
+   "expectedValue": 7.907839,
+   "tolerance": 0.039539194915254254,
+   "functions": [
+    "QUARTILE"
+   ],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "N5:N10",
+     "label": "Summit Gear (EV / NTM EBITDA) … Alpine Supply (EV / NTM EBITDA)",
+     "value": null
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "N15",
+   "label": "25th percentile",
+   "header": "EV / NTM EBITDA",
+   "instruction": "Calculate 25th percentile for EV / NTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s052",
+   "kind": "formula",
+   "expectedFormula": "=QUARTILE(O5:O10,1)",
+   "expectedValue": 18.058824,
+   "tolerance": 0.090294117647059,
+   "functions": [
+    "QUARTILE"
+   ],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "O5:O10",
+     "label": "Summit Gear (P / E) … Alpine Supply (P / E)",
+     "value": null
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "O15",
+   "label": "25th percentile",
+   "header": "P / E",
+   "instruction": "Calculate 25th percentile for P / E.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s053",
+   "kind": "formula",
+   "expectedFormula": "=MIN(L5:L10)",
+   "expectedValue": 1.119048,
+   "tolerance": 0.0055952380952381,
+   "functions": [
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "L5:L10",
+     "label": "Summit Gear (EV / LTM revenue) … Alpine Supply (EV / LTM revenue)",
+     "value": null
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "L16",
+   "label": "Minimum",
+   "header": "EV / LTM revenue",
+   "instruction": "Calculate Minimum for EV / LTM revenue.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s054",
+   "kind": "formula",
+   "expectedFormula": "=MIN(M5:M10)",
+   "expectedValue": 7.704918,
+   "tolerance": 0.03852459016393445,
+   "functions": [
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "M5:M10",
+     "label": "Summit Gear (EV / LTM EBITDA) … Alpine Supply (EV / LTM EBITDA)",
+     "value": null
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "M16",
+   "label": "Minimum",
+   "header": "EV / LTM EBITDA",
+   "instruction": "Calculate Minimum for EV / LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s055",
+   "kind": "formula",
+   "expectedFormula": "=MIN(N5:N10)",
+   "expectedValue": 6.911765,
+   "tolerance": 0.034558823529411746,
+   "functions": [
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "N5:N10",
+     "label": "Summit Gear (EV / NTM EBITDA) … Alpine Supply (EV / NTM EBITDA)",
+     "value": null
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "N16",
+   "label": "Minimum",
+   "header": "EV / NTM EBITDA",
+   "instruction": "Calculate Minimum for EV / NTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s056",
+   "kind": "formula",
+   "expectedFormula": "=MIN(O5:O10)",
+   "expectedValue": 17.307692,
+   "tolerance": 0.0865384615384615,
+   "functions": [
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "O5:O10",
+     "label": "Summit Gear (P / E) … Alpine Supply (P / E)",
+     "value": null
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "O16",
+   "label": "Minimum",
+   "header": "P / E",
+   "instruction": "Calculate Minimum for P / E.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s057",
+   "kind": "formula",
+   "expectedFormula": "=B21",
+   "expectedValue": 350,
+   "tolerance": 1.75,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "B21",
+     "label": "LTM EBITDA (Share price)",
+     "value": 350
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "B29",
+   "label": "EV / LTM EBITDA",
+   "header": "Spartan metric",
+   "instruction": "Calculate EV / LTM EBITDA for Spartan metric.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s058",
+   "kind": "formula",
+   "expectedFormula": "=M15",
+   "expectedValue": 8.583333,
+   "tolerance": 0.04291666666666665,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "M15",
+     "label": "25th percentile (EV / LTM EBITDA)",
+     "value": 8.583333
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "C29",
+   "label": "EV / LTM EBITDA",
+   "header": "25th pct multiple",
+   "instruction": "Calculate EV / LTM EBITDA for 25th pct multiple.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s059",
+   "kind": "formula",
+   "expectedFormula": "=M13",
+   "expectedValue": 10.508621,
+   "tolerance": 0.052543103448276,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "M13",
+     "label": "75th percentile (EV / LTM EBITDA)",
+     "value": 10.508621
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "D29",
+   "label": "EV / LTM EBITDA",
+   "header": "75th pct multiple",
+   "instruction": "Calculate EV / LTM EBITDA for 75th pct multiple.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s060",
+   "kind": "formula",
+   "expectedFormula": "=B29*C29",
+   "expectedValue": 3004.166667,
+   "tolerance": 15.020833333333352,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "B29",
+     "label": "EV / LTM EBITDA (Spartan metric)",
+     "value": 350
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "C29",
+     "label": "EV / LTM EBITDA (25th pct multiple)",
+     "value": 8.583333
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "E29",
+   "label": "EV / LTM EBITDA",
+   "header": "Implied EV — low",
+   "instruction": "Calculate EV / LTM EBITDA for Implied EV — low.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s061",
+   "kind": "formula",
+   "expectedFormula": "=B29*D29",
+   "expectedValue": 3678.017241,
+   "tolerance": 18.390086206896548,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "B29",
+     "label": "EV / LTM EBITDA (Spartan metric)",
+     "value": 350
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "D29",
+     "label": "EV / LTM EBITDA (75th pct multiple)",
+     "value": 10.508621
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "F29",
+   "label": "EV / LTM EBITDA",
+   "header": "Implied EV — high",
+   "instruction": "Calculate EV / LTM EBITDA for Implied EV — high.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s062",
+   "kind": "formula",
+   "expectedFormula": "=(E29-$B$24+$B$25)/$B$26",
+   "expectedValue": 23.541667,
+   "tolerance": 0.1177083333333335,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "E29",
+     "label": "EV / LTM EBITDA (Implied EV — low)",
+     "value": 3004.166667
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "B24",
+     "label": "Debt (Share price)",
+     "value": 900
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "B25",
+     "label": "Cash (Share price)",
+     "value": 250
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "B26",
+     "label": "Diluted shares (mm) (Share price)",
+     "value": 100
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "G29",
+   "label": "EV / LTM EBITDA",
+   "header": "Price — low",
+   "instruction": "Calculate EV / LTM EBITDA for Price — low.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s063",
+   "kind": "formula",
+   "expectedFormula": "=(F29-$B$24+$B$25)/$B$26",
+   "expectedValue": 30.280172,
+   "tolerance": 0.1514008620689655,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "F29",
+     "label": "EV / LTM EBITDA (Implied EV — high)",
+     "value": 3678.017241
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "B24",
+     "label": "Debt (Share price)",
+     "value": 900
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "B25",
+     "label": "Cash (Share price)",
+     "value": 250
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "B26",
+     "label": "Diluted shares (mm) (Share price)",
+     "value": 100
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "H29",
+   "label": "EV / LTM EBITDA",
+   "header": "Price — high",
+   "instruction": "Calculate EV / LTM EBITDA for Price — high.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s064",
+   "kind": "formula",
+   "expectedFormula": "=B22",
+   "expectedValue": 396,
+   "tolerance": 1.98,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "B22",
+     "label": "NTM EBITDA (Share price)",
+     "value": 396
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "B30",
+   "label": "EV / NTM EBITDA",
+   "header": "Spartan metric",
+   "instruction": "Calculate EV / NTM EBITDA for Spartan metric.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s065",
+   "kind": "formula",
+   "expectedFormula": "=N15",
+   "expectedValue": 7.907839,
+   "tolerance": 0.039539194915254254,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "N15",
+     "label": "25th percentile (EV / NTM EBITDA)",
+     "value": 7.907839
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "C30",
+   "label": "EV / NTM EBITDA",
+   "header": "25th pct multiple",
+   "instruction": "Calculate EV / NTM EBITDA for 25th pct multiple.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s066",
+   "kind": "formula",
+   "expectedFormula": "=N13",
+   "expectedValue": 9.619501,
+   "tolerance": 0.0480975073313783,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "N13",
+     "label": "75th percentile (EV / NTM EBITDA)",
+     "value": 9.619501
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "D30",
+   "label": "EV / NTM EBITDA",
+   "header": "75th pct multiple",
+   "instruction": "Calculate EV / NTM EBITDA for 75th pct multiple.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s067",
+   "kind": "formula",
+   "expectedFormula": "=B30*C30",
+   "expectedValue": 3131.504237,
+   "tolerance": 15.6575211864407,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "B30",
+     "label": "EV / NTM EBITDA (Spartan metric)",
+     "value": 396
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "C30",
+     "label": "EV / NTM EBITDA (25th pct multiple)",
+     "value": 7.907839
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "E30",
+   "label": "EV / NTM EBITDA",
+   "header": "Implied EV — low",
+   "instruction": "Calculate EV / NTM EBITDA for Implied EV — low.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s068",
+   "kind": "formula",
+   "expectedFormula": "=B30*D30",
+   "expectedValue": 3809.322581,
+   "tolerance": 19.0466129032258,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "B30",
+     "label": "EV / NTM EBITDA (Spartan metric)",
+     "value": 396
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "D30",
+     "label": "EV / NTM EBITDA (75th pct multiple)",
+     "value": 9.619501
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "F30",
+   "label": "EV / NTM EBITDA",
+   "header": "Implied EV — high",
+   "instruction": "Calculate EV / NTM EBITDA for Implied EV — high.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s069",
+   "kind": "formula",
+   "expectedFormula": "=(E30-$B$24+$B$25)/$B$26",
+   "expectedValue": 24.815042,
+   "tolerance": 0.12407521186440701,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "E30",
+     "label": "EV / NTM EBITDA (Implied EV — low)",
+     "value": 3131.504237
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "B24",
+     "label": "Debt (Share price)",
+     "value": 900
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "B25",
+     "label": "Cash (Share price)",
+     "value": 250
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "B26",
+     "label": "Diluted shares (mm) (Share price)",
+     "value": 100
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "G30",
+   "label": "EV / NTM EBITDA",
+   "header": "Price — low",
+   "instruction": "Calculate EV / NTM EBITDA for Price — low.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s070",
+   "kind": "formula",
+   "expectedFormula": "=(F30-$B$24+$B$25)/$B$26",
+   "expectedValue": 31.593226,
+   "tolerance": 0.157966129032258,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "F30",
+     "label": "EV / NTM EBITDA (Implied EV — high)",
+     "value": 3809.322581
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "B24",
+     "label": "Debt (Share price)",
+     "value": 900
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "B25",
+     "label": "Cash (Share price)",
+     "value": 250
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "B26",
+     "label": "Diluted shares (mm) (Share price)",
+     "value": 100
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "H30",
+   "label": "EV / NTM EBITDA",
+   "header": "Price — high",
+   "instruction": "Calculate EV / NTM EBITDA for Price — high.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s071",
+   "kind": "formula",
+   "expectedFormula": "=B23",
+   "expectedValue": 1.8,
+   "tolerance": 0.009000000000000001,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "B23",
+     "label": "LTM EPS (Share price)",
+     "value": 1.8
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "B31",
+   "label": "P / E",
+   "header": "Spartan metric",
+   "instruction": "Calculate P / E for Spartan metric.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s072",
+   "kind": "formula",
+   "expectedFormula": "=O15",
+   "expectedValue": 18.058824,
+   "tolerance": 0.090294117647059,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "O15",
+     "label": "25th percentile (P / E)",
+     "value": 18.058824
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "C31",
+   "label": "P / E",
+   "header": "25th pct multiple",
+   "instruction": "Calculate P / E for 25th pct multiple.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s073",
+   "kind": "formula",
+   "expectedFormula": "=O13",
+   "expectedValue": 18.783697,
+   "tolerance": 0.09391848523748401,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "O13",
+     "label": "75th percentile (P / E)",
+     "value": 18.783697
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "D31",
+   "label": "P / E",
+   "header": "75th pct multiple",
+   "instruction": "Calculate P / E for 75th pct multiple.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s074",
+   "kind": "formula",
+   "expectedFormula": "=B31*C31",
+   "expectedValue": 32.505882,
+   "tolerance": 0.162529411764706,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "B31",
+     "label": "P / E (Spartan metric)",
+     "value": 1.8
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "C31",
+     "label": "P / E (25th pct multiple)",
+     "value": 18.058824
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "G31",
+   "label": "P / E",
+   "header": "Price — low",
+   "instruction": "Calculate P / E for Price — low.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s075",
+   "kind": "formula",
+   "expectedFormula": "=B31*D31",
+   "expectedValue": 33.810655,
+   "tolerance": 0.169053273427471,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "B31",
+     "label": "P / E (Spartan metric)",
+     "value": 1.8
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "D31",
+     "label": "P / E (75th pct multiple)",
+     "value": 18.783697
+    }
+   ],
+   "sheet": "Trading Comps",
+   "cell": "H31",
+   "label": "P / E",
+   "header": "Price — high",
+   "instruction": "Calculate P / E for Price — high.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s076",
+   "kind": "formula",
+   "expectedFormula": "=D5/E5",
+   "expectedValue": 1.833333,
+   "tolerance": 0.00916666666666665,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "D5",
+     "label": "Summit Gear (Transaction EV)",
+     "value": 1650
+    },
+    {
+     "sheet": "Precedents",
+     "ref": "E5",
+     "label": "Summit Gear (LTM revenue)",
+     "value": 900
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "G5",
+   "label": "Summit Gear",
+   "header": "EV / LTM revenue",
+   "instruction": "Calculate Summit Gear for EV / LTM revenue.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s077",
+   "kind": "formula",
+   "expectedFormula": "=D5/F5",
+   "expectedValue": 11,
+   "tolerance": 0.055,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "D5",
+     "label": "Summit Gear (Transaction EV)",
+     "value": 1650
+    },
+    {
+     "sheet": "Precedents",
+     "ref": "F5",
+     "label": "Summit Gear (LTM EBITDA)",
+     "value": 150
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "H5",
+   "label": "Summit Gear",
+   "header": "EV / LTM EBITDA",
+   "instruction": "Calculate Summit Gear for EV / LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s078",
+   "kind": "formula",
+   "expectedFormula": "=D6/E6",
+   "expectedValue": 1.846154,
+   "tolerance": 0.00923076923076925,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "D6",
+     "label": "Cedar Peak Capital (Transaction EV)",
+     "value": 2400
+    },
+    {
+     "sheet": "Precedents",
+     "ref": "E6",
+     "label": "Cedar Peak Capital (LTM revenue)",
+     "value": 1300
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "G6",
+   "label": "Cedar Peak Capital",
+   "header": "EV / LTM revenue",
+   "instruction": "Calculate Cedar Peak Capital for EV / LTM revenue.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s079",
+   "kind": "formula",
+   "expectedFormula": "=D6/F6",
+   "expectedValue": 11.428571,
+   "tolerance": 0.057142857142857,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "D6",
+     "label": "Cedar Peak Capital (Transaction EV)",
+     "value": 2400
+    },
+    {
+     "sheet": "Precedents",
+     "ref": "F6",
+     "label": "Cedar Peak Capital (LTM EBITDA)",
+     "value": 210
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "H6",
+   "label": "Cedar Peak Capital",
+   "header": "EV / LTM EBITDA",
+   "instruction": "Calculate Cedar Peak Capital for EV / LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s080",
+   "kind": "formula",
+   "expectedFormula": "=D7/E7",
+   "expectedValue": 1.633333,
+   "tolerance": 0.00816666666666665,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "D7",
+     "label": "Trailhead Brands (Transaction EV)",
+     "value": 980
+    },
+    {
+     "sheet": "Precedents",
+     "ref": "E7",
+     "label": "Trailhead Brands (LTM revenue)",
+     "value": 600
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "G7",
+   "label": "Trailhead Brands",
+   "header": "EV / LTM revenue",
+   "instruction": "Calculate Trailhead Brands for EV / LTM revenue.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s081",
+   "kind": "formula",
+   "expectedFormula": "=D7/F7",
+   "expectedValue": 10.315789,
+   "tolerance": 0.051578947368421,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "D7",
+     "label": "Trailhead Brands (Transaction EV)",
+     "value": 980
+    },
+    {
+     "sheet": "Precedents",
+     "ref": "F7",
+     "label": "Trailhead Brands (LTM EBITDA)",
+     "value": 95
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "H7",
+   "label": "Trailhead Brands",
+   "header": "EV / LTM EBITDA",
+   "instruction": "Calculate Trailhead Brands for EV / LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s082",
+   "kind": "formula",
+   "expectedFormula": "=D8/E8",
+   "expectedValue": 1.5,
+   "tolerance": 0.0075,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "D8",
+     "label": "Ridgeline Co. (Transaction EV)",
+     "value": 720
+    },
+    {
+     "sheet": "Precedents",
+     "ref": "E8",
+     "label": "Ridgeline Co. (LTM revenue)",
+     "value": 480
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "G8",
+   "label": "Ridgeline Co.",
+   "header": "EV / LTM revenue",
+   "instruction": "Calculate Ridgeline Co. for EV / LTM revenue.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s083",
+   "kind": "formula",
+   "expectedFormula": "=D8/F8",
+   "expectedValue": 10.285714,
+   "tolerance": 0.051428571428571504,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "D8",
+     "label": "Ridgeline Co. (Transaction EV)",
+     "value": 720
+    },
+    {
+     "sheet": "Precedents",
+     "ref": "F8",
+     "label": "Ridgeline Co. (LTM EBITDA)",
+     "value": 70
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "H8",
+   "label": "Ridgeline Co.",
+   "header": "EV / LTM EBITDA",
+   "instruction": "Calculate Ridgeline Co. for EV / LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s084",
+   "kind": "formula",
+   "expectedFormula": "=D9/E9",
+   "expectedValue": 1.857143,
+   "tolerance": 0.0092857142857143,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "D9",
+     "label": "Lakeshore Partners (Transaction EV)",
+     "value": 1300
+    },
+    {
+     "sheet": "Precedents",
+     "ref": "E9",
+     "label": "Lakeshore Partners (LTM revenue)",
+     "value": 700
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "G9",
+   "label": "Lakeshore Partners",
+   "header": "EV / LTM revenue",
+   "instruction": "Calculate Lakeshore Partners for EV / LTM revenue.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s085",
+   "kind": "formula",
+   "expectedFormula": "=D9/F9",
+   "expectedValue": 11.818182,
+   "tolerance": 0.059090909090909007,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "D9",
+     "label": "Lakeshore Partners (Transaction EV)",
+     "value": 1300
+    },
+    {
+     "sheet": "Precedents",
+     "ref": "F9",
+     "label": "Lakeshore Partners (LTM EBITDA)",
+     "value": 110
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "H9",
+   "label": "Lakeshore Partners",
+   "header": "EV / LTM EBITDA",
+   "instruction": "Calculate Lakeshore Partners for EV / LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s086",
+   "kind": "formula",
+   "expectedFormula": "=D10/E10",
+   "expectedValue": 1.6,
+   "tolerance": 0.008,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "D10",
+     "label": "Alpine Supply (Transaction EV)",
+     "value": 560
+    },
+    {
+     "sheet": "Precedents",
+     "ref": "E10",
+     "label": "Alpine Supply (LTM revenue)",
+     "value": 350
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "G10",
+   "label": "Alpine Supply",
+   "header": "EV / LTM revenue",
+   "instruction": "Calculate Alpine Supply for EV / LTM revenue.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s087",
+   "kind": "formula",
+   "expectedFormula": "=D10/F10",
+   "expectedValue": 9.333333,
+   "tolerance": 0.046666666666666655,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "D10",
+     "label": "Alpine Supply (Transaction EV)",
+     "value": 560
+    },
+    {
+     "sheet": "Precedents",
+     "ref": "F10",
+     "label": "Alpine Supply (LTM EBITDA)",
+     "value": 60
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "H10",
+   "label": "Alpine Supply",
+   "header": "EV / LTM EBITDA",
+   "instruction": "Calculate Alpine Supply for EV / LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s088",
+   "kind": "formula",
+   "expectedFormula": "=MAX(G5:G10)",
+   "expectedValue": 1.857143,
+   "tolerance": 0.0092857142857143,
+   "functions": [
+    "MAX"
+   ],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "G5:G10",
+     "label": "Summit Gear (EV / LTM revenue) … Alpine Supply (EV / LTM revenue)",
+     "value": null
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "G12",
+   "label": "Maximum",
+   "header": "EV / LTM revenue",
+   "instruction": "Calculate Maximum for EV / LTM revenue.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s089",
+   "kind": "formula",
+   "expectedFormula": "=MAX(H5:H10)",
+   "expectedValue": 11.818182,
+   "tolerance": 0.059090909090909007,
+   "functions": [
+    "MAX"
+   ],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "H5:H10",
+     "label": "Summit Gear (EV / LTM EBITDA) … Alpine Supply (EV / LTM EBITDA)",
+     "value": null
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "H12",
+   "label": "Maximum",
+   "header": "EV / LTM EBITDA",
+   "instruction": "Calculate Maximum for EV / LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s090",
+   "kind": "formula",
+   "expectedFormula": "=QUARTILE(G5:G10,3)",
+   "expectedValue": 1.842949,
+   "tolerance": 0.0092147435897436,
+   "functions": [
+    "QUARTILE"
+   ],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "G5:G10",
+     "label": "Summit Gear (EV / LTM revenue) … Alpine Supply (EV / LTM revenue)",
+     "value": null
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "G13",
+   "label": "75th percentile",
+   "header": "EV / LTM revenue",
+   "instruction": "Calculate 75th percentile for EV / LTM revenue.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s091",
+   "kind": "formula",
+   "expectedFormula": "=QUARTILE(H5:H10,3)",
+   "expectedValue": 11.321429,
+   "tolerance": 0.056607142857143,
+   "functions": [
+    "QUARTILE"
+   ],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "H5:H10",
+     "label": "Summit Gear (EV / LTM EBITDA) … Alpine Supply (EV / LTM EBITDA)",
+     "value": null
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "H13",
+   "label": "75th percentile",
+   "header": "EV / LTM EBITDA",
+   "instruction": "Calculate 75th percentile for EV / LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s092",
+   "kind": "formula",
+   "expectedFormula": "=MEDIAN(G5:G10)",
+   "expectedValue": 1.733333,
+   "tolerance": 0.00866666666666665,
+   "functions": [
+    "MEDIAN"
+   ],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "G5:G10",
+     "label": "Summit Gear (EV / LTM revenue) … Alpine Supply (EV / LTM revenue)",
+     "value": null
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "G14",
+   "label": "Median",
+   "header": "EV / LTM revenue",
+   "instruction": "Calculate Median for EV / LTM revenue.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s093",
+   "kind": "formula",
+   "expectedFormula": "=MEDIAN(H5:H10)",
+   "expectedValue": 10.657895,
+   "tolerance": 0.053289473684210505,
+   "functions": [
+    "MEDIAN"
+   ],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "H5:H10",
+     "label": "Summit Gear (EV / LTM EBITDA) … Alpine Supply (EV / LTM EBITDA)",
+     "value": null
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "H14",
+   "label": "Median",
+   "header": "EV / LTM EBITDA",
+   "instruction": "Calculate Median for EV / LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s094",
+   "kind": "formula",
+   "expectedFormula": "=QUARTILE(G5:G10,1)",
+   "expectedValue": 1.608333,
+   "tolerance": 0.00804166666666665,
+   "functions": [
+    "QUARTILE"
+   ],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "G5:G10",
+     "label": "Summit Gear (EV / LTM revenue) … Alpine Supply (EV / LTM revenue)",
+     "value": null
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "G15",
+   "label": "25th percentile",
+   "header": "EV / LTM revenue",
+   "instruction": "Calculate 25th percentile for EV / LTM revenue.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s095",
+   "kind": "formula",
+   "expectedFormula": "=QUARTILE(H5:H10,1)",
+   "expectedValue": 10.293233,
+   "tolerance": 0.051466165413534,
+   "functions": [
+    "QUARTILE"
+   ],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "H5:H10",
+     "label": "Summit Gear (EV / LTM EBITDA) … Alpine Supply (EV / LTM EBITDA)",
+     "value": null
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "H15",
+   "label": "25th percentile",
+   "header": "EV / LTM EBITDA",
+   "instruction": "Calculate 25th percentile for EV / LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s096",
+   "kind": "formula",
+   "expectedFormula": "=MIN(G5:G10)",
+   "expectedValue": 1.5,
+   "tolerance": 0.0075,
+   "functions": [
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "G5:G10",
+     "label": "Summit Gear (EV / LTM revenue) … Alpine Supply (EV / LTM revenue)",
+     "value": null
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "G16",
+   "label": "Minimum",
+   "header": "EV / LTM revenue",
+   "instruction": "Calculate Minimum for EV / LTM revenue.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s097",
+   "kind": "formula",
+   "expectedFormula": "=MIN(H5:H10)",
+   "expectedValue": 9.333333,
+   "tolerance": 0.046666666666666655,
+   "functions": [
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "H5:H10",
+     "label": "Summit Gear (EV / LTM EBITDA) … Alpine Supply (EV / LTM EBITDA)",
+     "value": null
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "H16",
+   "label": "Minimum",
+   "header": "EV / LTM EBITDA",
+   "instruction": "Calculate Minimum for EV / LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s098",
+   "kind": "formula",
+   "expectedFormula": "='Trading Comps'!B21",
+   "expectedValue": 350,
+   "tolerance": 1.75,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "B21",
+     "label": "LTM EBITDA (Share price)",
+     "value": 350
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "B19",
+   "label": "EV / LTM EBITDA",
+   "header": "Spartan LTM EBITDA",
+   "instruction": "Calculate EV / LTM EBITDA for Spartan LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s099",
+   "kind": "formula",
+   "expectedFormula": "=H15",
+   "expectedValue": 10.293233,
+   "tolerance": 0.051466165413534,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "H15",
+     "label": "25th percentile (EV / LTM EBITDA)",
+     "value": 10.293233
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "C19",
+   "label": "EV / LTM EBITDA",
+   "header": "25th pct",
+   "instruction": "Calculate EV / LTM EBITDA for 25th pct.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s100",
+   "kind": "formula",
+   "expectedFormula": "=H13",
+   "expectedValue": 11.321429,
+   "tolerance": 0.056607142857143,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "H13",
+     "label": "75th percentile (EV / LTM EBITDA)",
+     "value": 11.321429
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "D19",
+   "label": "EV / LTM EBITDA",
+   "header": "75th pct",
+   "instruction": "Calculate EV / LTM EBITDA for 75th pct.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s101",
+   "kind": "formula",
+   "expectedFormula": "=B19*C19",
+   "expectedValue": 3602.631579,
+   "tolerance": 18.01315789473685,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "B19",
+     "label": "EV / LTM EBITDA (Spartan LTM EBITDA)",
+     "value": 350
+    },
+    {
+     "sheet": "Precedents",
+     "ref": "C19",
+     "label": "EV / LTM EBITDA (25th pct)",
+     "value": 10.293233
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "E19",
+   "label": "EV / LTM EBITDA",
+   "header": "EV — low",
+   "instruction": "Calculate EV / LTM EBITDA for EV — low.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s102",
+   "kind": "formula",
+   "expectedFormula": "=B19*D19",
+   "expectedValue": 3962.5,
+   "tolerance": 19.8125,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "B19",
+     "label": "EV / LTM EBITDA (Spartan LTM EBITDA)",
+     "value": 350
+    },
+    {
+     "sheet": "Precedents",
+     "ref": "D19",
+     "label": "EV / LTM EBITDA (75th pct)",
+     "value": 11.321429
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "F19",
+   "label": "EV / LTM EBITDA",
+   "header": "EV — high",
+   "instruction": "Calculate EV / LTM EBITDA for EV — high.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s103",
+   "kind": "formula",
+   "expectedFormula": "=(E19-'Trading Comps'!$B$24+'Trading Comps'!$B$25)/'Trading Comps'!$B$26",
+   "expectedValue": 29.526316,
+   "tolerance": 0.1476315789473685,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "E19",
+     "label": "EV / LTM EBITDA (EV — low)",
+     "value": 3602.631579
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "B24",
+     "label": "Debt (Share price)",
+     "value": 900
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "B25",
+     "label": "Cash (Share price)",
+     "value": 250
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "B26",
+     "label": "Diluted shares (mm) (Share price)",
+     "value": 100
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "G19",
+   "label": "EV / LTM EBITDA",
+   "header": "Price — low",
+   "instruction": "Calculate EV / LTM EBITDA for Price — low.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s104",
+   "kind": "formula",
+   "expectedFormula": "=(F19-'Trading Comps'!$B$24+'Trading Comps'!$B$25)/'Trading Comps'!$B$26",
+   "expectedValue": 33.125,
+   "tolerance": 0.165625,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "F19",
+     "label": "EV / LTM EBITDA (EV — high)",
+     "value": 3962.5
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "B24",
+     "label": "Debt (Share price)",
+     "value": 900
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "B25",
+     "label": "Cash (Share price)",
+     "value": 250
+    },
+    {
+     "sheet": "Trading Comps",
+     "ref": "B26",
+     "label": "Diluted shares (mm) (Share price)",
+     "value": 100
+    }
+   ],
+   "sheet": "Precedents",
+   "cell": "H19",
+   "label": "EV / LTM EBITDA",
+   "header": "Price — high",
+   "instruction": "Calculate EV / LTM EBITDA for Price — high.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s105",
+   "kind": "text",
+   "expectedValue": "Acquirers pay a control premium (and strategics can pay for synergies), so transaction multiples usually exceed where comps trade.",
+   "options": null,
+   "sheet": "Precedents",
+   "cell": "A22",
+   "label": null,
+   "header": "Implied valuation",
+   "instruction": "Answer in a sentence or two: Why are precedent multiples higher than trading multiples here?",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s106",
+   "kind": "formula",
+   "expectedFormula": "='Trading Comps'!G29",
+   "expectedValue": 23.541667,
+   "tolerance": 0.1177083333333335,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "G29",
+     "label": "EV / LTM EBITDA (Price — low)",
+     "value": 23.541667
+    }
+   ],
+   "sheet": "Football Field",
+   "cell": "B6",
+   "label": "Trading comps — EV / LTM EBITDA",
+   "header": "Low ($/share)",
+   "instruction": "Calculate Trading comps — EV / LTM EBITDA for Low ($/share).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s107",
+   "kind": "formula",
+   "expectedFormula": "='Trading Comps'!H29",
+   "expectedValue": 30.280172,
+   "tolerance": 0.1514008620689655,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "H29",
+     "label": "EV / LTM EBITDA (Price — high)",
+     "value": 30.280172
+    }
+   ],
+   "sheet": "Football Field",
+   "cell": "C6",
+   "label": "Trading comps — EV / LTM EBITDA",
+   "header": "High ($/share)",
+   "instruction": "Calculate Trading comps — EV / LTM EBITDA for High ($/share).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s108",
+   "kind": "formula",
+   "expectedFormula": "='Trading Comps'!G30",
+   "expectedValue": 24.815042,
+   "tolerance": 0.12407521186440701,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "G30",
+     "label": "EV / NTM EBITDA (Price — low)",
+     "value": 24.815042
+    }
+   ],
+   "sheet": "Football Field",
+   "cell": "B7",
+   "label": "Trading comps — EV / NTM EBITDA",
+   "header": "Low ($/share)",
+   "instruction": "Calculate Trading comps — EV / NTM EBITDA for Low ($/share).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s109",
+   "kind": "formula",
+   "expectedFormula": "='Trading Comps'!H30",
+   "expectedValue": 31.593226,
+   "tolerance": 0.157966129032258,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "H30",
+     "label": "EV / NTM EBITDA (Price — high)",
+     "value": 31.593226
+    }
+   ],
+   "sheet": "Football Field",
+   "cell": "C7",
+   "label": "Trading comps — EV / NTM EBITDA",
+   "header": "High ($/share)",
+   "instruction": "Calculate Trading comps — EV / NTM EBITDA for High ($/share).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s110",
+   "kind": "formula",
+   "expectedFormula": "='Trading Comps'!G31",
+   "expectedValue": 32.505882,
+   "tolerance": 0.162529411764706,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "G31",
+     "label": "P / E (Price — low)",
+     "value": 32.505882
+    }
+   ],
+   "sheet": "Football Field",
+   "cell": "B8",
+   "label": "Trading comps — P / E",
+   "header": "Low ($/share)",
+   "instruction": "Calculate Trading comps — P / E for Low ($/share).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s111",
+   "kind": "formula",
+   "expectedFormula": "='Trading Comps'!H31",
+   "expectedValue": 33.810655,
+   "tolerance": 0.169053273427471,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Trading Comps",
+     "ref": "H31",
+     "label": "P / E (Price — high)",
+     "value": 33.810655
+    }
+   ],
+   "sheet": "Football Field",
+   "cell": "C8",
+   "label": "Trading comps — P / E",
+   "header": "High ($/share)",
+   "instruction": "Calculate Trading comps — P / E for High ($/share).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s112",
+   "kind": "formula",
+   "expectedFormula": "=Precedents!G19",
+   "expectedValue": 29.526316,
+   "tolerance": 0.1476315789473685,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "G19",
+     "label": "EV / LTM EBITDA (Price — low)",
+     "value": 29.526316
+    }
+   ],
+   "sheet": "Football Field",
+   "cell": "B9",
+   "label": "Precedent transactions — EV / LTM EBITDA",
+   "header": "Low ($/share)",
+   "instruction": "Calculate Precedent transactions — EV / LTM EBITDA for Low ($/share).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s113",
+   "kind": "formula",
+   "expectedFormula": "=Precedents!H19",
+   "expectedValue": 33.125,
+   "tolerance": 0.165625,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Precedents",
+     "ref": "H19",
+     "label": "EV / LTM EBITDA (Price — high)",
+     "value": 33.125
+    }
+   ],
+   "sheet": "Football Field",
+   "cell": "C9",
+   "label": "Precedent transactions — EV / LTM EBITDA",
+   "header": "High ($/share)",
+   "instruction": "Calculate Precedent transactions — EV / LTM EBITDA for High ($/share).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s114",
+   "kind": "value",
+   "expectedValue": 30.22,
+   "options": null,
+   "tolerance": 0.15109999999999998,
+   "sheet": "Football Field",
+   "cell": "B10",
+   "label": "DCF (from PEB_04 sensitivity range)",
+   "header": "Low ($/share)",
+   "instruction": "Calculate DCF (from PEB_04 sensitivity range) for Low ($/share).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s115",
+   "kind": "value",
+   "expectedValue": 42.27,
+   "options": null,
+   "tolerance": 0.21135,
+   "sheet": "Football Field",
+   "cell": "C10",
+   "label": "DCF (from PEB_04 sensitivity range)",
+   "header": "High ($/share)",
+   "instruction": "Calculate DCF (from PEB_04 sensitivity range) for High ($/share).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  }
+ ]
+}

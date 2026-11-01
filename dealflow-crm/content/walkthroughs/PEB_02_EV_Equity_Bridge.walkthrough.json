@@ -1,0 +1,1667 @@
+{
+ "workbookKey": "PEB_02_EV_Equity_Bridge",
+ "studentFile": "PEB_02_EV_Equity_Bridge.xlsx",
+ "answerKeyFile": "PEB_02_EV_Equity_Bridge_KEY.xlsx",
+ "sheets": [
+  "Diluted Shares",
+  "EV Bridge",
+  "Negative EV",
+  "EV vs Equity Scenarios"
+ ],
+ "stepCount": 71,
+ "steps": [
+  {
+   "id": "s001",
+   "kind": "formula-text",
+   "expectedFormula": "=IF(C8<$C$4,\"Yes\",\"No\")",
+   "expectedValue": "Yes",
+   "tolerance": null,
+   "functions": [
+    "IF"
+   ],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "C8",
+     "label": "Options — tranche 1 (Strike / conversion price)",
+     "value": 20
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "C4",
+     "label": "Current share price",
+     "value": 50
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "D8",
+   "label": "Options — tranche 1",
+   "header": "In the money?",
+   "instruction": "Calculate Options — tranche 1 for In the money?.",
+   "hint": "TSM: assume holders exercise, company uses the cash to buy back shares at today's price.",
+   "numberFormat": "General"
+  },
+  {
+   "id": "s002",
+   "kind": "formula",
+   "expectedFormula": "=IF(D8=\"Yes\",B8,0)",
+   "expectedValue": 5,
+   "tolerance": 0.025,
+   "functions": [
+    "IF"
+   ],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "D8",
+     "label": "Options — tranche 1 (In the money?)",
+     "value": "Yes"
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "B8",
+     "label": "Options — tranche 1 (Number (mm) / face ($mm))",
+     "value": 5
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "E8",
+   "label": "Options — tranche 1",
+   "header": "Shares if exercised (mm)",
+   "instruction": "Calculate Options — tranche 1 for Shares if exercised (mm).",
+   "hint": "TSM: assume holders exercise, company uses the cash to buy back shares at today's price.",
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s003",
+   "kind": "formula",
+   "expectedFormula": "=E8*C8",
+   "expectedValue": 100,
+   "tolerance": 0.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "E8",
+     "label": "Options — tranche 1 (Shares if exercised (mm))",
+     "value": 5
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "C8",
+     "label": "Options — tranche 1 (Strike / conversion price)",
+     "value": 20
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "F8",
+   "label": "Options — tranche 1",
+   "header": "Exercise proceeds ($mm)",
+   "instruction": "Calculate Options — tranche 1 for Exercise proceeds ($mm).",
+   "hint": "TSM: assume holders exercise, company uses the cash to buy back shares at today's price.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s004",
+   "kind": "formula",
+   "expectedFormula": "=F8/$C$4",
+   "expectedValue": 2,
+   "tolerance": 0.01,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "F8",
+     "label": "Options — tranche 1 (Exercise proceeds ($mm))",
+     "value": 100
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "C4",
+     "label": "Current share price",
+     "value": 50
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "G8",
+   "label": "Options — tranche 1",
+   "header": "Shares repurchased (mm)",
+   "instruction": "Calculate Options — tranche 1 for Shares repurchased (mm).",
+   "hint": "TSM: assume holders exercise, company uses the cash to buy back shares at today's price.",
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s005",
+   "kind": "formula",
+   "expectedFormula": "=E8-G8",
+   "expectedValue": 3,
+   "tolerance": 0.015,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "E8",
+     "label": "Options — tranche 1 (Shares if exercised (mm))",
+     "value": 5
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "G8",
+     "label": "Options — tranche 1 (Shares repurchased (mm))",
+     "value": 2
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "H8",
+   "label": "Options — tranche 1",
+   "header": "Net new shares (mm)",
+   "instruction": "Calculate Options — tranche 1 for Net new shares (mm).",
+   "hint": "TSM: assume holders exercise, company uses the cash to buy back shares at today's price.",
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s006",
+   "kind": "formula-text",
+   "expectedFormula": "=IF(C9<$C$4,\"Yes\",\"No\")",
+   "expectedValue": "Yes",
+   "tolerance": null,
+   "functions": [
+    "IF"
+   ],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "C9",
+     "label": "Options — tranche 2 (Strike / conversion price)",
+     "value": 40
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "C4",
+     "label": "Current share price",
+     "value": 50
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "D9",
+   "label": "Options — tranche 2",
+   "header": "In the money?",
+   "instruction": "Calculate Options — tranche 2 for In the money?.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s007",
+   "kind": "formula",
+   "expectedFormula": "=IF(D9=\"Yes\",B9,0)",
+   "expectedValue": 3,
+   "tolerance": 0.015,
+   "functions": [
+    "IF"
+   ],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "D9",
+     "label": "Options — tranche 2 (In the money?)",
+     "value": "Yes"
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "B9",
+     "label": "Options — tranche 2 (Number (mm) / face ($mm))",
+     "value": 3
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "E9",
+   "label": "Options — tranche 2",
+   "header": "Shares if exercised (mm)",
+   "instruction": "Calculate Options — tranche 2 for Shares if exercised (mm).",
+   "hint": null,
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s008",
+   "kind": "formula",
+   "expectedFormula": "=E9*C9",
+   "expectedValue": 120,
+   "tolerance": 0.6,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "E9",
+     "label": "Options — tranche 2 (Shares if exercised (mm))",
+     "value": 3
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "C9",
+     "label": "Options — tranche 2 (Strike / conversion price)",
+     "value": 40
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "F9",
+   "label": "Options — tranche 2",
+   "header": "Exercise proceeds ($mm)",
+   "instruction": "Calculate Options — tranche 2 for Exercise proceeds ($mm).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s009",
+   "kind": "formula",
+   "expectedFormula": "=F9/$C$4",
+   "expectedValue": 2.4,
+   "tolerance": 0.012,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "F9",
+     "label": "Options — tranche 2 (Exercise proceeds ($mm))",
+     "value": 120
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "C4",
+     "label": "Current share price",
+     "value": 50
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "G9",
+   "label": "Options — tranche 2",
+   "header": "Shares repurchased (mm)",
+   "instruction": "Calculate Options — tranche 2 for Shares repurchased (mm).",
+   "hint": null,
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s010",
+   "kind": "formula",
+   "expectedFormula": "=E9-G9",
+   "expectedValue": 0.6,
+   "tolerance": 0.003,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "E9",
+     "label": "Options — tranche 2 (Shares if exercised (mm))",
+     "value": 3
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "G9",
+     "label": "Options — tranche 2 (Shares repurchased (mm))",
+     "value": 2.4
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "H9",
+   "label": "Options — tranche 2",
+   "header": "Net new shares (mm)",
+   "instruction": "Calculate Options — tranche 2 for Net new shares (mm).",
+   "hint": null,
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s011",
+   "kind": "formula-text",
+   "expectedFormula": "=IF(C10<$C$4,\"Yes\",\"No\")",
+   "expectedValue": "No",
+   "tolerance": null,
+   "functions": [
+    "IF"
+   ],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "C10",
+     "label": "Options — tranche 3 (Strike / conversion price)",
+     "value": 60
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "C4",
+     "label": "Current share price",
+     "value": 50
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "D10",
+   "label": "Options — tranche 3",
+   "header": "In the money?",
+   "instruction": "Calculate Options — tranche 3 for In the money?.",
+   "hint": "Out of the money — nobody exercises an option to pay $60 for a $50 share.",
+   "numberFormat": "General"
+  },
+  {
+   "id": "s012",
+   "kind": "formula",
+   "expectedFormula": "=IF(D10=\"Yes\",B10,0)",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [
+    "IF"
+   ],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "D10",
+     "label": "Options — tranche 3 (In the money?)",
+     "value": "No"
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "B10",
+     "label": "Options — tranche 3 (Number (mm) / face ($mm))",
+     "value": 2
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "E10",
+   "label": "Options — tranche 3",
+   "header": "Shares if exercised (mm)",
+   "instruction": "Calculate Options — tranche 3 for Shares if exercised (mm).",
+   "hint": "Out of the money — nobody exercises an option to pay $60 for a $50 share.",
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s013",
+   "kind": "formula",
+   "expectedFormula": "=E10*C10",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "E10",
+     "label": "Options — tranche 3 (Shares if exercised (mm))",
+     "value": 0
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "C10",
+     "label": "Options — tranche 3 (Strike / conversion price)",
+     "value": 60
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "F10",
+   "label": "Options — tranche 3",
+   "header": "Exercise proceeds ($mm)",
+   "instruction": "Calculate Options — tranche 3 for Exercise proceeds ($mm).",
+   "hint": "Out of the money — nobody exercises an option to pay $60 for a $50 share.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s014",
+   "kind": "formula",
+   "expectedFormula": "=F10/$C$4",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "F10",
+     "label": "Options — tranche 3 (Exercise proceeds ($mm))",
+     "value": 0
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "C4",
+     "label": "Current share price",
+     "value": 50
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "G10",
+   "label": "Options — tranche 3",
+   "header": "Shares repurchased (mm)",
+   "instruction": "Calculate Options — tranche 3 for Shares repurchased (mm).",
+   "hint": "Out of the money — nobody exercises an option to pay $60 for a $50 share.",
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s015",
+   "kind": "formula",
+   "expectedFormula": "=E10-G10",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "E10",
+     "label": "Options — tranche 3 (Shares if exercised (mm))",
+     "value": 0
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "G10",
+     "label": "Options — tranche 3 (Shares repurchased (mm))",
+     "value": 0
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "H10",
+   "label": "Options — tranche 3",
+   "header": "Net new shares (mm)",
+   "instruction": "Calculate Options — tranche 3 for Net new shares (mm).",
+   "hint": "Out of the money — nobody exercises an option to pay $60 for a $50 share.",
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s016",
+   "kind": "formula-text",
+   "expectedFormula": "=IF(C11<$C$4,\"Yes\",\"No\")",
+   "expectedValue": "Yes",
+   "tolerance": null,
+   "functions": [
+    "IF"
+   ],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "C11",
+     "label": "Warrants (Strike / conversion price)",
+     "value": 45
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "C4",
+     "label": "Current share price",
+     "value": 50
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "D11",
+   "label": "Warrants",
+   "header": "In the money?",
+   "instruction": "Calculate Warrants for In the money?.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s017",
+   "kind": "formula",
+   "expectedFormula": "=IF(D11=\"Yes\",B11,0)",
+   "expectedValue": 1,
+   "tolerance": 0.005,
+   "functions": [
+    "IF"
+   ],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "D11",
+     "label": "Warrants (In the money?)",
+     "value": "Yes"
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "B11",
+     "label": "Warrants (Number (mm) / face ($mm))",
+     "value": 1
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "E11",
+   "label": "Warrants",
+   "header": "Shares if exercised (mm)",
+   "instruction": "Calculate Warrants for Shares if exercised (mm).",
+   "hint": null,
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s018",
+   "kind": "formula",
+   "expectedFormula": "=E11*C11",
+   "expectedValue": 45,
+   "tolerance": 0.225,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "E11",
+     "label": "Warrants (Shares if exercised (mm))",
+     "value": 1
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "C11",
+     "label": "Warrants (Strike / conversion price)",
+     "value": 45
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "F11",
+   "label": "Warrants",
+   "header": "Exercise proceeds ($mm)",
+   "instruction": "Calculate Warrants for Exercise proceeds ($mm).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s019",
+   "kind": "formula",
+   "expectedFormula": "=F11/$C$4",
+   "expectedValue": 0.9,
+   "tolerance": 0.0045000000000000005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "F11",
+     "label": "Warrants (Exercise proceeds ($mm))",
+     "value": 45
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "C4",
+     "label": "Current share price",
+     "value": 50
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "G11",
+   "label": "Warrants",
+   "header": "Shares repurchased (mm)",
+   "instruction": "Calculate Warrants for Shares repurchased (mm).",
+   "hint": null,
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s020",
+   "kind": "formula",
+   "expectedFormula": "=E11-G11",
+   "expectedValue": 0.1,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "E11",
+     "label": "Warrants (Shares if exercised (mm))",
+     "value": 1
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "G11",
+     "label": "Warrants (Shares repurchased (mm))",
+     "value": 0.9
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "H11",
+   "label": "Warrants",
+   "header": "Net new shares (mm)",
+   "instruction": "Calculate Warrants for Net new shares (mm).",
+   "hint": null,
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s021",
+   "kind": "text",
+   "expectedValue": "Yes",
+   "options": null,
+   "sheet": "Diluted Shares",
+   "cell": "D12",
+   "label": "Restricted stock units (RSUs)",
+   "header": "In the money?",
+   "instruction": "Answer in a sentence or two: Warrants",
+   "hint": "RSUs have no strike price: count them all.",
+   "numberFormat": "General"
+  },
+  {
+   "id": "s022",
+   "kind": "formula",
+   "expectedFormula": "=B12",
+   "expectedValue": 1.5,
+   "tolerance": 0.0075,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "B12",
+     "label": "Restricted stock units (RSUs) (Number (mm) / face ($mm))",
+     "value": 1.5
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "E12",
+   "label": "Restricted stock units (RSUs)",
+   "header": "Shares if exercised (mm)",
+   "instruction": "Calculate Restricted stock units (RSUs) for Shares if exercised (mm).",
+   "hint": "RSUs have no strike price: count them all.",
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s023",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Diluted Shares",
+   "cell": "F12",
+   "label": "Restricted stock units (RSUs)",
+   "header": "Exercise proceeds ($mm)",
+   "instruction": "Calculate Restricted stock units (RSUs) for Exercise proceeds ($mm).",
+   "hint": "RSUs have no strike price: count them all.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s024",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Diluted Shares",
+   "cell": "G12",
+   "label": "Restricted stock units (RSUs)",
+   "header": "Shares repurchased (mm)",
+   "instruction": "Calculate Restricted stock units (RSUs) for Shares repurchased (mm).",
+   "hint": "RSUs have no strike price: count them all.",
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s025",
+   "kind": "formula",
+   "expectedFormula": "=E12",
+   "expectedValue": 1.5,
+   "tolerance": 0.0075,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "E12",
+     "label": "Restricted stock units (RSUs) (Shares if exercised (mm))",
+     "value": 1.5
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "H12",
+   "label": "Restricted stock units (RSUs)",
+   "header": "Net new shares (mm)",
+   "instruction": "Calculate Restricted stock units (RSUs) for Net new shares (mm).",
+   "hint": "RSUs have no strike price: count them all.",
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s026",
+   "kind": "formula-text",
+   "expectedFormula": "=IF($C$4>C13,\"Yes\",\"No\")",
+   "expectedValue": "Yes",
+   "tolerance": null,
+   "functions": [
+    "IF"
+   ],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "C4",
+     "label": "Current share price",
+     "value": 50
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "C13",
+     "label": "Convertible bond (Strike / conversion price)",
+     "value": 40
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "D13",
+   "label": "Convertible bond",
+   "header": "In the money?",
+   "instruction": "Calculate Convertible bond for In the money?.",
+   "hint": "If-converted method: face value ÷ conversion price. No cash proceeds, so no buyback.",
+   "numberFormat": "General"
+  },
+  {
+   "id": "s027",
+   "kind": "formula",
+   "expectedFormula": "=IF(D13=\"Yes\",B13/C13,0)",
+   "expectedValue": 5,
+   "tolerance": 0.025,
+   "functions": [
+    "IF"
+   ],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "D13",
+     "label": "Convertible bond (In the money?)",
+     "value": "Yes"
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "B13",
+     "label": "Convertible bond (Number (mm) / face ($mm))",
+     "value": 200
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "C13",
+     "label": "Convertible bond (Strike / conversion price)",
+     "value": 40
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "E13",
+   "label": "Convertible bond",
+   "header": "Shares if exercised (mm)",
+   "instruction": "Calculate Convertible bond for Shares if exercised (mm).",
+   "hint": "If-converted method: face value ÷ conversion price. No cash proceeds, so no buyback.",
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s028",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Diluted Shares",
+   "cell": "F13",
+   "label": "Convertible bond",
+   "header": "Exercise proceeds ($mm)",
+   "instruction": "Calculate Convertible bond for Exercise proceeds ($mm).",
+   "hint": "If-converted method: face value ÷ conversion price. No cash proceeds, so no buyback.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s029",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "Diluted Shares",
+   "cell": "G13",
+   "label": "Convertible bond",
+   "header": "Shares repurchased (mm)",
+   "instruction": "Calculate Convertible bond for Shares repurchased (mm).",
+   "hint": "If-converted method: face value ÷ conversion price. No cash proceeds, so no buyback.",
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s030",
+   "kind": "formula",
+   "expectedFormula": "=E13",
+   "expectedValue": 5,
+   "tolerance": 0.025,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "E13",
+     "label": "Convertible bond (Shares if exercised (mm))",
+     "value": 5
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "H13",
+   "label": "Convertible bond",
+   "header": "Net new shares (mm)",
+   "instruction": "Calculate Convertible bond for Net new shares (mm).",
+   "hint": "If-converted method: face value ÷ conversion price. No cash proceeds, so no buyback.",
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s031",
+   "kind": "formula",
+   "expectedFormula": "=SUM(H8:H13)",
+   "expectedValue": 10.2,
+   "tolerance": 0.051,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "H8:H13",
+     "label": "Options — tranche 1 (Net new shares (mm)) … Convertible bond (Net new shares (mm))",
+     "value": null
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "H15",
+   "label": "Total net new shares (mm)",
+   "header": "Net new shares (mm)",
+   "instruction": "Calculate Total net new shares (mm) for Net new shares (mm).",
+   "hint": null,
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s032",
+   "kind": "formula",
+   "expectedFormula": "=C5+H15",
+   "expectedValue": 110.2,
+   "tolerance": 0.551,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "C5",
+     "label": "Basic shares outstanding (mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "H15",
+     "label": "Total net new shares (mm) (Net new shares (mm))",
+     "value": 10.2
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "H16",
+   "label": "Diluted shares outstanding (mm)",
+   "header": "Net new shares (mm)",
+   "instruction": "Calculate Diluted shares outstanding (mm) for Net new shares (mm).",
+   "hint": null,
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s033",
+   "kind": "formula",
+   "expectedFormula": "=H16*C4",
+   "expectedValue": 5510,
+   "tolerance": 27.55,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "H16",
+     "label": "Diluted shares outstanding (mm) (Net new shares (mm))",
+     "value": 110.2
+    },
+    {
+     "sheet": "Diluted Shares",
+     "ref": "C4",
+     "label": "Current share price",
+     "value": 50
+    }
+   ],
+   "sheet": "Diluted Shares",
+   "cell": "H17",
+   "label": "Diluted equity value ($mm)",
+   "header": "Net new shares (mm)",
+   "instruction": "Calculate Diluted equity value ($mm) for Net new shares (mm).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s034",
+   "kind": "formula",
+   "expectedFormula": "='Diluted Shares'!H17",
+   "expectedValue": 5510,
+   "tolerance": 27.55,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "H17",
+     "label": "Diluted equity value ($mm) (Net new shares (mm))",
+     "value": 5510
+    }
+   ],
+   "sheet": "EV Bridge",
+   "cell": "C4",
+   "label": "Diluted equity value",
+   "header": "Value",
+   "instruction": "Calculate Diluted equity value for Value.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s035",
+   "kind": "formula",
+   "expectedFormula": "=C4+C5+C6+C7-C8-C9",
+   "expectedValue": 6090,
+   "tolerance": 30.45,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "EV Bridge",
+     "ref": "C4",
+     "label": "Diluted equity value (Value)",
+     "value": 5510
+    },
+    {
+     "sheet": "EV Bridge",
+     "ref": "C5",
+     "label": "Plus: total debt (excl. converted bond) (Value)",
+     "value": 800
+    },
+    {
+     "sheet": "EV Bridge",
+     "ref": "C6",
+     "label": "Plus: preferred stock (Value)",
+     "value": 150
+    },
+    {
+     "sheet": "EV Bridge",
+     "ref": "C7",
+     "label": "Plus: noncontrolling interest (Value)",
+     "value": 120
+    },
+    {
+     "sheet": "EV Bridge",
+     "ref": "C8",
+     "label": "Less: cash & equivalents (Value)",
+     "value": 400
+    },
+    {
+     "sheet": "EV Bridge",
+     "ref": "C9",
+     "label": "Less: equity investments (Value)",
+     "value": 90
+    }
+   ],
+   "sheet": "EV Bridge",
+   "cell": "C10",
+   "label": "Enterprise value",
+   "header": "Value",
+   "instruction": "Calculate Enterprise value for Value.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s036",
+   "kind": "formula",
+   "expectedFormula": "=C10/C12",
+   "expectedValue": 10.15,
+   "tolerance": 0.05075,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "EV Bridge",
+     "ref": "C10",
+     "label": "Enterprise value (Value)",
+     "value": 6090
+    },
+    {
+     "sheet": "EV Bridge",
+     "ref": "C12",
+     "label": "LTM EBITDA (Value)",
+     "value": 600
+    }
+   ],
+   "sheet": "EV Bridge",
+   "cell": "C14",
+   "label": "EV / EBITDA",
+   "header": "Value",
+   "instruction": "Calculate EV / EBITDA for Value.",
+   "hint": "EV metric ↔ EV multiple.",
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s037",
+   "kind": "formula",
+   "expectedFormula": "=C4/C13",
+   "expectedValue": 22.04,
+   "tolerance": 0.11019999999999999,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "EV Bridge",
+     "ref": "C4",
+     "label": "Diluted equity value (Value)",
+     "value": 5510
+    },
+    {
+     "sheet": "EV Bridge",
+     "ref": "C13",
+     "label": "LTM net income (Value)",
+     "value": 250
+    }
+   ],
+   "sheet": "EV Bridge",
+   "cell": "C15",
+   "label": "P / E",
+   "header": "Value",
+   "instruction": "Calculate P / E for Value.",
+   "hint": "Equity value ↔ net income (after interest).",
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s038",
+   "kind": "formula",
+   "expectedFormula": "=C18*C12",
+   "expectedValue": 6600,
+   "tolerance": 33.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "EV Bridge",
+     "ref": "C18",
+     "label": "Comps median EV / EBITDA (Value)",
+     "value": 11
+    },
+    {
+     "sheet": "EV Bridge",
+     "ref": "C12",
+     "label": "LTM EBITDA (Value)",
+     "value": 600
+    }
+   ],
+   "sheet": "EV Bridge",
+   "cell": "C19",
+   "label": "Implied enterprise value",
+   "header": "Value",
+   "instruction": "Calculate Implied enterprise value for Value.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s039",
+   "kind": "formula",
+   "expectedFormula": "=C19-C5-C6-C7+C8+C9",
+   "expectedValue": 6020,
+   "tolerance": 30.1,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "EV Bridge",
+     "ref": "C19",
+     "label": "Implied enterprise value (Value)",
+     "value": 6600
+    },
+    {
+     "sheet": "EV Bridge",
+     "ref": "C5",
+     "label": "Plus: total debt (excl. converted bond) (Value)",
+     "value": 800
+    },
+    {
+     "sheet": "EV Bridge",
+     "ref": "C6",
+     "label": "Plus: preferred stock (Value)",
+     "value": 150
+    },
+    {
+     "sheet": "EV Bridge",
+     "ref": "C7",
+     "label": "Plus: noncontrolling interest (Value)",
+     "value": 120
+    },
+    {
+     "sheet": "EV Bridge",
+     "ref": "C8",
+     "label": "Less: cash & equivalents (Value)",
+     "value": 400
+    },
+    {
+     "sheet": "EV Bridge",
+     "ref": "C9",
+     "label": "Less: equity investments (Value)",
+     "value": 90
+    }
+   ],
+   "sheet": "EV Bridge",
+   "cell": "C20",
+   "label": "Implied equity value",
+   "header": "Value",
+   "instruction": "Calculate Implied equity value for Value.",
+   "hint": "Run the bridge backwards: subtract debt-like claims, add back cash and investments.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s040",
+   "kind": "formula",
+   "expectedFormula": "='Diluted Shares'!H16",
+   "expectedValue": 110.2,
+   "tolerance": 0.551,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Diluted Shares",
+     "ref": "H16",
+     "label": "Diluted shares outstanding (mm) (Net new shares (mm))",
+     "value": 110.2
+    }
+   ],
+   "sheet": "EV Bridge",
+   "cell": "C21",
+   "label": "Diluted shares (mm)",
+   "header": "Value",
+   "instruction": "Calculate Diluted shares (mm) for Value.",
+   "hint": null,
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s041",
+   "kind": "formula",
+   "expectedFormula": "=C20/C21",
+   "expectedValue": 54.627949,
+   "tolerance": 0.2731397459165155,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "EV Bridge",
+     "ref": "C20",
+     "label": "Implied equity value (Value)",
+     "value": 6020
+    },
+    {
+     "sheet": "EV Bridge",
+     "ref": "C21",
+     "label": "Diluted shares (mm) (Value)",
+     "value": 110.2
+    }
+   ],
+   "sheet": "EV Bridge",
+   "cell": "C22",
+   "label": "Implied share price",
+   "header": "Value",
+   "instruction": "Calculate Implied share price for Value.",
+   "hint": "Simplification: dilution really depends on the implied price (circular). Using current diluted shares is fine here.",
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s042",
+   "kind": "formula",
+   "expectedFormula": "=C4*C5",
+   "expectedValue": 150,
+   "tolerance": 0.75,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Negative EV",
+     "ref": "C4",
+     "label": "Share price",
+     "value": 3
+    },
+    {
+     "sheet": "Negative EV",
+     "ref": "C5",
+     "label": "Diluted shares (mm)",
+     "value": 50
+    }
+   ],
+   "sheet": "Negative EV",
+   "cell": "C6",
+   "label": "Equity value (market cap)",
+   "header": null,
+   "instruction": "Calculate Equity value (market cap).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s043",
+   "kind": "formula",
+   "expectedFormula": "=C6+C7-C8",
+   "expectedValue": -90,
+   "tolerance": 0.45,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Negative EV",
+     "ref": "C6",
+     "label": "Equity value (market cap)",
+     "value": 150
+    },
+    {
+     "sheet": "Negative EV",
+     "ref": "C7",
+     "label": "Plus: debt",
+     "value": 20
+    },
+    {
+     "sheet": "Negative EV",
+     "ref": "C8",
+     "label": "Less: cash",
+     "value": 260
+    }
+   ],
+   "sheet": "Negative EV",
+   "cell": "C9",
+   "label": "Enterprise value",
+   "header": null,
+   "instruction": "Calculate Enterprise value.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s044",
+   "kind": "text",
+   "expectedValue": "Investors value the operating business at less than zero — they expect it to burn through its cash, or don't trust management to return it to shareholders.",
+   "options": null,
+   "sheet": "Negative EV",
+   "cell": "A12",
+   "label": null,
+   "header": null,
+   "instruction": "Answer in a sentence or two: What is the market telling you? (one sentence)",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s045",
+   "kind": "choice",
+   "expectedValue": "Up",
+   "options": [
+    "Up",
+    "Down",
+    "No change"
+   ],
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "B5",
+   "label": "Issue $100 of new stock and hold the cash",
+   "header": "Equity value",
+   "instruction": "Issue $100 of new stock and hold the cash: choose equity value from the list.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s046",
+   "kind": "choice",
+   "expectedValue": "No change",
+   "options": [
+    "Up",
+    "Down",
+    "No change"
+   ],
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "C5",
+   "label": "Issue $100 of new stock and hold the cash",
+   "header": "Enterprise value",
+   "instruction": "Issue $100 of new stock and hold the cash: choose enterprise value from the list.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s047",
+   "kind": "text",
+   "expectedValue": "Equity up $100; cash up $100 is subtracted in the bridge, so EV is flat.",
+   "options": null,
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "D5",
+   "label": "Issue $100 of new stock and hold the cash",
+   "header": "Why",
+   "instruction": "Answer in a sentence or two: Scenario",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s048",
+   "kind": "choice",
+   "expectedValue": "No change",
+   "options": [
+    "Up",
+    "Down",
+    "No change"
+   ],
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "B6",
+   "label": "Issue $100 of debt and hold the cash",
+   "header": "Equity value",
+   "instruction": "Issue $100 of debt and hold the cash: choose equity value from the list.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s049",
+   "kind": "choice",
+   "expectedValue": "No change",
+   "options": [
+    "Up",
+    "Down",
+    "No change"
+   ],
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "C6",
+   "label": "Issue $100 of debt and hold the cash",
+   "header": "Enterprise value",
+   "instruction": "Issue $100 of debt and hold the cash: choose enterprise value from the list.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s050",
+   "kind": "text",
+   "expectedValue": "Debt +$100 and cash +$100 offset in the bridge.",
+   "options": null,
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "D6",
+   "label": "Issue $100 of debt and hold the cash",
+   "header": "Why",
+   "instruction": "Answer in a sentence or two: Issue $100 of new stock and hold the cash",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s051",
+   "kind": "choice",
+   "expectedValue": "No change",
+   "options": [
+    "Up",
+    "Down",
+    "No change"
+   ],
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "B7",
+   "label": "Issue $100 of debt and spend it on PP&E",
+   "header": "Equity value",
+   "instruction": "Issue $100 of debt and spend it on PP&E: choose equity value from the list.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s052",
+   "kind": "choice",
+   "expectedValue": "Up",
+   "options": [
+    "Up",
+    "Down",
+    "No change"
+   ],
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "C7",
+   "label": "Issue $100 of debt and spend it on PP&E",
+   "header": "Enterprise value",
+   "instruction": "Issue $100 of debt and spend it on PP&E: choose enterprise value from the list.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s053",
+   "kind": "text",
+   "expectedValue": "Core operations got bigger; financed with debt, so equity is unchanged.",
+   "options": null,
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "D7",
+   "label": "Issue $100 of debt and spend it on PP&E",
+   "header": "Why",
+   "instruction": "Answer in a sentence or two: Issue $100 of debt and hold the cash",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s054",
+   "kind": "choice",
+   "expectedValue": "Down",
+   "options": [
+    "Up",
+    "Down",
+    "No change"
+   ],
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "B8",
+   "label": "Pay a $50 dividend",
+   "header": "Equity value",
+   "instruction": "Pay a $50 dividend: choose equity value from the list.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s055",
+   "kind": "choice",
+   "expectedValue": "No change",
+   "options": [
+    "Up",
+    "Down",
+    "No change"
+   ],
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "C8",
+   "label": "Pay a $50 dividend",
+   "header": "Enterprise value",
+   "instruction": "Pay a $50 dividend: choose enterprise value from the list.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s056",
+   "kind": "text",
+   "expectedValue": "Cash leaves to shareholders; operations are untouched.",
+   "options": null,
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "D8",
+   "label": "Pay a $50 dividend",
+   "header": "Why",
+   "instruction": "Answer in a sentence or two: Issue $100 of debt and spend it on PP&E",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s057",
+   "kind": "choice",
+   "expectedValue": "No change",
+   "options": [
+    "Up",
+    "Down",
+    "No change"
+   ],
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "B9",
+   "label": "Use $100 of cash to buy 100% of another company",
+   "header": "Equity value",
+   "instruction": "Use $100 of cash to buy 100% of another company: choose equity value from the list.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s058",
+   "kind": "choice",
+   "expectedValue": "Up",
+   "options": [
+    "Up",
+    "Down",
+    "No change"
+   ],
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "C9",
+   "label": "Use $100 of cash to buy 100% of another company",
+   "header": "Enterprise value",
+   "instruction": "Use $100 of cash to buy 100% of another company: choose enterprise value from the list.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s059",
+   "kind": "text",
+   "expectedValue": "Swap non-operating cash for an operating business.",
+   "options": null,
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "D9",
+   "label": "Use $100 of cash to buy 100% of another company",
+   "header": "Why",
+   "instruction": "Answer in a sentence or two: Pay a $50 dividend",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s060",
+   "kind": "choice",
+   "expectedValue": "Down",
+   "options": [
+    "Up",
+    "Down",
+    "No change"
+   ],
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "B10",
+   "label": "Repurchase $100 of stock with cash",
+   "header": "Equity value",
+   "instruction": "Repurchase $100 of stock with cash: choose equity value from the list.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s061",
+   "kind": "choice",
+   "expectedValue": "No change",
+   "options": [
+    "Up",
+    "Down",
+    "No change"
+   ],
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "C10",
+   "label": "Repurchase $100 of stock with cash",
+   "header": "Enterprise value",
+   "instruction": "Repurchase $100 of stock with cash: choose enterprise value from the list.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s062",
+   "kind": "text",
+   "expectedValue": "Fewer shares, less cash — equity down, core business unchanged.",
+   "options": null,
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "D10",
+   "label": "Repurchase $100 of stock with cash",
+   "header": "Why",
+   "instruction": "Answer in a sentence or two: Use $100 of cash to buy 100% of another company",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s063",
+   "kind": "choice",
+   "expectedValue": "Up",
+   "options": [
+    "Up",
+    "Down",
+    "No change"
+   ],
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "B11",
+   "label": "A convertible bond converts into shares",
+   "header": "Equity value",
+   "instruction": "A convertible bond converts into shares: choose equity value from the list.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s064",
+   "kind": "choice",
+   "expectedValue": "No change",
+   "options": [
+    "Up",
+    "Down",
+    "No change"
+   ],
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "C11",
+   "label": "A convertible bond converts into shares",
+   "header": "Enterprise value",
+   "instruction": "A convertible bond converts into shares: choose enterprise value from the list.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s065",
+   "kind": "text",
+   "expectedValue": "Debt becomes equity; total claims on the business are the same.",
+   "options": null,
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "D11",
+   "label": "A convertible bond converts into shares",
+   "header": "Why",
+   "instruction": "Answer in a sentence or two: Repurchase $100 of stock with cash",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s066",
+   "kind": "choice",
+   "expectedValue": "No change",
+   "options": [
+    "Up",
+    "Down",
+    "No change"
+   ],
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "B12",
+   "label": "Use $100 of cash to repay debt",
+   "header": "Equity value",
+   "instruction": "Use $100 of cash to repay debt: choose equity value from the list.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s067",
+   "kind": "choice",
+   "expectedValue": "No change",
+   "options": [
+    "Up",
+    "Down",
+    "No change"
+   ],
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "C12",
+   "label": "Use $100 of cash to repay debt",
+   "header": "Enterprise value",
+   "instruction": "Use $100 of cash to repay debt: choose enterprise value from the list.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s068",
+   "kind": "text",
+   "expectedValue": "Cash −$100 and debt −$100 offset.",
+   "options": null,
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "D12",
+   "label": "Use $100 of cash to repay debt",
+   "header": "Why",
+   "instruction": "Answer in a sentence or two: A convertible bond converts into shares",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s069",
+   "kind": "choice",
+   "expectedValue": "Up",
+   "options": [
+    "Up",
+    "Down",
+    "No change"
+   ],
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "B13",
+   "label": "Share price jumps 10% after an earnings beat",
+   "header": "Equity value",
+   "instruction": "Share price jumps 10% after an earnings beat: choose equity value from the list.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s070",
+   "kind": "choice",
+   "expectedValue": "Up",
+   "options": [
+    "Up",
+    "Down",
+    "No change"
+   ],
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "C13",
+   "label": "Share price jumps 10% after an earnings beat",
+   "header": "Enterprise value",
+   "instruction": "Share price jumps 10% after an earnings beat: choose enterprise value from the list.",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s071",
+   "kind": "text",
+   "expectedValue": "Market now values the business higher; debt and cash unchanged.",
+   "options": null,
+   "sheet": "EV vs Equity Scenarios",
+   "cell": "D13",
+   "label": "Share price jumps 10% after an earnings beat",
+   "header": "Why",
+   "instruction": "Answer in a sentence or two: Use $100 of cash to repay debt",
+   "hint": null,
+   "numberFormat": "General"
+  }
+ ]
+}

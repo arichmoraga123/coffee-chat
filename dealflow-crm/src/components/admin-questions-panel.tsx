@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Modal } from "@/components/ui/modal";
+import { BulkActionBar, SelectCheckbox, downloadCsv, useBulkSelection } from "@/components/ui/bulk";
+import { Select } from "@/components/ui/select";
 
 type QRow = {
   id: string;
@@ -37,6 +39,7 @@ export function AdminQuestionsPanel() {
   const [bulkText, setBulkText] = useState("");
   const [edit, setEdit] = useState<QRow | null>(null);
   const [editErrors, setEditErrors] = useState<string[]>([]);
+  const sel = useBulkSelection(rows.map((r) => r.id));
 
   const load = useCallback(async () => {
     const params = new URLSearchParams();
@@ -184,8 +187,8 @@ export function AdminQuestionsPanel() {
       <Card className="border-border bg-surface p-3">
         <div className="mb-3 flex flex-wrap gap-2">
           <Input placeholder="Search…" value={q} onChange={(e) => setQ(e.target.value)} className="max-w-xs" />
-          <select
-            className="rounded border border-border-strong bg-surface px-2 py-1.5 text-xs"
+          <Select
+            
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -195,9 +198,9 @@ export function AdminQuestionsPanel() {
                 {c}
               </option>
             ))}
-          </select>
-          <select
-            className="rounded border border-border-strong bg-surface px-2 py-1.5 text-xs"
+          </Select>
+          <Select
+            
             value={difficulty}
             onChange={(e) => setDifficulty(e.target.value)}
           >
@@ -206,9 +209,9 @@ export function AdminQuestionsPanel() {
                 {d}
               </option>
             ))}
-          </select>
-          <select
-            className="rounded border border-border-strong bg-surface px-2 py-1.5 text-xs"
+          </Select>
+          <Select
+            
             value={status}
             onChange={(e) => setStatus(e.target.value)}
           >
@@ -217,7 +220,7 @@ export function AdminQuestionsPanel() {
                 {s}
               </option>
             ))}
-          </select>
+          </Select>
           <Button size="sm" variant="outline" onClick={() => void load()}>
             Apply
           </Button>
@@ -227,6 +230,9 @@ export function AdminQuestionsPanel() {
           <table className="w-full min-w-[720px] border-collapse text-left text-[11px]">
             <thead>
               <tr className="border-b border-border text-[10px] uppercase text-ink-3">
+                <th className="w-8 py-2 pr-2">
+                  <SelectCheckbox checked={sel.pageAllSelected} onToggle={() => sel.togglePage()} label="Select all questions" />
+                </th>
                 <th className="py-2 pr-2">Question</th>
                 <th className="py-2 pr-2">Cat</th>
                 <th className="py-2 pr-2">Diff</th>
@@ -238,6 +244,9 @@ export function AdminQuestionsPanel() {
             <tbody>
               {rows.map((r) => (
                 <tr key={r.id} className="border-b border-border">
+                  <td className="py-2 pr-2 align-top">
+                    <SelectCheckbox checked={sel.has(r.id)} onToggle={(e) => sel.toggle(r.id, e)} label="Select question" />
+                  </td>
                   <td className="max-w-xs py-2 pr-2 align-top text-ink">
                     <span className="line-clamp-2">{r.question}</span>
                   </td>
@@ -351,15 +360,15 @@ export function AdminQuestionsPanel() {
                 placeholder="Category"
                 onChange={(e) => setEdit({ ...edit, category: e.target.value })}
               />
-              <select
-                className="rounded border border-border-strong bg-surface px-2"
+              <Select
+                
                 value={edit.difficulty}
                 onChange={(e) => setEdit({ ...edit, difficulty: e.target.value })}
               >
                 {["Easy", "Medium", "Hard"].map((d) => (
                   <option key={d}>{d}</option>
                 ))}
-              </select>
+              </Select>
               <Input
                 value={edit.lessonId ? edit.lessonId.replace("-", ".") : ""}
                 placeholder="Lesson, e.g. 2.2"
@@ -378,8 +387,8 @@ export function AdminQuestionsPanel() {
                 })
               }
             />
-            <select
-              className="w-full rounded border border-border-strong bg-surface px-2 py-2"
+            <Select
+              className="w-full"
               value={edit.status}
               onChange={(e) => setEdit({ ...edit, status: e.target.value })}
             >
@@ -388,7 +397,7 @@ export function AdminQuestionsPanel() {
                   {s}
                 </option>
               ))}
-            </select>
+            </Select>
             {editErrors.length ? (
               <ul className="list-disc rounded border border-danger bg-danger-bg p-2 pl-5 text-danger">
                 {editErrors.map((e) => (
@@ -405,6 +414,24 @@ export function AdminQuestionsPanel() {
           </div>
         ) : null}
       </Modal>
+      <BulkActionBar
+        entity="questions"
+        noun={["question", "questions"]}
+        sel={sel}
+        fields={[
+          { key: "status", label: "Status", type: "select", options: ["active", "pending", "rejected", "archived"].map((v) => ({ value: v, label: v })) },
+          { key: "difficulty", label: "Difficulty", type: "select", options: ["Easy", "Medium", "Hard"].map((v) => ({ value: v, label: v })) },
+          { key: "category", label: "Category", type: "text" },
+        ]}
+        actions={[
+          { key: "export", label: "Export CSV", client: (ids) => downloadCsv("questions.csv", ["Question", "Answer", "Category", "Difficulty", "Status"], rows.filter((r) => ids.includes(r.id)).map((r) => [r.question, r.answer, r.category, r.difficulty, r.status])) },
+          { key: "delete", label: "Archive", danger: true },
+        ]}
+        onChange={() => {
+          void load();
+          void loadPending();
+        }}
+      />
     </div>
   );
 }

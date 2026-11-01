@@ -8,7 +8,7 @@ export default async function FirmsPage() {
   const userId = await requireUserId();
   const firms = await prisma.firm.findMany({
     where: { userId },
-    include: { _count: { select: { contacts: true, opportunities: true } } },
+    include: { _count: { select: { contacts: { where: { deletedAt: null } }, opportunities: true } } },
     orderBy: { name: "asc" },
   });
 

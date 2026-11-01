@@ -4,12 +4,14 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { BulkActionBar, SelectCheckbox, downloadCsv, useBulkSelection } from "@/components/ui/bulk";
+import { Select } from "@/components/ui/select";
 
 type Entry = {
   id: string;
   email: string;
   name: string | null;
-  role: "member" | "admin";
+  role: "member" | "officer" | "admin";
   active: boolean;
   signedUp: boolean;
   lastActiveAt: string | null;
@@ -22,7 +24,7 @@ type JoinRequest = {
   eduEmail: string | null;
   createdAt: string;
 };
-type PreviewRow = { email: string; name: string | null; role: "member" | "admin"; status: "new" | "existing" | "reactivate" };
+type PreviewRow = { email: string; name: string | null; role: "member" | "officer" | "admin"; status: "new" | "existing" | "reactivate" };
 type Filter = "all" | "not-signed-up" | "inactive-14" | "deactivated";
 
 const DAY = 86_400_000;
@@ -138,6 +140,7 @@ export function RosterAdmin() {
       return true;
     });
   }, [entries, filter, search]);
+  const sel = useBulkSelection(shown.map((e) => e.id));
 
   return (
     <div className="space-y-6">
@@ -228,8 +231,8 @@ export function RosterAdmin() {
                       <td className="px-3 py-1.5 text-ink">{r.name ?? <span className="text-ink-3">(no name)</span>}</td>
                       <td className="px-3 py-1.5 text-ink-2">{r.email}</td>
                       <td className="px-3 py-1.5">
-                        <select
-                          className="rounded border border-border bg-surface px-1 py-0.5"
+                        <Select
+                          
                           value={r.role}
                           onChange={(e) => {
                             const next = [...preview];
@@ -238,8 +241,9 @@ export function RosterAdmin() {
                           }}
                         >
                           <option value="member">member</option>
+                          <option value="officer">officer</option>
                           <option value="admin">admin</option>
-                        </select>
+                        </Select>
                       </td>
                       <td
                         className={cn(
@@ -307,6 +311,9 @@ export function RosterAdmin() {
           <table className="w-full min-w-[720px] text-left text-sm">
             <thead>
               <tr className="border-b border-border text-[11px] uppercase tracking-wide text-ink-3">
+                <th className="w-10 px-3 py-2">
+                  <SelectCheckbox checked={sel.pageAllSelected} onToggle={() => sel.togglePage()} label="Select all on roster" />
+                </th>
                 <th className="px-3 py-2">Name</th>
                 <th className="px-3 py-2">Email</th>
                 <th className="px-3 py-2">Role</th>
@@ -318,13 +325,13 @@ export function RosterAdmin() {
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={6} className="px-3 py-6 text-center text-ink-3">
+                  <td colSpan={7} className="px-3 py-6 text-center text-ink-3">
                     Loading…
                   </td>
                 </tr>
               ) : shown.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-3 py-6 text-center text-ink-3">
+                  <td colSpan={7} className="px-3 py-6 text-center text-ink-3">
                     {entries.length ? "Nobody matches." : "The roster is empty — paste or upload it above."}
                   </td>
                 </tr>
@@ -332,18 +339,22 @@ export function RosterAdmin() {
                 shown.map((e) => {
                   const d = daysAgo(e.lastActiveAt);
                   return (
-                    <tr key={e.id} className={cn("border-b border-border", !e.active && "opacity-50")}>
+                    <tr key={e.id} className={cn("border-b border-border", !e.active && "opacity-50", sel.has(e.id) && "bg-accent-tint/60")}>
+                      <td className="px-3 py-2">
+                        <SelectCheckbox checked={sel.has(e.id)} onToggle={(ev) => sel.toggle(e.id, ev)} label={`Select ${e.name ?? e.email}`} />
+                      </td>
                       <td className="px-3 py-2 text-ink">{e.name ?? "—"}</td>
                       <td className="px-3 py-2 text-ink-2">{e.email}</td>
                       <td className="px-3 py-2">
-                        <select
-                          className="rounded border border-border bg-surface px-1.5 py-0.5 text-xs"
+                        <Select
+                          
                           value={e.role}
                           onChange={(ev) => void patch(e.id, { role: ev.target.value as Entry["role"] })}
                         >
                           <option value="member">member</option>
+                          <option value="officer">officer</option>
                           <option value="admin">admin</option>
-                        </select>
+                        </Select>
                       </td>
                       <td className="px-3 py-2 text-xs">
                         {e.signedUp ? <span className="text-success">Yes</span> : <span className="text-ink-3">Not yet</span>}
@@ -372,6 +383,18 @@ export function RosterAdmin() {
           </table>
         </div>
       </section>
+      <BulkActionBar
+        entity="roster"
+        noun={["member", "members"]}
+        sel={sel}
+        fields={[{ key: "role", label: "Role", type: "select", options: [{ value: "member", label: "Member" }, { value: "officer", label: "Officer (can post to the club)" }, { value: "admin", label: "Admin" }] }]}
+        actions={[
+          { key: "deactivate", label: "Deactivate" },
+          { key: "reactivate", label: "Reactivate" },
+          { key: "export", label: "Export CSV", client: (ids) => downloadCsv("roster.csv", ["email", "name", "role", "active"], entries.filter((x) => ids.includes(x.id)).map((x) => [x.email, x.name, x.role, x.active ? "yes" : "no"])) },
+        ]}
+        onChange={() => void load()}
+      />
     </div>
   );
 }

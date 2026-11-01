@@ -21,6 +21,7 @@ import { ContactOutreachSidebar } from "@/components/contact-outreach-sidebar";
 import { ContactEmailDropdown } from "@/components/contact-email-dropdown";
 import type { EmailTemplateType } from "@/lib/email-template-types";
 import { EMAIL_TEMPLATE_TYPES } from "@/lib/email-template-types";
+import { Select } from "@/components/ui/select";
 
 type FirmOption = { id: string; name: string; type?: string | null };
 
@@ -286,7 +287,7 @@ export function ContactDetailView({
                 </ul>
               )}
               <div className="mt-3 flex gap-2">
-                <select
+                <Select
                   value={selectedOpp}
                   onChange={(e) => setSelectedOpp(e.target.value)}
                   className="h-8 min-w-0 flex-1 rounded border border-border-strong bg-surface px-2 text-xs"
@@ -297,7 +298,7 @@ export function ContactDetailView({
                       {o.label}
                     </option>
                   ))}
-                </select>
+                </Select>
                 <Button
                   size="sm"
                   variant="outline"
@@ -377,7 +378,7 @@ export function ContactDetailView({
           </div>
           <div>
             <label className="mb-1 block text-[10px] font-semibold uppercase text-ink-3">Type</label>
-            <select
+            <Select
               className={fieldClass}
               value={interactionForm.type}
               onChange={(e) => setInteractionForm((p) => ({ ...p, type: e.target.value }))}
@@ -387,7 +388,7 @@ export function ContactDetailView({
                   {t.replace(/_/g, " ")}
                 </option>
               ))}
-            </select>
+            </Select>
           </div>
           <div>
             <label className="mb-1 block text-[10px] font-semibold uppercase text-ink-3">What was discussed</label>

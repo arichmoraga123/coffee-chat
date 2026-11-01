@@ -1,0 +1,875 @@
+{
+ "workbookKey": "PEB_13_REIT_Valuation",
+ "studentFile": "PEB_13_REIT_Valuation.xlsx",
+ "answerKeyFile": "PEB_13_REIT_Valuation_KEY.xlsx",
+ "sheets": [
+  "FFO & AFFO",
+  "NAV"
+ ],
+ "stepCount": 29,
+ "steps": [
+  {
+   "id": "s001",
+   "kind": "formula",
+   "expectedFormula": "=B4+B5-B6+B7",
+   "expectedValue": 145,
+   "tolerance": 0.725,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "FFO & AFFO",
+     "ref": "B4",
+     "label": "Net income",
+     "value": 100
+    },
+    {
+     "sheet": "FFO & AFFO",
+     "ref": "B5",
+     "label": "Real estate depreciation & amortization",
+     "value": 60
+    },
+    {
+     "sheet": "FFO & AFFO",
+     "ref": "B6",
+     "label": "Gain on property sale",
+     "value": 20
+    },
+    {
+     "sheet": "FFO & AFFO",
+     "ref": "B7",
+     "label": "Impairment of depreciable real estate",
+     "value": 5
+    }
+   ],
+   "sheet": "FFO & AFFO",
+   "cell": "B14",
+   "label": "FFO",
+   "header": null,
+   "instruction": "Calculate FFO.",
+   "hint": "Add back real estate D&A and impairments; remove gains on sale.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s002",
+   "kind": "formula",
+   "expectedFormula": "=B14-B8-B9",
+   "expectedValue": 122,
+   "tolerance": 0.61,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "FFO & AFFO",
+     "ref": "B14",
+     "label": "FFO",
+     "value": 145
+    },
+    {
+     "sheet": "FFO & AFFO",
+     "ref": "B8",
+     "label": "Straight-line rent adjustment",
+     "value": 8
+    },
+    {
+     "sheet": "FFO & AFFO",
+     "ref": "B9",
+     "label": "Recurring maintenance CapEx",
+     "value": 15
+    }
+   ],
+   "sheet": "FFO & AFFO",
+   "cell": "B15",
+   "label": "AFFO",
+   "header": null,
+   "instruction": "Calculate AFFO.",
+   "hint": "Remove straight-line rent and recurring maintenance CapEx.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s003",
+   "kind": "formula",
+   "expectedFormula": "=B14/B10",
+   "expectedValue": 1.8125,
+   "tolerance": 0.0090625,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "FFO & AFFO",
+     "ref": "B14",
+     "label": "FFO",
+     "value": 145
+    },
+    {
+     "sheet": "FFO & AFFO",
+     "ref": "B10",
+     "label": "Shares outstanding (mm)",
+     "value": 80
+    }
+   ],
+   "sheet": "FFO & AFFO",
+   "cell": "B16",
+   "label": "FFO per share",
+   "header": null,
+   "instruction": "Calculate FFO per share.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s004",
+   "kind": "formula",
+   "expectedFormula": "=B15/B10",
+   "expectedValue": 1.525,
+   "tolerance": 0.007625,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "FFO & AFFO",
+     "ref": "B15",
+     "label": "AFFO",
+     "value": 122
+    },
+    {
+     "sheet": "FFO & AFFO",
+     "ref": "B10",
+     "label": "Shares outstanding (mm)",
+     "value": 80
+    }
+   ],
+   "sheet": "FFO & AFFO",
+   "cell": "B17",
+   "label": "AFFO per share",
+   "header": null,
+   "instruction": "Calculate AFFO per share.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s005",
+   "kind": "formula",
+   "expectedFormula": "=B11/B16",
+   "expectedValue": 16.551724,
+   "tolerance": 0.082758620689655,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "FFO & AFFO",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 30
+    },
+    {
+     "sheet": "FFO & AFFO",
+     "ref": "B16",
+     "label": "FFO per share",
+     "value": 1.8125
+    }
+   ],
+   "sheet": "FFO & AFFO",
+   "cell": "B18",
+   "label": "P / FFO",
+   "header": null,
+   "instruction": "Calculate P / FFO.",
+   "hint": "Replaces P/E for REITs",
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s006",
+   "kind": "formula",
+   "expectedFormula": "=B11/B17",
+   "expectedValue": 19.672131,
+   "tolerance": 0.098360655737705,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "FFO & AFFO",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 30
+    },
+    {
+     "sheet": "FFO & AFFO",
+     "ref": "B17",
+     "label": "AFFO per share",
+     "value": 1.525
+    }
+   ],
+   "sheet": "FFO & AFFO",
+   "cell": "B19",
+   "label": "P / AFFO",
+   "header": null,
+   "instruction": "Calculate P / AFFO.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s007",
+   "kind": "formula",
+   "expectedFormula": "=B12/B17",
+   "expectedValue": 0.918033,
+   "tolerance": 0.00459016393442623,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "FFO & AFFO",
+     "ref": "B12",
+     "label": "Dividends per share",
+     "value": 1.4
+    },
+    {
+     "sheet": "FFO & AFFO",
+     "ref": "B17",
+     "label": "AFFO per share",
+     "value": 1.525
+    }
+   ],
+   "sheet": "FFO & AFFO",
+   "cell": "B20",
+   "label": "Dividend payout of AFFO",
+   "header": null,
+   "instruction": "Calculate Dividend payout of AFFO.",
+   "hint": "Above ~100% means the dividend isn't covered by recurring cash.",
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s008",
+   "kind": "formula",
+   "expectedFormula": "=B5/C5",
+   "expectedValue": 642.857143,
+   "tolerance": 3.2142857142857153,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NAV",
+     "ref": "B5",
+     "label": "Office (NOI ($mm))",
+     "value": 45
+    },
+    {
+     "sheet": "NAV",
+     "ref": "C5",
+     "label": "Office (Cap rate)",
+     "value": 0.07
+    }
+   ],
+   "sheet": "NAV",
+   "cell": "D5",
+   "label": "Office",
+   "header": "Value ($mm)",
+   "instruction": "Calculate Office for Value ($mm).",
+   "hint": "Value = NOI ÷ cap rate. Lower cap rate = higher value.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s009",
+   "kind": "formula",
+   "expectedFormula": "=B5/(C5+$C$10)",
+   "expectedValue": 600,
+   "tolerance": 3.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NAV",
+     "ref": "B5",
+     "label": "Office (NOI ($mm))",
+     "value": 45
+    },
+    {
+     "sheet": "NAV",
+     "ref": "C5",
+     "label": "Office (Cap rate)",
+     "value": 0.07
+    },
+    {
+     "sheet": "NAV",
+     "ref": "C10",
+     "label": "Cap rate shock (Cap rate)",
+     "value": 0.005
+    }
+   ],
+   "sheet": "NAV",
+   "cell": "E5",
+   "label": "Office",
+   "header": "Value at cap +0.50%",
+   "instruction": "Calculate Office for Value at cap +0.50%.",
+   "hint": "Value = NOI ÷ cap rate. Lower cap rate = higher value.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s010",
+   "kind": "formula",
+   "expectedFormula": "=B6/C6",
+   "expectedValue": 1400,
+   "tolerance": 7.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NAV",
+     "ref": "B6",
+     "label": "Industrial (NOI ($mm))",
+     "value": 70
+    },
+    {
+     "sheet": "NAV",
+     "ref": "C6",
+     "label": "Industrial (Cap rate)",
+     "value": 0.05
+    }
+   ],
+   "sheet": "NAV",
+   "cell": "D6",
+   "label": "Industrial",
+   "header": "Value ($mm)",
+   "instruction": "Calculate Industrial for Value ($mm).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s011",
+   "kind": "formula",
+   "expectedFormula": "=B6/(C6+$C$10)",
+   "expectedValue": 1272.727273,
+   "tolerance": 6.36363636363635,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NAV",
+     "ref": "B6",
+     "label": "Industrial (NOI ($mm))",
+     "value": 70
+    },
+    {
+     "sheet": "NAV",
+     "ref": "C6",
+     "label": "Industrial (Cap rate)",
+     "value": 0.05
+    },
+    {
+     "sheet": "NAV",
+     "ref": "C10",
+     "label": "Cap rate shock (Cap rate)",
+     "value": 0.005
+    }
+   ],
+   "sheet": "NAV",
+   "cell": "E6",
+   "label": "Industrial",
+   "header": "Value at cap +0.50%",
+   "instruction": "Calculate Industrial for Value at cap +0.50%.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s012",
+   "kind": "formula",
+   "expectedFormula": "=B7/C7",
+   "expectedValue": 1090.909091,
+   "tolerance": 5.454545454545451,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NAV",
+     "ref": "B7",
+     "label": "Multifamily (NOI ($mm))",
+     "value": 60
+    },
+    {
+     "sheet": "NAV",
+     "ref": "C7",
+     "label": "Multifamily (Cap rate)",
+     "value": 0.055
+    }
+   ],
+   "sheet": "NAV",
+   "cell": "D7",
+   "label": "Multifamily",
+   "header": "Value ($mm)",
+   "instruction": "Calculate Multifamily for Value ($mm).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s013",
+   "kind": "formula",
+   "expectedFormula": "=B7/(C7+$C$10)",
+   "expectedValue": 1000,
+   "tolerance": 5.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NAV",
+     "ref": "B7",
+     "label": "Multifamily (NOI ($mm))",
+     "value": 60
+    },
+    {
+     "sheet": "NAV",
+     "ref": "C7",
+     "label": "Multifamily (Cap rate)",
+     "value": 0.055
+    },
+    {
+     "sheet": "NAV",
+     "ref": "C10",
+     "label": "Cap rate shock (Cap rate)",
+     "value": 0.005
+    }
+   ],
+   "sheet": "NAV",
+   "cell": "E7",
+   "label": "Multifamily",
+   "header": "Value at cap +0.50%",
+   "instruction": "Calculate Multifamily for Value at cap +0.50%.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s014",
+   "kind": "formula",
+   "expectedFormula": "=B8/C8",
+   "expectedValue": 466.666667,
+   "tolerance": 2.3333333333333353,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NAV",
+     "ref": "B8",
+     "label": "Retail (NOI ($mm))",
+     "value": 35
+    },
+    {
+     "sheet": "NAV",
+     "ref": "C8",
+     "label": "Retail (Cap rate)",
+     "value": 0.075
+    }
+   ],
+   "sheet": "NAV",
+   "cell": "D8",
+   "label": "Retail",
+   "header": "Value ($mm)",
+   "instruction": "Calculate Retail for Value ($mm).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s015",
+   "kind": "formula",
+   "expectedFormula": "=B8/(C8+$C$10)",
+   "expectedValue": 437.5,
+   "tolerance": 2.1875,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NAV",
+     "ref": "B8",
+     "label": "Retail (NOI ($mm))",
+     "value": 35
+    },
+    {
+     "sheet": "NAV",
+     "ref": "C8",
+     "label": "Retail (Cap rate)",
+     "value": 0.075
+    },
+    {
+     "sheet": "NAV",
+     "ref": "C10",
+     "label": "Cap rate shock (Cap rate)",
+     "value": 0.005
+    }
+   ],
+   "sheet": "NAV",
+   "cell": "E8",
+   "label": "Retail",
+   "header": "Value at cap +0.50%",
+   "instruction": "Calculate Retail for Value at cap +0.50%.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s016",
+   "kind": "formula",
+   "expectedFormula": "=SUM(D5:D8)",
+   "expectedValue": 3600.4329,
+   "tolerance": 18.0021645021645,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "NAV",
+     "ref": "D5:D8",
+     "label": "Office (Value ($mm)) … Retail (Value ($mm))",
+     "value": null
+    }
+   ],
+   "sheet": "NAV",
+   "cell": "D9",
+   "label": "Gross asset value",
+   "header": "Value ($mm)",
+   "instruction": "Calculate Gross asset value for Value ($mm).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s017",
+   "kind": "formula",
+   "expectedFormula": "=SUM(E5:E8)",
+   "expectedValue": 3310.227273,
+   "tolerance": 16.55113636363635,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "NAV",
+     "ref": "E5:E8",
+     "label": "Office (Value at cap +0.50%) … Retail (Value at cap +0.50%)",
+     "value": null
+    }
+   ],
+   "sheet": "NAV",
+   "cell": "E9",
+   "label": "Gross asset value",
+   "header": "Value at cap +0.50%",
+   "instruction": "Calculate Gross asset value for Value at cap +0.50%.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s018",
+   "kind": "formula",
+   "expectedFormula": "=B11",
+   "expectedValue": 30,
+   "tolerance": 0.15,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NAV",
+     "ref": "B11",
+     "label": "Plus: cash (NOI ($mm))",
+     "value": 30
+    }
+   ],
+   "sheet": "NAV",
+   "cell": "D11",
+   "label": "Plus: cash",
+   "header": "Value ($mm)",
+   "instruction": "Calculate Plus: cash for Value ($mm).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s019",
+   "kind": "formula",
+   "expectedFormula": "=B11",
+   "expectedValue": 30,
+   "tolerance": 0.15,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NAV",
+     "ref": "B11",
+     "label": "Plus: cash (NOI ($mm))",
+     "value": 30
+    }
+   ],
+   "sheet": "NAV",
+   "cell": "E11",
+   "label": "Plus: cash",
+   "header": "Value at cap +0.50%",
+   "instruction": "Calculate Plus: cash for Value at cap +0.50%.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s020",
+   "kind": "formula",
+   "expectedFormula": "=-B12",
+   "expectedValue": -900,
+   "tolerance": 4.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NAV",
+     "ref": "B12",
+     "label": "Less: debt (NOI ($mm))",
+     "value": 900
+    }
+   ],
+   "sheet": "NAV",
+   "cell": "D12",
+   "label": "Less: debt",
+   "header": "Value ($mm)",
+   "instruction": "Calculate Less: debt for Value ($mm).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s021",
+   "kind": "formula",
+   "expectedFormula": "=-B12",
+   "expectedValue": -900,
+   "tolerance": 4.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NAV",
+     "ref": "B12",
+     "label": "Less: debt (NOI ($mm))",
+     "value": 900
+    }
+   ],
+   "sheet": "NAV",
+   "cell": "E12",
+   "label": "Less: debt",
+   "header": "Value at cap +0.50%",
+   "instruction": "Calculate Less: debt for Value at cap +0.50%.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s022",
+   "kind": "formula",
+   "expectedFormula": "=-B13",
+   "expectedValue": -50,
+   "tolerance": 0.25,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NAV",
+     "ref": "B13",
+     "label": "Less: preferred stock (NOI ($mm))",
+     "value": 50
+    }
+   ],
+   "sheet": "NAV",
+   "cell": "D13",
+   "label": "Less: preferred stock",
+   "header": "Value ($mm)",
+   "instruction": "Calculate Less: preferred stock for Value ($mm).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s023",
+   "kind": "formula",
+   "expectedFormula": "=-B13",
+   "expectedValue": -50,
+   "tolerance": 0.25,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NAV",
+     "ref": "B13",
+     "label": "Less: preferred stock (NOI ($mm))",
+     "value": 50
+    }
+   ],
+   "sheet": "NAV",
+   "cell": "E13",
+   "label": "Less: preferred stock",
+   "header": "Value at cap +0.50%",
+   "instruction": "Calculate Less: preferred stock for Value at cap +0.50%.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s024",
+   "kind": "formula",
+   "expectedFormula": "=D9+D11+D12+D13",
+   "expectedValue": 2680.4329,
+   "tolerance": 13.402164502164501,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NAV",
+     "ref": "D9",
+     "label": "Gross asset value (Value ($mm))",
+     "value": 3600.4329
+    },
+    {
+     "sheet": "NAV",
+     "ref": "D11",
+     "label": "Plus: cash (Value ($mm))",
+     "value": 30
+    },
+    {
+     "sheet": "NAV",
+     "ref": "D12",
+     "label": "Less: debt (Value ($mm))",
+     "value": -900
+    },
+    {
+     "sheet": "NAV",
+     "ref": "D13",
+     "label": "Less: preferred stock (Value ($mm))",
+     "value": -50
+    }
+   ],
+   "sheet": "NAV",
+   "cell": "D14",
+   "label": "Net asset value",
+   "header": "Value ($mm)",
+   "instruction": "Calculate Net asset value for Value ($mm).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s025",
+   "kind": "formula",
+   "expectedFormula": "=E9+E11+E12+E13",
+   "expectedValue": 2390.227273,
+   "tolerance": 11.95113636363635,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NAV",
+     "ref": "E9",
+     "label": "Gross asset value (Value at cap +0.50%)",
+     "value": 3310.227273
+    },
+    {
+     "sheet": "NAV",
+     "ref": "E11",
+     "label": "Plus: cash (Value at cap +0.50%)",
+     "value": 30
+    },
+    {
+     "sheet": "NAV",
+     "ref": "E12",
+     "label": "Less: debt (Value at cap +0.50%)",
+     "value": -900
+    },
+    {
+     "sheet": "NAV",
+     "ref": "E13",
+     "label": "Less: preferred stock (Value at cap +0.50%)",
+     "value": -50
+    }
+   ],
+   "sheet": "NAV",
+   "cell": "E14",
+   "label": "Net asset value",
+   "header": "Value at cap +0.50%",
+   "instruction": "Calculate Net asset value for Value at cap +0.50%.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s026",
+   "kind": "formula",
+   "expectedFormula": "=D14/'FFO & AFFO'!B10",
+   "expectedValue": 33.505411,
+   "tolerance": 0.16752705627705652,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NAV",
+     "ref": "D14",
+     "label": "Net asset value (Value ($mm))",
+     "value": 2680.4329
+    },
+    {
+     "sheet": "FFO & AFFO",
+     "ref": "B10",
+     "label": "Shares outstanding (mm)",
+     "value": 80
+    }
+   ],
+   "sheet": "NAV",
+   "cell": "D15",
+   "label": "NAV per share",
+   "header": "Value ($mm)",
+   "instruction": "Calculate NAV per share for Value ($mm).",
+   "hint": "A half-point move in cap rates swings NAV per share a lot, because debt is fixed.",
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s027",
+   "kind": "formula",
+   "expectedFormula": "=E14/'FFO & AFFO'!B10",
+   "expectedValue": 29.877841,
+   "tolerance": 0.1493892045454545,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NAV",
+     "ref": "E14",
+     "label": "Net asset value (Value at cap +0.50%)",
+     "value": 2390.227273
+    },
+    {
+     "sheet": "FFO & AFFO",
+     "ref": "B10",
+     "label": "Shares outstanding (mm)",
+     "value": 80
+    }
+   ],
+   "sheet": "NAV",
+   "cell": "E15",
+   "label": "NAV per share",
+   "header": "Value at cap +0.50%",
+   "instruction": "Calculate NAV per share for Value at cap +0.50%.",
+   "hint": "A half-point move in cap rates swings NAV per share a lot, because debt is fixed.",
+   "numberFormat": "\\$#,##0.00;\"($\"#,##0.00\\);\\-"
+  },
+  {
+   "id": "s028",
+   "kind": "formula",
+   "expectedFormula": "='FFO & AFFO'!B11/D15-1",
+   "expectedValue": -0.104622,
+   "tolerance": 0.00052311121160244,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "FFO & AFFO",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 30
+    },
+    {
+     "sheet": "NAV",
+     "ref": "D15",
+     "label": "NAV per share (Value ($mm))",
+     "value": 33.505411
+    }
+   ],
+   "sheet": "NAV",
+   "cell": "D16",
+   "label": "Share price premium / (discount) to NAV",
+   "header": "Value ($mm)",
+   "instruction": "Calculate Share price premium / (discount) to NAV for Value ($mm).",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s029",
+   "kind": "formula",
+   "expectedFormula": "='FFO & AFFO'!B11/E15-1",
+   "expectedValue": 0.004089,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "FFO & AFFO",
+     "ref": "B11",
+     "label": "Share price",
+     "value": 30
+    },
+    {
+     "sheet": "NAV",
+     "ref": "E15",
+     "label": "NAV per share (Value at cap +0.50%)",
+     "value": 29.877841
+    }
+   ],
+   "sheet": "NAV",
+   "cell": "E16",
+   "label": "Share price premium / (discount) to NAV",
+   "header": "Value at cap +0.50%",
+   "instruction": "Calculate Share price premium / (discount) to NAV for Value at cap +0.50%.",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  }
+ ]
+}

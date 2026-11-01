@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Markdown } from "./markdown";
+import { Select } from "@/components/ui/select";
 
 type ChatMsg = { role: "user" | "assistant"; content: string };
 type MyQuestion = { id: string; question: string; answer: string | null; status: string; blockId: string | null; createdAt: string };
@@ -117,7 +118,7 @@ export function LessonHelp({
         <div className="space-y-2 rounded-lg border border-border bg-surface p-3">
           <label className="block text-xs text-ink-2">
             Which part? (optional)
-            <select
+            <Select
               value={blockId}
               onChange={(e) => setBlockId(e.target.value)}
               className="mt-1 block w-full rounded-md border border-border-strong bg-surface px-2 py-2 text-base text-ink"
@@ -128,7 +129,7 @@ export function LessonHelp({
                   {b.id} · {b.label}
                 </option>
               ))}
-            </select>
+            </Select>
           </label>
           <label className="block text-xs text-ink-2">
             Your question

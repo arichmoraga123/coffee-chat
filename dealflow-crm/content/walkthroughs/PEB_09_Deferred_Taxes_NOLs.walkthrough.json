@@ -1,0 +1,2769 @@
+{
+ "workbookKey": "PEB_09_Deferred_Taxes_NOLs",
+ "studentFile": "PEB_09_Deferred_Taxes_NOLs.xlsx",
+ "answerKeyFile": "PEB_09_Deferred_Taxes_NOLs_KEY.xlsx",
+ "sheets": [
+  "Deferred Taxes",
+  "NOLs",
+  "Section 382"
+ ],
+ "stepCount": 96,
+ "steps": [
+  {
+   "id": "s001",
+   "kind": "formula",
+   "expectedFormula": "=$B$4/$B$5",
+   "expectedValue": 20,
+   "tolerance": 0.1,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B4",
+     "label": "Asset cost",
+     "value": 100
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B5",
+     "label": "Useful life (years, book)",
+     "value": 5
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "B11",
+   "label": "Book depreciation (straight-line)",
+   "header": "Year 1",
+   "instruction": "Calculate Book depreciation (straight-line) for Year 1.",
+   "hint": "Cost ÷ life",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s002",
+   "kind": "formula",
+   "expectedFormula": "=$B$4/$B$5",
+   "expectedValue": 20,
+   "tolerance": 0.1,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B4",
+     "label": "Asset cost",
+     "value": 100
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B5",
+     "label": "Useful life (years, book)",
+     "value": 5
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "C11",
+   "label": "Book depreciation (straight-line)",
+   "header": "Year 2",
+   "instruction": "Calculate Book depreciation (straight-line) for Year 2.",
+   "hint": "Cost ÷ life",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s003",
+   "kind": "formula",
+   "expectedFormula": "=$B$4/$B$5",
+   "expectedValue": 20,
+   "tolerance": 0.1,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B4",
+     "label": "Asset cost",
+     "value": 100
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B5",
+     "label": "Useful life (years, book)",
+     "value": 5
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "D11",
+   "label": "Book depreciation (straight-line)",
+   "header": "Year 3",
+   "instruction": "Calculate Book depreciation (straight-line) for Year 3.",
+   "hint": "Cost ÷ life",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s004",
+   "kind": "formula",
+   "expectedFormula": "=$B$4/$B$5",
+   "expectedValue": 20,
+   "tolerance": 0.1,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B4",
+     "label": "Asset cost",
+     "value": 100
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B5",
+     "label": "Useful life (years, book)",
+     "value": 5
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "E11",
+   "label": "Book depreciation (straight-line)",
+   "header": "Year 4",
+   "instruction": "Calculate Book depreciation (straight-line) for Year 4.",
+   "hint": "Cost ÷ life",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s005",
+   "kind": "formula",
+   "expectedFormula": "=$B$4/$B$5",
+   "expectedValue": 20,
+   "tolerance": 0.1,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B4",
+     "label": "Asset cost",
+     "value": 100
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B5",
+     "label": "Useful life (years, book)",
+     "value": 5
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "F11",
+   "label": "Book depreciation (straight-line)",
+   "header": "Year 5",
+   "instruction": "Calculate Book depreciation (straight-line) for Year 5.",
+   "hint": "Cost ÷ life",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s006",
+   "kind": "formula",
+   "expectedFormula": "=SUM(B11:F11)",
+   "expectedValue": 100,
+   "tolerance": 0.5,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B11:F11",
+     "label": "Book depreciation (straight-line) (Year 1) … Book depreciation (straight-line) (Year 5)",
+     "value": null
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "G11",
+   "label": "Book depreciation (straight-line)",
+   "header": "Total",
+   "instruction": "Calculate Book depreciation (straight-line) for Total.",
+   "hint": "Cost ÷ life",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s007",
+   "kind": "formula",
+   "expectedFormula": "=$B$4*B10",
+   "expectedValue": 40,
+   "tolerance": 0.2,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B4",
+     "label": "Asset cost",
+     "value": 100
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B10",
+     "label": "Tax depreciation % (accelerated schedule) (Year 1)",
+     "value": 0.4
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "B12",
+   "label": "Tax depreciation",
+   "header": "Year 1",
+   "instruction": "Calculate Tax depreciation for Year 1.",
+   "hint": "Cost × that year's %",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s008",
+   "kind": "formula",
+   "expectedFormula": "=$B$4*C10",
+   "expectedValue": 24,
+   "tolerance": 0.12,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B4",
+     "label": "Asset cost",
+     "value": 100
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "C10",
+     "label": "Tax depreciation % (accelerated schedule) (Year 2)",
+     "value": 0.24
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "C12",
+   "label": "Tax depreciation",
+   "header": "Year 2",
+   "instruction": "Calculate Tax depreciation for Year 2.",
+   "hint": "Cost × that year's %",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s009",
+   "kind": "formula",
+   "expectedFormula": "=$B$4*D10",
+   "expectedValue": 14.4,
+   "tolerance": 0.07200000000000001,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B4",
+     "label": "Asset cost",
+     "value": 100
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "D10",
+     "label": "Tax depreciation % (accelerated schedule) (Year 3)",
+     "value": 0.144
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "D12",
+   "label": "Tax depreciation",
+   "header": "Year 3",
+   "instruction": "Calculate Tax depreciation for Year 3.",
+   "hint": "Cost × that year's %",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s010",
+   "kind": "formula",
+   "expectedFormula": "=$B$4*E10",
+   "expectedValue": 10.8,
+   "tolerance": 0.054000000000000006,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B4",
+     "label": "Asset cost",
+     "value": 100
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "E10",
+     "label": "Tax depreciation % (accelerated schedule) (Year 4)",
+     "value": 0.108
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "E12",
+   "label": "Tax depreciation",
+   "header": "Year 4",
+   "instruction": "Calculate Tax depreciation for Year 4.",
+   "hint": "Cost × that year's %",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s011",
+   "kind": "formula",
+   "expectedFormula": "=$B$4*F10",
+   "expectedValue": 10.8,
+   "tolerance": 0.054000000000000006,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B4",
+     "label": "Asset cost",
+     "value": 100
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "F10",
+     "label": "Tax depreciation % (accelerated schedule) (Year 5)",
+     "value": 0.108
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "F12",
+   "label": "Tax depreciation",
+   "header": "Year 5",
+   "instruction": "Calculate Tax depreciation for Year 5.",
+   "hint": "Cost × that year's %",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s012",
+   "kind": "formula",
+   "expectedFormula": "=SUM(B12:F12)",
+   "expectedValue": 100,
+   "tolerance": 0.5,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B12:F12",
+     "label": "Tax depreciation (Year 1) … Tax depreciation (Year 5)",
+     "value": null
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "G12",
+   "label": "Tax depreciation",
+   "header": "Total",
+   "instruction": "Calculate Tax depreciation for Total.",
+   "hint": "Cost × that year's %",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s013",
+   "kind": "formula",
+   "expectedFormula": "=$B$6-B11",
+   "expectedValue": 80,
+   "tolerance": 0.4,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B6",
+     "label": "EBITDA each year",
+     "value": 100
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B11",
+     "label": "Book depreciation (straight-line) (Year 1)",
+     "value": 20
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "B13",
+   "label": "Book pre-tax income",
+   "header": "Year 1",
+   "instruction": "Calculate Book pre-tax income for Year 1.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s014",
+   "kind": "formula",
+   "expectedFormula": "=$B$6-C11",
+   "expectedValue": 80,
+   "tolerance": 0.4,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B6",
+     "label": "EBITDA each year",
+     "value": 100
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "C11",
+     "label": "Book depreciation (straight-line) (Year 2)",
+     "value": 20
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "C13",
+   "label": "Book pre-tax income",
+   "header": "Year 2",
+   "instruction": "Calculate Book pre-tax income for Year 2.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s015",
+   "kind": "formula",
+   "expectedFormula": "=$B$6-D11",
+   "expectedValue": 80,
+   "tolerance": 0.4,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B6",
+     "label": "EBITDA each year",
+     "value": 100
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "D11",
+     "label": "Book depreciation (straight-line) (Year 3)",
+     "value": 20
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "D13",
+   "label": "Book pre-tax income",
+   "header": "Year 3",
+   "instruction": "Calculate Book pre-tax income for Year 3.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s016",
+   "kind": "formula",
+   "expectedFormula": "=$B$6-E11",
+   "expectedValue": 80,
+   "tolerance": 0.4,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B6",
+     "label": "EBITDA each year",
+     "value": 100
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "E11",
+     "label": "Book depreciation (straight-line) (Year 4)",
+     "value": 20
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "E13",
+   "label": "Book pre-tax income",
+   "header": "Year 4",
+   "instruction": "Calculate Book pre-tax income for Year 4.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s017",
+   "kind": "formula",
+   "expectedFormula": "=$B$6-F11",
+   "expectedValue": 80,
+   "tolerance": 0.4,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B6",
+     "label": "EBITDA each year",
+     "value": 100
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "F11",
+     "label": "Book depreciation (straight-line) (Year 5)",
+     "value": 20
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "F13",
+   "label": "Book pre-tax income",
+   "header": "Year 5",
+   "instruction": "Calculate Book pre-tax income for Year 5.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s018",
+   "kind": "formula",
+   "expectedFormula": "=SUM(B13:F13)",
+   "expectedValue": 400,
+   "tolerance": 2.0,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B13:F13",
+     "label": "Book pre-tax income (Year 1) … Book pre-tax income (Year 5)",
+     "value": null
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "G13",
+   "label": "Book pre-tax income",
+   "header": "Total",
+   "instruction": "Calculate Book pre-tax income for Total.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s019",
+   "kind": "formula",
+   "expectedFormula": "=B13*$B$7",
+   "expectedValue": 20,
+   "tolerance": 0.1,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B13",
+     "label": "Book pre-tax income (Year 1)",
+     "value": 80
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B7",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "B14",
+   "label": "Book tax expense",
+   "header": "Year 1",
+   "instruction": "Calculate Book tax expense for Year 1.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s020",
+   "kind": "formula",
+   "expectedFormula": "=C13*$B$7",
+   "expectedValue": 20,
+   "tolerance": 0.1,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "C13",
+     "label": "Book pre-tax income (Year 2)",
+     "value": 80
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B7",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "C14",
+   "label": "Book tax expense",
+   "header": "Year 2",
+   "instruction": "Calculate Book tax expense for Year 2.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s021",
+   "kind": "formula",
+   "expectedFormula": "=D13*$B$7",
+   "expectedValue": 20,
+   "tolerance": 0.1,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "D13",
+     "label": "Book pre-tax income (Year 3)",
+     "value": 80
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B7",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "D14",
+   "label": "Book tax expense",
+   "header": "Year 3",
+   "instruction": "Calculate Book tax expense for Year 3.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s022",
+   "kind": "formula",
+   "expectedFormula": "=E13*$B$7",
+   "expectedValue": 20,
+   "tolerance": 0.1,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "E13",
+     "label": "Book pre-tax income (Year 4)",
+     "value": 80
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B7",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "E14",
+   "label": "Book tax expense",
+   "header": "Year 4",
+   "instruction": "Calculate Book tax expense for Year 4.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s023",
+   "kind": "formula",
+   "expectedFormula": "=F13*$B$7",
+   "expectedValue": 20,
+   "tolerance": 0.1,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "F13",
+     "label": "Book pre-tax income (Year 5)",
+     "value": 80
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B7",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "F14",
+   "label": "Book tax expense",
+   "header": "Year 5",
+   "instruction": "Calculate Book tax expense for Year 5.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s024",
+   "kind": "formula",
+   "expectedFormula": "=SUM(B14:F14)",
+   "expectedValue": 100,
+   "tolerance": 0.5,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B14:F14",
+     "label": "Book tax expense (Year 1) … Book tax expense (Year 5)",
+     "value": null
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "G14",
+   "label": "Book tax expense",
+   "header": "Total",
+   "instruction": "Calculate Book tax expense for Total.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s025",
+   "kind": "formula",
+   "expectedFormula": "=$B$6-B12",
+   "expectedValue": 60,
+   "tolerance": 0.3,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B6",
+     "label": "EBITDA each year",
+     "value": 100
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B12",
+     "label": "Tax depreciation (Year 1)",
+     "value": 40
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "B15",
+   "label": "Taxable income",
+   "header": "Year 1",
+   "instruction": "Calculate Taxable income for Year 1.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s026",
+   "kind": "formula",
+   "expectedFormula": "=$B$6-C12",
+   "expectedValue": 76,
+   "tolerance": 0.38,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B6",
+     "label": "EBITDA each year",
+     "value": 100
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "C12",
+     "label": "Tax depreciation (Year 2)",
+     "value": 24
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "C15",
+   "label": "Taxable income",
+   "header": "Year 2",
+   "instruction": "Calculate Taxable income for Year 2.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s027",
+   "kind": "formula",
+   "expectedFormula": "=$B$6-D12",
+   "expectedValue": 85.6,
+   "tolerance": 0.428,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B6",
+     "label": "EBITDA each year",
+     "value": 100
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "D12",
+     "label": "Tax depreciation (Year 3)",
+     "value": 14.4
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "D15",
+   "label": "Taxable income",
+   "header": "Year 3",
+   "instruction": "Calculate Taxable income for Year 3.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s028",
+   "kind": "formula",
+   "expectedFormula": "=$B$6-E12",
+   "expectedValue": 89.2,
+   "tolerance": 0.446,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B6",
+     "label": "EBITDA each year",
+     "value": 100
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "E12",
+     "label": "Tax depreciation (Year 4)",
+     "value": 10.8
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "E15",
+   "label": "Taxable income",
+   "header": "Year 4",
+   "instruction": "Calculate Taxable income for Year 4.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s029",
+   "kind": "formula",
+   "expectedFormula": "=$B$6-F12",
+   "expectedValue": 89.2,
+   "tolerance": 0.446,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B6",
+     "label": "EBITDA each year",
+     "value": 100
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "F12",
+     "label": "Tax depreciation (Year 5)",
+     "value": 10.8
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "F15",
+   "label": "Taxable income",
+   "header": "Year 5",
+   "instruction": "Calculate Taxable income for Year 5.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s030",
+   "kind": "formula",
+   "expectedFormula": "=SUM(B15:F15)",
+   "expectedValue": 400,
+   "tolerance": 2.0,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B15:F15",
+     "label": "Taxable income (Year 1) … Taxable income (Year 5)",
+     "value": null
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "G15",
+   "label": "Taxable income",
+   "header": "Total",
+   "instruction": "Calculate Taxable income for Total.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s031",
+   "kind": "formula",
+   "expectedFormula": "=B15*$B$7",
+   "expectedValue": 15,
+   "tolerance": 0.075,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B15",
+     "label": "Taxable income (Year 1)",
+     "value": 60
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B7",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "B16",
+   "label": "Cash taxes paid",
+   "header": "Year 1",
+   "instruction": "Calculate Cash taxes paid for Year 1.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s032",
+   "kind": "formula",
+   "expectedFormula": "=C15*$B$7",
+   "expectedValue": 19,
+   "tolerance": 0.095,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "C15",
+     "label": "Taxable income (Year 2)",
+     "value": 76
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B7",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "C16",
+   "label": "Cash taxes paid",
+   "header": "Year 2",
+   "instruction": "Calculate Cash taxes paid for Year 2.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s033",
+   "kind": "formula",
+   "expectedFormula": "=D15*$B$7",
+   "expectedValue": 21.4,
+   "tolerance": 0.107,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "D15",
+     "label": "Taxable income (Year 3)",
+     "value": 85.6
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B7",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "D16",
+   "label": "Cash taxes paid",
+   "header": "Year 3",
+   "instruction": "Calculate Cash taxes paid for Year 3.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s034",
+   "kind": "formula",
+   "expectedFormula": "=E15*$B$7",
+   "expectedValue": 22.3,
+   "tolerance": 0.1115,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "E15",
+     "label": "Taxable income (Year 4)",
+     "value": 89.2
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B7",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "E16",
+   "label": "Cash taxes paid",
+   "header": "Year 4",
+   "instruction": "Calculate Cash taxes paid for Year 4.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s035",
+   "kind": "formula",
+   "expectedFormula": "=F15*$B$7",
+   "expectedValue": 22.3,
+   "tolerance": 0.1115,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "F15",
+     "label": "Taxable income (Year 5)",
+     "value": 89.2
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B7",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "F16",
+   "label": "Cash taxes paid",
+   "header": "Year 5",
+   "instruction": "Calculate Cash taxes paid for Year 5.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s036",
+   "kind": "formula",
+   "expectedFormula": "=SUM(B16:F16)",
+   "expectedValue": 100,
+   "tolerance": 0.5,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B16:F16",
+     "label": "Cash taxes paid (Year 1) … Cash taxes paid (Year 5)",
+     "value": null
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "G16",
+   "label": "Cash taxes paid",
+   "header": "Total",
+   "instruction": "Calculate Cash taxes paid for Total.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s037",
+   "kind": "formula",
+   "expectedFormula": "=B14-B16",
+   "expectedValue": 5,
+   "tolerance": 0.025,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B14",
+     "label": "Book tax expense (Year 1)",
+     "value": 20
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B16",
+     "label": "Cash taxes paid (Year 1)",
+     "value": 15
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "B17",
+   "label": "Change in DTL (book tax − cash tax)",
+   "header": "Year 1",
+   "instruction": "Calculate Change in DTL (book tax − cash tax) for Year 1.",
+   "hint": "Positive = tax deferred to later years",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s038",
+   "kind": "formula",
+   "expectedFormula": "=C14-C16",
+   "expectedValue": 1,
+   "tolerance": 0.005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "C14",
+     "label": "Book tax expense (Year 2)",
+     "value": 20
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "C16",
+     "label": "Cash taxes paid (Year 2)",
+     "value": 19
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "C17",
+   "label": "Change in DTL (book tax − cash tax)",
+   "header": "Year 2",
+   "instruction": "Calculate Change in DTL (book tax − cash tax) for Year 2.",
+   "hint": "Positive = tax deferred to later years",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s039",
+   "kind": "formula",
+   "expectedFormula": "=D14-D16",
+   "expectedValue": -1.4,
+   "tolerance": 0.006999999999999999,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "D14",
+     "label": "Book tax expense (Year 3)",
+     "value": 20
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "D16",
+     "label": "Cash taxes paid (Year 3)",
+     "value": 21.4
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "D17",
+   "label": "Change in DTL (book tax − cash tax)",
+   "header": "Year 3",
+   "instruction": "Calculate Change in DTL (book tax − cash tax) for Year 3.",
+   "hint": "Positive = tax deferred to later years",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s040",
+   "kind": "formula",
+   "expectedFormula": "=E14-E16",
+   "expectedValue": -2.3,
+   "tolerance": 0.0115,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "E14",
+     "label": "Book tax expense (Year 4)",
+     "value": 20
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "E16",
+     "label": "Cash taxes paid (Year 4)",
+     "value": 22.3
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "E17",
+   "label": "Change in DTL (book tax − cash tax)",
+   "header": "Year 4",
+   "instruction": "Calculate Change in DTL (book tax − cash tax) for Year 4.",
+   "hint": "Positive = tax deferred to later years",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s041",
+   "kind": "formula",
+   "expectedFormula": "=F14-F16",
+   "expectedValue": -2.3,
+   "tolerance": 0.0115,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "F14",
+     "label": "Book tax expense (Year 5)",
+     "value": 20
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "F16",
+     "label": "Cash taxes paid (Year 5)",
+     "value": 22.3
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "F17",
+   "label": "Change in DTL (book tax − cash tax)",
+   "header": "Year 5",
+   "instruction": "Calculate Change in DTL (book tax − cash tax) for Year 5.",
+   "hint": "Positive = tax deferred to later years",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s042",
+   "kind": "formula",
+   "expectedFormula": "=SUM(B17:F17)",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B17:F17",
+     "label": "Change in DTL (book tax − cash tax) (Year 1) … Change in DTL (book tax − cash tax) (Year 5)",
+     "value": null
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "G17",
+   "label": "Change in DTL (book tax − cash tax)",
+   "header": "Total",
+   "instruction": "Calculate Change in DTL (book tax − cash tax) for Total.",
+   "hint": "Positive = tax deferred to later years",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s043",
+   "kind": "formula",
+   "expectedFormula": "=B17",
+   "expectedValue": 5,
+   "tolerance": 0.025,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B17",
+     "label": "Change in DTL (book tax − cash tax) (Year 1)",
+     "value": 5
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "B18",
+   "label": "DTL balance (end of year)",
+   "header": "Year 1",
+   "instruction": "Calculate DTL balance (end of year) for Year 1.",
+   "hint": "Builds early, reverses later, ends at zero. Total taxes are the same — only timing changes.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s044",
+   "kind": "formula",
+   "expectedFormula": "=B18+C17",
+   "expectedValue": 6,
+   "tolerance": 0.03,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "B18",
+     "label": "DTL balance (end of year) (Year 1)",
+     "value": 5
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "C17",
+     "label": "Change in DTL (book tax − cash tax) (Year 2)",
+     "value": 1
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "C18",
+   "label": "DTL balance (end of year)",
+   "header": "Year 2",
+   "instruction": "Calculate DTL balance (end of year) for Year 2.",
+   "hint": "Builds early, reverses later, ends at zero. Total taxes are the same — only timing changes.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s045",
+   "kind": "formula",
+   "expectedFormula": "=C18+D17",
+   "expectedValue": 4.6,
+   "tolerance": 0.023,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "C18",
+     "label": "DTL balance (end of year) (Year 2)",
+     "value": 6
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "D17",
+     "label": "Change in DTL (book tax − cash tax) (Year 3)",
+     "value": -1.4
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "D18",
+   "label": "DTL balance (end of year)",
+   "header": "Year 3",
+   "instruction": "Calculate DTL balance (end of year) for Year 3.",
+   "hint": "Builds early, reverses later, ends at zero. Total taxes are the same — only timing changes.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s046",
+   "kind": "formula",
+   "expectedFormula": "=D18+E17",
+   "expectedValue": 2.3,
+   "tolerance": 0.0115,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "D18",
+     "label": "DTL balance (end of year) (Year 3)",
+     "value": 4.6
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "E17",
+     "label": "Change in DTL (book tax − cash tax) (Year 4)",
+     "value": -2.3
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "E18",
+   "label": "DTL balance (end of year)",
+   "header": "Year 4",
+   "instruction": "Calculate DTL balance (end of year) for Year 4.",
+   "hint": "Builds early, reverses later, ends at zero. Total taxes are the same — only timing changes.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s047",
+   "kind": "formula",
+   "expectedFormula": "=E18+F17",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "E18",
+     "label": "DTL balance (end of year) (Year 4)",
+     "value": 2.3
+    },
+    {
+     "sheet": "Deferred Taxes",
+     "ref": "F17",
+     "label": "Change in DTL (book tax − cash tax) (Year 5)",
+     "value": -2.3
+    }
+   ],
+   "sheet": "Deferred Taxes",
+   "cell": "F18",
+   "label": "DTL balance (end of year)",
+   "header": "Year 5",
+   "instruction": "Calculate DTL balance (end of year) for Year 5.",
+   "hint": "Builds early, reverses later, ends at zero. Total taxes are the same — only timing changes.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s048",
+   "kind": "formula",
+   "expectedFormula": "=B4",
+   "expectedValue": 200,
+   "tolerance": 1.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "B4",
+     "label": "Starting NOL balance (post-2017)",
+     "value": 200
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "B11",
+   "label": "NOL balance, beginning",
+   "header": "Year 1",
+   "instruction": "Calculate NOL balance, beginning for Year 1.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s049",
+   "kind": "formula",
+   "expectedFormula": "=MIN(B11,B10*$B$5)",
+   "expectedValue": 40,
+   "tolerance": 0.2,
+   "functions": [
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "B11",
+     "label": "NOL balance, beginning (Year 1)",
+     "value": 200
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B10",
+     "label": "Taxable income before NOL (Year 1)",
+     "value": 50
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B5",
+     "label": "Annual limit (% of taxable income)",
+     "value": 0.8
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "B12",
+   "label": "NOL used",
+   "header": "Year 1",
+   "instruction": "Calculate NOL used for Year 1.",
+   "hint": "Use the smaller of: NOL left, or 80% of this year's taxable income.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s050",
+   "kind": "formula",
+   "expectedFormula": "=B11-B12",
+   "expectedValue": 160,
+   "tolerance": 0.8,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "B11",
+     "label": "NOL balance, beginning (Year 1)",
+     "value": 200
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B12",
+     "label": "NOL used (Year 1)",
+     "value": 40
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "B13",
+   "label": "NOL balance, ending",
+   "header": "Year 1",
+   "instruction": "Calculate NOL balance, ending for Year 1.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s051",
+   "kind": "formula",
+   "expectedFormula": "=B13",
+   "expectedValue": 160,
+   "tolerance": 0.8,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "B13",
+     "label": "NOL balance, ending (Year 1)",
+     "value": 160
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "C11",
+   "label": "NOL balance, beginning",
+   "header": "Year 2",
+   "instruction": "Calculate NOL balance, beginning for Year 2.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s052",
+   "kind": "formula",
+   "expectedFormula": "=MIN(C11,C10*$B$5)",
+   "expectedValue": 64,
+   "tolerance": 0.32,
+   "functions": [
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "C11",
+     "label": "NOL balance, beginning (Year 2)",
+     "value": 160
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "C10",
+     "label": "Taxable income before NOL (Year 2)",
+     "value": 80
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B5",
+     "label": "Annual limit (% of taxable income)",
+     "value": 0.8
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "C12",
+   "label": "NOL used",
+   "header": "Year 2",
+   "instruction": "Calculate NOL used for Year 2.",
+   "hint": "Use the smaller of: NOL left, or 80% of this year's taxable income.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s053",
+   "kind": "formula",
+   "expectedFormula": "=C11-C12",
+   "expectedValue": 96,
+   "tolerance": 0.48,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "C11",
+     "label": "NOL balance, beginning (Year 2)",
+     "value": 160
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "C12",
+     "label": "NOL used (Year 2)",
+     "value": 64
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "C13",
+   "label": "NOL balance, ending",
+   "header": "Year 2",
+   "instruction": "Calculate NOL balance, ending for Year 2.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s054",
+   "kind": "formula",
+   "expectedFormula": "=C13",
+   "expectedValue": 96,
+   "tolerance": 0.48,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "C13",
+     "label": "NOL balance, ending (Year 2)",
+     "value": 96
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "D11",
+   "label": "NOL balance, beginning",
+   "header": "Year 3",
+   "instruction": "Calculate NOL balance, beginning for Year 3.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s055",
+   "kind": "formula",
+   "expectedFormula": "=MIN(D11,D10*$B$5)",
+   "expectedValue": 96,
+   "tolerance": 0.48,
+   "functions": [
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "D11",
+     "label": "NOL balance, beginning (Year 3)",
+     "value": 96
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "D10",
+     "label": "Taxable income before NOL (Year 3)",
+     "value": 120
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B5",
+     "label": "Annual limit (% of taxable income)",
+     "value": 0.8
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "D12",
+   "label": "NOL used",
+   "header": "Year 3",
+   "instruction": "Calculate NOL used for Year 3.",
+   "hint": "Use the smaller of: NOL left, or 80% of this year's taxable income.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s056",
+   "kind": "formula",
+   "expectedFormula": "=D11-D12",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "D11",
+     "label": "NOL balance, beginning (Year 3)",
+     "value": 96
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "D12",
+     "label": "NOL used (Year 3)",
+     "value": 96
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "D13",
+   "label": "NOL balance, ending",
+   "header": "Year 3",
+   "instruction": "Calculate NOL balance, ending for Year 3.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s057",
+   "kind": "formula",
+   "expectedFormula": "=D13",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "D13",
+     "label": "NOL balance, ending (Year 3)",
+     "value": 0
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "E11",
+   "label": "NOL balance, beginning",
+   "header": "Year 4",
+   "instruction": "Calculate NOL balance, beginning for Year 4.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s058",
+   "kind": "formula",
+   "expectedFormula": "=MIN(E11,E10*$B$5)",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "E11",
+     "label": "NOL balance, beginning (Year 4)",
+     "value": 0
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "E10",
+     "label": "Taxable income before NOL (Year 4)",
+     "value": 150
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B5",
+     "label": "Annual limit (% of taxable income)",
+     "value": 0.8
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "E12",
+   "label": "NOL used",
+   "header": "Year 4",
+   "instruction": "Calculate NOL used for Year 4.",
+   "hint": "Use the smaller of: NOL left, or 80% of this year's taxable income.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s059",
+   "kind": "formula",
+   "expectedFormula": "=E11-E12",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "E11",
+     "label": "NOL balance, beginning (Year 4)",
+     "value": 0
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "E12",
+     "label": "NOL used (Year 4)",
+     "value": 0
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "E13",
+   "label": "NOL balance, ending",
+   "header": "Year 4",
+   "instruction": "Calculate NOL balance, ending for Year 4.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s060",
+   "kind": "formula",
+   "expectedFormula": "=E13",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "E13",
+     "label": "NOL balance, ending (Year 4)",
+     "value": 0
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "F11",
+   "label": "NOL balance, beginning",
+   "header": "Year 5",
+   "instruction": "Calculate NOL balance, beginning for Year 5.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s061",
+   "kind": "formula",
+   "expectedFormula": "=MIN(F11,F10*$B$5)",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "F11",
+     "label": "NOL balance, beginning (Year 5)",
+     "value": 0
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "F10",
+     "label": "Taxable income before NOL (Year 5)",
+     "value": 150
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B5",
+     "label": "Annual limit (% of taxable income)",
+     "value": 0.8
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "F12",
+   "label": "NOL used",
+   "header": "Year 5",
+   "instruction": "Calculate NOL used for Year 5.",
+   "hint": "Use the smaller of: NOL left, or 80% of this year's taxable income.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s062",
+   "kind": "formula",
+   "expectedFormula": "=SUM(B12:F12)",
+   "expectedValue": 200,
+   "tolerance": 1.0,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "B12:F12",
+     "label": "NOL used (Year 1) … NOL used (Year 5)",
+     "value": null
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "G12",
+   "label": "NOL used",
+   "header": "Total",
+   "instruction": "Calculate NOL used for Total.",
+   "hint": "Use the smaller of: NOL left, or 80% of this year's taxable income.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s063",
+   "kind": "formula",
+   "expectedFormula": "=F11-F12",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "F11",
+     "label": "NOL balance, beginning (Year 5)",
+     "value": 0
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "F12",
+     "label": "NOL used (Year 5)",
+     "value": 0
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "F13",
+   "label": "NOL balance, ending",
+   "header": "Year 5",
+   "instruction": "Calculate NOL balance, ending for Year 5.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s064",
+   "kind": "formula",
+   "expectedFormula": "=B10-B12",
+   "expectedValue": 10,
+   "tolerance": 0.05,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "B10",
+     "label": "Taxable income before NOL (Year 1)",
+     "value": 50
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B12",
+     "label": "NOL used (Year 1)",
+     "value": 40
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "B14",
+   "label": "Taxable income after NOL",
+   "header": "Year 1",
+   "instruction": "Calculate Taxable income after NOL for Year 1.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s065",
+   "kind": "formula",
+   "expectedFormula": "=C10-C12",
+   "expectedValue": 16,
+   "tolerance": 0.08,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "C10",
+     "label": "Taxable income before NOL (Year 2)",
+     "value": 80
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "C12",
+     "label": "NOL used (Year 2)",
+     "value": 64
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "C14",
+   "label": "Taxable income after NOL",
+   "header": "Year 2",
+   "instruction": "Calculate Taxable income after NOL for Year 2.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s066",
+   "kind": "formula",
+   "expectedFormula": "=D10-D12",
+   "expectedValue": 24,
+   "tolerance": 0.12,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "D10",
+     "label": "Taxable income before NOL (Year 3)",
+     "value": 120
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "D12",
+     "label": "NOL used (Year 3)",
+     "value": 96
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "D14",
+   "label": "Taxable income after NOL",
+   "header": "Year 3",
+   "instruction": "Calculate Taxable income after NOL for Year 3.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s067",
+   "kind": "formula",
+   "expectedFormula": "=E10-E12",
+   "expectedValue": 150,
+   "tolerance": 0.75,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "E10",
+     "label": "Taxable income before NOL (Year 4)",
+     "value": 150
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "E12",
+     "label": "NOL used (Year 4)",
+     "value": 0
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "E14",
+   "label": "Taxable income after NOL",
+   "header": "Year 4",
+   "instruction": "Calculate Taxable income after NOL for Year 4.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s068",
+   "kind": "formula",
+   "expectedFormula": "=F10-F12",
+   "expectedValue": 150,
+   "tolerance": 0.75,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "F10",
+     "label": "Taxable income before NOL (Year 5)",
+     "value": 150
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "F12",
+     "label": "NOL used (Year 5)",
+     "value": 0
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "F14",
+   "label": "Taxable income after NOL",
+   "header": "Year 5",
+   "instruction": "Calculate Taxable income after NOL for Year 5.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s069",
+   "kind": "formula",
+   "expectedFormula": "=B14*$B$6",
+   "expectedValue": 2.1,
+   "tolerance": 0.0105,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "B14",
+     "label": "Taxable income after NOL (Year 1)",
+     "value": 10
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B6",
+     "label": "Tax rate",
+     "value": 0.21
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "B15",
+   "label": "Cash taxes with NOL",
+   "header": "Year 1",
+   "instruction": "Calculate Cash taxes with NOL for Year 1.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s070",
+   "kind": "formula",
+   "expectedFormula": "=C14*$B$6",
+   "expectedValue": 3.36,
+   "tolerance": 0.0168,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "C14",
+     "label": "Taxable income after NOL (Year 2)",
+     "value": 16
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B6",
+     "label": "Tax rate",
+     "value": 0.21
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "C15",
+   "label": "Cash taxes with NOL",
+   "header": "Year 2",
+   "instruction": "Calculate Cash taxes with NOL for Year 2.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s071",
+   "kind": "formula",
+   "expectedFormula": "=D14*$B$6",
+   "expectedValue": 5.04,
+   "tolerance": 0.0252,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "D14",
+     "label": "Taxable income after NOL (Year 3)",
+     "value": 24
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B6",
+     "label": "Tax rate",
+     "value": 0.21
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "D15",
+   "label": "Cash taxes with NOL",
+   "header": "Year 3",
+   "instruction": "Calculate Cash taxes with NOL for Year 3.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s072",
+   "kind": "formula",
+   "expectedFormula": "=E14*$B$6",
+   "expectedValue": 31.5,
+   "tolerance": 0.1575,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "E14",
+     "label": "Taxable income after NOL (Year 4)",
+     "value": 150
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B6",
+     "label": "Tax rate",
+     "value": 0.21
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "E15",
+   "label": "Cash taxes with NOL",
+   "header": "Year 4",
+   "instruction": "Calculate Cash taxes with NOL for Year 4.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s073",
+   "kind": "formula",
+   "expectedFormula": "=F14*$B$6",
+   "expectedValue": 31.5,
+   "tolerance": 0.1575,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "F14",
+     "label": "Taxable income after NOL (Year 5)",
+     "value": 150
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B6",
+     "label": "Tax rate",
+     "value": 0.21
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "F15",
+   "label": "Cash taxes with NOL",
+   "header": "Year 5",
+   "instruction": "Calculate Cash taxes with NOL for Year 5.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s074",
+   "kind": "formula",
+   "expectedFormula": "=B10*$B$6",
+   "expectedValue": 10.5,
+   "tolerance": 0.0525,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "B10",
+     "label": "Taxable income before NOL (Year 1)",
+     "value": 50
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B6",
+     "label": "Tax rate",
+     "value": 0.21
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "B16",
+   "label": "Cash taxes without NOL",
+   "header": "Year 1",
+   "instruction": "Calculate Cash taxes without NOL for Year 1.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s075",
+   "kind": "formula",
+   "expectedFormula": "=C10*$B$6",
+   "expectedValue": 16.8,
+   "tolerance": 0.084,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "C10",
+     "label": "Taxable income before NOL (Year 2)",
+     "value": 80
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B6",
+     "label": "Tax rate",
+     "value": 0.21
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "C16",
+   "label": "Cash taxes without NOL",
+   "header": "Year 2",
+   "instruction": "Calculate Cash taxes without NOL for Year 2.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s076",
+   "kind": "formula",
+   "expectedFormula": "=D10*$B$6",
+   "expectedValue": 25.2,
+   "tolerance": 0.126,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "D10",
+     "label": "Taxable income before NOL (Year 3)",
+     "value": 120
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B6",
+     "label": "Tax rate",
+     "value": 0.21
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "D16",
+   "label": "Cash taxes without NOL",
+   "header": "Year 3",
+   "instruction": "Calculate Cash taxes without NOL for Year 3.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s077",
+   "kind": "formula",
+   "expectedFormula": "=E10*$B$6",
+   "expectedValue": 31.5,
+   "tolerance": 0.1575,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "E10",
+     "label": "Taxable income before NOL (Year 4)",
+     "value": 150
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B6",
+     "label": "Tax rate",
+     "value": 0.21
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "E16",
+   "label": "Cash taxes without NOL",
+   "header": "Year 4",
+   "instruction": "Calculate Cash taxes without NOL for Year 4.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s078",
+   "kind": "formula",
+   "expectedFormula": "=F10*$B$6",
+   "expectedValue": 31.5,
+   "tolerance": 0.1575,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "F10",
+     "label": "Taxable income before NOL (Year 5)",
+     "value": 150
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B6",
+     "label": "Tax rate",
+     "value": 0.21
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "F16",
+   "label": "Cash taxes without NOL",
+   "header": "Year 5",
+   "instruction": "Calculate Cash taxes without NOL for Year 5.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s079",
+   "kind": "formula",
+   "expectedFormula": "=B16-B15",
+   "expectedValue": 8.4,
+   "tolerance": 0.042,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "B16",
+     "label": "Cash taxes without NOL (Year 1)",
+     "value": 10.5
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B15",
+     "label": "Cash taxes with NOL (Year 1)",
+     "value": 2.1
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "B17",
+   "label": "Tax savings",
+   "header": "Year 1",
+   "instruction": "Calculate Tax savings for Year 1.",
+   "hint": "Total savings = NOL × tax rate, but spread over time.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s080",
+   "kind": "formula",
+   "expectedFormula": "=C16-C15",
+   "expectedValue": 13.44,
+   "tolerance": 0.0672,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "C16",
+     "label": "Cash taxes without NOL (Year 2)",
+     "value": 16.8
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "C15",
+     "label": "Cash taxes with NOL (Year 2)",
+     "value": 3.36
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "C17",
+   "label": "Tax savings",
+   "header": "Year 2",
+   "instruction": "Calculate Tax savings for Year 2.",
+   "hint": "Total savings = NOL × tax rate, but spread over time.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s081",
+   "kind": "formula",
+   "expectedFormula": "=D16-D15",
+   "expectedValue": 20.16,
+   "tolerance": 0.1008,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "D16",
+     "label": "Cash taxes without NOL (Year 3)",
+     "value": 25.2
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "D15",
+     "label": "Cash taxes with NOL (Year 3)",
+     "value": 5.04
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "D17",
+   "label": "Tax savings",
+   "header": "Year 3",
+   "instruction": "Calculate Tax savings for Year 3.",
+   "hint": "Total savings = NOL × tax rate, but spread over time.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s082",
+   "kind": "formula",
+   "expectedFormula": "=E16-E15",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "E16",
+     "label": "Cash taxes without NOL (Year 4)",
+     "value": 31.5
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "E15",
+     "label": "Cash taxes with NOL (Year 4)",
+     "value": 31.5
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "E17",
+   "label": "Tax savings",
+   "header": "Year 4",
+   "instruction": "Calculate Tax savings for Year 4.",
+   "hint": "Total savings = NOL × tax rate, but spread over time.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s083",
+   "kind": "formula",
+   "expectedFormula": "=F16-F15",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "F16",
+     "label": "Cash taxes without NOL (Year 5)",
+     "value": 31.5
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "F15",
+     "label": "Cash taxes with NOL (Year 5)",
+     "value": 31.5
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "F17",
+   "label": "Tax savings",
+   "header": "Year 5",
+   "instruction": "Calculate Tax savings for Year 5.",
+   "hint": "Total savings = NOL × tax rate, but spread over time.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s084",
+   "kind": "formula",
+   "expectedFormula": "=SUM(B17:F17)",
+   "expectedValue": 42,
+   "tolerance": 0.21,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "B17:F17",
+     "label": "Tax savings (Year 1) … Tax savings (Year 5)",
+     "value": null
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "G17",
+   "label": "Tax savings",
+   "header": "Total",
+   "instruction": "Calculate Tax savings for Total.",
+   "hint": "Total savings = NOL × tax rate, but spread over time.",
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s085",
+   "kind": "formula",
+   "expectedFormula": "=B17/(1+$B$7)^1",
+   "expectedValue": 7.636364,
+   "tolerance": 0.0381818181818182,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "B17",
+     "label": "Tax savings (Year 1)",
+     "value": 8.4
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B7",
+     "label": "Discount rate for tax savings",
+     "value": 0.1
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "B18",
+   "label": "PV of tax savings",
+   "header": "Year 1",
+   "instruction": "Calculate PV of tax savings for Year 1.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s086",
+   "kind": "formula",
+   "expectedFormula": "=C17/(1+$B$7)^2",
+   "expectedValue": 11.107438,
+   "tolerance": 0.055537190082644496,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "C17",
+     "label": "Tax savings (Year 2)",
+     "value": 13.44
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B7",
+     "label": "Discount rate for tax savings",
+     "value": 0.1
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "C18",
+   "label": "PV of tax savings",
+   "header": "Year 2",
+   "instruction": "Calculate PV of tax savings for Year 2.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s087",
+   "kind": "formula",
+   "expectedFormula": "=D17/(1+$B$7)^3",
+   "expectedValue": 15.146506,
+   "tolerance": 0.075732531930879,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "D17",
+     "label": "Tax savings (Year 3)",
+     "value": 20.16
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B7",
+     "label": "Discount rate for tax savings",
+     "value": 0.1
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "D18",
+   "label": "PV of tax savings",
+   "header": "Year 3",
+   "instruction": "Calculate PV of tax savings for Year 3.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s088",
+   "kind": "formula",
+   "expectedFormula": "=E17/(1+$B$7)^4",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "E17",
+     "label": "Tax savings (Year 4)",
+     "value": 0
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B7",
+     "label": "Discount rate for tax savings",
+     "value": 0.1
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "E18",
+   "label": "PV of tax savings",
+   "header": "Year 4",
+   "instruction": "Calculate PV of tax savings for Year 4.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s089",
+   "kind": "formula",
+   "expectedFormula": "=F17/(1+$B$7)^5",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "F17",
+     "label": "Tax savings (Year 5)",
+     "value": 0
+    },
+    {
+     "sheet": "NOLs",
+     "ref": "B7",
+     "label": "Discount rate for tax savings",
+     "value": 0.1
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "F18",
+   "label": "PV of tax savings",
+   "header": "Year 5",
+   "instruction": "Calculate PV of tax savings for Year 5.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s090",
+   "kind": "formula",
+   "expectedFormula": "=SUM(B18:F18)",
+   "expectedValue": 33.890308,
+   "tolerance": 0.169451540195342,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "NOLs",
+     "ref": "B18:F18",
+     "label": "PV of tax savings (Year 1) … PV of tax savings (Year 5)",
+     "value": null
+    }
+   ],
+   "sheet": "NOLs",
+   "cell": "G18",
+   "label": "PV of tax savings",
+   "header": "Total",
+   "instruction": "Calculate PV of tax savings for Total.",
+   "hint": null,
+   "numberFormat": "#,##0.0;\\(#,##0.0\\);\\-"
+  },
+  {
+   "id": "s091",
+   "kind": "formula",
+   "expectedFormula": "=B4*B5",
+   "expectedValue": 17.5,
+   "tolerance": 0.08750000000000001,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Section 382",
+     "ref": "B4",
+     "label": "Target equity value at ownership change",
+     "value": 500
+    },
+    {
+     "sheet": "Section 382",
+     "ref": "B5",
+     "label": "Long-term tax-exempt rate (given for this exercise)",
+     "value": 0.035
+    }
+   ],
+   "sheet": "Section 382",
+   "cell": "B10",
+   "label": "Annual NOL limit",
+   "header": null,
+   "instruction": "Calculate Annual NOL limit.",
+   "hint": "Equity value × long-term tax-exempt rate",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s092",
+   "kind": "formula",
+   "expectedFormula": "=B6/B10",
+   "expectedValue": 11.428571,
+   "tolerance": 0.057142857142857,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Section 382",
+     "ref": "B6",
+     "label": "Acquired NOL balance",
+     "value": 200
+    },
+    {
+     "sheet": "Section 382",
+     "ref": "B10",
+     "label": "Annual NOL limit",
+     "value": 17.5
+    }
+   ],
+   "sheet": "Section 382",
+   "cell": "B11",
+   "label": "Years to use the full NOL",
+   "header": null,
+   "instruction": "Calculate Years to use the full NOL.",
+   "hint": null,
+   "numberFormat": "0.0"
+  },
+  {
+   "id": "s093",
+   "kind": "formula",
+   "expectedFormula": "=B10*B7",
+   "expectedValue": 3.675,
+   "tolerance": 0.018375,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Section 382",
+     "ref": "B10",
+     "label": "Annual NOL limit",
+     "value": 17.5
+    },
+    {
+     "sheet": "Section 382",
+     "ref": "B7",
+     "label": "Tax rate",
+     "value": 0.21
+    }
+   ],
+   "sheet": "Section 382",
+   "cell": "B12",
+   "label": "Annual tax savings",
+   "header": null,
+   "instruction": "Calculate Annual tax savings.",
+   "hint": null,
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s094",
+   "kind": "formula",
+   "expectedFormula": "=PV(B8,B11,-B12)",
+   "expectedValue": 24.384887,
+   "tolerance": 0.12192443572548751,
+   "functions": [
+    "PV"
+   ],
+   "references": [
+    {
+     "sheet": "Section 382",
+     "ref": "B8",
+     "label": "Discount rate",
+     "value": 0.1
+    },
+    {
+     "sheet": "Section 382",
+     "ref": "B11",
+     "label": "Years to use the full NOL",
+     "value": 11.428571
+    },
+    {
+     "sheet": "Section 382",
+     "ref": "B12",
+     "label": "Annual tax savings",
+     "value": 3.675
+    }
+   ],
+   "sheet": "Section 382",
+   "cell": "B13",
+   "label": "PV of tax savings (limited)",
+   "header": null,
+   "instruction": "Calculate PV of tax savings (limited).",
+   "hint": "PV of an annuity: the savings arrive evenly over the years it takes to use the NOL.",
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s095",
+   "kind": "formula",
+   "expectedFormula": "=B6*B7",
+   "expectedValue": 42,
+   "tolerance": 0.21,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Section 382",
+     "ref": "B6",
+     "label": "Acquired NOL balance",
+     "value": 200
+    },
+    {
+     "sheet": "Section 382",
+     "ref": "B7",
+     "label": "Tax rate",
+     "value": 0.21
+    }
+   ],
+   "sheet": "Section 382",
+   "cell": "B14",
+   "label": "Face value of NOL tax savings",
+   "header": null,
+   "instruction": "Calculate Face value of NOL tax savings.",
+   "hint": null,
+   "numberFormat": "#,##0.00;\\(#,##0.00\\);\\-"
+  },
+  {
+   "id": "s096",
+   "kind": "formula",
+   "expectedFormula": "=B13/B14",
+   "expectedValue": 0.580593,
+   "tolerance": 0.00290296275536875,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Section 382",
+     "ref": "B13",
+     "label": "PV of tax savings (limited)",
+     "value": 24.384887
+    },
+    {
+     "sheet": "Section 382",
+     "ref": "B14",
+     "label": "Face value of NOL tax savings",
+     "value": 42
+    }
+   ],
+   "sheet": "Section 382",
+   "cell": "B15",
+   "label": "PV as % of face value",
+   "header": null,
+   "instruction": "Calculate PV as % of face value.",
+   "hint": "Why you can't buy a company just for its losses.",
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  }
+ ]
+}

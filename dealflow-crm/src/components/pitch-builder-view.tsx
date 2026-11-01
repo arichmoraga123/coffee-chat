@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Select } from "@/components/ui/select";
 
 type PitchList = { id: string; companyName: string; recommendation: string; updatedAt: string; sharedToGroupId: string | null };
 type GroupOpt = { id: string; name: string };
@@ -268,15 +269,15 @@ export function PitchBuilderView() {
         <BulletInputs label="Risks (3)" values={form.risks} onChange={(t) => setForm((f) => ({ ...f, risks: t }))} />
         <div>
           <p className="mb-1 text-xs text-ink-3">Recommendation</p>
-          <select
-            className="rounded border border-border-strong bg-surface px-2 py-2 text-sm"
+          <Select
+            
             value={form.recommendation}
             onChange={(e) => setForm((f) => ({ ...f, recommendation: e.target.value as typeof f.recommendation }))}
           >
             <option value="Buy">Buy</option>
             <option value="Hold">Hold</option>
             <option value="Sell">Sell</option>
-          </select>
+          </Select>
         </div>
         <div className="flex flex-wrap gap-2">
           <Button type="button" disabled={busy} onClick={() => void save()}>
@@ -297,8 +298,8 @@ export function PitchBuilderView() {
           <div className="border-t border-border pt-4">
             <p className="text-sm font-medium text-ink">Share with study group</p>
             <div className="mt-2 flex flex-wrap gap-2">
-              <select
-                className="rounded border border-border-strong bg-surface px-2 py-2 text-sm"
+              <Select
+                
                 value={shareGroupId}
                 onChange={(e) => setShareGroupId(e.target.value)}
               >
@@ -308,7 +309,7 @@ export function PitchBuilderView() {
                     {g.name}
                   </option>
                 ))}
-              </select>
+              </Select>
               <Button type="button" size="sm" variant="outline" disabled={!shareGroupId} onClick={() => void share()}>
                 Share for feedback
               </Button>

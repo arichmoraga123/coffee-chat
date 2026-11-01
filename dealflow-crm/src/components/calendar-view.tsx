@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { cn } from "@/lib/utils";
 import { RecruitingCalendarSidebar, type RecruitingSidebarEvent } from "@/components/recruiting-calendar-sidebar";
+import { Select } from "@/components/ui/select";
 
 type RecruitingEventDTO = {
   id: string;
@@ -281,8 +282,8 @@ export function CalendarView({
           </div>
           <div>
             <label className="mb-1 block text-xs text-ink-3">Type</label>
-            <select
-              className="w-full rounded border border-border-strong bg-surface px-2 py-2 text-sm"
+            <Select
+              className="w-full"
               value={type}
               onChange={(e) => setType(e.target.value)}
             >
@@ -291,7 +292,7 @@ export function CalendarView({
               <option value="interview">Interview</option>
               <option value="networking">Networking</option>
               <option value="other">Other</option>
-            </select>
+            </Select>
           </div>
           <div>
             <label className="mb-1 block text-xs text-ink-3">Firm (optional)</label>

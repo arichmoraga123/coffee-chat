@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Card } from "@/components/ui/card";
@@ -8,9 +8,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { EmptyState } from "@/components/ui/empty-state";
-import { Building2 } from "lucide-react";
 import { FIRM_TYPE_ORDER, FIRM_TYPE_LABELS, FirmTypeBadge } from "@/lib/firm-type";
 import type { FirmType } from "@prisma/client";
+import { Select } from "@/components/ui/select";
+import { PageHeader } from "@/components/ui/page-header";
+import { BulkActionBar, InlineEdit, SelectCheckbox, downloadCsv, useBulkSelection } from "@/components/ui/bulk";
+import { rank } from "@/lib/fuzzy";
+import { cn } from "@/lib/utils";
 
 export type FirmRow = {
   id: string;
@@ -58,84 +62,104 @@ export function FirmsDirectory({ initialFirms }: { initialFirms: FirmRow[] }) {
     router.refresh();
   };
 
+  const [q, setQ] = useState("");
+  const shown = useMemo(() => (q.trim() ? rank(initialFirms, q, (f) => f.name, (f) => `${f.location} ${f.type ?? ""}`) : initialFirms), [initialFirms, q]);
+  const sel = useBulkSelection(shown.map((f) => f.id));
+  const typeOptions = FIRM_TYPE_ORDER.map((t) => ({ value: t, label: FIRM_TYPE_LABELS[t] }));
+  const selectedFirms = initialFirms.filter((f) => sel.has(f.id));
+  const refresh = () => router.refresh();
+
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between gap-2">
-        <h1 className="page-title">Firms</h1>
-        <Button
-          variant="primary"
-          size="sm"
-          onClick={() => {
-            setType("");
-            setOpen(true);
-          }}
-        >
-          Add firm
-        </Button>
+      <PageHeader
+        title="Firms"
+        subtitle="Every firm you're tracking. Merge duplicates so contacts and opportunities stay together."
+        actions={
+          <Button
+            variant="primary"
+            onClick={() => {
+              setType("");
+              setOpen(true);
+            }}
+          >
+            Add firm
+          </Button>
+        }
+      />
+      <div className="flex flex-wrap items-center gap-3">
+        <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search firms" aria-label="Search firms" className="w-full sm:w-72" />
+        <span className="text-[13px] text-ink-3">
+          {shown.length} of {initialFirms.length}
+        </span>
       </div>
-      <Card className="overflow-hidden p-0">
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-[280px] text-sm md:min-w-[640px]">
-            <thead className="border-b border-border bg-surface text-left text-[10px] font-semibold uppercase tracking-wider text-ink-3">
+      <div className="overflow-x-auto rounded-[var(--radius-lg)] border border-border bg-surface">
+        <table className="w-full min-w-[640px] border-collapse text-left text-sm">
+          <thead>
+            <tr className="border-b border-border text-xs font-semibold uppercase tracking-[0.06em] text-ink-3">
+              <th className="w-10 px-3 py-2.5">
+                <SelectCheckbox checked={sel.pageAllSelected} onToggle={() => sel.togglePage()} label="Select all firms" />
+              </th>
+              <th className="px-3 py-2.5">Firm</th>
+              <th className="px-3 py-2.5">Type</th>
+              <th className="px-3 py-2.5">Location</th>
+              <th className="px-3 py-2.5 text-right">Contacts</th>
+              <th className="px-3 py-2.5 text-right">Opportunities</th>
+            </tr>
+          </thead>
+          <tbody>
+            {shown.length === 0 ? (
               <tr>
-                <th className="px-3 py-3">Firm</th>
-                <th className="min-w-0 px-3 py-3">Type</th>
-                <th className="hidden px-3 py-3 md:table-cell">Location</th>
-                <th className="hidden px-3 py-3 md:table-cell">Contacts</th>
-                <th className="hidden px-3 py-3 md:table-cell">Opportunities</th>
-                <th className="hidden md:table-cell" />
+                <td colSpan={6} className="p-0">
+                  <EmptyState className="border-0" title={initialFirms.length ? `No firms match “${q}”.` : "No firms yet. Add one, or they'll appear as you add contacts."} />
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {initialFirms.length === 0 ? (
-                <tr>
-                  <td colSpan={6} className="p-0">
-                    <EmptyState
-                      icon={Building2}
-                      className="border-0 bg-transparent"
-                      title="No firms yet"
-                      description="Add your first firm to start linking contacts and pipeline."
-                    />
-                  </td>
-                </tr>
-              ) : null}
-              {initialFirms.map((f) => (
-                <tr
-                  key={f.id}
-                  className="border-t border-border odd:bg-surface-2 transition-colors hover:bg-surface-2 "
-                >
-                  <td className="max-w-[48%] min-w-0 px-3 py-2 align-top md:max-w-none">
-                    <Link href={`/firms/${f.id}`} className="break-words text-ink underline-offset-4 hover:underline">
-                      {f.name}
-                    </Link>
-                  </td>
-                  <td className="min-w-0 max-w-[44%] px-3 py-2 align-top md:max-w-none">
-                    <FirmTypeBadge
-                      type={f.type}
-                      className="inline-flex max-w-full whitespace-normal break-words text-[9px] leading-snug md:text-[10px]"
-                    />
-                  </td>
-                  <td className="hidden px-3 py-2 align-top md:table-cell">{f.location}</td>
-                  <td className="hidden px-3 py-2 align-top md:table-cell">{f.contacts}</td>
-                  <td className="hidden px-3 py-2 align-top md:table-cell">{f.opportunities}</td>
-                  <td className="hidden px-3 py-2 text-right align-top md:table-cell">
-                    <Button asChild size="sm" variant="outline">
-                      <Link href={`/firms/${f.id}`}>Edit</Link>
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </Card>
-
+            ) : null}
+            {shown.map((f) => (
+              <tr key={f.id} className={cn("border-b border-divider", sel.has(f.id) && "bg-accent-tint/60")}>
+                <td className="px-3 py-2.5">
+                  <SelectCheckbox checked={sel.has(f.id)} onToggle={(e) => sel.toggle(f.id, e)} label={`Select ${f.name}`} />
+                </td>
+                <td className="px-3 py-2.5">
+                  <Link href={`/firms/${f.id}`} className="font-medium text-ink hover:underline">
+                    {f.name}
+                  </Link>
+                </td>
+                <td className="px-3 py-2.5">
+                  <InlineEdit entity="firms" id={f.id} field="type" type="select" options={typeOptions} value={f.type ?? ""} display={<FirmTypeBadge type={f.type} />} ariaLabel={`type for ${f.name}`} onSaved={refresh} />
+                </td>
+                <td className="px-3 py-2.5 text-ink-2">
+                  <InlineEdit entity="firms" id={f.id} field="location" value={f.location} ariaLabel={`location for ${f.name}`} onSaved={refresh} />
+                </td>
+                <td className="px-3 py-2.5 text-right text-ink-2">{f.contacts}</td>
+                <td className="px-3 py-2.5 text-right text-ink-2">{f.opportunities}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <BulkActionBar
+        entity="firms"
+        noun={["firm", "firms"]}
+        sel={sel}
+        fields={[
+          { key: "type", label: "Type", type: "select", options: typeOptions },
+          { key: "location", label: "Location", type: "text" },
+        ]}
+        actions={[
+          ...(sel.count >= 2
+            ? [{ key: "merge", label: "Merge firms", undoable: false, prompt: { label: "Keep which firm? Contacts and opportunities from the others move to it.", type: "select" as const, options: selectedFirms.map((f) => ({ value: f.id, label: f.name, sublabel: `${f.contacts} contacts · ${f.opportunities} opportunities` })) } }]
+            : []),
+          { key: "export", label: "Export CSV", client: (ids) => downloadCsv("firms.csv", ["Firm", "Type", "Location", "Contacts", "Opportunities"], initialFirms.filter((f) => ids.includes(f.id)).map((f) => [f.name, f.type, f.location, f.contacts, f.opportunities])) },
+          { key: "delete", label: "Delete", danger: true },
+        ]}
+        onChange={refresh}
+      />
       <Modal open={open} onClose={() => setOpen(false)} title="New firm" className="max-w-md">
         <div className="space-y-2 text-sm">
           <Input placeholder="Firm name" value={name} onChange={(e) => setName(e.target.value)} />
           <label className="mb-1 block text-xs text-ink-3">Firm type</label>
-          <select
-            className="w-full rounded border border-border bg-surface px-2 py-2 text-sm"
+          <Select
+            className="w-full"
             value={type}
             onChange={(e) => setType((e.target.value || "") as FirmType | "")}
           >
@@ -145,7 +169,7 @@ export function FirmsDirectory({ initialFirms }: { initialFirms: FirmRow[] }) {
                 {FIRM_TYPE_LABELS[t]}
               </option>
             ))}
-          </select>
+          </Select>
           <Input placeholder="Location" value={location} onChange={(e) => setLocation(e.target.value)} />
           <Input placeholder="Focus" value={focus} onChange={(e) => setFocus(e.target.value)} />
           {error ? <p className="text-xs text-danger">{error}</p> : null}

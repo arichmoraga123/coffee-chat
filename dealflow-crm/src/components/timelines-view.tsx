@@ -9,6 +9,7 @@ import { Modal } from "@/components/ui/modal";
 import { cn } from "@/lib/utils";
 import { useCareerTracks } from "@/components/career-track-provider";
 import { matchesCareerTracks } from "@/lib/career-tracks";
+import { Select } from "@/components/ui/select";
 
 export type TimelineRow = {
   id: string;
@@ -150,8 +151,8 @@ export function TimelinesView({
       <Card className="flex flex-wrap gap-3 p-3 text-sm">
         <div>
           <label className="mb-1 block text-xs text-ink-3">Firm type</label>
-          <select
-            className="rounded border border-border-strong bg-surface px-2 py-1.5"
+          <Select
+            
             value={firmType}
             onChange={(e) => setFirmType(e.target.value)}
           >
@@ -160,12 +161,12 @@ export function TimelinesView({
                 {t === "all" ? "All" : t}
               </option>
             ))}
-          </select>
+          </Select>
         </div>
         <div>
           <label className="mb-1 block text-xs text-ink-3">Role</label>
-          <select
-            className="rounded border border-border-strong bg-surface px-2 py-1.5"
+          <Select
+            
             value={role}
             onChange={(e) => setRole(e.target.value)}
           >
@@ -174,12 +175,12 @@ export function TimelinesView({
                 {r === "all" ? "All" : r}
               </option>
             ))}
-          </select>
+          </Select>
         </div>
         <div>
           <label className="mb-1 block text-xs text-ink-3">Year</label>
-          <select
-            className="rounded border border-border-strong bg-surface px-2 py-1.5"
+          <Select
+            
             value={year}
             onChange={(e) => setYear(e.target.value)}
           >
@@ -188,7 +189,7 @@ export function TimelinesView({
                 {y === "all" ? "All" : y}
               </option>
             ))}
-          </select>
+          </Select>
         </div>
         <Button size="sm" variant="outline" className="self-end" onClick={() => void refetch()}>
           Apply filters
@@ -227,8 +228,8 @@ export function TimelinesView({
       <Modal open={showAdd} onClose={() => setShowAdd(false)} title="Submit timeline">
         <div className="grid max-h-[70vh] gap-2 overflow-y-auto text-sm">
           <Input placeholder="Firm name" value={form.firmName} onChange={(e) => setForm((p) => ({ ...p, firmName: e.target.value }))} />
-          <select
-            className="rounded border border-border-strong bg-surface px-2 py-1.5"
+          <Select
+            
             value={form.firmType}
             onChange={(e) => setForm((p) => ({ ...p, firmType: e.target.value }))}
           >
@@ -237,7 +238,7 @@ export function TimelinesView({
                 {t}
               </option>
             ))}
-          </select>
+          </Select>
           <Input placeholder="Role" value={form.role} onChange={(e) => setForm((p) => ({ ...p, role: e.target.value }))} />
           <Input
             type="number"

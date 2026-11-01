@@ -1,0 +1,4591 @@
+{
+ "workbookKey": "PEB_07_LBO",
+ "studentFile": "PEB_07_LBO.xlsx",
+ "answerKeyFile": "PEB_07_LBO_KEY.xlsx",
+ "sheets": [
+  "LBO",
+  "Paper LBO"
+ ],
+ "stepCount": 156,
+ "steps": [
+  {
+   "id": "s001",
+   "kind": "formula",
+   "expectedFormula": "=B5*B6",
+   "expectedValue": 100,
+   "tolerance": 0.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B5",
+     "label": "LTM revenue",
+     "value": 500
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B6",
+     "label": "LTM EBITDA margin",
+     "value": 0.2
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B7",
+   "label": "LTM EBITDA",
+   "header": null,
+   "instruction": "Calculate LTM EBITDA.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s002",
+   "kind": "formula",
+   "expectedFormula": "=B7*B8",
+   "expectedValue": 1000,
+   "tolerance": 5.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B7",
+     "label": "LTM EBITDA",
+     "value": 100
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B8",
+     "label": "Entry EV / EBITDA",
+     "value": 10
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B23",
+   "label": "Purchase enterprise value",
+   "header": "$mm",
+   "instruction": "Calculate Purchase enterprise value for $mm.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s003",
+   "kind": "formula",
+   "expectedFormula": "=B7*B10",
+   "expectedValue": 400,
+   "tolerance": 2.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B7",
+     "label": "LTM EBITDA",
+     "value": 100
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B10",
+     "label": "Term Loan B (x EBITDA)",
+     "value": 4
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E23",
+   "label": "Term Loan B",
+   "header": "$mm",
+   "instruction": "Calculate Term Loan B for $mm.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s004",
+   "kind": "formula",
+   "expectedFormula": "=E23/$B$7",
+   "expectedValue": 4,
+   "tolerance": 0.02,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E23",
+     "label": "Term Loan B ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B7",
+     "label": "LTM EBITDA",
+     "value": 100
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F23",
+   "label": "Term Loan B",
+   "header": "x EBITDA",
+   "instruction": "Calculate Term Loan B for x EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s005",
+   "kind": "formula",
+   "expectedFormula": "=B23*B9",
+   "expectedValue": 20,
+   "tolerance": 0.1,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B23",
+     "label": "Purchase enterprise value ($mm)",
+     "value": 1000
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B9",
+     "label": "Transaction fees (% of EV)",
+     "value": 0.02
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B24",
+   "label": "Transaction fees",
+   "header": "$mm",
+   "instruction": "Calculate Transaction fees for $mm.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s006",
+   "kind": "formula",
+   "expectedFormula": "=B7*B13",
+   "expectedValue": 150,
+   "tolerance": 0.75,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B7",
+     "label": "LTM EBITDA",
+     "value": 100
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B13",
+     "label": "Senior notes (x EBITDA)",
+     "value": 1.5
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E24",
+   "label": "Senior notes",
+   "header": "$mm",
+   "instruction": "Calculate Senior notes for $mm.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s007",
+   "kind": "formula",
+   "expectedFormula": "=E24/$B$7",
+   "expectedValue": 1.5,
+   "tolerance": 0.0075,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E24",
+     "label": "Senior notes ($mm)",
+     "value": 150
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B7",
+     "label": "LTM EBITDA",
+     "value": 100
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F24",
+   "label": "Senior notes",
+   "header": "x EBITDA",
+   "instruction": "Calculate Senior notes for x EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s008",
+   "kind": "formula",
+   "expectedFormula": "=B23+B24",
+   "expectedValue": 1020,
+   "tolerance": 5.1000000000000005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B23",
+     "label": "Purchase enterprise value ($mm)",
+     "value": 1000
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B24",
+     "label": "Transaction fees ($mm)",
+     "value": 20
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B25",
+   "label": "Total uses",
+   "header": "$mm",
+   "instruction": "Calculate Total uses for $mm.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s009",
+   "kind": "formula",
+   "expectedFormula": "=B25-E23-E24",
+   "expectedValue": 470,
+   "tolerance": 2.35,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B25",
+     "label": "Total uses ($mm)",
+     "value": 1020
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E23",
+     "label": "Term Loan B ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E24",
+     "label": "Senior notes ($mm)",
+     "value": 150
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E25",
+   "label": "Sponsor equity (plug)",
+   "header": "$mm",
+   "instruction": "Calculate Sponsor equity (plug) for $mm.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s010",
+   "kind": "formula",
+   "expectedFormula": "=E25/$B$7",
+   "expectedValue": 4.7,
+   "tolerance": 0.0235,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E25",
+     "label": "Sponsor equity (plug) ($mm)",
+     "value": 470
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B7",
+     "label": "LTM EBITDA",
+     "value": 100
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F25",
+   "label": "Sponsor equity (plug)",
+   "header": "x EBITDA",
+   "instruction": "Calculate Sponsor equity (plug) for x EBITDA.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s011",
+   "kind": "formula",
+   "expectedFormula": "=SUM(E23:E25)",
+   "expectedValue": 1020,
+   "tolerance": 5.1000000000000005,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E23:E25",
+     "label": "Term Loan B ($mm) … Sponsor equity (plug) ($mm)",
+     "value": null
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E26",
+   "label": "Total sources",
+   "header": "$mm",
+   "instruction": "Calculate Total sources for $mm.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s012",
+   "kind": "formula",
+   "expectedFormula": "=B31*(1+C29)",
+   "expectedValue": 530,
+   "tolerance": 2.65,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B31",
+     "label": "Revenue (Entry (LTM))",
+     "value": 500
+    },
+    {
+     "sheet": "LBO",
+     "ref": "C29",
+     "label": "Revenue growth (Year 1)",
+     "value": 0.06
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "C31",
+   "label": "Revenue",
+   "header": "Year 1",
+   "instruction": "Calculate Revenue for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s013",
+   "kind": "formula",
+   "expectedFormula": "=C31*(1+D29)",
+   "expectedValue": 561.8,
+   "tolerance": 2.8089999999999997,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "C31",
+     "label": "Revenue (Year 1)",
+     "value": 530
+    },
+    {
+     "sheet": "LBO",
+     "ref": "D29",
+     "label": "Revenue growth (Year 2)",
+     "value": 0.06
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "D31",
+   "label": "Revenue",
+   "header": "Year 2",
+   "instruction": "Calculate Revenue for Year 2.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s014",
+   "kind": "formula",
+   "expectedFormula": "=D31*(1+E29)",
+   "expectedValue": 589.89,
+   "tolerance": 2.94945,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "D31",
+     "label": "Revenue (Year 2)",
+     "value": 561.8
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E29",
+     "label": "Revenue growth (Year 3)",
+     "value": 0.05
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E31",
+   "label": "Revenue",
+   "header": "Year 3",
+   "instruction": "Calculate Revenue for Year 3.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s015",
+   "kind": "formula",
+   "expectedFormula": "=E31*(1+F29)",
+   "expectedValue": 619.3845,
+   "tolerance": 3.0969225000000002,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E31",
+     "label": "Revenue (Year 3)",
+     "value": 589.89
+    },
+    {
+     "sheet": "LBO",
+     "ref": "F29",
+     "label": "Revenue growth (Year 4)",
+     "value": 0.05
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F31",
+   "label": "Revenue",
+   "header": "Year 4",
+   "instruction": "Calculate Revenue for Year 4.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s016",
+   "kind": "formula",
+   "expectedFormula": "=F31*(1+G29)",
+   "expectedValue": 650.353725,
+   "tolerance": 3.2517686250000004,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "F31",
+     "label": "Revenue (Year 4)",
+     "value": 619.3845
+    },
+    {
+     "sheet": "LBO",
+     "ref": "G29",
+     "label": "Revenue growth (Year 5)",
+     "value": 0.05
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "G31",
+   "label": "Revenue",
+   "header": "Year 5",
+   "instruction": "Calculate Revenue for Year 5.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s017",
+   "kind": "formula",
+   "expectedFormula": "=B31*B30",
+   "expectedValue": 100,
+   "tolerance": 0.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B31",
+     "label": "Revenue (Entry (LTM))",
+     "value": 500
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B30",
+     "label": "EBITDA margin (Entry (LTM))",
+     "value": 0.2
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B32",
+   "label": "EBITDA",
+   "header": "Entry (LTM)",
+   "instruction": "Calculate EBITDA for Entry (LTM).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s018",
+   "kind": "formula",
+   "expectedFormula": "=C31*C30",
+   "expectedValue": 108.65,
+   "tolerance": 0.54325,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "C31",
+     "label": "Revenue (Year 1)",
+     "value": 530
+    },
+    {
+     "sheet": "LBO",
+     "ref": "C30",
+     "label": "EBITDA margin (Year 1)",
+     "value": 0.205
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "C32",
+   "label": "EBITDA",
+   "header": "Year 1",
+   "instruction": "Calculate EBITDA for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s019",
+   "kind": "formula",
+   "expectedFormula": "=D31*D30",
+   "expectedValue": 117.978,
+   "tolerance": 0.58989,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "D31",
+     "label": "Revenue (Year 2)",
+     "value": 561.8
+    },
+    {
+     "sheet": "LBO",
+     "ref": "D30",
+     "label": "EBITDA margin (Year 2)",
+     "value": 0.21
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "D32",
+   "label": "EBITDA",
+   "header": "Year 2",
+   "instruction": "Calculate EBITDA for Year 2.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s020",
+   "kind": "formula",
+   "expectedFormula": "=E31*E30",
+   "expectedValue": 126.82635,
+   "tolerance": 0.63413175,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E31",
+     "label": "Revenue (Year 3)",
+     "value": 589.89
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E30",
+     "label": "EBITDA margin (Year 3)",
+     "value": 0.215
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E32",
+   "label": "EBITDA",
+   "header": "Year 3",
+   "instruction": "Calculate EBITDA for Year 3.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s021",
+   "kind": "formula",
+   "expectedFormula": "=F31*F30",
+   "expectedValue": 136.26459,
+   "tolerance": 0.68132295,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "F31",
+     "label": "Revenue (Year 4)",
+     "value": 619.3845
+    },
+    {
+     "sheet": "LBO",
+     "ref": "F30",
+     "label": "EBITDA margin (Year 4)",
+     "value": 0.22
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F32",
+   "label": "EBITDA",
+   "header": "Year 4",
+   "instruction": "Calculate EBITDA for Year 4.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s022",
+   "kind": "formula",
+   "expectedFormula": "=G31*G30",
+   "expectedValue": 143.07782,
+   "tolerance": 0.7153890975,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "G31",
+     "label": "Revenue (Year 5)",
+     "value": 650.353725
+    },
+    {
+     "sheet": "LBO",
+     "ref": "G30",
+     "label": "EBITDA margin (Year 5)",
+     "value": 0.22
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "G32",
+   "label": "EBITDA",
+   "header": "Year 5",
+   "instruction": "Calculate EBITDA for Year 5.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s023",
+   "kind": "formula",
+   "expectedFormula": "=C31*$B$16",
+   "expectedValue": 15.9,
+   "tolerance": 0.0795,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "C31",
+     "label": "Revenue (Year 1)",
+     "value": 530
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B16",
+     "label": "D&A (% of revenue)",
+     "value": 0.03
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "C33",
+   "label": "D&A",
+   "header": "Year 1",
+   "instruction": "Calculate D&A for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s024",
+   "kind": "formula",
+   "expectedFormula": "=D31*$B$16",
+   "expectedValue": 16.854,
+   "tolerance": 0.08427,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "D31",
+     "label": "Revenue (Year 2)",
+     "value": 561.8
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B16",
+     "label": "D&A (% of revenue)",
+     "value": 0.03
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "D33",
+   "label": "D&A",
+   "header": "Year 2",
+   "instruction": "Calculate D&A for Year 2.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s025",
+   "kind": "formula",
+   "expectedFormula": "=E31*$B$16",
+   "expectedValue": 17.6967,
+   "tolerance": 0.0884835,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E31",
+     "label": "Revenue (Year 3)",
+     "value": 589.89
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B16",
+     "label": "D&A (% of revenue)",
+     "value": 0.03
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E33",
+   "label": "D&A",
+   "header": "Year 3",
+   "instruction": "Calculate D&A for Year 3.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s026",
+   "kind": "formula",
+   "expectedFormula": "=F31*$B$16",
+   "expectedValue": 18.581535,
+   "tolerance": 0.092907675,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "F31",
+     "label": "Revenue (Year 4)",
+     "value": 619.3845
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B16",
+     "label": "D&A (% of revenue)",
+     "value": 0.03
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F33",
+   "label": "D&A",
+   "header": "Year 4",
+   "instruction": "Calculate D&A for Year 4.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s027",
+   "kind": "formula",
+   "expectedFormula": "=G31*$B$16",
+   "expectedValue": 19.510612,
+   "tolerance": 0.09755305874999999,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "G31",
+     "label": "Revenue (Year 5)",
+     "value": 650.353725
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B16",
+     "label": "D&A (% of revenue)",
+     "value": 0.03
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "G33",
+   "label": "D&A",
+   "header": "Year 5",
+   "instruction": "Calculate D&A for Year 5.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s028",
+   "kind": "formula",
+   "expectedFormula": "=C32-C33",
+   "expectedValue": 92.75,
+   "tolerance": 0.46375,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "C32",
+     "label": "EBITDA (Year 1)",
+     "value": 108.65
+    },
+    {
+     "sheet": "LBO",
+     "ref": "C33",
+     "label": "D&A (Year 1)",
+     "value": 15.9
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "C34",
+   "label": "EBIT",
+   "header": "Year 1",
+   "instruction": "Calculate EBIT for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s029",
+   "kind": "formula",
+   "expectedFormula": "=D32-D33",
+   "expectedValue": 101.124,
+   "tolerance": 0.50562,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "D32",
+     "label": "EBITDA (Year 2)",
+     "value": 117.978
+    },
+    {
+     "sheet": "LBO",
+     "ref": "D33",
+     "label": "D&A (Year 2)",
+     "value": 16.854
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "D34",
+   "label": "EBIT",
+   "header": "Year 2",
+   "instruction": "Calculate EBIT for Year 2.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s030",
+   "kind": "formula",
+   "expectedFormula": "=E32-E33",
+   "expectedValue": 109.12965,
+   "tolerance": 0.5456482500000001,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E32",
+     "label": "EBITDA (Year 3)",
+     "value": 126.82635
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E33",
+     "label": "D&A (Year 3)",
+     "value": 17.6967
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E34",
+   "label": "EBIT",
+   "header": "Year 3",
+   "instruction": "Calculate EBIT for Year 3.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s031",
+   "kind": "formula",
+   "expectedFormula": "=F32-F33",
+   "expectedValue": 117.683055,
+   "tolerance": 0.588415275,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "F32",
+     "label": "EBITDA (Year 4)",
+     "value": 136.26459
+    },
+    {
+     "sheet": "LBO",
+     "ref": "F33",
+     "label": "D&A (Year 4)",
+     "value": 18.581535
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F34",
+   "label": "EBIT",
+   "header": "Year 4",
+   "instruction": "Calculate EBIT for Year 4.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s032",
+   "kind": "formula",
+   "expectedFormula": "=G32-G33",
+   "expectedValue": 123.567208,
+   "tolerance": 0.61783603875,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "G32",
+     "label": "EBITDA (Year 5)",
+     "value": 143.07782
+    },
+    {
+     "sheet": "LBO",
+     "ref": "G33",
+     "label": "D&A (Year 5)",
+     "value": 19.510612
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "G34",
+   "label": "EBIT",
+   "header": "Year 5",
+   "instruction": "Calculate EBIT for Year 5.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s033",
+   "kind": "formula",
+   "expectedFormula": "=C33",
+   "expectedValue": 15.9,
+   "tolerance": 0.0795,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "C33",
+     "label": "D&A (Year 1)",
+     "value": 15.9
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "C40",
+   "label": "Plus: D&A",
+   "header": "Year 1",
+   "instruction": "Calculate Plus: D&A for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s034",
+   "kind": "formula",
+   "expectedFormula": "=D33",
+   "expectedValue": 16.854,
+   "tolerance": 0.08427,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "D33",
+     "label": "D&A (Year 2)",
+     "value": 16.854
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "D40",
+   "label": "Plus: D&A",
+   "header": "Year 2",
+   "instruction": "Calculate Plus: D&A for Year 2.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s035",
+   "kind": "formula",
+   "expectedFormula": "=E33",
+   "expectedValue": 17.6967,
+   "tolerance": 0.0884835,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E33",
+     "label": "D&A (Year 3)",
+     "value": 17.6967
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E40",
+   "label": "Plus: D&A",
+   "header": "Year 3",
+   "instruction": "Calculate Plus: D&A for Year 3.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s036",
+   "kind": "formula",
+   "expectedFormula": "=F33",
+   "expectedValue": 18.581535,
+   "tolerance": 0.092907675,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "F33",
+     "label": "D&A (Year 4)",
+     "value": 18.581535
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F40",
+   "label": "Plus: D&A",
+   "header": "Year 4",
+   "instruction": "Calculate Plus: D&A for Year 4.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s037",
+   "kind": "formula",
+   "expectedFormula": "=G33",
+   "expectedValue": 19.510612,
+   "tolerance": 0.09755305874999999,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "G33",
+     "label": "D&A (Year 5)",
+     "value": 19.510612
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "G40",
+   "label": "Plus: D&A",
+   "header": "Year 5",
+   "instruction": "Calculate Plus: D&A for Year 5.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s038",
+   "kind": "formula",
+   "expectedFormula": "=-C31*$B$17",
+   "expectedValue": -18.55,
+   "tolerance": 0.09275,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "C31",
+     "label": "Revenue (Year 1)",
+     "value": 530
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B17",
+     "label": "CapEx (% of revenue)",
+     "value": 0.035
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "C41",
+   "label": "Less: CapEx",
+   "header": "Year 1",
+   "instruction": "Calculate Less: CapEx for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s039",
+   "kind": "formula",
+   "expectedFormula": "=-D31*$B$17",
+   "expectedValue": -19.663,
+   "tolerance": 0.098315,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "D31",
+     "label": "Revenue (Year 2)",
+     "value": 561.8
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B17",
+     "label": "CapEx (% of revenue)",
+     "value": 0.035
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "D41",
+   "label": "Less: CapEx",
+   "header": "Year 2",
+   "instruction": "Calculate Less: CapEx for Year 2.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s040",
+   "kind": "formula",
+   "expectedFormula": "=-E31*$B$17",
+   "expectedValue": -20.64615,
+   "tolerance": 0.10323075,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E31",
+     "label": "Revenue (Year 3)",
+     "value": 589.89
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B17",
+     "label": "CapEx (% of revenue)",
+     "value": 0.035
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E41",
+   "label": "Less: CapEx",
+   "header": "Year 3",
+   "instruction": "Calculate Less: CapEx for Year 3.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s041",
+   "kind": "formula",
+   "expectedFormula": "=-F31*$B$17",
+   "expectedValue": -21.678458,
+   "tolerance": 0.1083922875,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "F31",
+     "label": "Revenue (Year 4)",
+     "value": 619.3845
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B17",
+     "label": "CapEx (% of revenue)",
+     "value": 0.035
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F41",
+   "label": "Less: CapEx",
+   "header": "Year 4",
+   "instruction": "Calculate Less: CapEx for Year 4.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s042",
+   "kind": "formula",
+   "expectedFormula": "=-G31*$B$17",
+   "expectedValue": -22.76238,
+   "tolerance": 0.113811901875,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "G31",
+     "label": "Revenue (Year 5)",
+     "value": 650.353725
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B17",
+     "label": "CapEx (% of revenue)",
+     "value": 0.035
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "G41",
+   "label": "Less: CapEx",
+   "header": "Year 5",
+   "instruction": "Calculate Less: CapEx for Year 5.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s043",
+   "kind": "formula",
+   "expectedFormula": "=-(C31-B31)*$B$18",
+   "expectedValue": -3,
+   "tolerance": 0.015,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "C31",
+     "label": "Revenue (Year 1)",
+     "value": 530
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B31",
+     "label": "Revenue (Entry (LTM))",
+     "value": 500
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B18",
+     "label": "NWC (% of change in revenue)",
+     "value": 0.1
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "C42",
+   "label": "Less: increase in NWC",
+   "header": "Year 1",
+   "instruction": "Calculate Less: increase in NWC for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s044",
+   "kind": "formula",
+   "expectedFormula": "=-(D31-C31)*$B$18",
+   "expectedValue": -3.18,
+   "tolerance": 0.01590000000000005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "D31",
+     "label": "Revenue (Year 2)",
+     "value": 561.8
+    },
+    {
+     "sheet": "LBO",
+     "ref": "C31",
+     "label": "Revenue (Year 1)",
+     "value": 530
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B18",
+     "label": "NWC (% of change in revenue)",
+     "value": 0.1
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "D42",
+   "label": "Less: increase in NWC",
+   "header": "Year 2",
+   "instruction": "Calculate Less: increase in NWC for Year 2.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s045",
+   "kind": "formula",
+   "expectedFormula": "=-(E31-D31)*$B$18",
+   "expectedValue": -2.809,
+   "tolerance": 0.014045000000000002,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E31",
+     "label": "Revenue (Year 3)",
+     "value": 589.89
+    },
+    {
+     "sheet": "LBO",
+     "ref": "D31",
+     "label": "Revenue (Year 2)",
+     "value": 561.8
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B18",
+     "label": "NWC (% of change in revenue)",
+     "value": 0.1
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E42",
+   "label": "Less: increase in NWC",
+   "header": "Year 3",
+   "instruction": "Calculate Less: increase in NWC for Year 3.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s046",
+   "kind": "formula",
+   "expectedFormula": "=-(F31-E31)*$B$18",
+   "expectedValue": -2.94945,
+   "tolerance": 0.014747250000000002,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "F31",
+     "label": "Revenue (Year 4)",
+     "value": 619.3845
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E31",
+     "label": "Revenue (Year 3)",
+     "value": 589.89
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B18",
+     "label": "NWC (% of change in revenue)",
+     "value": 0.1
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F42",
+   "label": "Less: increase in NWC",
+   "header": "Year 4",
+   "instruction": "Calculate Less: increase in NWC for Year 4.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s047",
+   "kind": "formula",
+   "expectedFormula": "=-(G31-F31)*$B$18",
+   "expectedValue": -3.096923,
+   "tolerance": 0.01548461250000005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "G31",
+     "label": "Revenue (Year 5)",
+     "value": 650.353725
+    },
+    {
+     "sheet": "LBO",
+     "ref": "F31",
+     "label": "Revenue (Year 4)",
+     "value": 619.3845
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B18",
+     "label": "NWC (% of change in revenue)",
+     "value": 0.1
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "G42",
+   "label": "Less: increase in NWC",
+   "header": "Year 5",
+   "instruction": "Calculate Less: increase in NWC for Year 5.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s048",
+   "kind": "formula",
+   "expectedFormula": "=E23",
+   "expectedValue": 400,
+   "tolerance": 2.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E23",
+     "label": "Term Loan B ($mm)",
+     "value": 400
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B45",
+   "label": "Term Loan B — ending balance",
+   "header": "Entry (LTM)",
+   "instruction": "Calculate Term Loan B — ending balance for Entry (LTM).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s049",
+   "kind": "formula",
+   "expectedFormula": "=B45*$B$11",
+   "expectedValue": 32,
+   "tolerance": 0.16,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B45",
+     "label": "Term Loan B — ending balance (Entry (LTM))",
+     "value": 400
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B11",
+     "label": "Term Loan B interest rate",
+     "value": 0.08
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "C35",
+   "label": "Interest — Term Loan B",
+   "header": "Year 1",
+   "instruction": "Calculate Interest — Term Loan B for Year 1.",
+   "hint": "Beginning-of-year balance.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s050",
+   "kind": "formula",
+   "expectedFormula": "=MIN(B45,$E$23*$B$12)",
+   "expectedValue": 4,
+   "tolerance": 0.02,
+   "functions": [
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B45",
+     "label": "Term Loan B — ending balance (Entry (LTM))",
+     "value": 400
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E23",
+     "label": "Term Loan B ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B12",
+     "label": "TLB mandatory amortization (% of original)",
+     "value": 0.01
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "C46",
+   "label": "Mandatory amortization",
+   "header": "Year 1",
+   "instruction": "Calculate Mandatory amortization for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s051",
+   "kind": "formula",
+   "expectedFormula": "=E24",
+   "expectedValue": 150,
+   "tolerance": 0.75,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E24",
+     "label": "Senior notes ($mm)",
+     "value": 150
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B49",
+   "label": "Senior notes — ending balance",
+   "header": "Entry (LTM)",
+   "instruction": "Calculate Senior notes — ending balance for Entry (LTM).",
+   "hint": "Notes are bullet maturity: no paydown before exit.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s052",
+   "kind": "formula",
+   "expectedFormula": "=B49*$B$14",
+   "expectedValue": 15,
+   "tolerance": 0.075,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B49",
+     "label": "Senior notes — ending balance (Entry (LTM))",
+     "value": 150
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B14",
+     "label": "Senior notes interest rate",
+     "value": 0.1
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "C36",
+   "label": "Interest — senior notes",
+   "header": "Year 1",
+   "instruction": "Calculate Interest — senior notes for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s053",
+   "kind": "formula",
+   "expectedFormula": "=C34-C35-C36",
+   "expectedValue": 45.75,
+   "tolerance": 0.22875,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "C34",
+     "label": "EBIT (Year 1)",
+     "value": 92.75
+    },
+    {
+     "sheet": "LBO",
+     "ref": "C35",
+     "label": "Interest — Term Loan B (Year 1)",
+     "value": 32
+    },
+    {
+     "sheet": "LBO",
+     "ref": "C36",
+     "label": "Interest — senior notes (Year 1)",
+     "value": 15
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "C37",
+   "label": "Pre-tax income",
+   "header": "Year 1",
+   "instruction": "Calculate Pre-tax income for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s054",
+   "kind": "formula",
+   "expectedFormula": "=C37*$B$15",
+   "expectedValue": 11.4375,
+   "tolerance": 0.0571875,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "C37",
+     "label": "Pre-tax income (Year 1)",
+     "value": 45.75
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B15",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "C38",
+   "label": "Taxes",
+   "header": "Year 1",
+   "instruction": "Calculate Taxes for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s055",
+   "kind": "formula",
+   "expectedFormula": "=C37-C38",
+   "expectedValue": 34.3125,
+   "tolerance": 0.1715625,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "C37",
+     "label": "Pre-tax income (Year 1)",
+     "value": 45.75
+    },
+    {
+     "sheet": "LBO",
+     "ref": "C38",
+     "label": "Taxes (Year 1)",
+     "value": 11.4375
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "C39",
+   "label": "Net income",
+   "header": "Year 1",
+   "instruction": "Calculate Net income for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s056",
+   "kind": "formula",
+   "expectedFormula": "=SUM(C39:C42)",
+   "expectedValue": 28.6625,
+   "tolerance": 0.1433125,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "C39:C42",
+     "label": "Net income (Year 1) … Less: increase in NWC (Year 1)",
+     "value": null
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "C43",
+   "label": "Levered free cash flow",
+   "header": "Year 1",
+   "instruction": "Calculate Levered free cash flow for Year 1.",
+   "hint": "After interest — this is what pays down debt.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s057",
+   "kind": "formula",
+   "expectedFormula": "=MIN(B45-C46,MAX(0,(C43-C46)*$B$20))",
+   "expectedValue": 24.6625,
+   "tolerance": 0.1233125,
+   "functions": [
+    "MAX",
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B45",
+     "label": "Term Loan B — ending balance (Entry (LTM))",
+     "value": 400
+    },
+    {
+     "sheet": "LBO",
+     "ref": "C46",
+     "label": "Mandatory amortization (Year 1)",
+     "value": 4
+    },
+    {
+     "sheet": "LBO",
+     "ref": "C43",
+     "label": "Levered free cash flow (Year 1)",
+     "value": 28.6625
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B20",
+     "label": "Cash sweep (% of excess FCF)",
+     "value": 1
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "C47",
+   "label": "Optional prepayment (cash sweep)",
+   "header": "Year 1",
+   "instruction": "Calculate Optional prepayment (cash sweep) for Year 1.",
+   "hint": "Sweep = (FCF − mandatory amortization) × sweep %, capped at what's left of the TLB.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s058",
+   "kind": "formula",
+   "expectedFormula": "=B45-C46-C47",
+   "expectedValue": 371.3375,
+   "tolerance": 1.8566874999999998,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B45",
+     "label": "Term Loan B — ending balance (Entry (LTM))",
+     "value": 400
+    },
+    {
+     "sheet": "LBO",
+     "ref": "C46",
+     "label": "Mandatory amortization (Year 1)",
+     "value": 4
+    },
+    {
+     "sheet": "LBO",
+     "ref": "C47",
+     "label": "Optional prepayment (cash sweep) (Year 1)",
+     "value": 24.6625
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "C45",
+   "label": "Term Loan B — ending balance",
+   "header": "Year 1",
+   "instruction": "Calculate Term Loan B — ending balance for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s059",
+   "kind": "formula",
+   "expectedFormula": "=C45*$B$11",
+   "expectedValue": 29.707,
+   "tolerance": 0.148535,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "C45",
+     "label": "Term Loan B — ending balance (Year 1)",
+     "value": 371.3375
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B11",
+     "label": "Term Loan B interest rate",
+     "value": 0.08
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "D35",
+   "label": "Interest — Term Loan B",
+   "header": "Year 2",
+   "instruction": "Calculate Interest — Term Loan B for Year 2.",
+   "hint": "Beginning-of-year balance.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s060",
+   "kind": "formula",
+   "expectedFormula": "=MIN(C45,$E$23*$B$12)",
+   "expectedValue": 4,
+   "tolerance": 0.02,
+   "functions": [
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "C45",
+     "label": "Term Loan B — ending balance (Year 1)",
+     "value": 371.3375
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E23",
+     "label": "Term Loan B ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B12",
+     "label": "TLB mandatory amortization (% of original)",
+     "value": 0.01
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "D46",
+   "label": "Mandatory amortization",
+   "header": "Year 2",
+   "instruction": "Calculate Mandatory amortization for Year 2.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s061",
+   "kind": "formula",
+   "expectedFormula": "=B48+C43-C46-C47",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B48",
+     "label": "Cash balance (Entry (LTM))",
+     "value": 0
+    },
+    {
+     "sheet": "LBO",
+     "ref": "C43",
+     "label": "Levered free cash flow (Year 1)",
+     "value": 28.6625
+    },
+    {
+     "sheet": "LBO",
+     "ref": "C46",
+     "label": "Mandatory amortization (Year 1)",
+     "value": 4
+    },
+    {
+     "sheet": "LBO",
+     "ref": "C47",
+     "label": "Optional prepayment (cash sweep) (Year 1)",
+     "value": 24.6625
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "C48",
+   "label": "Cash balance",
+   "header": "Year 1",
+   "instruction": "Calculate Cash balance for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s062",
+   "kind": "formula",
+   "expectedFormula": "=B49",
+   "expectedValue": 150,
+   "tolerance": 0.75,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B49",
+     "label": "Senior notes — ending balance (Entry (LTM))",
+     "value": 150
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "C49",
+   "label": "Senior notes — ending balance",
+   "header": "Year 1",
+   "instruction": "Calculate Senior notes — ending balance for Year 1.",
+   "hint": "Notes are bullet maturity: no paydown before exit.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s063",
+   "kind": "formula",
+   "expectedFormula": "=C49*$B$14",
+   "expectedValue": 15,
+   "tolerance": 0.075,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "C49",
+     "label": "Senior notes — ending balance (Year 1)",
+     "value": 150
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B14",
+     "label": "Senior notes interest rate",
+     "value": 0.1
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "D36",
+   "label": "Interest — senior notes",
+   "header": "Year 2",
+   "instruction": "Calculate Interest — senior notes for Year 2.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s064",
+   "kind": "formula",
+   "expectedFormula": "=D34-D35-D36",
+   "expectedValue": 56.417,
+   "tolerance": 0.28208500000000003,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "D34",
+     "label": "EBIT (Year 2)",
+     "value": 101.124
+    },
+    {
+     "sheet": "LBO",
+     "ref": "D35",
+     "label": "Interest — Term Loan B (Year 2)",
+     "value": 29.707
+    },
+    {
+     "sheet": "LBO",
+     "ref": "D36",
+     "label": "Interest — senior notes (Year 2)",
+     "value": 15
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "D37",
+   "label": "Pre-tax income",
+   "header": "Year 2",
+   "instruction": "Calculate Pre-tax income for Year 2.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s065",
+   "kind": "formula",
+   "expectedFormula": "=D37*$B$15",
+   "expectedValue": 14.10425,
+   "tolerance": 0.07052125000000001,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "D37",
+     "label": "Pre-tax income (Year 2)",
+     "value": 56.417
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B15",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "D38",
+   "label": "Taxes",
+   "header": "Year 2",
+   "instruction": "Calculate Taxes for Year 2.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s066",
+   "kind": "formula",
+   "expectedFormula": "=D37-D38",
+   "expectedValue": 42.31275,
+   "tolerance": 0.21156375000000002,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "D37",
+     "label": "Pre-tax income (Year 2)",
+     "value": 56.417
+    },
+    {
+     "sheet": "LBO",
+     "ref": "D38",
+     "label": "Taxes (Year 2)",
+     "value": 14.10425
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "D39",
+   "label": "Net income",
+   "header": "Year 2",
+   "instruction": "Calculate Net income for Year 2.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s067",
+   "kind": "formula",
+   "expectedFormula": "=SUM(D39:D42)",
+   "expectedValue": 36.32375,
+   "tolerance": 0.18161875,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "D39:D42",
+     "label": "Net income (Year 2) … Less: increase in NWC (Year 2)",
+     "value": null
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "D43",
+   "label": "Levered free cash flow",
+   "header": "Year 2",
+   "instruction": "Calculate Levered free cash flow for Year 2.",
+   "hint": "After interest — this is what pays down debt.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s068",
+   "kind": "formula",
+   "expectedFormula": "=MIN(C45-D46,MAX(0,(D43-D46)*$B$20))",
+   "expectedValue": 32.32375,
+   "tolerance": 0.16161874999999998,
+   "functions": [
+    "MAX",
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "C45",
+     "label": "Term Loan B — ending balance (Year 1)",
+     "value": 371.3375
+    },
+    {
+     "sheet": "LBO",
+     "ref": "D46",
+     "label": "Mandatory amortization (Year 2)",
+     "value": 4
+    },
+    {
+     "sheet": "LBO",
+     "ref": "D43",
+     "label": "Levered free cash flow (Year 2)",
+     "value": 36.32375
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B20",
+     "label": "Cash sweep (% of excess FCF)",
+     "value": 1
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "D47",
+   "label": "Optional prepayment (cash sweep)",
+   "header": "Year 2",
+   "instruction": "Calculate Optional prepayment (cash sweep) for Year 2.",
+   "hint": "Sweep = (FCF − mandatory amortization) × sweep %, capped at what's left of the TLB.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s069",
+   "kind": "formula",
+   "expectedFormula": "=C45-D46-D47",
+   "expectedValue": 335.01375,
+   "tolerance": 1.67506875,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "C45",
+     "label": "Term Loan B — ending balance (Year 1)",
+     "value": 371.3375
+    },
+    {
+     "sheet": "LBO",
+     "ref": "D46",
+     "label": "Mandatory amortization (Year 2)",
+     "value": 4
+    },
+    {
+     "sheet": "LBO",
+     "ref": "D47",
+     "label": "Optional prepayment (cash sweep) (Year 2)",
+     "value": 32.32375
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "D45",
+   "label": "Term Loan B — ending balance",
+   "header": "Year 2",
+   "instruction": "Calculate Term Loan B — ending balance for Year 2.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s070",
+   "kind": "formula",
+   "expectedFormula": "=D45*$B$11",
+   "expectedValue": 26.8011,
+   "tolerance": 0.1340055,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "D45",
+     "label": "Term Loan B — ending balance (Year 2)",
+     "value": 335.01375
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B11",
+     "label": "Term Loan B interest rate",
+     "value": 0.08
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E35",
+   "label": "Interest — Term Loan B",
+   "header": "Year 3",
+   "instruction": "Calculate Interest — Term Loan B for Year 3.",
+   "hint": "Beginning-of-year balance.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s071",
+   "kind": "formula",
+   "expectedFormula": "=MIN(D45,$E$23*$B$12)",
+   "expectedValue": 4,
+   "tolerance": 0.02,
+   "functions": [
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "D45",
+     "label": "Term Loan B — ending balance (Year 2)",
+     "value": 335.01375
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E23",
+     "label": "Term Loan B ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B12",
+     "label": "TLB mandatory amortization (% of original)",
+     "value": 0.01
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E46",
+   "label": "Mandatory amortization",
+   "header": "Year 3",
+   "instruction": "Calculate Mandatory amortization for Year 3.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s072",
+   "kind": "formula",
+   "expectedFormula": "=C48+D43-D46-D47",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "C48",
+     "label": "Cash balance (Year 1)",
+     "value": 0
+    },
+    {
+     "sheet": "LBO",
+     "ref": "D43",
+     "label": "Levered free cash flow (Year 2)",
+     "value": 36.32375
+    },
+    {
+     "sheet": "LBO",
+     "ref": "D46",
+     "label": "Mandatory amortization (Year 2)",
+     "value": 4
+    },
+    {
+     "sheet": "LBO",
+     "ref": "D47",
+     "label": "Optional prepayment (cash sweep) (Year 2)",
+     "value": 32.32375
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "D48",
+   "label": "Cash balance",
+   "header": "Year 2",
+   "instruction": "Calculate Cash balance for Year 2.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s073",
+   "kind": "formula",
+   "expectedFormula": "=C49",
+   "expectedValue": 150,
+   "tolerance": 0.75,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "C49",
+     "label": "Senior notes — ending balance (Year 1)",
+     "value": 150
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "D49",
+   "label": "Senior notes — ending balance",
+   "header": "Year 2",
+   "instruction": "Calculate Senior notes — ending balance for Year 2.",
+   "hint": "Notes are bullet maturity: no paydown before exit.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s074",
+   "kind": "formula",
+   "expectedFormula": "=D49*$B$14",
+   "expectedValue": 15,
+   "tolerance": 0.075,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "D49",
+     "label": "Senior notes — ending balance (Year 2)",
+     "value": 150
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B14",
+     "label": "Senior notes interest rate",
+     "value": 0.1
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E36",
+   "label": "Interest — senior notes",
+   "header": "Year 3",
+   "instruction": "Calculate Interest — senior notes for Year 3.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s075",
+   "kind": "formula",
+   "expectedFormula": "=E34-E35-E36",
+   "expectedValue": 67.32855,
+   "tolerance": 0.33664275000000005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E34",
+     "label": "EBIT (Year 3)",
+     "value": 109.12965
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E35",
+     "label": "Interest — Term Loan B (Year 3)",
+     "value": 26.8011
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E36",
+     "label": "Interest — senior notes (Year 3)",
+     "value": 15
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E37",
+   "label": "Pre-tax income",
+   "header": "Year 3",
+   "instruction": "Calculate Pre-tax income for Year 3.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s076",
+   "kind": "formula",
+   "expectedFormula": "=E37*$B$15",
+   "expectedValue": 16.832138,
+   "tolerance": 0.08416068750000001,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E37",
+     "label": "Pre-tax income (Year 3)",
+     "value": 67.32855
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B15",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E38",
+   "label": "Taxes",
+   "header": "Year 3",
+   "instruction": "Calculate Taxes for Year 3.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s077",
+   "kind": "formula",
+   "expectedFormula": "=E37-E38",
+   "expectedValue": 50.496412,
+   "tolerance": 0.2524820625,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E37",
+     "label": "Pre-tax income (Year 3)",
+     "value": 67.32855
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E38",
+     "label": "Taxes (Year 3)",
+     "value": 16.832138
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E39",
+   "label": "Net income",
+   "header": "Year 3",
+   "instruction": "Calculate Net income for Year 3.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s078",
+   "kind": "formula",
+   "expectedFormula": "=SUM(E39:E42)",
+   "expectedValue": 44.737963,
+   "tolerance": 0.2236898125,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E39:E42",
+     "label": "Net income (Year 3) … Less: increase in NWC (Year 3)",
+     "value": null
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E43",
+   "label": "Levered free cash flow",
+   "header": "Year 3",
+   "instruction": "Calculate Levered free cash flow for Year 3.",
+   "hint": "After interest — this is what pays down debt.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s079",
+   "kind": "formula",
+   "expectedFormula": "=MIN(D45-E46,MAX(0,(E43-E46)*$B$20))",
+   "expectedValue": 40.737963,
+   "tolerance": 0.2036898125,
+   "functions": [
+    "MAX",
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "D45",
+     "label": "Term Loan B — ending balance (Year 2)",
+     "value": 335.01375
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E46",
+     "label": "Mandatory amortization (Year 3)",
+     "value": 4
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E43",
+     "label": "Levered free cash flow (Year 3)",
+     "value": 44.737963
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B20",
+     "label": "Cash sweep (% of excess FCF)",
+     "value": 1
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E47",
+   "label": "Optional prepayment (cash sweep)",
+   "header": "Year 3",
+   "instruction": "Calculate Optional prepayment (cash sweep) for Year 3.",
+   "hint": "Sweep = (FCF − mandatory amortization) × sweep %, capped at what's left of the TLB.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s080",
+   "kind": "formula",
+   "expectedFormula": "=D45-E46-E47",
+   "expectedValue": 290.275787,
+   "tolerance": 1.4513789375,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "D45",
+     "label": "Term Loan B — ending balance (Year 2)",
+     "value": 335.01375
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E46",
+     "label": "Mandatory amortization (Year 3)",
+     "value": 4
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E47",
+     "label": "Optional prepayment (cash sweep) (Year 3)",
+     "value": 40.737963
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E45",
+   "label": "Term Loan B — ending balance",
+   "header": "Year 3",
+   "instruction": "Calculate Term Loan B — ending balance for Year 3.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s081",
+   "kind": "formula",
+   "expectedFormula": "=E45*$B$11",
+   "expectedValue": 23.222063,
+   "tolerance": 0.11611031499999999,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E45",
+     "label": "Term Loan B — ending balance (Year 3)",
+     "value": 290.275787
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B11",
+     "label": "Term Loan B interest rate",
+     "value": 0.08
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F35",
+   "label": "Interest — Term Loan B",
+   "header": "Year 4",
+   "instruction": "Calculate Interest — Term Loan B for Year 4.",
+   "hint": "Beginning-of-year balance.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s082",
+   "kind": "formula",
+   "expectedFormula": "=MIN(E45,$E$23*$B$12)",
+   "expectedValue": 4,
+   "tolerance": 0.02,
+   "functions": [
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E45",
+     "label": "Term Loan B — ending balance (Year 3)",
+     "value": 290.275787
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E23",
+     "label": "Term Loan B ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B12",
+     "label": "TLB mandatory amortization (% of original)",
+     "value": 0.01
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F46",
+   "label": "Mandatory amortization",
+   "header": "Year 4",
+   "instruction": "Calculate Mandatory amortization for Year 4.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s083",
+   "kind": "formula",
+   "expectedFormula": "=D48+E43-E46-E47",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "D48",
+     "label": "Cash balance (Year 2)",
+     "value": 0
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E43",
+     "label": "Levered free cash flow (Year 3)",
+     "value": 44.737963
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E46",
+     "label": "Mandatory amortization (Year 3)",
+     "value": 4
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E47",
+     "label": "Optional prepayment (cash sweep) (Year 3)",
+     "value": 40.737963
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E48",
+   "label": "Cash balance",
+   "header": "Year 3",
+   "instruction": "Calculate Cash balance for Year 3.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s084",
+   "kind": "formula",
+   "expectedFormula": "=D49",
+   "expectedValue": 150,
+   "tolerance": 0.75,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "D49",
+     "label": "Senior notes — ending balance (Year 2)",
+     "value": 150
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E49",
+   "label": "Senior notes — ending balance",
+   "header": "Year 3",
+   "instruction": "Calculate Senior notes — ending balance for Year 3.",
+   "hint": "Notes are bullet maturity: no paydown before exit.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s085",
+   "kind": "formula",
+   "expectedFormula": "=E49*$B$14",
+   "expectedValue": 15,
+   "tolerance": 0.075,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E49",
+     "label": "Senior notes — ending balance (Year 3)",
+     "value": 150
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B14",
+     "label": "Senior notes interest rate",
+     "value": 0.1
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F36",
+   "label": "Interest — senior notes",
+   "header": "Year 4",
+   "instruction": "Calculate Interest — senior notes for Year 4.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s086",
+   "kind": "formula",
+   "expectedFormula": "=F34-F35-F36",
+   "expectedValue": 79.460992,
+   "tolerance": 0.39730496000000004,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "F34",
+     "label": "EBIT (Year 4)",
+     "value": 117.683055
+    },
+    {
+     "sheet": "LBO",
+     "ref": "F35",
+     "label": "Interest — Term Loan B (Year 4)",
+     "value": 23.222063
+    },
+    {
+     "sheet": "LBO",
+     "ref": "F36",
+     "label": "Interest — senior notes (Year 4)",
+     "value": 15
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F37",
+   "label": "Pre-tax income",
+   "header": "Year 4",
+   "instruction": "Calculate Pre-tax income for Year 4.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s087",
+   "kind": "formula",
+   "expectedFormula": "=F37*$B$15",
+   "expectedValue": 19.865248,
+   "tolerance": 0.09932624000000001,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "F37",
+     "label": "Pre-tax income (Year 4)",
+     "value": 79.460992
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B15",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F38",
+   "label": "Taxes",
+   "header": "Year 4",
+   "instruction": "Calculate Taxes for Year 4.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s088",
+   "kind": "formula",
+   "expectedFormula": "=F37-F38",
+   "expectedValue": 59.595744,
+   "tolerance": 0.29797872000000003,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "F37",
+     "label": "Pre-tax income (Year 4)",
+     "value": 79.460992
+    },
+    {
+     "sheet": "LBO",
+     "ref": "F38",
+     "label": "Taxes (Year 4)",
+     "value": 19.865248
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F39",
+   "label": "Net income",
+   "header": "Year 4",
+   "instruction": "Calculate Net income for Year 4.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s089",
+   "kind": "formula",
+   "expectedFormula": "=SUM(F39:F42)",
+   "expectedValue": 53.549371,
+   "tolerance": 0.2677468575,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "F39:F42",
+     "label": "Net income (Year 4) … Less: increase in NWC (Year 4)",
+     "value": null
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F43",
+   "label": "Levered free cash flow",
+   "header": "Year 4",
+   "instruction": "Calculate Levered free cash flow for Year 4.",
+   "hint": "After interest — this is what pays down debt.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s090",
+   "kind": "formula",
+   "expectedFormula": "=MIN(E45-F46,MAX(0,(F43-F46)*$B$20))",
+   "expectedValue": 49.549371,
+   "tolerance": 0.2477468575,
+   "functions": [
+    "MAX",
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E45",
+     "label": "Term Loan B — ending balance (Year 3)",
+     "value": 290.275787
+    },
+    {
+     "sheet": "LBO",
+     "ref": "F46",
+     "label": "Mandatory amortization (Year 4)",
+     "value": 4
+    },
+    {
+     "sheet": "LBO",
+     "ref": "F43",
+     "label": "Levered free cash flow (Year 4)",
+     "value": 53.549371
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B20",
+     "label": "Cash sweep (% of excess FCF)",
+     "value": 1
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F47",
+   "label": "Optional prepayment (cash sweep)",
+   "header": "Year 4",
+   "instruction": "Calculate Optional prepayment (cash sweep) for Year 4.",
+   "hint": "Sweep = (FCF − mandatory amortization) × sweep %, capped at what's left of the TLB.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s091",
+   "kind": "formula",
+   "expectedFormula": "=E45-F46-F47",
+   "expectedValue": 236.726416,
+   "tolerance": 1.18363208,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E45",
+     "label": "Term Loan B — ending balance (Year 3)",
+     "value": 290.275787
+    },
+    {
+     "sheet": "LBO",
+     "ref": "F46",
+     "label": "Mandatory amortization (Year 4)",
+     "value": 4
+    },
+    {
+     "sheet": "LBO",
+     "ref": "F47",
+     "label": "Optional prepayment (cash sweep) (Year 4)",
+     "value": 49.549371
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F45",
+   "label": "Term Loan B — ending balance",
+   "header": "Year 4",
+   "instruction": "Calculate Term Loan B — ending balance for Year 4.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s092",
+   "kind": "formula",
+   "expectedFormula": "=F45*$B$11",
+   "expectedValue": 18.938113,
+   "tolerance": 0.0946905664,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "F45",
+     "label": "Term Loan B — ending balance (Year 4)",
+     "value": 236.726416
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B11",
+     "label": "Term Loan B interest rate",
+     "value": 0.08
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "G35",
+   "label": "Interest — Term Loan B",
+   "header": "Year 5",
+   "instruction": "Calculate Interest — Term Loan B for Year 5.",
+   "hint": "Beginning-of-year balance.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s093",
+   "kind": "formula",
+   "expectedFormula": "=MIN(F45,$E$23*$B$12)",
+   "expectedValue": 4,
+   "tolerance": 0.02,
+   "functions": [
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "F45",
+     "label": "Term Loan B — ending balance (Year 4)",
+     "value": 236.726416
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E23",
+     "label": "Term Loan B ($mm)",
+     "value": 400
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B12",
+     "label": "TLB mandatory amortization (% of original)",
+     "value": 0.01
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "G46",
+   "label": "Mandatory amortization",
+   "header": "Year 5",
+   "instruction": "Calculate Mandatory amortization for Year 5.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s094",
+   "kind": "formula",
+   "expectedFormula": "=E48+F43-F46-F47",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E48",
+     "label": "Cash balance (Year 3)",
+     "value": 0
+    },
+    {
+     "sheet": "LBO",
+     "ref": "F43",
+     "label": "Levered free cash flow (Year 4)",
+     "value": 53.549371
+    },
+    {
+     "sheet": "LBO",
+     "ref": "F46",
+     "label": "Mandatory amortization (Year 4)",
+     "value": 4
+    },
+    {
+     "sheet": "LBO",
+     "ref": "F47",
+     "label": "Optional prepayment (cash sweep) (Year 4)",
+     "value": 49.549371
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F48",
+   "label": "Cash balance",
+   "header": "Year 4",
+   "instruction": "Calculate Cash balance for Year 4.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s095",
+   "kind": "formula",
+   "expectedFormula": "=E49",
+   "expectedValue": 150,
+   "tolerance": 0.75,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E49",
+     "label": "Senior notes — ending balance (Year 3)",
+     "value": 150
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F49",
+   "label": "Senior notes — ending balance",
+   "header": "Year 4",
+   "instruction": "Calculate Senior notes — ending balance for Year 4.",
+   "hint": "Notes are bullet maturity: no paydown before exit.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s096",
+   "kind": "formula",
+   "expectedFormula": "=F49*$B$14",
+   "expectedValue": 15,
+   "tolerance": 0.075,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "F49",
+     "label": "Senior notes — ending balance (Year 4)",
+     "value": 150
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B14",
+     "label": "Senior notes interest rate",
+     "value": 0.1
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "G36",
+   "label": "Interest — senior notes",
+   "header": "Year 5",
+   "instruction": "Calculate Interest — senior notes for Year 5.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s097",
+   "kind": "formula",
+   "expectedFormula": "=G34-G35-G36",
+   "expectedValue": 89.629094,
+   "tolerance": 0.44814547235,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "G34",
+     "label": "EBIT (Year 5)",
+     "value": 123.567208
+    },
+    {
+     "sheet": "LBO",
+     "ref": "G35",
+     "label": "Interest — Term Loan B (Year 5)",
+     "value": 18.938113
+    },
+    {
+     "sheet": "LBO",
+     "ref": "G36",
+     "label": "Interest — senior notes (Year 5)",
+     "value": 15
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "G37",
+   "label": "Pre-tax income",
+   "header": "Year 5",
+   "instruction": "Calculate Pre-tax income for Year 5.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s098",
+   "kind": "formula",
+   "expectedFormula": "=G37*$B$15",
+   "expectedValue": 22.407274,
+   "tolerance": 0.1120363680875,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "G37",
+     "label": "Pre-tax income (Year 5)",
+     "value": 89.629094
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B15",
+     "label": "Tax rate",
+     "value": 0.25
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "G38",
+   "label": "Taxes",
+   "header": "Year 5",
+   "instruction": "Calculate Taxes for Year 5.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s099",
+   "kind": "formula",
+   "expectedFormula": "=G37-G38",
+   "expectedValue": 67.221821,
+   "tolerance": 0.3361091042625,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "G37",
+     "label": "Pre-tax income (Year 5)",
+     "value": 89.629094
+    },
+    {
+     "sheet": "LBO",
+     "ref": "G38",
+     "label": "Taxes (Year 5)",
+     "value": 22.407274
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "G39",
+   "label": "Net income",
+   "header": "Year 5",
+   "instruction": "Calculate Net income for Year 5.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s100",
+   "kind": "formula",
+   "expectedFormula": "=SUM(G39:G42)",
+   "expectedValue": 60.87313,
+   "tolerance": 0.3043656486375,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "G39:G42",
+     "label": "Net income (Year 5) … Less: increase in NWC (Year 5)",
+     "value": null
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "G43",
+   "label": "Levered free cash flow",
+   "header": "Year 5",
+   "instruction": "Calculate Levered free cash flow for Year 5.",
+   "hint": "After interest — this is what pays down debt.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s101",
+   "kind": "formula",
+   "expectedFormula": "=MIN(F45-G46,MAX(0,(G43-G46)*$B$20))",
+   "expectedValue": 56.87313,
+   "tolerance": 0.2843656486375,
+   "functions": [
+    "MAX",
+    "MIN"
+   ],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "F45",
+     "label": "Term Loan B — ending balance (Year 4)",
+     "value": 236.726416
+    },
+    {
+     "sheet": "LBO",
+     "ref": "G46",
+     "label": "Mandatory amortization (Year 5)",
+     "value": 4
+    },
+    {
+     "sheet": "LBO",
+     "ref": "G43",
+     "label": "Levered free cash flow (Year 5)",
+     "value": 60.87313
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B20",
+     "label": "Cash sweep (% of excess FCF)",
+     "value": 1
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "G47",
+   "label": "Optional prepayment (cash sweep)",
+   "header": "Year 5",
+   "instruction": "Calculate Optional prepayment (cash sweep) for Year 5.",
+   "hint": "Sweep = (FCF − mandatory amortization) × sweep %, capped at what's left of the TLB.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s102",
+   "kind": "formula",
+   "expectedFormula": "=F45-G46-G47",
+   "expectedValue": 175.853286,
+   "tolerance": 0.8792664313624999,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "F45",
+     "label": "Term Loan B — ending balance (Year 4)",
+     "value": 236.726416
+    },
+    {
+     "sheet": "LBO",
+     "ref": "G46",
+     "label": "Mandatory amortization (Year 5)",
+     "value": 4
+    },
+    {
+     "sheet": "LBO",
+     "ref": "G47",
+     "label": "Optional prepayment (cash sweep) (Year 5)",
+     "value": 56.87313
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "G45",
+   "label": "Term Loan B — ending balance",
+   "header": "Year 5",
+   "instruction": "Calculate Term Loan B — ending balance for Year 5.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s103",
+   "kind": "formula",
+   "expectedFormula": "=F48+G43-G46-G47",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "F48",
+     "label": "Cash balance (Year 4)",
+     "value": 0
+    },
+    {
+     "sheet": "LBO",
+     "ref": "G43",
+     "label": "Levered free cash flow (Year 5)",
+     "value": 60.87313
+    },
+    {
+     "sheet": "LBO",
+     "ref": "G46",
+     "label": "Mandatory amortization (Year 5)",
+     "value": 4
+    },
+    {
+     "sheet": "LBO",
+     "ref": "G47",
+     "label": "Optional prepayment (cash sweep) (Year 5)",
+     "value": 56.87313
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "G48",
+   "label": "Cash balance",
+   "header": "Year 5",
+   "instruction": "Calculate Cash balance for Year 5.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s104",
+   "kind": "formula",
+   "expectedFormula": "=F49",
+   "expectedValue": 150,
+   "tolerance": 0.75,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "F49",
+     "label": "Senior notes — ending balance (Year 4)",
+     "value": 150
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "G49",
+   "label": "Senior notes — ending balance",
+   "header": "Year 5",
+   "instruction": "Calculate Senior notes — ending balance for Year 5.",
+   "hint": "Notes are bullet maturity: no paydown before exit.",
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s105",
+   "kind": "formula",
+   "expectedFormula": "=B45+B49",
+   "expectedValue": 550,
+   "tolerance": 2.75,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B45",
+     "label": "Term Loan B — ending balance (Entry (LTM))",
+     "value": 400
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B49",
+     "label": "Senior notes — ending balance (Entry (LTM))",
+     "value": 150
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B50",
+   "label": "Total debt",
+   "header": "Entry (LTM)",
+   "instruction": "Calculate Total debt for Entry (LTM).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s106",
+   "kind": "formula",
+   "expectedFormula": "=C45+C49",
+   "expectedValue": 521.3375,
+   "tolerance": 2.6066875,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "C45",
+     "label": "Term Loan B — ending balance (Year 1)",
+     "value": 371.3375
+    },
+    {
+     "sheet": "LBO",
+     "ref": "C49",
+     "label": "Senior notes — ending balance (Year 1)",
+     "value": 150
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "C50",
+   "label": "Total debt",
+   "header": "Year 1",
+   "instruction": "Calculate Total debt for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s107",
+   "kind": "formula",
+   "expectedFormula": "=D45+D49",
+   "expectedValue": 485.01375,
+   "tolerance": 2.4250687500000003,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "D45",
+     "label": "Term Loan B — ending balance (Year 2)",
+     "value": 335.01375
+    },
+    {
+     "sheet": "LBO",
+     "ref": "D49",
+     "label": "Senior notes — ending balance (Year 2)",
+     "value": 150
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "D50",
+   "label": "Total debt",
+   "header": "Year 2",
+   "instruction": "Calculate Total debt for Year 2.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s108",
+   "kind": "formula",
+   "expectedFormula": "=E45+E49",
+   "expectedValue": 440.275787,
+   "tolerance": 2.2013789375,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E45",
+     "label": "Term Loan B — ending balance (Year 3)",
+     "value": 290.275787
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E49",
+     "label": "Senior notes — ending balance (Year 3)",
+     "value": 150
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E50",
+   "label": "Total debt",
+   "header": "Year 3",
+   "instruction": "Calculate Total debt for Year 3.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s109",
+   "kind": "formula",
+   "expectedFormula": "=F45+F49",
+   "expectedValue": 386.726416,
+   "tolerance": 1.93363208,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "F45",
+     "label": "Term Loan B — ending balance (Year 4)",
+     "value": 236.726416
+    },
+    {
+     "sheet": "LBO",
+     "ref": "F49",
+     "label": "Senior notes — ending balance (Year 4)",
+     "value": 150
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F50",
+   "label": "Total debt",
+   "header": "Year 4",
+   "instruction": "Calculate Total debt for Year 4.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s110",
+   "kind": "formula",
+   "expectedFormula": "=G45+G49",
+   "expectedValue": 325.853286,
+   "tolerance": 1.6292664313625,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "G45",
+     "label": "Term Loan B — ending balance (Year 5)",
+     "value": 175.853286
+    },
+    {
+     "sheet": "LBO",
+     "ref": "G49",
+     "label": "Senior notes — ending balance (Year 5)",
+     "value": 150
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "G50",
+   "label": "Total debt",
+   "header": "Year 5",
+   "instruction": "Calculate Total debt for Year 5.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s111",
+   "kind": "formula",
+   "expectedFormula": "=B50-B48",
+   "expectedValue": 550,
+   "tolerance": 2.75,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B50",
+     "label": "Total debt (Entry (LTM))",
+     "value": 550
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B48",
+     "label": "Cash balance (Entry (LTM))",
+     "value": 0
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B51",
+   "label": "Net debt",
+   "header": "Entry (LTM)",
+   "instruction": "Calculate Net debt for Entry (LTM).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s112",
+   "kind": "formula",
+   "expectedFormula": "=C50-C48",
+   "expectedValue": 521.3375,
+   "tolerance": 2.6066875,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "C50",
+     "label": "Total debt (Year 1)",
+     "value": 521.3375
+    },
+    {
+     "sheet": "LBO",
+     "ref": "C48",
+     "label": "Cash balance (Year 1)",
+     "value": 0
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "C51",
+   "label": "Net debt",
+   "header": "Year 1",
+   "instruction": "Calculate Net debt for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s113",
+   "kind": "formula",
+   "expectedFormula": "=D50-D48",
+   "expectedValue": 485.01375,
+   "tolerance": 2.4250687500000003,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "D50",
+     "label": "Total debt (Year 2)",
+     "value": 485.01375
+    },
+    {
+     "sheet": "LBO",
+     "ref": "D48",
+     "label": "Cash balance (Year 2)",
+     "value": 0
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "D51",
+   "label": "Net debt",
+   "header": "Year 2",
+   "instruction": "Calculate Net debt for Year 2.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s114",
+   "kind": "formula",
+   "expectedFormula": "=E50-E48",
+   "expectedValue": 440.275787,
+   "tolerance": 2.2013789375,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E50",
+     "label": "Total debt (Year 3)",
+     "value": 440.275787
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E48",
+     "label": "Cash balance (Year 3)",
+     "value": 0
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E51",
+   "label": "Net debt",
+   "header": "Year 3",
+   "instruction": "Calculate Net debt for Year 3.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s115",
+   "kind": "formula",
+   "expectedFormula": "=F50-F48",
+   "expectedValue": 386.726416,
+   "tolerance": 1.93363208,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "F50",
+     "label": "Total debt (Year 4)",
+     "value": 386.726416
+    },
+    {
+     "sheet": "LBO",
+     "ref": "F48",
+     "label": "Cash balance (Year 4)",
+     "value": 0
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F51",
+   "label": "Net debt",
+   "header": "Year 4",
+   "instruction": "Calculate Net debt for Year 4.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s116",
+   "kind": "formula",
+   "expectedFormula": "=G50-G48",
+   "expectedValue": 325.853286,
+   "tolerance": 1.6292664313625,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "G50",
+     "label": "Total debt (Year 5)",
+     "value": 325.853286
+    },
+    {
+     "sheet": "LBO",
+     "ref": "G48",
+     "label": "Cash balance (Year 5)",
+     "value": 0
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "G51",
+   "label": "Net debt",
+   "header": "Year 5",
+   "instruction": "Calculate Net debt for Year 5.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s117",
+   "kind": "formula",
+   "expectedFormula": "=B50/B32",
+   "expectedValue": 5.5,
+   "tolerance": 0.0275,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B50",
+     "label": "Total debt (Entry (LTM))",
+     "value": 550
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B32",
+     "label": "EBITDA (Entry (LTM))",
+     "value": 100
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B52",
+   "label": "Total debt / EBITDA",
+   "header": "Entry (LTM)",
+   "instruction": "Calculate Total debt / EBITDA for Entry (LTM).",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s118",
+   "kind": "formula",
+   "expectedFormula": "=C50/C32",
+   "expectedValue": 4.79832,
+   "tolerance": 0.0239916014726185,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "C50",
+     "label": "Total debt (Year 1)",
+     "value": 521.3375
+    },
+    {
+     "sheet": "LBO",
+     "ref": "C32",
+     "label": "EBITDA (Year 1)",
+     "value": 108.65
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "C52",
+   "label": "Total debt / EBITDA",
+   "header": "Year 1",
+   "instruction": "Calculate Total debt / EBITDA for Year 1.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s119",
+   "kind": "formula",
+   "expectedFormula": "=D50/D32",
+   "expectedValue": 4.111052,
+   "tolerance": 0.02055526242180745,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "D50",
+     "label": "Total debt (Year 2)",
+     "value": 485.01375
+    },
+    {
+     "sheet": "LBO",
+     "ref": "D32",
+     "label": "EBITDA (Year 2)",
+     "value": 117.978
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "D52",
+   "label": "Total debt / EBITDA",
+   "header": "Year 2",
+   "instruction": "Calculate Total debt / EBITDA for Year 2.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s120",
+   "kind": "formula",
+   "expectedFormula": "=E50/E32",
+   "expectedValue": 3.471485,
+   "tolerance": 0.0173574256256685,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E50",
+     "label": "Total debt (Year 3)",
+     "value": 440.275787
+    },
+    {
+     "sheet": "LBO",
+     "ref": "E32",
+     "label": "EBITDA (Year 3)",
+     "value": 126.82635
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "E52",
+   "label": "Total debt / EBITDA",
+   "header": "Year 3",
+   "instruction": "Calculate Total debt / EBITDA for Year 3.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s121",
+   "kind": "formula",
+   "expectedFormula": "=F50/F32",
+   "expectedValue": 2.838055,
+   "tolerance": 0.01419027555141065,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "F50",
+     "label": "Total debt (Year 4)",
+     "value": 386.726416
+    },
+    {
+     "sheet": "LBO",
+     "ref": "F32",
+     "label": "EBITDA (Year 4)",
+     "value": 136.26459
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "F52",
+   "label": "Total debt / EBITDA",
+   "header": "Year 4",
+   "instruction": "Calculate Total debt / EBITDA for Year 4.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s122",
+   "kind": "formula",
+   "expectedFormula": "=G50/G32",
+   "expectedValue": 2.277455,
+   "tolerance": 0.0113872746807027,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "G50",
+     "label": "Total debt (Year 5)",
+     "value": 325.853286
+    },
+    {
+     "sheet": "LBO",
+     "ref": "G32",
+     "label": "EBITDA (Year 5)",
+     "value": 143.07782
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "G52",
+   "label": "Total debt / EBITDA",
+   "header": "Year 5",
+   "instruction": "Calculate Total debt / EBITDA for Year 5.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s123",
+   "kind": "formula",
+   "expectedFormula": "=G32",
+   "expectedValue": 143.07782,
+   "tolerance": 0.7153890975,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "G32",
+     "label": "EBITDA (Year 5)",
+     "value": 143.07782
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B55",
+   "label": "Exit EBITDA (Year 5)",
+   "header": "Entry (LTM)",
+   "instruction": "Calculate Exit EBITDA (Year 5) for Entry (LTM).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s124",
+   "kind": "formula",
+   "expectedFormula": "=B55*B19",
+   "expectedValue": 1430.778195,
+   "tolerance": 7.153890975,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B55",
+     "label": "Exit EBITDA (Year 5) (Entry (LTM))",
+     "value": 143.07782
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B19",
+     "label": "Exit EV / EBITDA",
+     "value": 10
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B56",
+   "label": "Exit enterprise value",
+   "header": "Entry (LTM)",
+   "instruction": "Calculate Exit enterprise value for Entry (LTM).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s125",
+   "kind": "formula",
+   "expectedFormula": "=-G51",
+   "expectedValue": -325.853286,
+   "tolerance": 1.6292664313625,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "G51",
+     "label": "Net debt (Year 5)",
+     "value": 325.853286
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B57",
+   "label": "Less: net debt at exit",
+   "header": "Entry (LTM)",
+   "instruction": "Calculate Less: net debt at exit for Entry (LTM).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s126",
+   "kind": "formula",
+   "expectedFormula": "=B56+B57",
+   "expectedValue": 1104.924909,
+   "tolerance": 5.5246245436375,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B56",
+     "label": "Exit enterprise value (Entry (LTM))",
+     "value": 1430.778195
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B57",
+     "label": "Less: net debt at exit (Entry (LTM))",
+     "value": -325.853286
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B58",
+   "label": "Exit equity value",
+   "header": "Entry (LTM)",
+   "instruction": "Calculate Exit equity value for Entry (LTM).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s127",
+   "kind": "formula",
+   "expectedFormula": "=E25",
+   "expectedValue": 470,
+   "tolerance": 2.35,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E25",
+     "label": "Sponsor equity (plug) ($mm)",
+     "value": 470
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B59",
+   "label": "Sponsor equity invested",
+   "header": "Entry (LTM)",
+   "instruction": "Calculate Sponsor equity invested for Entry (LTM).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s128",
+   "kind": "formula",
+   "expectedFormula": "=B58/B59",
+   "expectedValue": 2.350904,
+   "tolerance": 0.0117545203056117,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B58",
+     "label": "Exit equity value (Entry (LTM))",
+     "value": 1104.924909
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B59",
+     "label": "Sponsor equity invested (Entry (LTM))",
+     "value": 470
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B60",
+   "label": "MOIC",
+   "header": "Entry (LTM)",
+   "instruction": "Calculate MOIC for Entry (LTM).",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s129",
+   "kind": "formula",
+   "expectedFormula": "=B60^(1/5)-1",
+   "expectedValue": 0.186443,
+   "tolerance": 0.0009322164054759901,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B60",
+     "label": "MOIC (Entry (LTM))",
+     "value": 2.350904
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B61",
+   "label": "IRR (MOIC ^ (1/5) − 1)",
+   "header": "Entry (LTM)",
+   "instruction": "Calculate IRR (MOIC ^ (1/5) − 1) for Entry (LTM).",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s130",
+   "kind": "formula",
+   "expectedFormula": "=-E25",
+   "expectedValue": -470,
+   "tolerance": 2.35,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "E25",
+     "label": "Sponsor equity (plug) ($mm)",
+     "value": 470
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B64",
+   "label": "Sponsor cash flows",
+   "header": "Entry (LTM)",
+   "instruction": "Calculate Sponsor cash flows for Entry (LTM).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s131",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "LBO",
+   "cell": "C64",
+   "label": "Sponsor cash flows",
+   "header": "Year 1",
+   "instruction": "Calculate Sponsor cash flows for Year 1.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s132",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "LBO",
+   "cell": "D64",
+   "label": "Sponsor cash flows",
+   "header": "Year 2",
+   "instruction": "Calculate Sponsor cash flows for Year 2.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s133",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "LBO",
+   "cell": "E64",
+   "label": "Sponsor cash flows",
+   "header": "Year 3",
+   "instruction": "Calculate Sponsor cash flows for Year 3.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s134",
+   "kind": "value",
+   "expectedValue": 0,
+   "options": null,
+   "tolerance": 0.0005,
+   "sheet": "LBO",
+   "cell": "F64",
+   "label": "Sponsor cash flows",
+   "header": "Year 4",
+   "instruction": "Calculate Sponsor cash flows for Year 4.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s135",
+   "kind": "formula",
+   "expectedFormula": "=B58",
+   "expectedValue": 1104.924909,
+   "tolerance": 5.5246245436375,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B58",
+     "label": "Exit equity value (Entry (LTM))",
+     "value": 1104.924909
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "G64",
+   "label": "Sponsor cash flows",
+   "header": "Year 5",
+   "instruction": "Calculate Sponsor cash flows for Year 5.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s136",
+   "kind": "formula",
+   "expectedFormula": "=IRR(B64:G64)",
+   "expectedValue": 0.186443,
+   "tolerance": 0.0009322164054759901,
+   "functions": [
+    "IRR"
+   ],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B64:G64",
+     "label": "Sponsor cash flows (Entry (LTM)) … Sponsor cash flows (Year 5)",
+     "value": null
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B62",
+   "label": "IRR (IRR function — should match)",
+   "header": "Entry (LTM)",
+   "instruction": "Calculate IRR (IRR function — should match) for Entry (LTM).",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s137",
+   "kind": "formula",
+   "expectedFormula": "=(G32-B32)*B8",
+   "expectedValue": 430.778195,
+   "tolerance": 2.153890975,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "G32",
+     "label": "EBITDA (Year 5)",
+     "value": 143.07782
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B32",
+     "label": "EBITDA (Entry (LTM))",
+     "value": 100
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B8",
+     "label": "Entry EV / EBITDA",
+     "value": 10
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B67",
+   "label": "EBITDA growth (Δ EBITDA × entry multiple)",
+   "header": "Entry (LTM)",
+   "instruction": "Calculate EBITDA growth (Δ EBITDA × entry multiple) for Entry (LTM).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s138",
+   "kind": "formula",
+   "expectedFormula": "=(B19-B8)*G32",
+   "expectedValue": 0,
+   "tolerance": 0.0005,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B19",
+     "label": "Exit EV / EBITDA",
+     "value": 10
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B8",
+     "label": "Entry EV / EBITDA",
+     "value": 10
+    },
+    {
+     "sheet": "LBO",
+     "ref": "G32",
+     "label": "EBITDA (Year 5)",
+     "value": 143.07782
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B68",
+   "label": "Multiple expansion (Δ multiple × exit EBITDA)",
+   "header": "Entry (LTM)",
+   "instruction": "Calculate Multiple expansion (Δ multiple × exit EBITDA) for Entry (LTM).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s139",
+   "kind": "formula",
+   "expectedFormula": "=B51-G51",
+   "expectedValue": 224.146714,
+   "tolerance": 1.1207335686375002,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B51",
+     "label": "Net debt (Entry (LTM))",
+     "value": 550
+    },
+    {
+     "sheet": "LBO",
+     "ref": "G51",
+     "label": "Net debt (Year 5)",
+     "value": 325.853286
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B69",
+   "label": "Debt paydown & cash build (Δ net debt)",
+   "header": "Entry (LTM)",
+   "instruction": "Calculate Debt paydown & cash build (Δ net debt) for Entry (LTM).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s140",
+   "kind": "formula",
+   "expectedFormula": "=-B24",
+   "expectedValue": -20,
+   "tolerance": 0.1,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B24",
+     "label": "Transaction fees ($mm)",
+     "value": 20
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B70",
+   "label": "Transaction fees (leakage)",
+   "header": "Entry (LTM)",
+   "instruction": "Calculate Transaction fees (leakage) for Entry (LTM).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s141",
+   "kind": "formula",
+   "expectedFormula": "=SUM(B67:B70)",
+   "expectedValue": 634.924909,
+   "tolerance": 3.1746245436375,
+   "functions": [
+    "SUM"
+   ],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B67:B70",
+     "label": "EBITDA growth (Δ EBITDA × entry multiple) (Entry (LTM)) … Transaction fees (leakage) (Entry (LTM))",
+     "value": null
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B71",
+   "label": "Total value created",
+   "header": "Entry (LTM)",
+   "instruction": "Calculate Total value created for Entry (LTM).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s142",
+   "kind": "formula",
+   "expectedFormula": "=B58-B59",
+   "expectedValue": 634.924909,
+   "tolerance": 3.1746245436375,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "LBO",
+     "ref": "B58",
+     "label": "Exit equity value (Entry (LTM))",
+     "value": 1104.924909
+    },
+    {
+     "sheet": "LBO",
+     "ref": "B59",
+     "label": "Sponsor equity invested (Entry (LTM))",
+     "value": 470
+    }
+   ],
+   "sheet": "LBO",
+   "cell": "B72",
+   "label": "Equity gain (exit equity − invested)",
+   "header": "Entry (LTM)",
+   "instruction": "Calculate Equity gain (exit equity − invested) for Entry (LTM).",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s143",
+   "kind": "formula",
+   "expectedFormula": "=B6*B7",
+   "expectedValue": 1000,
+   "tolerance": 5.0,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Paper LBO",
+     "ref": "B6",
+     "label": "LTM EBITDA ($mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Paper LBO",
+     "ref": "B7",
+     "label": "Entry multiple",
+     "value": 10
+    }
+   ],
+   "sheet": "Paper LBO",
+   "cell": "B13",
+   "label": "Entry enterprise value",
+   "header": null,
+   "instruction": "Calculate Entry enterprise value.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s144",
+   "kind": "formula",
+   "expectedFormula": "=B6*B8",
+   "expectedValue": 500,
+   "tolerance": 2.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Paper LBO",
+     "ref": "B6",
+     "label": "LTM EBITDA ($mm)",
+     "value": 100
+    },
+    {
+     "sheet": "Paper LBO",
+     "ref": "B8",
+     "label": "Leverage (x EBITDA)",
+     "value": 5
+    }
+   ],
+   "sheet": "Paper LBO",
+   "cell": "B14",
+   "label": "Debt raised",
+   "header": null,
+   "instruction": "Calculate Debt raised.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s145",
+   "kind": "formula",
+   "expectedFormula": "=B13-B14",
+   "expectedValue": 500,
+   "tolerance": 2.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Paper LBO",
+     "ref": "B13",
+     "label": "Entry enterprise value",
+     "value": 1000
+    },
+    {
+     "sheet": "Paper LBO",
+     "ref": "B14",
+     "label": "Debt raised",
+     "value": 500
+    }
+   ],
+   "sheet": "Paper LBO",
+   "cell": "B15",
+   "label": "Sponsor equity",
+   "header": null,
+   "instruction": "Calculate Sponsor equity.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s146",
+   "kind": "formula",
+   "expectedFormula": "=B9*B11",
+   "expectedValue": 1300,
+   "tolerance": 6.5,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Paper LBO",
+     "ref": "B9",
+     "label": "Year 5 EBITDA",
+     "value": 130
+    },
+    {
+     "sheet": "Paper LBO",
+     "ref": "B11",
+     "label": "Exit multiple",
+     "value": 10
+    }
+   ],
+   "sheet": "Paper LBO",
+   "cell": "B16",
+   "label": "Exit enterprise value",
+   "header": null,
+   "instruction": "Calculate Exit enterprise value.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s147",
+   "kind": "formula",
+   "expectedFormula": "=B14-B10",
+   "expectedValue": 350,
+   "tolerance": 1.75,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Paper LBO",
+     "ref": "B14",
+     "label": "Debt raised",
+     "value": 500
+    },
+    {
+     "sheet": "Paper LBO",
+     "ref": "B10",
+     "label": "Cumulative debt paydown over 5 years",
+     "value": 150
+    }
+   ],
+   "sheet": "Paper LBO",
+   "cell": "B17",
+   "label": "Debt at exit",
+   "header": null,
+   "instruction": "Calculate Debt at exit.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s148",
+   "kind": "formula",
+   "expectedFormula": "=B16-B17",
+   "expectedValue": 950,
+   "tolerance": 4.75,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Paper LBO",
+     "ref": "B16",
+     "label": "Exit enterprise value",
+     "value": 1300
+    },
+    {
+     "sheet": "Paper LBO",
+     "ref": "B17",
+     "label": "Debt at exit",
+     "value": 350
+    }
+   ],
+   "sheet": "Paper LBO",
+   "cell": "B18",
+   "label": "Exit equity",
+   "header": null,
+   "instruction": "Calculate Exit equity.",
+   "hint": null,
+   "numberFormat": "\\$#,##0.0;\"($\"#,##0.0\\);\\-"
+  },
+  {
+   "id": "s149",
+   "kind": "formula",
+   "expectedFormula": "=B18/B15",
+   "expectedValue": 1.9,
+   "tolerance": 0.0095,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Paper LBO",
+     "ref": "B18",
+     "label": "Exit equity",
+     "value": 950
+    },
+    {
+     "sheet": "Paper LBO",
+     "ref": "B15",
+     "label": "Sponsor equity",
+     "value": 500
+    }
+   ],
+   "sheet": "Paper LBO",
+   "cell": "B19",
+   "label": "MOIC",
+   "header": null,
+   "instruction": "Calculate MOIC.",
+   "hint": null,
+   "numberFormat": "0.0\\x;\\(0.0\"x)\";\\-"
+  },
+  {
+   "id": "s150",
+   "kind": "formula",
+   "expectedFormula": "=B19^(1/5)-1",
+   "expectedValue": 0.136974,
+   "tolerance": 0.00068487244405069,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Paper LBO",
+     "ref": "B19",
+     "label": "MOIC",
+     "value": 1.9
+    }
+   ],
+   "sheet": "Paper LBO",
+   "cell": "B20",
+   "label": "IRR",
+   "header": null,
+   "instruction": "Calculate IRR.",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s151",
+   "kind": "text",
+   "expectedValue": "≈ 14%: 2x in 5 years is ~15%, and 1.9x is a bit less.",
+   "options": null,
+   "sheet": "Paper LBO",
+   "cell": "B21",
+   "label": "Mental-math estimate (how would you say it?)",
+   "header": null,
+   "instruction": "Answer in a sentence or two: IRR",
+   "hint": null,
+   "numberFormat": "General"
+  },
+  {
+   "id": "s152",
+   "kind": "formula",
+   "expectedFormula": "=B24^(1/C24)-1",
+   "expectedValue": 0.259921,
+   "tolerance": 0.0012996052494743651,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Paper LBO",
+     "ref": "B24",
+     "label": "2.0x in 3 years (MOIC)",
+     "value": 2
+    },
+    {
+     "sheet": "Paper LBO",
+     "ref": "C24",
+     "label": "2.0x in 3 years (Years)",
+     "value": 3
+    }
+   ],
+   "sheet": "Paper LBO",
+   "cell": "D24",
+   "label": "2.0x in 3 years",
+   "header": "IRR",
+   "instruction": "Calculate 2.0x in 3 years for IRR.",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s153",
+   "kind": "formula",
+   "expectedFormula": "=B25^(1/C25)-1",
+   "expectedValue": 0.148698,
+   "tolerance": 0.000743491774985175,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Paper LBO",
+     "ref": "B25",
+     "label": "2.0x in 5 years (MOIC)",
+     "value": 2
+    },
+    {
+     "sheet": "Paper LBO",
+     "ref": "C25",
+     "label": "2.0x in 5 years (Years)",
+     "value": 5
+    }
+   ],
+   "sheet": "Paper LBO",
+   "cell": "D25",
+   "label": "2.0x in 5 years",
+   "header": "IRR",
+   "instruction": "Calculate 2.0x in 5 years for IRR.",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s154",
+   "kind": "formula",
+   "expectedFormula": "=B26^(1/C26)-1",
+   "expectedValue": 0.201124,
+   "tolerance": 0.001005622169907155,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Paper LBO",
+     "ref": "B26",
+     "label": "2.5x in 5 years (MOIC)",
+     "value": 2.5
+    },
+    {
+     "sheet": "Paper LBO",
+     "ref": "C26",
+     "label": "2.5x in 5 years (Years)",
+     "value": 5
+    }
+   ],
+   "sheet": "Paper LBO",
+   "cell": "D26",
+   "label": "2.5x in 5 years",
+   "header": "IRR",
+   "instruction": "Calculate 2.5x in 5 years for IRR.",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s155",
+   "kind": "formula",
+   "expectedFormula": "=B27^(1/C27)-1",
+   "expectedValue": 0.245731,
+   "tolerance": 0.0012286546980775851,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Paper LBO",
+     "ref": "B27",
+     "label": "3.0x in 5 years (MOIC)",
+     "value": 3
+    },
+    {
+     "sheet": "Paper LBO",
+     "ref": "C27",
+     "label": "3.0x in 5 years (Years)",
+     "value": 5
+    }
+   ],
+   "sheet": "Paper LBO",
+   "cell": "D27",
+   "label": "3.0x in 5 years",
+   "header": "IRR",
+   "instruction": "Calculate 3.0x in 5 years for IRR.",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  },
+  {
+   "id": "s156",
+   "kind": "formula",
+   "expectedFormula": "=B28^(1/C28)-1",
+   "expectedValue": 0.44225,
+   "tolerance": 0.00221124785153704,
+   "functions": [],
+   "references": [
+    {
+     "sheet": "Paper LBO",
+     "ref": "B28",
+     "label": "3.0x in 3 years (MOIC)",
+     "value": 3
+    },
+    {
+     "sheet": "Paper LBO",
+     "ref": "C28",
+     "label": "3.0x in 3 years (Years)",
+     "value": 3
+    }
+   ],
+   "sheet": "Paper LBO",
+   "cell": "D28",
+   "label": "3.0x in 3 years",
+   "header": "IRR",
+   "instruction": "Calculate 3.0x in 3 years for IRR.",
+   "hint": null,
+   "numberFormat": "0.0%;\\(0.0%\\);\\-"
+  }
+ ]
+}

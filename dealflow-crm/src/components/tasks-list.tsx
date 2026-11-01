@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
+import { Select } from "@/components/ui/select";
 
 type TaskItem = {
   id: string;
@@ -86,9 +87,9 @@ export function TasksList({
       ))}
       <Modal open={showModal} onClose={() => setShowModal(false)} title="New Task">
         <div className="grid gap-2">
-          <select className="h-9 rounded border border-border-strong bg-surface px-2 text-sm" value={form.contactId} onChange={(e) => setForm((p) => ({ ...p, contactId: e.target.value }))}>
+          <Select  value={form.contactId} onChange={(e) => setForm((p) => ({ ...p, contactId: e.target.value }))}>
             {contacts.map((c) => <option key={c.id} value={c.id}>{c.fullName}</option>)}
-          </select>
+          </Select>
           <Input type="date" value={form.dueDate} onChange={(e) => setForm((p) => ({ ...p, dueDate: e.target.value }))} />
           <Input value={form.taskType} onChange={(e) => setForm((p) => ({ ...p, taskType: e.target.value }))} />
           <Input value={form.notes} onChange={(e) => setForm((p) => ({ ...p, notes: e.target.value }))} />

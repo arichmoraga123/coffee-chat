@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import { useEffect, useState } from "react";
 import {
   DndContext,
@@ -27,6 +29,9 @@ import {
 import { FirmTypeBadge } from "@/lib/firm-type";
 import { cn } from "@/lib/utils";
 import type { FirmType } from "@prisma/client";
+import { Select } from "@/components/ui/select";
+import { PageHeader } from "@/components/ui/page-header";
+import { BulkActionBar, downloadCsv, useBulkSelection } from "@/components/ui/bulk";
 
 export type PipelineOppClient = {
   id: string;
@@ -39,6 +44,9 @@ export type PipelineOppClient = {
   contactName: string;
   notes: string;
   linkedContactNames: string[];
+  group?: string | null;
+  location?: string | null;
+  contacts?: { id: string; name: string }[];
 };
 
 function deadlineTone(iso: string | null): "muted" | "past" | "soon" | "future" {
@@ -76,10 +84,14 @@ function DraggableCard({
   opp,
   onOpen,
   onMoveStage,
+  selected,
+  onSelect,
 }: {
   opp: PipelineOppClient;
   onOpen: (o: PipelineOppClient) => void;
   onMoveStage: (id: string, stage: (typeof PIPELINE_STAGES)[number]) => void;
+  selected: boolean;
+  onSelect: (e: { shiftKey?: boolean }) => void;
 }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: opp.id,
@@ -98,8 +110,9 @@ function DraggableCard({
     <div ref={setNodeRef} style={style} className="touch-manipulation">
       <Card
         className={cn(
-          "space-y-1.5 border-border-strong p-2 text-xs shadow-sm",
+          "space-y-1.5 border-border-strong p-2 text-xs",
           isDragging && "opacity-60 ring-1 ring-accent",
+          selected && "border-accent bg-accent-tint ring-1 ring-accent",
         )}
       >
         <div className="flex gap-1">
@@ -115,7 +128,14 @@ function DraggableCard({
         <button
           type="button"
           className="min-w-0 flex-1 text-left"
-          onClick={() => onOpen(opp)}
+          aria-pressed={selected}
+          onClick={(e) => {
+            // Cmd/Ctrl-click (or Shift) selects cards for bulk changes; a plain click opens the card.
+            if (e.metaKey || e.ctrlKey || e.shiftKey) {
+              e.preventDefault();
+              onSelect(e);
+            } else onOpen(opp);
+          }}
         >
           <div className="flex flex-wrap items-center gap-1.5">
             <p className="font-semibold leading-tight text-ink">{opp.firmName}</p>
@@ -144,8 +164,8 @@ function DraggableCard({
         </div>
         <div className="pl-6" onPointerDown={(e) => e.stopPropagation()}>
         <label className="sr-only">Move to stage</label>
-        <select
-          className="w-full rounded border border-border-strong bg-surface px-1.5 py-1 text-[11px] text-ink-2"
+        <Select
+          className="w-full"
           value=""
           aria-label="Move to stage"
           onChange={(e) => {
@@ -160,7 +180,7 @@ function DraggableCard({
               {STAGE_LABELS[s]}
             </option>
           ))}
-        </select>
+        </Select>
         </div>
       </Card>
     </div>
@@ -170,11 +190,19 @@ function DraggableCard({
 export function PipelineBoard({
   initial,
   firms,
+  customRoles = [],
+  groups = [],
+  locations = [],
 }: {
   initial: PipelineOppClient[];
   firms: { id: string; name: string }[];
+  customRoles?: string[];
+  groups?: string[];
+  locations?: string[];
 }) {
   const [items, setItems] = useState(initial);
+  const router = useRouter();
+  const sel = useBulkSelection(items.map((i) => i.id));
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<PipelineOppFormRow | null>(null);
 
@@ -254,18 +282,24 @@ export function PipelineBoard({
       applicationDeadline: o.applicationDeadline,
       contactName: o.contactName,
       notes: o.notes,
+      group: o.group,
+      location: o.location,
+      contacts: o.contacts,
     });
     setDialogOpen(true);
   };
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between gap-4">
-        <h1 className="page-title">Pipeline</h1>
-        <Button variant="primary" size="sm" onClick={openAdd}>
-          Add Opportunity
-        </Button>
-      </div>
+      <PageHeader
+        title="Pipeline"
+        subtitle="Drag cards between stages. Cmd/Ctrl-click cards to select several and change them together."
+        actions={
+          <Button variant="primary" onClick={openAdd}>
+            Add opportunity
+          </Button>
+        }
+      />
 
       <DndContext sensors={sensors} onDragEnd={onDragEnd}>
         <div className="grid gap-3 md:grid-cols-4 xl:grid-cols-8">
@@ -283,6 +317,8 @@ export function PipelineBoard({
                       opp={o}
                       onOpen={openEdit}
                       onMoveStage={(id, s) => void moveOpportunity(id, s)}
+                      selected={sel.has(o.id)}
+                      onSelect={(e) => sel.toggle(o.id, e)}
                     />
                   ))}
               </div>
@@ -291,6 +327,25 @@ export function PipelineBoard({
         </div>
       </DndContext>
 
+      <BulkActionBar
+        entity="opportunities"
+        noun={["opportunity", "opportunities"]}
+        sel={sel}
+        fields={[
+          { key: "stage", label: "Stage", type: "select", options: PIPELINE_STAGES.map((st) => ({ value: st, label: STAGE_LABELS[st] })) },
+          { key: "priority", label: "Priority", type: "select", options: [{ value: "HIGH", label: "High" }, { value: "MEDIUM", label: "Medium" }, { value: "LOW", label: "Low" }] },
+          { key: "role", label: "Role", type: "text" },
+          { key: "applicationDeadline", label: "Deadline", type: "date" },
+          { key: "group", label: "Group", type: "text" },
+          { key: "location", label: "Location", type: "text" },
+          { key: "firmId", label: "Firm", type: "select", endpoint: "/api/search/firms" },
+        ]}
+        actions={[
+          { key: "export", label: "Export CSV", client: (ids) => downloadCsv("pipeline.csv", ["Firm", "Role", "Stage", "Deadline", "Group", "Location", "Contact"], items.filter((i) => ids.includes(i.id)).map((i) => [i.firmName, i.role, STAGE_LABELS[i.stage], i.applicationDeadline, i.group, i.location, i.contactName])) },
+          { key: "delete", label: "Delete", danger: true },
+        ]}
+        onChange={() => router.refresh()}
+      />
       <PipelineOpportunityDialog
         open={dialogOpen}
         onClose={() => {
@@ -299,6 +354,9 @@ export function PipelineBoard({
         }}
         firms={firms}
         editing={editing}
+        customRoles={customRoles}
+        groups={groups}
+        locations={locations}
       />
     </div>
   );

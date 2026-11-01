@@ -15,6 +15,7 @@ import { firmsFromTags } from "@/lib/drill-mcq/firms";
 import { gradeAnswerByKeywords, type KeywordGradeResult } from "@/lib/answer-grader";
 import { PracticeModal } from "@/components/practice-modal";
 import { getRelevantCategories, getTrackLearningPath } from "@/lib/track-utils";
+import { Select } from "@/components/ui/select";
 
 export type QuestionDTO = {
   id: string;
@@ -351,8 +352,8 @@ export function QuestionsBank({
         <Card className="p-3 text-sm">
           <p className="mb-2 font-semibold text-ink">Filters</p>
           <label className="mb-1 block text-xs text-ink-3">Category</label>
-          <select
-            className="mb-2 w-full rounded border border-border bg-surface px-2 py-1.5 text-sm"
+          <Select
+            className="mb-2 w-full"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -361,10 +362,10 @@ export function QuestionsBank({
                 {c === "all" ? "All" : c}
               </option>
             ))}
-          </select>
+          </Select>
           <label className="mb-1 block text-xs text-ink-3">Difficulty</label>
-          <select
-            className="mb-2 w-full rounded border border-border bg-surface px-2 py-1.5 text-sm"
+          <Select
+            className="mb-2 w-full"
             value={difficulty}
             onChange={(e) => setDifficulty(e.target.value)}
           >
@@ -373,10 +374,10 @@ export function QuestionsBank({
                 {d === "all" ? "All" : d}
               </option>
             ))}
-          </select>
+          </Select>
           <label className="mb-1 block text-xs text-ink-3">Status</label>
-          <select
-            className="mb-2 w-full rounded border border-border bg-surface px-2 py-1.5 text-sm"
+          <Select
+            className="mb-2 w-full"
             value={status}
             onChange={(e) => setStatus(e.target.value)}
           >
@@ -384,10 +385,10 @@ export function QuestionsBank({
             <option value="known">Known</option>
             <option value="review">Review</option>
             <option value="unseen">Unseen</option>
-          </select>
+          </Select>
           <label className="mb-1 block text-xs text-ink-3">Firm (reported questions)</label>
-          <select
-            className="mb-2 w-full rounded border border-border bg-surface px-2 py-1.5 text-sm"
+          <Select
+            className="mb-2 w-full"
             value={firm}
             onChange={(e) => setFirm(e.target.value)}
           >
@@ -397,7 +398,7 @@ export function QuestionsBank({
                 {f}
               </option>
             ))}
-          </select>
+          </Select>
           <label className="mb-1 block text-xs text-ink-3">Tags</label>
           <Input
             placeholder="e.g. WACC, beta"
@@ -409,8 +410,8 @@ export function QuestionsBank({
 
         <Card className="p-3 text-sm">
           <p className="mb-2 font-semibold text-ink">Drill setup</p>
-          <select
-            className="mb-2 w-full rounded border border-border bg-surface px-2 py-1.5"
+          <Select
+            className="mb-2 w-full"
             value={drillCategory}
             onChange={(e) => setDrillCategory(e.target.value)}
           >
@@ -419,9 +420,9 @@ export function QuestionsBank({
                 {c === "all" ? "All categories" : c}
               </option>
             ))}
-          </select>
-          <select
-            className="mb-2 w-full rounded border border-border bg-surface px-2 py-1.5"
+          </Select>
+          <Select
+            className="mb-2 w-full"
             value={drillDifficulty}
             onChange={(e) => setDrillDifficulty(e.target.value)}
           >
@@ -430,7 +431,7 @@ export function QuestionsBank({
                 {d === "all" ? "All difficulties" : d}
               </option>
             ))}
-          </select>
+          </Select>
           <label className="mb-2 flex items-center gap-2 text-xs text-ink-2">
             <input type="checkbox" checked={shuffle} onChange={(e) => setShuffle(e.target.checked)} />
             Shuffle

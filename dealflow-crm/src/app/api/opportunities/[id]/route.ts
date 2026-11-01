@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession } from "@/lib/auth";
 import { PIPELINE_STAGES } from "@/lib/constants";
 import { parseFirmType } from "@/lib/firm-type";
+import { applyOpportunityExtras } from "@/lib/opportunity-extras";
 import { syncOpportunityDeadlineToExternalCalendars } from "@/lib/calendar-sync";
 
 const STAGE_SET = new Set<string>(PIPELINE_STAGES);
@@ -85,13 +86,15 @@ export async function PATCH(
     }
   }
 
-  if (Object.keys(data).length === 0) {
+  const hasExtras = ["group", "location", "contactIds"].some((k) => body[k] !== undefined);
+  if (Object.keys(data).length === 0 && !hasExtras) {
     return NextResponse.json({ error: "No valid fields to update." }, { status: 400 });
   }
 
-  const opp = await prisma.opportunity.update({
+  if (Object.keys(data).length) await prisma.opportunity.update({ where: { id }, data });
+  await applyOpportunityExtras(userId, id, body as Record<string, unknown>);
+  const opp = await prisma.opportunity.findUniqueOrThrow({
     where: { id },
-    data,
     include: { firm: true, contacts: { include: { contact: true } } },
   });
   void syncOpportunityDeadlineToExternalCalendars(userId, opp.id);

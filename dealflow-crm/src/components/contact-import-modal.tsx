@@ -14,6 +14,7 @@ import {
   type ImportField,
   type MappedContactRow,
 } from "@/lib/contact-import";
+import { Select } from "@/components/ui/select";
 
 type Step = 1 | 2 | 3 | 4;
 
@@ -169,8 +170,8 @@ export function ContactImportModal({ open, onClose, onImported }: Props) {
                   {headers.map((h, i) => (
                     <th key={i} className="px-2 py-2 text-left font-normal text-ink-3">
                       <div className="mb-1 font-medium text-ink-2">{h || `Column ${i + 1}`}</div>
-                      <select
-                        className="h-7 w-full min-w-[120px] rounded border border-border-strong bg-surface px-1 text-xs"
+                      <Select
+                        className="w-full min-w-[120px]"
                         value={mapping[i] ?? "skip"}
                         onChange={(e) =>
                           setMapping((m) => ({ ...m, [i]: e.target.value as ImportField }))
@@ -181,7 +182,7 @@ export function ContactImportModal({ open, onClose, onImported }: Props) {
                             {o.label}
                           </option>
                         ))}
-                      </select>
+                      </Select>
                     </th>
                   ))}
                 </tr>

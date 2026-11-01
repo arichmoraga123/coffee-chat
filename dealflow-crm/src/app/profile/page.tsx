@@ -9,12 +9,15 @@ import { ProfileDrillChart } from "@/components/profile-drill-chart";
 import { ProfileNameForm } from "@/components/profile-name-form";
 import { CalendarIntegrationPanel } from "@/components/calendar-integration-panel";
 import { ProfileTracksForm } from "@/components/profile-tracks-form";
+import { ProfileTargetsForm } from "@/components/profile-targets-form";
+import { KNOWN_FIRM_NAMES } from "@/lib/known-firms";
 import { ProfileReferralCard } from "@/components/profile-referral-card";
 
 export const dynamic = "force-dynamic";
 
 export default async function ProfilePage({ searchParams }: { searchParams: Promise<{ referredBy?: string }> }) {
   const params = await searchParams;
+  const myFirms = await prisma.firm.findMany({ where: { userId: await requireUserId() }, select: { name: true }, orderBy: { name: "asc" }, take: 500 });
   const userId = await requireUserId();
   const since = subDays(new Date(), 29);
 
@@ -107,6 +110,13 @@ export default async function ProfilePage({ searchParams }: { searchParams: Prom
           </div>
           <ProfileTracksForm initialTracks={user?.careerTracks ?? []} />
         </Card>
+        <Card title="Targets">
+          <ProfileTargetsForm
+            initialGroups={user?.recruitingTarget ?? []}
+            initialFirms={user?.targetFirms ?? []}
+            firmSuggestions={[...myFirms.map((f) => f.name), ...KNOWN_FIRM_NAMES]}
+          />
+        </Card>
 
         <Card className="border-border bg-surface p-4">
           <p className="text-sm font-semibold text-ink">Engagement</p>
@@ -125,7 +135,7 @@ export default async function ProfilePage({ searchParams }: { searchParams: Prom
             </div>
           </div>
           <p className="mt-3 text-xs text-ink-3">
-            Daily goal: {user?.dailyGoal ?? 5} questions · Legacy targets: {(user?.recruitingTarget ?? []).join(", ") || "—"}
+            Daily goal: {user?.dailyGoal ?? 5} questions
           </p>
         </Card>
       </div>
