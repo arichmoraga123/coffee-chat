@@ -209,8 +209,8 @@ export function ContactsTable({ rows, view, firms }: { rows: ContactListRow[]; v
         {view === "trash" ? (
           <span className="text-ink-3">Deleted {relative(r.deletedAt)}</span>
         ) : r.next ? (
-          <span className={cn(r.next.overdue ? "text-warn" : "text-ink-2")}>
-            {r.next.label}
+          <span className={cn("block max-w-[200px]", r.next.overdue ? "text-warn" : "text-ink-2")} title={r.next.label}>
+            <span className="line-clamp-2">{r.next.label}</span>
             <span className="block text-ink-3">{r.next.overdue ? "Overdue" : `Due ${new Date(r.next.due).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" })}`}</span>
           </span>
         ) : r.goneCold ? (

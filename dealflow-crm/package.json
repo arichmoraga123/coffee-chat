@@ -17,7 +17,9 @@
     "validate-questions": "npx tsx scripts/validate-questions.ts",
     "seed:questions": "npx tsx scripts/seed-questions.ts",
     "roster:import": "npx tsx scripts/roster-import.ts",
-    "test-followups": "npx tsx scripts/test-followups.ts"
+    "test-followups": "npx tsx scripts/test-followups.ts",
+    "test-import": "npx tsx scripts/test-import.ts",
+    "repair-dates": "npx tsx scripts/repair-imported-dates.ts"
   },
   "prisma": {
     "seed": "npx tsx prisma/seed.ts"
