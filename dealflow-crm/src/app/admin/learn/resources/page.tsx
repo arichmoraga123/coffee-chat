@@ -4,6 +4,7 @@ import { lessonsForWorkbook, workbookKeys } from "@/lib/learn/lessons";
 import { blobConfigured } from "@/lib/learn/blob-storage";
 import { WorkbookUploader } from "@/components/learn/admin/workbook-uploader";
 import { WorkbookZipUploader } from "@/components/learn/admin/workbook-zip-uploader";
+import { DeleteResourceButton, PruneOldVersionsButton } from "@/components/learn/admin/resource-delete-buttons";
 
 export const dynamic = "force-dynamic";
 
@@ -43,6 +44,10 @@ export default async function LearnResourcesPage() {
       <WorkbookZipUploader />
       <WorkbookUploader keys={keys} />
 
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <p className="text-sm text-ink-2">Students always get the version marked live. Older versions are kept until you delete them.</p>
+        <PruneOldVersionsButton count={resources.length - latest.size} />
+      </div>
       <div className="overflow-x-auto rounded-xl border border-border">
         <table className="w-full min-w-[720px] text-left text-sm">
           <thead className="bg-surface text-xs uppercase tracking-wide text-ink-3">
@@ -54,6 +59,7 @@ export default async function LearnResourcesPage() {
               <th className="px-3 py-2">Size</th>
               <th className="px-3 py-2">Downloads</th>
               <th className="px-3 py-2">Uploaded</th>
+              <th className="px-3 py-2" />
             </tr>
           </thead>
           <tbody>
@@ -68,7 +74,7 @@ export default async function LearnResourcesPage() {
                       Not uploaded
                     </td>
                     <td className="px-3 py-2">{lessons}</td>
-                    <td colSpan={3} />
+                    <td colSpan={4} />
                   </tr>
                 );
               }
@@ -84,6 +90,9 @@ export default async function LearnResourcesPage() {
                   <td className="px-3 py-2">{Math.round(r.sizeBytes / 1024)} KB</td>
                   <td className="px-3 py-2 font-mono">{countBy.get(r.id) ?? 0}</td>
                   <td className="px-3 py-2 text-xs text-ink-2">{r.createdAt.toISOString().slice(0, 10)}</td>
+                  <td className="px-3 py-2 text-right">
+                    <DeleteResourceButton id={r.id} label={`${r.workbookKey} ${r.kind === "answer_key" ? "answer key" : "student file"} v${r.version}`} live={latest.has(r.id)} />
+                  </td>
                 </tr>
               ));
             })}
