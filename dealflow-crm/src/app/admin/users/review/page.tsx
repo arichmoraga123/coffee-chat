@@ -9,6 +9,8 @@ export const metadata = { title: "Account review" };
 export default async function UserReviewPage() {
   await requireAdminUserId();
   const { suspects, softDeleted } = await findSuspects();
+  const cutoff = new Date(new Date().getTime() - 30 * 86_400_000);
+  const purgeable = softDeleted.filter((r) => r.deletedAt && r.deletedAt < cutoff).length;
   const ser = (rows: typeof suspects) =>
     rows.map((r) => ({ ...r, createdAt: r.createdAt.toISOString(), lastActiveAt: r.lastActiveAt?.toISOString() ?? null, deletedAt: r.deletedAt?.toISOString() ?? null }));
   return (
@@ -17,7 +19,7 @@ export default async function UserReviewPage() {
         title="Account review"
         subtitle="Accounts that look like bots. Nothing is deleted automatically. Delete hides and disables an account; you can restore it."
       />
-      <BotReview suspects={ser(suspects)} softDeleted={ser(softDeleted)} />
+      <BotReview suspects={ser(suspects)} softDeleted={ser(softDeleted)} purgeable={purgeable} />
     </div>
   );
 }

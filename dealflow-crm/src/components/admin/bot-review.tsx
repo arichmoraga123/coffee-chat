@@ -19,7 +19,7 @@ type Row = {
   deletedAt: string | null;
 };
 
-export function BotReview({ suspects, softDeleted }: { suspects: Row[]; softDeleted: Row[] }) {
+export function BotReview({ suspects, softDeleted, purgeable }: { suspects: Row[]; softDeleted: Row[]; purgeable: number }) {
   const router = useRouter();
   const [busy, setBusy] = useState<string | null>(null);
 
@@ -50,7 +50,7 @@ export function BotReview({ suspects, softDeleted }: { suspects: Row[]; softDele
     router.refresh();
   };
 
-  const old = softDeleted.filter((r) => r.deletedAt && Date.now() - new Date(r.deletedAt).getTime() > 30 * 86_400_000).length;
+  const old = purgeable;
 
   return (
     <div className="space-y-8">
