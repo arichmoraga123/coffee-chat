@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import { requireUserId } from "@/lib/auth";
-import { getLesson, nextLesson } from "@/lib/learn/lessons";
+import { allLessons, getLesson, nextLesson } from "@/lib/learn/lessons";
 import type { BlockOf } from "@/lib/learn/schema";
 import type { BlockStateMap } from "@/lib/learn/progress-server";
 import { isMentorRole, latestResources } from "@/lib/learn/resources-server";
@@ -60,6 +60,8 @@ export default async function LessonPage({ params }: { params: Promise<{ lessonI
   }));
 
   const next = nextLesson(lesson.id);
+  const all = allLessons();
+  const prevLesson = all[all.findIndex((l) => l.id === lesson.id) - 1] ?? null;
 
   return (
     <LessonPlayer
@@ -72,6 +74,7 @@ export default async function LessonPage({ params }: { params: Promise<{ lessonI
       resources={resources}
       faqs={faqs}
       next={next ? { id: next.id, title: next.title } : null}
+      prev={prevLesson ? { id: prevLesson.id, title: prevLesson.title } : null}
       practiceCount={practiceCount}
       footer={
         <LessonHelp

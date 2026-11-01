@@ -67,26 +67,26 @@ export function GroupDetailView({ groupId }: { groupId: string }) {
     void load();
   };
 
-  if (!group) return <p className="text-zinc-500">Loading…</p>;
+  if (!group) return <p className="text-ink-3">Loading…</p>;
 
   const sorted = [...group.members].sort((a, b) => b.user.weeklyXP - a.user.weeklyXP);
 
   return (
     <div className="space-y-4">
-      <Link href="/groups" className="text-xs text-[#888888] underline-offset-4 hover:text-[#f0f0f0] hover:underline">
+      <Link href="/groups" className="text-xs text-ink-3 underline-offset-4 hover:text-ink hover:underline">
         ← Groups
       </Link>
       <h1 className="text-xl font-semibold">{group.name}</h1>
       <div className="grid gap-4 lg:grid-cols-2">
-        <Card className="space-y-3 border-zinc-800 bg-zinc-900/50 p-4">
-          <p className="text-sm font-medium text-zinc-200">Members &amp; stats</p>
+        <Card className="space-y-3 border-border bg-surface p-4">
+          <p className="text-sm font-medium text-ink">Members &amp; stats</p>
           <ul className="space-y-2 text-sm">
             {sorted.map((m) => (
-              <li key={m.user.id} className="flex justify-between gap-2 border-b border-zinc-800/80 py-1">
+              <li key={m.user.id} className="flex justify-between gap-2 border-b border-border py-1">
                 <span>
-                  {m.user.name} <span className="text-xs text-zinc-500">({m.role})</span>
+                  {m.user.name} <span className="text-xs text-ink-3">({m.role})</span>
                 </span>
-                <span className="text-xs text-zinc-400">
+                <span className="text-xs text-ink-2">
                   streak {m.user.drillStreak} · wk XP {m.user.weeklyXP} · XP {m.user.xp}
                 </span>
               </li>
@@ -99,19 +99,19 @@ export function GroupDetailView({ groupId }: { groupId: string }) {
             </Button>
           </div>
         </Card>
-        <Card className="space-y-2 border-zinc-800 bg-zinc-900/50 p-4">
-          <p className="text-sm font-medium text-zinc-200">Shared stock pitches</p>
+        <Card className="space-y-2 border-border bg-surface p-4">
+          <p className="text-sm font-medium text-ink">Shared stock pitches</p>
           {group.sharedPitches?.length ? (
-            <ul className="space-y-2 text-sm text-zinc-300">
+            <ul className="space-y-2 text-sm text-ink-2">
               {group.sharedPitches.map((p) => (
-                <li key={p.id} className="flex flex-wrap items-center justify-between gap-2 border-b border-zinc-800/80 py-1 last:border-0">
+                <li key={p.id} className="flex flex-wrap items-center justify-between gap-2 border-b border-border py-1 last:border-0">
                   <span>
-                    {p.companyName} · <span className="text-zinc-500">{p.recommendation}</span>{" "}
-                    <span className="text-xs text-zinc-500">by {p.user.name}</span>
+                    {p.companyName} · <span className="text-ink-3">{p.recommendation}</span>{" "}
+                    <span className="text-xs text-ink-3">by {p.user.name}</span>
                   </span>
                   <Link
                     href={`/pitch-builder?view=${encodeURIComponent(p.id)}`}
-                    className="text-xs text-[#4a6fa5] underline-offset-2 hover:underline"
+                    className="text-xs text-accent underline-offset-2 hover:underline"
                   >
                     Open in Pitch Builder
                   </Link>
@@ -119,16 +119,16 @@ export function GroupDetailView({ groupId }: { groupId: string }) {
               ))}
             </ul>
           ) : (
-            <p className="text-xs text-zinc-500">No pitches shared yet.</p>
+            <p className="text-xs text-ink-3">No pitches shared yet.</p>
           )}
         </Card>
-        <Card className="space-y-2 border-zinc-800 bg-zinc-900/50 p-4">
-          <p className="text-sm font-medium text-zinc-200">Group board</p>
+        <Card className="space-y-2 border-border bg-surface p-4">
+          <p className="text-sm font-medium text-ink">Group board</p>
           <div className="max-h-72 space-y-2 overflow-y-auto text-sm">
             {group.messages.map((m) => (
-              <div key={m.id} className="rounded bg-zinc-950/80 px-2 py-1">
-                <span className="text-xs text-[#4a6fa5]">{m.user.name}</span>
-                <p className="text-zinc-300">{m.body}</p>
+              <div key={m.id} className="rounded bg-surface px-2 py-1">
+                <span className="text-xs text-accent">{m.user.name}</span>
+                <p className="text-ink-2">{m.body}</p>
               </div>
             ))}
           </div>

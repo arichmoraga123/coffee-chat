@@ -106,20 +106,20 @@ export function ConsultingCasePractice() {
     setActiveCaseId(null);
   }, [selectedType, resetCurrentCase]);
 
-  if (loading) return <p className="text-sm text-zinc-500">Loading consulting cases…</p>;
+  if (loading) return <p className="text-sm text-ink-3">Loading consulting cases…</p>;
   if (!filtered.length) {
     return (
-      <p className="text-sm text-zinc-500">
+      <p className="text-sm text-ink-3">
         No consulting cases match your career track filters — add &quot;Consulting&quot; in onboarding or profile.
       </p>
     );
   }
 
   return (
-    <Card className="space-y-4 border-zinc-800 bg-zinc-900/50 p-4">
+    <Card className="space-y-4 border-border bg-surface p-4">
       <div>
-        <h2 className="text-sm font-semibold text-zinc-200">Case Practice</h2>
-        <p className="mt-1 text-xs text-zinc-500">
+        <h2 className="text-sm font-semibold text-ink">Case Practice</h2>
+        <p className="mt-1 text-xs text-ink-3">
           Step through full consulting cases with a 20-minute timer, framework hints, model walkthrough, and self-grading.
         </p>
       </div>
@@ -147,7 +147,7 @@ export function ConsultingCasePractice() {
               <button
                 key={c.id}
                 type="button"
-                className="rounded border border-zinc-800 bg-zinc-950/40 p-3 text-left hover:border-zinc-600"
+                className="rounded border border-border bg-surface p-3 text-left hover:border-border-strong"
                 onClick={() => {
                   const nextIdx = typeFiltered.findIndex((x) => x.id === c.id);
                   setIdx(nextIdx >= 0 ? nextIdx : 0);
@@ -155,10 +155,10 @@ export function ConsultingCasePractice() {
                   resetCurrentCase();
                 }}
               >
-                <p className="font-medium text-zinc-100">{c.title}</p>
-                <div className="mt-2 flex flex-wrap gap-2 text-xs text-zinc-400">
-                  <span className="rounded bg-zinc-800 px-2 py-0.5">{c.type}</span>
-                  <span className="rounded border border-zinc-700 px-2 py-0.5">{c.difficulty}</span>
+                <p className="font-medium text-ink">{c.title}</p>
+                <div className="mt-2 flex flex-wrap gap-2 text-xs text-ink-2">
+                  <span className="rounded bg-surface-2 px-2 py-0.5">{c.type}</span>
+                  <span className="rounded border border-border-strong px-2 py-0.5">{c.difficulty}</span>
                   {c.firmSource ? <span>{c.firmSource}</span> : null}
                 </div>
               </button>
@@ -168,11 +168,11 @@ export function ConsultingCasePractice() {
       ) : null}
       {activeCaseId ? (
         <>
-      <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-400">
-        <span className="rounded border border-zinc-700 px-2 py-0.5">{current?.type}</span>
+      <div className="flex flex-wrap items-center gap-2 text-xs text-ink-2">
+        <span className="rounded border border-border-strong px-2 py-0.5">{current?.type}</span>
         <span>{current?.difficulty}</span>
-        {current?.firmSource ? <span className="text-zinc-500">{current.firmSource}</span> : null}
-        <span className="ml-auto font-mono text-zinc-300">
+        {current?.firmSource ? <span className="text-ink-3">{current.firmSource}</span> : null}
+        <span className="ml-auto font-mono text-ink-2">
           {Math.floor(secondsLeft / 60)}:{String(secondsLeft % 60).padStart(2, "0")}
         </span>
         <Button
@@ -220,29 +220,29 @@ export function ConsultingCasePractice() {
       </div>
       {current ? (
         <>
-          <h3 className="text-base font-medium text-zinc-100">{current.title}</h3>
-          <div className="space-y-3 rounded border border-zinc-800 bg-zinc-950/40 p-3">
-            <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">Step 1 - Read case prompt</p>
-            <p className="whitespace-pre-wrap text-sm leading-relaxed text-zinc-300">{current.prompt}</p>
+          <h3 className="text-base font-medium text-ink">{current.title}</h3>
+          <div className="space-y-3 rounded border border-border bg-surface p-3">
+            <p className="text-xs font-semibold uppercase tracking-wide text-ink-3">Step 1 - Read case prompt</p>
+            <p className="whitespace-pre-wrap text-sm leading-relaxed text-ink-2">{current.prompt}</p>
           </div>
-          <div className="space-y-2 rounded border border-zinc-800 bg-zinc-950/30 p-3">
-            <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+          <div className="space-y-2 rounded border border-border bg-surface p-3">
+            <p className="text-xs font-semibold uppercase tracking-wide text-ink-3">
               Step 2 - Clarifying questions
             </p>
             <textarea
-              className="min-h-[88px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-sm text-zinc-200"
+              className="min-h-[88px] w-full rounded border border-border-strong bg-surface p-2 text-sm text-ink"
               placeholder="Write the clarifying questions you'd ask the interviewer..."
               value={clarifyingNotes}
               onChange={(e) => setClarifyingNotes(e.target.value)}
               disabled={isComplete}
             />
           </div>
-          <div className="space-y-2 rounded border border-zinc-800 bg-zinc-950/30 p-3">
-            <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+          <div className="space-y-2 rounded border border-border bg-surface p-3">
+            <p className="text-xs font-semibold uppercase tracking-wide text-ink-3">
               Step 3 - Structure your approach
             </p>
             <textarea
-              className="min-h-[96px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-sm text-zinc-200"
+              className="min-h-[96px] w-full rounded border border-border-strong bg-surface p-2 text-sm text-ink"
               placeholder="Lay out your framework and key branches..."
               value={structureNotes}
               onChange={(e) => setStructureNotes(e.target.value)}
@@ -250,29 +250,29 @@ export function ConsultingCasePractice() {
             />
           </div>
           {showFramework && current.framework ? (
-            <div className="rounded border border-amber-900/40 bg-amber-950/20 p-3 text-sm text-amber-100/90">
-              <p className="text-xs font-semibold uppercase tracking-wide text-amber-400/90">Framework hint</p>
+            <div className="rounded border border-warn/40 bg-warn-bg p-3 text-sm text-warn">
+              <p className="text-xs font-semibold uppercase tracking-wide text-warn">Framework hint</p>
               <p className="mt-1 whitespace-pre-wrap">{current.framework}</p>
             </div>
           ) : null}
-          <div className="space-y-2 rounded border border-zinc-800 bg-zinc-950/30 p-3">
-            <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+          <div className="space-y-2 rounded border border-border bg-surface p-3">
+            <p className="text-xs font-semibold uppercase tracking-wide text-ink-3">
               Step 4 - Analyze (include data and calculations)
             </p>
             <textarea
-              className="min-h-[120px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-sm text-zinc-200"
+              className="min-h-[120px] w-full rounded border border-border-strong bg-surface p-2 text-sm text-ink"
               placeholder="Work through the core analysis, sizing math, and key insights..."
               value={analysisNotes}
               onChange={(e) => setAnalysisNotes(e.target.value)}
               disabled={isComplete}
             />
           </div>
-          <div className="space-y-2 rounded border border-zinc-800 bg-zinc-950/30 p-3">
-            <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+          <div className="space-y-2 rounded border border-border bg-surface p-3">
+            <p className="text-xs font-semibold uppercase tracking-wide text-ink-3">
               Step 5 - Recommendation
             </p>
             <textarea
-              className="min-h-[96px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-sm text-zinc-200"
+              className="min-h-[96px] w-full rounded border border-border-strong bg-surface p-2 text-sm text-ink"
               placeholder="Give a clear recommendation and why..."
               value={recommendationNotes}
               onChange={(e) => setRecommendationNotes(e.target.value)}
@@ -280,8 +280,8 @@ export function ConsultingCasePractice() {
             />
           </div>
           {isComplete && current.sampleAnswer ? (
-            <div className="rounded border border-emerald-900/40 bg-emerald-950/20 p-3 text-sm text-emerald-100/90">
-              <p className="text-xs font-semibold uppercase tracking-wide text-emerald-400/90">
+            <div className="rounded border border-success/40 bg-success-bg p-3 text-sm text-success">
+              <p className="text-xs font-semibold uppercase tracking-wide text-success">
                 Model answer walkthrough
               </p>
               <p className="mt-1 whitespace-pre-wrap">{current.sampleAnswer}</p>
@@ -297,7 +297,7 @@ export function ConsultingCasePractice() {
               ] as const
             ).map(([key, label]) => (
               <div key={key} className="space-y-1">
-                <p className="text-xs text-zinc-500">{label} (1–5)</p>
+                <p className="text-xs text-ink-3">{label} (1–5)</p>
                 <div className="flex flex-wrap gap-1">
                   {GRADES.map((g) => (
                     <button
@@ -308,8 +308,8 @@ export function ConsultingCasePractice() {
                       className={cn(
                         "h-8 w-8 rounded text-xs font-medium disabled:cursor-not-allowed disabled:opacity-50",
                         grades[key] === g
-                          ? "bg-[#4a6fa5] text-white"
-                          : "border border-zinc-700 bg-zinc-950 text-zinc-400 hover:border-zinc-500",
+                          ? "bg-accent text-on-accent"
+                          : "border border-border-strong bg-surface text-ink-2 hover:border-border-strong",
                       )}
                     >
                       {g}
@@ -319,7 +319,7 @@ export function ConsultingCasePractice() {
               </div>
             ))}
           </div>
-          <p className="text-xs text-zinc-600">
+          <p className="text-xs text-ink-3">
             Case {idx + 1} of {typeFiltered.length}
           </p>
         </>

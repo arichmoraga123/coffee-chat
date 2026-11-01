@@ -149,25 +149,25 @@ export function PracticeModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-zinc-950/95 p-4 backdrop-blur-sm">
-      <div className="mx-auto w-full max-w-4xl rounded-md border border-zinc-700 bg-zinc-900 p-4">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-surface p-4 ">
+      <div className="mx-auto w-full max-w-4xl rounded-md border border-border-strong bg-surface p-4">
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-zinc-100">{title}</h2>
-          <button onClick={onClose} className="rounded px-2 py-1 text-xs text-zinc-400 hover:bg-zinc-800">
+          <h2 className="text-sm font-semibold text-ink">{title}</h2>
+          <button onClick={onClose} className="rounded px-2 py-1 text-xs text-ink-2 hover:bg-surface-2">
             Close
           </button>
         </div>
       <div className="space-y-3 text-sm">
-        <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-400">
+        <div className="flex flex-wrap items-center gap-2 text-xs text-ink-2">
           {current.sourceLabel ? (
-            <span className="rounded border border-zinc-700 px-2 py-0.5">{current.sourceLabel}</span>
+            <span className="rounded border border-border-strong px-2 py-0.5">{current.sourceLabel}</span>
           ) : null}
-          <span className="rounded bg-zinc-800 px-2 py-0.5">{current.category}</span>
-          <span className="rounded border border-zinc-700 px-2 py-0.5">{current.difficulty}</span>
+          <span className="rounded bg-surface-2 px-2 py-0.5">{current.category}</span>
+          <span className="rounded border border-border-strong px-2 py-0.5">{current.difficulty}</span>
           {current.statusLabel ? (
-            <span className="rounded border border-zinc-700 px-2 py-0.5 capitalize">{current.statusLabel}</span>
+            <span className="rounded border border-border-strong px-2 py-0.5 capitalize">{current.statusLabel}</span>
           ) : null}
-          <span className="ml-auto text-zinc-500">
+          <span className="ml-auto text-ink-3">
             {safeIndex + 1} of {questions.length}
           </span>
         </div>
@@ -181,10 +181,10 @@ export function PracticeModal({
           </Button>
         </div>
 
-        <p className="text-base font-medium text-zinc-100">{current.question}</p>
+        <p className="text-base font-medium text-ink">{current.question}</p>
 
         <textarea
-          className="min-h-[120px] w-full resize-y rounded border border-zinc-700 bg-zinc-950 p-2 text-zinc-100"
+          className="min-h-[120px] w-full resize-y rounded border border-border-strong bg-surface p-2 text-ink"
           placeholder="Type your answer here..."
           value={typedAnswer}
           onChange={(e) => setTypedAnswer(e.target.value)}
@@ -207,8 +207,8 @@ export function PracticeModal({
         </div>
 
         {submitted && !hasKeywordScoring ? (
-          <div className="space-y-2 rounded border border-zinc-700 bg-zinc-950/50 p-3">
-            <p className="text-xs text-zinc-400">No keyword model for this question. Self-grade your response:</p>
+          <div className="space-y-2 rounded border border-border-strong bg-surface p-3">
+            <p className="text-xs text-ink-2">No keyword model for this question. Self-grade your response:</p>
             <div className="flex flex-wrap gap-2">
               <Button size="sm" onClick={() => setSelfGrade("strong")}>
                 Strong
@@ -224,16 +224,16 @@ export function PracticeModal({
         ) : null}
 
         {submitted && (gradeResult || selfGrade) ? (
-          <div className="space-y-2 rounded border border-zinc-700 bg-zinc-950/50 p-3">
-            <p className="font-medium text-zinc-100">
+          <div className="space-y-2 rounded border border-border-strong bg-surface p-3">
+            <p className="font-medium text-ink">
               {renderedGrade} {xpEarned != null ? `· XP +${xpEarned}` : ""}
             </p>
             {gradeResult ? (
               <>
-                <p className="text-xs text-emerald-300">
+                <p className="text-xs text-success">
                   ✓ mentioned: {gradeResult.foundKeywords.length ? gradeResult.foundKeywords.join(", ") : "none"}
                 </p>
-                <p className="text-xs text-red-300">
+                <p className="text-xs text-danger">
                   ✗ missed: {gradeResult.missedKeywords.length ? gradeResult.missedKeywords.join(", ") : "none"}
                 </p>
               </>
@@ -242,8 +242,8 @@ export function PracticeModal({
         ) : null}
 
         {showModelAnswer && current.answer ? (
-          <div className="rounded border border-zinc-700 bg-zinc-950/70 p-3 text-zinc-200">
-            <p className="mb-1 text-xs uppercase tracking-wide text-zinc-500">Model answer</p>
+          <div className="rounded border border-border-strong bg-surface p-3 text-ink">
+            <p className="mb-1 text-xs uppercase tracking-wide text-ink-3">Model answer</p>
             <p className="whitespace-pre-wrap">{current.answer}</p>
           </div>
         ) : null}
@@ -272,7 +272,7 @@ export function PracticeModal({
           </div>
         ) : null}
 
-        <p className="text-xs text-zinc-500">Ctrl+Enter or Enter = Submit · ←/→ = Navigate · Esc = Close</p>
+        <p className="text-xs text-ink-3">Ctrl+Enter or Enter = Submit · ←/→ = Navigate · Esc = Close</p>
       </div>
       </div>
     </div>

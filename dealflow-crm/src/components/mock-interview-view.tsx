@@ -273,11 +273,11 @@ export function MockInterviewView() {
       <div className="flex items-start justify-between gap-2">
         <div>
         <h1 className="page-title">Mock Interview</h1>
-          <p className="mt-1 text-sm text-[#888888]">
-            <span className="text-[#f0f0f0]">SHARED</span> question bank ·{" "}
-            <span className="text-[#c9a84c]">ACTIVE</span> practice flow
+          <p className="mt-1 text-sm text-ink-3">
+            <span className="text-ink">SHARED</span> question bank ·{" "}
+            <span className="text-accent">ACTIVE</span> practice flow
           </p>
-          <p className="mt-2 text-xs text-zinc-500">
+          <p className="mt-2 text-xs text-ink-3">
             {attemptedToday} questions attempted today · current streak {streak}
           </p>
         <div className="mt-3 flex flex-wrap gap-2">
@@ -307,43 +307,43 @@ export function MockInterviewView() {
         <ConsultingCasePractice />
       ) : (
         <div className="grid gap-6 lg:grid-cols-[220px_1fr]">
-          <Card className="h-fit space-y-2 border-zinc-800 bg-zinc-900/50 p-3 text-sm">
+          <Card className="h-fit space-y-2 border-border bg-surface p-3 text-sm">
             {relevantBanks.length > 0 ? (
-              <div className="mb-2 rounded border border-zinc-800 bg-zinc-950/60 p-2">
-                <p className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">Recommended for you</p>
+              <div className="mb-2 rounded border border-border bg-surface p-2">
+                <p className="text-[10px] font-semibold uppercase tracking-wide text-ink-3">Recommended for you</p>
                 <div className="mt-1 space-y-1">
                   {relevantBanks.slice(0, 3).map((bank) => (
                     <button
                       key={`rec-${bank}`}
                       type="button"
                       onClick={() => setBankFilter(bank)}
-                      className="flex w-full items-center justify-between rounded px-1.5 py-1 text-left text-xs text-zinc-300 hover:bg-zinc-800"
+                      className="flex w-full items-center justify-between rounded px-1.5 py-1 text-left text-xs text-ink-2 hover:bg-surface-2"
                     >
                       <span className="truncate">{bank}</span>
-                      <span className="text-amber-300">★</span>
+                      <span className="text-warn">★</span>
                     </button>
                   ))}
                 </div>
               </div>
             ) : null}
-            <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">Banks</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-ink-3">Banks</p>
             {MOCK_INTERVIEW_BANKS.map((b) => (
               <button
                 key={b}
                 type="button"
                 className={cn(
-                  "flex w-full items-center justify-between rounded px-2 py-1.5 text-left hover:bg-zinc-800",
-                  bankFilter === b && "bg-zinc-800",
+                  "flex w-full items-center justify-between rounded px-2 py-1.5 text-left hover:bg-surface-2",
+                  bankFilter === b && "bg-surface-2",
                 )}
                 onClick={() => setBankFilter(b)}
               >
                 <span className="truncate">{b}</span>
-                <span className="text-xs text-zinc-500">{bankCounts[b] ?? 0}</span>
+                <span className="text-xs text-ink-3">{bankCounts[b] ?? 0}</span>
               </button>
             ))}
           </Card>
           <div className="space-y-4">
-            <Card className="space-y-3 border-zinc-800 bg-zinc-900/50 p-4">
+            <Card className="space-y-3 border-border bg-surface p-4">
               <div className="flex flex-wrap gap-2">
                 <Button size="sm" variant={mode === "practice" ? "default" : "outline"} onClick={() => setMode("practice")}>
                   Practice (untimed)
@@ -362,34 +362,34 @@ export function MockInterviewView() {
                   Bank mode
                 </Button>
               </div>
-              <p className="text-xs text-zinc-500">
+              <p className="text-xs text-ink-3">
                 Continue where you left off: {bankFilter ? `${bankFilter}` : "choose a bank from the left"}.
               </p>
             </Card>
 
             {recentQuestions.length > 0 ? (
-              <Card className="space-y-2 border-zinc-800 bg-zinc-900/50 p-4">
-                <p className="text-sm font-medium text-zinc-200">Recent</p>
+              <Card className="space-y-2 border-border bg-surface p-4">
+                <p className="text-sm font-medium text-ink">Recent</p>
                 {recentQuestions.slice(0, 5).map((q) => (
                   <button
                     key={q.id}
                     type="button"
-                    className="block w-full rounded border border-zinc-800 bg-zinc-950/50 p-2 text-left text-xs text-zinc-300 hover:border-zinc-700"
+                    className="block w-full rounded border border-border bg-surface p-2 text-left text-xs text-ink-2 hover:border-border-strong"
                     onClick={() => {
                       if (!bankFilter) setBankFilter(q.bankSource);
                       openPractice(q.id);
                     }}
                   >
-                    <span className="text-zinc-500">{q.bankSource}</span> · {q.question}
+                    <span className="text-ink-3">{q.bankSource}</span> · {q.question}
                   </button>
                 ))}
               </Card>
             ) : null}
 
-            <Card className="space-y-3 border-zinc-800 bg-zinc-900/50 p-4">
+            <Card className="space-y-3 border-border bg-surface p-4">
               <div className="grid gap-2 sm:grid-cols-5">
                 <select
-                  className="rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-xs"
+                  className="rounded border border-border-strong bg-surface px-2 py-2 text-xs"
                   value={categoryFilter}
                   onChange={(e) => setCategoryFilter(e.target.value)}
                 >
@@ -400,7 +400,7 @@ export function MockInterviewView() {
                   ))}
                 </select>
                 <select
-                  className="rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-xs"
+                  className="rounded border border-border-strong bg-surface px-2 py-2 text-xs"
                   value={difficultyFilter}
                   onChange={(e) => setDifficultyFilter(e.target.value)}
                 >
@@ -411,7 +411,7 @@ export function MockInterviewView() {
                   ))}
                 </select>
                 <select
-                  className="rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-xs"
+                  className="rounded border border-border-strong bg-surface px-2 py-2 text-xs"
                   value={yearFilter}
                   onChange={(e) => setYearFilter(e.target.value)}
                 >
@@ -429,7 +429,7 @@ export function MockInterviewView() {
                 />
               </div>
               {filteredQuestions.length === 0 ? (
-                <div className="rounded border border-zinc-800 bg-zinc-950/50 p-4 text-sm text-zinc-400">
+                <div className="rounded border border-border bg-surface p-4 text-sm text-ink-2">
                   No questions yet for this firm. Be the first to submit one!
                   <div className="mt-2">
                     <Button size="sm" onClick={() => setSubmitOpen(true)}>
@@ -444,21 +444,21 @@ export function MockInterviewView() {
                       key={q.id}
                       type="button"
                       className={cn(
-                        "flex w-full items-center justify-between gap-3 rounded border border-zinc-800 bg-zinc-950/60 p-3 text-left hover:border-zinc-600",
-                        relevantBanks.includes(q.bankSource) && "border-emerald-700/40 bg-emerald-950/10",
+                        "flex w-full items-center justify-between gap-3 rounded border border-border bg-surface p-3 text-left hover:border-border-strong",
+                        relevantBanks.includes(q.bankSource) && "border-success/40 bg-success-bg",
                       )}
                       onClick={() => openPractice(q.id)}
                     >
                       <div className="min-w-0 flex-1">
-                        <p className="whitespace-normal break-words text-sm text-zinc-100">{q.question}</p>
-                        <div className="mt-1 flex flex-wrap gap-2 text-xs text-zinc-400">
-                          <span className="rounded bg-zinc-800 px-1.5 py-0.5">{q.category}</span>
-                          <span className="rounded border border-zinc-700 px-1.5 py-0.5">{q.difficulty}</span>
+                        <p className="whitespace-normal break-words text-sm text-ink">{q.question}</p>
+                        <div className="mt-1 flex flex-wrap gap-2 text-xs text-ink-2">
+                          <span className="rounded bg-surface-2 px-1.5 py-0.5">{q.category}</span>
+                          <span className="rounded border border-border-strong px-1.5 py-0.5">{q.difficulty}</span>
                           {q.year ? <span>{q.year}</span> : null}
                         </div>
                       </div>
                       {/* Visual affordance only — the whole row is already a button. */}
-                      <span className="shrink-0 rounded-md border border-zinc-700 px-3 py-1 text-xs text-zinc-200">
+                      <span className="shrink-0 rounded-md border border-border-strong px-3 py-1 text-xs text-ink">
                         Practice
                       </span>
                     </button>
@@ -494,7 +494,7 @@ export function MockInterviewView() {
           />
           <div className="grid gap-2 sm:grid-cols-2">
             <select
-              className="rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-sm"
+              className="rounded border border-border-strong bg-surface px-2 py-2 text-sm"
               value={submitQ.bankSource}
               onChange={(e) => setSubmitQ((s) => ({ ...s, bankSource: e.target.value }))}
             >
@@ -505,7 +505,7 @@ export function MockInterviewView() {
               ))}
             </select>
             <select
-              className="rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-sm"
+              className="rounded border border-border-strong bg-surface px-2 py-2 text-sm"
               value={submitQ.category}
               onChange={(e) => setSubmitQ((s) => ({ ...s, category: e.target.value }))}
             >
@@ -516,7 +516,7 @@ export function MockInterviewView() {
               ))}
             </select>
             <select
-              className="rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-sm"
+              className="rounded border border-border-strong bg-surface px-2 py-2 text-sm"
               value={submitQ.difficulty}
               onChange={(e) => setSubmitQ((s) => ({ ...s, difficulty: e.target.value }))}
             >
@@ -533,7 +533,7 @@ export function MockInterviewView() {
             />
           </div>
           <textarea
-            className="min-h-[100px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-sm"
+            className="min-h-[100px] w-full rounded border border-border-strong bg-surface p-2 text-sm"
             placeholder="Model answer (optional)"
             value={submitQ.modelAnswer}
             onChange={(e) => setSubmitQ((s) => ({ ...s, modelAnswer: e.target.value }))}

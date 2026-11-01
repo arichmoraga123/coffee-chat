@@ -31,21 +31,21 @@ export function ClubAnnouncementComposer({ clubId }: { clubId: string }) {
   };
 
   return (
-    <div className="space-y-2 rounded-lg border border-zinc-800 bg-zinc-900/50 p-4">
-      <p className="text-sm font-medium text-zinc-200">New announcement (officers)</p>
+    <div className="space-y-2 rounded-lg border border-border bg-surface p-4">
+      <p className="text-sm font-medium text-ink">New announcement (officers)</p>
       <input
-        className="w-full rounded border border-zinc-700 bg-zinc-950 px-3 py-2 text-sm text-zinc-100"
+        className="w-full rounded border border-border-strong bg-surface px-3 py-2 text-sm text-ink"
         placeholder="Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
       <textarea
-        className="min-h-[100px] w-full rounded border border-zinc-700 bg-zinc-950 px-3 py-2 text-sm text-zinc-100"
+        className="min-h-[100px] w-full rounded border border-border-strong bg-surface px-3 py-2 text-sm text-ink"
         placeholder="Body"
         value={body}
         onChange={(e) => setBody(e.target.value)}
       />
-      {err ? <p className="text-xs text-red-400">{err}</p> : null}
+      {err ? <p className="text-xs text-danger">{err}</p> : null}
       <Button type="button" size="sm" disabled={busy || !title.trim() || !body.trim()} onClick={() => void submit()}>
         {busy ? "Posting…" : "Post"}
       </Button>

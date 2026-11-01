@@ -7,14 +7,14 @@ import { matchCountdownEvents } from "@/lib/recruiting-calendar-utils";
 
 /** Muted badges — meaning from label text, not loud fills */
 const EVENT_BADGE: Record<string, string> = {
-  "Apps Open": "border-[#2a2a2a] bg-[#161616] text-[#888888]",
-  "Apps Close": "border-[#3a3a3a] bg-[#161616] text-[#c9a84c]",
-  "Info Session": "border-[#2a2a2a] bg-[#161616] text-[#888888]",
-  "First Round": "border-[#2a2a2a] bg-[#161616] text-[#888888]",
-  Superday: "border-[#2a2a2a] bg-[#161616] text-[#888888]",
-  "Offer Deadline": "border-[#2a2a2a] bg-[#161616] text-[#888888]",
-  "On-Cycle Start": "border-[#2a2a2a] bg-[#161616] text-[#888888]",
-  "Networking Event": "border-[#2a2a2a] bg-[#161616] text-[#888888]",
+  "Apps Open": "border-border bg-surface text-ink-3",
+  "Apps Close": "border-border-strong bg-surface text-accent",
+  "Info Session": "border-border bg-surface text-ink-3",
+  "First Round": "border-border bg-surface text-ink-3",
+  Superday: "border-border bg-surface text-ink-3",
+  "Offer Deadline": "border-border bg-surface text-ink-3",
+  "On-Cycle Start": "border-border bg-surface text-ink-3",
+  "Networking Event": "border-border bg-surface text-ink-3",
 };
 
 export async function DashboardRecruitingCountdown({
@@ -36,9 +36,9 @@ export async function DashboardRecruitingCountdown({
     <Card className="p-3">
       <p className="section-label mb-3">Countdown</p>
       {events.length === 0 ? (
-        <p className="text-sm text-[#888888]">
+        <p className="text-sm text-ink-3">
           No upcoming deadlines — add events on the{" "}
-          <Link href="/recruiting-calendar" className="text-[#f5f5f5] underline-offset-4 hover:underline">
+          <Link href="/recruiting-calendar" className="text-ink underline-offset-4 hover:underline">
             Recruiting Calendar
           </Link>
           .
@@ -50,22 +50,22 @@ export async function DashboardRecruitingCountdown({
             const urgency = days < 7 ? "red" : days <= 30 ? "yellow" : "green";
             const color =
               urgency === "red"
-                ? "text-[#c9a84c]"
+                ? "text-accent"
                 : urgency === "yellow"
-                  ? "text-[#c9a84c]/80"
-                  : "text-[#888888]";
+                  ? "text-accent"
+                  : "text-ink-3";
             return (
               <li
                 key={ev.id}
-                className="flex items-start justify-between gap-2 border-b border-[#2a2a2a] pb-2 last:border-0 last:pb-0"
+                className="flex items-start justify-between gap-2 border-b border-border pb-2 last:border-0 last:pb-0"
               >
                 <div className="min-w-0">
-                  <p className="truncate text-sm font-medium text-[#f0f0f0]">{ev.title}</p>
-                  {ev.firmName ? <p className="truncate text-xs text-[#888888]">{ev.firmName}</p> : null}
+                  <p className="truncate text-sm font-medium text-ink">{ev.title}</p>
+                  {ev.firmName ? <p className="truncate text-xs text-ink-3">{ev.firmName}</p> : null}
                   <span
                     className={cn(
                       "mt-1 inline-block rounded border px-1.5 py-0.5 text-[10px] uppercase tracking-wide",
-                      EVENT_BADGE[ev.eventType] ?? "border-[#2a2a2a] bg-[#161616] text-[#888888]",
+                      EVENT_BADGE[ev.eventType] ?? "border-border bg-surface text-ink-3",
                     )}
                   >
                     {ev.eventType}
@@ -73,7 +73,7 @@ export async function DashboardRecruitingCountdown({
                 </div>
                 <div className={cn("shrink-0 text-right tabular-nums", color)}>
                   <p className="text-2xl font-bold leading-none">{Math.max(0, days)}</p>
-                  <p className="text-[10px] text-[#888888]">days</p>
+                  <p className="text-[10px] text-ink-3">days</p>
                 </div>
               </li>
             );
@@ -82,7 +82,7 @@ export async function DashboardRecruitingCountdown({
       )}
       <Link
         href="/recruiting-calendar"
-        className="mt-3 inline-block text-xs font-medium text-[#f5f5f5] underline-offset-4 hover:underline"
+        className="mt-3 inline-block text-xs font-medium text-ink underline-offset-4 hover:underline"
       >
         View full calendar →
       </Link>

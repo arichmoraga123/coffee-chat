@@ -1,31 +1,37 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-const NOISE_SVG =
-  "data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E";
-
+/** Section container: surface, 1px border, 10px radius, no shadow. */
 export function Card({
   className,
   interactive,
+  title,
+  action,
   children,
   ...props
-}: React.HTMLAttributes<HTMLDivElement> & { interactive?: boolean }) {
+}: Omit<React.HTMLAttributes<HTMLDivElement>, "title"> & {
+  interactive?: boolean;
+  /** Optional header row: title on the left… */
+  title?: React.ReactNode;
+  /** …and a text link or small action on the right. */
+  action?: React.ReactNode;
+}) {
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-xl border border-[#2a2a2a] bg-[#161616] shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[#3a3a3a] hover:shadow-lg hover:shadow-black/40",
-        "before:pointer-events-none before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/[0.03] before:to-transparent before:to-55%",
-        interactive && "cursor-pointer",
+        "rounded-[var(--radius-lg)] border border-border bg-surface",
+        interactive && "cursor-pointer transition-colors hover:border-border-strong",
+        title || action ? "p-5" : null,
         className,
       )}
       {...props}
     >
-      {/* Decorative texture. Absolutely positioned so it never takes part in the card's flex/grid layout. */}
-      <div
-        className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.03] mix-blend-overlay"
-        style={{ backgroundImage: `url("${NOISE_SVG}")` }}
-        aria-hidden
-      />
+      {title || action ? (
+        <div className="mb-4 flex items-center justify-between gap-3">
+          {typeof title === "string" ? <h2 className="section-title">{title}</h2> : title}
+          {action ? <div className="shrink-0 text-[13px]">{action}</div> : null}
+        </div>
+      ) : null}
       {children}
     </div>
   );

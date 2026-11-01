@@ -46,28 +46,28 @@ function QuestionCard({ item, onSaved }: { item: QueueItem; onSaved: (q: QueueIt
   };
 
   return (
-    <div className={cn("space-y-2 rounded-xl border p-4", item.status === "open" ? "border-sky-700/50 bg-sky-950/10" : "border-white/10 bg-zinc-900/40")}>
-      <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-400">
-        <span className="font-medium text-zinc-200">{item.asker}</span>
+    <div className={cn("space-y-2 rounded-[var(--radius-lg)] border p-4", item.status === "open" ? "border-info/40 bg-info-bg" : "border-border bg-surface")}>
+      <div className="flex flex-wrap items-center gap-2 text-xs text-ink-2">
+        <span className="font-medium text-ink">{item.asker}</span>
         <span>· {new Date(item.createdAt).toLocaleDateString()}</span>
         {item.blockLabel ? (
-          <Link href={`/learn/${item.lessonId}#${item.blockLabel.split(" · ")[0]}`} className="text-[#a8c0e6] hover:underline">
+          <Link href={`/learn/${item.lessonId}#${item.blockLabel.split(" · ")[0]}`} className="text-accent hover:underline">
             · {item.blockLabel}
           </Link>
         ) : null}
-        {item.status === "answered" ? <span className="text-emerald-400">· answered{item.answeredBy ? ` by ${item.answeredBy}` : ""}</span> : null}
-        {item.public ? <span className="text-sky-300">· FAQ on lesson</span> : null}
+        {item.status === "answered" ? <span className="text-success">· answered{item.answeredBy ? ` by ${item.answeredBy}` : ""}</span> : null}
+        {item.public ? <span className="text-info">· FAQ on lesson</span> : null}
       </div>
-      <p className="text-sm text-zinc-100">{item.question}</p>
+      <p className="text-sm text-ink">{item.question}</p>
       <textarea
         value={answer}
         onChange={(e) => setAnswer(e.target.value)}
         rows={4}
         placeholder="Write your answer (Markdown works: **bold**, lists)…"
-        className="block w-full rounded-md border border-zinc-700 bg-zinc-950 px-3 py-2 text-base text-zinc-100"
+        className="block w-full rounded-md border border-border-strong bg-surface px-3 py-2 text-base text-ink"
       />
       <div className="flex flex-wrap items-center gap-3">
-        <label className="flex items-center gap-2 text-sm text-zinc-300">
+        <label className="flex items-center gap-2 text-sm text-ink-2">
           <input type="checkbox" checked={isPublic} onChange={(e) => setIsPublic(e.target.checked)} className="h-4 w-4 accent-sky-500" />
           Add to lesson as FAQ
         </label>
@@ -97,20 +97,20 @@ export function MentorQueue({ items: initial }: { items: QueueItem[] }) {
   return (
     <div className="space-y-5">
       <div className="flex items-center gap-3 text-sm">
-        <span className="text-zinc-300">{openCount} open</span>
-        <label className="flex items-center gap-2 text-zinc-400">
+        <span className="text-ink-2">{openCount} open</span>
+        <label className="flex items-center gap-2 text-ink-2">
           <input type="checkbox" checked={showAnswered} onChange={(e) => setShowAnswered(e.target.checked)} />
           Show answered (last 30 days)
         </label>
       </div>
-      {groups.length === 0 ? <p className="text-sm text-zinc-500">Nothing waiting. 🎉</p> : null}
+      {groups.length === 0 ? <p className="text-sm text-ink-3">Nothing waiting.</p> : null}
       {groups.map(([lessonId, qs]) => (
         <section key={lessonId} className="space-y-2">
-          <h2 className="text-sm font-semibold text-zinc-200">
+          <h2 className="text-sm font-semibold text-ink">
             <Link href={`/learn/${lessonId}`} className="hover:underline">
               {lessonId.replace("-", ".")} · {qs[0].lessonTitle}
             </Link>
-            <span className="ml-2 text-xs font-normal text-zinc-500">{qs.length}</span>
+            <span className="ml-2 text-xs font-normal text-ink-3">{qs.length}</span>
           </h2>
           {qs.map((q) => (
             <QuestionCard key={q.id} item={q} onSaved={(n) => setItems((all) => all.map((x) => (x.id === n.id ? n : x)))} />

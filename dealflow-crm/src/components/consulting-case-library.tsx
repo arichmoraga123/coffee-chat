@@ -43,13 +43,13 @@ export function ConsultingCaseLibrary() {
     [rows, careerTracks, narrowTrack],
   );
 
-  if (loading) return <p className="text-sm text-zinc-500">Loading consulting case library…</p>;
+  if (loading) return <p className="text-sm text-ink-3">Loading consulting case library…</p>;
 
   return (
     <div className="space-y-4">
-      <p className="text-sm text-zinc-400">
+      <p className="text-sm text-ink-2">
         Shared consulting-style cases for practice. Pair with{" "}
-        <a href="/mock-interview" className="text-zinc-100 underline-offset-2 hover:underline">
+        <a href="/mock-interview" className="text-ink underline-offset-2 hover:underline">
           Mock Interview → Case practice
         </a>
         .
@@ -58,14 +58,14 @@ export function ConsultingCaseLibrary() {
         {filtered.map((c) => {
           const open = openId === c.id;
           return (
-            <Card key={c.id} className="border-zinc-800 bg-zinc-900/50 p-4">
-              <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-500">
-                <span className="rounded border border-zinc-700 px-2 py-0.5 text-zinc-300">{c.type}</span>
+            <Card key={c.id} className="border-border bg-surface p-4">
+              <div className="flex flex-wrap items-center gap-2 text-xs text-ink-3">
+                <span className="rounded border border-border-strong px-2 py-0.5 text-ink-2">{c.type}</span>
                 <span>{c.difficulty}</span>
                 {c.firmSource ? <span className="truncate">{c.firmSource}</span> : null}
               </div>
-              <h3 className="mt-2 text-base font-semibold text-zinc-100">{c.title}</h3>
-              <p className="mt-2 line-clamp-4 text-sm text-zinc-400">{c.prompt}</p>
+              <h3 className="mt-2 text-base font-semibold text-ink">{c.title}</h3>
+              <p className="mt-2 line-clamp-4 text-sm text-ink-2">{c.prompt}</p>
               <Button
                 type="button"
                 size="sm"
@@ -76,16 +76,16 @@ export function ConsultingCaseLibrary() {
                 {open ? "Hide detail" : "Framework & sample walkthrough"}
               </Button>
               {open ? (
-                <div className="mt-3 space-y-3 border-t border-zinc-800 pt-3 text-sm text-zinc-300">
+                <div className="mt-3 space-y-3 border-t border-border pt-3 text-sm text-ink-2">
                   {c.framework ? (
                     <div>
-                      <p className="text-xs font-semibold uppercase text-amber-400/90">Framework</p>
+                      <p className="text-xs font-semibold uppercase text-warn">Framework</p>
                       <p className="mt-1 whitespace-pre-wrap">{c.framework}</p>
                     </div>
                   ) : null}
                   {c.sampleAnswer ? (
                     <div>
-                      <p className="text-xs font-semibold uppercase text-zinc-500">Sample walkthrough</p>
+                      <p className="text-xs font-semibold uppercase text-ink-3">Sample walkthrough</p>
                       <p className="mt-1 whitespace-pre-wrap">{c.sampleAnswer}</p>
                     </div>
                   ) : null}
@@ -96,7 +96,7 @@ export function ConsultingCaseLibrary() {
         })}
       </div>
       {filtered.length === 0 ? (
-        <p className="text-sm text-zinc-500">No cases match your career track filters.</p>
+        <p className="text-sm text-ink-3">No cases match your career track filters.</p>
       ) : null}
     </div>
   );

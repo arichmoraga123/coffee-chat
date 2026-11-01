@@ -353,9 +353,9 @@ export function ContactsView({
 
   const staleDate = subDays(new Date(), 30);
   const followUpBadge = {
-    green: "bg-emerald-500/20 text-emerald-300",
-    yellow: "bg-amber-500/20 text-amber-300",
-    red: "bg-red-500/20 text-red-300",
+    green: "bg-success-bg text-success",
+    yellow: "bg-warn-bg text-warn",
+    red: "bg-danger-bg text-danger",
   } as const;
   const followUpLabel = {
     green: "On time",
@@ -382,7 +382,7 @@ export function ContactsView({
         </div>
       </div>
 
-      <div className="flex gap-1 border-b border-white/10">
+      <div className="flex gap-1 border-b border-border">
         {(
           [
             ["all", "All Contacts"],
@@ -396,13 +396,13 @@ export function ContactsView({
             onClick={() => setTabAndUrl(key)}
             className={`px-3 py-2 text-sm transition-colors ${
               tab === key
-                ? "border-b-2 border-zinc-100 text-zinc-100"
-                : "text-zinc-500 hover:text-zinc-300"
+                ? "border-b-2 border-ink-3 text-ink"
+                : "text-ink-3 hover:text-ink-2"
             }`}
           >
             {label}
             {key === "queue" && queueContacts.length > 0 ? (
-              <span className="ml-1.5 rounded-full bg-amber-500/20 px-1.5 text-[10px] text-amber-300">
+              <span className="ml-1.5 rounded-full bg-warn-bg px-1.5 text-[10px] text-warn">
                 {queueContacts.length}
               </span>
             ) : null}
@@ -431,11 +431,11 @@ export function ContactsView({
         <>
           <Card className="p-3">
             <div className="grid gap-2 md:grid-cols-3">
-              <select className="h-9 rounded border border-white/10 bg-zinc-950 px-2 text-sm" value={firmFilter} onChange={(e) => setFirmFilter(e.target.value)}>
+              <select className="h-9 rounded border border-border bg-surface px-2 text-sm" value={firmFilter} onChange={(e) => setFirmFilter(e.target.value)}>
                 <option value="all">All Firms</option>
                 {firms.map((f) => <option key={f.id} value={f.id}>{f.name}</option>)}
               </select>
-              <select className="h-9 rounded border border-white/10 bg-zinc-950 px-2 text-sm" value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
+              <select className="h-9 rounded border border-border bg-surface px-2 text-sm" value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
                 <option value="all">All Categories</option>
                 {["IB", "PE", "GE", "VC", "HF"].map((c) => <option key={c} value={c}>{c}</option>)}
               </select>
@@ -444,7 +444,7 @@ export function ContactsView({
             {importedOnly ? (
               <button
                 type="button"
-                className="mt-2 text-xs text-zinc-400 underline"
+                className="mt-2 text-xs text-ink-2 underline"
                 onClick={() => {
                   setImportedOnly(false);
                   router.replace("/contacts");
@@ -457,7 +457,7 @@ export function ContactsView({
           <Card className="overflow-hidden p-0">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[320px] text-sm md:min-w-[900px]">
-                <thead className="border-b border-white/10 bg-zinc-950/90 text-left text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+                <thead className="border-b border-border bg-surface text-left text-[10px] font-semibold uppercase tracking-wider text-ink-3">
                   <tr>
                     <th className="w-8 px-2 py-3" />
                     <th className="px-3 py-3">Name</th>
@@ -488,7 +488,7 @@ export function ContactsView({
                     return (
                       <tr
                         key={c.id}
-                        className="group border-t border-white/[0.06] odd:bg-white/[0.02] transition-colors hover:bg-white/[0.04]"
+                        className="group border-t border-border odd:bg-surface-2 transition-colors hover:bg-surface-2"
                       >
                         <td className="px-2 py-2 align-top">
                           <input
@@ -506,23 +506,23 @@ export function ContactsView({
                           />
                         </td>
                         <td className="max-w-[42vw] px-3 py-2 align-top md:max-w-none">
-                          <Link href={`/contacts/${c.id}`} className="break-words text-[#f0f0f0] underline-offset-4 hover:underline">
+                          <Link href={`/contacts/${c.id}`} className="break-words text-ink underline-offset-4 hover:underline">
                             {c.fullName}
                           </Link>
                           {isStale ? (
-                            <span className="ml-1.5 inline-block rounded bg-amber-500/20 px-1.5 py-0.5 text-[10px] text-amber-300">
+                            <span className="ml-1.5 inline-block rounded bg-warn-bg px-1.5 py-0.5 text-[10px] text-warn">
                               Stale
                             </span>
                           ) : null}
                           {c.source === "import" ? (
-                            <span className="ml-1 inline-block rounded bg-blue-500/20 px-1 py-0.5 text-[10px] text-blue-300">
+                            <span className="ml-1 inline-block rounded bg-info-bg px-1 py-0.5 text-[10px] text-info">
                               Imported
                             </span>
                           ) : null}
                         </td>
                         <td className="min-w-0 px-3 py-2 align-top">
                           <div className="flex min-w-0 flex-col gap-1.5 md:flex-row md:flex-wrap md:items-center md:gap-1.5">
-                            <Link href={`/firms/${c.firmId}`} className="min-w-0 break-words text-[#f0f0f0] underline-offset-4 hover:underline">
+                            <Link href={`/firms/${c.firmId}`} className="min-w-0 break-words text-ink underline-offset-4 hover:underline">
                               {c.firmName}
                             </Link>
                             <FirmTypeBadge type={c.firmType} className="w-fit shrink-0" />
@@ -621,7 +621,7 @@ export function ContactsView({
 
       <Modal open={showC} onClose={() => setShowC(false)} title="New Contact" className="max-w-2xl">
         <div className="max-h-[75vh] space-y-4 overflow-y-auto pr-1 text-sm">
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500">Basic info</p>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-ink-3">Basic info</p>
           <div className="grid gap-2 md:grid-cols-2">
             <Input placeholder="Full name" value={contactForm.fullName} onChange={(e) => {
               setContactForm((p) => ({ ...p, fullName: e.target.value }));
@@ -629,7 +629,7 @@ export function ContactsView({
             }} />
             <Input placeholder="Email" value={contactForm.email} onChange={(e) => setContactForm((p) => ({ ...p, email: e.target.value }))} />
             <Input placeholder="LinkedIn URL (optional)" value={contactForm.linkedinUrl} onChange={(e) => setContactForm((p) => ({ ...p, linkedinUrl: e.target.value }))} />
-            <select className="h-9 rounded border border-zinc-700 bg-zinc-950 px-2 text-sm" value={contactForm.firmId} onChange={(e) => setContactForm((p) => ({ ...p, firmId: e.target.value }))}>
+            <select className="h-9 rounded border border-border-strong bg-surface px-2 text-sm" value={contactForm.firmId} onChange={(e) => setContactForm((p) => ({ ...p, firmId: e.target.value }))}>
               {firms.map((f) => <option key={f.id} value={f.id}>{f.name}</option>)}
               <option value="">Create new firm</option>
             </select>
@@ -644,9 +644,9 @@ export function ContactsView({
                   }}
                 />
                 <div className="md:col-span-2">
-                  <label className="mb-1 block text-xs text-zinc-500">New firm type</label>
+                  <label className="mb-1 block text-xs text-ink-3">New firm type</label>
                   <select
-                    className="h-9 w-full rounded border border-zinc-700 bg-zinc-950 px-2 text-sm"
+                    className="h-9 w-full rounded border border-border-strong bg-surface px-2 text-sm"
                     value={contactForm.firmType}
                     onChange={(e) =>
                       setContactForm((p) => ({
@@ -666,7 +666,7 @@ export function ContactsView({
               </>
             ) : null}
             {intelligenceNote ? (
-              <p className="rounded border border-blue-500/20 bg-blue-500/5 px-2 py-1.5 text-xs text-blue-200 md:col-span-2">
+              <p className="rounded border border-info/40 bg-info-bg px-2 py-1.5 text-xs text-info md:col-span-2">
                 {intelligenceNote}
               </p>
             ) : null}
@@ -674,15 +674,15 @@ export function ContactsView({
             <Input placeholder="Title" value={contactForm.title} onChange={(e) => setContactForm((p) => ({ ...p, title: e.target.value }))} />
             <Input placeholder="Location" value={contactForm.location} onChange={(e) => setContactForm((p) => ({ ...p, location: e.target.value }))} />
             <Input placeholder="School" value={contactForm.school} onChange={(e) => setContactForm((p) => ({ ...p, school: e.target.value }))} />
-            <select className="h-9 rounded border border-zinc-700 bg-zinc-950 px-2 text-sm" value={contactForm.recruitingCategory} onChange={(e) => setContactForm((p) => ({ ...p, recruitingCategory: e.target.value }))}>
+            <select className="h-9 rounded border border-border-strong bg-surface px-2 text-sm" value={contactForm.recruitingCategory} onChange={(e) => setContactForm((p) => ({ ...p, recruitingCategory: e.target.value }))}>
               {["IB", "PE", "GE", "VC", "HF"].map((c) => <option key={c} value={c}>{c}</option>)}
             </select>
             <Input type="number" min={1} max={10} value={contactForm.relationshipStrength} onChange={(e) => setContactForm((p) => ({ ...p, relationshipStrength: Number(e.target.value) }))} />
-            <select className="h-9 rounded border border-zinc-700 bg-zinc-950 px-2 text-sm" value={contactForm.referralProbability} onChange={(e) => setContactForm((p) => ({ ...p, referralProbability: e.target.value }))}>
+            <select className="h-9 rounded border border-border-strong bg-surface px-2 text-sm" value={contactForm.referralProbability} onChange={(e) => setContactForm((p) => ({ ...p, referralProbability: e.target.value }))}>
               {["LOW", "MEDIUM", "HIGH"].map((c) => <option key={c} value={c}>{c}</option>)}
             </select>
             <Input type="date" value={contactForm.lastInteractionDate} onChange={(e) => setContactForm((p) => ({ ...p, lastInteractionDate: e.target.value }))} />
-            <textarea className="min-h-[56px] rounded border border-zinc-700 bg-zinc-950 p-2 text-sm md:col-span-2" placeholder="Notes" value={contactForm.notes} onChange={(e) => setContactForm((p) => ({ ...p, notes: e.target.value }))} />
+            <textarea className="min-h-[56px] rounded border border-border-strong bg-surface p-2 text-sm md:col-span-2" placeholder="Notes" value={contactForm.notes} onChange={(e) => setContactForm((p) => ({ ...p, notes: e.target.value }))} />
           </div>
         </div>
         <div className="mt-3 flex justify-end">
@@ -700,13 +700,13 @@ export function ContactsView({
 
       <Modal open={showI} onClose={() => setShowI(false)} title="New Interaction" className="max-w-lg">
         <div className="max-h-[70vh] space-y-2 overflow-y-auto pr-1 text-sm">
-          <select className="h-9 w-full rounded border border-zinc-700 bg-zinc-950 px-2 text-sm" value={interactionForm.contactId} onChange={(e) => setInteractionForm((p) => ({ ...p, contactId: e.target.value }))}>
+          <select className="h-9 w-full rounded border border-border-strong bg-surface px-2 text-sm" value={interactionForm.contactId} onChange={(e) => setInteractionForm((p) => ({ ...p, contactId: e.target.value }))}>
             <option value="">Select contact</option>
             {contacts.map((c) => <option key={c.id} value={c.id}>{c.fullName}</option>)}
           </select>
           <Input type="date" value={interactionForm.date} onChange={(e) => setInteractionForm((p) => ({ ...p, date: e.target.value }))} />
           <Input placeholder="Type (COFFEE_CHAT/CALL/...)" value={interactionForm.type} onChange={(e) => setInteractionForm((p) => ({ ...p, type: e.target.value }))} />
-          <textarea className="min-h-[56px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-sm" placeholder="What was discussed" value={interactionForm.notes} onChange={(e) => setInteractionForm((p) => ({ ...p, notes: e.target.value }))} />
+          <textarea className="min-h-[56px] w-full rounded border border-border-strong bg-surface p-2 text-sm" placeholder="What was discussed" value={interactionForm.notes} onChange={(e) => setInteractionForm((p) => ({ ...p, notes: e.target.value }))} />
         </div>
         <div className="mt-3 flex justify-end">
           <Button onClick={async () => {
@@ -728,7 +728,7 @@ export function ContactsView({
 
       <Modal open={showT} onClose={() => setShowT(false)} title="New Task">
         <div className="grid gap-2">
-          <select className="h-9 rounded border border-zinc-700 bg-zinc-950 px-2 text-sm" value={taskForm.contactId} onChange={(e) => setTaskForm((p) => ({ ...p, contactId: e.target.value }))}>
+          <select className="h-9 rounded border border-border-strong bg-surface px-2 text-sm" value={taskForm.contactId} onChange={(e) => setTaskForm((p) => ({ ...p, contactId: e.target.value }))}>
             <option value="">Select contact</option>
             {contacts.map((c) => <option key={c.id} value={c.id}>{c.fullName}</option>)}
           </select>

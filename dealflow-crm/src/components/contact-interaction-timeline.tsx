@@ -45,7 +45,7 @@ export function ContactInteractionTimeline({
 
   if (interactions.length === 0) {
     return (
-      <Card className="border-zinc-800 bg-zinc-900/50 p-6 text-center text-sm text-zinc-500">
+      <Card className="border-border bg-surface p-6 text-center text-sm text-ink-3">
         No interactions logged yet. Use &quot;Log interaction&quot; to add one.
       </Card>
     );
@@ -53,18 +53,18 @@ export function ContactInteractionTimeline({
 
   return (
     <div className="relative pl-4">
-      <div className="absolute bottom-0 left-[7px] top-2 w-px bg-zinc-700" aria-hidden />
+      <div className="absolute bottom-0 left-[7px] top-2 w-px bg-border-strong" aria-hidden />
       <ul className="space-y-6">
         {interactions.map((i) => (
           <li key={i.id} className="relative">
             <span
-              className="absolute left-[-9px] top-1.5 h-3 w-3 rounded-full border-2 border-[#4a6fa5] bg-[#0a0a0a]"
+              className="absolute left-[-9px] top-1.5 h-3 w-3 rounded-full border-2 border-accent bg-bg"
               aria-hidden
             />
-            <Card className="border-zinc-800 bg-zinc-900/60 p-4 text-sm">
-              <div className="flex flex-wrap items-start justify-between gap-2 border-b border-zinc-800/80 pb-2">
+            <Card className="border-border bg-surface p-4 text-sm">
+              <div className="flex flex-wrap items-start justify-between gap-2 border-b border-border pb-2">
                 <div>
-                  <p className="font-medium text-zinc-100">
+                  <p className="font-medium text-ink">
                     {new Date(i.date).toLocaleDateString(undefined, {
                       weekday: "short",
                       month: "short",
@@ -72,7 +72,7 @@ export function ContactInteractionTimeline({
                       year: "numeric",
                     })}
                   </p>
-                  <span className="mt-1 inline-block rounded border border-[#2a2a2a] bg-[#161616] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-[#c9a84c]">
+                  <span className="mt-1 inline-block rounded border border-border bg-surface px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent">
                     {interactionTypeLabel(i.type)}
                   </span>
                 </div>
@@ -87,22 +87,22 @@ export function ContactInteractionTimeline({
                 </Button>
               </div>
 
-              <div className="mt-3 space-y-3 text-zinc-300">
+              <div className="mt-3 space-y-3 text-ink-2">
                 {i.notes ? (
                   <div>
-                    <p className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">Discussed</p>
-                    <p className="whitespace-pre-wrap text-zinc-200">{i.notes}</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-wide text-ink-3">Discussed</p>
+                    <p className="whitespace-pre-wrap text-ink">{i.notes}</p>
                   </div>
                 ) : null}
                 {i.adviceGiven ? (
                   <div>
-                    <p className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">Advice given</p>
-                    <p className="whitespace-pre-wrap text-amber-100/90">{i.adviceGiven}</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-wide text-ink-3">Advice given</p>
+                    <p className="whitespace-pre-wrap text-warn">{i.adviceGiven}</p>
                   </div>
                 ) : null}
                 {i.actionItems.length > 0 ? (
                   <div>
-                    <p className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">Action items</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-wide text-ink-3">Action items</p>
                     <ul className="mt-1 space-y-1.5">
                       {i.actionItems.map((item, idx) => {
                         const checked = i.actionItemsChecked.includes(idx);
@@ -114,9 +114,9 @@ export function ContactInteractionTimeline({
                               onChange={(e) =>
                                 void toggleActionItem(i.id, idx, e.target.checked)
                               }
-                              className="mt-1 h-3.5 w-3.5 shrink-0 rounded border-zinc-600"
+                              className="mt-1 h-3.5 w-3.5 shrink-0 rounded border-border-strong"
                             />
-                            <span className={cn(checked && "text-zinc-500 line-through")}>{item}</span>
+                            <span className={cn(checked && "text-ink-3 line-through")}>{item}</span>
                           </li>
                         );
                       })}
@@ -125,22 +125,22 @@ export function ContactInteractionTimeline({
                 ) : null}
                 {i.personalDetails ? (
                   <div>
-                    <p className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">
+                    <p className="text-[10px] font-semibold uppercase tracking-wide text-ink-3">
                       Personal details
                     </p>
-                    <p className="whitespace-pre-wrap text-zinc-200">{i.personalDetails}</p>
+                    <p className="whitespace-pre-wrap text-ink">{i.personalDetails}</p>
                   </div>
                 ) : null}
                 {i.firmInsights ? (
                   <div>
-                    <p className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">Firm insights</p>
-                    <p className="whitespace-pre-wrap text-zinc-200">{i.firmInsights}</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-wide text-ink-3">Firm insights</p>
+                    <p className="whitespace-pre-wrap text-ink">{i.firmInsights}</p>
                   </div>
                 ) : null}
                 {i.redFlags ? (
                   <div>
-                    <p className="text-[10px] font-semibold uppercase tracking-wide text-red-400/80">Red flags</p>
-                    <p className="whitespace-pre-wrap text-red-200/90">{i.redFlags}</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-wide text-danger">Red flags</p>
+                    <p className="whitespace-pre-wrap text-danger">{i.redFlags}</p>
                   </div>
                 ) : null}
               </div>

@@ -49,19 +49,19 @@ export function LinkedInXRayModal({ open, onClose, schoolName, onSaveToQueue }: 
     <Modal open={open} onClose={onClose} title="Find Contacts — LinkedIn X-Ray" className="max-w-lg">
       <div className="space-y-3 text-sm">
         <div>
-          <label className="mb-1 block text-xs text-zinc-500">Firm/Company *</label>
+          <label className="mb-1 block text-xs text-ink-3">Firm/Company *</label>
           <Input value={firm} onChange={(e) => setFirm(e.target.value)} placeholder="Goldman Sachs" />
         </div>
         <div>
-          <label className="mb-1 block text-xs text-zinc-500">Title/Role</label>
+          <label className="mb-1 block text-xs text-ink-3">Title/Role</label>
           <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Analyst, Associate, VP..." />
         </div>
         <div>
-          <label className="mb-1 block text-xs text-zinc-500">School</label>
+          <label className="mb-1 block text-xs text-ink-3">School</label>
           <Input value={school} onChange={(e) => setSchool(e.target.value)} />
         </div>
         <div>
-          <label className="mb-1 block text-xs text-zinc-500">Name</label>
+          <label className="mb-1 block text-xs text-ink-3">Name</label>
           <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Optional" />
         </div>
 
@@ -70,7 +70,7 @@ export function LinkedInXRayModal({ open, onClose, schoolName, onSaveToQueue }: 
             <button
               key={p.label}
               type="button"
-              className="rounded border border-zinc-700 bg-zinc-900 px-2 py-1 text-[10px] text-zinc-400 hover:border-zinc-500 hover:text-zinc-200"
+              className="rounded border border-border-strong bg-surface px-2 py-1 text-[10px] text-ink-2 hover:border-border-strong hover:text-ink"
               onClick={() => {
                 setFirm(p.firm);
                 setTitle(p.title);
@@ -83,8 +83,8 @@ export function LinkedInXRayModal({ open, onClose, schoolName, onSaveToQueue }: 
         </div>
 
         {firm.trim() ? (
-          <div className="space-y-2 rounded border border-white/10 bg-zinc-950 p-3">
-            <pre className="overflow-x-auto whitespace-pre-wrap break-all text-xs text-zinc-400">{query}</pre>
+          <div className="space-y-2 rounded border border-border bg-surface p-3">
+            <pre className="overflow-x-auto whitespace-pre-wrap break-all text-xs text-ink-2">{query}</pre>
             <div className="flex flex-wrap gap-2">
               <Button size="sm" onClick={() => window.open(googleUrl, "_blank")}>
                 Open in Google
@@ -115,7 +115,7 @@ export function LinkedInXRayModal({ open, onClose, schoolName, onSaveToQueue }: 
         </Button>
 
         {showQuickAdd ? (
-          <div className="space-y-2 rounded border border-emerald-500/20 bg-emerald-500/5 p-3">
+          <div className="space-y-2 rounded border border-success/40 bg-success-bg p-3">
             <Input placeholder="Name" value={quickName} onChange={(e) => setQuickName(e.target.value)} />
             <Input placeholder="Firm" value={quickFirm} onChange={(e) => setQuickFirm(e.target.value)} />
             <Input placeholder="Title" value={quickTitle} onChange={(e) => setQuickTitle(e.target.value)} />

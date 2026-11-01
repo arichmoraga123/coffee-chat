@@ -30,12 +30,12 @@ const RESULT_FILTER = ["all", "win", "finalist", "participant", "other"] as cons
 function resultBadgeClass(result: string | null) {
   const r = (result ?? "").toLowerCase();
   if (/1st|first\s*place|^winner|gold/i.test(r)) {
-    return "border-amber-500/40 bg-amber-500/15 text-amber-200 ring-amber-500/30";
+    return "border-warn/40 bg-warn-bg text-warn ring-warn/40";
   }
   if (/finalist|final|runner|semi/i.test(r)) {
-    return "border-zinc-400/40 bg-zinc-500/15 text-zinc-200 ring-zinc-400/25";
+    return "border-ink-3 bg-ink-3 text-ink ring-ink-3";
   }
-  return "border-zinc-700 bg-zinc-800/60 text-zinc-400 ring-zinc-600/30";
+  return "border-border-strong bg-surface-2 text-ink-2 ring-border-strong";
 }
 
 function isWin(result: string | null) {
@@ -237,7 +237,7 @@ export function CasesView() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap gap-2 border-b border-zinc-800 pb-2">
+      <div className="flex flex-wrap gap-2 border-b border-border pb-2">
         <Button type="button" size="sm" variant={pageTab === "competitions" ? "default" : "outline"} onClick={() => setPageTab("competitions")}>
           Case competitions
         </Button>
@@ -250,7 +250,7 @@ export function CasesView() {
         <>
           <div>
             <h1 className="page-title">Consulting case library</h1>
-            <p className="mt-1 text-sm text-zinc-500">Seeded scenarios for profitability, market entry, M&amp;A, pricing, and operations.</p>
+            <p className="mt-1 text-sm text-ink-3">Seeded scenarios for profitability, market entry, M&amp;A, pricing, and operations.</p>
           </div>
           <ConsultingCaseLibrary />
         </>
@@ -261,7 +261,7 @@ export function CasesView() {
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="page-title">Case competitions</h1>
-          <p className="mt-1 text-sm text-zinc-500">Track cases, outcomes, and AI-generated resume bullets.</p>
+          <p className="mt-1 text-sm text-ink-3">Track cases, outcomes, and AI-generated resume bullets.</p>
         </div>
         <Button type="button" onClick={openNew}>
           Add case
@@ -270,24 +270,24 @@ export function CasesView() {
 
       <div className="grid gap-3 sm:grid-cols-3">
         <Card className="p-3 text-center">
-          <p className="text-[10px] uppercase tracking-wide text-zinc-500">Total</p>
-          <p className="text-2xl font-bold tabular-nums text-zinc-100">{stats.total}</p>
+          <p className="text-[10px] uppercase tracking-wide text-ink-3">Total</p>
+          <p className="text-2xl font-bold tabular-nums text-ink">{stats.total}</p>
         </Card>
         <Card className="p-3 text-center">
-          <p className="text-[10px] uppercase tracking-wide text-zinc-500">Wins</p>
-          <p className="text-2xl font-bold tabular-nums text-amber-300">{stats.wins}</p>
+          <p className="text-[10px] uppercase tracking-wide text-ink-3">Wins</p>
+          <p className="text-2xl font-bold tabular-nums text-warn">{stats.wins}</p>
         </Card>
         <Card className="p-3 text-center">
-          <p className="text-[10px] uppercase tracking-wide text-zinc-500">Finalist</p>
-          <p className="text-2xl font-bold tabular-nums text-zinc-300">{stats.finalist}</p>
+          <p className="text-[10px] uppercase tracking-wide text-ink-3">Finalist</p>
+          <p className="text-2xl font-bold tabular-nums text-ink-2">{stats.finalist}</p>
         </Card>
       </div>
 
       <Card className="flex flex-wrap gap-3 p-3">
-        <label className="text-xs text-zinc-500">
+        <label className="text-xs text-ink-3">
           Result
           <select
-            className="mt-1 block rounded border border-white/10 bg-zinc-950 px-2 py-1.5 text-sm"
+            className="mt-1 block rounded border border-border bg-surface px-2 py-1.5 text-sm"
             value={resultFilter}
             onChange={(e) => setResultFilter(e.target.value as (typeof RESULT_FILTER)[number])}
           >
@@ -298,97 +298,97 @@ export function CasesView() {
             <option value="other">Other / unset</option>
           </select>
         </label>
-        <label className="text-xs text-zinc-500">
+        <label className="text-xs text-ink-3">
           Skill contains
           <Input className="mt-1 h-8 text-sm" value={skillQ} onChange={(e) => setSkillQ(e.target.value)} placeholder="e.g. LBO" />
         </label>
-        <label className="text-xs text-zinc-500">
+        <label className="text-xs text-ink-3">
           From
           <Input className="mt-1 h-8 text-sm" type="date" value={fromDate} onChange={(e) => setFromDate(e.target.value)} />
         </label>
-        <label className="text-xs text-zinc-500">
+        <label className="text-xs text-ink-3">
           To
           <Input className="mt-1 h-8 text-sm" type="date" value={toDate} onChange={(e) => setToDate(e.target.value)} />
         </label>
-        <p className="self-end text-xs text-zinc-500">{loading ? "Loading…" : `${filtered.length} shown`}</p>
+        <p className="self-end text-xs text-ink-3">{loading ? "Loading…" : `${filtered.length} shown`}</p>
       </Card>
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {filtered.map((c) => (
-          <Card key={c.id} className="flex flex-col border-white/10 p-4">
+          <Card key={c.id} className="flex flex-col border-border p-4">
             <div className="flex items-start justify-between gap-2">
               <div className="min-w-0">
-                <p className="font-semibold text-zinc-100">{c.name}</p>
-                <p className="text-[11px] text-zinc-500">{format(parseISO(c.date), "MMM d, yyyy")}</p>
+                <p className="font-semibold text-ink">{c.name}</p>
+                <p className="text-[11px] text-ink-3">{format(parseISO(c.date), "MMM d, yyyy")}</p>
               </div>
               {c.result ? (
                 <span className={cn("shrink-0 rounded-full border px-2 py-0.5 text-[10px] ring-1", resultBadgeClass(c.result))}>
                   {c.result}
                 </span>
               ) : (
-                <span className="text-[10px] text-zinc-600">—</span>
+                <span className="text-[10px] text-ink-3">—</span>
               )}
             </div>
-            {c.topic ? <p className="mt-2 text-xs text-zinc-400">{c.topic}</p> : null}
-            {c.role ? <p className="text-xs text-zinc-500">Role: {c.role}</p> : null}
+            {c.topic ? <p className="mt-2 text-xs text-ink-2">{c.topic}</p> : null}
+            {c.role ? <p className="text-xs text-ink-3">Role: {c.role}</p> : null}
             {c.teamMembers.length > 0 ? (
-              <p className="mt-2 text-[11px] text-zinc-500">Team: {c.teamMembers.join(", ")}</p>
+              <p className="mt-2 text-[11px] text-ink-3">Team: {c.teamMembers.join(", ")}</p>
             ) : null}
             <div className="mt-2 flex flex-wrap gap-1">
               {c.skills.map((s) => (
-                <span key={s} className="rounded border border-[#2a2a2a] bg-[#161616] px-1.5 py-0.5 text-[10px] text-[#e8e8e8]">
+                <span key={s} className="rounded border border-border bg-surface px-1.5 py-0.5 text-[10px] text-ink">
                   {s}
                 </span>
               ))}
             </div>
-            <div className="mt-4 flex flex-wrap gap-2 border-t border-white/5 pt-3">
+            <div className="mt-4 flex flex-wrap gap-2 border-t border-border pt-3">
               {c.driveLink ? (
                 <a
                   href={c.driveLink}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center rounded border border-[#2a2a2a] px-2 py-1 text-[11px] text-[#f0f0f0] underline-offset-2 hover:bg-white/[0.04] hover:underline"
+                  className="inline-flex items-center rounded border border-border px-2 py-1 text-[11px] text-ink underline-offset-2 hover:bg-surface-2 hover:underline"
                 >
                   View deck
                 </a>
               ) : null}
               <button
                 type="button"
-                className="text-[11px] text-zinc-500 underline-offset-2 hover:text-zinc-300 hover:underline"
+                className="text-[11px] text-ink-3 underline-offset-2 hover:text-ink-2 hover:underline"
                 onClick={() => openEdit(c)}
               >
                 Edit
               </button>
               <button
                 type="button"
-                className="text-[11px] text-red-400/80 hover:underline"
+                className="text-[11px] text-danger hover:underline"
                 onClick={() => void remove(c.id)}
               >
                 Delete
               </button>
             </div>
-            <div className="mt-3 flex items-center justify-between gap-2 rounded border border-white/10 bg-black/20 px-2 py-2">
-              <span className="text-[11px] text-zinc-400">Add to resume bullets</span>
+            <div className="mt-3 flex items-center justify-between gap-2 rounded border border-border bg-black/20 px-2 py-2">
+              <span className="text-[11px] text-ink-2">Add to resume bullets</span>
               <button
                 type="button"
                 disabled={bulletsLoading === c.id}
                 className={cn(
                   "relative h-6 w-11 shrink-0 rounded-full transition-colors",
-                  c.addToResume ? "bg-[#4a6fa5]" : "bg-zinc-700",
+                  c.addToResume ? "bg-accent" : "bg-border-strong",
                 )}
                 onClick={() => void toggleResume(c, !c.addToResume)}
                 aria-pressed={c.addToResume}
               >
                 <span
                   className={cn(
-                    "absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform",
+                    "absolute top-0.5 h-5 w-5 rounded-full bg-surface shadow transition-transform",
                     c.addToResume ? "left-5" : "left-0.5",
                   )}
                 />
               </button>
             </div>
             {c.addToResume && c.resumeBullets?.length ? (
-              <ul className="mt-2 space-y-1 border-t border-white/5 pt-2 text-[11px] text-zinc-300">
+              <ul className="mt-2 space-y-1 border-t border-border pt-2 text-[11px] text-ink-2">
                 {c.resumeBullets.map((b, i) => (
                   <li key={i} className="leading-snug">
                     • {b}
@@ -396,14 +396,14 @@ export function CasesView() {
                 ))}
               </ul>
             ) : bulletsLoading === c.id ? (
-              <p className="mt-2 text-[11px] text-zinc-500">Generating bullets…</p>
+              <p className="mt-2 text-[11px] text-ink-3">Generating bullets…</p>
             ) : null}
           </Card>
         ))}
       </div>
 
       {!loading && filtered.length === 0 ? (
-        <p className="text-center text-sm text-zinc-500">No cases match these filters.</p>
+        <p className="text-center text-sm text-ink-3">No cases match these filters.</p>
       ) : null}
 
       <Modal open={modalOpen} onClose={() => setModalOpen(false)} title={editing ? "Edit case" : "Add case"}>
@@ -420,7 +420,7 @@ export function CasesView() {
           <Input placeholder="Topic / company" value={form.topic} onChange={(e) => setForm((f) => ({ ...f, topic: e.target.value }))} />
           <Input placeholder="Result (e.g. 1st Place, Finalist)" value={form.result} onChange={(e) => setForm((f) => ({ ...f, result: e.target.value }))} />
           <textarea
-            className="min-h-[72px] w-full rounded border border-white/10 bg-zinc-950 p-2 text-sm"
+            className="min-h-[72px] w-full rounded border border-border bg-surface p-2 text-sm"
             placeholder="Description"
             value={form.description}
             onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
@@ -431,7 +431,7 @@ export function CasesView() {
             value={form.skills}
             onChange={(e) => setForm((f) => ({ ...f, skills: e.target.value }))}
           />
-          <label className="flex items-center gap-2 text-xs text-zinc-400">
+          <label className="flex items-center gap-2 text-xs text-ink-2">
             <input
               type="checkbox"
               checked={form.addToResume}

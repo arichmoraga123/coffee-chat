@@ -65,7 +65,7 @@ export function DashboardNewsFeed() {
     <Card className="p-3">
       <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
         <p className="section-label">Live news</p>
-        {ago ? <p className="text-[10px] text-[#888888]">Updated {ago}</p> : null}
+        {ago ? <p className="text-[10px] text-ink-3">Updated {ago}</p> : null}
       </div>
       <div className="mb-3 flex flex-wrap gap-1">
         {TABS.map((t) => (
@@ -77,7 +77,7 @@ export function DashboardNewsFeed() {
             className={cn(
               "h-7 px-2 text-xs",
               tab === t &&
-                "border-[#3a3a3a] bg-[#1a1a1a] text-[#f5f5f5] hover:bg-[#1a1a1a]",
+                "border-border-strong bg-surface-2 text-ink hover:bg-surface-2",
             )}
             onClick={() => setTab(t)}
           >
@@ -112,25 +112,25 @@ export function DashboardNewsFeed() {
               href={a.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex gap-2 rounded-lg border border-[#2a2a2a] bg-[#141414] p-2 transition-all duration-200 hover:border-[#3a3a3a] hover:bg-[#1a1a1a]"
+              className="group flex gap-2 rounded-lg border border-border bg-surface p-2 transition-all duration-200 hover:border-border-strong hover:bg-surface-2"
             >
               {a.imageUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={a.imageUrl} alt="" className="size-14 shrink-0 rounded-lg object-cover ring-1 ring-[#2a2a2a]" />
+                <img src={a.imageUrl} alt="" className="size-14 shrink-0 rounded-lg object-cover ring-1 ring-border" />
               ) : (
-                <div className="size-14 shrink-0 rounded-lg bg-[#1a1a1a] ring-1 ring-[#2a2a2a]" />
+                <div className="size-14 shrink-0 rounded-lg bg-surface-2 ring-1 ring-border" />
               )}
               <div className="min-w-0 flex-1">
                 <div className="mb-1 flex flex-wrap items-center gap-2">
-                  <span className="rounded border border-[#2a2a2a] bg-[#161616] px-1.5 py-0.5 text-[10px] text-[#888888]">
+                  <span className="rounded border border-border bg-surface px-1.5 py-0.5 text-[10px] text-ink-3">
                     {a.category}
                   </span>
-                  <span className="text-[10px] text-[#888888]">{a.source}</span>
-                  <span className="text-[10px] text-[#555555]">
+                  <span className="text-[10px] text-ink-3">{a.source}</span>
+                  <span className="text-[10px] text-ink-3">
                     {formatDistanceToNow(new Date(a.publishedAt), { addSuffix: true })}
                   </span>
                 </div>
-                <p className="line-clamp-2 text-xs font-medium leading-snug text-[#f0f0f0] group-hover:underline group-hover:decoration-[#f5f5f5]/40">
+                <p className="line-clamp-2 text-xs font-medium leading-snug text-ink group-hover:underline group-hover:decoration-ink">
                   {a.title}
                 </p>
               </div>

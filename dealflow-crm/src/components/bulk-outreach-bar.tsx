@@ -84,10 +84,10 @@ export function BulkEmailDraftModal({ contacts, open, onClose }: Props) {
       >
         {current ? (
           <div className="space-y-3 text-sm">
-            <p className="text-zinc-400">
+            <p className="text-ink-2">
               {index + 1} of {contacts.length} contacts
             </p>
-            <p className="font-medium text-zinc-200">
+            <p className="font-medium text-ink">
               {current.fullName} — {current.title} at {current.firmName}
             </p>
             <Button size="sm" onClick={() => void draftCurrent()}>
@@ -107,7 +107,7 @@ export function BulkEmailDraftModal({ contacts, open, onClose }: Props) {
       />
 
       <Modal open={done} onClose={handleClose} title="Done" className="max-w-sm">
-        <p className="text-sm text-zinc-300">
+        <p className="text-sm text-ink-2">
           Done — emails drafted for {contacts.length} contact{contacts.length !== 1 ? "s" : ""}.
         </p>
         <div className="mt-3 flex justify-end">
@@ -136,8 +136,8 @@ export function BulkOutreachBar({
   if (count < 2) return null;
 
   return (
-    <div className="fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 flex-wrap items-center gap-2 rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-3 shadow-xl">
-      <span className="text-sm text-zinc-300">{count} contacts selected</span>
+    <div className="fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 flex-wrap items-center gap-2 rounded-lg border border-border-strong bg-surface px-4 py-3 ">
+      <span className="text-sm text-ink-2">{count} contacts selected</span>
       <Button size="sm" onClick={onDraftEmails}>
         Draft Emails
       </Button>

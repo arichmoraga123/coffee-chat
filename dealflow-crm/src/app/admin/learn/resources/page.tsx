@@ -28,22 +28,22 @@ export default async function LearnResourcesPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-xl font-semibold">Learn · Workbooks</h1>
-        <p className="mt-1 text-sm text-zinc-400">
+        <p className="mt-1 text-sm text-ink-2">
           Upload the practice workbooks and answer keys. Students get the newest version; answer keys unlock only after a
           student finishes a lesson that uses the workbook.
         </p>
       </div>
       {!blobConfigured() ? (
-        <p className="rounded-lg border border-amber-700/50 bg-amber-950/30 p-3 text-sm text-amber-200">
+        <p className="rounded-lg border border-warn/40 bg-warn-bg p-3 text-sm text-warn">
           Storage isn&apos;t connected yet. In Vercel, add a Blob store to this project (Storage → Blob) so
           a read-write token env var (e.g. BLOB_READ_WRITE_TOKEN) is set, then redeploy.
         </p>
       ) : null}
       <WorkbookUploader keys={keys} />
 
-      <div className="overflow-x-auto rounded-xl border border-white/10">
+      <div className="overflow-x-auto rounded-xl border border-border">
         <table className="w-full min-w-[720px] text-left text-sm">
-          <thead className="bg-zinc-900 text-xs uppercase tracking-wide text-zinc-500">
+          <thead className="bg-surface text-xs uppercase tracking-wide text-ink-3">
             <tr>
               <th className="px-3 py-2">Workbook</th>
               <th className="px-3 py-2">Kind</th>
@@ -60,7 +60,7 @@ export default async function LearnResourcesPage() {
               const lessons = lessonsForWorkbook(key).map((l) => l.id.replace("-", ".")).join(", ");
               if (!rows.length) {
                 return (
-                  <tr key={key} className="border-t border-white/5 text-zinc-500">
+                  <tr key={key} className="border-t border-border text-ink-3">
                     <td className="px-3 py-2 font-mono text-xs">{key}</td>
                     <td className="px-3 py-2" colSpan={2}>
                       Not uploaded
@@ -71,17 +71,17 @@ export default async function LearnResourcesPage() {
                 );
               }
               return rows.map((r) => (
-                <tr key={r.id} className={`border-t border-white/5 ${latest.has(r.id) ? "" : "text-zinc-500"}`}>
+                <tr key={r.id} className={`border-t border-border ${latest.has(r.id) ? "" : "text-ink-3"}`}>
                   <td className="px-3 py-2 font-mono text-xs">{r.workbookKey}</td>
                   <td className="px-3 py-2">{r.kind === "answer_key" ? "Answer key" : "Student"}</td>
                   <td className="px-3 py-2">
                     v{r.version}
-                    {latest.has(r.id) ? <span className="ml-1 text-xs text-emerald-400">live</span> : null}
+                    {latest.has(r.id) ? <span className="ml-1 text-xs text-success">live</span> : null}
                   </td>
                   <td className="px-3 py-2">{lessons}</td>
                   <td className="px-3 py-2">{Math.round(r.sizeBytes / 1024)} KB</td>
                   <td className="px-3 py-2 font-mono">{countBy.get(r.id) ?? 0}</td>
-                  <td className="px-3 py-2 text-xs text-zinc-400">{r.createdAt.toISOString().slice(0, 10)}</td>
+                  <td className="px-3 py-2 text-xs text-ink-2">{r.createdAt.toISOString().slice(0, 10)}</td>
                 </tr>
               ));
             })}

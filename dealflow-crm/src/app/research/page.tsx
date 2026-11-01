@@ -11,8 +11,8 @@ export default async function ResearchPage() {
     <div className="space-y-4">
       <div>
         <h1 className="page-title">Firm research</h1>
-        <p className="mt-1 text-sm text-zinc-400">
-          <span className="text-emerald-400/90">SHARED</span> wiki — any logged-in member can edit.
+        <p className="mt-1 text-sm text-ink-2">
+          <span className="text-success">SHARED</span> wiki — any logged-in member can edit.
         </p>
       </div>
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -20,12 +20,12 @@ export default async function ResearchPage() {
           <Link
             key={f.id}
             href={`/research/${f.id}`}
-            className="block h-full rounded-lg border border-[#2a2a2a] bg-[#161616]/80 p-4 transition-colors hover:border-[#3a3a3a]"
+            className="block h-full rounded-lg border border-border bg-surface p-4 transition-colors hover:border-border-strong"
           >
-            <p className="font-semibold text-[#f5f5f5]">{f.firmName}</p>
-            <p className="mt-1 text-xs text-zinc-500">{f.firmType}</p>
+            <p className="font-semibold text-ink">{f.firmName}</p>
+            <p className="mt-1 text-xs text-ink-3">{f.firmType}</p>
             {f.description ? (
-              <p className="mt-2 line-clamp-3 text-sm text-zinc-400">{f.description}</p>
+              <p className="mt-2 line-clamp-3 text-sm text-ink-2">{f.description}</p>
             ) : null}
           </Link>
         ))}

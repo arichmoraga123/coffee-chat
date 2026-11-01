@@ -120,7 +120,7 @@ export function ContactImportModal({ open, onClose, onImported }: Props) {
       {step === 1 && (
         <div className="space-y-4">
           <div
-            className="flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-zinc-600 bg-zinc-950/50 px-6 py-10 transition-colors hover:border-zinc-400"
+            className="flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-border-strong bg-surface px-6 py-10 transition-colors hover:border-ink-3"
             onDragOver={(e) => e.preventDefault()}
             onDrop={(e) => {
               e.preventDefault();
@@ -129,9 +129,9 @@ export function ContactImportModal({ open, onClose, onImported }: Props) {
             }}
             onClick={() => document.getElementById("import-file-input")?.click()}
           >
-            <Upload className="mb-2 h-8 w-8 text-zinc-500" />
-            <p className="text-sm text-zinc-300">Drag and drop a .csv or .xlsx file here</p>
-            <p className="mt-1 text-xs text-zinc-500">or click to browse · 10MB max</p>
+            <Upload className="mb-2 h-8 w-8 text-ink-3" />
+            <p className="text-sm text-ink-2">Drag and drop a .csv or .xlsx file here</p>
+            <p className="mt-1 text-xs text-ink-3">or click to browse · 10MB max</p>
             <input
               id="import-file-input"
               type="file"
@@ -143,7 +143,7 @@ export function ContactImportModal({ open, onClose, onImported }: Props) {
               }}
             />
           </div>
-          <p className="rounded border border-amber-500/20 bg-amber-500/5 px-3 py-2 text-xs text-amber-200/90">
+          <p className="rounded border border-warn/40 bg-warn-bg px-3 py-2 text-xs text-warn">
             Pro tip: Export your LinkedIn connections from LinkedIn Settings → Data Privacy → Get a copy of your data → Connections
           </p>
           {/* API file download, not a page navigation */}
@@ -151,26 +151,26 @@ export function ContactImportModal({ open, onClose, onImported }: Props) {
           <a
             href="/api/contacts/import-template"
             download
-            className="inline-block text-sm text-zinc-400 underline-offset-4 hover:text-zinc-200 hover:underline"
+            className="inline-block text-sm text-ink-2 underline-offset-4 hover:text-ink hover:underline"
           >
             Download sample CSV template
           </a>
-          {error ? <p className="text-sm text-red-400">{error}</p> : null}
+          {error ? <p className="text-sm text-danger">{error}</p> : null}
         </div>
       )}
 
       {step === 2 && (
         <div className="space-y-4">
-          <p className="text-sm text-zinc-400">Map your columns to contact fields.</p>
-          <div className="overflow-x-auto rounded border border-white/10">
+          <p className="text-sm text-ink-2">Map your columns to contact fields.</p>
+          <div className="overflow-x-auto rounded border border-border">
             <table className="w-full text-xs">
               <thead>
-                <tr className="border-b border-white/10 bg-zinc-950">
+                <tr className="border-b border-border bg-surface">
                   {headers.map((h, i) => (
-                    <th key={i} className="px-2 py-2 text-left font-normal text-zinc-500">
-                      <div className="mb-1 font-medium text-zinc-300">{h || `Column ${i + 1}`}</div>
+                    <th key={i} className="px-2 py-2 text-left font-normal text-ink-3">
+                      <div className="mb-1 font-medium text-ink-2">{h || `Column ${i + 1}`}</div>
                       <select
-                        className="h-7 w-full min-w-[120px] rounded border border-zinc-700 bg-zinc-950 px-1 text-xs"
+                        className="h-7 w-full min-w-[120px] rounded border border-border-strong bg-surface px-1 text-xs"
                         value={mapping[i] ?? "skip"}
                         onChange={(e) =>
                           setMapping((m) => ({ ...m, [i]: e.target.value as ImportField }))
@@ -188,9 +188,9 @@ export function ContactImportModal({ open, onClose, onImported }: Props) {
               </thead>
               <tbody>
                 {rows.slice(0, 3).map((row, ri) => (
-                  <tr key={ri} className="border-t border-white/5">
+                  <tr key={ri} className="border-t border-border">
                     {headers.map((_, ci) => (
-                      <td key={ci} className="max-w-[140px] truncate px-2 py-1.5 text-zinc-400">
+                      <td key={ci} className="max-w-[140px] truncate px-2 py-1.5 text-ink-2">
                         {row[ci] ?? ""}
                       </td>
                     ))}
@@ -212,12 +212,12 @@ export function ContactImportModal({ open, onClose, onImported }: Props) {
 
       {step === 3 && (
         <div className="space-y-4">
-          <p className="text-sm font-medium text-zinc-200">
+          <p className="text-sm font-medium text-ink">
             Ready to import {totalToImport} contact{totalToImport !== 1 ? "s" : ""}
           </p>
-          <div className="overflow-x-auto rounded border border-white/10">
+          <div className="overflow-x-auto rounded border border-border">
             <table className="w-full text-xs">
-              <thead className="border-b border-white/10 bg-zinc-950 text-left text-zinc-500">
+              <thead className="border-b border-border bg-surface text-left text-ink-3">
                 <tr>
                   <th className="px-2 py-2">Name</th>
                   <th className="px-2 py-2">Firm</th>
@@ -227,7 +227,7 @@ export function ContactImportModal({ open, onClose, onImported }: Props) {
               </thead>
               <tbody>
                 {previewMapped.map((c, i) => (
-                  <tr key={i} className="border-t border-white/5">
+                  <tr key={i} className="border-t border-border">
                     <td className="px-2 py-1.5">{c.fullName}</td>
                     <td className="px-2 py-1.5">{c.firm}</td>
                     <td className="px-2 py-1.5">{c.title}</td>
@@ -237,7 +237,7 @@ export function ContactImportModal({ open, onClose, onImported }: Props) {
               </tbody>
             </table>
           </div>
-          <label className="flex items-center gap-2 text-sm text-zinc-300">
+          <label className="flex items-center gap-2 text-sm text-ink-2">
             <input
               type="checkbox"
               checked={skipDuplicates}
@@ -261,27 +261,27 @@ export function ContactImportModal({ open, onClose, onImported }: Props) {
         <div className="space-y-4">
           {importing ? (
             <>
-              <p className="text-sm text-zinc-400">Importing contacts…</p>
-              <div className="h-2 overflow-hidden rounded-full bg-zinc-800">
+              <p className="text-sm text-ink-2">Importing contacts…</p>
+              <div className="h-2 overflow-hidden rounded-full bg-surface-2">
                 <div
-                  className="h-full bg-emerald-500 transition-all duration-500"
+                  className="h-full bg-success transition-all duration-500"
                   style={{ width: `${progress}%` }}
                 />
               </div>
             </>
           ) : result ? (
             <div className="space-y-2 text-sm">
-              <p className="text-emerald-400">✓ Imported {result.imported} contacts</p>
+              <p className="text-success">✓ Imported {result.imported} contacts</p>
               {result.skipped > 0 ? (
-                <p className="text-amber-400">⚠ Skipped {result.skipped} duplicates</p>
+                <p className="text-warn">⚠ Skipped {result.skipped} duplicates</p>
               ) : null}
               {result.errors.length > 0 ? (
-                <p className="text-red-400">
+                <p className="text-danger">
                   ✗ {result.errors.length} error{result.errors.length !== 1 ? "s" : ""} (missing required fields)
                 </p>
               ) : null}
               {result.errors.slice(0, 5).map((e, i) => (
-                <p key={i} className="text-xs text-red-300/80">
+                <p key={i} className="text-xs text-danger">
                   {e}
                 </p>
               ))}
@@ -303,7 +303,7 @@ export function ContactImportModal({ open, onClose, onImported }: Props) {
               </div>
             </div>
           ) : error ? (
-            <p className="text-sm text-red-400">{error}</p>
+            <p className="text-sm text-danger">{error}</p>
           ) : null}
         </div>
       )}

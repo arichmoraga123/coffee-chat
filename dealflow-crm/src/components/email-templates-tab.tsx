@@ -92,8 +92,8 @@ export function EmailTemplatesTab() {
 
   return (
     <div className="space-y-4">
-      <p className="text-sm text-zinc-400">
-        <span className="text-emerald-400/90">SHARED</span> template library
+      <p className="text-sm text-ink-2">
+        <span className="text-success">SHARED</span> template library
       </p>
       <div className="flex flex-wrap gap-2">
         {CATS.map((c) => (
@@ -104,18 +104,18 @@ export function EmailTemplatesTab() {
       </div>
       <div className="grid gap-3 sm:grid-cols-2">
         {templates.map((t) => (
-          <Card key={t.id} className="space-y-2 border-zinc-800 bg-zinc-900/50 p-4">
+          <Card key={t.id} className="space-y-2 border-border bg-surface p-4">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded bg-zinc-800 px-2 py-0.5 text-xs">{t.category}</span>
+              <span className="rounded bg-surface-2 px-2 py-0.5 text-xs">{t.category}</span>
               {t.isOfficial ? (
-                <span className="inline-flex items-center gap-1 rounded bg-amber-500/20 px-2 py-0.5 text-xs text-amber-300">
-                  <Star className="size-3 fill-amber-400" /> Official
+                <span className="inline-flex items-center gap-1 rounded bg-warn-bg px-2 py-0.5 text-xs text-warn">
+                  <Star className="size-3 fill-warn" /> Official
                 </span>
               ) : null}
-              <span className="text-xs text-zinc-500">{t.upvotes} upvotes</span>
+              <span className="text-xs text-ink-3">{t.upvotes} upvotes</span>
             </div>
-            <p className="font-semibold text-zinc-100">{t.title}</p>
-            <p className="line-clamp-2 text-sm text-zinc-400">{t.body.slice(0, 160)}…</p>
+            <p className="font-semibold text-ink">{t.title}</p>
+            <p className="line-clamp-2 text-sm text-ink-2">{t.body.slice(0, 160)}…</p>
             <div className="flex flex-wrap gap-2">
               <Button size="sm" variant="outline" onClick={() => setOpenId(t.id)}>
                 Expand
@@ -127,10 +127,10 @@ export function EmailTemplatesTab() {
           </Card>
         ))}
       </div>
-      <Card className="space-y-2 border-zinc-800 bg-zinc-900/50 p-4">
-        <p className="font-medium text-zinc-200">Submit template</p>
+      <Card className="space-y-2 border-border bg-surface p-4">
+        <p className="font-medium text-ink">Submit template</p>
         <Input placeholder="Title" value={submit.title} onChange={(e) => setSubmit((s) => ({ ...s, title: e.target.value }))} />
-        <select className="w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-sm" value={submit.category} onChange={(e) => setSubmit((s) => ({ ...s, category: e.target.value }))}>
+        <select className="w-full rounded border border-border-strong bg-surface px-2 py-2 text-sm" value={submit.category} onChange={(e) => setSubmit((s) => ({ ...s, category: e.target.value }))}>
           {CATS.filter((c) => c !== "All").map((c) => (
             <option key={c} value={c}>
               {c}
@@ -138,7 +138,7 @@ export function EmailTemplatesTab() {
           ))}
         </select>
         <Input placeholder="Subject (optional)" value={submit.subject} onChange={(e) => setSubmit((s) => ({ ...s, subject: e.target.value }))} />
-        <textarea className="min-h-[120px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-sm" placeholder="Body" value={submit.body} onChange={(e) => setSubmit((s) => ({ ...s, body: e.target.value }))} />
+        <textarea className="min-h-[120px] w-full rounded border border-border-strong bg-surface p-2 text-sm" placeholder="Body" value={submit.body} onChange={(e) => setSubmit((s) => ({ ...s, body: e.target.value }))} />
         <Input placeholder="Tags comma-separated" value={submit.tags} onChange={(e) => setSubmit((s) => ({ ...s, tags: e.target.value }))} />
         <Button size="sm" onClick={() => void submitTpl()}>
           Submit
@@ -147,8 +147,8 @@ export function EmailTemplatesTab() {
       <Modal open={Boolean(selected)} onClose={() => setOpenId(null)} title={selected?.title ?? ""} className="max-w-lg">
         {selected ? (
           <div className="space-y-3 text-sm">
-            {selected.subject ? <p className="text-zinc-400">Subject: {selected.subject}</p> : null}
-            <pre className="whitespace-pre-wrap rounded bg-zinc-950 p-3 text-zinc-200">{selected.body}</pre>
+            {selected.subject ? <p className="text-ink-2">Subject: {selected.subject}</p> : null}
+            <pre className="whitespace-pre-wrap rounded bg-surface p-3 text-ink">{selected.body}</pre>
             <Button
               size="sm"
               variant="outline"
@@ -175,7 +175,7 @@ export function EmailTemplatesTab() {
           <Input placeholder="Your name" value={cForm.yourName} onChange={(e) => setCForm((c) => ({ ...c, yourName: e.target.value }))} />
           <Input placeholder="Contact first name" value={cForm.contactName} onChange={(e) => setCForm((c) => ({ ...c, contactName: e.target.value }))} />
           <Input placeholder="Their firm" value={cForm.firm} onChange={(e) => setCForm((c) => ({ ...c, firm: e.target.value }))} />
-          <textarea className="min-h-[160px] w-full rounded border border-zinc-700 bg-zinc-950 p-2" value={customBody} onChange={(e) => setCustomBody(e.target.value)} />
+          <textarea className="min-h-[160px] w-full rounded border border-border-strong bg-surface p-2" value={customBody} onChange={(e) => setCustomBody(e.target.value)} />
           <Button size="sm" onClick={() => void customize()}>
             Run AI
           </Button>

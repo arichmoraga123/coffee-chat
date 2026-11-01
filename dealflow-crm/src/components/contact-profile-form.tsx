@@ -57,7 +57,7 @@ function splitLines(s: string) {
     .filter(Boolean);
 }
 
-const sectionTitle = "mb-2 text-[10px] font-semibold uppercase tracking-widest text-zinc-500";
+const sectionTitle = "mb-2 text-[10px] font-semibold uppercase tracking-widest text-ink-3";
 
 export function ContactProfileForm({
   profile,
@@ -142,7 +142,7 @@ export function ContactProfileForm({
   }, [snap]);
 
   const fieldClass =
-    "w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-sm text-zinc-100 placeholder:text-zinc-600";
+    "w-full rounded border border-border-strong bg-surface px-2 py-2 text-sm text-ink placeholder:text-ink-3";
 
   const save = async () => {
     setBusy(true);
@@ -197,14 +197,14 @@ export function ContactProfileForm({
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="text-sm font-semibold text-zinc-200">Profile</h2>
+        <h2 className="text-sm font-semibold text-ink">Profile</h2>
         <Button type="button" size="sm" onClick={() => void save()} disabled={busy}>
           {busy ? "Saving…" : "Save profile"}
         </Button>
       </div>
-      {error ? <p className="text-xs text-red-400">{error}</p> : null}
+      {error ? <p className="text-xs text-danger">{error}</p> : null}
 
-      <Card className="border-zinc-800 bg-zinc-900/50 p-4">
+      <Card className="border-border bg-surface p-4">
         <p className={sectionTitle}>Basic info</p>
         <div className="grid gap-2 sm:grid-cols-2">
           <Input className={fieldClass} value={fullName} onChange={(e) => setFullName(e.target.value)} />
@@ -271,7 +271,7 @@ export function ContactProfileForm({
         </div>
       </Card>
 
-      <Card className="border-zinc-800 bg-zinc-900/50 p-4">
+      <Card className="border-border bg-surface p-4">
         <p className={sectionTitle}>Background &amp; education</p>
         <div className="grid gap-2 sm:grid-cols-2">
           <Input
@@ -313,7 +313,7 @@ export function ContactProfileForm({
         </div>
       </Card>
 
-      <Card className="border-zinc-800 bg-zinc-900/50 p-4">
+      <Card className="border-border bg-surface p-4">
         <p className={sectionTitle}>Clubs &amp; activities</p>
         <div className="grid gap-2 sm:grid-cols-2">
           <textarea
@@ -337,7 +337,7 @@ export function ContactProfileForm({
         </div>
       </Card>
 
-      <Card className="border-zinc-800 bg-zinc-900/50 p-4">
+      <Card className="border-border bg-surface p-4">
         <p className={sectionTitle}>Relationship context</p>
         <div className="grid gap-2 sm:grid-cols-2">
           <Input
@@ -368,7 +368,7 @@ export function ContactProfileForm({
         </div>
       </Card>
 
-      <Card className="border-zinc-800 bg-zinc-900/50 p-4">
+      <Card className="border-border bg-surface p-4">
         <p className={sectionTitle}>Recruiting intelligence</p>
         <div className="grid gap-2 sm:grid-cols-2">
           <Input

@@ -141,15 +141,15 @@ export default function PricingPage() {
     <div className="mx-auto max-w-6xl space-y-6 py-8">
       <h1 className="text-3xl font-semibold">Pricing</h1>
       {checkoutError ? (
-        <div className="rounded-lg border border-red-500/40 bg-red-950/30 px-4 py-3 text-sm text-red-200">{checkoutError}</div>
+        <div className="rounded-lg border border-danger/40 bg-danger-bg px-4 py-3 text-sm text-danger">{checkoutError}</div>
       ) : null}
       <div className="grid gap-4 md:grid-cols-3">
         {TIERS.map((tier) => (
-          <div key={tier.name} className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-4">
-            <p className="text-xs uppercase tracking-wide text-zinc-500">{tier.name}</p>
+          <div key={tier.name} className="rounded-xl border border-border bg-surface p-4">
+            <p className="text-xs uppercase tracking-wide text-ink-3">{tier.name}</p>
             <p className="mt-1 text-2xl font-semibold">{tier.price}</p>
-            <p className="mt-1 text-sm text-zinc-400">{tier.subtitle}</p>
-            <ul className="mt-3 space-y-1 text-sm text-zinc-300">
+            <p className="mt-1 text-sm text-ink-2">{tier.subtitle}</p>
+            <ul className="mt-3 space-y-1 text-sm text-ink-2">
               {tier.features.map((f) => (
                 <li key={f}>- {f}</li>
               ))}

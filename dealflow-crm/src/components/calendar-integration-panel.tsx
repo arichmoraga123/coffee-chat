@@ -42,19 +42,19 @@ function SlotCard({
   docsHint: string;
 }) {
   return (
-    <div className="rounded-xl border border-white/10 bg-zinc-900/50 p-3 text-sm">
+    <div className="rounded-xl border border-border bg-surface p-3 text-sm">
       <div className="mb-2 flex flex-wrap items-center gap-2">
         <p className="section-label mb-0">{title}</p>
         {recommended ? (
-          <span className="rounded bg-[#161616] px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[#c9a84c] ring-1 ring-[#2a2a2a]">
+          <span className="rounded bg-surface px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-accent ring-1 ring-border">
             Recommended · MSU / Microsoft 365
           </span>
         ) : null}
       </div>
       {connected ? (
         <div className="space-y-2">
-          <p className="text-xs text-zinc-300">
-            <span className="text-emerald-400">●</span> Connected
+          <p className="text-xs text-ink-2">
+            <span className="text-success">●</span> Connected
             {lastSynced ? (
               <>
                 {" "}
@@ -68,7 +68,7 @@ function SlotCard({
         </div>
       ) : (
         <div className="space-y-2">
-          <p className="text-xs text-zinc-500">{description}</p>
+          <p className="text-xs text-ink-3">{description}</p>
           <Button
             size="sm"
             type="button"
@@ -80,7 +80,7 @@ function SlotCard({
           >
             {connectLabel}
           </Button>
-          <p className="text-[10px] text-zinc-600">{docsHint}</p>
+          <p className="text-[10px] text-ink-3">{docsHint}</p>
         </div>
       )}
     </div>
@@ -119,13 +119,13 @@ export function CalendarIntegrationPanel({
   };
 
   if (loading || !data) {
-    return <p className={cn("text-xs text-zinc-500", className)}>Checking calendar links…</p>;
+    return <p className={cn("text-xs text-ink-3", className)}>Checking calendar links…</p>;
   }
 
   return (
     <div className={cn("space-y-3", className)}>
       <p className="section-label">Calendar sync</p>
-      <p className="text-[11px] leading-snug text-zinc-500">
+      <p className="text-[11px] leading-snug text-ink-3">
         Sync recruiting events, coffee follow-ups, and application deadlines to your calendar. You can connect both
         Outlook and Google if you use both.
       </p>

@@ -181,7 +181,7 @@ export function RecruitingRoadmap() {
     <div className="space-y-5">
       <div>
         <h1 className="page-title">Recruiting roadmap</h1>
-        <p className="mt-1 text-sm text-zinc-400">What to do, and when, to land a junior-summer investment banking internship.</p>
+        <p className="mt-1 text-sm text-ink-2">What to do, and when, to land a junior-summer investment banking internship.</p>
       </div>
 
       <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Class year">
@@ -201,8 +201,8 @@ export function RecruitingRoadmap() {
             className={cn(
               "rounded-full border px-4 py-1.5 text-sm",
               saved.year === y
-                ? "border-[#4a6fa5]/60 bg-[#4a6fa5]/20 text-[#e8eef8]"
-                : "border-zinc-700 text-zinc-300 hover:border-zinc-500",
+                ? "border-accent bg-accent-tint text-accent"
+                : "border-border-strong text-ink-2 hover:border-border-strong",
             )}
           >
             {label}
@@ -210,18 +210,18 @@ export function RecruitingRoadmap() {
         ))}
       </div>
 
-      <Card className="space-y-3 border-[#4a6fa5]/30 bg-[#4a6fa5]/[0.06] p-4">
-        <p className="text-base font-semibold text-zinc-100">{plan.headline}</p>
-        <p className="text-sm leading-relaxed text-zinc-300">{plan.summary}</p>
+      <Card className="space-y-3 border-accent bg-accent-tint p-4">
+        <p className="text-base font-semibold text-ink">{plan.headline}</p>
+        <p className="text-sm leading-relaxed text-ink-2">{plan.summary}</p>
         <div>
-          <div className="mb-1 flex justify-between text-xs text-zinc-400">
+          <div className="mb-1 flex justify-between text-xs text-ink-2">
             <span>Your progress</span>
             <span className="font-mono">
               {doneCount}/{allSteps.length} · {pct}%
             </span>
           </div>
-          <div className="h-2 overflow-hidden rounded-full bg-zinc-800">
-            <div className="h-full rounded-full bg-emerald-500/80 transition-[width]" style={{ width: `${pct}%` }} />
+          <div className="h-2 overflow-hidden rounded-full bg-surface-2">
+            <div className="h-full rounded-full bg-success-bg transition-[width]" style={{ width: `${pct}%` }} />
           </div>
         </div>
       </Card>
@@ -231,18 +231,18 @@ export function RecruitingRoadmap() {
           const phaseDone = phase.steps.every((s) => saved.done[s.id]);
           return (
             <li key={phase.id}>
-              <Card className={cn("space-y-3 border-zinc-800 bg-zinc-900/50 p-4", phaseDone && "opacity-70")}>
+              <Card className={cn("space-y-3 border-border bg-surface p-4", phaseDone && "opacity-70")}>
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h2 className="text-base font-semibold text-zinc-100">
-                    <span className="mr-2 font-mono text-sm text-zinc-500">{i + 1}.</span>
+                  <h2 className="text-base font-semibold text-ink">
+                    <span className="mr-2 font-mono text-sm text-ink-3">{i + 1}.</span>
                     {phase.title}
                   </h2>
-                  <span className="rounded bg-zinc-800 px-2 py-0.5 text-xs text-zinc-300">{phase.when}</span>
+                  <span className="rounded bg-surface-2 px-2 py-0.5 text-xs text-ink-2">{phase.when}</span>
                 </div>
-                <p className="text-sm text-zinc-400">{phase.why}</p>
+                <p className="text-sm text-ink-2">{phase.why}</p>
                 <ul className="space-y-2">
                   {phase.steps.map((s) => (
-                    <li key={s.id} className="flex flex-wrap items-start gap-3 rounded-lg border border-white/5 bg-zinc-950/50 p-2.5">
+                    <li key={s.id} className="flex flex-wrap items-start gap-3 rounded-lg border border-border bg-surface p-2.5">
                       <input
                         type="checkbox"
                         aria-label={s.text}
@@ -250,11 +250,11 @@ export function RecruitingRoadmap() {
                         checked={Boolean(saved.done[s.id])}
                         onChange={(e) => update({ ...saved, done: { ...saved.done, [s.id]: e.target.checked } })}
                       />
-                      <span className={cn("min-w-0 flex-1 text-sm text-zinc-200", saved.done[s.id] && "text-zinc-500 line-through")}>
+                      <span className={cn("min-w-0 flex-1 text-sm text-ink", saved.done[s.id] && "text-ink-3 line-through")}>
                         {s.text}
                       </span>
                       {s.href ? (
-                        <Link href={s.href} className="shrink-0 text-xs font-medium text-[#a8c0e6] hover:underline">
+                        <Link href={s.href} className="shrink-0 text-xs font-medium text-accent hover:underline">
                           {s.cta ?? "Open"} →
                         </Link>
                       ) : null}

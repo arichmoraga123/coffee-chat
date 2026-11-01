@@ -40,7 +40,7 @@ export default async function MentorQuestionsPage() {
     <div className="space-y-4">
       <div>
         <h1 className="text-xl font-semibold">Learn · Mentor queue</h1>
-        <p className="mt-1 text-sm text-zinc-400">
+        <p className="mt-1 text-sm text-ink-2">
           Questions students sent from lessons. Answer them here — the student sees the answer on the lesson page. Tick
           &ldquo;Add to lesson as FAQ&rdquo; to show it to everyone as a deep dive, so the questions people keep asking become
           part of the lesson.

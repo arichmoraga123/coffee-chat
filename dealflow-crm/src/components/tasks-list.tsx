@@ -68,7 +68,7 @@ export function TasksList({
       <div className="flex items-center justify-between gap-2 text-sm">
         <div className="flex gap-2">
         {(["today", "week", "overdue"] as const).map((f) => (
-          <button key={f} onClick={() => setFilter(f)} className={`rounded px-2 py-1 ${filter === f ? "border border-[#2a2a2a] bg-[#161616] text-[#f5f5f5]" : "bg-zinc-800"}`}>
+          <button key={f} onClick={() => setFilter(f)} className={`rounded px-2 py-1 ${filter === f ? "border border-border bg-surface text-ink" : "bg-surface-2"}`}>
             {f === "today" ? "Due Today" : f === "week" ? "This Week" : "Overdue"}
           </button>
         ))}
@@ -76,17 +76,17 @@ export function TasksList({
         <Button size="sm" onClick={() => setShowModal(true)}>New Task (T)</Button>
       </div>
       {filtered.map((t) => (
-        <label key={t.id} className="flex items-center justify-between rounded border border-zinc-800 p-3 text-sm">
+        <label key={t.id} className="flex items-center justify-between rounded border border-border p-3 text-sm">
           <div>
             <p>{t.contactName} - {t.taskType}</p>
-            <p className="text-zinc-400">{new Date(t.dueDate).toLocaleDateString()}</p>
+            <p className="text-ink-2">{new Date(t.dueDate).toLocaleDateString()}</p>
           </div>
           <input type="checkbox" checked={t.status === "COMPLETED"} onChange={(e) => toggle(t.id, e.target.checked)} />
         </label>
       ))}
       <Modal open={showModal} onClose={() => setShowModal(false)} title="New Task">
         <div className="grid gap-2">
-          <select className="h-9 rounded border border-zinc-700 bg-zinc-950 px-2 text-sm" value={form.contactId} onChange={(e) => setForm((p) => ({ ...p, contactId: e.target.value }))}>
+          <select className="h-9 rounded border border-border-strong bg-surface px-2 text-sm" value={form.contactId} onChange={(e) => setForm((p) => ({ ...p, contactId: e.target.value }))}>
             {contacts.map((c) => <option key={c.id} value={c.id}>{c.fullName}</option>)}
           </select>
           <Input type="date" value={form.dueDate} onChange={(e) => setForm((p) => ({ ...p, dueDate: e.target.value }))} />

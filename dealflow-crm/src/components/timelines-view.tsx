@@ -39,9 +39,9 @@ function StageBar({
 }) {
   return (
     <div className="min-w-0 flex-1">
-      <div className={cn("h-2 rounded-full", date ? colorClass : "bg-zinc-800")} title={date ?? "TBD"} />
-      <p className="mt-1 truncate text-[10px] text-zinc-500">{label}</p>
-      <p className="truncate text-[10px] text-zinc-400">{date ? new Date(date).toLocaleDateString() : "—"}</p>
+      <div className={cn("h-2 rounded-full", date ? colorClass : "bg-surface-2")} title={date ?? "TBD"} />
+      <p className="mt-1 truncate text-[10px] text-ink-3">{label}</p>
+      <p className="truncate text-[10px] text-ink-2">{date ? new Date(date).toLocaleDateString() : "—"}</p>
     </div>
   );
 }
@@ -134,13 +134,13 @@ export function TimelinesView({
 
   return (
     <div className="space-y-4">
-      <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
+      <div className="rounded-lg border border-warn/40 bg-warn-bg px-4 py-3 text-sm text-warn">
         Timelines are crowdsourced. Always verify with firm websites and LinkedIn.
       </div>
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h1 className="page-title">Firm recruiting timelines</h1>
-          <p className="text-sm text-zinc-400">Filter by type, role, and cycle year.</p>
+          <p className="text-sm text-ink-2">Filter by type, role, and cycle year.</p>
         </div>
         <Button size="sm" onClick={() => setShowAdd(true)}>
           Add timeline
@@ -149,9 +149,9 @@ export function TimelinesView({
 
       <Card className="flex flex-wrap gap-3 p-3 text-sm">
         <div>
-          <label className="mb-1 block text-xs text-zinc-500">Firm type</label>
+          <label className="mb-1 block text-xs text-ink-3">Firm type</label>
           <select
-            className="rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5"
+            className="rounded border border-border-strong bg-surface px-2 py-1.5"
             value={firmType}
             onChange={(e) => setFirmType(e.target.value)}
           >
@@ -163,9 +163,9 @@ export function TimelinesView({
           </select>
         </div>
         <div>
-          <label className="mb-1 block text-xs text-zinc-500">Role</label>
+          <label className="mb-1 block text-xs text-ink-3">Role</label>
           <select
-            className="rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5"
+            className="rounded border border-border-strong bg-surface px-2 py-1.5"
             value={role}
             onChange={(e) => setRole(e.target.value)}
           >
@@ -177,9 +177,9 @@ export function TimelinesView({
           </select>
         </div>
         <div>
-          <label className="mb-1 block text-xs text-zinc-500">Year</label>
+          <label className="mb-1 block text-xs text-ink-3">Year</label>
           <select
-            className="rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5"
+            className="rounded border border-border-strong bg-surface px-2 py-1.5"
             value={year}
             onChange={(e) => setYear(e.target.value)}
           >
@@ -200,25 +200,25 @@ export function TimelinesView({
           <Card key={t.id} className="p-4">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
               <div>
-                <p className="text-lg font-semibold text-zinc-100">{t.firmName}</p>
-                <p className="text-sm text-zinc-400">
+                <p className="text-lg font-semibold text-ink">{t.firmName}</p>
+                <p className="text-sm text-ink-2">
                   {t.firmType} · {t.role} · {t.year}
-                  {!t.verified ? <span className="ml-2 text-amber-400">Unverified</span> : null}
+                  {!t.verified ? <span className="ml-2 text-warn">Unverified</span> : null}
                 </p>
-                {t.notes ? <p className="mt-2 text-sm text-zinc-500">{t.notes}</p> : null}
+                {t.notes ? <p className="mt-2 text-sm text-ink-3">{t.notes}</p> : null}
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-sm text-zinc-400">{t.upvotes} upvotes</span>
+                <span className="text-sm text-ink-2">{t.upvotes} upvotes</span>
                 <Button size="sm" variant="outline" disabled={t.hasVoted} onClick={() => void upvote(t.id)}>
                   {t.hasVoted ? "Upvoted" : "Upvote"}
                 </Button>
               </div>
             </div>
             <div className="mt-4 flex gap-1">
-              <StageBar label="Apps open" date={t.applicationOpen} colorClass="bg-emerald-500" />
-              <StageBar label="Deadline" date={t.applicationClose} colorClass="bg-red-500" />
-              <StageBar label="Interviews" date={t.firstRound ?? t.finalRound} colorClass="bg-amber-400" />
-              <StageBar label="Offers" date={t.offerDate} colorClass="bg-blue-500" />
+              <StageBar label="Apps open" date={t.applicationOpen} colorClass="bg-success" />
+              <StageBar label="Deadline" date={t.applicationClose} colorClass="bg-danger" />
+              <StageBar label="Interviews" date={t.firstRound ?? t.finalRound} colorClass="bg-warn-bg" />
+              <StageBar label="Offers" date={t.offerDate} colorClass="bg-info" />
             </div>
           </Card>
         ))}
@@ -228,7 +228,7 @@ export function TimelinesView({
         <div className="grid max-h-[70vh] gap-2 overflow-y-auto text-sm">
           <Input placeholder="Firm name" value={form.firmName} onChange={(e) => setForm((p) => ({ ...p, firmName: e.target.value }))} />
           <select
-            className="rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5"
+            className="rounded border border-border-strong bg-surface px-2 py-1.5"
             value={form.firmType}
             onChange={(e) => setForm((p) => ({ ...p, firmType: e.target.value }))}
           >
@@ -246,7 +246,7 @@ export function TimelinesView({
             onChange={(e) => setForm((p) => ({ ...p, year: Number(e.target.value) || 2026 }))}
           />
           <Input placeholder="Notes" value={form.notes} onChange={(e) => setForm((p) => ({ ...p, notes: e.target.value }))} />
-          <p className="text-xs text-zinc-500">Dates optional (YYYY-MM-DD)</p>
+          <p className="text-xs text-ink-3">Dates optional (YYYY-MM-DD)</p>
           <Input type="date" value={form.applicationOpen} onChange={(e) => setForm((p) => ({ ...p, applicationOpen: e.target.value }))} />
           <Input type="date" value={form.applicationClose} onChange={(e) => setForm((p) => ({ ...p, applicationClose: e.target.value }))} />
           <Input type="date" value={form.firstRound} onChange={(e) => setForm((p) => ({ ...p, firstRound: e.target.value }))} />

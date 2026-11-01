@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 export default async function ClubMembersPage() {
   const userId = await requireUserId();
   const clubId = await resolveClubIdForUser(userId);
-  if (!clubId) return <p className="text-sm text-zinc-400">No club context.</p>;
+  if (!clubId) return <p className="text-sm text-ink-2">No club context.</p>;
 
   const [rows, officer] = await Promise.all([
     prisma.clubMember.findMany({
@@ -29,12 +29,9 @@ export default async function ClubMembersPage() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-xl font-semibold text-zinc-50">Members</h1>
-      {!officer ? (
-        <p className="text-xs text-zinc-500">Officers can see full contact details. Your view shows names and tracks only.</p>
-      ) : (
-        <p className="text-xs text-zinc-500">Officer view: emails visible.</p>
-      )}
+      <p className="text-[13px] text-ink-3">
+        {officer ? "Officer view: emails are visible." : "Officers can see contact details. You see names and tracks."}
+      </p>
       <ClubMembersFilter members={members} />
     </div>
   );

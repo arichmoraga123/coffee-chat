@@ -70,18 +70,18 @@ function asFeedback(f: unknown): FeedbackShape {
 
 function ScoreGauge({ score }: { score: number }) {
   const s = Math.min(100, Math.max(0, score));
-  const color = s >= 80 ? "#22c55e" : s >= 60 ? "#eab308" : "#ef4444";
+  const color = s >= 80 ? "var(--success)" : s >= 60 ? "var(--warn)" : "var(--danger)";
   return (
     <div className="flex items-center justify-center">
       <div
         className="relative flex h-32 w-32 items-center justify-center rounded-full"
         style={{
-          background: `conic-gradient(${color} ${s * 3.6}deg, #27272a 0deg)`,
+          background: `conic-gradient(${color} ${s * 3.6}deg, var(--divider) 0deg)`,
         }}
       >
-        <div className="flex h-24 w-24 flex-col items-center justify-center rounded-full bg-[#0f0f10] ring-1 ring-white/10">
-          <p className="text-3xl font-bold text-zinc-100">{s}</p>
-          <p className="text-[10px] text-zinc-500">/100</p>
+        <div className="flex h-24 w-24 flex-col items-center justify-center rounded-full bg-bg ring-1 ring-border">
+          <p className="text-3xl font-bold text-ink">{s}</p>
+          <p className="text-[10px] text-ink-3">/100</p>
         </div>
       </div>
     </div>
@@ -92,8 +92,8 @@ function BulletList({ title, items }: { title: string; items: string[] | undefin
   if (!items?.length) return null;
   return (
     <div>
-      <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">{title}</p>
-      <ul className="mt-1.5 list-inside list-disc space-y-1 text-sm text-zinc-300">
+      <p className="text-xs font-semibold uppercase tracking-wide text-ink-3">{title}</p>
+      <ul className="mt-1.5 list-inside list-disc space-y-1 text-sm text-ink-2">
         {items.map((x, i) => (
           <li key={i}>{x}</li>
         ))}
@@ -240,12 +240,12 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
   const readiness = fb.recruitingReadiness ?? "Developing";
   const readinessClass =
     readiness === "Strong"
-      ? "bg-emerald-900/40 text-emerald-300"
+      ? "bg-success-bg text-success"
       : readiness === "Ready"
-        ? "bg-lime-900/40 text-lime-300"
+        ? "bg-success-bg text-success"
         : readiness === "Not Ready"
-          ? "bg-red-900/40 text-red-300"
-          : "bg-amber-900/40 text-amber-300";
+          ? "bg-danger-bg text-danger"
+          : "bg-warn-bg text-warn";
   const visualIssues = [...(fb.visualAnalysis?.issues ?? [])].sort((a, b) => {
     const rank: Record<Severity, number> = { critical: 0, moderate: 1, minor: 2 };
     return rank[a.severity] - rank[b.severity];
@@ -255,11 +255,11 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
     <div className="space-y-6">
       <div>
         <h1 className="page-title">Resume review</h1>
-        <p className="mt-1 text-sm text-zinc-500">
+        <p className="mt-1 text-sm text-ink-3">
           Upload a PDF for visual + content review. Reviews are stored (last three per account).
         </p>
-        <div className="mt-4 rounded-xl border border-white/10 bg-zinc-950/60 p-4">
-          <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">Reviewing for</p>
+        <div className="mt-4 rounded-xl border border-border bg-surface p-4">
+          <p className="text-xs font-semibold uppercase tracking-wide text-ink-3">Reviewing for</p>
           {careerTracks.length > 1 ? (
             <div
               className="mt-3 flex flex-wrap gap-2"
@@ -279,32 +279,32 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
                     className={cn(
                       "rounded-full border px-3 py-1.5 text-left text-xs font-medium transition-colors sm:text-sm",
                       active
-                        ? "border-[#4a6fa5]/60 bg-[#4a6fa5]/20 text-[#e8eef8] ring-1 ring-[#4a6fa5]/25"
-                        : "border-zinc-700 bg-zinc-900/80 text-zinc-300 hover:border-zinc-500 hover:text-zinc-100",
+                        ? "border-accent bg-accent-tint text-accent ring-1 ring-accent"
+                        : "border-border-strong bg-surface text-ink-2 hover:border-border-strong hover:text-ink",
                     )}
                   >
                     {t}
-                    {primary ? <span className="ml-1 text-[10px] font-normal text-zinc-500">(primary)</span> : null}
+                    {primary ? <span className="ml-1 text-[10px] font-normal text-ink-3">(primary)</span> : null}
                   </button>
                 );
               })}
             </div>
           ) : (
-            <p className="mt-2 text-sm font-medium text-zinc-100">
+            <p className="mt-2 text-sm font-medium text-ink">
               {careerTracks.length === 1 ? careerTracks[0] : "General"}
               {careerTracks.length === 1 ? (
-                <span className="ml-2 text-xs font-normal text-zinc-500">Primary track</span>
+                <span className="ml-2 text-xs font-normal text-ink-3">Primary track</span>
               ) : null}
             </p>
           )}
           {careerTracks.length > 1 ? (
-            <p className="mt-3 text-xs leading-relaxed text-zinc-500">
+            <p className="mt-3 text-xs leading-relaxed text-ink-3">
               Switch tracks to see how your resume scores for different recruiting paths. Each track is graded on its
               own criteria — scores are not blended or averaged across tracks.
             </p>
           ) : null}
           {careerTracks.length === 0 ? (
-            <p className="mt-2 text-xs text-amber-300/90">
+            <p className="mt-2 text-xs text-warn">
               Add career tracks in your profile to unlock track-specific grading. Until then, reviews use a general
               rubric.
             </p>
@@ -314,7 +314,7 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
 
       <Card
         className={cn(
-          "border-dashed border-white/20 p-6 transition-colors",
+          "border-dashed border-border-strong p-6 transition-colors",
           loading && "opacity-60",
         )}
         onDragOver={(e) => e.preventDefault()}
@@ -322,9 +322,9 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
       >
         <div className="flex flex-col items-center justify-center gap-3 text-center sm:flex-row sm:justify-between sm:text-left">
           <div>
-            <p className="text-sm font-medium text-zinc-200">Upload resume (PDF)</p>
-            <p className="text-xs text-zinc-500">Drag and drop or choose a file.</p>
-            {selectedFile ? <p className="mt-1 text-xs text-zinc-400">Selected: {selectedFile.name}</p> : null}
+            <p className="text-sm font-medium text-ink">Upload resume (PDF)</p>
+            <p className="text-xs text-ink-3">Drag and drop or choose a file.</p>
+            {selectedFile ? <p className="mt-1 text-xs text-ink-2">Selected: {selectedFile.name}</p> : null}
           </div>
           <div className="flex flex-wrap justify-center gap-2">
             <input
@@ -355,26 +355,26 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
           </div>
         </div>
         {error ? (
-          <div className="mt-3 rounded border border-red-700/60 bg-red-950/30 p-3 text-sm text-red-300">
+          <div className="mt-3 rounded border border-danger/40 bg-danger-bg p-3 text-sm text-danger">
             {error}
           </div>
         ) : null}
         {loading ? (
           <div className="mt-4 space-y-2">
-            <div className="flex items-center justify-between text-xs text-zinc-400">
+            <div className="flex items-center justify-between text-xs text-ink-2">
               <span>{LOADING_MESSAGES[loadingMessageIndex]}</span>
               <span className="font-mono">{progress}%</span>
             </div>
-            <div className="h-2 w-full overflow-hidden rounded-full bg-zinc-800">
+            <div className="h-2 w-full overflow-hidden rounded-full bg-surface-2">
               <div
-                className="h-full rounded-full bg-gradient-to-r from-[#3d5d8c] to-[#5a7fb5] transition-[width] duration-500"
+                className="h-full rounded-full transition-[width] duration-500"
                 style={{ width: `${progress}%` }}
               />
             </div>
             {earlyScore !== null ? (
-              <p className="text-center text-sm text-zinc-200">
-                Overall score: <span className="font-mono text-lg font-semibold text-[#c9a84c]">{earlyScore}</span>
-                <span className="text-zinc-500"> / 100 — writing detailed feedback…</span>
+              <p className="text-center text-sm text-ink">
+                Overall score: <span className="font-mono text-lg font-semibold text-accent">{earlyScore}</span>
+                <span className="text-ink-3"> / 100 — writing detailed feedback…</span>
               </p>
             ) : null}
           </div>
@@ -382,10 +382,10 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
       </Card>
 
       {!loading && trackMismatch ? (
-        <Card className="border-amber-500/35 bg-amber-950/15 p-4">
-          <p className="text-sm text-amber-100/95">
-            These results were graded for <span className="font-semibold text-amber-50">{reviewedTrack}</span>, but
-            your selector is set to <span className="font-semibold text-amber-50">{targetTrack}</span>. Each track uses
+        <Card className="border-warn/40 bg-warn-bg p-4">
+          <p className="text-sm text-warn">
+            These results were graded for <span className="font-semibold text-warn">{reviewedTrack}</span>, but
+            your selector is set to <span className="font-semibold text-warn">{targetTrack}</span>. Each track uses
             different criteria (for example, IB vs PE).
           </p>
           <div className="mt-3 flex flex-wrap gap-2">
@@ -409,12 +409,12 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
 
       {loading ? (
         <Card className="space-y-3 p-4">
-          <div className="h-4 w-40 animate-pulse rounded bg-zinc-800" />
-          <div className="h-24 animate-pulse rounded bg-zinc-900" />
+          <div className="h-4 w-40 animate-pulse rounded bg-surface-2" />
+          <div className="h-24 animate-pulse rounded bg-surface" />
           <div className="grid gap-2 sm:grid-cols-3">
-            <div className="h-16 animate-pulse rounded bg-zinc-900" />
-            <div className="h-16 animate-pulse rounded bg-zinc-900" />
-            <div className="h-16 animate-pulse rounded bg-zinc-900" />
+            <div className="h-16 animate-pulse rounded bg-surface" />
+            <div className="h-16 animate-pulse rounded bg-surface" />
+            <div className="h-16 animate-pulse rounded bg-surface" />
           </div>
         </Card>
       ) : null}
@@ -431,12 +431,12 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
                 className={cn(
                   "rounded-lg border px-3 py-1.5 text-left text-xs transition-colors",
                   active?.id === r.id
-                    ? "border-[#4a6fa5]/50 bg-[#4a6fa5]/10 text-[#f0f0f0]"
-                    : "border-white/10 bg-black/20 text-zinc-400 hover:border-white/20 hover:text-zinc-200",
+                    ? "border-accent bg-accent-tint text-ink"
+                    : "border-border bg-black/20 text-ink-2 hover:border-border-strong hover:text-ink",
                 )}
               >
-                <span className="block font-medium text-zinc-200">{r.fileName}</span>
-                <span className="text-[10px] text-zinc-500">
+                <span className="block font-medium text-ink">{r.fileName}</span>
+                <span className="text-[10px] text-ink-3">
                   {new Date(r.createdAt).toLocaleString()} · Score {r.score}
                   {(() => {
                     const t = asFeedback(r.feedback).targetTrack;
@@ -455,20 +455,20 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
             <div className="grid gap-4 md:grid-cols-[160px_1fr]">
               <ScoreGauge score={currentScore} />
               <div>
-                <p className="text-sm font-semibold text-zinc-100">{active.fileName}</p>
-                <p className="text-xs text-zinc-500">{new Date(active.createdAt).toLocaleString()}</p>
+                <p className="text-sm font-semibold text-ink">{active.fileName}</p>
+                <p className="text-xs text-ink-3">{new Date(active.createdAt).toLocaleString()}</p>
                 <div className="mt-2 flex flex-wrap items-center gap-2">
                   <span className={cn("rounded-full px-2 py-1 text-xs font-medium", readinessClass)}>{readiness}</span>
-                  <span className="text-xs text-zinc-500">
+                  <span className="text-xs text-ink-3">
                     {scoreDelta === 0 ? "No change" : scoreDelta > 0 ? `+${scoreDelta} vs prior` : `${scoreDelta} vs prior`}
                   </span>
                 </div>
-                {fb.oneLiner ? <p className="mt-2 text-sm text-zinc-300">{fb.oneLiner}</p> : null}
-                <p className="mt-2 text-xs text-zinc-500">
-                  Graded for: <span className="font-medium text-zinc-300">{reviewedTrack}</span> (single-track rubric)
+                {fb.oneLiner ? <p className="mt-2 text-sm text-ink-2">{fb.oneLiner}</p> : null}
+                <p className="mt-2 text-xs text-ink-3">
+                  Graded for: <span className="font-medium text-ink-2">{reviewedTrack}</span> (single-track rubric)
                 </p>
                 {fb.visualAnalysisUnavailable ? (
-                  <p className="mt-2 text-xs text-amber-300">
+                  <p className="mt-2 text-xs text-warn">
                     {fb.visualAnalysisNote ?? "Visual analysis unavailable — content only"}
                   </p>
                 ) : null}
@@ -490,9 +490,9 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
               ],
             ].map(([label, score, grade]) => (
               <Card key={label as string} className="p-3">
-                <p className="text-[10px] uppercase tracking-wide text-zinc-500">{label as string}</p>
-                <p className="mt-1 text-lg font-semibold text-zinc-100">{String(grade)}</p>
-                <p className="text-xs text-zinc-400">{score as number}/100</p>
+                <p className="text-[10px] uppercase tracking-wide text-ink-3">{label as string}</p>
+                <p className="mt-1 text-lg font-semibold text-ink">{String(grade)}</p>
+                <p className="text-xs text-ink-2">{score as number}/100</p>
               </Card>
             ))}
           </div>
@@ -501,23 +501,23 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
             <p className="section-label mb-2">Visual issues</p>
             <div className="space-y-2">
               {visualIssues.map((v, i) => (
-                <div key={i} className="rounded border border-zinc-800 bg-zinc-950/50 p-3">
+                <div key={i} className="rounded border border-border bg-surface p-3">
                   <div className="mb-1 flex items-center gap-2">
                     <span
                       className={cn(
                         "rounded px-2 py-0.5 text-[10px] uppercase",
                         v.severity === "critical"
-                          ? "bg-red-900/50 text-red-300"
+                          ? "bg-danger-bg text-danger"
                           : v.severity === "moderate"
-                            ? "bg-amber-900/50 text-amber-300"
-                            : "bg-zinc-800 text-zinc-300",
+                            ? "bg-warn-bg text-warn"
+                            : "bg-surface-2 text-ink-2",
                       )}
                     >
                       {v.severity}
                     </span>
-                    <p className="text-sm text-zinc-100">{v.issue}</p>
+                    <p className="text-sm text-ink">{v.issue}</p>
                   </div>
-                  <p className="text-xs text-zinc-400">Fix: {v.fix}</p>
+                  <p className="text-xs text-ink-2">Fix: {v.fix}</p>
                 </div>
               ))}
             </div>
@@ -542,18 +542,18 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
                 [],
               ],
             ].map(([key, label, feedback, issues, fixes]) => (
-              <div key={key as string} className="mb-3 rounded border border-zinc-800 bg-zinc-950/50">
+              <div key={key as string} className="mb-3 rounded border border-border bg-surface">
                 <button
                   type="button"
                   className="flex w-full items-center justify-between p-3 text-left"
                   onClick={() => setOpenSections((prev) => ({ ...prev, [key as string]: !prev[key as string] }))}
                 >
-                  <span className="text-sm text-zinc-200">{label as string}</span>
-                  <span className="text-zinc-500">{openSections[key as string] ? "▾" : "▸"}</span>
+                  <span className="text-sm text-ink">{label as string}</span>
+                  <span className="text-ink-3">{openSections[key as string] ? "▾" : "▸"}</span>
                 </button>
                 {openSections[key as string] ? (
-                  <div className="border-t border-zinc-800 p-3">
-                    {feedback ? <p className="text-sm text-zinc-300">{feedback as string}</p> : null}
+                  <div className="border-t border-border p-3">
+                    {feedback ? <p className="text-sm text-ink-2">{feedback as string}</p> : null}
                     <BulletList title="Issues" items={issues as string[]} />
                     <BulletList title="Fixes" items={fixes as string[]} />
                   </div>
@@ -566,11 +566,11 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
             <p className="section-label mb-3">Bullet point rewrites</p>
             <div className="space-y-3">
               {(fb.sections?.experience?.weakBullets ?? []).map((b, i) => (
-                <div key={i} className="rounded border border-zinc-800 p-3">
-                  <p className="rounded bg-red-950/20 p-2 text-sm text-red-200/90">{b.original}</p>
-                  <p className="my-1 text-center text-zinc-500">↓</p>
-                  <p className="rounded bg-emerald-950/20 p-2 text-sm text-emerald-200">{b.rewritten}</p>
-                  <p className="mt-2 text-xs text-zinc-500">{b.problem}</p>
+                <div key={i} className="rounded border border-border p-3">
+                  <p className="rounded bg-danger-bg p-2 text-sm text-danger">{b.original}</p>
+                  <p className="my-1 text-center text-ink-3">↓</p>
+                  <p className="rounded bg-success-bg p-2 text-sm text-success">{b.rewritten}</p>
+                  <p className="mt-2 text-xs text-ink-3">{b.problem}</p>
                 </div>
               ))}
             </div>
@@ -580,10 +580,10 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
             <p className="section-label mb-2">Top firm matches</p>
             <div className="grid gap-2 sm:grid-cols-3">
               {(fb.topFirmsMatch ?? []).slice(0, 3).map((m) => (
-                <div key={m.firm} className="rounded border border-zinc-800 bg-zinc-950/50 p-3">
-                  <p className="text-sm font-medium text-zinc-100">{m.firm}</p>
-                  <p className="text-xs text-zinc-400">Fit {m.fitScore}/100</p>
-                  <p className="mt-1 text-xs text-zinc-500">{m.reason}</p>
+                <div key={m.firm} className="rounded border border-border bg-surface p-3">
+                  <p className="text-sm font-medium text-ink">{m.firm}</p>
+                  <p className="text-xs text-ink-2">Fit {m.fitScore}/100</p>
+                  <p className="mt-1 text-xs text-ink-3">{m.reason}</p>
                 </div>
               ))}
             </div>
@@ -591,7 +591,7 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
 
           <Card className="p-4">
             <p className="section-label mb-2">Top 5 improvements</p>
-            <ol className="list-inside list-decimal space-y-1 text-sm text-zinc-300">
+            <ol className="list-inside list-decimal space-y-1 text-sm text-ink-2">
               {(fb.top5Improvements ?? []).slice(0, 5).map((x, i) => (
                 <li key={i}>{x}</li>
               ))}
@@ -614,7 +614,7 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
         </div>
       ) : (
         !loading && (
-          <p className="text-center text-sm text-zinc-500">Upload a PDF to see your first review.</p>
+          <p className="text-center text-sm text-ink-3">Upload a PDF to see your first review.</p>
         )
       )}
     </div>

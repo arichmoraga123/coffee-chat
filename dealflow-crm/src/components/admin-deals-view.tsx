@@ -239,7 +239,7 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
           <h1 className="page-title">Deal management</h1>
-          <p className="mt-1 text-sm text-zinc-500">
+          <p className="mt-1 text-sm text-ink-3">
             News is scanned daily: real transactions with a disclosed dollar value are published to /deals automatically.
             Drafts are older or manual entries awaiting review.
           </p>
@@ -254,12 +254,12 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-2 border-b border-zinc-800 pb-2">
+      <div className="flex flex-wrap gap-2 border-b border-border pb-2">
         <Button
           type="button"
           size="sm"
           variant={listTab === "drafts" ? "default" : "outline"}
-          className={cn(listTab === "drafts" && "bg-amber-600 text-white hover:bg-amber-500")}
+          className={cn(listTab === "drafts" && "bg-warn text-white hover:bg-warn")}
           onClick={() => setListTab("drafts")}
         >
           Drafts
@@ -278,13 +278,13 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
       </div>
 
       {error && !modalOpen ? (
-        <p className="rounded border border-red-900/40 bg-red-950/30 px-3 py-2 text-sm text-red-200">{error}</p>
+        <p className="rounded border border-danger/40 bg-danger-bg px-3 py-2 text-sm text-danger">{error}</p>
       ) : null}
 
       <Card className="overflow-hidden p-0">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[880px] text-left text-sm">
-            <thead className="border-b border-white/10 bg-zinc-950/90 text-left text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+            <thead className="border-b border-border bg-surface text-left text-[10px] font-semibold uppercase tracking-wider text-ink-3">
               <tr>
                 <th className="px-3 py-3">Title</th>
                 <th className="px-3 py-3">Acquirer</th>
@@ -303,15 +303,15 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
                 return (
                   <tr
                     key={d.id}
-                    className="border-b border-white/[0.06] odd:bg-white/[0.02] transition-colors hover:bg-white/[0.04] hover:shadow-[inset_3px_0_0_0_rgba(201,168,76,0.35)]"
+                    className="border-b border-border odd:bg-surface-2 transition-colors hover:bg-surface-2 "
                   >
-                    <td className="max-w-[220px] px-3 py-2 align-top text-zinc-200">{d.title}</td>
-                    <td className="px-3 py-2 align-top text-zinc-400">{d.acquirer ?? "—"}</td>
-                    <td className="px-3 py-2 align-top text-zinc-400">{d.target ?? "—"}</td>
-                    <td className="whitespace-nowrap px-3 py-2 align-top text-zinc-400">{d.dealValue ?? "—"}</td>
-                    <td className="whitespace-nowrap px-3 py-2 align-top text-zinc-400">{d.dealType}</td>
-                    <td className="whitespace-nowrap px-3 py-2 align-top text-zinc-400">{d.vertical ?? "—"}</td>
-                    <td className="whitespace-nowrap px-3 py-2 align-top text-zinc-500">
+                    <td className="max-w-[220px] px-3 py-2 align-top text-ink">{d.title}</td>
+                    <td className="px-3 py-2 align-top text-ink-2">{d.acquirer ?? "—"}</td>
+                    <td className="px-3 py-2 align-top text-ink-2">{d.target ?? "—"}</td>
+                    <td className="whitespace-nowrap px-3 py-2 align-top text-ink-2">{d.dealValue ?? "—"}</td>
+                    <td className="whitespace-nowrap px-3 py-2 align-top text-ink-2">{d.dealType}</td>
+                    <td className="whitespace-nowrap px-3 py-2 align-top text-ink-2">{d.vertical ?? "—"}</td>
+                    <td className="whitespace-nowrap px-3 py-2 align-top text-ink-3">
                       {new Date(d.announcedAt).toLocaleDateString()}
                     </td>
                     <td className="px-3 py-2 align-top">
@@ -319,8 +319,8 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
                         className={cn(
                           "rounded px-2 py-0.5 text-xs font-medium",
                           tab === "Current"
-                            ? "bg-emerald-500/15 text-emerald-300"
-                            : "bg-zinc-700/60 text-zinc-400",
+                            ? "bg-success-bg text-success"
+                            : "bg-border-strong text-ink-2",
                         )}
                       >
                         {tab}
@@ -330,7 +330,7 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
                       {listTab === "drafts" ? (
                         <Button
                           size="sm"
-                          className="mr-2 h-7 bg-emerald-600 px-2 text-xs hover:bg-emerald-500"
+                          className="mr-2 h-7 bg-success px-2 text-xs hover:bg-success"
                           disabled={busy}
                           onClick={() => void publish(d.id)}
                         >
@@ -356,7 +356,7 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
           </table>
         </div>
         {filtered.length === 0 ? (
-          <p className="border-t border-zinc-800 px-3 py-4 text-sm text-zinc-500">
+          <p className="border-t border-border px-3 py-4 text-sm text-ink-3">
             {listTab === "drafts" ? "No drafts — real transactions with dollar values are published automatically." : "No published deals yet."}
           </p>
         ) : null}
@@ -369,22 +369,22 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
         className="max-h-[90vh] max-w-2xl overflow-y-auto"
       >
         <div className="grid gap-3 text-sm">
-          {error ? <p className="text-xs text-red-400">{error}</p> : null}
+          {error ? <p className="text-xs text-danger">{error}</p> : null}
           <div className="grid gap-2 sm:grid-cols-2">
             <label className="sm:col-span-2">
-              <span className="mb-1 block text-xs text-zinc-500">Title</span>
+              <span className="mb-1 block text-xs text-ink-3">Title</span>
               <Input value={form.title} onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))} />
             </label>
             <label>
-              <span className="mb-1 block text-xs text-zinc-500">Acquirer</span>
+              <span className="mb-1 block text-xs text-ink-3">Acquirer</span>
               <Input value={form.acquirer} onChange={(e) => setForm((f) => ({ ...f, acquirer: e.target.value }))} />
             </label>
             <label>
-              <span className="mb-1 block text-xs text-zinc-500">Target</span>
+              <span className="mb-1 block text-xs text-ink-3">Target</span>
               <Input value={form.target} onChange={(e) => setForm((f) => ({ ...f, target: e.target.value }))} />
             </label>
             <label>
-              <span className="mb-1 block text-xs text-zinc-500">Deal value</span>
+              <span className="mb-1 block text-xs text-ink-3">Deal value</span>
               <Input
                 placeholder="$36B"
                 value={form.dealValue}
@@ -392,9 +392,9 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
               />
             </label>
             <label>
-              <span className="mb-1 block text-xs text-zinc-500">Deal type</span>
+              <span className="mb-1 block text-xs text-ink-3">Deal type</span>
               <select
-                className="h-9 w-full rounded border border-zinc-700 bg-zinc-950 px-2 text-sm"
+                className="h-9 w-full rounded border border-border-strong bg-surface px-2 text-sm"
                 value={form.dealType}
                 onChange={(e) => setForm((f) => ({ ...f, dealType: e.target.value }))}
               >
@@ -406,9 +406,9 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
               </select>
             </label>
             <label>
-              <span className="mb-1 block text-xs text-zinc-500">Vertical</span>
+              <span className="mb-1 block text-xs text-ink-3">Vertical</span>
               <select
-                className="h-9 w-full rounded border border-zinc-700 bg-zinc-950 px-2 text-sm"
+                className="h-9 w-full rounded border border-border-strong bg-surface px-2 text-sm"
                 value={form.vertical}
                 onChange={(e) => setForm((f) => ({ ...f, vertical: e.target.value }))}
               >
@@ -421,11 +421,11 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
               </select>
             </label>
             <label className="sm:col-span-2">
-              <span className="mb-1 block text-xs text-zinc-500">Sector</span>
+              <span className="mb-1 block text-xs text-ink-3">Sector</span>
               <Input value={form.sector} onChange={(e) => setForm((f) => ({ ...f, sector: e.target.value }))} />
             </label>
             <label>
-              <span className="mb-1 block text-xs text-zinc-500">Announcement date</span>
+              <span className="mb-1 block text-xs text-ink-3">Announcement date</span>
               <Input
                 type="date"
                 value={form.announcedAt}
@@ -433,7 +433,7 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
               />
             </label>
             <label className="sm:col-span-2">
-              <span className="mb-1 block text-xs text-zinc-500">Source URL (optional)</span>
+              <span className="mb-1 block text-xs text-ink-3">Source URL (optional)</span>
               <Input
                 type="url"
                 placeholder="https://…"
@@ -442,25 +442,25 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
               />
             </label>
             <label className="sm:col-span-2">
-              <span className="mb-1 block text-xs text-zinc-500">Summary</span>
+              <span className="mb-1 block text-xs text-ink-3">Summary</span>
               <textarea
-                className="min-h-[88px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-sm"
+                className="min-h-[88px] w-full rounded border border-border-strong bg-surface p-2 text-sm"
                 value={form.summary}
                 onChange={(e) => setForm((f) => ({ ...f, summary: e.target.value }))}
               />
             </label>
             <label className="sm:col-span-2">
-              <span className="mb-1 block text-xs text-zinc-500">Key thesis</span>
+              <span className="mb-1 block text-xs text-ink-3">Key thesis</span>
               <textarea
-                className="min-h-[72px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-sm"
+                className="min-h-[72px] w-full rounded border border-border-strong bg-surface p-2 text-sm"
                 value={form.keyThesis}
                 onChange={(e) => setForm((f) => ({ ...f, keyThesis: e.target.value }))}
               />
             </label>
             <label className="sm:col-span-2">
-              <span className="mb-1 block text-xs text-zinc-500">Risks</span>
+              <span className="mb-1 block text-xs text-ink-3">Risks</span>
               <textarea
-                className="min-h-[72px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-sm"
+                className="min-h-[72px] w-full rounded border border-border-strong bg-surface p-2 text-sm"
                 value={form.risks}
                 onChange={(e) => setForm((f) => ({ ...f, risks: e.target.value }))}
               />

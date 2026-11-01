@@ -73,12 +73,12 @@ export function ResourcesView({ initialBookmarkSlugs }: { initialBookmarkSlugs: 
     <div className="space-y-6">
       <div>
         <h1 className="page-title">Resources</h1>
-        <p className="mt-1 text-sm text-zinc-400">
+        <p className="mt-1 text-sm text-ink-2">
           Curated links across career tracks. Use the sidebar career filter to narrow further.
         </p>
       </div>
 
-      <div className="flex flex-wrap gap-2 border-b border-zinc-800 pb-2">
+      <div className="flex flex-wrap gap-2 border-b border-border pb-2">
         <Button
           type="button"
           size="sm"
@@ -121,37 +121,37 @@ export function ResourcesView({ initialBookmarkSlugs }: { initialBookmarkSlugs: 
 
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {relevantResourceTabs.length > 0 ? (
-              <Card className="border-emerald-700/30 bg-emerald-950/10 p-4 sm:col-span-2 xl:col-span-3">
-                <p className="text-sm font-semibold text-emerald-300">Recommended for you</p>
-                <p className="mt-1 text-xs text-zinc-400">
+              <Card className="border-success/40 bg-success-bg p-4 sm:col-span-2 xl:col-span-3">
+                <p className="text-sm font-semibold text-success">Recommended for you</p>
+                <p className="mt-1 text-xs text-ink-2">
                   Prioritized tabs: {relevantResourceTabs.join(", ")}
                 </p>
               </Card>
             ) : null}
             {items.map((item) => (
-              <Card key={item.slug} className="relative flex flex-col border-zinc-800 bg-zinc-900/60 p-4">
+              <Card key={item.slug} className="relative flex flex-col border-border bg-surface p-4">
                 <button
                   type="button"
-                  className="absolute right-3 top-3 rounded p-1 text-zinc-400 hover:bg-zinc-800 hover:text-amber-300"
+                  className="absolute right-3 top-3 rounded p-1 text-ink-2 hover:bg-surface-2 hover:text-warn"
                   aria-label={bookmarked.has(item.slug) ? "Remove bookmark" : "Bookmark"}
                   onClick={() => void toggleBookmark(item.slug)}
                 >
-                  <Bookmark className={bookmarked.has(item.slug) ? "fill-amber-400 text-amber-400" : ""} size={20} />
+                  <Bookmark className={bookmarked.has(item.slug) ? "fill-warn text-warn" : ""} size={20} />
                 </button>
                 <div className="mb-2 flex flex-wrap items-center gap-2">
-                  <span className="w-fit rounded bg-zinc-800 px-2 py-0.5 text-xs text-zinc-300">{item.category}</span>
+                  <span className="w-fit rounded bg-surface-2 px-2 py-0.5 text-xs text-ink-2">{item.category}</span>
                   {item.isPrimary ? (
-                    <span className="inline-flex items-center gap-1 rounded bg-amber-500/15 px-2 py-0.5 text-xs text-amber-300">
-                      <Star className="size-3 fill-amber-400 text-amber-400" />
+                    <span className="inline-flex items-center gap-1 rounded bg-warn-bg px-2 py-0.5 text-xs text-warn">
+                      <Star className="size-3 fill-warn text-warn" />
                       Essential
                     </span>
                   ) : null}
                 </div>
-                <h3 className="pr-8 text-base font-semibold text-zinc-100">{item.title}</h3>
-                <p className="mt-1 flex-1 text-sm text-zinc-400">{item.description}</p>
+                <h3 className="pr-8 text-base font-semibold text-ink">{item.title}</h3>
+                <p className="mt-1 flex-1 text-sm text-ink-2">{item.description}</p>
                 <a
                   className={cn(
-                    "mt-3 inline-flex items-center gap-1 text-sm text-[#f0f0f0] underline-offset-4 hover:underline",
+                    "mt-3 inline-flex items-center gap-1 text-sm text-ink underline-offset-4 hover:underline",
                     item.url === "#" && "pointer-events-none opacity-50",
                   )}
                   href={item.url === "#" ? undefined : item.url}

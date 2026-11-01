@@ -31,8 +31,8 @@ export function SchoolJoinButton({ schoolId, schoolShortName }: { schoolId: stri
       <Button type="button" disabled={busy} onClick={() => void join()}>
         {busy ? "Saving…" : `Join ${schoolShortName}`}
       </Button>
-      {err ? <p className="text-xs text-red-400">{err}</p> : null}
-      <p className="text-xs text-zinc-500">
+      {err ? <p className="text-xs text-danger">{err}</p> : null}
+      <p className="text-xs text-ink-3">
         Sets your campus on Prospect. Use profile if you need to clear or change school later.
       </p>
     </div>

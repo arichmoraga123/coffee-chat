@@ -39,8 +39,8 @@ export function ProfileTracksForm({ initialTracks }: { initialTracks: string[] }
 
   return (
     <div className="space-y-3">
-      <p className="text-xs text-zinc-500">Controls filtering for questions, mock interviews, deals, timelines, and resources.</p>
-      {msg ? <p className="text-xs text-amber-300">{msg}</p> : null}
+      <p className="text-xs text-ink-3">Controls filtering for questions, mock interviews, deals, timelines, and resources.</p>
+      {msg ? <p className="text-xs text-warn">{msg}</p> : null}
       <div className="flex flex-wrap gap-2">
         {CAREER_TRACK_OPTIONS.map((t) => (
           <button
@@ -49,8 +49,8 @@ export function ProfileTracksForm({ initialTracks }: { initialTracks: string[] }
             onClick={() => toggle(t)}
             className={
               tracks.includes(t)
-                ? "rounded-full border border-[#3a3a3a] bg-white/[0.06] px-2.5 py-1 text-xs text-[#f5f5f5]"
-                : "rounded-full border border-zinc-700 bg-zinc-900 px-2.5 py-1 text-xs text-zinc-400 hover:border-zinc-500"
+                ? "rounded-full border border-border-strong bg-surface-2 px-2.5 py-1 text-xs text-ink"
+                : "rounded-full border border-border-strong bg-surface px-2.5 py-1 text-xs text-ink-2 hover:border-border-strong"
             }
           >
             {t}

@@ -52,7 +52,7 @@ function LoginForm() {
     <div className="mx-auto mt-20 max-w-md">
       <Card className="p-6">
         <h1 className="text-xl font-semibold">Log in</h1>
-        <p className="mt-1 text-sm text-zinc-400">Access your Prospect workspace.</p>
+        <p className="mt-1 text-sm text-ink-2">Access your Prospect workspace.</p>
         <form className="mt-4 space-y-3" onSubmit={onSubmit}>
           <Input
             required
@@ -68,14 +68,14 @@ function LoginForm() {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-          {error ? <p className="text-sm text-red-400">{error}</p> : null}
+          {error ? <p className="text-sm text-danger">{error}</p> : null}
           <Button className="w-full" disabled={loading} type="submit">
             {loading ? "Signing in..." : "Sign in"}
           </Button>
         </form>
-        <p className="mt-4 text-sm text-zinc-400">
+        <p className="mt-4 text-sm text-ink-2">
           New here?{" "}
-          <Link className="text-[#f5f5f5] underline-offset-4 hover:underline" href="/signup">
+          <Link className="text-ink underline-offset-4 hover:underline" href="/signup">
             Create an account
           </Link>
         </p>
@@ -86,7 +86,7 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div className="mx-auto mt-20 max-w-md text-center text-sm text-zinc-500">Loading…</div>}>
+    <Suspense fallback={<div className="mx-auto mt-20 max-w-md text-center text-sm text-ink-3">Loading…</div>}>
       <LoginForm />
     </Suspense>
   );

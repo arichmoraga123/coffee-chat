@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 export default async function ClubContentPage() {
   const userId = await requireUserId();
   const clubId = await resolveClubIdForUser(userId);
-  if (!clubId) return <p className="text-sm text-zinc-400">No club context.</p>;
+  if (!clubId) return <p className="text-sm text-ink-2">No club context.</p>;
 
   const rows = await prisma.clubPost.findMany({
     where: { clubId },
@@ -28,7 +28,7 @@ export default async function ClubContentPage() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-xl font-semibold text-zinc-50">Club content</h1>
+      <h1 className="text-xl font-semibold text-ink">Club content</h1>
       <ClubContentTabs posts={posts} userId={userId} />
     </div>
   );

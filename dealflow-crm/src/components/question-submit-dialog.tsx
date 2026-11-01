@@ -54,30 +54,30 @@ export function QuestionSubmitDialog() {
       <Modal open={open} onClose={() => setOpen(false)} title="Submit a question">
         <div className="space-y-3 text-sm">
           <div>
-            <label className="mb-1 block text-xs text-zinc-500">Question</label>
+            <label className="mb-1 block text-xs text-ink-3">Question</label>
             <textarea
-              className="min-h-[80px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-zinc-100"
+              className="min-h-[80px] w-full rounded border border-border-strong bg-surface p-2 text-ink"
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
             />
           </div>
           <div>
-            <label className="mb-1 block text-xs text-zinc-500">Answer</label>
+            <label className="mb-1 block text-xs text-ink-3">Answer</label>
             <textarea
-              className="min-h-[100px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-zinc-100"
+              className="min-h-[100px] w-full rounded border border-border-strong bg-surface p-2 text-ink"
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
             />
           </div>
           <div className="grid gap-2 sm:grid-cols-2">
             <div>
-              <label className="mb-1 block text-xs text-zinc-500">Category</label>
+              <label className="mb-1 block text-xs text-ink-3">Category</label>
               <Input value={category} onChange={(e) => setCategory(e.target.value)} />
             </div>
             <div>
-              <label className="mb-1 block text-xs text-zinc-500">Difficulty</label>
+              <label className="mb-1 block text-xs text-ink-3">Difficulty</label>
               <select
-                className="w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-sm"
+                className="w-full rounded border border-border-strong bg-surface px-2 py-2 text-sm"
                 value={difficulty}
                 onChange={(e) => setDifficulty(e.target.value)}
               >
@@ -90,10 +90,10 @@ export function QuestionSubmitDialog() {
             </div>
           </div>
           <div>
-            <label className="mb-1 block text-xs text-zinc-500">Tags (comma-separated)</label>
+            <label className="mb-1 block text-xs text-ink-3">Tags (comma-separated)</label>
             <Input value={tags} onChange={(e) => setTags(e.target.value)} placeholder="LBO, credit" />
           </div>
-          {error ? <p className="text-xs text-red-400">{error}</p> : null}
+          {error ? <p className="text-xs text-danger">{error}</p> : null}
           <div className="flex justify-end gap-2 pt-2">
             <Button variant="ghost" onClick={() => setOpen(false)}>
               Cancel

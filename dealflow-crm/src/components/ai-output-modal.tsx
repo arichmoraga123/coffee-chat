@@ -27,10 +27,10 @@ export function AiOutputModal({ open, title, text, loading, error, onClose }: Pr
   return (
     <Modal open={open} onClose={onClose} title={title} className="max-w-2xl">
       {loading ? (
-        <p className="text-sm text-zinc-400">Generating…</p>
+        <p className="text-sm text-ink-2">Generating…</p>
       ) : error ? (
         <div className="space-y-3">
-          <p className="text-sm text-red-400">{error}</p>
+          <p className="text-sm text-danger">{error}</p>
           <div className="flex justify-end">
             <Button type="button" size="sm" variant="outline" onClick={onClose}>
               Close
@@ -40,7 +40,7 @@ export function AiOutputModal({ open, title, text, loading, error, onClose }: Pr
       ) : (
         <div className="space-y-3">
           <textarea
-            className="min-h-[240px] w-full rounded border border-zinc-700 bg-zinc-950 p-3 text-sm leading-relaxed text-zinc-100"
+            className="min-h-[240px] w-full rounded border border-border-strong bg-surface p-3 text-sm leading-relaxed text-ink"
             value={edited}
             onChange={(e) => setEdited(e.target.value)}
           />

@@ -57,7 +57,7 @@ function SignupForm() {
     <div className="mx-auto mt-20 max-w-md">
       <Card className="p-6">
         <h1 className="text-xl font-semibold">Create account</h1>
-        <p className="mt-1 text-sm text-zinc-400">Start with an empty private rolodex.</p>
+        <p className="mt-1 text-sm text-ink-2">Start with an empty private rolodex.</p>
         <form className="mt-4 space-y-3" onSubmit={onSubmit}>
           <Input
             required
@@ -80,14 +80,14 @@ function SignupForm() {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-          {error ? <p className="text-sm text-red-400">{error}</p> : null}
+          {error ? <p className="text-sm text-danger">{error}</p> : null}
           <Button className="w-full" disabled={loading} type="submit">
             {loading ? "Creating account..." : "Sign up"}
           </Button>
         </form>
-        <p className="mt-4 text-sm text-zinc-400">
+        <p className="mt-4 text-sm text-ink-2">
           Already have an account?{" "}
-          <Link className="text-[#f0f0f0] underline-offset-4 hover:underline" href="/login">
+          <Link className="text-ink underline-offset-4 hover:underline" href="/login">
             Log in
           </Link>
         </p>
@@ -98,7 +98,7 @@ function SignupForm() {
 
 export default function SignupPage() {
   return (
-    <Suspense fallback={<div className="mx-auto mt-20 max-w-md text-center text-sm text-zinc-500">Loading…</div>}>
+    <Suspense fallback={<div className="mx-auto mt-20 max-w-md text-center text-sm text-ink-3">Loading…</div>}>
       <SignupForm />
     </Suspense>
   );

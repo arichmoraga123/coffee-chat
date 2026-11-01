@@ -4,418 +4,303 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
-import { ChevronDown } from "lucide-react";
+import { LogOut, MoreHorizontal, Search, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useCareerTracks } from "@/components/career-track-provider";
-import { Button } from "@/components/ui/button";
+import { Avatar } from "@/components/ui/avatar";
+import { CountPill } from "@/components/ui/badge";
+import { Tabs } from "@/components/ui/tabs";
+import { CommandPalette } from "@/components/nav/command-palette";
+import {
+  HOME,
+  MOBILE_TABS,
+  NAV_GROUPS,
+  SETTINGS,
+  activeHref,
+  pathMatches,
+  sectionTabsFor,
+  type NavGroup,
+  type NavItem,
+} from "@/components/nav/nav-config";
 
-const STORAGE_KEY = "prospect-sidebar-groups-v1";
+type NavCounts = { name: string; role: string; clubMember: boolean; clubRole: string | null; dailyLeft: number; mentorOpen: number };
 
-type NavItem = { href: string; label: string };
+const ROLE_LABEL: Record<string, string> = { ADMIN: "Admin", MENTOR: "Mentor", USER: "Member" };
 
-type CollapsibleGroup = {
-  id: string;
-  title: string;
-  items: NavItem[];
-};
-
-const OVERVIEW_ITEM: NavItem = { href: "/dashboard", label: "Dashboard" };
-const ROADMAP_ITEM: NavItem = { href: "/roadmap", label: "Recruiting Roadmap" };
-
-const COLLAPSIBLE_GROUPS: CollapsibleGroup[] = [
-  {
-    id: "networking",
-    title: "👥 Networking",
-    items: [
-      { href: "/contacts", label: "Contacts" },
-      { href: "/contacts?tab=queue", label: "Outreach Queue" },
-      { href: "/firms", label: "Firms" },
-      { href: "/pipeline", label: "Pipeline" },
-      { href: "/tasks", label: "Tasks" },
-    ],
-  },
-  {
-    id: "club",
-    title: "🏢 Club",
-    items: [
-      { href: "/club", label: "Club Hub" },
-      { href: "/club/announcements", label: "Announcements" },
-      { href: "/club/content", label: "Content" },
-      { href: "/club/projects", label: "Projects" },
-      { href: "/club/events", label: "Events" },
-      { href: "/club/members", label: "Members" },
-    ],
-  },
-  {
-    id: "prep",
-    title: "📚 Prep",
-    items: [
-      { href: "/learn", label: "Learn (lessons)" },
-      { href: "/practice", label: "Practice (MCQ)" },
-      { href: "/questions", label: "Question Bank" },
-      { href: "/mock-interview", label: "Mock Interview" },
-      { href: "/pitch-builder", label: "Stock Pitch Builder" },
-      { href: "/resume", label: "Resume Review" },
-      { href: "/cases", label: "Cases" },
-    ],
-  },
-  {
-    id: "research",
-    title: "🔍 Research",
-    items: [
-      { href: "/deals", label: "Deal Tracker" },
-      { href: "/research", label: "Firm Research" },
-      { href: "/resources", label: "Resources" },
-      { href: "/vault", label: "Vault" },
-    ],
-  },
-  {
-    id: "scheduling",
-    title: "📅 Scheduling",
-    items: [
-      { href: "/calendar", label: "Calendar" },
-      { href: "/recruiting-calendar", label: "Recruiting Tracker" },
-    ],
-  },
-  {
-    id: "community",
-    title: "👥 Community",
-    items: [
-      { href: "/groups", label: "Study Groups" },
-      { href: "/timelines", label: "Firm Timelines" },
-      { href: "/debriefs", label: "Debriefs" },
-    ],
-  },
-  {
-    id: "personal",
-    title: "💼 Personal",
-    items: [
-      { href: "/offers", label: "Offer Compare" },
-      { href: "/profile", label: "Profile" },
-    ],
-  },
-];
-
-const MENTOR_GROUP: CollapsibleGroup = {
-  id: "mentor",
-  title: "🎓 Mentor",
-  items: [
-    { href: "/admin/learn/questions", label: "Mentor queue" },
-    { href: "/admin/learn/cohort", label: "Cohort progress" },
-  ],
-};
-
-const ADMIN_GROUP: CollapsibleGroup = {
-  id: "admin",
-  title: "🛡️ Admin",
-  items: [
-    { href: "/admin", label: "Overview" },
-    { href: "/admin/questions", label: "Questions" },
-    { href: "/admin/deals", label: "Deals" },
-    { href: "/admin/learn/questions", label: "Learn: mentor queue" },
-    { href: "/admin/learn/cohort", label: "Learn: cohort" },
-    { href: "/admin/learn/resources", label: "Learn: workbooks" },
-    { href: "/admin#admin-users", label: "Users" },
-    { href: "/schools", label: "Schools" },
-    { href: "/comp", label: "Comp Data" },
-    { href: "/alumni", label: "Alumni" },
-  ],
-};
-
-function defaultsForViewport(isMobile: boolean): Record<string, boolean> {
-  const allIds = [...COLLAPSIBLE_GROUPS.map((g) => g.id), ADMIN_GROUP.id, MENTOR_GROUP.id];
-  const base: Record<string, boolean> = {};
-  for (const id of allIds) {
-    base[id] = false;
-  }
-  if (!isMobile) {
-    base.networking = true;
-    base.prep = true;
-    base.club = true;
-  }
-  return base;
-}
-
-function loadOpenGroups(isMobile: boolean): Record<string, boolean> {
-  const fallback = defaultsForViewport(isMobile);
-  if (typeof window === "undefined") return fallback;
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return fallback;
-    const parsed = JSON.parse(raw) as Record<string, unknown>;
-    const merged = { ...fallback };
-    for (const key of Object.keys(fallback)) {
-      if (key in parsed && typeof parsed[key] === "boolean") {
-        merged[key] = parsed[key] as boolean;
-      }
-    }
-    return merged;
-  } catch {
-    return fallback;
-  }
-}
-
-function saveOpenGroups(state: Record<string, boolean>) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  } catch {
-    /* ignore */
-  }
-}
-
-function pathMatchesItem(pathname: string, href: string): boolean {
-  if (href.includes("#")) {
-    const base = (href.split("#")[0] ?? "").replace(/\/$/, "") || "/";
-    if (base === "/") return pathname === "/";
-    return pathname === base;
-  }
-  if (href === "/") return pathname === "/";
-  return pathname === href || pathname.startsWith(`${href}/`);
-}
-
-function groupIdForPathname(pathname: string): string | null {
-  for (const g of COLLAPSIBLE_GROUPS) {
-    if (g.items.some((item) => pathMatchesItem(pathname, item.href))) return g.id;
-  }
-  if (ADMIN_GROUP.items.some((item) => pathMatchesItem(pathname, item.href))) return "admin";
-  if (pathname.startsWith("/admin")) return "admin";
-  return null;
+function visibleGroups(counts: NavCounts | null, role: string): NavGroup[] {
+  return NAV_GROUPS.filter((g) => {
+    if (g.audience === "club") return Boolean(counts?.clubMember) || role === "ADMIN";
+    if (g.audience === "admin") return role === "ADMIN";
+    if (g.audience === "mentor") return role === "MENTOR";
+    return true;
+  });
 }
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { data: session } = useSession();
-  const { careerTracks, narrowTrack, setNarrowTrack, cycleNarrowTrack, refreshCareerTracks } = useCareerTracks();
-  const [mobileOpen, setMobileOpen] = useState(false);
-
-  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() => defaultsForViewport(false));
+  const [counts, setCounts] = useState<NavCounts | null>(null);
+  const [paletteOpen, setPaletteOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
 
   const isAuthPage = pathname === "/login" || pathname === "/signup";
   const isPublicPage = pathname === "/" || pathname === "/pricing" || pathname.startsWith("/join");
-  const isAdminRoute = pathname.startsWith("/admin");
-  const isAdminUser = session?.user?.role === "ADMIN";
-  const isMentorUser = session?.user?.role === "MENTOR";
+  const bare = isAuthPage || isPublicPage;
+  const role = counts?.role ?? session?.user?.role ?? "USER";
+  const name = counts?.name || session?.user?.name || "";
 
-  const groupsToRender = useMemo(() => {
-    if (isAdminUser) return [...COLLAPSIBLE_GROUPS, ADMIN_GROUP];
-    return isMentorUser ? [...COLLAPSIBLE_GROUPS, MENTOR_GROUP] : COLLAPSIBLE_GROUPS;
-  }, [isAdminUser, isMentorUser]);
+  const groups = useMemo(() => visibleGroups(counts, role), [counts, role]);
+  const allItems = useMemo(() => [HOME, SETTINGS, ...groups.flatMap((g) => g.items)], [groups]);
+  const active = activeHref(pathname, allItems);
+  const tabs = bare ? null : sectionTabsFor(pathname);
 
-  const closeMobile = () => setMobileOpen(false);
-
-  useEffect(() => {
-    const mobile = window.matchMedia("(max-width: 767px)").matches;
-    setOpenGroups(loadOpenGroups(mobile));
+  const refreshCounts = useCallback(async () => {
+    try {
+      const res = await fetch("/api/nav");
+      if (res.ok) setCounts((await res.json()) as NavCounts);
+    } catch {
+      /* offline */
+    }
   }, []);
 
   useEffect(() => {
-    if (isAuthPage) return;
-    const gid = groupIdForPathname(pathname);
-    if (!gid) return;
-    setOpenGroups((prev) => {
-      if (prev[gid]) return prev;
-      const next = { ...prev, [gid]: true };
-      saveOpenGroups(next);
-      return next;
-    });
-  }, [pathname, isAuthPage]);
-
-  const toggleGroup = useCallback((id: string) => {
-    setOpenGroups((prev) => {
-      const next = { ...prev, [id]: !prev[id] };
-      saveOpenGroups(next);
-      return next;
-    });
-  }, []);
+    if (bare || !session?.user) return;
+    void refreshCounts();
+  }, [bare, session?.user, pathname, refreshCounts]);
 
   useEffect(() => {
-    if (isAuthPage) return;
-    const onKeyDown = (event: KeyboardEvent) => {
-      const target = event.target as HTMLElement | null;
-      if (target && ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) return;
-      const key = event.key.toLowerCase();
-      if (!["c", "i", "t"].includes(key)) return;
-      window.dispatchEvent(new CustomEvent("prospect-shortcut", { detail: key }));
+    if (bare || !session?.user || pathname.startsWith("/admin")) return;
+    void fetch("/api/user/ping", { method: "POST" }).catch(() => {});
+  }, [bare, pathname, session?.user]);
+
+  useEffect(() => setMoreOpen(false), [pathname]);
+
+  // ⌘K / Ctrl+K opens search. C / I / T are the existing quick-add shortcuts.
+  useEffect(() => {
+    if (bare) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setPaletteOpen((o) => !o);
+        return;
+      }
+      const t = e.target as HTMLElement | null;
+      if (t && (["INPUT", "TEXTAREA", "SELECT"].includes(t.tagName) || t.isContentEditable)) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const key = e.key.toLowerCase();
+      if (["c", "i", "t"].includes(key)) window.dispatchEvent(new CustomEvent("prospect-shortcut", { detail: key }));
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [isAuthPage]);
+  }, [bare]);
 
-  useEffect(() => {
-    if (isAuthPage || !mobileOpen) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [isAuthPage, mobileOpen]);
+  if (bare) {
+    return <main className="min-h-screen bg-bg p-4 text-ink md:p-6">{children}</main>;
+  }
 
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
+  const countFor = (it: NavItem) => (it.count && counts ? counts[it.count] : 0);
 
-  useEffect(() => {
-    if (isAuthPage || isAdminRoute || !session?.user) return;
-    void fetch("/api/user/ping", { method: "POST" }).catch(() => {});
-  }, [isAuthPage, isAdminRoute, session?.user]);
-
-  const renderLink = (item: NavItem) => {
-    const active = pathMatchesItem(pathname, item.href);
+  const link = (it: NavItem, opts?: { compact?: boolean; onClick?: () => void }) => {
+    const isActive = active === it.href;
+    const Icon = it.icon;
+    const n = countFor(it);
     return (
       <Link
-        key={item.href}
-        href={item.href}
-        onClick={closeMobile}
+        key={`${it.href}-${it.label}`}
+        href={it.href}
+        onClick={opts?.onClick}
+        title={opts?.compact ? it.label : undefined}
+        aria-current={isActive ? "page" : undefined}
         className={cn(
-          "block rounded-r-md border-l-[3px] py-2 pl-3 pr-2 text-sm transition-all duration-200",
-          active
-            ? "border-[#f5f5f5] bg-transparent font-medium text-[#f5f5f5]"
-            : "border-transparent text-[#888888] hover:border-[#2a2a2a] hover:bg-white/[0.03] hover:text-[#f0f0f0]",
+          "flex h-11 items-center gap-2.5 rounded-[var(--radius)] px-2.5 text-sm transition-colors md:h-9",
+          opts?.compact && "justify-center px-0",
+          isActive ? "bg-accent-tint font-semibold text-accent" : "text-ink-2 hover:bg-surface-2 hover:text-ink",
         )}
       >
-        {item.label}
+        <Icon className="h-4 w-4 shrink-0" aria-hidden />
+        {opts?.compact ? (
+          <span className="sr-only">{it.label}</span>
+        ) : (
+          <>
+            <span className="min-w-0 flex-1 truncate">{it.label}</span>
+            <CountPill count={n} />
+          </>
+        )}
       </Link>
     );
   };
 
-  if (isAuthPage || isPublicPage) {
-    return <main className="min-h-screen bg-[#0a0a0a] p-6 text-[#f0f0f0]">{children}</main>;
-  }
+  const navBody = (compact: boolean, onClick?: () => void) => (
+    <>
+      <div className="space-y-0.5">{link(HOME, { compact, onClick })}</div>
+      {groups.map((g) => (
+        <div key={g.id} className="mt-5">
+          {compact ? <div className="mx-3 mb-2 border-t border-divider" /> : <p className="eyebrow mb-1.5 px-2.5">{g.label}</p>}
+          <div className="space-y-0.5">{g.items.map((it) => link(it, { compact, onClick }))}</div>
+        </div>
+      ))}
+    </>
+  );
 
-  if (isAdminRoute) {
-    return <div className="min-h-screen bg-[#0a0a0a] text-[#f0f0f0]">{children}</div>;
-  }
+  const searchButton = (compact: boolean) => (
+    <button
+      type="button"
+      onClick={() => setPaletteOpen(true)}
+      className={cn(
+        "flex h-9 w-full items-center gap-2 rounded-[var(--radius)] border border-border-strong bg-surface text-sm text-ink-3 hover:text-ink",
+        compact ? "justify-center" : "px-2.5",
+      )}
+      aria-label="Search (Command K)"
+    >
+      <Search className="h-4 w-4 shrink-0" aria-hidden />
+      {compact ? null : (
+        <>
+          <span className="flex-1 text-left">Search</span>
+          <kbd className="rounded border border-border px-1.5 text-[11px]">⌘K</kbd>
+        </>
+      )}
+    </button>
+  );
+
+  const footer = (compact: boolean) => (
+    <div className="mt-4 space-y-0.5 border-t border-divider pt-3">
+      {link(SETTINGS, { compact })}
+      <div className={cn("flex items-center gap-2.5 px-2.5 py-2", compact && "justify-center px-0")}>
+        <Avatar name={name} size={28} />
+        {compact ? null : (
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-[13px] font-medium text-ink">{name || "You"}</p>
+            <p className="text-xs text-ink-3">{ROLE_LABEL[role] ?? "Member"}</p>
+          </div>
+        )}
+        {compact ? null : (
+          <button
+            type="button"
+            onClick={() => void signOut({ callbackUrl: "/login" })}
+            className="flex h-8 w-8 items-center justify-center rounded-[var(--radius)] text-ink-3 hover:bg-surface-2 hover:text-ink"
+            aria-label="Log out"
+            title="Log out"
+          >
+            <LogOut className="h-4 w-4" />
+          </button>
+        )}
+      </div>
+    </div>
+  );
+
+  const brand = (compact: boolean) => (
+    <Link href="/dashboard" className={cn("mb-4 flex items-center gap-2.5", compact && "justify-center")}>
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--radius)] bg-accent text-sm font-bold text-on-accent">P</span>
+      {compact ? null : (
+        <span className="min-w-0">
+          <span className="block text-[15px] font-semibold leading-tight text-ink">Prospect</span>
+          <span className="block text-xs text-ink-3">PE@Broad · MSU</span>
+        </span>
+      )}
+    </Link>
+  );
+
+  const mobileActive = MOBILE_TABS.find((t) => t.match.some((m) => pathMatches(pathname, m)))?.href ?? (moreOpen ? "more" : null);
 
   return (
-    <div className="flex min-h-screen bg-[#0a0a0a] text-[#f0f0f0]">
-      <button
-        type="button"
-        aria-label="Close menu"
-        className={cn(
-          "fixed inset-0 z-40 bg-black/60 transition-opacity md:hidden",
-          mobileOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
-        )}
-        onClick={closeMobile}
-      />
-
-      <aside
-        className={cn(
-          "fixed inset-y-0 left-0 z-50 flex w-56 flex-col border-r border-[#2a2a2a] bg-[#111111] p-4 transition-transform duration-200 ease-out md:static md:z-auto md:translate-x-0",
-          mobileOpen ? "translate-x-0 shadow-xl shadow-black/40" : "-translate-x-full md:translate-x-0",
-        )}
-      >
-        <div className="mb-1 text-lg font-bold tracking-wide text-[#f5f5f5]">Prospect</div>
-        <p className="mb-4 text-[10px] uppercase tracking-[0.12em] text-zinc-500">Recruiting network</p>
-        {!isAuthPage ? (
-          <div className="mb-3 space-y-2 rounded border border-[#2a2a2a] bg-zinc-900/50 p-2">
-            <p className="text-[10px] font-semibold uppercase tracking-wide text-[#666666]">Career track</p>
-            {careerTracks.length === 0 ? (
-              <p className="text-[11px] leading-snug text-zinc-500">
-                Set tracks in onboarding or{" "}
-                <Link href="/profile" className="text-zinc-200 underline-offset-2 hover:underline" onClick={closeMobile}>
-                  Profile
-                </Link>{" "}
-                to filter prep.
-              </p>
-            ) : (
-              <>
-                <select
-                  className="w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-xs text-zinc-200"
-                  value={narrowTrack ?? ""}
-                  onChange={(e) => {
-                    const v = e.target.value;
-                    setNarrowTrack(v === "" ? null : v);
-                  }}
-                >
-                  <option value="">All my tracks</option>
-                  {careerTracks.map((t) => (
-                    <option key={t} value={t}>
-                      {t}
-                    </option>
-                  ))}
-                </select>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  className="h-7 w-full text-[11px]"
-                  onClick={() => cycleNarrowTrack()}
-                >
-                  Switch track
-                </Button>
-              </>
-            )}
-            <button
-              type="button"
-              className="w-full text-left text-[10px] text-zinc-500 hover:text-zinc-300"
-              onClick={() => void refreshCareerTracks()}
-            >
-              Refresh from profile
-            </button>
-          </div>
-        ) : null}
-        <nav className="flex-1 space-y-1 overflow-y-auto pr-1">
-          <div className="pb-1">
-            <p className="px-1 pb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#666666]">📊 Overview</p>
-            {renderLink(OVERVIEW_ITEM)}
-            {renderLink(ROADMAP_ITEM)}
-          </div>
-
-          {groupsToRender.map((group) => {
-            const open = openGroups[group.id] ?? false;
-            return (
-              <div key={group.id} className="border-t border-[#2a2a2a] pt-1">
-                <button
-                  type="button"
-                  onClick={() => toggleGroup(group.id)}
-                  className="flex w-full items-center justify-between gap-1 rounded-md px-1 py-1.5 text-left text-[11px] font-semibold uppercase tracking-[0.12em] text-[#888888] transition-colors hover:bg-white/[0.03] hover:text-[#f0f0f0]"
-                  aria-expanded={open}
-                >
-                  <span className="min-w-0 leading-snug">{group.title}</span>
-                  <ChevronDown
-                    className={cn("h-4 w-4 shrink-0 text-[#555555] transition-transform", open ? "rotate-0" : "-rotate-90")}
-                    aria-hidden
-                  />
-                </button>
-                {open ? <div className="mt-0.5 space-y-0.5 pb-1">{group.items.map(renderLink)}</div> : null}
-              </div>
-            );
-          })}
+    <div className="flex min-h-screen bg-bg text-ink">
+      {/* Desktop sidebar (≥1024px) */}
+      <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col border-r border-border bg-surface px-3 py-4 lg:flex">
+        {brand(false)}
+        {searchButton(false)}
+        <nav aria-label="Main" className="mt-4 min-h-0 flex-1 overflow-y-auto">
+          {navBody(false)}
         </nav>
-        <Link
-          className="mt-4 text-left text-xs text-[#888888] transition-colors duration-200 hover:text-[#f0f0f0]"
-          href="/pricing"
-          onClick={closeMobile}
-        >
-          Pricing
-        </Link>
-        <button
-          className="mt-4 text-left text-xs text-[#888888] transition-colors duration-200 hover:text-[#f0f0f0]"
-          onClick={() => {
-            closeMobile();
-            void signOut({ callbackUrl: "/login" });
-          }}
-          type="button"
-        >
-          Log out
-        </button>
-        <p className="mt-6 text-[10px] text-[#555555]">Shortcuts: C, I, T</p>
+        {footer(false)}
+      </aside>
+
+      {/* Tablet icon rail (768–1023px) */}
+      <aside className="sticky top-0 hidden h-screen w-16 shrink-0 flex-col border-r border-border bg-surface px-2 py-4 md:flex lg:hidden">
+        {brand(true)}
+        {searchButton(true)}
+        <nav aria-label="Main" className="mt-4 min-h-0 flex-1 overflow-y-auto">
+          {navBody(true)}
+        </nav>
+        {footer(true)}
       </aside>
 
       <div className="flex min-h-screen min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-30 flex h-12 shrink-0 items-center gap-3 border-b border-[#2a2a2a] bg-[#0a0a0a]/95 px-3 backdrop-blur-md md:hidden">
+        {/* Phone top bar */}
+        <header className="sticky top-0 z-30 flex h-12 items-center justify-between border-b border-border bg-surface px-4 md:hidden">
+          <Link href="/dashboard" className="flex items-center gap-2">
+            <span className="flex h-7 w-7 items-center justify-center rounded-[var(--radius-sm)] bg-accent text-xs font-bold text-on-accent">P</span>
+            <span className="text-[15px] font-semibold">Prospect</span>
+          </Link>
           <button
             type="button"
-            className="flex h-10 w-10 items-center justify-center rounded-md text-xl text-zinc-100 transition-colors hover:bg-white/[0.06]"
-            onClick={() => setMobileOpen(true)}
-            aria-label="Open menu"
+            onClick={() => setPaletteOpen(true)}
+            className="flex h-11 w-11 items-center justify-center rounded-[var(--radius)] text-ink-2"
+            aria-label="Search"
           >
-            ☰
+            <Search className="h-5 w-5" />
           </button>
-          <span className="text-sm font-bold tracking-wide text-[#f5f5f5]">Prospect</span>
         </header>
-        <main className="min-w-0 flex-1 space-y-8 p-4 md:p-6">{children}</main>
+
+        <main className="mx-auto w-full min-w-0 max-w-[1200px] flex-1 space-y-6 px-4 pb-24 pt-4 md:px-8 md:pb-10 md:pt-8 lg:px-10">
+          {tabs ? <Tabs items={tabs.map((t) => ({ href: t.href, label: t.label, active: t.active }))} /> : null}
+          {children}
+        </main>
       </div>
+
+      {/* Phone bottom tab bar */}
+      <nav
+        aria-label="Main"
+        className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-5 border-t border-border bg-surface pb-[env(safe-area-inset-bottom)] md:hidden"
+      >
+        {MOBILE_TABS.map((t) => {
+          const Icon = t.icon;
+          const on = mobileActive === t.href;
+          return (
+            <Link
+              key={t.href}
+              href={t.href}
+              aria-current={on ? "page" : undefined}
+              className={cn("flex h-12 flex-col items-center justify-center gap-0.5 text-[11px]", on ? "font-semibold text-accent" : "text-ink-3")}
+            >
+              <Icon className="h-5 w-5" aria-hidden />
+              {t.label}
+            </Link>
+          );
+        })}
+        <button
+          type="button"
+          onClick={() => setMoreOpen(true)}
+          className={cn("flex h-12 flex-col items-center justify-center gap-0.5 text-[11px]", mobileActive === "more" ? "font-semibold text-accent" : "text-ink-3")}
+        >
+          <MoreHorizontal className="h-5 w-5" aria-hidden />
+          More
+        </button>
+      </nav>
+
+      {/* Phone "More" sheet: the full navigation */}
+      {moreOpen ? (
+        <div className="fixed inset-0 z-50 flex flex-col bg-black/40 md:hidden" onMouseDown={() => setMoreOpen(false)}>
+          <div
+            className="mt-auto max-h-[85vh] overflow-y-auto rounded-t-[var(--radius-xl)] border-t border-border bg-surface px-4 pb-[calc(16px+env(safe-area-inset-bottom))] pt-3"
+            onMouseDown={(e) => e.stopPropagation()}
+          >
+            <div className="mb-2 flex items-center justify-between">
+              <p className="section-title">Menu</p>
+              <button
+                type="button"
+                onClick={() => setMoreOpen(false)}
+                className="flex h-11 w-11 items-center justify-center text-ink-3"
+                aria-label="Close menu"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            {navBody(false, () => setMoreOpen(false))}
+            {footer(false)}
+          </div>
+        </div>
+      ) : null}
+
+      <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} role={role} />
     </div>
   );
 }

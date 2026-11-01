@@ -71,12 +71,12 @@ export function DebriefsView() {
     <div className="space-y-4">
       <div>
         <h1 className="page-title">Interview debriefs</h1>
-        <p className="mt-1 text-sm text-zinc-400">
-          <span className="text-[#c9a84c]">PRIVATE</span> to your account
+        <p className="mt-1 text-sm text-ink-2">
+          <span className="text-accent">PRIVATE</span> to your account
         </p>
       </div>
-      <Card className="space-y-2 border-zinc-800 bg-zinc-900/50 p-4">
-        <p className="font-medium text-zinc-200">Log interview</p>
+      <Card className="space-y-2 border-border bg-surface p-4">
+        <p className="font-medium text-ink">Log interview</p>
         <div className="grid gap-2 sm:grid-cols-2">
           <Input placeholder="Firm" value={form.firmName} onChange={(e) => setForm((f) => ({ ...f, firmName: e.target.value }))} />
           <Input placeholder="Round" value={form.round} onChange={(e) => setForm((f) => ({ ...f, round: e.target.value }))} />
@@ -90,15 +90,15 @@ export function DebriefsView() {
           </Button>
         </div>
         {questions.length ? (
-          <ul className="list-inside list-disc text-sm text-zinc-400">
+          <ul className="list-inside list-disc text-sm text-ink-2">
             {questions.map((q) => (
               <li key={q}>{q}</li>
             ))}
           </ul>
         ) : null}
-        <textarea className="min-h-[60px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-sm" placeholder="Your answers" value={form.myAnswers} onChange={(e) => setForm((f) => ({ ...f, myAnswers: e.target.value }))} />
-        <textarea className="min-h-[50px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-sm" placeholder="What went well" value={form.whatWentWell} onChange={(e) => setForm((f) => ({ ...f, whatWentWell: e.target.value }))} />
-        <textarea className="min-h-[50px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-sm" placeholder="Improvements" value={form.improvements} onChange={(e) => setForm((f) => ({ ...f, improvements: e.target.value }))} />
+        <textarea className="min-h-[60px] w-full rounded border border-border-strong bg-surface p-2 text-sm" placeholder="Your answers" value={form.myAnswers} onChange={(e) => setForm((f) => ({ ...f, myAnswers: e.target.value }))} />
+        <textarea className="min-h-[50px] w-full rounded border border-border-strong bg-surface p-2 text-sm" placeholder="What went well" value={form.whatWentWell} onChange={(e) => setForm((f) => ({ ...f, whatWentWell: e.target.value }))} />
+        <textarea className="min-h-[50px] w-full rounded border border-border-strong bg-surface p-2 text-sm" placeholder="Improvements" value={form.improvements} onChange={(e) => setForm((f) => ({ ...f, improvements: e.target.value }))} />
         <Button size="sm" onClick={() => void save()}>
           Save debrief
         </Button>
@@ -108,16 +108,16 @@ export function DebriefsView() {
           AI pattern analysis
         </Button>
       </div>
-      {analysis ? <Card className="border-zinc-800 bg-zinc-900/50 p-4 text-sm text-zinc-300">{analysis}</Card> : null}
+      {analysis ? <Card className="border-border bg-surface p-4 text-sm text-ink-2">{analysis}</Card> : null}
       <div className="space-y-2">
         {rows.map((r) => (
-          <Card key={r.id} className="border-zinc-800 bg-zinc-900/40 p-3 text-sm">
-            <p className="font-medium text-[#f0f0f0]">
+          <Card key={r.id} className="border-border bg-surface p-3 text-sm">
+            <p className="font-medium text-ink">
               {r.firmName} · {r.round}
             </p>
-            <p className="text-xs text-zinc-500">{r.date}</p>
-            <p className="text-xs text-zinc-500">Outcome: {r.outcome ?? "—"}</p>
-            <ul className="mt-1 list-inside list-disc text-zinc-400">
+            <p className="text-xs text-ink-3">{r.date}</p>
+            <p className="text-xs text-ink-3">Outcome: {r.outcome ?? "—"}</p>
+            <ul className="mt-1 list-inside list-disc text-ink-2">
               {r.questionsAsked.map((q) => (
                 <li key={q}>{q}</li>
               ))}

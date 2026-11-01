@@ -46,7 +46,7 @@ export function ReportContentAction({
         type="button"
         size="sm"
         variant="ghost"
-        className="text-xs text-zinc-500 hover:text-zinc-300"
+        className="text-xs text-ink-3 hover:text-ink-2"
         onClick={(e) => {
           e.stopPropagation();
           setOpen(true);
@@ -58,15 +58,15 @@ export function ReportContentAction({
   }
 
   return (
-    <div className="mt-2 space-y-2 rounded border border-zinc-800 bg-zinc-900/50 p-2" onClick={(e) => e.stopPropagation()}>
-      <p className="text-xs text-zinc-500">Tell admins what is wrong with this content.</p>
+    <div className="mt-2 space-y-2 rounded border border-border bg-surface p-2" onClick={(e) => e.stopPropagation()}>
+      <p className="text-xs text-ink-3">Tell admins what is wrong with this content.</p>
       <textarea
-        className="min-h-[72px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-xs text-zinc-100"
+        className="min-h-[72px] w-full rounded border border-border-strong bg-surface p-2 text-xs text-ink"
         value={reason}
         onChange={(e) => setReason(e.target.value)}
         placeholder="Reason…"
       />
-      {msg ? <p className="text-xs text-amber-500">{msg}</p> : null}
+      {msg ? <p className="text-xs text-warn">{msg}</p> : null}
       <div className="flex justify-end gap-2">
         <Button type="button" size="sm" variant="ghost" onClick={(e) => { e.stopPropagation(); setOpen(false); }}>
           Cancel

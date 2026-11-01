@@ -155,23 +155,23 @@ export function AdminQuestionsPanel() {
         </Button>
       </div>
 
-      <Card className="border-amber-900/40 bg-amber-950/10 p-3">
-        <p className="text-sm font-semibold text-amber-200">Pending submissions</p>
+      <Card className="border-warn/40 bg-warn-bg p-3">
+        <p className="text-sm font-semibold text-warn">Pending submissions</p>
         <div className="mt-2 space-y-2 text-xs">
           {pending.length === 0 ? (
-            <p className="text-zinc-500">None.</p>
+            <p className="text-ink-3">None.</p>
           ) : (
             pending.map((p) => (
-              <div key={p.id} className="flex flex-wrap items-start justify-between gap-2 rounded border border-zinc-800 p-2">
+              <div key={p.id} className="flex flex-wrap items-start justify-between gap-2 rounded border border-border p-2">
                 <div className="min-w-0">
-                  <p className="font-medium text-zinc-100">{p.question}</p>
-                  <p className="mt-1 line-clamp-2 text-zinc-400">{p.answer}</p>
+                  <p className="font-medium text-ink">{p.question}</p>
+                  <p className="mt-1 line-clamp-2 text-ink-2">{p.answer}</p>
                 </div>
                 <div className="flex gap-1">
                   <Button size="sm" onClick={() => void approve(p.id)}>
                     Approve
                   </Button>
-                  <Button size="sm" variant="ghost" className="text-red-400" onClick={() => void reject(p.id)}>
+                  <Button size="sm" variant="ghost" className="text-danger" onClick={() => void reject(p.id)}>
                     Reject
                   </Button>
                 </div>
@@ -181,11 +181,11 @@ export function AdminQuestionsPanel() {
         </div>
       </Card>
 
-      <Card className="border-zinc-800 bg-zinc-900/40 p-3">
+      <Card className="border-border bg-surface p-3">
         <div className="mb-3 flex flex-wrap gap-2">
           <Input placeholder="Search…" value={q} onChange={(e) => setQ(e.target.value)} className="max-w-xs" />
           <select
-            className="rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-xs"
+            className="rounded border border-border-strong bg-surface px-2 py-1.5 text-xs"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -197,7 +197,7 @@ export function AdminQuestionsPanel() {
             ))}
           </select>
           <select
-            className="rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-xs"
+            className="rounded border border-border-strong bg-surface px-2 py-1.5 text-xs"
             value={difficulty}
             onChange={(e) => setDifficulty(e.target.value)}
           >
@@ -208,7 +208,7 @@ export function AdminQuestionsPanel() {
             ))}
           </select>
           <select
-            className="rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-xs"
+            className="rounded border border-border-strong bg-surface px-2 py-1.5 text-xs"
             value={status}
             onChange={(e) => setStatus(e.target.value)}
           >
@@ -226,7 +226,7 @@ export function AdminQuestionsPanel() {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[720px] border-collapse text-left text-[11px]">
             <thead>
-              <tr className="border-b border-zinc-800 text-[10px] uppercase text-zinc-500">
+              <tr className="border-b border-border text-[10px] uppercase text-ink-3">
                 <th className="py-2 pr-2">Question</th>
                 <th className="py-2 pr-2">Cat</th>
                 <th className="py-2 pr-2">Diff</th>
@@ -237,16 +237,16 @@ export function AdminQuestionsPanel() {
             </thead>
             <tbody>
               {rows.map((r) => (
-                <tr key={r.id} className="border-b border-zinc-800/80">
-                  <td className="max-w-xs py-2 pr-2 align-top text-zinc-200">
+                <tr key={r.id} className="border-b border-border">
+                  <td className="max-w-xs py-2 pr-2 align-top text-ink">
                     <span className="line-clamp-2">{r.question}</span>
                   </td>
-                  <td className="py-2 pr-2 align-top text-zinc-400">{r.category}</td>
-                  <td className="py-2 pr-2 align-top text-zinc-400">{r.difficulty}</td>
-                  <td className="py-2 pr-2 align-top text-zinc-400">
+                  <td className="py-2 pr-2 align-top text-ink-2">{r.category}</td>
+                  <td className="py-2 pr-2 align-top text-ink-2">{r.difficulty}</td>
+                  <td className="py-2 pr-2 align-top text-ink-2">
                     {r.mcqEligible ? `✓ ${r.lessonId ? r.lessonId.replace("-", ".") : ""}` : "—"}
                   </td>
-                  <td className="py-2 pr-2 align-top text-zinc-400">{r.status}</td>
+                  <td className="py-2 pr-2 align-top text-ink-2">{r.status}</td>
                   <td className="py-2 align-top">
                     <Button size="sm" variant="outline" onClick={() => openEdit(r)}>
                       Edit
@@ -254,7 +254,7 @@ export function AdminQuestionsPanel() {
                     <Button
                       size="sm"
                       variant="ghost"
-                      className="text-red-400"
+                      className="text-danger"
                       onClick={() =>
                         void (async () => {
                           if (!confirm("Permanently delete this question?")) return;
@@ -275,7 +275,7 @@ export function AdminQuestionsPanel() {
 
       <Modal open={bulkOpen} onClose={() => setBulkOpen(false)} title="Bulk import questions (JSON array)">
         <textarea
-          className="min-h-[200px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-xs text-zinc-100"
+          className="min-h-[200px] w-full rounded border border-border-strong bg-surface p-2 text-xs text-ink"
           value={bulkText}
           onChange={(e) => setBulkText(e.target.value)}
           placeholder='[{"question":"...","answer":"...","category":"...","difficulty":"Medium","tags":["a"]}]'
@@ -292,19 +292,19 @@ export function AdminQuestionsPanel() {
         {edit ? (
           <div className="space-y-2 text-xs">
             <textarea
-              className="min-h-[80px] w-full rounded border border-zinc-700 bg-zinc-950 p-2"
+              className="min-h-[80px] w-full rounded border border-border-strong bg-surface p-2"
               value={edit.question}
               onChange={(e) => setEdit({ ...edit, question: e.target.value })}
             />
             {edit.mcqEligible ? null : (
               <textarea
-                className="min-h-[120px] w-full rounded border border-zinc-700 bg-zinc-950 p-2"
+                className="min-h-[120px] w-full rounded border border-border-strong bg-surface p-2"
                 value={edit.answer}
                 placeholder="Flashcard answer"
                 onChange={(e) => setEdit({ ...edit, answer: e.target.value })}
               />
             )}
-            <label className="flex items-center gap-2 text-zinc-300">
+            <label className="flex items-center gap-2 text-ink-2">
               <input
                 type="checkbox"
                 checked={edit.mcqEligible}
@@ -313,8 +313,8 @@ export function AdminQuestionsPanel() {
               Multiple choice (shows in Practice and the daily drill)
             </label>
             {edit.mcqEligible ? (
-              <div className="space-y-1.5 rounded border border-zinc-800 p-2">
-                <p className="text-[10px] uppercase tracking-wide text-zinc-500">Options — select the correct one</p>
+              <div className="space-y-1.5 rounded border border-border p-2">
+                <p className="text-[10px] uppercase tracking-wide text-ink-3">Options — select the correct one</p>
                 {edit.options.map((o, i) => (
                   <div key={i} className="flex items-start gap-2">
                     <input
@@ -325,9 +325,9 @@ export function AdminQuestionsPanel() {
                       onChange={() => setEdit({ ...edit, correctIndex: i })}
                       aria-label={`Option ${"ABCD"[i]} is correct`}
                     />
-                    <span className="mt-1.5 w-3 text-zinc-500">{"ABCD"[i]}</span>
+                    <span className="mt-1.5 w-3 text-ink-3">{"ABCD"[i]}</span>
                     <textarea
-                      className="min-h-[38px] flex-1 rounded border border-zinc-700 bg-zinc-950 p-1.5"
+                      className="min-h-[38px] flex-1 rounded border border-border-strong bg-surface p-1.5"
                       value={o}
                       onChange={(e) => {
                         const options = [...edit.options];
@@ -338,7 +338,7 @@ export function AdminQuestionsPanel() {
                   </div>
                 ))}
                 <textarea
-                  className="min-h-[70px] w-full rounded border border-zinc-700 bg-zinc-950 p-2"
+                  className="min-h-[70px] w-full rounded border border-border-strong bg-surface p-2"
                   placeholder="Explanation (shown after answering)"
                   value={edit.explanation ?? ""}
                   onChange={(e) => setEdit({ ...edit, explanation: e.target.value })}
@@ -352,7 +352,7 @@ export function AdminQuestionsPanel() {
                 onChange={(e) => setEdit({ ...edit, category: e.target.value })}
               />
               <select
-                className="rounded border border-zinc-700 bg-zinc-950 px-2"
+                className="rounded border border-border-strong bg-surface px-2"
                 value={edit.difficulty}
                 onChange={(e) => setEdit({ ...edit, difficulty: e.target.value })}
               >
@@ -379,7 +379,7 @@ export function AdminQuestionsPanel() {
               }
             />
             <select
-              className="w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-2"
+              className="w-full rounded border border-border-strong bg-surface px-2 py-2"
               value={edit.status}
               onChange={(e) => setEdit({ ...edit, status: e.target.value })}
             >
@@ -390,7 +390,7 @@ export function AdminQuestionsPanel() {
               ))}
             </select>
             {editErrors.length ? (
-              <ul className="list-disc rounded border border-red-900 bg-red-950/40 p-2 pl-5 text-red-200">
+              <ul className="list-disc rounded border border-danger bg-danger-bg p-2 pl-5 text-danger">
                 {editErrors.map((e) => (
                   <li key={e}>{e}</li>
                 ))}

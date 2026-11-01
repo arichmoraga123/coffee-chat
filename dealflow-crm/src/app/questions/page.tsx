@@ -62,13 +62,13 @@ export default async function QuestionsPage({ searchParams }: { searchParams: Pr
         initialTagFilter={typeof tags === "string" ? tags.slice(0, 200) : ""}
       />
 
-      <Card className="border-zinc-800 bg-zinc-900/50 p-4">
-        <h2 className="text-sm font-semibold text-zinc-200">Weekly leaderboard</h2>
-        <p className="mb-3 text-xs text-zinc-500">Resets Monday 00:00 UTC · ranked by weekly XP</p>
+      <Card className="border-border bg-surface p-4">
+        <h2 className="text-sm font-semibold text-ink">Weekly leaderboard</h2>
+        <p className="mb-3 text-xs text-ink-3">Resets Monday 00:00 UTC · ranked by weekly XP</p>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[520px] border-collapse text-left text-xs">
             <thead>
-              <tr className="border-b border-zinc-800 text-[10px] uppercase tracking-wide text-zinc-500">
+              <tr className="border-b border-border text-[10px] uppercase tracking-wide text-ink-3">
                 <th className="py-2 pr-2">Rank</th>
                 <th className="py-2 pr-2">Name</th>
                 <th className="py-2 pr-2">Weekly XP</th>
@@ -81,15 +81,15 @@ export default async function QuestionsPage({ searchParams }: { searchParams: Pr
                 <tr
                   key={row.id}
                   className={cn(
-                    "border-b border-zinc-800/80",
-                    row.id === userId && "bg-[#4a6fa5]/10",
+                    "border-b border-border",
+                    row.id === userId && "bg-accent-tint",
                   )}
                 >
-                  <td className="py-2 pr-2 font-mono text-zinc-400">{i + 1}</td>
-                  <td className="py-2 pr-2 font-medium text-zinc-200">{row.name}</td>
-                  <td className="py-2 pr-2 font-mono text-[#c9a84c]">{row.weeklyXP}</td>
-                  <td className="py-2 pr-2 font-mono text-orange-300">{row.drillStreak}</td>
-                  <td className="py-2 font-mono text-zinc-300">{row.xp}</td>
+                  <td className="py-2 pr-2 font-mono text-ink-2">{i + 1}</td>
+                  <td className="py-2 pr-2 font-medium text-ink">{row.name}</td>
+                  <td className="py-2 pr-2 font-mono text-accent">{row.weeklyXP}</td>
+                  <td className="py-2 pr-2 font-mono text-warn">{row.drillStreak}</td>
+                  <td className="py-2 font-mono text-ink-2">{row.xp}</td>
                 </tr>
               ))}
             </tbody>

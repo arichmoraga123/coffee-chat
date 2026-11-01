@@ -35,14 +35,14 @@ type Ev = {
 };
 
 const TYPE_BG: Record<string, string> = {
-  "Apps Open": "bg-emerald-600/85",
-  "Apps Close": "bg-red-600/85",
-  "Info Session": "bg-blue-600/85",
-  "First Round": "bg-amber-500/85",
-  Superday: "bg-orange-600/85",
-  "Offer Deadline": "bg-violet-600/85",
-  "On-Cycle Start": "bg-[#4a6fa5]/85",
-  "Networking Event": "bg-zinc-600/85",
+  "Apps Open": "bg-success-bg",
+  "Apps Close": "bg-danger-bg",
+  "Info Session": "bg-info-bg",
+  "First Round": "bg-warn-bg",
+  Superday: "bg-warn-bg",
+  "Offer Deadline": "bg-info-bg",
+  "On-Cycle Start": "bg-accent-tint",
+  "Networking Event": "bg-ink-3",
 };
 
 const VERTICALS = ["all", "IB", "PE", "VC", "Real Estate", "HF", "Other"] as const;
@@ -124,22 +124,22 @@ export function RecruitingSeasonCalendarView() {
 
   return (
     <div className="space-y-4">
-      <div className="rounded-lg border border-amber-500/30 bg-amber-950/20 px-3 py-2 text-sm text-amber-100/90">
+      <div className="rounded-lg border border-warn/40 bg-warn-bg px-3 py-2 text-sm text-warn">
         Dates are crowdsourced — always verify deadlines on official firm websites before acting.
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="text-lg font-semibold text-zinc-100">Events calendar</h2>
+        <h2 className="text-lg font-semibold text-ink">Events calendar</h2>
         <Button size="sm" onClick={() => setModalOpen(true)}>
           Submit event
         </Button>
       </div>
 
       <Card className="flex flex-wrap items-end gap-3 p-3">
-        <label className="text-xs text-zinc-500">
+        <label className="text-xs text-ink-3">
           Year
           <select
-            className="mt-1 block rounded border border-white/10 bg-zinc-950 px-2 py-1.5 text-sm"
+            className="mt-1 block rounded border border-border bg-surface px-2 py-1.5 text-sm"
             value={yearFilter}
             onChange={(e) => setYearFilter(e.target.value)}
           >
@@ -150,10 +150,10 @@ export function RecruitingSeasonCalendarView() {
             ))}
           </select>
         </label>
-        <label className="text-xs text-zinc-500">
+        <label className="text-xs text-ink-3">
           Vertical
           <select
-            className="mt-1 block rounded border border-white/10 bg-zinc-950 px-2 py-1.5 text-sm"
+            className="mt-1 block rounded border border-border bg-surface px-2 py-1.5 text-sm"
             value={vertical}
             onChange={(e) => setVertical(e.target.value)}
           >
@@ -164,21 +164,21 @@ export function RecruitingSeasonCalendarView() {
             ))}
           </select>
         </label>
-        <p className="text-xs text-zinc-500">{loading ? "Loading…" : `${events.length} events`}</p>
+        <p className="text-xs text-ink-3">{loading ? "Loading…" : `${events.length} events`}</p>
       </Card>
 
       <div className="flex flex-wrap items-center gap-2">
         <Button size="sm" variant="outline" onClick={() => setCursor((c) => addMonths(c, -1))}>
           Prev
         </Button>
-        <p className="min-w-[140px] text-center text-sm font-medium text-zinc-200">{format(cursor, "MMMM yyyy")}</p>
+        <p className="min-w-[140px] text-center text-sm font-medium text-ink">{format(cursor, "MMMM yyyy")}</p>
         <Button size="sm" variant="outline" onClick={() => setCursor((c) => addMonths(c, 1))}>
           Next
         </Button>
       </div>
 
       <Card className="p-3">
-        <div className="grid grid-cols-7 gap-1 text-center text-[10px] font-semibold uppercase text-zinc-500">
+        <div className="grid grid-cols-7 gap-1 text-center text-[10px] font-semibold uppercase text-ink-3">
           {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
             <div key={d} className="py-1">
               {d}
@@ -194,19 +194,19 @@ export function RecruitingSeasonCalendarView() {
               <div
                 key={key}
                 className={cn(
-                  "min-h-[88px] rounded border border-white/10 p-1 text-left",
-                  inMonth ? "bg-black/30" : "bg-zinc-950/40 opacity-50",
-                  isSameDay(day, new Date()) && "ring-1 ring-[#4a6fa5]/50",
+                  "min-h-[88px] rounded border border-border p-1 text-left",
+                  inMonth ? "bg-black/30" : "bg-surface opacity-50",
+                  isSameDay(day, new Date()) && "ring-1 ring-accent",
                 )}
               >
-                <p className="text-[10px] font-mono text-zinc-400">{format(day, "d")}</p>
+                <p className="text-[10px] font-mono text-ink-2">{format(day, "d")}</p>
                 <div className="mt-1 space-y-0.5">
                   {items.slice(0, 3).map((it) => (
                     <div
                       key={it.id}
                       className={cn(
                         "truncate rounded px-1 py-0.5 text-[9px] text-white",
-                        TYPE_BG[it.eventType] ?? "bg-zinc-600/85",
+                        TYPE_BG[it.eventType] ?? "bg-ink-3",
                       )}
                       title={it.title}
                     >
@@ -214,7 +214,7 @@ export function RecruitingSeasonCalendarView() {
                     </div>
                   ))}
                   {items.length > 3 ? (
-                    <p className="text-[9px] text-zinc-500">+{items.length - 3}</p>
+                    <p className="text-[9px] text-ink-3">+{items.length - 3}</p>
                   ) : null}
                 </div>
               </div>
@@ -224,27 +224,27 @@ export function RecruitingSeasonCalendarView() {
       </Card>
 
       <Card className="p-3">
-        <p className="mb-2 text-sm font-semibold text-zinc-200">All loaded events</p>
+        <p className="mb-2 text-sm font-semibold text-ink">All loaded events</p>
         <div className="space-y-2 text-xs">
           {events.map((e) => (
             <div
               key={e.id}
-              className="flex flex-wrap items-start justify-between gap-2 rounded border border-white/10 px-2 py-2"
+              className="flex flex-wrap items-start justify-between gap-2 rounded border border-border px-2 py-2"
             >
               <div>
-                <p className="font-medium text-zinc-100">
+                <p className="font-medium text-ink">
                   {e.title}{" "}
                   {e.verified ? (
-                    <span className="rounded bg-emerald-500/20 px-1 text-[10px] text-emerald-300">Verified</span>
+                    <span className="rounded bg-success-bg px-1 text-[10px] text-success">Verified</span>
                   ) : null}
                 </p>
-                <p className="text-[10px] text-zinc-500">
+                <p className="text-[10px] text-ink-3">
                   {new Date(e.date).toLocaleDateString()} · {e.eventType}
                   {e.vertical ? ` · ${e.vertical}` : ""}
                   {e.firmName ? ` · ${e.firmName}` : ""}
                 </p>
                 {e.sourceUrl ? (
-                  <a href={e.sourceUrl} target="_blank" rel="noreferrer" className="text-[10px] text-[#f0f0f0] underline-offset-2 hover:underline">
+                  <a href={e.sourceUrl} target="_blank" rel="noreferrer" className="text-[10px] text-ink underline-offset-2 hover:underline">
                     Source
                   </a>
                 ) : null}
@@ -255,8 +255,8 @@ export function RecruitingSeasonCalendarView() {
                   className={cn(
                     "rounded border px-2 py-1 text-[10px]",
                     e.userVoted
-                      ? "border-[#4a6fa5]/50 bg-[#4a6fa5]/10 text-[#e8e8e8]"
-                      : "border-white/10 text-zinc-400",
+                      ? "border-accent bg-accent-tint text-ink"
+                      : "border-border text-ink-2",
                   )}
                   onClick={() => void vote(e.id)}
                 >
@@ -265,7 +265,7 @@ export function RecruitingSeasonCalendarView() {
               </div>
             </div>
           ))}
-          {!loading && events.length === 0 ? <p className="text-zinc-500">No events for these filters.</p> : null}
+          {!loading && events.length === 0 ? <p className="text-ink-3">No events for these filters.</p> : null}
         </div>
       </Card>
 
@@ -275,7 +275,7 @@ export function RecruitingSeasonCalendarView() {
           <Input placeholder="Firm (optional)" value={form.firmName} onChange={(e) => setForm((f) => ({ ...f, firmName: e.target.value }))} />
           <Input placeholder="Vertical e.g. IB" value={form.vertical} onChange={(e) => setForm((f) => ({ ...f, vertical: e.target.value }))} />
           <select
-            className="rounded border border-white/10 bg-zinc-950 px-2 py-2"
+            className="rounded border border-border bg-surface px-2 py-2"
             value={form.eventType}
             onChange={(e) => setForm((f) => ({ ...f, eventType: e.target.value }))}
           >
@@ -294,7 +294,7 @@ export function RecruitingSeasonCalendarView() {
           />
           <Input placeholder="Source URL" value={form.sourceUrl} onChange={(e) => setForm((f) => ({ ...f, sourceUrl: e.target.value }))} />
           <textarea
-            className="min-h-[60px] w-full rounded border border-white/10 bg-zinc-950 p-2 text-sm"
+            className="min-h-[60px] w-full rounded border border-border bg-surface p-2 text-sm"
             placeholder="Notes"
             value={form.notes}
             onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))}

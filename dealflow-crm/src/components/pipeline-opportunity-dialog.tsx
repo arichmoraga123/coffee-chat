@@ -173,9 +173,9 @@ export function PipelineOpportunityDialog({ open, onClose, firms, editing }: Pro
     >
       <div className="space-y-3 text-sm">
         <div>
-          <label className="mb-1 block text-xs text-zinc-500">Firm</label>
+          <label className="mb-1 block text-xs text-ink-3">Firm</label>
           <select
-            className="w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-zinc-100"
+            className="w-full rounded border border-border-strong bg-surface px-2 py-2 text-ink"
             value={usingNewFirm ? NEW_FIRM : firmChoice}
             onChange={(e) => setFirmChoice(e.target.value)}
           >
@@ -194,9 +194,9 @@ export function PipelineOpportunityDialog({ open, onClose, firms, editing }: Pro
                 value={newFirmName}
                 onChange={(e) => setNewFirmName(e.target.value)}
               />
-              <label className="mt-2 block text-xs text-zinc-500">Firm type</label>
+              <label className="mt-2 block text-xs text-ink-3">Firm type</label>
               <select
-                className="mt-1 w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-zinc-100"
+                className="mt-1 w-full rounded border border-border-strong bg-surface px-2 py-2 text-ink"
                 value={newFirmType}
                 onChange={(e) => setNewFirmType((e.target.value || "") as FirmType | "")}
               >
@@ -211,9 +211,9 @@ export function PipelineOpportunityDialog({ open, onClose, firms, editing }: Pro
           )}
         </div>
         <div>
-          <label className="mb-1 block text-xs text-zinc-500">Role</label>
+          <label className="mb-1 block text-xs text-ink-3">Role</label>
           <select
-            className="w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-zinc-100"
+            className="w-full rounded border border-border-strong bg-surface px-2 py-2 text-ink"
             value={role}
             onChange={(e) => setRole(e.target.value)}
           >
@@ -229,11 +229,11 @@ export function PipelineOpportunityDialog({ open, onClose, firms, editing }: Pro
           </select>
         </div>
         <div>
-          <label className="mb-1 block text-xs text-zinc-500">Application deadline</label>
+          <label className="mb-1 block text-xs text-ink-3">Application deadline</label>
           <Input type="date" value={deadline} onChange={(e) => setDeadline(e.target.value)} />
         </div>
         <div>
-          <label className="mb-1 block text-xs text-zinc-500">Contact name (optional)</label>
+          <label className="mb-1 block text-xs text-ink-3">Contact name (optional)</label>
           <Input
             placeholder="e.g. recruiter you spoke with"
             value={contactName}
@@ -241,17 +241,17 @@ export function PipelineOpportunityDialog({ open, onClose, firms, editing }: Pro
           />
         </div>
         <div>
-          <label className="mb-1 block text-xs text-zinc-500">Notes (optional)</label>
+          <label className="mb-1 block text-xs text-ink-3">Notes (optional)</label>
           <textarea
-            className="min-h-[72px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-zinc-100"
+            className="min-h-[72px] w-full rounded border border-border-strong bg-surface p-2 text-ink"
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
           />
         </div>
         <div>
-          <label className="mb-1 block text-xs text-zinc-500">Stage</label>
+          <label className="mb-1 block text-xs text-ink-3">Stage</label>
           <select
-            className="w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-zinc-100"
+            className="w-full rounded border border-border-strong bg-surface px-2 py-2 text-ink"
             value={stage}
             onChange={(e) => setStage(e.target.value as (typeof PIPELINE_STAGES)[number])}
           >
@@ -262,7 +262,7 @@ export function PipelineOpportunityDialog({ open, onClose, firms, editing }: Pro
             ))}
           </select>
         </div>
-        {error && <p className="text-xs text-red-400">{error}</p>}
+        {error && <p className="text-xs text-danger">{error}</p>}
         <div className="flex justify-end gap-2 pt-1">
           <Button type="button" variant="outline" size="sm" onClick={onClose} disabled={busy}>
             Cancel

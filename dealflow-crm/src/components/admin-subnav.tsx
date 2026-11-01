@@ -26,17 +26,17 @@ export function AdminSubnav({
 }) {
   const pathname = usePathname();
   return (
-    <nav className="flex flex-wrap gap-1 text-sm">
+    <nav aria-label="Admin" className="-mb-px flex gap-6 overflow-x-auto border-b border-border text-sm">
       {links.filter((l) => isAdmin || !l.adminOnly).map(({ href, label, exact, adminOnly: _adminOnly, ...rest }) => {
         const active = exact ? pathname === href : pathname.startsWith(href);
         const badge =
           "showDraftBadge" in rest && rest.showDraftBadge && draftDealCount > 0 ? (
-            <span className="ml-1.5 rounded-full bg-amber-500/25 px-2 py-0.5 text-[10px] font-medium text-amber-200">
-              {draftDealCount} drafts pending
+            <span className="ml-1.5 rounded bg-warn-bg px-1.5 py-0.5 text-[11px] font-semibold text-warn">
+              {draftDealCount} drafts
             </span>
           ) : "showMentorBadge" in rest && rest.showMentorBadge && openMentorQuestions > 0 ? (
-            <span className="ml-1.5 rounded-full bg-sky-500/25 px-2 py-0.5 text-[10px] font-medium text-sky-200">
-              {openMentorQuestions} open
+            <span className="ml-1.5 rounded-full bg-accent px-1.5 text-[11px] font-semibold text-on-accent">
+              {openMentorQuestions}
             </span>
           ) : null;
         return (
@@ -44,8 +44,8 @@ export function AdminSubnav({
             key={href}
             href={href}
             className={cn(
-              "inline-flex items-center rounded px-3 py-1.5 transition-colors",
-              active ? "bg-white/[0.06] text-[#f5f5f5]" : "text-[#888888] hover:bg-[#161616] hover:text-[#f0f0f0]",
+              "-mb-px inline-flex shrink-0 items-center border-b-2 px-0.5 pb-2.5 pt-1 transition-colors",
+              active ? "border-accent font-semibold text-accent" : "border-transparent text-ink-2 hover:text-ink",
             )}
           >
             {label}

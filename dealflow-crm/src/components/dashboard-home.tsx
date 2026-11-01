@@ -1,162 +1,340 @@
-import { startOfWeek, isAfter, subDays } from "date-fns";
 import Link from "next/link";
+import { addDays, format } from "date-fns";
 import { prisma } from "@/lib/prisma";
-import { Card } from "@/components/ui/card";
-import { STAGE_LABELS } from "@/lib/constants";
 import { requireUserId } from "@/lib/auth";
-import { getFollowUpSteps, getFollowUpStatus } from "@/lib/follow-up";
-import { DashboardDailyDrill } from "@/components/dashboard-daily-drill";
+import { STAGE_LABELS } from "@/lib/constants";
+import { getFollowUpSteps } from "@/lib/follow-up";
+import { modules } from "@/lib/learn/lessons";
+import { isGraded } from "@/lib/learn/schema";
+import { utcDay, DAILY_SET_SIZE } from "@/lib/mcq/server";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { ProgressBar } from "@/components/ui/progress-bar";
+import { Accordion } from "@/components/ui/accordion";
+import { DataTable, Td, Th } from "@/components/ui/data-table";
 import { DashboardNewsFeed } from "@/components/dashboard-news-feed";
-import { DashboardRecruitingCountdown } from "@/components/dashboard-recruiting-countdown";
-import { calendarVerticalsFromProfile } from "@/lib/recruiting-calendar-utils";
 import { OnboardingWizard } from "@/components/onboarding-wizard";
+import { Greeting } from "@/components/home/greeting";
 import { cn } from "@/lib/utils";
-import { getPrimaryTrack, getRelevantCategories } from "@/lib/track-utils";
-import { PROGRAMS_2028, programWindow } from "@/lib/recruiting-programs-2028";
+
+const PIPELINE_ORDER = ["TARGET", "NETWORKING", "APPLIED", "FIRST_ROUND", "TECHNICAL", "SUPERDAY", "OFFER"] as const;
+
+const daysText = (n: number) => (n > 0 ? `Active ${n} day${n === 1 ? "" : "s"} in a row` : "Start a run today");
 
 export async function DashboardHome() {
   const userId = await requireUserId();
-  const weekStart = startOfWeek(new Date(), { weekStartsOn: 1 });
-  const user = await prisma.user.findUnique({
-    where: { id: userId },
-    select: {
-      onboardingDone: true,
-      drillStreak: true,
-      xp: true,
-      weeklyXP: true,
-      name: true,
-      recruitingTarget: true,
-      careerTracks: true,
-    },
-  });
-  const coldThreshold = subDays(new Date(), 45);
-  const [knownCount, contactsThisWeek, contactsForFollowUps, recruitingEvents, coffeeInteractions, pipeline, coldContacts, trackProgressRows] =
-    await Promise.all([
-      prisma.userQuestionProgress.count({ where: { userId, status: "known" } }),
-      prisma.contact.count({ where: { userId, createdAt: { gte: weekStart } } }),
-      prisma.contact.findMany({ where: { userId }, select: { id: true, fullName: true, lastInteractionDate: true } }),
-      prisma.recruitingEvent.findMany({ where: { userId, date: { gte: new Date() } }, orderBy: { date: "asc" }, take: 12 }),
-      prisma.interaction.findMany({
-        where: { userId, type: "COFFEE_CHAT" },
-        orderBy: { date: "asc" },
-        take: 30,
-        include: { contact: { select: { fullName: true } } },
-      }),
-      prisma.opportunity.groupBy({ by: ["stage"], where: { userId }, _count: { _all: true } }),
-      prisma.contact.findMany({
-        where: {
-          userId,
-          warmthScore: { in: ["HOT", "ADVOCATE"] },
-          OR: [{ lastInteractionDate: null }, { lastInteractionDate: { lt: coldThreshold } }],
-        },
-        select: { id: true, fullName: true, lastInteractionDate: true, warmthScore: true },
-        orderBy: { lastInteractionDate: "asc" },
-        take: 10,
-      }),
-      prisma.userQuestionProgress.findMany({
-        where: { userId },
-        select: { status: true, question: { select: { category: true } } },
-      }),
-    ]);
-  const relevantCats = getRelevantCategories(user?.careerTracks ?? []);
-  const relevantRows = trackProgressRows.filter((row) => relevantCats.includes(row.question.category));
-  const trackKnown = relevantRows.filter((row) => row.status === "known").length;
-  const trackPct = relevantRows.length ? Math.round((trackKnown / relevantRows.length) * 100) : 0;
-  const primaryTrack = getPrimaryTrack(user?.careerTracks ?? []);
-  const followUpAlerts = contactsForFollowUps
-    .flatMap((contact) => {
-      if (!contact.lastInteractionDate) return [];
-      const status = getFollowUpStatus(contact.lastInteractionDate);
-      return getFollowUpSteps(contact.lastInteractionDate).map((step) => ({
-        contactId: contact.id,
-        contactName: contact.fullName,
-        label: step.label,
-        dueAt: step.dueAt,
-        isOverdue: step.isOverdue,
-        status,
-      }));
-    })
-    .sort((a, b) => {
-      if (a.isOverdue && !b.isOverdue) return -1;
-      if (!a.isOverdue && b.isOverdue) return 1;
-      return a.dueAt.getTime() - b.dueAt.getTime();
-    })
-    .slice(0, 12);
+  const today = utcDay();
   const now = new Date();
-  const upcomingItems = [
-    ...recruitingEvents.map((e) => ({ key: `e-${e.id}`, title: e.title, date: e.date, kind: e.type as string })),
-    ...coffeeInteractions
-      .filter((i) => !isAfter(now, i.date))
-      .map((i) => ({ key: `c-${i.id}`, title: `Coffee · ${i.contact.fullName}`, date: i.date, kind: "coffee_chat" })),
+  const weekOut = addDays(now, 7);
+
+  const [user, lessonRows, attempts, drillLog, dailySet, pipeline, events, coffee, contacts, membership] = await Promise.all([
+    prisma.user.findUnique({
+      where: { id: userId },
+      select: { onboardingDone: true, drillStreak: true, weeklyXP: true, name: true },
+    }),
+    prisma.lessonProgress.findMany({
+      where: { userId },
+      select: { lessonId: true, status: true, blockState: true, updatedAt: true },
+    }),
+    prisma.questionAttempt.findMany({
+      where: { userId, question: { mcqEligible: true } },
+      select: { correct: true, question: { select: { lessonId: true } } },
+    }),
+    prisma.dailyDrillLog.findUnique({ where: { userId_date: { userId, date: today } }, select: { correct: true, questionsAnswered: true } }),
+    prisma.dailyQuestionSet.findUnique({ where: { userId_date: { userId, date: today } }, select: { questionIds: true } }),
+    prisma.opportunity.groupBy({ by: ["stage"], where: { userId }, _count: { _all: true } }),
+    prisma.recruitingEvent.findMany({
+      where: { userId, date: { gte: now, lte: weekOut } },
+      orderBy: { date: "asc" },
+      take: 6,
+      select: { id: true, title: true, date: true },
+    }),
+    prisma.interaction.findMany({
+      where: { userId, type: "COFFEE_CHAT", date: { gte: now, lte: weekOut } },
+      orderBy: { date: "asc" },
+      take: 6,
+      select: { id: true, date: true, contact: { select: { fullName: true } } },
+    }),
+    prisma.contact.findMany({ where: { userId, lastInteractionDate: { not: null } }, select: { id: true, fullName: true, lastInteractionDate: true } }),
+    prisma.clubMember.findFirst({ where: { userId, active: true, club: { name: "PE@Broad" } }, select: { clubId: true } }),
+  ]);
+
+  /* Learning progress by module */
+  const groups = modules();
+  const progress = new Map(lessonRows.map((r) => [r.lessonId, r]));
+  const accByModule = new Map<number, { right: number; total: number }>();
+  const accByLesson = new Map<string, { right: number; total: number }>();
+  for (const a of attempts) {
+    const l = a.question.lessonId;
+    if (!l) continue;
+    const m = Number(l.split("-")[0]);
+    const sm = accByModule.get(m) ?? { right: 0, total: 0 };
+    const sl = accByLesson.get(l) ?? { right: 0, total: 0 };
+    sm.total++;
+    sl.total++;
+    if (a.correct) {
+      sm.right++;
+      sl.right++;
+    }
+    accByModule.set(m, sm);
+    accByLesson.set(l, sl);
+  }
+  const moduleRows = groups.map((g) => {
+    const done = g.lessons.filter((l) => progress.get(l.id)?.status === "completed").length;
+    const acc = accByModule.get(g.module);
+    return { module: g.module, title: g.title, done, total: g.lessons.length, accuracy: acc && acc.total >= 3 ? Math.round((acc.right / acc.total) * 100) : null };
+  });
+  const focusModule = moduleRows.filter((r) => r.accuracy !== null).sort((a, b) => (a.accuracy ?? 0) - (b.accuracy ?? 0))[0]?.module ?? null;
+
+  /* Continue learning: most recently touched unfinished lesson, else the first unstarted one */
+  const flat = groups.flatMap((g) => g.lessons);
+  const inProgress = lessonRows
+    .filter((r) => r.status !== "completed")
+    .sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime())
+    .map((r) => flat.find((l) => l.id === r.lessonId))
+    .find(Boolean);
+  const nextLesson = inProgress ?? flat.find((l) => progress.get(l.id)?.status !== "completed") ?? null;
+  let lessonPct = 0;
+  if (nextLesson) {
+    const tracked = nextLesson.blocks.filter((b) => isGraded(b) || b.type === "stepThrough" || b.type === "checkpoint");
+    const state = (progress.get(nextLesson.id)?.blockState ?? {}) as Record<string, { done?: boolean }>;
+    lessonPct = tracked.length ? Math.round((tracked.filter((b) => state[b.id]?.done).length / tracked.length) * 100) : 0;
+  }
+
+  /* Daily set */
+  const weakest = [...accByLesson.entries()]
+    .filter(([, s]) => s.total >= 2)
+    .sort((a, b) => a[1].right / a[1].total - b[1].right / b[1].total)
+    .slice(0, 2)
+    .map(([id]) => flat.find((l) => l.id === id)?.title)
+    .filter(Boolean) as string[];
+  let dailyLeft = DAILY_SET_SIZE;
+  if (drillLog) dailyLeft = 0;
+  else if (dailySet) {
+    const answered = await prisma.questionAttempt.count({
+      where: { userId, context: "drill", questionId: { in: dailySet.questionIds }, createdAt: { gte: new Date(`${today}T00:00:00Z`) } },
+    });
+    dailyLeft = Math.max(0, dailySet.questionIds.length - answered);
+  }
+
+  /* This week */
+  const calls = [
+    ...events.map((e) => ({ key: `e-${e.id}`, title: e.title, date: e.date })),
+    ...coffee.map((c) => ({ key: `c-${c.id}`, title: `Coffee chat · ${c.contact.fullName}`, date: c.date })),
   ]
     .sort((a, b) => a.date.getTime() - b.date.getTime())
+    .slice(0, 4);
+  const overdue = contacts
+    .flatMap((c) =>
+      getFollowUpSteps(c.lastInteractionDate as Date)
+        .filter((s) => s.isOverdue)
+        .slice(0, 1)
+        .map((s) => ({ key: `${c.id}-${s.label}`, id: c.id, name: c.fullName, label: s.label })),
+    )
     .slice(0, 3);
-  const statusStyles: Record<string, string> = {
-    red: "border-l-[3px] border-[#c9a84c] bg-[#141414] shadow-[inset_3px_0_0_0_rgba(201,168,76,0.35)]",
-    yellow: "border-l-[3px] border-[#c9a84c]/70 bg-[#141414] shadow-[inset_3px_0_0_0_rgba(201,168,76,0.2)]",
-    green: "border-l-[3px] border-[#c9a84c]/45 bg-[#141414] shadow-[inset_3px_0_0_0_rgba(201,168,76,0.12)]",
-  };
-  const statusText: Record<string, string> = {
-    red: "font-medium text-[#c9a84c]",
-    yellow: "font-medium text-[#c9a84c]/90",
-    green: "font-medium text-[#a8904a]",
-  };
-  const todayIso = new Date().toISOString().slice(0, 10);
-  const openPrograms = PROGRAMS_2028.filter((p) => programWindow(p, todayIso) === "open").length;
+
+  /* PE@Broad standings: weekly points among active members */
+  let standings: { userId: string; name: string; points: number; rank: number }[] = [];
+  let myStanding: (typeof standings)[number] | null = null;
+  if (membership) {
+    const members = await prisma.clubMember.findMany({
+      where: { clubId: membership.clubId, active: true },
+      select: { user: { select: { id: true, name: true, weeklyXP: true } } },
+    });
+    const ranked = members
+      .map((m) => ({ userId: m.user.id, name: m.user.name, points: m.user.weeklyXP }))
+      .sort((a, b) => b.points - a.points)
+      .map((r, i) => ({ ...r, rank: i + 1 }));
+    standings = ranked.slice(0, 3);
+    myStanding = ranked.find((r) => r.userId === userId) ?? null;
+  }
+
+  const stageCount = new Map(pipeline.map((p) => [p.stage, p._count._all]));
+  const firstName = (user?.name ?? "").split(" ")[0] || "there";
+
   return (
-    <div className="min-h-0 space-y-8 text-[#f0f0f0]">
+    <div className="space-y-6">
       {!user?.onboardingDone ? <OnboardingWizard /> : null}
-      <div className="flex flex-wrap items-end justify-between gap-4 border-b border-[#2a2a2a] pb-4">
-        <div className="space-y-1">
-          <h1 className="page-title">Command center</h1>
-          <p className="text-[11px] uppercase tracking-[0.18em] text-[#888888]">Recruiting hub · {user?.name ?? "Analyst"}</p>
+
+      <header className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p className="text-[13px] text-ink-3">{format(now, "EEEE, MMMM d")}</p>
+          <h1 className="page-title mt-1">
+            <Greeting /> {firstName}
+          </h1>
         </div>
-        <div className="flex flex-wrap gap-3 text-right font-mono text-[11px] text-[#888888]">
-          <span>STRK <span className="text-[#c9a84c]">{user?.drillStreak ?? 0}</span></span>
-          <span>XP <span className="text-[#f5f5f5]">{user?.xp ?? 0}</span></span>
-          <span>WXP <span className="text-[#4a6fa5]">{user?.weeklyXP ?? 0}</span></span>
+        <div className="flex flex-wrap gap-2">
+          <Button variant="secondary" asChild>
+            <Link href="/contacts">Log a contact</Link>
+          </Button>
+          {dailyLeft > 0 ? (
+            <Button variant="primary" asChild>
+              <Link href="/practice/daily">Start daily set</Link>
+            </Button>
+          ) : null}
+        </div>
+      </header>
+
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-4 lg:grid-cols-3">
+        <Card title="Daily set" action={<Link href="/practice" className="text-accent hover:underline">Practice</Link>}>
+          {dailyLeft > 0 ? (
+            <>
+              <p className="text-sm text-ink">
+                {dailyLeft === DAILY_SET_SIZE ? `${DAILY_SET_SIZE} questions` : `${dailyLeft} of ${DAILY_SET_SIZE} left`} · about{" "}
+                {Math.max(2, Math.round(dailyLeft * 1.2))} minutes
+              </p>
+              <p className="mt-1 text-[13px] text-ink-3">
+                {weakest.length ? `Focus: ${weakest.join(", ")}` : "Reviews first, then your weakest lessons"}
+              </p>
+              <Button variant="primary" className="mt-4 h-11 w-full sm:h-9 sm:w-auto" asChild>
+                <Link href="/practice/daily">{dailyLeft === DAILY_SET_SIZE ? "Start" : "Resume"}</Link>
+              </Button>
+            </>
+          ) : (
+            <>
+              <p className="text-sm text-ink">
+                Done for today{drillLog ? ` · ${drillLog.correct}/${drillLog.questionsAnswered} correct` : ""}
+              </p>
+              <p className="mt-1 text-[13px] text-ink-3">A new set is ready tomorrow.</p>
+            </>
+          )}
+          <p className="mt-4 text-[13px] text-ink-3">{daysText(user?.drillStreak ?? 0)}</p>
+        </Card>
+
+        <Card title="Continue learning" action={<Link href="/learn" className="text-accent hover:underline">All lessons</Link>}>
+          {nextLesson ? (
+            <>
+              <p className="text-[13px] text-ink-3">
+                Module {nextLesson.module} · {nextLesson.moduleTitle}
+              </p>
+              <p className="mt-1 font-medium text-ink">
+                {nextLesson.id.replace("-", ".")} {nextLesson.title}
+              </p>
+              <ProgressBar value={lessonPct} className="mt-3" label={`${lessonPct}%`} />
+              <Button variant="secondary" className="mt-4" asChild>
+                <Link href={`/learn/${nextLesson.id}`}>{lessonPct > 0 ? "Resume lesson" : "Start lesson"}</Link>
+              </Button>
+            </>
+          ) : (
+            <p className="text-sm text-ink-2">You&apos;ve finished every lesson.</p>
+          )}
+        </Card>
+
+        <Card title="This week" action={<Link href="/calendar" className="text-accent hover:underline">Calendar</Link>}>
+          {calls.length === 0 && overdue.length === 0 ? (
+            <p className="text-sm text-ink-3">Nothing scheduled in the next 7 days.</p>
+          ) : (
+            <ul className="space-y-2.5 text-sm">
+              {calls.map((c) => (
+                <li key={c.key} className="flex items-baseline justify-between gap-3">
+                  <span className="min-w-0 text-ink [overflow-wrap:anywhere]">{c.title}</span>
+                  <span className="shrink-0 text-[13px] text-ink-3">{format(c.date, "EEE h:mm a")}</span>
+                </li>
+              ))}
+              {overdue.map((o) => (
+                <li key={o.key}>
+                  <Link href={`/contacts/${o.id}`} className="flex items-baseline justify-between gap-3 hover:underline">
+                    <span className="min-w-0 text-warn">Follow up · {o.name}</span>
+                    <span className="shrink-0 text-[13px] text-warn">Overdue</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </Card>
+      </div>
+
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-4 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
+        <section className="space-y-3">
+          <div className="flex items-center justify-between">
+            <h2 className="section-title">Learning progress</h2>
+            <Link href="/learn" className="text-[13px] text-accent hover:underline">
+              Lessons
+            </Link>
+          </div>
+          <DataTable minWidth={520}>
+            <thead>
+              <tr>
+                <Th>Module</Th>
+                <Th className="text-right">Lessons</Th>
+                <Th className="text-right">Accuracy</Th>
+                <Th className="w-[30%]">Progress</Th>
+              </tr>
+            </thead>
+            <tbody>
+              {moduleRows.map((r) => (
+                <tr key={r.module}>
+                  <Td>
+                    <span className="text-ink-3">{r.module}.</span> {r.title}
+                    {r.module === focusModule ? (
+                      <Badge tone="warn" className="ml-2">
+                        Focus
+                      </Badge>
+                    ) : null}
+                  </Td>
+                  <Td className="text-right text-ink-2">
+                    {r.done}/{r.total}
+                  </Td>
+                  <Td className={cn("text-right", r.accuracy === null ? "text-ink-3" : "text-ink-2")}>
+                    {r.accuracy === null ? "—" : `${r.accuracy}%`}
+                  </Td>
+                  <Td>
+                    <ProgressBar value={r.done} max={r.total} size="sm" />
+                  </Td>
+                </tr>
+              ))}
+            </tbody>
+          </DataTable>
+        </section>
+
+        <div className="space-y-4">
+          {membership ? (
+            <Card title="PE@Broad standings" action={<Link href="/club/members" className="text-accent hover:underline">Club</Link>}>
+              <p className="-mt-2 mb-3 text-[13px] text-ink-3">Points this week</p>
+              <ol className="divide-y divide-divider text-sm">
+                {standings.map((s) => (
+                  <li key={s.userId} className={cn("flex items-center gap-3 py-2", s.userId === userId && "-mx-2 rounded bg-accent-tint px-2")}>
+                    <span className="w-5 text-ink-3">{s.rank}</span>
+                    <span className="min-w-0 flex-1 truncate text-ink">{s.name}</span>
+                    <span className="text-ink-2">{s.points}</span>
+                  </li>
+                ))}
+                {myStanding && myStanding.rank > 3 ? (
+                  <li className="-mx-2 flex items-center gap-3 rounded bg-accent-tint px-2 py-2">
+                    <span className="w-5 text-ink-3">{myStanding.rank}</span>
+                    <span className="min-w-0 flex-1 truncate font-medium text-ink">You</span>
+                    <span className="text-ink-2">{myStanding.points}</span>
+                  </li>
+                ) : null}
+              </ol>
+            </Card>
+          ) : null}
+          <Accordion title="Market news">
+            <DashboardNewsFeed />
+          </Accordion>
         </div>
       </div>
-      <div className="grid gap-3 sm:grid-cols-3">
-        <Link
-          href="/roadmap"
-          className="rounded-xl border border-[#4a6fa5]/40 bg-[#4a6fa5]/10 p-3 transition hover:border-[#4a6fa5]/70"
-        >
-          <p className="text-[11px] uppercase tracking-[0.16em] text-[#a8c0e6]">Start here</p>
-          <p className="mt-1 text-sm font-semibold text-zinc-100">Recruiting roadmap</p>
-          <p className="text-xs text-zinc-400">What to do this month for your class year</p>
-        </Link>
-        <Link
-          href="/recruiting-calendar"
-          className="rounded-xl border border-emerald-700/40 bg-emerald-950/20 p-3 transition hover:border-emerald-600/70"
-        >
-          <p className="text-[11px] uppercase tracking-[0.16em] text-emerald-300">Applications</p>
-          <p className="mt-1 text-sm font-semibold text-zinc-100">{openPrograms} programs open now</p>
-          <p className="text-xs text-zinc-400">Summer 2028 tracker with deadlines</p>
-        </Link>
-        <Link
-          href="/deals"
-          className="rounded-xl border border-amber-700/40 bg-amber-950/20 p-3 transition hover:border-amber-600/70"
-        >
-          <p className="text-[11px] uppercase tracking-[0.16em] text-amber-300">Deals</p>
-          <p className="mt-1 text-sm font-semibold text-zinc-100">Prep &ldquo;tell me about a deal&rdquo;</p>
-          <p className="text-xs text-zinc-400">Real transactions, updated daily</p>
-        </Link>
-      </div>
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
-        <div className="space-y-6">
-          <DashboardDailyDrill initialStreak={user?.drillStreak ?? 0} initialXp={user?.xp ?? 0} initialWeeklyXp={user?.weeklyXP ?? 0} />
-          <DashboardNewsFeed />
+
+      <section className="space-y-3">
+        <div className="flex items-center justify-between">
+          <h2 className="section-title">Recruiting pipeline</h2>
+          <Link href="/pipeline" className="text-[13px] text-accent hover:underline">
+            Open pipeline
+          </Link>
         </div>
-        <div className="space-y-6">
-          <Card className="p-3"><p className="section-label">Follow-up radar</p><div className="mt-3 max-h-[220px] space-y-2 overflow-y-auto pr-1 text-[11px]">{followUpAlerts.length===0?<p className="text-sm text-[#888888]">No touchpoints yet. Log coffee chats to populate.</p>:followUpAlerts.map((alert)=><div key={`${alert.contactId}-${alert.label}`} className={cn("rounded-r-md border border-[#2a2a2a] py-2 pl-2.5 pr-2",statusStyles[alert.status])}><p className="font-semibold text-[#f0f0f0]">{alert.contactName}</p><p className={cn("text-xs",alert.status==="green"?statusText.green:alert.status==="red"||alert.isOverdue?statusText.red:statusText.yellow)}>{alert.label}</p><p className="text-[10px] text-[#888888]">Due {alert.dueAt.toLocaleDateString()} · {alert.status.toUpperCase()}</p></div>)}</div></Card>
-          <Card className="p-3"><p className="section-label">Cold contacts</p><p className="mt-0.5 text-[10px] text-[#888888]">HOT / ADVOCATE with no touch in 45+ days — high-value relationships slipping.</p><div className="mt-2 max-h-[180px] space-y-1.5 overflow-y-auto pr-1 text-[11px]">{coldContacts.length===0?<p className="text-[#888888]">None right now.</p>:coldContacts.map((c)=><Link key={c.id} href={`/contacts/${c.id}`} className="block rounded-md border border-[#2a2a2a] bg-[#141414] px-2 py-1.5 transition-all hover:border-[#c9a84c]/35 hover:bg-[#1a1a1a]"><p className="font-semibold text-[#f0f0f0]">{c.fullName}</p><p className="text-[10px] text-[#888888]">{c.warmthScore} · {c.lastInteractionDate?`Last: ${c.lastInteractionDate.toLocaleDateString()}`:"Never logged"}</p></Link>)}</div></Card>
-          <Card className="p-3"><p className="section-label">Next on calendar</p><div className="mt-3 space-y-1.5 text-[11px]">{upcomingItems.length===0?<p className="text-sm text-[#888888]">No upcoming items. Add events on Calendar.</p>:upcomingItems.map((u)=><div key={u.key} className="flex items-center justify-between gap-2 rounded-md border border-[#2a2a2a] bg-[#141414] px-2 py-1.5 transition-all hover:border-[#3a3a3a]"><span className="min-w-0 truncate font-medium text-[#f0f0f0]">{u.title}</span><span className="shrink-0 text-[10px] text-[#888888]">{u.date.toLocaleDateString()} {u.date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</span></div>)}</div></Card>
-          <Card className="p-3"><p className="section-label">Quick stats</p><div className="mt-3 grid grid-cols-3 gap-2 text-center font-mono text-[11px]"><div className="rounded-lg border border-[#2a2a2a] border-l-2 border-l-[#c9a84c] bg-[#161616] p-2.5 transition-colors hover:border-[#3a3a3a]"><p className="text-[10px] uppercase tracking-wide text-[#888888]">Streak</p><p className="text-base font-semibold tabular-nums text-[#f5f5f5]">{user?.drillStreak ?? 0}</p></div><div className="rounded-lg border border-[#2a2a2a] border-l-2 border-l-[#f5f5f5] bg-[#161616] p-2.5 transition-colors hover:border-[#3a3a3a]"><p className="text-[10px] uppercase tracking-wide text-[#888888]">Mastered</p><p className="text-base font-semibold tabular-nums text-[#f0f0f0]">{knownCount}</p></div><div className="rounded-lg border border-[#2a2a2a] border-l-2 border-l-[#4a6fa5] bg-[#161616] p-2.5 transition-colors hover:border-[#3a3a3a]"><p className="text-[10px] uppercase tracking-wide text-[#888888]">Contacts +wk</p><p className="text-base font-semibold tabular-nums text-[#4a6fa5]">{contactsThisWeek}</p></div></div><p className="mt-2 text-xs text-zinc-400">{primaryTrack} Prep: <span className="text-zinc-200">{trackPct}% complete</span></p></Card>
-          <DashboardRecruitingCountdown userId={userId} targets={calendarVerticalsFromProfile(user?.careerTracks ?? [], user?.recruitingTarget ?? [])} />
-          <Card className="p-3"><p className="section-label">Pipeline snapshot</p><div className="mt-2 space-y-1 text-[11px]">{pipeline.map((p)=><div key={p.stage} className="flex items-center justify-between"><span className="text-[#888888]">{STAGE_LABELS[p.stage]}</span><span className="font-semibold text-[#f5f5f5]">{p._count._all}</span></div>)}</div></Card>
-        </div>
-      </div>
+        <Link
+          href="/pipeline"
+          className="grid grid-cols-2 gap-px overflow-hidden rounded-[var(--radius-lg)] border border-border bg-divider sm:grid-cols-4 lg:grid-cols-7"
+        >
+          {PIPELINE_ORDER.map((stage) => (
+            <div key={stage} className="bg-surface px-4 py-3 hover:bg-surface-2">
+              <p className="text-[22px] font-semibold text-ink">{stageCount.get(stage) ?? 0}</p>
+              <p className="text-[13px] text-ink-3">{STAGE_LABELS[stage]}</p>
+            </div>
+          ))}
+        </Link>
+      </section>
     </div>
   );
 }

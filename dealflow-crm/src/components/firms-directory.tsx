@@ -75,7 +75,7 @@ export function FirmsDirectory({ initialFirms }: { initialFirms: FirmRow[] }) {
       <Card className="overflow-hidden p-0">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[280px] text-sm md:min-w-[640px]">
-            <thead className="border-b border-white/10 bg-zinc-950/90 text-left text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+            <thead className="border-b border-border bg-surface text-left text-[10px] font-semibold uppercase tracking-wider text-ink-3">
               <tr>
                 <th className="px-3 py-3">Firm</th>
                 <th className="min-w-0 px-3 py-3">Type</th>
@@ -101,10 +101,10 @@ export function FirmsDirectory({ initialFirms }: { initialFirms: FirmRow[] }) {
               {initialFirms.map((f) => (
                 <tr
                   key={f.id}
-                  className="border-t border-white/[0.06] odd:bg-white/[0.02] transition-colors hover:bg-white/[0.04] hover:shadow-[inset_3px_0_0_0_rgba(245,245,245,0.2)]"
+                  className="border-t border-border odd:bg-surface-2 transition-colors hover:bg-surface-2 "
                 >
                   <td className="max-w-[48%] min-w-0 px-3 py-2 align-top md:max-w-none">
-                    <Link href={`/firms/${f.id}`} className="break-words text-[#f0f0f0] underline-offset-4 hover:underline">
+                    <Link href={`/firms/${f.id}`} className="break-words text-ink underline-offset-4 hover:underline">
                       {f.name}
                     </Link>
                   </td>
@@ -132,9 +132,9 @@ export function FirmsDirectory({ initialFirms }: { initialFirms: FirmRow[] }) {
       <Modal open={open} onClose={() => setOpen(false)} title="New firm" className="max-w-md">
         <div className="space-y-2 text-sm">
           <Input placeholder="Firm name" value={name} onChange={(e) => setName(e.target.value)} />
-          <label className="mb-1 block text-xs text-zinc-500">Firm type</label>
+          <label className="mb-1 block text-xs text-ink-3">Firm type</label>
           <select
-            className="w-full rounded border border-white/10 bg-zinc-950 px-2 py-2 text-sm"
+            className="w-full rounded border border-border bg-surface px-2 py-2 text-sm"
             value={type}
             onChange={(e) => setType((e.target.value || "") as FirmType | "")}
           >
@@ -147,7 +147,7 @@ export function FirmsDirectory({ initialFirms }: { initialFirms: FirmRow[] }) {
           </select>
           <Input placeholder="Location" value={location} onChange={(e) => setLocation(e.target.value)} />
           <Input placeholder="Focus" value={focus} onChange={(e) => setFocus(e.target.value)} />
-          {error ? <p className="text-xs text-red-400">{error}</p> : null}
+          {error ? <p className="text-xs text-danger">{error}</p> : null}
         </div>
         <div className="mt-3 flex justify-end gap-2">
           <Button variant="outline" size="sm" onClick={() => setOpen(false)}>

@@ -45,16 +45,16 @@ export function WorkbookUploader({ keys }: { keys: string[] }) {
 
   return (
     <div
-      className="space-y-3 rounded-xl border border-dashed border-white/20 bg-zinc-900/40 p-4"
+      className="space-y-3 rounded-[var(--radius-lg)] border border-dashed border-border-strong bg-surface p-4"
       onDragOver={(e) => e.preventDefault()}
       onDrop={(e) => {
         e.preventDefault();
         setFiles(Array.from(e.dataTransfer.files).filter((f) => f.name.toLowerCase().endsWith(".xlsx")));
       }}
     >
-      <p className="text-sm text-zinc-300">
+      <p className="text-sm text-ink-2">
         Drag in one or more <code>.xlsx</code> files (max 10 MB each), or{" "}
-        <button type="button" className="text-[#a8c0e6] underline" onClick={() => input.current?.click()}>
+        <button type="button" className="text-accent underline" onClick={() => input.current?.click()}>
           choose files
         </button>
         . Names like <code>PEB_03_CAPM_Beta_WACC.xlsx</code> and <code>PEB_03_CAPM_Beta_WACC_KEY.xlsx</code> are matched
@@ -69,7 +69,7 @@ export function WorkbookUploader({ keys }: { keys: string[] }) {
         onChange={(e) => setFiles(Array.from(e.target.files ?? []))}
       />
       {files.length ? (
-        <ul className="text-xs text-zinc-400">
+        <ul className="text-xs text-ink-2">
           {files.map((f) => (
             <li key={f.name}>
               {f.name} · {Math.round(f.size / 1024)} KB
@@ -79,9 +79,9 @@ export function WorkbookUploader({ keys }: { keys: string[] }) {
       ) : null}
       {single ? (
         <div className="grid gap-2 sm:grid-cols-2">
-          <label className="text-xs text-zinc-400">
+          <label className="text-xs text-ink-2">
             Workbook (blank = from file name)
-            <select value={key} onChange={(e) => setKey(e.target.value)} className="mt-1 block w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-sm">
+            <select value={key} onChange={(e) => setKey(e.target.value)} className="mt-1 block w-full rounded border border-border-strong bg-surface px-2 py-1.5 text-sm">
               <option value="">From file name</option>
               {keys.map((k) => (
                 <option key={k} value={k}>
@@ -90,20 +90,20 @@ export function WorkbookUploader({ keys }: { keys: string[] }) {
               ))}
             </select>
           </label>
-          <label className="text-xs text-zinc-400">
+          <label className="text-xs text-ink-2">
             Kind
-            <select value={kind} onChange={(e) => setKind(e.target.value as typeof kind)} className="mt-1 block w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-sm">
+            <select value={kind} onChange={(e) => setKind(e.target.value as typeof kind)} className="mt-1 block w-full rounded border border-border-strong bg-surface px-2 py-1.5 text-sm">
               <option value="student">Student workbook</option>
               <option value="answer_key">Answer key</option>
             </select>
           </label>
-          <label className="text-xs text-zinc-400">
+          <label className="text-xs text-ink-2">
             Title (optional)
-            <input value={title} onChange={(e) => setTitle(e.target.value)} className="mt-1 block w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-sm" />
+            <input value={title} onChange={(e) => setTitle(e.target.value)} className="mt-1 block w-full rounded border border-border-strong bg-surface px-2 py-1.5 text-sm" />
           </label>
-          <label className="text-xs text-zinc-400">
+          <label className="text-xs text-ink-2">
             Description (optional)
-            <input value={description} onChange={(e) => setDescription(e.target.value)} className="mt-1 block w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-sm" />
+            <input value={description} onChange={(e) => setDescription(e.target.value)} className="mt-1 block w-full rounded border border-border-strong bg-surface px-2 py-1.5 text-sm" />
           </label>
         </div>
       ) : null}
@@ -113,7 +113,7 @@ export function WorkbookUploader({ keys }: { keys: string[] }) {
       {results ? (
         <ul className="space-y-1 text-sm">
           {results.map((r) => (
-            <li key={r.fileName} className={r.ok ? "text-emerald-300" : "text-red-300"}>
+            <li key={r.fileName} className={r.ok ? "text-success" : "text-danger"}>
               {r.ok ? "✓" : "✗"} {r.fileName} {r.ok ? `→ v${r.version}` : `— ${r.error}`}
             </li>
           ))}

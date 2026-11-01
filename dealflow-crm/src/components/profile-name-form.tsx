@@ -24,7 +24,7 @@ export function ProfileNameForm({ initialName }: { initialName: string }) {
   return (
     <div className="mt-4 flex flex-wrap items-end gap-2">
       <div className="min-w-[200px] flex-1">
-        <label className="mb-1 block text-xs text-zinc-500">Display name</label>
+        <label className="mb-1 block text-xs text-ink-3">Display name</label>
         <Input value={name} onChange={(e) => setName(e.target.value)} />
       </div>
       <Button size="sm" onClick={() => void save()} disabled={busy || !name.trim()}>

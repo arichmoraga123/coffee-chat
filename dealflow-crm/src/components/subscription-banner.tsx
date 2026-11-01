@@ -27,5 +27,5 @@ export async function SubscriptionBanner({ userId }: { userId: string }) {
     text = "Your subscription has ended. Upgrade to restore club features.";
   }
   if (!text) return null;
-  return <div className="rounded border border-amber-600/40 bg-amber-500/10 px-3 py-2 text-sm text-amber-300">{text}</div>;
+  return <div className="rounded border border-warn/40 bg-warn-bg px-3 py-2 text-sm text-warn">{text}</div>;
 }

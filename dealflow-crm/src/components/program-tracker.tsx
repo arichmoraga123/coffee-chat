@@ -33,14 +33,14 @@ const MY_STATUSES = [
 type MyStatus = (typeof MY_STATUSES)[number];
 
 const STATUS_STYLE: Record<MyStatus, string> = {
-  "Not Applied": "text-red-300/80 italic",
-  Applied: "text-sky-300",
-  "Online Test": "text-indigo-300",
-  Interviewing: "text-amber-300",
-  Superday: "text-orange-300",
-  Offer: "text-emerald-300 font-semibold",
-  Rejected: "text-zinc-500 line-through",
-  "Not Interested": "text-zinc-500",
+  "Not Applied": "text-danger italic",
+  Applied: "text-info",
+  "Online Test": "text-info",
+  Interviewing: "text-warn",
+  Superday: "text-warn",
+  Offer: "text-success font-semibold",
+  Rejected: "text-ink-3 line-through",
+  "Not Interested": "text-ink-3",
 };
 
 const STORAGE_KEY = "df-program-tracker-2028";
@@ -167,32 +167,32 @@ export function ProgramTracker() {
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
         {[
-          { label: "Open now", value: counts.open, tone: "text-emerald-300", filter: "open" as const },
-          { label: "Closing ≤ 14 days", value: counts.closingSoon, tone: "text-red-300", filter: "open" as const },
-          { label: "Expected any day", value: counts.expectedSoon, tone: "text-amber-300", filter: "expected-soon" as const },
-          { label: "You've applied", value: counts.applied, tone: "text-sky-300", filter: "mine" as const },
+          { label: "Open now", value: counts.open, tone: "text-success", filter: "open" as const },
+          { label: "Closing ≤ 14 days", value: counts.closingSoon, tone: "text-danger", filter: "open" as const },
+          { label: "Expected any day", value: counts.expectedSoon, tone: "text-warn", filter: "expected-soon" as const },
+          { label: "You've applied", value: counts.applied, tone: "text-info", filter: "mine" as const },
         ].map((s) => (
           <button
             key={s.label}
             type="button"
             onClick={() => setWindowFilter(s.filter)}
-            className="rounded-xl border border-white/10 bg-zinc-900/60 p-3 text-left transition hover:border-[#4a6fa5]/50"
+            className="rounded-xl border border-border bg-surface p-3 text-left transition hover:border-accent"
           >
             <p className={cn("font-mono text-2xl font-semibold", s.tone)}>{s.value}</p>
-            <p className="text-xs text-zinc-500">{s.label}</p>
+            <p className="text-xs text-ink-3">{s.label}</p>
           </button>
         ))}
       </div>
 
-      <Card className="flex flex-wrap items-end gap-2 border-zinc-800 bg-zinc-900/50 p-3">
-        <label className="min-w-[180px] flex-1 text-xs text-zinc-500">
+      <Card className="flex flex-wrap items-end gap-2 border-border bg-surface p-3">
+        <label className="min-w-[180px] flex-1 text-xs text-ink-3">
           <span className="mb-0.5 block">Search firm, program, city</span>
           <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="e.g. Evercore, Houston" />
         </label>
-        <label className="text-xs text-zinc-500">
+        <label className="text-xs text-ink-3">
           <span className="mb-0.5 block">Group</span>
           <select
-            className="h-9 rounded border border-zinc-700 bg-zinc-950 px-2 text-sm text-zinc-200"
+            className="h-9 rounded border border-border-strong bg-surface px-2 text-sm text-ink"
             value={bucket}
             onChange={(e) => setBucket(e.target.value as typeof bucket)}
           >
@@ -204,10 +204,10 @@ export function ProgramTracker() {
             ))}
           </select>
         </label>
-        <label className="text-xs text-zinc-500">
+        <label className="text-xs text-ink-3">
           <span className="mb-0.5 block">Status</span>
           <select
-            className="h-9 rounded border border-zinc-700 bg-zinc-950 px-2 text-sm text-zinc-200"
+            className="h-9 rounded border border-border-strong bg-surface px-2 text-sm text-ink"
             value={windowFilter}
             onChange={(e) => setWindowFilter(e.target.value as typeof windowFilter)}
           >
@@ -221,29 +221,29 @@ export function ProgramTracker() {
         </label>
       </Card>
 
-      <p className="text-xs text-zinc-500">
+      <p className="text-xs text-ink-3">
         {PROGRAM_CYCLE_LABEL} programs · {PROGRAMS_2028.length} tracked · snapshot {fmt(PROGRAM_SNAPSHOT_DATE)}. Programs
         that haven&apos;t opened show last year&apos;s opening date — apply within days of opening, since many banks
         review on a rolling basis. Always confirm dates on the firm&apos;s careers page.
       </p>
 
-      {grouped.length === 0 ? <p className="text-sm text-zinc-500">No programs match these filters.</p> : null}
+      {grouped.length === 0 ? <p className="text-sm text-ink-3">No programs match these filters.</p> : null}
 
       {grouped.map((g) => (
-        <section key={g.bucket} className="overflow-hidden rounded-xl border border-white/10">
+        <section key={g.bucket} className="overflow-hidden rounded-xl border border-border">
           <button
             type="button"
             onClick={() => setCollapsed((c) => ({ ...c, [g.bucket]: !c[g.bucket] }))}
-            className="flex w-full items-center justify-between bg-zinc-950 px-3 py-2 text-left text-sm font-semibold text-zinc-100"
+            className="flex w-full items-center justify-between bg-surface px-3 py-2 text-left text-sm font-semibold text-ink"
           >
             <span>
               {collapsed[g.bucket] ? "＋" : "－"} {g.bucket}
             </span>
-            <span className="text-xs font-normal text-zinc-500">{g.items.length} programs</span>
+            <span className="text-xs font-normal text-ink-3">{g.items.length} programs</span>
           </button>
           {!collapsed[g.bucket] ? (
-            <div className="divide-y divide-white/5">
-              <div className="hidden grid-cols-[150px_1.1fr_1.6fr_90px_90px_110px_100px_1fr] gap-2 bg-zinc-900/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wide text-zinc-500 lg:grid">
+            <div className="divide-y divide-divider">
+              <div className="hidden grid-cols-[150px_1.1fr_1.6fr_90px_90px_110px_100px_1fr] gap-2 bg-surface px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wide text-ink-3 lg:grid">
                 <span>My status</span>
                 <span>Company</span>
                 <span>Program</span>
@@ -266,7 +266,7 @@ export function ProgramTracker() {
                   >
                     <select
                       aria-label={`My status for ${p.company}`}
-                      className={cn("h-8 w-full rounded border border-zinc-800 bg-zinc-950 px-1.5 text-xs", STATUS_STYLE[my])}
+                      className={cn("h-8 w-full rounded border border-border bg-surface px-1.5 text-xs", STATUS_STYLE[my])}
                       value={my}
                       onChange={(e) => setStatus(p.id, e.target.value as MyStatus)}
                     >
@@ -276,51 +276,51 @@ export function ProgramTracker() {
                         </option>
                       ))}
                     </select>
-                    <span className="font-medium text-[#a8c0e6]">{p.company}</span>
-                    <span className="text-zinc-200">{p.program}</span>
+                    <span className="font-medium text-accent">{p.company}</span>
+                    <span className="text-ink">{p.program}</span>
                     <span
                       className={cn(
                         "w-fit rounded px-1.5 py-0.5 font-mono text-xs",
-                        w === "open" && "bg-emerald-900/50 text-emerald-200",
-                        w === "closed" && "bg-red-900/50 text-red-200",
+                        w === "open" && "bg-success-bg text-success",
+                        w === "closed" && "bg-danger-bg text-danger",
                       )}
                     >
                       {p.opens ? (
                         <>
-                          <span className="text-zinc-500 lg:hidden">Opens </span>
+                          <span className="text-ink-3 lg:hidden">Opens </span>
                           {fmt(p.opens)}
                         </>
                       ) : w === "expected-soon" ? (
-                        <span className="text-amber-300">Any day</span>
+                        <span className="text-warn">Any day</span>
                       ) : (
-                        <span className="text-zinc-600">—</span>
+                        <span className="text-ink-3">—</span>
                       )}
                     </span>
                     <span
                       className={cn(
                         "w-fit rounded px-1.5 py-0.5 font-mono text-xs",
-                        p.closes && w !== "closed" && "bg-emerald-900/30 text-emerald-100",
-                        closingDays !== null && closingDays >= 0 && closingDays <= 7 && "bg-red-900/60 text-red-100",
-                        w === "closed" && "bg-red-900/50 text-red-200",
+                        p.closes && w !== "closed" && "bg-success-bg text-success",
+                        closingDays !== null && closingDays >= 0 && closingDays <= 7 && "bg-danger-bg text-danger",
+                        w === "closed" && "bg-danger-bg text-danger",
                       )}
                     >
                       {p.closes ? (
                         <>
-                          <span className="text-zinc-500 lg:hidden">Closes </span>
+                          <span className="text-ink-3 lg:hidden">Closes </span>
                           {fmt(p.closes)}
                           {closingDays !== null && closingDays >= 0 && closingDays <= 14 ? ` (${closingDays}d)` : ""}
                         </>
                       ) : w === "open" ? (
-                        <span className="text-zinc-400">Rolling</span>
+                        <span className="text-ink-2">Rolling</span>
                       ) : (
                         ""
                       )}
                     </span>
-                    <span className="text-xs text-zinc-400">{p.locations ?? ""}</span>
-                    <span className="font-mono text-xs text-zinc-400">
+                    <span className="text-xs text-ink-2">{p.locations ?? ""}</span>
+                    <span className="font-mono text-xs text-ink-2">
                       {p.lastYearOpen ? (
                         <>
-                          <span className="text-zinc-600 lg:hidden">Last year opened </span>
+                          <span className="text-ink-3 lg:hidden">Last year opened </span>
                           {fmt(p.lastYearOpen)}
                         </>
                       ) : (
@@ -334,16 +334,16 @@ export function ProgramTracker() {
                           title={m === "CV" ? "Resume" : m === "CL" ? "Cover letter" : "Written answers"}
                           className={cn(
                             "rounded border px-1 text-[10px]",
-                            m === "CV" && "border-sky-700 text-sky-300",
-                            m === "CL" && "border-emerald-700 text-emerald-300",
-                            m === "WA" && "border-amber-700 text-amber-300",
+                            m === "CV" && "border-info text-info",
+                            m === "CL" && "border-success text-success",
+                            m === "WA" && "border-warn text-warn",
                           )}
                         >
                           {m}
                         </span>
                       ))}
-                      {p.prep ? <span className="text-[#a8c0e6]">{p.prep}</span> : null}
-                      {p.notes ? <span className="text-zinc-400">{p.notes}</span> : null}
+                      {p.prep ? <span className="text-accent">{p.prep}</span> : null}
+                      {p.notes ? <span className="text-ink-2">{p.notes}</span> : null}
                       <Button
                         type="button"
                         size="sm"

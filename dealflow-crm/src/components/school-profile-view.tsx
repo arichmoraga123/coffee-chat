@@ -75,34 +75,34 @@ export function SchoolProfileView({
 }) {
   return (
     <div className="mx-auto max-w-3xl space-y-6">
-      <Link href="/schools" className="text-xs text-amber-200/90 hover:underline">
+      <Link href="/schools" className="text-xs text-warn hover:underline">
         ← Schools
       </Link>
 
-      <Card className="border-zinc-800 bg-zinc-900/50 p-6">
+      <Card className="border-border bg-surface p-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-semibold text-zinc-50">{name}</h1>
-            <p className="mt-1 text-sm text-zinc-500">
+            <h1 className="text-2xl font-semibold text-ink">{name}</h1>
+            <p className="mt-1 text-sm text-ink-3">
               {shortName} · {domain}
             </p>
-            {location ? <p className="mt-2 text-sm text-zinc-400">{location}</p> : null}
+            {location ? <p className="mt-2 text-sm text-ink-2">{location}</p> : null}
           </div>
           <div className="flex flex-col items-end gap-2">
             <span
               className={cn(
                 "rounded-full border px-3 py-1 text-xs font-medium capitalize",
                 type === "target"
-                  ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-200"
+                  ? "border-success/40 bg-success-bg text-success"
                   : type === "semi-target"
-                    ? "border-amber-500/35 bg-amber-500/10 text-amber-200"
-                    : "border-zinc-600 bg-zinc-950 text-zinc-300",
+                    ? "border-warn/40 bg-warn-bg text-warn"
+                    : "border-border-strong bg-surface text-ink-2",
               )}
             >
               {typeLabel(type)}
             </span>
             {isUsersSchool ? (
-              <span className="rounded-full border border-[#4a6fa5]/40 bg-[#4a6fa5]/15 px-3 py-1 text-xs font-medium text-[#b8cceb]">
+              <span className="rounded-full border border-accent bg-accent-tint px-3 py-1 text-xs font-medium text-accent">
                 Your school
               </span>
             ) : (
@@ -110,23 +110,23 @@ export function SchoolProfileView({
             )}
           </div>
         </div>
-        <div className="mt-4 flex flex-wrap gap-3 text-sm text-zinc-400">
+        <div className="mt-4 flex flex-wrap gap-3 text-sm text-ink-2">
           <span>
-            <span className="font-semibold text-zinc-200">{memberCount}</span> members
+            <span className="font-semibold text-ink">{memberCount}</span> members
           </span>
           <span>
-            <span className="font-semibold text-zinc-200">{questionsContributed}</span> questions contributed
+            <span className="font-semibold text-ink">{questionsContributed}</span> questions contributed
           </span>
         </div>
       </Card>
 
       {topCareerTracks.length ? (
-        <Card className="border-zinc-800 bg-zinc-900/40 p-4">
+        <Card className="border-border bg-surface p-4">
           <p className="section-label mb-2">Top career tracks (members)</p>
           <div className="flex flex-wrap gap-2">
             {topCareerTracks.map(([t, n]) => (
-              <span key={t} className="rounded-full border border-zinc-700 bg-zinc-950 px-2.5 py-1 text-xs text-zinc-200">
-                {t} <span className="text-zinc-500">({n})</span>
+              <span key={t} className="rounded-full border border-border-strong bg-surface px-2.5 py-1 text-xs text-ink">
+                {t} <span className="text-ink-3">({n})</span>
               </span>
             ))}
           </div>
@@ -134,13 +134,13 @@ export function SchoolProfileView({
       ) : null}
 
       {questions.length ? (
-        <Card className="border-zinc-800 bg-zinc-900/40 p-4">
+        <Card className="border-border bg-surface p-4">
           <p className="section-label mb-3">Questions from this school</p>
           <ul className="space-y-2">
             {questions.map((q) => (
-              <li key={q.id} className="rounded-lg border border-white/[0.06] bg-zinc-950/50 p-3">
-                <p className="text-sm text-zinc-200">{q.question}</p>
-                <p className="mt-1 text-[11px] text-zinc-500">
+              <li key={q.id} className="rounded-lg border border-border bg-surface p-3">
+                <p className="text-sm text-ink">{q.question}</p>
+                <p className="mt-1 text-[11px] text-ink-3">
                   {q.category} · {q.difficulty}
                 </p>
               </li>
@@ -148,20 +148,20 @@ export function SchoolProfileView({
           </ul>
         </Card>
       ) : (
-        <Card className="border-zinc-800 bg-zinc-900/30 p-4">
-          <p className="text-sm text-zinc-500">No question-bank rows linked to this campus yet.</p>
+        <Card className="border-border bg-surface p-4">
+          <p className="text-sm text-ink-3">No question-bank rows linked to this campus yet.</p>
         </Card>
       )}
 
       {alumni.length ? (
-        <Card className="border-zinc-800 bg-zinc-900/40 p-4">
+        <Card className="border-border bg-surface p-4">
           <p className="section-label mb-3">Alumni at target firms (verified)</p>
           <div className="space-y-2">
             {alumni.map((a) => (
-              <div key={a.id} className="flex flex-wrap items-baseline justify-between gap-2 rounded border border-white/[0.06] bg-zinc-950/50 px-3 py-2">
+              <div key={a.id} className="flex flex-wrap items-baseline justify-between gap-2 rounded border border-border bg-surface px-3 py-2">
                 <div>
-                  <p className="text-sm font-medium text-zinc-100">{a.firmName}</p>
-                  <p className="text-xs text-zinc-400">
+                  <p className="text-sm font-medium text-ink">{a.firmName}</p>
+                  <p className="text-xs text-ink-2">
                     {a.role} · {a.vertical}
                     {a.gradYear ? ` · ’${String(a.gradYear).slice(-2)}` : ""}
                   </p>
@@ -171,56 +171,56 @@ export function SchoolProfileView({
           </div>
         </Card>
       ) : (
-        <Card className="border-zinc-800 bg-zinc-900/30 p-4">
-          <p className="text-sm text-zinc-500">No verified alumni records yet.</p>
+        <Card className="border-border bg-surface p-4">
+          <p className="text-sm text-ink-3">No verified alumni records yet.</p>
         </Card>
       )}
 
       {timelines.length ? (
-        <Card className="border-zinc-800 bg-zinc-900/40 p-4">
+        <Card className="border-border bg-surface p-4">
           <p className="section-label mb-3">School-specific recruiting timelines</p>
           <div className="space-y-3">
             {timelines.map((t) => (
-              <div key={t.id} className="rounded-lg border border-white/[0.06] bg-zinc-950/50 p-3">
-                <p className="text-sm font-medium text-zinc-100">
+              <div key={t.id} className="rounded-lg border border-border bg-surface p-3">
+                <p className="text-sm font-medium text-ink">
                   {t.firmName} — {t.role}{" "}
-                  <span className="text-zinc-500">
+                  <span className="text-ink-3">
                     ({t.year}) · {t.firmType}
                   </span>
                 </p>
-                <p className="mt-1 text-xs text-zinc-400">
+                <p className="mt-1 text-xs text-ink-2">
                   Apps open: {fmtDate(t.applicationOpen)}
                   {t.applicationClose ? ` · Close: ${fmtDate(t.applicationClose)}` : ""}
                   {t.firstRound ? ` · First round: ${fmtDate(t.firstRound)}` : ""}
                 </p>
-                {t.notes ? <p className="mt-1 text-xs text-zinc-500">{t.notes}</p> : null}
+                {t.notes ? <p className="mt-1 text-xs text-ink-3">{t.notes}</p> : null}
               </div>
             ))}
           </div>
         </Card>
       ) : (
-        <Card className="border-zinc-800 bg-zinc-900/30 p-4">
-          <p className="text-sm text-zinc-500">No school-scoped timelines yet.</p>
+        <Card className="border-border bg-surface p-4">
+          <p className="text-sm text-ink-3">No school-scoped timelines yet.</p>
         </Card>
       )}
 
       {compPreview.length ? (
-        <Card className="border-zinc-800 bg-zinc-900/40 p-4">
+        <Card className="border-border bg-surface p-4">
           <p className="section-label mb-3">Recent comp submissions (this school)</p>
           <div className="space-y-2">
             {compPreview.map((c) => (
-              <div key={c.id} className="flex flex-wrap justify-between gap-2 rounded border border-white/[0.06] bg-zinc-950/50 px-3 py-2 text-sm">
+              <div key={c.id} className="flex flex-wrap justify-between gap-2 rounded border border-border bg-surface px-3 py-2 text-sm">
                 <div>
-                  <p className="font-medium text-zinc-100">{c.firmName}</p>
-                  <p className="text-xs text-zinc-400">
+                  <p className="font-medium text-ink">{c.firmName}</p>
+                  <p className="text-xs text-ink-2">
                     {c.role} · {c.vertical}
                     {c.officeLocation ? ` · ${c.officeLocation}` : ""}
                   </p>
                 </div>
-                <div className="text-right text-xs text-zinc-400">
-                  {c.baseComp != null ? <p className="text-zinc-200">${(c.baseComp / 1000).toFixed(0)}K base</p> : null}
+                <div className="text-right text-xs text-ink-2">
+                  {c.baseComp != null ? <p className="text-ink">${(c.baseComp / 1000).toFixed(0)}K base</p> : null}
                   {c.totalComp != null ? <p>TC ~${(c.totalComp / 1000).toFixed(0)}K</p> : null}
-                  <p className="text-zinc-500">{c.year}</p>
+                  <p className="text-ink-3">{c.year}</p>
                 </div>
               </div>
             ))}

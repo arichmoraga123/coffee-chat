@@ -57,8 +57,8 @@ export function CompDataExplorer({ loggedIn }: { loggedIn: boolean }) {
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-zinc-50">Comp data</h1>
-          <p className="mt-1 text-sm text-zinc-500">Crowdsourced, anonymized entries. School shown as target tier only.</p>
+          <h1 className="text-2xl font-semibold text-ink">Comp data</h1>
+          <p className="mt-1 text-sm text-ink-3">Crowdsourced, anonymized entries. School shown as target tier only.</p>
         </div>
         {loggedIn ? (
           <Link href="/comp/submit">
@@ -67,34 +67,34 @@ export function CompDataExplorer({ loggedIn }: { loggedIn: boolean }) {
             </Button>
           </Link>
         ) : (
-          <Link href="/login" className="text-sm text-amber-200/90 hover:underline">
+          <Link href="/login" className="text-sm text-warn hover:underline">
             Log in to submit
           </Link>
         )}
       </div>
 
-      <Card className="border-zinc-800 bg-zinc-900/50 p-4">
+      <Card className="border-border bg-surface p-4">
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <input
-            className="rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-sm text-zinc-100"
+            className="rounded border border-border-strong bg-surface px-2 py-1.5 text-sm text-ink"
             placeholder="Firm"
             value={firmName}
             onChange={(e) => setFirmName(e.target.value)}
           />
           <input
-            className="rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-sm text-zinc-100"
+            className="rounded border border-border-strong bg-surface px-2 py-1.5 text-sm text-ink"
             placeholder="Role"
             value={role}
             onChange={(e) => setRole(e.target.value)}
           />
           <input
-            className="rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-sm text-zinc-100"
+            className="rounded border border-border-strong bg-surface px-2 py-1.5 text-sm text-ink"
             placeholder="Vertical"
             value={vertical}
             onChange={(e) => setVertical(e.target.value)}
           />
           <input
-            className="rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-sm text-zinc-100"
+            className="rounded border border-border-strong bg-surface px-2 py-1.5 text-sm text-ink"
             placeholder="Year"
             value={year}
             onChange={(e) => setYear(e.target.value)}
@@ -105,20 +105,20 @@ export function CompDataExplorer({ loggedIn }: { loggedIn: boolean }) {
         </Button>
       </Card>
 
-      {loading ? <p className="text-sm text-zinc-500">Loading…</p> : null}
+      {loading ? <p className="text-sm text-ink-3">Loading…</p> : null}
 
       <div className="space-y-2">
         {entries.map((e) => (
-          <Card key={e.id} className="border-zinc-800 bg-zinc-950/60 p-4">
+          <Card key={e.id} className="border-border bg-surface p-4">
             <div className="flex flex-wrap items-start justify-between gap-2">
               <div>
-                <p className="font-medium text-zinc-100">
+                <p className="font-medium text-ink">
                   {e.firmName} · {e.role}
                 </p>
-                <p className="text-xs text-zinc-500">
+                <p className="text-xs text-ink-3">
                   {e.vertical} · {e.year} · school tier: {e.schoolType}
                 </p>
-                <p className="mt-2 text-sm text-zinc-400">
+                <p className="mt-2 text-sm text-ink-2">
                   Base {e.baseComp ?? "—"} · Signing {e.signingBonus ?? "—"} · YE bonus {e.yearEndBonus ?? "—"} · Total{" "}
                   {e.totalComp ?? "—"}
                 </p>
@@ -128,12 +128,12 @@ export function CompDataExplorer({ loggedIn }: { loggedIn: boolean }) {
                   Upvote ({e.upvotes})
                 </Button>
               ) : (
-                <span className="text-xs text-zinc-500">{e.upvotes} upvotes</span>
+                <span className="text-xs text-ink-3">{e.upvotes} upvotes</span>
               )}
             </div>
           </Card>
         ))}
-        {!loading && entries.length === 0 ? <p className="text-sm text-zinc-500">No entries match.</p> : null}
+        {!loading && entries.length === 0 ? <p className="text-sm text-ink-3">No entries match.</p> : null}
       </div>
     </div>
   );

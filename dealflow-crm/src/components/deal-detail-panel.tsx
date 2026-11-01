@@ -89,35 +89,35 @@ export function DealDetailPanel({ deal, onClose }: { deal: DealDetail; onClose: 
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 sm:items-center sm:p-4" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 sm:items-center sm:p-4" onClick={onClose}>
       <div
         role="dialog"
         aria-modal="true"
         aria-label={deal.title}
-        className="flex max-h-[92vh] w-full max-w-3xl flex-col overflow-hidden rounded-t-2xl border border-zinc-700 bg-zinc-900 sm:rounded-2xl"
+        className="flex max-h-[92vh] w-full max-w-3xl flex-col overflow-hidden rounded-t-2xl border border-border-strong bg-surface sm:rounded-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-start justify-between gap-3 border-b border-zinc-800 p-4">
+        <div className="flex items-start justify-between gap-3 border-b border-border p-4">
           <div className="min-w-0">
-            <h2 className="text-base font-semibold text-zinc-100 sm:text-lg">{deal.title}</h2>
-            <p className="mt-0.5 text-xs text-zinc-500">
+            <h2 className="text-base font-semibold text-ink sm:text-lg">{deal.title}</h2>
+            <p className="mt-0.5 text-xs text-ink-3">
               {deal.dealType}
               {deal.sector ? ` · ${deal.sector}` : ""} · {new Date(deal.announcedAt).toLocaleDateString()}
             </p>
           </div>
           <div className="flex shrink-0 items-center gap-2">
             {deal.dealValue ? (
-              <span className="rounded border border-amber-700/50 bg-amber-950/40 px-2 py-0.5 text-xs text-amber-200">
+              <span className="rounded border border-warn/40 bg-warn-bg px-2 py-0.5 text-xs text-warn">
                 {deal.dealValue}
               </span>
             ) : null}
-            <button onClick={onClose} className="rounded px-2 py-1 text-xs text-zinc-400 hover:bg-zinc-800">
+            <button onClick={onClose} className="rounded px-2 py-1 text-xs text-ink-2 hover:bg-surface-2">
               Close
             </button>
           </div>
         </div>
 
-        <div className="flex gap-1 overflow-x-auto border-b border-zinc-800 px-3 py-2">
+        <div className="flex gap-1 overflow-x-auto border-b border-border px-3 py-2">
           {(
             [
               ["overview", "Overview"],
@@ -132,7 +132,7 @@ export function DealDetailPanel({ deal, onClose }: { deal: DealDetail; onClose: 
               onClick={() => setTab(k)}
               className={cn(
                 "whitespace-nowrap rounded-md px-3 py-1.5 text-xs font-medium",
-                tab === k ? "bg-[#4a6fa5]/25 text-[#dbe6f7]" : "text-zinc-400 hover:bg-zinc-800",
+                tab === k ? "bg-accent-tint text-accent" : "text-ink-2 hover:bg-surface-2",
               )}
             >
               {label}
@@ -143,21 +143,21 @@ export function DealDetailPanel({ deal, onClose }: { deal: DealDetail; onClose: 
         <div className="flex-1 space-y-3 overflow-y-auto p-4 text-sm">
           {tab === "overview" ? (
             <>
-              <p className="text-zinc-300">
-                <span className="text-zinc-500">Buyer:</span> {deal.acquirer ?? "—"} ·{" "}
-                <span className="text-zinc-500">Target:</span> {deal.target ?? "—"}
+              <p className="text-ink-2">
+                <span className="text-ink-3">Buyer:</span> {deal.acquirer ?? "—"} ·{" "}
+                <span className="text-ink-3">Target:</span> {deal.target ?? "—"}
               </p>
-              <p className="leading-relaxed text-zinc-200">{deal.summary}</p>
+              <p className="leading-relaxed text-ink">{deal.summary}</p>
               {deal.keyThesis ? (
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">Why this deal</p>
-                  <p className="leading-relaxed text-zinc-300">{deal.keyThesis}</p>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-ink-3">Why this deal</p>
+                  <p className="leading-relaxed text-ink-2">{deal.keyThesis}</p>
                 </div>
               ) : null}
               {deal.risks ? (
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">Risks</p>
-                  <p className="leading-relaxed text-red-200/90">{deal.risks}</p>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-ink-3">Risks</p>
+                  <p className="leading-relaxed text-danger">{deal.risks}</p>
                 </div>
               ) : null}
               <div className="flex flex-wrap gap-2 pt-1">
@@ -177,21 +177,21 @@ export function DealDetailPanel({ deal, onClose }: { deal: DealDetail; onClose: 
 
           {tab === "pitch" ? (
             <>
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-ink-2">
                 Interviewers ask &ldquo;Tell me about a deal you&apos;ve followed&rdquo; in almost every first round. Use the
                 outline below, or generate a full 2-minute script with follow-up questions.
               </p>
               {!pitch.text && !pitch.loading ? (
-                <pre className="whitespace-pre-wrap rounded-lg border border-white/10 bg-zinc-950 p-3 font-sans text-zinc-200">
+                <pre className="whitespace-pre-wrap rounded-lg border border-border bg-surface p-3 font-sans text-ink">
                   {template}
                 </pre>
               ) : (
-                <pre className="whitespace-pre-wrap rounded-lg border border-white/10 bg-zinc-950 p-3 font-sans leading-relaxed text-zinc-200">
+                <pre className="whitespace-pre-wrap rounded-lg border border-border bg-surface p-3 font-sans leading-relaxed text-ink">
                   {pitch.text}
-                  {pitch.loading ? <span className="ml-0.5 inline-block h-4 w-2 animate-pulse bg-zinc-400 align-middle" /> : null}
+                  {pitch.loading ? <span className="ml-0.5 inline-block h-4 w-2 animate-pulse bg-ink-3 align-middle" /> : null}
                 </pre>
               )}
-              {pitch.error ? <p className="text-xs text-red-300">{pitch.error}</p> : null}
+              {pitch.error ? <p className="text-xs text-danger">{pitch.error}</p> : null}
               <div className="flex flex-wrap gap-2">
                 <Button size="sm" disabled={pitch.loading} onClick={() => void pitch.run(`/api/deals/${deal.id}/pitch`)}>
                   {pitch.loading ? "Writing…" : pitch.text ? "Regenerate" : "Generate 2-minute script (AI)"}
@@ -205,14 +205,14 @@ export function DealDetailPanel({ deal, onClose }: { deal: DealDetail; onClose: 
 
           {tab === "practice" ? (
             <>
-              <p className="text-xs text-zinc-400">5 technical questions an interviewer could ask about this deal, with model answers.</p>
+              <p className="text-xs text-ink-2">5 technical questions an interviewer could ask about this deal, with model answers.</p>
               {practice.text || practice.loading ? (
-                <pre className="whitespace-pre-wrap rounded-lg border border-white/10 bg-zinc-950 p-3 font-sans leading-relaxed text-zinc-200">
+                <pre className="whitespace-pre-wrap rounded-lg border border-border bg-surface p-3 font-sans leading-relaxed text-ink">
                   {practice.text}
-                  {practice.loading ? <span className="ml-0.5 inline-block h-4 w-2 animate-pulse bg-zinc-400 align-middle" /> : null}
+                  {practice.loading ? <span className="ml-0.5 inline-block h-4 w-2 animate-pulse bg-ink-3 align-middle" /> : null}
                 </pre>
               ) : null}
-              {practice.error ? <p className="text-xs text-red-300">{practice.error}</p> : null}
+              {practice.error ? <p className="text-xs text-danger">{practice.error}</p> : null}
               <Button
                 size="sm"
                 disabled={practice.loading}
@@ -225,12 +225,12 @@ export function DealDetailPanel({ deal, onClose }: { deal: DealDetail; onClose: 
 
           {tab === "stock" ? (
             <>
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-ink-2">
                 Turn this deal into a stock pitch: is the company a buy, hold or sell because of it? A draft (overview,
                 thesis, catalysts, risks) is saved to your Pitch Builder for you to edit — add the current price and your
                 target there.
               </p>
-              <label className="block text-xs text-zinc-500">
+              <label className="block text-xs text-ink-3">
                 Company to pitch
                 {companies.length ? (
                   <div className="mt-1 flex flex-wrap gap-2">
@@ -242,8 +242,8 @@ export function DealDetailPanel({ deal, onClose }: { deal: DealDetail; onClose: 
                         className={cn(
                           "rounded-full border px-3 py-1 text-xs",
                           stockCompany === c
-                            ? "border-[#4a6fa5]/60 bg-[#4a6fa5]/20 text-[#e8eef8]"
-                            : "border-zinc-700 text-zinc-300 hover:border-zinc-500",
+                            ? "border-accent bg-accent-tint text-accent"
+                            : "border-border-strong text-ink-2 hover:border-border-strong",
                         )}
                       >
                         {c}
@@ -252,7 +252,7 @@ export function DealDetailPanel({ deal, onClose }: { deal: DealDetail; onClose: 
                   </div>
                 ) : null}
                 <input
-                  className="mt-2 h-9 w-full rounded border border-zinc-700 bg-zinc-950 px-2 text-sm text-zinc-100"
+                  className="mt-2 h-9 w-full rounded border border-border-strong bg-surface px-2 text-sm text-ink"
                   value={stockCompany}
                   onChange={(e) => setStockCompany(e.target.value)}
                   placeholder="Public company name"

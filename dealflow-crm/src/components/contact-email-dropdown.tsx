@@ -60,13 +60,13 @@ export function ContactEmailDropdown({ contactId, size = "sm" }: Props) {
         {open ? (
           <>
             <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-            <div className="absolute right-0 z-50 mt-1 min-w-[180px] rounded border border-zinc-700 bg-zinc-900 py-1 shadow-lg">
+            <div className="absolute right-0 z-50 mt-1 min-w-[180px] rounded border border-border-strong bg-surface py-1 ">
               {(Object.entries(EMAIL_TEMPLATE_TYPES) as [EmailTemplateType, (typeof EMAIL_TEMPLATE_TYPES)[EmailTemplateType]][]).map(
                 ([key, t]) => (
                   <button
                     key={key}
                     type="button"
-                    className="block w-full px-3 py-1.5 text-left text-xs text-zinc-300 hover:bg-zinc-800"
+                    className="block w-full px-3 py-1.5 text-left text-xs text-ink-2 hover:bg-surface-2"
                     onClick={() => void draft(key)}
                   >
                     {t.icon} {t.label}
@@ -106,7 +106,7 @@ export function ContactRowMenu({
     <div className="relative">
       <button
         type="button"
-        className="rounded p-1 text-zinc-500 hover:bg-zinc-800 hover:text-zinc-300"
+        className="rounded p-1 text-ink-3 hover:bg-surface-2 hover:text-ink-2"
         onClick={() => setOpen((o) => !o)}
       >
         <MoreHorizontal className="h-4 w-4" />
@@ -114,10 +114,10 @@ export function ContactRowMenu({
       {open ? (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="absolute right-0 z-50 mt-1 min-w-[160px] rounded border border-zinc-700 bg-zinc-900 py-1 shadow-lg">
+          <div className="absolute right-0 z-50 mt-1 min-w-[160px] rounded border border-border-strong bg-surface py-1 ">
             <button
               type="button"
-              className="block w-full px-3 py-1.5 text-left text-xs text-zinc-300 hover:bg-zinc-800"
+              className="block w-full px-3 py-1.5 text-left text-xs text-ink-2 hover:bg-surface-2"
               onClick={() => {
                 onQueueChange(!inQueue);
                 setOpen(false);
@@ -128,7 +128,7 @@ export function ContactRowMenu({
             {onMarkContacted ? (
               <button
                 type="button"
-                className="block w-full px-3 py-1.5 text-left text-xs text-zinc-300 hover:bg-zinc-800"
+                className="block w-full px-3 py-1.5 text-left text-xs text-ink-2 hover:bg-surface-2"
                 onClick={() => {
                   onMarkContacted();
                   setOpen(false);

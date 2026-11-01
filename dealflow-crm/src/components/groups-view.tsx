@@ -38,11 +38,11 @@ export function GroupsView() {
     <div className="space-y-4">
       <div>
         <h1 className="page-title">Study groups</h1>
-        <p className="mt-1 text-sm text-zinc-400">
-          <span className="text-emerald-400/90">SHARED</span> inside the group only · invite by email (must already have an account)
+        <p className="mt-1 text-sm text-ink-2">
+          <span className="text-success">SHARED</span> inside the group only · invite by email (must already have an account)
         </p>
       </div>
-      <div className="flex flex-wrap gap-2 rounded-lg border border-zinc-800 bg-zinc-900/50 p-4">
+      <div className="flex flex-wrap gap-2 rounded-lg border border-border bg-surface p-4">
         <Input placeholder="New group name" value={name} onChange={(e) => setName(e.target.value)} className="max-w-xs" />
         <Button size="sm" onClick={() => void create()}>
           Create
@@ -53,16 +53,16 @@ export function GroupsView() {
           <Link
             key={g.id}
             href={`/groups/${g.id}`}
-            className="block rounded-lg border border-[#2a2a2a] bg-[#161616]/80 p-4 transition-colors hover:border-[#3a3a3a]"
+            className="block rounded-lg border border-border bg-surface p-4 transition-colors hover:border-border-strong"
           >
-            <p className="font-semibold text-[#f5f5f5]">{g.name}</p>
-            <p className="text-xs text-zinc-500">
+            <p className="font-semibold text-ink">{g.name}</p>
+            <p className="text-xs text-ink-3">
               {g.memberCount} members · you are {g.role}
             </p>
           </Link>
         ))}
       </div>
-      <div className="rounded-lg border border-zinc-800 bg-zinc-900/40 p-3 text-sm text-zinc-400">
+      <div className="rounded-lg border border-border bg-surface p-3 text-sm text-ink-2">
         Group leaderboard uses each member&apos;s streak / XP from their profile.{" "}
         <Button asChild size="sm" variant="outline" className="ml-2">
           <Link href="/questions">MCQ challenge → Question Bank</Link>

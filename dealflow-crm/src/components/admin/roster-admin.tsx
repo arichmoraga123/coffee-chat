@@ -26,7 +26,7 @@ type PreviewRow = { email: string; name: string | null; role: "member" | "admin"
 type Filter = "all" | "not-signed-up" | "inactive-14" | "deactivated";
 
 const DAY = 86_400_000;
-const INPUT = "w-full rounded-lg border border-white/10 bg-zinc-950 px-3 py-2 text-sm text-zinc-100";
+const INPUT = "w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-ink";
 
 function daysAgo(iso: string | null) {
   if (!iso) return null;
@@ -142,20 +142,20 @@ export function RosterAdmin() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-xl font-semibold text-zinc-50">PE@Broad roster</h1>
-        <p className="mt-1 text-sm text-zinc-400">
+        <h1 className="text-xl font-semibold text-ink">PE@Broad roster</h1>
+        <p className="mt-1 text-sm text-ink-2">
           Anyone whose login email or verified .edu email is on this list joins PE@Broad automatically when they sign in.
         </p>
       </div>
 
       {requests.length ? (
-        <section className="rounded-xl border border-amber-500/30 bg-amber-950/20 p-4">
-          <h2 className="mb-2 text-sm font-semibold text-amber-100">Join requests ({requests.length})</h2>
+        <section className="rounded-xl border border-warn/40 bg-warn-bg p-4">
+          <h2 className="mb-2 text-sm font-semibold text-warn">Join requests ({requests.length})</h2>
           <ul className="space-y-2">
             {requests.map((r) => (
               <li key={r.id} className="flex flex-wrap items-center justify-between gap-2 text-sm">
-                <span className="text-zinc-200">
-                  {r.name} <span className="text-zinc-500">· {r.eduEmail ?? r.email}</span>
+                <span className="text-ink">
+                  {r.name} <span className="text-ink-3">· {r.eduEmail ?? r.email}</span>
                 </span>
                 <span className="flex gap-2">
                   <Button size="sm" onClick={() => void decide(r.id, "approve")}>
@@ -171,10 +171,10 @@ export function RosterAdmin() {
         </section>
       ) : null}
 
-      <section className="space-y-3 rounded-xl border border-white/10 bg-zinc-900/50 p-4">
+      <section className="space-y-3 rounded-xl border border-border bg-surface p-4">
         <div className="flex flex-wrap items-center gap-3">
-          <h2 className="text-sm font-semibold text-zinc-200">Add people</h2>
-          <div className="flex overflow-hidden rounded-lg border border-white/10 text-xs">
+          <h2 className="text-sm font-semibold text-ink">Add people</h2>
+          <div className="flex overflow-hidden rounded-lg border border-border text-xs">
             {(["outlook", "csv"] as const).map((f) => (
               <button
                 key={f}
@@ -183,13 +183,13 @@ export function RosterAdmin() {
                   setFormat(f);
                   setPreview(null);
                 }}
-                className={cn("px-3 py-1.5", format === f ? "bg-[#4a6fa5] text-white" : "bg-zinc-950 text-zinc-300")}
+                className={cn("px-3 py-1.5", format === f ? "bg-accent text-on-accent" : "bg-surface text-ink-2")}
               >
                 {f === "outlook" ? "Paste from Outlook" : "CSV"}
               </button>
             ))}
           </div>
-          <label className="cursor-pointer text-xs text-[#a8c0e6] hover:underline">
+          <label className="cursor-pointer text-xs text-accent hover:underline">
             Upload CSV…
             <input type="file" accept=".csv,text/csv" className="hidden" onChange={(e) => void onFile(e.target.files?.[0])} />
           </label>
@@ -214,22 +214,22 @@ export function RosterAdmin() {
         {preview ? (
           <div className="space-y-2">
             {previewErrors.length ? (
-              <ul className="list-disc pl-5 text-xs text-amber-300">
+              <ul className="list-disc pl-5 text-xs text-warn">
                 {previewErrors.map((e) => (
                   <li key={e}>{e}</li>
                 ))}
               </ul>
             ) : null}
-            <div className="max-h-72 overflow-y-auto rounded-lg border border-white/10">
+            <div className="max-h-72 overflow-y-auto rounded-lg border border-border">
               <table className="w-full text-left text-xs">
                 <tbody>
                   {preview.map((r, i) => (
-                    <tr key={r.email} className="border-b border-white/5">
-                      <td className="px-3 py-1.5 text-zinc-200">{r.name ?? <span className="text-zinc-600">(no name)</span>}</td>
-                      <td className="px-3 py-1.5 text-zinc-400">{r.email}</td>
+                    <tr key={r.email} className="border-b border-border">
+                      <td className="px-3 py-1.5 text-ink">{r.name ?? <span className="text-ink-3">(no name)</span>}</td>
+                      <td className="px-3 py-1.5 text-ink-2">{r.email}</td>
                       <td className="px-3 py-1.5">
                         <select
-                          className="rounded border border-white/10 bg-zinc-950 px-1 py-0.5"
+                          className="rounded border border-border bg-surface px-1 py-0.5"
                           value={r.role}
                           onChange={(e) => {
                             const next = [...preview];
@@ -244,7 +244,7 @@ export function RosterAdmin() {
                       <td
                         className={cn(
                           "px-3 py-1.5",
-                          r.status === "new" ? "text-emerald-300" : r.status === "reactivate" ? "text-amber-300" : "text-zinc-500",
+                          r.status === "new" ? "text-success" : r.status === "reactivate" ? "text-warn" : "text-ink-3",
                         )}
                       >
                         {r.status === "new" ? "new" : r.status === "reactivate" ? "reactivate" : "already on roster"}
@@ -252,7 +252,7 @@ export function RosterAdmin() {
                       <td className="px-3 py-1.5 text-right">
                         <button
                           type="button"
-                          className="text-zinc-500 hover:text-red-300"
+                          className="text-ink-3 hover:text-danger"
                           onClick={() => setPreview(preview.filter((_, j) => j !== i))}
                           aria-label={`Remove ${r.email}`}
                         >
@@ -287,7 +287,7 @@ export function RosterAdmin() {
               onClick={() => setFilter(f)}
               className={cn(
                 "rounded-full border px-3 py-1 text-xs",
-                filter === f ? "border-[#4a6fa5] bg-[#4a6fa5]/20 text-zinc-100" : "border-white/10 text-zinc-400 hover:text-zinc-200",
+                filter === f ? "border-accent bg-accent-tint text-ink" : "border-border text-ink-2 hover:text-ink",
               )}
             >
               {label}
@@ -300,13 +300,13 @@ export function RosterAdmin() {
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        <p className="text-xs text-zinc-500">
+        <p className="text-xs text-ink-3">
           {counts.signedUp} of {counts.active} active members have signed up.
         </p>
-        <div className="overflow-x-auto rounded-xl border border-white/10">
+        <div className="overflow-x-auto rounded-xl border border-border">
           <table className="w-full min-w-[720px] text-left text-sm">
             <thead>
-              <tr className="border-b border-white/10 text-[11px] uppercase tracking-wide text-zinc-500">
+              <tr className="border-b border-border text-[11px] uppercase tracking-wide text-ink-3">
                 <th className="px-3 py-2">Name</th>
                 <th className="px-3 py-2">Email</th>
                 <th className="px-3 py-2">Role</th>
@@ -318,13 +318,13 @@ export function RosterAdmin() {
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={6} className="px-3 py-6 text-center text-zinc-500">
+                  <td colSpan={6} className="px-3 py-6 text-center text-ink-3">
                     Loading…
                   </td>
                 </tr>
               ) : shown.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-3 py-6 text-center text-zinc-500">
+                  <td colSpan={6} className="px-3 py-6 text-center text-ink-3">
                     {entries.length ? "Nobody matches." : "The roster is empty — paste or upload it above."}
                   </td>
                 </tr>
@@ -332,12 +332,12 @@ export function RosterAdmin() {
                 shown.map((e) => {
                   const d = daysAgo(e.lastActiveAt);
                   return (
-                    <tr key={e.id} className={cn("border-b border-white/5", !e.active && "opacity-50")}>
-                      <td className="px-3 py-2 text-zinc-200">{e.name ?? "—"}</td>
-                      <td className="px-3 py-2 text-zinc-400">{e.email}</td>
+                    <tr key={e.id} className={cn("border-b border-border", !e.active && "opacity-50")}>
+                      <td className="px-3 py-2 text-ink">{e.name ?? "—"}</td>
+                      <td className="px-3 py-2 text-ink-2">{e.email}</td>
                       <td className="px-3 py-2">
                         <select
-                          className="rounded border border-white/10 bg-zinc-950 px-1.5 py-0.5 text-xs"
+                          className="rounded border border-border bg-surface px-1.5 py-0.5 text-xs"
                           value={e.role}
                           onChange={(ev) => void patch(e.id, { role: ev.target.value as Entry["role"] })}
                         >
@@ -346,16 +346,16 @@ export function RosterAdmin() {
                         </select>
                       </td>
                       <td className="px-3 py-2 text-xs">
-                        {e.signedUp ? <span className="text-emerald-300">Yes</span> : <span className="text-zinc-500">Not yet</span>}
+                        {e.signedUp ? <span className="text-success">Yes</span> : <span className="text-ink-3">Not yet</span>}
                       </td>
-                      <td className={cn("px-3 py-2 text-xs", d !== null && d >= 14 ? "text-amber-300" : "text-zinc-400")}>
+                      <td className={cn("px-3 py-2 text-xs", d !== null && d >= 14 ? "text-warn" : "text-ink-2")}>
                         {d === null ? "—" : d === 0 ? "Today" : `${d}d ago`}
                       </td>
                       <td className="px-3 py-2 text-right">
                         <Button
                           size="sm"
                           variant="ghost"
-                          className={e.active ? "text-red-300" : "text-emerald-300"}
+                          className={e.active ? "text-danger" : "text-success"}
                           onClick={() => {
                             if (e.active && !confirm(`Deactivate ${e.name ?? e.email}? Their account and data are kept.`)) return;
                             void patch(e.id, { active: !e.active });

@@ -12,7 +12,7 @@ export default async function ClubAnnouncementsPage() {
   const userId = await requireUserId();
   const clubId = await resolveClubIdForUser(userId);
   if (!clubId) {
-    return <p className="text-sm text-zinc-400">No club context.</p>;
+    return <p className="text-sm text-ink-2">No club context.</p>;
   }
 
   const [rows, officer] = await Promise.all([
@@ -29,38 +29,38 @@ export default async function ClubAnnouncementsPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-xl font-semibold text-zinc-50">Announcements</h1>
+      <h1 className="text-xl font-semibold text-ink">Announcements</h1>
       {officer ? <ClubAnnouncementComposer clubId={clubId} /> : null}
 
       <div className="space-y-4">
         {[...pinned, ...rest].map((a) => {
           const read = a.readBy.includes(userId);
           return (
-            <Card key={a.id} className="border-zinc-800 bg-zinc-900/50 p-4">
+            <Card key={a.id} className="border-border bg-surface p-4">
               <div className="flex flex-wrap items-start justify-between gap-2">
                 <div className="min-w-0 flex-1">
                   {a.isPinned ? (
-                    <span className="mb-1 inline-block rounded bg-amber-950/80 px-2 py-0.5 text-[10px] font-semibold uppercase text-amber-200">
+                    <span className="mb-1 inline-block rounded bg-warn-bg px-2 py-0.5 text-[10px] font-semibold uppercase text-warn">
                       Pinned
                     </span>
                   ) : null}
-                  <h2 className="text-lg font-medium text-zinc-100">{a.title}</h2>
-                  <p className="text-xs text-zinc-500">
+                  <h2 className="text-lg font-medium text-ink">{a.title}</h2>
+                  <p className="text-xs text-ink-3">
                     {a.author.name} · {format(a.createdAt, "MMM d, yyyy")}
                   </p>
-                  <p className="mt-3 whitespace-pre-wrap text-sm text-zinc-300">{a.body}</p>
+                  <p className="mt-3 whitespace-pre-wrap text-sm text-ink-2">{a.body}</p>
                 </div>
                 <div className="flex shrink-0 flex-col items-end gap-2">
                   <ClubMarkReadAnnouncementButton id={a.id} read={read} />
                   {officer ? (
-                    <span className="text-[10px] text-zinc-500">{a.readBy.length} read</span>
+                    <span className="text-[10px] text-ink-3">{a.readBy.length} read</span>
                   ) : null}
                 </div>
               </div>
             </Card>
           );
         })}
-        {rows.length === 0 ? <p className="text-sm text-zinc-500">No announcements yet.</p> : null}
+        {rows.length === 0 ? <p className="text-sm text-ink-3">No announcements yet.</p> : null}
       </div>
     </div>
   );

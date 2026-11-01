@@ -63,8 +63,8 @@ function DroppableColumn({
     <div
       ref={setNodeRef}
       className={cn(
-        "min-h-56 rounded border border-zinc-800 bg-zinc-900/40 p-2 transition-colors",
-        isOver && "border-[#4a6fa5]/50 bg-[#4a6fa5]/10",
+        "min-h-56 rounded border border-border bg-surface p-2 transition-colors",
+        isOver && "border-accent bg-accent-tint",
       )}
     >
       {children}
@@ -98,14 +98,14 @@ function DraggableCard({
     <div ref={setNodeRef} style={style} className="touch-manipulation">
       <Card
         className={cn(
-          "space-y-1.5 border-zinc-700/80 p-2 text-xs shadow-sm",
-          isDragging && "opacity-60 ring-1 ring-[#4a6fa5]/40",
+          "space-y-1.5 border-border-strong p-2 text-xs shadow-sm",
+          isDragging && "opacity-60 ring-1 ring-accent",
         )}
       >
         <div className="flex gap-1">
         <button
           type="button"
-          className="mt-0.5 shrink-0 cursor-grab touch-none rounded p-0.5 text-zinc-500 hover:bg-zinc-800 hover:text-zinc-300 active:cursor-grabbing"
+          className="mt-0.5 shrink-0 cursor-grab touch-none rounded p-0.5 text-ink-3 hover:bg-surface-2 hover:text-ink-2 active:cursor-grabbing"
           {...listeners}
           {...attributes}
           aria-label="Drag to move stage"
@@ -118,34 +118,34 @@ function DraggableCard({
           onClick={() => onOpen(opp)}
         >
           <div className="flex flex-wrap items-center gap-1.5">
-            <p className="font-semibold leading-tight text-zinc-100">{opp.firmName}</p>
+            <p className="font-semibold leading-tight text-ink">{opp.firmName}</p>
             <FirmTypeBadge type={opp.firmType} className="text-[9px]" />
           </div>
           <div className="mt-1 flex flex-wrap items-center gap-1.5">
-            <span className="rounded border border-[#2a2a2a] bg-[#161616] px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-[#c9a84c]">
+            <span className="rounded border border-border bg-surface px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent">
               {opportunityRoleBadge(opp.role)}
             </span>
             <span
               className={cn(
                 "text-[11px]",
-                tone === "past" && "font-medium text-red-400",
-                tone === "soon" && "font-medium text-yellow-300",
-                tone === "future" && "text-zinc-400",
-                tone === "muted" && "text-zinc-500",
+                tone === "past" && "font-medium text-danger",
+                tone === "soon" && "font-medium text-warn",
+                tone === "future" && "text-ink-2",
+                tone === "muted" && "text-ink-3",
               )}
             >
               {deadlineLabel}
             </span>
           </div>
           {displayContact && (
-            <p className="mt-1 truncate text-[11px] text-zinc-500">{displayContact}</p>
+            <p className="mt-1 truncate text-[11px] text-ink-3">{displayContact}</p>
           )}
         </button>
         </div>
         <div className="pl-6" onPointerDown={(e) => e.stopPropagation()}>
         <label className="sr-only">Move to stage</label>
         <select
-          className="w-full rounded border border-zinc-700 bg-zinc-950 px-1.5 py-1 text-[11px] text-zinc-300"
+          className="w-full rounded border border-border-strong bg-surface px-1.5 py-1 text-[11px] text-ink-2"
           value=""
           aria-label="Move to stage"
           onChange={(e) => {
@@ -271,7 +271,7 @@ export function PipelineBoard({
         <div className="grid gap-3 md:grid-cols-4 xl:grid-cols-8">
           {PIPELINE_STAGES.map((stage) => (
             <DroppableColumn key={stage} stage={stage}>
-              <p className="mb-2 text-xs font-semibold uppercase text-zinc-400">
+              <p className="mb-2 text-xs font-semibold uppercase text-ink-2">
                 {STAGE_LABELS[stage]}
               </p>
               <div className="space-y-2">

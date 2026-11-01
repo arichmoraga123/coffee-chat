@@ -8,7 +8,7 @@ type PricingFeature = string | { text: string; comingSoon: true };
 
 function ComingSoonBadge() {
   return (
-    <span className="ml-2 inline-flex shrink-0 items-center rounded-full border border-amber-500/35 bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-200/95">
+    <span className="ml-2 inline-flex shrink-0 items-center rounded-full border border-warn/40 bg-warn-bg px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-warn">
       Coming Soon
     </span>
   );
@@ -73,29 +73,29 @@ export function MarketingLanding({ inviteName }: { inviteName?: string | null })
     <div className="mx-auto max-w-6xl space-y-16 pb-16">
       <header className="flex items-center justify-between pt-4">
         <p className="text-lg font-semibold">Prospect</p>
-        <nav className="flex items-center gap-4 text-sm text-zinc-400">
-          <a href="#features" className="hover:text-zinc-200">Features</a>
-          <Link href="/pricing" className="hover:text-zinc-200">Pricing</Link>
-          <Link href="/login" className="hover:text-zinc-200">Login</Link>
-          <Link href="/signup" className="hover:text-zinc-200">Sign Up</Link>
+        <nav className="flex items-center gap-4 text-sm text-ink-2">
+          <a href="#features" className="hover:text-ink">Features</a>
+          <Link href="/pricing" className="hover:text-ink">Pricing</Link>
+          <Link href="/login" className="hover:text-ink">Login</Link>
+          <Link href="/signup" className="hover:text-ink">Sign Up</Link>
         </nav>
       </header>
 
-      <section className="rounded-2xl border border-zinc-800 bg-gradient-to-b from-zinc-900 to-zinc-950 p-10">
+      <section className="rounded-2xl border border-border p-10">
         {inviteName ? (
-          <p className="mb-4 inline-block rounded-full border border-amber-600/40 bg-amber-500/10 px-3 py-1 text-xs text-amber-300">
+          <p className="mb-4 inline-block rounded-full border border-warn/40 bg-warn-bg px-3 py-1 text-xs text-warn">
             You have been invited by {inviteName}
           </p>
         ) : null}
         <h1 className="max-w-4xl text-4xl font-semibold leading-tight md:text-6xl">
           Everything you need to land your dream role.
         </h1>
-        <p className="mt-4 max-w-3xl text-zinc-400">
+        <p className="mt-4 max-w-3xl text-ink-2">
           Prospect combines interview prep, networking, recruiting timelines, and club management into the platform
           IBvine, Drillcore, and LinkedIn cannot be individually.
         </p>
         <div className="mt-8 flex gap-3">
-          <Button asChild className="bg-white text-zinc-900 hover:bg-zinc-200">
+          <Button asChild className="bg-surface text-on-accent hover:bg-accent">
             <Link href="/signup">Get Started Free</Link>
           </Button>
           <Button asChild variant="outline">
@@ -105,13 +105,13 @@ export function MarketingLanding({ inviteName }: { inviteName?: string | null })
       </section>
 
       <section className="space-y-3">
-        <p className="text-sm text-zinc-400">Used by students at Michigan State, Boston University, and growing</p>
+        <p className="text-sm text-ink-2">Used by students at Michigan State, Boston University, and growing</p>
         <div className="flex flex-wrap gap-2">
           {["Michigan State", "Boston University", "Cornell", "Indiana", "Notre Dame"].map((s) => (
-            <span key={s} className="rounded-full border border-zinc-700 px-3 py-1 text-xs text-zinc-300">{s}</span>
+            <span key={s} className="rounded-full border border-border-strong px-3 py-1 text-xs text-ink-2">{s}</span>
           ))}
         </div>
-        <p className="text-sm text-zinc-500">400+ interview questions. 20+ target firms tracked. Built by students, for students.</p>
+        <p className="text-sm text-ink-3">400+ interview questions. 20+ target firms tracked. Built by students, for students.</p>
       </section>
 
       <section className="space-y-4">
@@ -122,9 +122,9 @@ export function MarketingLanding({ inviteName }: { inviteName?: string | null })
             ["Not built for you", "Generic platforms do not know what MSU students face recruiting against targets. Prospect is built specifically for business school recruiting."],
             ["No network effect", "When a Cornell student submits a Goldman question, every student benefits. Crowdsourced intel from real students at real schools."],
           ].map(([title, body]) => (
-            <div key={title} className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-4">
+            <div key={title} className="rounded-xl border border-border bg-surface p-4">
               <p className="font-medium">{title}</p>
-              <p className="mt-2 text-sm text-zinc-400">{body}</p>
+              <p className="mt-2 text-sm text-ink-2">{body}</p>
             </div>
           ))}
         </div>
@@ -147,7 +147,7 @@ export function MarketingLanding({ inviteName }: { inviteName?: string | null })
                 <span>{title as string}</span>
                 {schoolNetwork ? <ComingSoonBadge /> : null}
               </p>
-              <p className="mt-2 text-zinc-400">{body as string}</p>
+              <p className="mt-2 text-ink-2">{body as string}</p>
             </div>
             <LandingFeaturePreview index={idx} />
           </div>
@@ -158,11 +158,11 @@ export function MarketingLanding({ inviteName }: { inviteName?: string | null })
         <h2 className="text-2xl font-semibold">Pricing</h2>
         <div className="grid gap-4 md:grid-cols-3">
           {pricingTiers.map((tier) => (
-            <div key={tier.name} className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-4">
-              <p className="text-xs uppercase tracking-wide text-zinc-500">{tier.name}</p>
+            <div key={tier.name} className="rounded-xl border border-border bg-surface p-4">
+              <p className="text-xs uppercase tracking-wide text-ink-3">{tier.name}</p>
               <p className="mt-1 text-2xl font-semibold">{tier.price}</p>
-              <p className="mt-1 text-sm text-zinc-400">{tier.subtitle}</p>
-              <ul className="mt-3 space-y-1 text-sm text-zinc-300">
+              <p className="mt-1 text-sm text-ink-2">{tier.subtitle}</p>
+              <ul className="mt-3 space-y-1 text-sm text-ink-2">
                 {tier.features.map((f) => {
                   const label = typeof f === "string" ? f : f.text;
                   const key = label;
@@ -180,23 +180,23 @@ export function MarketingLanding({ inviteName }: { inviteName?: string | null })
         </div>
       </section>
 
-      <section className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-8 text-center">
+      <section className="rounded-xl border border-border bg-surface p-8 text-center">
         <h3 className="text-2xl font-semibold">Ready to get recruited?</h3>
-        <p className="mt-2 text-zinc-400">
+        <p className="mt-2 text-ink-2">
           Join students at MSU, BU, and beyond who are using Prospect to land their dream roles.
         </p>
-        <Button asChild className="mt-4 bg-white text-zinc-900 hover:bg-zinc-200">
+        <Button asChild className="mt-4 bg-surface text-on-accent hover:bg-accent">
           <Link href="/signup">Get Started Free</Link>
         </Button>
       </section>
 
-      <footer className="border-t border-zinc-800 pt-6 text-sm text-zinc-500">
-        <p className="font-medium text-zinc-300">Prospect — The recruiting network for business school students</p>
+      <footer className="border-t border-border pt-6 text-sm text-ink-3">
+        <p className="font-medium text-ink-2">Prospect — The recruiting network for business school students</p>
         <div className="mt-2 flex gap-4">
-          <a href="#features" className="hover:text-zinc-300">Features</a>
-          <a href="#pricing" className="hover:text-zinc-300">Pricing</a>
-          <Link href="/login" className="hover:text-zinc-300">Login</Link>
-          <Link href="/signup" className="hover:text-zinc-300">Sign Up</Link>
+          <a href="#features" className="hover:text-ink-2">Features</a>
+          <a href="#pricing" className="hover:text-ink-2">Pricing</a>
+          <Link href="/login" className="hover:text-ink-2">Login</Link>
+          <Link href="/signup" className="hover:text-ink-2">Sign Up</Link>
         </div>
         <p className="mt-2">© 2026 Prospect. Built by students.</p>
       </footer>

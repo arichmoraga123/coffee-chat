@@ -45,7 +45,7 @@ export function FirmTypeBadge({
   return (
     <span
       className={cn(
-        "inline-flex shrink-0 rounded border border-zinc-600 bg-zinc-800/80 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-zinc-300",
+        "inline-flex shrink-0 rounded border border-border-strong bg-surface-2 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-ink-2",
         className,
       )}
     >

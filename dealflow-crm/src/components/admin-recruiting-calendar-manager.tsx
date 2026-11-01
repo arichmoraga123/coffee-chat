@@ -155,7 +155,7 @@ export function AdminRecruitingCalendarManager() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="page-title">Recruiting calendar</h1>
-          <p className="text-sm text-zinc-500">Manage shared events shown to all members.</p>
+          <p className="text-sm text-ink-3">Manage shared events shown to all members.</p>
         </div>
         <Button type="button" onClick={openNew}>
           Add event
@@ -164,7 +164,7 @@ export function AdminRecruitingCalendarManager() {
 
       <Card className="overflow-x-auto p-0">
         <table className="w-full min-w-[720px] text-left text-xs">
-          <thead className="border-b border-white/10 bg-black/30 text-[10px] uppercase tracking-wide text-zinc-500">
+          <thead className="border-b border-border bg-black/30 text-[10px] uppercase tracking-wide text-ink-3">
             <tr>
               <th className="px-3 py-2">Title</th>
               <th className="px-3 py-2">Date</th>
@@ -178,18 +178,18 @@ export function AdminRecruitingCalendarManager() {
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={7} className="px-3 py-6 text-center text-zinc-500">
+                <td colSpan={7} className="px-3 py-6 text-center text-ink-3">
                   Loading…
                 </td>
               </tr>
             ) : (
               events.map((e) => (
-                <tr key={e.id} className="border-b border-white/5 hover:bg-white/[0.02]">
-                  <td className="max-w-[220px] px-3 py-2 font-medium text-zinc-200">{e.title}</td>
-                  <td className="whitespace-nowrap px-3 py-2 text-zinc-400">{format(new Date(e.date), "MMM d, yyyy")}</td>
-                  <td className="px-3 py-2 text-zinc-400">{e.eventType}</td>
-                  <td className="px-3 py-2 text-zinc-500">{e.vertical ?? "—"}</td>
-                  <td className="px-3 py-2 font-mono text-zinc-400">{e.upvotes}</td>
+                <tr key={e.id} className="border-b border-border hover:bg-surface-2">
+                  <td className="max-w-[220px] px-3 py-2 font-medium text-ink">{e.title}</td>
+                  <td className="whitespace-nowrap px-3 py-2 text-ink-2">{format(new Date(e.date), "MMM d, yyyy")}</td>
+                  <td className="px-3 py-2 text-ink-2">{e.eventType}</td>
+                  <td className="px-3 py-2 text-ink-3">{e.vertical ?? "—"}</td>
+                  <td className="px-3 py-2 font-mono text-ink-2">{e.upvotes}</td>
                   <td className="px-3 py-2">
                     <button
                       type="button"
@@ -197,18 +197,18 @@ export function AdminRecruitingCalendarManager() {
                       className={cn(
                         "rounded px-2 py-1 text-[10px] ring-1",
                         e.verified
-                          ? "bg-emerald-500/15 text-emerald-300 ring-emerald-500/40"
-                          : "bg-zinc-800 text-zinc-500 ring-zinc-600",
+                          ? "bg-success-bg text-success ring-success/40"
+                          : "bg-surface-2 text-ink-3 ring-border-strong",
                       )}
                     >
                       {e.verified ? "Yes" : "No"}
                     </button>
                   </td>
                   <td className="space-x-2 whitespace-nowrap px-3 py-2 text-right">
-                    <button type="button" className="text-[#f0f0f0] underline-offset-4 hover:underline" onClick={() => openEdit(e)}>
+                    <button type="button" className="text-ink underline-offset-4 hover:underline" onClick={() => openEdit(e)}>
                       Edit
                     </button>
-                    <button type="button" className="text-red-400/90 hover:underline" onClick={() => void remove(e.id)}>
+                    <button type="button" className="text-danger hover:underline" onClick={() => void remove(e.id)}>
                       Delete
                     </button>
                   </td>
@@ -225,7 +225,7 @@ export function AdminRecruitingCalendarManager() {
           <Input placeholder="Firm" value={form.firmName} onChange={(e) => setForm((f) => ({ ...f, firmName: e.target.value }))} />
           <Input placeholder="Vertical (IB, PE, …)" value={form.vertical} onChange={(e) => setForm((f) => ({ ...f, vertical: e.target.value }))} />
           <select
-            className="rounded border border-white/10 bg-zinc-950 px-2 py-2 text-sm"
+            className="rounded border border-border bg-surface px-2 py-2 text-sm"
             value={form.eventType}
             onChange={(e) => setForm((f) => ({ ...f, eventType: e.target.value as (typeof EVENT_TYPES)[number] }))}
           >
@@ -244,12 +244,12 @@ export function AdminRecruitingCalendarManager() {
           />
           <Input placeholder="Source URL" value={form.sourceUrl} onChange={(e) => setForm((f) => ({ ...f, sourceUrl: e.target.value }))} />
           <textarea
-            className="min-h-[60px] w-full rounded border border-white/10 bg-zinc-950 p-2 text-sm"
+            className="min-h-[60px] w-full rounded border border-border bg-surface p-2 text-sm"
             placeholder="Notes"
             value={form.notes}
             onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))}
           />
-          <label className="flex items-center gap-2 text-xs text-zinc-400">
+          <label className="flex items-center gap-2 text-xs text-ink-2">
             <input
               type="checkbox"
               checked={form.verified}

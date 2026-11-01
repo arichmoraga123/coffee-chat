@@ -1,6 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { Avatar } from "@/components/ui/avatar";
+import { Badge, Chip } from "@/components/ui/badge";
+import { DataTable, Td, Th } from "@/components/ui/data-table";
+import { Input } from "@/components/ui/input";
+import { Select } from "@/components/ui/select";
 
 type M = {
   id: string;
@@ -10,11 +15,12 @@ type M = {
   careerTracks: string[];
 };
 
+const ROLE_LABEL: Record<string, string> = { admin: "Admin", president: "President", vp: "VP", sector_head: "Sector head", member: "Member" };
+
 export function ClubMembersFilter({ members }: { members: M[] }) {
-  const [roleQ, setRoleQ] = useState("");
+  const [q, setQ] = useState("");
   const [trackQ, setTrackQ] = useState("");
 
-  const roles = useMemo(() => Array.from(new Set(members.map((m) => m.role))).sort(), [members]);
   const tracks = useMemo(() => {
     const s = new Set<string>();
     for (const m of members) for (const t of m.careerTracks) s.add(t);
@@ -22,67 +28,75 @@ export function ClubMembersFilter({ members }: { members: M[] }) {
   }, [members]);
 
   const filtered = useMemo(() => {
+    const term = q.trim().toLowerCase();
     return members.filter((m) => {
-      if (roleQ && m.role !== roleQ) return false;
       if (trackQ && !m.careerTracks.includes(trackQ)) return false;
+      if (term && !m.name.toLowerCase().includes(term) && !(m.email ?? "").toLowerCase().includes(term)) return false;
       return true;
     });
-  }, [members, roleQ, trackQ]);
+  }, [members, q, trackQ]);
+
+  const showEmail = members.some((m) => m.email);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <div className="flex flex-wrap gap-2">
-        <select
-          className="rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-xs text-zinc-200"
-          value={roleQ}
-          onChange={(e) => setRoleQ(e.target.value)}
-        >
-          <option value="">All roles</option>
-          {roles.map((r) => (
-            <option key={r} value={r}>
-              {r}
-            </option>
-          ))}
-        </select>
-        <select
-          className="rounded border border-zinc-700 bg-zinc-950 px-2 py-1.5 text-xs text-zinc-200"
-          value={trackQ}
-          onChange={(e) => setTrackQ(e.target.value)}
-        >
+        <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search members" className="w-full sm:w-64" aria-label="Search members" />
+        <Select value={trackQ} onChange={(e) => setTrackQ(e.target.value)} aria-label="Track">
           <option value="">All tracks</option>
           {tracks.map((t) => (
             <option key={t} value={t}>
               {t}
             </option>
           ))}
-        </select>
+        </Select>
+        <span className="ml-auto self-center text-[13px] text-ink-3">
+          {filtered.length} of {members.length}
+        </span>
       </div>
 
-      <div className="overflow-x-auto rounded-lg border border-zinc-800">
-        <table className="w-full min-w-[320px] text-left text-sm">
-          <thead className="border-b border-zinc-800 bg-zinc-900/80 text-xs uppercase text-zinc-500">
+      <DataTable minWidth={480}>
+        <thead>
+          <tr>
+            <Th>Member</Th>
+            <Th>Tracks</Th>
+            {showEmail ? <Th>Email</Th> : null}
+          </tr>
+        </thead>
+        <tbody>
+          {filtered.length === 0 ? (
             <tr>
-              <th className="px-3 py-2">Name</th>
-              <th className="px-3 py-2">Role</th>
-              <th className="px-3 py-2">Tracks</th>
-              <th className="px-3 py-2">Contact</th>
+              <Td colSpan={3} className="py-8 text-center text-ink-3">
+                No members match.
+              </Td>
             </tr>
-          </thead>
-          <tbody>
-            {filtered.map((m) => (
-              <tr key={m.id} className="border-b border-zinc-800/80 last:border-0">
-                <td className="px-3 py-2 font-medium text-zinc-100">{m.name}</td>
-                <td className="px-3 py-2">
-                  <span className="rounded bg-zinc-800 px-1.5 py-0.5 text-[10px] text-zinc-300">{m.role}</span>
-                </td>
-                <td className="px-3 py-2 text-xs text-zinc-400">{m.careerTracks.join(", ") || "—"}</td>
-                <td className="px-3 py-2 text-xs text-zinc-400">{m.email ?? "—"}</td>
+          ) : (
+            filtered.map((m) => (
+              <tr key={m.id}>
+                <Td>
+                  <span className="flex items-center gap-3">
+                    <Avatar name={m.name} size={32} />
+                    <span className="min-w-0">
+                      <span className="block font-medium text-ink">{m.name}</span>
+                      {m.role !== "member" ? (
+                        <Badge tone="accent" className="mt-0.5">
+                          {ROLE_LABEL[m.role] ?? m.role}
+                        </Badge>
+                      ) : null}
+                    </span>
+                  </span>
+                </Td>
+                <Td>
+                  <span className="flex flex-wrap gap-1">
+                    {m.careerTracks.length ? m.careerTracks.map((t) => <Chip key={t}>{t}</Chip>) : <span className="text-ink-3">—</span>}
+                  </span>
+                </Td>
+                {showEmail ? <Td className="text-ink-2">{m.email ?? "—"}</Td> : null}
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {filtered.length === 0 ? <p className="text-sm text-zinc-500">No members match filters.</p> : null}
+            ))
+          )}
+        </tbody>
+      </DataTable>
     </div>
   );
 }

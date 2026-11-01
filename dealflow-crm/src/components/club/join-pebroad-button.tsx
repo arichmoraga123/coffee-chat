@@ -9,7 +9,7 @@ export function JoinPeBroadButton({ initialStatus }: { initialStatus: "none" | "
   const [busy, setBusy] = useState(false);
 
   if (status === "pending") {
-    return <p className="text-sm text-amber-200">Request sent — a PE@Broad admin will review it.</p>;
+    return <p className="text-sm text-warn">Request sent — a PE@Broad admin will review it.</p>;
   }
   return (
     <Button

@@ -1,28 +1,30 @@
 import type { LucideIcon } from "lucide-react";
-import { Inbox } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+/** One sentence plus (optionally) one action. No illustrations. */
 export function EmptyState({
   title,
   description,
-  icon: Icon = Inbox,
+  action,
   className,
 }: {
   title: string;
   description?: string;
+  action?: React.ReactNode;
+  /** Ignored — kept for older call sites. */
   icon?: LucideIcon;
   className?: string;
 }) {
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-white/10 bg-zinc-900/40 px-6 py-12 text-center",
+        "flex flex-col items-center justify-center gap-2 rounded-[var(--radius-lg)] border border-dashed border-border-strong bg-surface px-6 py-10 text-center",
         className,
       )}
     >
-      <Icon className="size-10 stroke-[1.25] text-zinc-600" aria-hidden />
-      <p className="text-sm font-medium text-zinc-300">{title}</p>
-      {description ? <p className="max-w-sm text-xs leading-relaxed text-zinc-500">{description}</p> : null}
+      <p className="text-sm font-medium text-ink">{title}</p>
+      {description ? <p className="max-w-sm text-[13px] leading-relaxed text-ink-3">{description}</p> : null}
+      {action ? <div className="mt-2">{action}</div> : null}
     </div>
   );
 }

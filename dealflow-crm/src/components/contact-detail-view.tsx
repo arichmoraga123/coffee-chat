@@ -220,14 +220,14 @@ export function ContactDetailView({
   const firmDomain = profile.firmName.toLowerCase().replace(/[^a-z0-9]/g, "") + ".com";
 
   const fieldClass =
-    "w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-sm text-zinc-100 placeholder:text-zinc-600";
+    "w-full rounded border border-border-strong bg-surface px-2 py-2 text-sm text-ink placeholder:text-ink-3";
 
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h1 className="text-xl font-semibold text-zinc-50">{profile.fullName}</h1>
-          <p className="flex flex-wrap items-center gap-2 text-sm text-zinc-400">
+          <h1 className="text-xl font-semibold text-ink">{profile.fullName}</h1>
+          <p className="flex flex-wrap items-center gap-2 text-sm text-ink-2">
             <span>
               {profile.title} · {profile.group} · {profile.firmName}
             </span>
@@ -255,17 +255,17 @@ export function ContactDetailView({
         <ContactProfileForm profile={profile} firms={firms} />
         <div className="space-y-4">
           <div>
-            <h2 className="mb-3 text-sm font-semibold text-zinc-200">Interaction timeline</h2>
+            <h2 className="mb-3 text-sm font-semibold text-ink">Interaction timeline</h2>
             <ContactInteractionTimeline interactions={interactions} onDraftFollowUp={runDraftFollowUp} />
           </div>
 
           <div className="grid gap-3 md:grid-cols-2">
-            <Card className="border-zinc-800 bg-zinc-900/50 p-4">
-              <h2 className="mb-2 text-sm font-semibold text-zinc-200">Tasks</h2>
+            <Card className="border-border bg-surface p-4">
+              <h2 className="mb-2 text-sm font-semibold text-ink">Tasks</h2>
               {tasks.length === 0 ? (
-                <p className="text-xs text-zinc-500">No tasks.</p>
+                <p className="text-xs text-ink-3">No tasks.</p>
               ) : (
-                <ul className="space-y-2 text-xs text-zinc-300">
+                <ul className="space-y-2 text-xs text-ink-2">
                   {tasks.map((t) => (
                     <li key={t.id}>
                       {t.taskType} · due {new Date(t.dueDate).toLocaleDateString()} ({t.status})
@@ -274,12 +274,12 @@ export function ContactDetailView({
                 </ul>
               )}
             </Card>
-            <Card className="border-zinc-800 bg-zinc-900/50 p-4">
-              <h2 className="mb-2 text-sm font-semibold text-zinc-200">Linked opportunities</h2>
+            <Card className="border-border bg-surface p-4">
+              <h2 className="mb-2 text-sm font-semibold text-ink">Linked opportunities</h2>
               {opportunities.length === 0 ? (
-                <p className="text-xs text-zinc-500">None linked.</p>
+                <p className="text-xs text-ink-3">None linked.</p>
               ) : (
-                <ul className="space-y-1 text-xs text-zinc-300">
+                <ul className="space-y-1 text-xs text-ink-2">
                   {opportunities.map((o) => (
                     <li key={o.id}>{o.label}</li>
                   ))}
@@ -289,7 +289,7 @@ export function ContactDetailView({
                 <select
                   value={selectedOpp}
                   onChange={(e) => setSelectedOpp(e.target.value)}
-                  className="h-8 min-w-0 flex-1 rounded border border-zinc-700 bg-zinc-950 px-2 text-xs"
+                  className="h-8 min-w-0 flex-1 rounded border border-border-strong bg-surface px-2 text-xs"
                 >
                   <option value="">Select to link</option>
                   {linkableOpportunities.map((o) => (
@@ -367,7 +367,7 @@ export function ContactDetailView({
       <Modal open={showI} onClose={() => setShowI(false)} title="Log interaction" className="max-w-lg">
         <div className="max-h-[70vh] space-y-3 overflow-y-auto pr-1 text-sm">
           <div>
-            <label className="mb-1 block text-[10px] font-semibold uppercase text-zinc-500">Date</label>
+            <label className="mb-1 block text-[10px] font-semibold uppercase text-ink-3">Date</label>
             <Input
               type="date"
               className={fieldClass}
@@ -376,7 +376,7 @@ export function ContactDetailView({
             />
           </div>
           <div>
-            <label className="mb-1 block text-[10px] font-semibold uppercase text-zinc-500">Type</label>
+            <label className="mb-1 block text-[10px] font-semibold uppercase text-ink-3">Type</label>
             <select
               className={fieldClass}
               value={interactionForm.type}
@@ -390,7 +390,7 @@ export function ContactDetailView({
             </select>
           </div>
           <div>
-            <label className="mb-1 block text-[10px] font-semibold uppercase text-zinc-500">What was discussed</label>
+            <label className="mb-1 block text-[10px] font-semibold uppercase text-ink-3">What was discussed</label>
             <textarea
               className={`${fieldClass} min-h-[72px]`}
               value={interactionForm.notes}
@@ -398,7 +398,7 @@ export function ContactDetailView({
             />
           </div>
           <div>
-            <label className="mb-1 block text-[10px] font-semibold uppercase text-zinc-500">Advice given</label>
+            <label className="mb-1 block text-[10px] font-semibold uppercase text-ink-3">Advice given</label>
             <textarea
               className={`${fieldClass} min-h-[64px]`}
               value={interactionForm.adviceGiven}
@@ -406,7 +406,7 @@ export function ContactDetailView({
             />
           </div>
           <div>
-            <label className="mb-1 block text-[10px] font-semibold uppercase text-zinc-500">
+            <label className="mb-1 block text-[10px] font-semibold uppercase text-ink-3">
               Action items (one per line)
             </label>
             <textarea
@@ -416,7 +416,7 @@ export function ContactDetailView({
             />
           </div>
           <div>
-            <label className="mb-1 block text-[10px] font-semibold uppercase text-zinc-500">Personal details</label>
+            <label className="mb-1 block text-[10px] font-semibold uppercase text-ink-3">Personal details</label>
             <textarea
               className={`${fieldClass} min-h-[56px]`}
               value={interactionForm.personalDetails}
@@ -424,7 +424,7 @@ export function ContactDetailView({
             />
           </div>
           <div>
-            <label className="mb-1 block text-[10px] font-semibold uppercase text-zinc-500">Firm insights</label>
+            <label className="mb-1 block text-[10px] font-semibold uppercase text-ink-3">Firm insights</label>
             <textarea
               className={`${fieldClass} min-h-[56px]`}
               value={interactionForm.firmInsights}
@@ -432,7 +432,7 @@ export function ContactDetailView({
             />
           </div>
           <div>
-            <label className="mb-1 block text-[10px] font-semibold uppercase text-zinc-500">Red flags</label>
+            <label className="mb-1 block text-[10px] font-semibold uppercase text-ink-3">Red flags</label>
             <textarea
               className={`${fieldClass} min-h-[48px]`}
               value={interactionForm.redFlags}
@@ -440,7 +440,7 @@ export function ContactDetailView({
             />
           </div>
           <div>
-            <label className="mb-1 block text-[10px] font-semibold uppercase text-zinc-500">Follow-up date (optional)</label>
+            <label className="mb-1 block text-[10px] font-semibold uppercase text-ink-3">Follow-up date (optional)</label>
             <Input
               type="date"
               className={fieldClass}
@@ -460,7 +460,7 @@ export function ContactDetailView({
       </Modal>
 
       <Modal open={showIntro} onClose={() => setShowIntro(false)} title="Request intro" className="max-w-md">
-        <p className="mb-2 text-xs text-zinc-400">Who do you want an intro to? (person and/or firm)</p>
+        <p className="mb-2 text-xs text-ink-2">Who do you want an intro to? (person and/or firm)</p>
         <Input
           className={fieldClass}
           value={introTarget}

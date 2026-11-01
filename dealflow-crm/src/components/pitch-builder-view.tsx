@@ -21,7 +21,7 @@ function BulletInputs({
 }) {
   return (
     <div className="space-y-1">
-      <p className="text-xs text-zinc-500">{label}</p>
+      <p className="text-xs text-ink-3">{label}</p>
       {[0, 1, 2].map((i) => (
         <Input
           key={i}
@@ -190,23 +190,23 @@ export function PitchBuilderView() {
     <div className="mx-auto max-w-4xl space-y-6">
       <div>
         <h1 className="page-title">Stock pitch builder</h1>
-        <p className="mt-1 text-sm text-zinc-400">
+        <p className="mt-1 text-sm text-ink-2">
           Draft a pitch, generate a deck outline with Claude, and share to a study group for feedback.
         </p>
       </div>
 
-      <Card className="border-zinc-800 bg-zinc-900/50 p-4">
-        <p className="text-sm font-medium text-zinc-200">Your pitches</p>
+      <Card className="border-border bg-surface p-4">
+        <p className="text-sm font-medium text-ink">Your pitches</p>
         <ul className="mt-2 space-y-1 text-sm">
           {pitches.map((p) => (
             <li key={p.id}>
               <button
                 type="button"
-                className={`text-left hover:underline ${selectedId === p.id ? "text-[#c9a84c]" : "text-zinc-300"}`}
+                className={`text-left hover:underline ${selectedId === p.id ? "text-accent" : "text-ink-2"}`}
                 onClick={() => void loadOne(p.id)}
               >
                 {p.companyName} · {p.recommendation}
-                {p.sharedToGroupId ? <span className="ml-2 text-xs text-emerald-400">shared</span> : null}
+                {p.sharedToGroupId ? <span className="ml-2 text-xs text-success">shared</span> : null}
               </button>
             </li>
           ))}
@@ -235,16 +235,16 @@ export function PitchBuilderView() {
         </Button>
       </Card>
 
-      <Card className="space-y-4 border-zinc-800 bg-zinc-900/50 p-4">
+      <Card className="space-y-4 border-border bg-surface p-4">
         <Input
           placeholder="Company name"
           value={form.companyName}
           onChange={(e) => setForm((f) => ({ ...f, companyName: e.target.value }))}
         />
         <div>
-          <p className="mb-1 text-xs text-zinc-500">Company overview</p>
+          <p className="mb-1 text-xs text-ink-3">Company overview</p>
           <textarea
-            className="min-h-[100px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-sm"
+            className="min-h-[100px] w-full rounded border border-border-strong bg-surface p-2 text-sm"
             value={form.overview}
             onChange={(e) => setForm((f) => ({ ...f, overview: e.target.value }))}
           />
@@ -252,11 +252,11 @@ export function PitchBuilderView() {
         <BulletInputs label="Investment thesis (3 bullets)" values={form.thesis} onChange={(t) => setForm((f) => ({ ...f, thesis: t }))} />
         <div className="grid gap-2 sm:grid-cols-2">
           <div>
-            <p className="mb-1 text-xs text-zinc-500">Current price</p>
+            <p className="mb-1 text-xs text-ink-3">Current price</p>
             <Input value={form.currentPrice} onChange={(e) => setForm((f) => ({ ...f, currentPrice: e.target.value }))} />
           </div>
           <div>
-            <p className="mb-1 text-xs text-zinc-500">Target price</p>
+            <p className="mb-1 text-xs text-ink-3">Target price</p>
             <Input value={form.targetPrice} onChange={(e) => setForm((f) => ({ ...f, targetPrice: e.target.value }))} />
           </div>
         </div>
@@ -267,9 +267,9 @@ export function PitchBuilderView() {
         />
         <BulletInputs label="Risks (3)" values={form.risks} onChange={(t) => setForm((f) => ({ ...f, risks: t }))} />
         <div>
-          <p className="mb-1 text-xs text-zinc-500">Recommendation</p>
+          <p className="mb-1 text-xs text-ink-3">Recommendation</p>
           <select
-            className="rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-sm"
+            className="rounded border border-border-strong bg-surface px-2 py-2 text-sm"
             value={form.recommendation}
             onChange={(e) => setForm((f) => ({ ...f, recommendation: e.target.value as typeof f.recommendation }))}
           >
@@ -294,11 +294,11 @@ export function PitchBuilderView() {
           ) : null}
         </div>
         {selectedId ? (
-          <div className="border-t border-zinc-800 pt-4">
-            <p className="text-sm font-medium text-zinc-200">Share with study group</p>
+          <div className="border-t border-border pt-4">
+            <p className="text-sm font-medium text-ink">Share with study group</p>
             <div className="mt-2 flex flex-wrap gap-2">
               <select
-                className="rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-sm"
+                className="rounded border border-border-strong bg-surface px-2 py-2 text-sm"
                 value={shareGroupId}
                 onChange={(e) => setShareGroupId(e.target.value)}
               >
@@ -313,9 +313,9 @@ export function PitchBuilderView() {
                 Share for feedback
               </Button>
             </div>
-            <p className="mt-2 text-xs text-zinc-500">
+            <p className="mt-2 text-xs text-ink-3">
               Members see this pitch on the{" "}
-              <Link href="/groups" className="text-zinc-200 underline-offset-2 hover:underline">
+              <Link href="/groups" className="text-ink underline-offset-2 hover:underline">
                 group board
               </Link>
               .
@@ -325,9 +325,9 @@ export function PitchBuilderView() {
       </Card>
 
       {deckOutline ? (
-        <Card className="border-zinc-800 bg-zinc-900/50 p-4">
-          <p className="text-sm font-medium text-zinc-200">Deck outline</p>
-          <pre className="mt-2 max-h-[480px] overflow-auto whitespace-pre-wrap text-xs text-zinc-300">{deckOutline}</pre>
+        <Card className="border-border bg-surface p-4">
+          <p className="text-sm font-medium text-ink">Deck outline</p>
+          <pre className="mt-2 max-h-[480px] overflow-auto whitespace-pre-wrap text-xs text-ink-2">{deckOutline}</pre>
         </Card>
       ) : null}
     </div>

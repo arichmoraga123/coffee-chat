@@ -110,13 +110,13 @@ export function DealsView({
     <div className="space-y-4">
       <div>
         <h1 className="page-title">Deal Tracker</h1>
-        <p className="mt-1 text-sm text-[#888888]">
+        <p className="mt-1 text-sm text-ink-3">
           Real announced transactions, updated daily from the news. Click any deal to prep it for &ldquo;tell me about a
           deal&rdquo; or turn it into a stock pitch.
         </p>
       </div>
 
-      <div className="flex flex-wrap gap-2 border-b border-zinc-800 pb-3">
+      <div className="flex flex-wrap gap-2 border-b border-border pb-3">
         <Button
           type="button"
           size="sm"
@@ -133,25 +133,25 @@ export function DealsView({
         >
           Archive
         </Button>
-        <span className="ml-auto self-center text-xs text-zinc-500">
+        <span className="ml-auto self-center text-xs text-ink-3">
           Current = announced within the last 6 months
         </span>
       </div>
 
       {tab === "archive" ? (
-        <p className="rounded border border-zinc-800 bg-zinc-900/60 px-3 py-2 text-sm text-zinc-400">
+        <p className="rounded border border-border bg-surface px-3 py-2 text-sm text-ink-2">
           These deals may no longer be current but are saved for reference and interview prep.
         </p>
       ) : null}
 
       {loadError ? (
-        <p className="rounded border border-amber-900/50 bg-amber-950/30 px-3 py-2 text-sm text-amber-200">{loadError}</p>
+        <p className="rounded border border-warn/40 bg-warn-bg px-3 py-2 text-sm text-warn">{loadError}</p>
       ) : null}
-      <Card className="flex flex-wrap items-center gap-2 border-zinc-800 bg-zinc-900/50 p-3">
-        <label className="text-xs text-zinc-500">
+      <Card className="flex flex-wrap items-center gap-2 border-border bg-surface p-3">
+        <label className="text-xs text-ink-3">
           <span className="mb-0.5 block">Deal type</span>
           <select
-            className="h-9 min-w-[140px] rounded border border-zinc-700 bg-zinc-950 px-2 text-sm text-zinc-200"
+            className="h-9 min-w-[140px] rounded border border-border-strong bg-surface px-2 text-sm text-ink"
             value={filters.dealType}
             onChange={(e) => setFilters((f) => ({ ...f, dealType: e.target.value }))}
           >
@@ -163,10 +163,10 @@ export function DealsView({
             ))}
           </select>
         </label>
-        <label className="text-xs text-zinc-500">
+        <label className="text-xs text-ink-3">
           <span className="mb-0.5 block">Vertical</span>
           <select
-            className="h-9 min-w-[160px] rounded border border-zinc-700 bg-zinc-950 px-2 text-sm text-zinc-200"
+            className="h-9 min-w-[160px] rounded border border-border-strong bg-surface px-2 text-sm text-ink"
             value={filters.vertical}
             onChange={(e) => setFilters((f) => ({ ...f, vertical: e.target.value }))}
           >
@@ -196,7 +196,7 @@ export function DealsView({
       </Card>
       <div className="space-y-3">
         {tabDeals.length === 0 ? (
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-ink-3">
             {tab === "current" ? "No deals in the current window — try Archive or adjust filters." : "No archived deals match these filters."}
           </p>
         ) : null}
@@ -210,34 +210,34 @@ export function DealsView({
             onKeyDown={(e) => {
               if (e.key === "Enter") setOpenDealId(d.id);
             }}
-            className="cursor-pointer space-y-2 border-zinc-800 bg-zinc-900/50 p-4 transition hover:border-[#4a6fa5]/50 hover:bg-zinc-900/80"
+            className="cursor-pointer space-y-2 border-border bg-surface p-4 transition hover:border-accent hover:bg-surface"
           >
             <div className="flex flex-wrap items-start justify-between gap-2">
               <div>
-                <h2 className="font-semibold text-zinc-100">{d.title}</h2>
-                <p className="text-xs text-zinc-500">
+                <h2 className="font-semibold text-ink">{d.title}</h2>
+                <p className="text-xs text-ink-3">
                   {d.acquirer ?? "?"} → {d.target ?? "?"} · {new Date(d.announcedAt).toLocaleDateString()}
                 </p>
               </div>
               {d.dealValue ? (
-                <span className="rounded border border-amber-700/50 bg-amber-950/40 px-2 py-0.5 text-xs text-amber-200">
+                <span className="rounded border border-warn/40 bg-warn-bg px-2 py-0.5 text-xs text-warn">
                   {d.dealValue}
                 </span>
               ) : null}
             </div>
-            <p className="text-xs text-zinc-500">
+            <p className="text-xs text-ink-3">
               {d.dealType}
               {d.vertical ? ` · ${d.vertical}` : ""}
               {d.sector ? ` · ${d.sector}` : ""}
             </p>
-            <p className="line-clamp-3 text-sm text-zinc-300">{d.summary}</p>
+            <p className="line-clamp-3 text-sm text-ink-2">{d.summary}</p>
             {d.keyThesis ? (
               <div>
-                <p className="text-xs font-semibold text-zinc-500">Why this deal</p>
-                <p className="text-sm text-zinc-400">{d.keyThesis}</p>
+                <p className="text-xs font-semibold text-ink-3">Why this deal</p>
+                <p className="text-sm text-ink-2">{d.keyThesis}</p>
               </div>
             ) : null}
-            {d.risks ? <p className="text-xs text-red-300/90">Risks: {d.risks}</p> : null}
+            {d.risks ? <p className="text-xs text-danger">Risks: {d.risks}</p> : null}
             <div className="flex flex-wrap gap-2" onClick={(e) => e.stopPropagation()}>
               <Button size="sm" onClick={() => setOpenDealId(d.id)}>
                 Tell me about this deal

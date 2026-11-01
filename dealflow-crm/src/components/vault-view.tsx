@@ -72,25 +72,25 @@ export function VaultView() {
   };
 
   const outcomeBadge = (o: string | null) => {
-    if (!o) return <span className="text-zinc-500">—</span>;
+    if (!o) return <span className="text-ink-3">—</span>;
     const t = o.toLowerCase();
-    if (t.includes("offer")) return <span className="rounded bg-emerald-900/50 px-2 py-0.5 text-xs text-emerald-200">{o}</span>;
-    if (t.includes("first") || t.includes("round")) return <span className="rounded bg-amber-900/50 px-2 py-0.5 text-xs text-amber-200">{o}</span>;
-    return <span className="rounded bg-zinc-800 px-2 py-0.5 text-xs text-zinc-300">{o}</span>;
+    if (t.includes("offer")) return <span className="rounded bg-success-bg px-2 py-0.5 text-xs text-success">{o}</span>;
+    if (t.includes("first") || t.includes("round")) return <span className="rounded bg-warn-bg px-2 py-0.5 text-xs text-warn">{o}</span>;
+    return <span className="rounded bg-surface-2 px-2 py-0.5 text-xs text-ink-2">{o}</span>;
   };
 
   return (
     <div className="space-y-4">
       <div>
         <h1 className="page-title">Resume / cover letter vault</h1>
-        <p className="mt-1 text-sm text-zinc-400">
-          <span className="text-emerald-400/90">SHARED</span> anonymized metadata &amp; Drive links
+        <p className="mt-1 text-sm text-ink-2">
+          <span className="text-success">SHARED</span> anonymized metadata &amp; Drive links
         </p>
       </div>
-      <Card className="border-amber-900/40 bg-amber-950/20 p-3 text-sm text-amber-100/90">
+      <Card className="border-warn/40 bg-warn-bg p-3 text-sm text-warn">
         All documents should be anonymized. Never submit files with personal information you do not want shared.
       </Card>
-      <Card className="flex flex-wrap gap-2 border-zinc-800 bg-zinc-900/50 p-3">
+      <Card className="flex flex-wrap gap-2 border-border bg-surface p-3">
         <Input placeholder="Type" className="max-w-[120px]" value={filters.type} onChange={(e) => setFilters((f) => ({ ...f, type: e.target.value }))} />
         <Input placeholder="Firm" className="max-w-[120px]" value={filters.firm} onChange={(e) => setFilters((f) => ({ ...f, firm: e.target.value }))} />
         <Input placeholder="Outcome" className="max-w-[120px]" value={filters.outcome} onChange={(e) => setFilters((f) => ({ ...f, outcome: e.target.value }))} />
@@ -101,16 +101,16 @@ export function VaultView() {
       </Card>
       <div className="grid gap-3 sm:grid-cols-2">
         {docs.map((d) => (
-          <Card key={d.id} className="space-y-2 border-zinc-800 bg-zinc-900/50 p-4 text-sm">
+          <Card key={d.id} className="space-y-2 border-border bg-surface p-4 text-sm">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded bg-zinc-800 px-2 py-0.5 text-xs">{d.type}</span>
+              <span className="rounded bg-surface-2 px-2 py-0.5 text-xs">{d.type}</span>
               {outcomeBadge(d.outcome)}
-              <span className="text-xs text-zinc-500">{d.upvotes} upvotes</span>
+              <span className="text-xs text-ink-3">{d.upvotes} upvotes</span>
             </div>
-            <p className="font-medium text-zinc-200">{d.targetFirm ?? "—"}</p>
-            <p className="text-xs text-zinc-500">{d.targetRole ?? ""}</p>
-            <p className="text-xs text-zinc-500">{d.year ?? ""} · {d.school ?? ""}</p>
-            {d.notes ? <p className="line-clamp-2 text-zinc-400">{d.notes}</p> : null}
+            <p className="font-medium text-ink">{d.targetFirm ?? "—"}</p>
+            <p className="text-xs text-ink-3">{d.targetRole ?? ""}</p>
+            <p className="text-xs text-ink-3">{d.year ?? ""} · {d.school ?? ""}</p>
+            {d.notes ? <p className="line-clamp-2 text-ink-2">{d.notes}</p> : null}
             <div className="flex flex-wrap gap-2">
               {d.fileUrl ? (
                 <Button asChild size="sm">
@@ -126,10 +126,10 @@ export function VaultView() {
           </Card>
         ))}
       </div>
-      <Card className="space-y-2 border-zinc-800 bg-zinc-900/50 p-4">
-        <p className="font-medium text-zinc-200">Submit document</p>
+      <Card className="space-y-2 border-border bg-surface p-4">
+        <p className="font-medium text-ink">Submit document</p>
         <div className="grid gap-2 sm:grid-cols-2">
-          <select className="rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-sm" value={form.type} onChange={(e) => setForm((f) => ({ ...f, type: e.target.value }))}>
+          <select className="rounded border border-border-strong bg-surface px-2 py-2 text-sm" value={form.type} onChange={(e) => setForm((f) => ({ ...f, type: e.target.value }))}>
             <option>Resume</option>
             <option>Cover Letter</option>
           </select>
@@ -139,7 +139,7 @@ export function VaultView() {
           <Input placeholder="Year" value={form.year} onChange={(e) => setForm((f) => ({ ...f, year: e.target.value }))} />
           <Input placeholder="School" value={form.school} onChange={(e) => setForm((f) => ({ ...f, school: e.target.value }))} />
           <Input className="sm:col-span-2" placeholder="Google Drive link" value={form.fileUrl} onChange={(e) => setForm((f) => ({ ...f, fileUrl: e.target.value }))} />
-          <textarea className="min-h-[72px] rounded border border-zinc-700 bg-zinc-950 p-2 text-sm sm:col-span-2" placeholder="Tips" value={form.notes} onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))} />
+          <textarea className="min-h-[72px] rounded border border-border-strong bg-surface p-2 text-sm sm:col-span-2" placeholder="Tips" value={form.notes} onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))} />
         </div>
         <Button size="sm" onClick={() => void submit()}>
           Submit

@@ -20,9 +20,9 @@ export function ProfileReferralCard({
   const link = `${origin}/join?ref=${code}`;
 
   return (
-    <Card className="border-zinc-800 bg-zinc-900/50 p-4">
-      <p className="text-sm font-semibold text-zinc-200">Invite a Friend</p>
-      <p className="mt-2 text-xs text-zinc-400 break-all">{link}</p>
+    <Card className="border-border bg-surface p-4">
+      <p className="text-sm font-semibold text-ink">Invite a Friend</p>
+      <p className="mt-2 text-xs text-ink-2 break-all">{link}</p>
       <div className="mt-3 flex items-center gap-2">
         <Button
           size="sm"
@@ -34,7 +34,7 @@ export function ProfileReferralCard({
         >
           {copied ? "Copied" : "Copy link"}
         </Button>
-        <p className="text-xs text-zinc-500">{joinedCount} friends joined · {xpEarned} referral XP earned</p>
+        <p className="text-xs text-ink-3">{joinedCount} friends joined · {xpEarned} referral XP earned</p>
       </div>
     </Card>
   );

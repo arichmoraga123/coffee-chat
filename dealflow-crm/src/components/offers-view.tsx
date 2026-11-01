@@ -92,12 +92,12 @@ export function OffersView() {
     <div className="space-y-4">
       <div>
         <h1 className="page-title">Offer comparison</h1>
-        <p className="mt-1 text-sm text-zinc-400">
-          <span className="text-[#c9a84c]">PRIVATE</span> to your account
+        <p className="mt-1 text-sm text-ink-2">
+          <span className="text-accent">PRIVATE</span> to your account
         </p>
       </div>
-      <Card className="space-y-2 border-zinc-800 bg-zinc-900/50 p-4">
-        <p className="font-medium text-zinc-200">Add offer</p>
+      <Card className="space-y-2 border-border bg-surface p-4">
+        <p className="font-medium text-ink">Add offer</p>
         <div className="grid gap-2 sm:grid-cols-2">
           <Input placeholder="Firm" value={form.firmName} onChange={(e) => setForm((f) => ({ ...f, firmName: e.target.value }))} />
           <Input placeholder="Firm type" value={form.firmType} onChange={(e) => setForm((f) => ({ ...f, firmType: e.target.value }))} />
@@ -114,9 +114,9 @@ export function OffersView() {
         </Button>
       </Card>
       {offers.length ? (
-        <Card className="overflow-x-auto border-zinc-800 bg-zinc-900/50 p-2">
+        <Card className="overflow-x-auto border-border bg-surface p-2">
           <table className="w-full min-w-[640px] text-left text-xs">
-            <thead className="text-zinc-500">
+            <thead className="text-ink-3">
               <tr>
                 <th className="p-2">Firm</th>
                 <th className="p-2">Type</th>
@@ -129,7 +129,7 @@ export function OffersView() {
             </thead>
             <tbody>
               {offers.map((o, i) => (
-                <tr key={`${o.firmName}-${i}`} className="border-t border-zinc-800">
+                <tr key={`${o.firmName}-${i}`} className="border-t border-border">
                   <td className="p-2">{o.firmName}</td>
                   <td className="p-2">{o.firmType}</td>
                   <td className="p-2">{o.role}</td>
@@ -151,7 +151,7 @@ export function OffersView() {
           Generate AI analysis
         </Button>
       </div>
-      {analysis ? <Card className="whitespace-pre-wrap border-zinc-800 bg-zinc-900/50 p-4 text-sm text-zinc-300">{analysis}</Card> : null}
+      {analysis ? <Card className="whitespace-pre-wrap border-border bg-surface p-4 text-sm text-ink-2">{analysis}</Card> : null}
     </div>
   );
 }

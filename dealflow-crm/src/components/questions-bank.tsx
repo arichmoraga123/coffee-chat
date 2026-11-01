@@ -181,7 +181,7 @@ export function QuestionsBank({
         }
         const knownRate = qs.length ? counts.known / qs.length : 0;
         const dotClass =
-          knownRate >= 0.8 ? "bg-emerald-500" : knownRate >= 0.4 ? "bg-amber-500" : "bg-zinc-500";
+          knownRate >= 0.8 ? "bg-success" : knownRate >= 0.4 ? "bg-warn" : "bg-ink-3";
 
         const byDifficulty = new Map<string, QuestionDTO[]>();
         for (const q of qs) {
@@ -340,19 +340,19 @@ export function QuestionsBank({
 
   const difficultyBadge = (d: string) =>
     d === "Hard"
-      ? "border border-[#3a3a3a] bg-[#161616] text-[#c9a84c]"
+      ? "border border-border-strong bg-surface text-accent"
       : d === "Medium"
-        ? "border border-[#2a2a2a] bg-[#161616] text-[#888888]"
-        : "border border-[#2a2a2a] bg-[#1a1a1a] text-[#888888]";
+        ? "border border-border bg-surface text-ink-3"
+        : "border border-border bg-surface-2 text-ink-3";
 
   return (
     <div className="flex flex-col gap-4 lg:flex-row">
       <aside className="w-full shrink-0 space-y-3 lg:w-56">
         <Card className="p-3 text-sm">
-          <p className="mb-2 font-semibold text-zinc-200">Filters</p>
-          <label className="mb-1 block text-xs text-zinc-500">Category</label>
+          <p className="mb-2 font-semibold text-ink">Filters</p>
+          <label className="mb-1 block text-xs text-ink-3">Category</label>
           <select
-            className="mb-2 w-full rounded border border-white/10 bg-zinc-950 px-2 py-1.5 text-sm"
+            className="mb-2 w-full rounded border border-border bg-surface px-2 py-1.5 text-sm"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -362,9 +362,9 @@ export function QuestionsBank({
               </option>
             ))}
           </select>
-          <label className="mb-1 block text-xs text-zinc-500">Difficulty</label>
+          <label className="mb-1 block text-xs text-ink-3">Difficulty</label>
           <select
-            className="mb-2 w-full rounded border border-white/10 bg-zinc-950 px-2 py-1.5 text-sm"
+            className="mb-2 w-full rounded border border-border bg-surface px-2 py-1.5 text-sm"
             value={difficulty}
             onChange={(e) => setDifficulty(e.target.value)}
           >
@@ -374,9 +374,9 @@ export function QuestionsBank({
               </option>
             ))}
           </select>
-          <label className="mb-1 block text-xs text-zinc-500">Status</label>
+          <label className="mb-1 block text-xs text-ink-3">Status</label>
           <select
-            className="mb-2 w-full rounded border border-white/10 bg-zinc-950 px-2 py-1.5 text-sm"
+            className="mb-2 w-full rounded border border-border bg-surface px-2 py-1.5 text-sm"
             value={status}
             onChange={(e) => setStatus(e.target.value)}
           >
@@ -385,9 +385,9 @@ export function QuestionsBank({
             <option value="review">Review</option>
             <option value="unseen">Unseen</option>
           </select>
-          <label className="mb-1 block text-xs text-zinc-500">Firm (reported questions)</label>
+          <label className="mb-1 block text-xs text-ink-3">Firm (reported questions)</label>
           <select
-            className="mb-2 w-full rounded border border-white/10 bg-zinc-950 px-2 py-1.5 text-sm"
+            className="mb-2 w-full rounded border border-border bg-surface px-2 py-1.5 text-sm"
             value={firm}
             onChange={(e) => setFirm(e.target.value)}
           >
@@ -398,7 +398,7 @@ export function QuestionsBank({
               </option>
             ))}
           </select>
-          <label className="mb-1 block text-xs text-zinc-500">Tags</label>
+          <label className="mb-1 block text-xs text-ink-3">Tags</label>
           <Input
             placeholder="e.g. WACC, beta"
             value={tagFilter}
@@ -408,9 +408,9 @@ export function QuestionsBank({
         </Card>
 
         <Card className="p-3 text-sm">
-          <p className="mb-2 font-semibold text-zinc-200">Drill setup</p>
+          <p className="mb-2 font-semibold text-ink">Drill setup</p>
           <select
-            className="mb-2 w-full rounded border border-white/10 bg-zinc-950 px-2 py-1.5"
+            className="mb-2 w-full rounded border border-border bg-surface px-2 py-1.5"
             value={drillCategory}
             onChange={(e) => setDrillCategory(e.target.value)}
           >
@@ -421,7 +421,7 @@ export function QuestionsBank({
             ))}
           </select>
           <select
-            className="mb-2 w-full rounded border border-white/10 bg-zinc-950 px-2 py-1.5"
+            className="mb-2 w-full rounded border border-border bg-surface px-2 py-1.5"
             value={drillDifficulty}
             onChange={(e) => setDrillDifficulty(e.target.value)}
           >
@@ -431,38 +431,38 @@ export function QuestionsBank({
               </option>
             ))}
           </select>
-          <label className="mb-2 flex items-center gap-2 text-xs text-zinc-400">
+          <label className="mb-2 flex items-center gap-2 text-xs text-ink-2">
             <input type="checkbox" checked={shuffle} onChange={(e) => setShuffle(e.target.checked)} />
             Shuffle
           </label>
-          <Button className="animate-df-pulse-glow w-full" size="sm" variant="cta" onClick={startDrill}>
+          <Button className=" w-full" size="sm" variant="cta" onClick={startDrill}>
             Start flashcards
           </Button>
         </Card>
       </aside>
 
       <div className="min-w-0 flex-1 space-y-4">
-        <div className="flex flex-col gap-3 rounded-xl border border-white/10 bg-zinc-900/50 p-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-3 rounded-xl border border-border bg-surface p-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="page-title">Question Bank</h1>
-            <p className="text-sm text-zinc-400">
+            <p className="text-sm text-ink-2">
               Mastered {knownCount} / {trackFiltered.length} questions for your career tracks
             </p>
-            <p className="text-sm text-[#888888]">
-              Streak: <span className="text-[#c9a84c]">{streakDisplay}</span> day(s) · Weekly XP{" "}
-              <span className="text-[#4a6fa5]">{weeklyXP}</span> · Total XP {totalXP}
+            <p className="text-sm text-ink-3">
+              Streak: <span className="text-accent">{streakDisplay}</span> day(s) · Weekly XP{" "}
+              <span className="text-accent">{weeklyXP}</span> · Total XP {totalXP}
             </p>
-            <p className="text-xs text-zinc-500">Daily streak updates from the dashboard daily drill.</p>
-            <p className="mt-2 text-xs text-zinc-400">
+            <p className="text-xs text-ink-3">Daily streak updates from the dashboard daily drill.</p>
+            <p className="mt-2 text-xs text-ink-2">
               Study mode — flip cards and say the answer out loud. For graded multiple choice from the PE@Broad bank,{" "}
-              <Link href="/practice" className="font-medium text-[#a8c0e6] hover:underline">
+              <Link href="/practice" className="font-medium text-accent hover:underline">
                 go to Practice →
               </Link>
             </p>
           </div>
-          <div className="h-2.5 w-full max-w-xs overflow-hidden rounded-full bg-zinc-800/90 ring-1 ring-white/5 sm:w-48">
+          <div className="h-2.5 w-full max-w-xs overflow-hidden rounded-full bg-surface-2 ring-1 ring-border sm:w-48">
             <div
-              className="h-full rounded-full bg-[#4a6fa5] transition-[width] duration-500 ease-out"
+              className="h-full rounded-full bg-accent transition-[width] duration-500 ease-out"
               style={{ width: `${Math.min(100, (knownCount / Math.max(1, trackFiltered.length)) * 100)}%` }}
             />
           </div>
@@ -470,14 +470,14 @@ export function QuestionsBank({
 
         <Card className="p-4">
           {learningPath.length > 0 ? (
-            <div className="mb-4 rounded-lg border border-zinc-800 bg-zinc-950/50 p-3">
-              <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">Learning path</p>
+            <div className="mb-4 rounded-lg border border-border bg-surface p-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-ink-3">Learning path</p>
               <div className="mt-2 flex flex-wrap gap-2">
                 {learningPath.map((step) => (
                   <button
                     key={step}
                     type="button"
-                    className="rounded border border-zinc-700 px-2 py-1 text-xs text-zinc-300 hover:border-zinc-500"
+                    className="rounded border border-border-strong px-2 py-1 text-xs text-ink-2 hover:border-border-strong"
                     onClick={() => {
                       setCategory(step);
                       setExpandedCategories((prev) => ({ ...prev, [step]: true }));
@@ -489,24 +489,24 @@ export function QuestionsBank({
               </div>
             </div>
           ) : null}
-          <p className="mb-3 text-sm font-semibold text-zinc-200">Progress by category</p>
+          <p className="mb-3 text-sm font-semibold text-ink">Progress by category</p>
           <div className="grid gap-2 sm:grid-cols-2">
             {categoryStats.map(([cat, { total, known }]) => (
               <div key={cat}>
-                <div className="mb-1 flex justify-between text-xs text-zinc-400">
+                <div className="mb-1 flex justify-between text-xs text-ink-2">
                   <span className="inline-flex items-center gap-1">
                     {cat}
                     {relevantCategories.includes(cat) ? (
-                      <span className="rounded bg-amber-500/15 px-1.5 py-0.5 text-[10px] text-amber-300">Priority</span>
+                      <span className="rounded bg-warn-bg px-1.5 py-0.5 text-[10px] text-warn">Priority</span>
                     ) : null}
                   </span>
                   <span>
                     {known}/{total}
                   </span>
                 </div>
-                <div className="h-1.5 overflow-hidden rounded-full bg-zinc-800/90 ring-1 ring-white/5">
+                <div className="h-1.5 overflow-hidden rounded-full bg-surface-2 ring-1 ring-border">
                   <div
-                    className="h-full rounded-full bg-[#4a6fa5]/85 transition-[width] duration-500"
+                    className="h-full rounded-full bg-accent-tint transition-[width] duration-500"
                     style={{ width: `${total ? (known / total) * 100 : 0}%` }}
                   />
                 </div>
@@ -550,7 +550,7 @@ export function QuestionsBank({
               <Card key={group.category} className="overflow-hidden p-0">
                 <button
                   type="button"
-                  className="w-full cursor-pointer p-4 text-left transition-colors hover:bg-zinc-900/40"
+                  className="w-full cursor-pointer p-4 text-left transition-colors hover:bg-surface"
                   onClick={() =>
                     setExpandedCategories((prev) => ({ ...prev, [group.category]: !prev[group.category] }))
                   }
@@ -559,29 +559,29 @@ export function QuestionsBank({
                     <span className={cn("h-2.5 w-2.5 shrink-0 rounded-full", group.dotClass)} />
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-center gap-2">
-                        <p className="text-sm font-semibold text-zinc-100">{group.category}</p>
-                        <span className="text-xs text-zinc-500">({group.questions.length})</span>
-                        <span className="text-xs text-zinc-500">
+                        <p className="text-sm font-semibold text-ink">{group.category}</p>
+                        <span className="text-xs text-ink-3">({group.questions.length})</span>
+                        <span className="text-xs text-ink-3">
                           Known {group.counts.known} · Review {group.counts.review} · Unseen {group.counts.unseen}
                         </span>
                       </div>
-                      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-zinc-800/90 ring-1 ring-white/5">
+                      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-surface-2 ring-1 ring-border">
                         <div
-                          className="h-full rounded-full bg-[#4a6fa5]/85 transition-[width] duration-500"
+                          className="h-full rounded-full bg-accent-tint transition-[width] duration-500"
                           style={{ width: `${Math.round(group.knownRate * 100)}%` }}
                         />
                       </div>
-                      <p className="mt-1 text-[11px] text-zinc-500">{Math.round(group.knownRate * 100)}% mastered</p>
+                      <p className="mt-1 text-[11px] text-ink-3">{Math.round(group.knownRate * 100)}% mastered</p>
                     </div>
-                    <span className="text-zinc-500">{expanded ? "▾" : "▸"}</span>
+                    <span className="text-ink-3">{expanded ? "▾" : "▸"}</span>
                   </div>
                 </button>
                 {expanded ? (
-                  <div className="border-t border-zinc-800 px-3 pb-3">
+                  <div className="border-t border-border px-3 pb-3">
                     {group.difficultyGroups.map((dg) => (
                       <div key={`${group.category}-${dg.difficulty}`} className="pt-3">
-                        <div className="mb-2 border-b border-zinc-800 pb-1">
-                          <p className="text-xs font-medium text-zinc-500">
+                        <div className="mb-2 border-b border-border pb-1">
+                          <p className="text-xs font-medium text-ink-3">
                             {dg.difficulty} ({dg.questions.length})
                           </p>
                         </div>
@@ -591,7 +591,7 @@ export function QuestionsBank({
                             return (
                               <Card
                                 key={q.id}
-                                className="cursor-pointer p-3 transition-colors hover:border-[#4a6fa5]/40"
+                                className="cursor-pointer p-3 transition-colors hover:border-accent"
                                 onClick={() => openPracticeFor(q.id)}
                               >
                                 <div className="flex flex-wrap items-start justify-between gap-2">
@@ -600,16 +600,16 @@ export function QuestionsBank({
                                       <span className={cn("rounded px-2 py-0.5 text-xs", difficultyBadge(q.difficulty))}>
                                         {q.difficulty}
                                       </span>
-                                      <span className="rounded bg-zinc-800 px-2 py-0.5 text-xs capitalize text-zinc-400">
+                                      <span className="rounded bg-surface-2 px-2 py-0.5 text-xs capitalize text-ink-2">
                                         {st}
                                       </span>
                                       {relevantCategories.includes(q.category) ? (
-                                        <span className="rounded bg-emerald-500/15 px-2 py-0.5 text-xs text-emerald-300">
+                                        <span className="rounded bg-success-bg px-2 py-0.5 text-xs text-success">
                                           Recommended
                                         </span>
                                       ) : null}
                                     </div>
-                                    <p className="text-sm font-medium text-zinc-100">{q.question}</p>
+                                    <p className="text-sm font-medium text-ink">{q.question}</p>
                                   </div>
                                   <ReportContentAction targetType="question" targetId={q.id} />
                                 </div>
@@ -628,15 +628,15 @@ export function QuestionsBank({
       </div>
 
       {drillOpen ? (
-        <div className="fixed inset-0 z-50 flex flex-col bg-zinc-950/98 p-4 text-zinc-100 backdrop-blur">
+        <div className="fixed inset-0 z-50 flex flex-col bg-surface p-4 text-ink ">
           {endScreen ? (
             <div className="mx-auto flex max-w-lg flex-1 flex-col items-center justify-center text-center">
               <h2 className="text-2xl font-semibold">Session complete</h2>
-              <p className="mt-4 text-zinc-400">
+              <p className="mt-4 text-ink-2">
                 Known: {sessionKnown} · Review: {sessionReview} · Skipped: {sessionSkipped}
               </p>
-              <p className="mt-2 text-[#888888]">
-                Streak: <span className="text-[#c9a84c]">{streakDisplay}</span> day(s)
+              <p className="mt-2 text-ink-3">
+                Streak: <span className="text-accent">{streakDisplay}</span> day(s)
               </p>
               <Button className="mt-8" onClick={closeDrill}>
                 Close
@@ -644,7 +644,7 @@ export function QuestionsBank({
             </div>
           ) : currentDrill ? (
             <>
-              <div className="mb-4 flex items-center justify-between text-sm text-zinc-400">
+              <div className="mb-4 flex items-center justify-between text-sm text-ink-2">
                 <span>
                   Card {drillIndex + 1} / {drillQueue.length}
                 </span>
@@ -655,30 +655,30 @@ export function QuestionsBank({
               <div className="perspective-flip mx-auto w-full max-w-3xl flex-1">
                 <button
                   type="button"
-                  className="relative w-full cursor-pointer border-0 bg-transparent p-0 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4a6fa5]/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a]"
+                  className="relative w-full cursor-pointer border-0 bg-transparent p-0 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
                   onClick={onFlashcardFlip}
                 >
-                  <div className={cn("flip-card-inner shadow-xl", flipped && "is-flipped")}>
-                    <div className="flip-card-face border border-white/10 bg-gradient-to-br from-zinc-900 to-zinc-950">
-                      <p className="mb-2 text-xs uppercase tracking-[0.18em] text-zinc-500">Question</p>
-                      <p className="text-lg font-medium text-zinc-100">{currentDrill.question}</p>
+                  <div className={cn("flip-card-inner ", flipped && "is-flipped")}>
+                    <div className="flip-card-face border border-border   ">
+                      <p className="mb-2 text-xs uppercase tracking-[0.18em] text-ink-3">Question</p>
+                      <p className="text-lg font-medium text-ink">{currentDrill.question}</p>
                       <div className="mt-5">
-                        <label className="mb-1 block text-xs uppercase tracking-[0.14em] text-zinc-500">
+                        <label className="mb-1 block text-xs uppercase tracking-[0.14em] text-ink-3">
                           Type your answer (optional)
                         </label>
                         <textarea
-                          className="min-h-24 w-full rounded border border-[#2a2a2a] bg-[#111111] px-3 py-2 text-sm text-[#f0f0f0] outline-none focus:border-[#3a3a3a] focus:ring-1 focus:ring-[#4a6fa5]/40"
+                          className="min-h-24 w-full rounded border border-border bg-surface px-3 py-2 text-sm text-ink outline-none focus:border-border-strong focus:ring-1 focus:ring-accent"
                           placeholder="Write your answer before flipping..."
                           value={typedAnswer}
                           onChange={(e) => setTypedAnswer(e.target.value)}
                           onClick={(e) => e.stopPropagation()}
                         />
                       </div>
-                      <p className="mt-6 text-xs text-zinc-500">Tap to flip · reveal answer</p>
+                      <p className="mt-6 text-xs text-ink-3">Tap to flip · reveal answer</p>
                     </div>
-                    <div className="flip-card-face flip-card-back border border-[#2a2a2a] bg-[#141414]">
-                      <p className="mb-2 text-xs uppercase tracking-[0.18em] text-[#888888]">Answer</p>
-                      <p className="text-base text-zinc-100">{currentDrill.answer}</p>
+                    <div className="flip-card-face flip-card-back border border-border bg-surface">
+                      <p className="mb-2 text-xs uppercase tracking-[0.18em] text-ink-3">Answer</p>
+                      <p className="text-base text-ink">{currentDrill.answer}</p>
                     </div>
                   </div>
                 </button>
@@ -686,8 +686,8 @@ export function QuestionsBank({
               <div className="mx-auto mt-6 flex max-w-3xl flex-wrap justify-center gap-2">
                 {flipped && gradedResult ? (
                   <>
-                    <div className="w-full rounded border border-[#2a2a2a] bg-[#161616] p-3 text-sm text-[#e8e8e8]">
-                      <p className="font-medium text-[#f0f0f0]">
+                    <div className="w-full rounded border border-border bg-surface p-3 text-sm text-ink">
+                      <p className="font-medium text-ink">
                         {gradedResult.grade === "correct"
                           ? "Correct"
                           : gradedResult.grade === "partial"
@@ -695,12 +695,12 @@ export function QuestionsBank({
                             : "Needs review"}{" "}
                         ({Math.round(gradedResult.hitRate * 100)}% keyword hit)
                       </p>
-                      <p className="mt-1 text-xs text-[#888888]">
+                      <p className="mt-1 text-xs text-ink-3">
                         {gradedResult.foundKeywords.length > 0
                           ? `✓ mentioned ${gradedResult.foundKeywords.join(", ")}`
                           : "✓ mentioned: none"}
                       </p>
-                      <p className="text-xs text-[#888888]">
+                      <p className="text-xs text-ink-3">
                         {gradedResult.missedKeywords.length > 0
                           ? `✗ missed: ${gradedResult.missedKeywords.join(", ")}`
                           : "✗ missed: none"}

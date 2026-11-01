@@ -35,11 +35,11 @@ type CoffeeDTO = {
 };
 
 const TYPE_COLORS: Record<string, string> = {
-  coffee_chat: "bg-blue-500/80",
-  deadline: "bg-red-500/80",
-  interview: "bg-orange-500/80",
-  networking: "bg-violet-500/70",
-  other: "bg-zinc-600/80",
+  coffee_chat: "bg-info-bg",
+  deadline: "bg-danger-bg",
+  interview: "bg-warn-bg",
+  networking: "bg-info-bg",
+  other: "bg-ink-3",
 };
 
 export function CalendarView({
@@ -153,17 +153,17 @@ export function CalendarView({
     <div className="flex flex-col gap-4 lg:flex-row">
       <aside className="w-full shrink-0 space-y-3 lg:w-64">
         <RecruitingCalendarSidebar events={recruitingSeasonEvents} />
-        <Card className="border-zinc-800 bg-zinc-900/60 p-3 text-xs">
-          <p className="mb-2 font-semibold text-zinc-200">Next 14 days</p>
+        <Card className="border-border bg-surface p-3 text-xs">
+          <p className="mb-2 font-semibold text-ink">Next 14 days</p>
           <div className="space-y-2">
             {upcoming.length === 0 ? (
-              <p className="text-zinc-500">No upcoming items.</p>
+              <p className="text-ink-3">No upcoming items.</p>
             ) : (
               upcoming.map((u) => (
-                <div key={u.id} className="rounded border border-zinc-800 px-2 py-1.5">
+                <div key={u.id} className="rounded border border-border px-2 py-1.5">
                   <div className={cn("mb-1 h-1 w-full rounded", u.color)} />
-                  <p className="font-medium text-zinc-100">{u.label}</p>
-                  <p className="text-[10px] text-zinc-500">
+                  <p className="font-medium text-ink">{u.label}</p>
+                  <p className="text-[10px] text-ink-3">
                     {u.date.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" })}
                   </p>
                 </div>
@@ -171,13 +171,13 @@ export function CalendarView({
             )}
           </div>
         </Card>
-        <div className="rounded border border-zinc-800 bg-zinc-950/80 p-3 text-[10px] text-zinc-500">
-          <p className="font-semibold text-zinc-300">Legend</p>
-          <p className="mt-1"><span className="mr-1 inline-block size-2 rounded bg-blue-500" /> Coffee chat</p>
-          <p><span className="mr-1 inline-block size-2 rounded bg-red-500" /> Deadline</p>
-          <p><span className="mr-1 inline-block size-2 rounded bg-orange-500" /> Interview</p>
-          <p><span className="mr-1 inline-block size-2 rounded bg-violet-500" /> Networking</p>
-          <p><span className="mr-1 inline-block size-2 rounded bg-zinc-600" /> Other</p>
+        <div className="rounded border border-border bg-surface p-3 text-[10px] text-ink-3">
+          <p className="font-semibold text-ink-2">Legend</p>
+          <p className="mt-1"><span className="mr-1 inline-block size-2 rounded bg-info" /> Coffee chat</p>
+          <p><span className="mr-1 inline-block size-2 rounded bg-danger" /> Deadline</p>
+          <p><span className="mr-1 inline-block size-2 rounded bg-warn" /> Interview</p>
+          <p><span className="mr-1 inline-block size-2 rounded bg-info" /> Networking</p>
+          <p><span className="mr-1 inline-block size-2 rounded bg-ink-3" /> Other</p>
         </div>
       </aside>
 
@@ -188,7 +188,7 @@ export function CalendarView({
             <Button size="sm" variant="outline" onClick={() => setCursor((c) => addMonths(c, -1))}>
               Prev
             </Button>
-            <p className="min-w-[120px] text-center text-sm font-medium text-zinc-200">{format(cursor, "MMMM yyyy")}</p>
+            <p className="min-w-[120px] text-center text-sm font-medium text-ink">{format(cursor, "MMMM yyyy")}</p>
             <Button size="sm" variant="outline" onClick={() => setCursor((c) => addMonths(c, 1))}>
               Next
             </Button>
@@ -198,8 +198,8 @@ export function CalendarView({
           </div>
         </div>
 
-        <Card className="border-zinc-800 bg-zinc-900/40 p-3">
-          <div className="grid grid-cols-7 gap-1 text-center text-[10px] font-semibold uppercase text-zinc-500">
+        <Card className="border-border bg-surface p-3">
+          <div className="grid grid-cols-7 gap-1 text-center text-[10px] font-semibold uppercase text-ink-3">
             {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
               <div key={d} className="py-1">
                 {d}
@@ -215,12 +215,12 @@ export function CalendarView({
                 <div
                   key={key}
                   className={cn(
-                    "min-h-[88px] rounded border border-zinc-800/80 p-1 text-left",
-                    inMonth ? "bg-black/30" : "bg-zinc-950/40 opacity-50",
-                    isSameDay(day, new Date()) && "ring-1 ring-[#4a6fa5]/50",
+                    "min-h-[88px] rounded border border-border p-1 text-left",
+                    inMonth ? "bg-black/30" : "bg-surface opacity-50",
+                    isSameDay(day, new Date()) && "ring-1 ring-accent",
                   )}
                 >
-                  <p className="text-[10px] font-mono text-zinc-400">{format(day, "d")}</p>
+                  <p className="text-[10px] font-mono text-ink-2">{format(day, "d")}</p>
                   <div className="mt-1 space-y-0.5">
                     {items.slice(0, 3).map((it) => (
                       <div key={`${it.id}-${it.label}`} className={cn("truncate rounded px-1 py-0.5 text-[9px] text-white", it.color)} title={it.label}>
@@ -228,7 +228,7 @@ export function CalendarView({
                       </div>
                     ))}
                     {items.length > 3 ? (
-                      <p className="text-[9px] text-zinc-500">+{items.length - 3} more</p>
+                      <p className="text-[9px] text-ink-3">+{items.length - 3} more</p>
                     ) : null}
                   </div>
                 </div>
@@ -237,23 +237,23 @@ export function CalendarView({
           </div>
         </Card>
 
-        <Card className="border-zinc-800 bg-zinc-900/40 p-3">
-          <p className="mb-2 text-sm font-semibold text-zinc-200">Your recruiting events</p>
+        <Card className="border-border bg-surface p-3">
+          <p className="mb-2 text-sm font-semibold text-ink">Your recruiting events</p>
           <div className="space-y-2 text-xs">
             {events.length === 0 ? (
-              <p className="text-zinc-500">No events yet.</p>
+              <p className="text-ink-3">No events yet.</p>
             ) : (
               events.map((e) => (
-                <div key={e.id} className="flex items-start justify-between gap-2 rounded border border-zinc-800 px-2 py-1.5">
+                <div key={e.id} className="flex items-start justify-between gap-2 rounded border border-border px-2 py-1.5">
                   <div>
-                    <p className="font-medium text-zinc-100">{e.title}</p>
-                    <p className="text-[10px] text-zinc-500">
+                    <p className="font-medium text-ink">{e.title}</p>
+                    <p className="text-[10px] text-ink-3">
                       {new Date(e.date).toLocaleString()} · {e.type.replace("_", " ")}
                       {e.firmName ? ` · ${e.firmName}` : ""}
                     </p>
-                    {e.notes ? <p className="mt-1 text-zinc-400">{e.notes}</p> : null}
+                    {e.notes ? <p className="mt-1 text-ink-2">{e.notes}</p> : null}
                   </div>
-                  <Button size="sm" variant="ghost" className="shrink-0 text-red-400" onClick={() => void removeEvent(e.id)}>
+                  <Button size="sm" variant="ghost" className="shrink-0 text-danger" onClick={() => void removeEvent(e.id)}>
                     Delete
                   </Button>
                 </div>
@@ -266,23 +266,23 @@ export function CalendarView({
       <Modal open={modalOpen} onClose={() => setModalOpen(false)} title="Add recruiting event">
         <div className="space-y-2 text-sm">
           <div>
-            <label className="mb-1 block text-xs text-zinc-500">Title</label>
+            <label className="mb-1 block text-xs text-ink-3">Title</label>
             <Input value={title} onChange={(e) => setTitle(e.target.value)} />
           </div>
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <label className="mb-1 block text-xs text-zinc-500">Date</label>
+              <label className="mb-1 block text-xs text-ink-3">Date</label>
               <Input type="date" value={dateStr} onChange={(e) => setDateStr(e.target.value)} />
             </div>
             <div>
-              <label className="mb-1 block text-xs text-zinc-500">Time</label>
+              <label className="mb-1 block text-xs text-ink-3">Time</label>
               <Input type="time" value={timeStr} onChange={(e) => setTimeStr(e.target.value)} />
             </div>
           </div>
           <div>
-            <label className="mb-1 block text-xs text-zinc-500">Type</label>
+            <label className="mb-1 block text-xs text-ink-3">Type</label>
             <select
-              className="w-full rounded border border-zinc-700 bg-zinc-950 px-2 py-2 text-sm"
+              className="w-full rounded border border-border-strong bg-surface px-2 py-2 text-sm"
               value={type}
               onChange={(e) => setType(e.target.value)}
             >
@@ -294,13 +294,13 @@ export function CalendarView({
             </select>
           </div>
           <div>
-            <label className="mb-1 block text-xs text-zinc-500">Firm (optional)</label>
+            <label className="mb-1 block text-xs text-ink-3">Firm (optional)</label>
             <Input value={firmName} onChange={(e) => setFirmName(e.target.value)} />
           </div>
           <div>
-            <label className="mb-1 block text-xs text-zinc-500">Notes</label>
+            <label className="mb-1 block text-xs text-ink-3">Notes</label>
             <textarea
-              className="min-h-[70px] w-full rounded border border-zinc-700 bg-zinc-950 p-2 text-sm"
+              className="min-h-[70px] w-full rounded border border-border-strong bg-surface p-2 text-sm"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
             />

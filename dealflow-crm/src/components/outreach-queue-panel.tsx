@@ -20,10 +20,10 @@ export type QueueContact = {
 };
 
 const warmthColors: Record<string, string> = {
-  COLD: "bg-blue-500/20 text-blue-300",
-  WARM: "bg-amber-500/20 text-amber-300",
-  HOT: "bg-orange-500/20 text-orange-300",
-  ADVOCATE: "bg-emerald-500/20 text-emerald-300",
+  COLD: "bg-info-bg text-info",
+  WARM: "bg-warn-bg text-warn",
+  HOT: "bg-warn-bg text-warn",
+  ADVOCATE: "bg-success-bg text-success",
 };
 
 type Props = {
@@ -46,8 +46,8 @@ export function OutreachQueuePanel({
   if (sorted.length === 0) {
     return (
       <Card className="p-8 text-center">
-        <p className="text-sm text-zinc-400">Outreach queue is empty.</p>
-        <p className="mt-1 text-xs text-zinc-500">
+        <p className="text-sm text-ink-2">Outreach queue is empty.</p>
+        <p className="mt-1 text-xs text-ink-3">
           Add contacts via Find Contacts or the contact menu.
         </p>
       </Card>
@@ -65,7 +65,7 @@ export function OutreachQueuePanel({
                 <div className="flex flex-wrap items-center gap-2">
                   <Link
                     href={`/contacts/${c.id}`}
-                    className="font-medium text-zinc-100 underline-offset-4 hover:underline"
+                    className="font-medium text-ink underline-offset-4 hover:underline"
                   >
                     {c.fullName}
                   </Link>
@@ -75,14 +75,14 @@ export function OutreachQueuePanel({
                     {c.warmthScore}
                   </span>
                 </div>
-                <p className="mt-1 text-sm text-zinc-400">
+                <p className="mt-1 text-sm text-ink-2">
                   {c.title} ·{" "}
                   <Link href={`/firms/${c.firmId}`} className="hover:underline">
                     {c.firmName}
                   </Link>{" "}
                   <FirmTypeBadge type={c.firmType} className="ml-1" />
                 </p>
-                <p className="mt-1 text-xs text-zinc-500">
+                <p className="mt-1 text-xs text-ink-3">
                   Added {days === 0 ? "today" : `${days} day${days !== 1 ? "s" : ""} ago`}
                 </p>
               </div>
