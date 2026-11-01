@@ -10,6 +10,7 @@ import {
   LayoutGrid,
   Library,
   MessageSquare,
+  NotebookPen,
   ShieldAlert,
   Swords,
   Trophy,
@@ -70,7 +71,8 @@ export const NAV_GROUPS: NavGroup[] = [
     id: "tools",
     label: "Tools",
     items: [
-      { href: "/mock-interview", label: "Mock interviews", icon: Mic, also: ["/stories"] },
+      { href: "/stories", label: "Storybank", icon: NotebookPen },
+      { href: "/mock-interview", label: "Mock interviews", icon: Mic },
       { href: "/resume", label: "Resume review", icon: FileText },
       { href: "/pitch-builder", label: "Stock pitch", icon: Briefcase },
       { href: "/resources", label: "Resources", icon: Library, also: ["/cases", "/vault"] },

@@ -43,7 +43,8 @@ export type AnthropicUsageFeature =
   | "case-resume-bullets"
   | "pitch-outline"
   | "mcq-generate"
-  | "learn-tutor";
+  | "learn-tutor"
+  | "storybank";
 
 export type AiCallOptions = {
   system?: string;

@@ -14,7 +14,7 @@ import { EMAIL_KINDS, type EmailKind } from "@/lib/email-ai-kinds";
 import { cn } from "@/lib/utils";
 
 type Draft = { subjects: string[]; body: string; personalization: string[]; missing: string[]; tips: string[] };
-type Me = { name: string; school: string; classYear: number | null; track: string };
+type Me = { name: string; school: string; classYear: number | null; track: string; club: string | null };
 
 const YEAR_WORD = (classYear: number | null) => {
   if (!classYear) return "student";
@@ -36,7 +36,7 @@ function fillTemplate(t: ColdTemplate, me: Me, r: { name: string; firm: string; 
     year_word: YEAR_WORD(me.classYear),
     track: me.track.toLowerCase(),
     my_name: me.name,
-    club: "PE@Broad",
+    club: me.club ?? "{{club}}",
   };
   const fill = (s: string) => s.replace(/\{\{(\w+)\}\}/g, (m, k: string) => map[k] ?? m);
   return { subject: fill(t.subject), body: fill(t.body) };

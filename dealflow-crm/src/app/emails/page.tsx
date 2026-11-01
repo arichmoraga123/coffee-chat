@@ -16,7 +16,7 @@ export default async function EmailsPage({ searchParams }: { searchParams: Promi
       select: { id: true, fullName: true, title: true, firm: { select: { name: true } } },
       take: 1000,
     }),
-    prisma.user.findUnique({ where: { id: userId }, select: { name: true, classYear: true, careerTracks: true, school: { select: { shortName: true, name: true } } } }),
+    prisma.user.findUnique({ where: { id: userId }, select: { name: true, classYear: true, careerTracks: true, school: { select: { shortName: true, name: true } }, clubMemberships: { where: { active: true }, select: { club: { select: { name: true } } }, take: 1 } } }),
   ]);
   return (
     <div className="space-y-6">
@@ -31,6 +31,7 @@ export default async function EmailsPage({ searchParams }: { searchParams: Promi
           school: me?.school?.shortName ?? me?.school?.name ?? "MSU",
           classYear: me?.classYear ?? null,
           track: me?.careerTracks[0] ?? "investment banking",
+          club: me?.clubMemberships[0]?.club.name ?? null,
         }}
         initial={{ contactId: sp.contact ?? "", kind: sp.kind ?? "", templateId: sp.template ?? "" }}
       />
