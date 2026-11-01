@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { InteractionType } from "@prisma/client";
 import { Card } from "@/components/ui/card";
@@ -22,6 +22,8 @@ import { ContactEmailDropdown } from "@/components/contact-email-dropdown";
 import type { EmailTemplateType } from "@/lib/email-template-types";
 import { EMAIL_TEMPLATE_TYPES } from "@/lib/email-template-types";
 import { Select } from "@/components/ui/select";
+import { bulkRequest } from "@/components/ui/bulk";
+import { LogInteractionDialog } from "@/components/contacts/log-interaction-dialog";
 
 type FirmOption = { id: string; name: string; type?: string | null };
 
@@ -36,6 +38,7 @@ type Props = {
   profile: ContactProfilePayload;
   firms: FirmOption[];
   interactions: TimelineInteraction[];
+  meta?: { deleted: boolean; list: string; importSource: string | null };
   emailDrafts: EmailDraft[];
   tasks: Array<{ id: string; taskType: string; dueDate: string; status: string }>;
   opportunities: Array<{ id: string; label: string }>;
@@ -55,6 +58,7 @@ export function ContactDetailView({
   profile,
   firms,
   interactions,
+  meta,
   emailDrafts,
   tasks,
   opportunities,
@@ -62,6 +66,8 @@ export function ContactDetailView({
 }: Props) {
   const router = useRouter();
   const [showI, setShowI] = useState(false);
+  const [logOpen, setLogOpen] = useState(false);
+  const logContact = useMemo(() => ({ value: profile.id, label: profile.fullName }), [profile.id, profile.fullName]);
   const [showT, setShowT] = useState(false);
   const [showIntro, setShowIntro] = useState(false);
   const [introTarget, setIntroTarget] = useState("");
@@ -227,17 +233,20 @@ export function ContactDetailView({
     <div className="space-y-6">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h1 className="text-xl font-semibold text-ink">{profile.fullName}</h1>
+          <h1 className="page-title">{profile.fullName}</h1>
           <p className="flex flex-wrap items-center gap-2 text-sm text-ink-2">
             <span>
               {profile.title} · {profile.group} · {profile.firmName}
             </span>
             <FirmTypeBadge type={profile.firmType} />
+            {meta?.list === "network" ? <span className="rounded bg-surface-2 px-2 py-0.5 text-xs text-ink-2">Network</span> : null}
           </p>
+          {meta?.importSource ? <p className="mt-1 text-[13px] text-ink-3">{meta.importSource}</p> : null}
+          {meta?.deleted ? <p className="mt-1 text-[13px] text-danger">This contact is in Trash.</p> : null}
         </div>
         <div className="flex flex-wrap gap-2">
           <ContactEmailDropdown contactId={profile.id} size="default" />
-          <Button size="sm" variant="outline" onClick={() => setShowI(true)}>
+          <Button size="sm" variant="outline" onClick={() => setLogOpen(true)}>
             Log interaction
           </Button>
           <Button size="sm" variant="outline" onClick={() => void runPreCallBrief()}>
@@ -248,6 +257,19 @@ export function ContactDetailView({
           </Button>
           <Button size="sm" onClick={() => setShowT(true)}>
             Add task
+          </Button>
+          <Button
+            size="sm"
+            variant="ghost"
+            onClick={async () => {
+              const ok = await bulkRequest(
+                { entity: "contacts", ids: [profile.id], op: "action", action: meta?.deleted ? "restore" : "delete" },
+                { success: () => (meta?.deleted ? `Restored ${profile.fullName}` : `Deleted ${profile.fullName}`), onChange: () => router.refresh() },
+              );
+              if (ok && !meta?.deleted) router.push("/contacts");
+            }}
+          >
+            {meta?.deleted ? "Restore" : "Delete"}
           </Button>
         </div>
       </div>
@@ -290,7 +312,7 @@ export function ContactDetailView({
                 <Select
                   value={selectedOpp}
                   onChange={(e) => setSelectedOpp(e.target.value)}
-                  className="h-8 min-w-0 flex-1 rounded border border-border-strong bg-surface px-2 text-xs"
+                  className="min-w-0 flex-1"
                 >
                   <option value="">Select to link</option>
                   {linkableOpportunities.map((o) => (
@@ -365,6 +387,7 @@ export function ContactDetailView({
         />
       </div>
 
+      <LogInteractionDialog open={logOpen} onClose={() => setLogOpen(false)} contact={logContact} onSaved={() => router.refresh()} />
       <Modal open={showI} onClose={() => setShowI(false)} title="Log interaction" className="max-w-lg">
         <div className="max-h-[70vh] space-y-3 overflow-y-auto pr-1 text-sm">
           <div>

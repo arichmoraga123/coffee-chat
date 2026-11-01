@@ -94,6 +94,9 @@ function toTimeline(
     personalDetails: string | null;
     firmInsights: string | null;
     redFlags: string | null;
+    kind: string | null;
+    nextStep: string | null;
+    nextStepDue: Date | null;
   }>,
 ): TimelineInteraction[] {
   return interactions.map((i) => ({
@@ -107,6 +110,9 @@ function toTimeline(
     personalDetails: i.personalDetails,
     firmInsights: i.firmInsights,
     redFlags: i.redFlags,
+    kind: i.kind,
+    nextStep: i.nextStep,
+    nextStepDue: i.nextStepDue?.toISOString() ?? null,
   }));
 }
 
@@ -122,8 +128,9 @@ export default async function ContactDetail({
       where: { id, userId },
       include: {
         firm: true,
-        interactions: { orderBy: { date: "desc" } },
-        tasks: { orderBy: { dueDate: "asc" } },
+        interactions: { where: { deletedAt: null, autoCreated: false }, orderBy: { date: "desc" } },
+        tasks: { where: { dismissedAt: null }, orderBy: { dueDate: "asc" } },
+        importBatch: { select: { source: true, fileName: true, createdAt: true } },
         opportunities: { include: { opportunity: { include: { firm: true } } } },
         emailDrafts: { orderBy: { createdAt: "desc" } },
       },
@@ -146,6 +153,17 @@ export default async function ContactDetail({
   return (
     <ContactDetailView
       profile={toProfile(contact)}
+      meta={{
+        deleted: Boolean(contact.deletedAt),
+        list: contact.list,
+        importSource: contact.importBatch
+          ? `Imported from ${contact.importBatch.source === "linkedin" ? "LinkedIn connections" : contact.importBatch.source === "rolodex_template" ? "a Rolodex file" : "a CSV"} (${contact.importBatch.fileName}) on ${contact.importBatch.createdAt.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}`
+          : contact.source === "import"
+            ? "Imported from a spreadsheet"
+            : contact.source === "linkedin-search"
+              ? "Added from LinkedIn search"
+              : null,
+      }}
       firms={firms}
       interactions={toTimeline(contact.interactions)}
       emailDrafts={contact.emailDrafts.map((d) => ({

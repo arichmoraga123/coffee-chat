@@ -5,6 +5,7 @@ import { requireUserId } from "@/lib/auth";
 import { Card } from "@/components/ui/card";
 import { PageHeader } from "@/components/ui/page-header";
 import { ThemeSetting } from "@/components/theme/theme-setting";
+import { DataRepairCard } from "@/components/settings/data-repair-card";
 import { ProfileDrillChart } from "@/components/profile-drill-chart";
 import { ProfileNameForm } from "@/components/profile-name-form";
 import { CalendarIntegrationPanel } from "@/components/calendar-integration-panel";
@@ -82,6 +83,9 @@ export default async function ProfilePage({ searchParams }: { searchParams: Prom
           <p className="text-sm text-ink-2">Theme</p>
           <ThemeSetting />
         </div>
+      </Card>
+      <Card title="Data">
+        <DataRepairCard />
       </Card>
       <Card title="PE@Broad sharing" action={<Link href="/settings/club-sharing" className="text-accent hover:underline">Edit</Link>}>
         <p className="text-sm text-ink-2">Choose what other club members see: learning progress, drill stats, targets, and firms in contact.</p>

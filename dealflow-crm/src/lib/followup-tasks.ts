@@ -1,4 +1,3 @@
-import "server-only";
 import type { TaskType } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { kindOf, nextFollowup, type FollowupKind } from "@/lib/followups";

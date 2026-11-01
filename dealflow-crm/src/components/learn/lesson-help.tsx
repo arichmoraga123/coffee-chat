@@ -121,7 +121,7 @@ export function LessonHelp({
             <Select
               value={blockId}
               onChange={(e) => setBlockId(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-border-strong bg-surface px-2 py-2 text-base text-ink"
+              className="mt-1 w-full"
             >
               <option value="">The whole lesson</option>
               {blocks.map((b) => (

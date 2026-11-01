@@ -267,7 +267,7 @@ export function ProgramTracker() {
                   >
                     <Select
                       aria-label={`My status for ${p.company}`}
-                      className={cn("h-8 w-full rounded border border-border bg-surface px-1.5 text-xs", STATUS_STYLE[my])}
+                      className={cn("w-full rounded", STATUS_STYLE[my])}
                       value={my}
                       onChange={(e) => setStatus(p.id, e.target.value as MyStatus)}
                     >
