@@ -262,7 +262,7 @@ export function PipelineBoard({
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-4">
         <h1 className="page-title">Pipeline</h1>
-        <Button size="sm" onClick={openAdd}>
+        <Button variant="primary" size="sm" onClick={openAdd}>
           Add Opportunity
         </Button>
       </div>

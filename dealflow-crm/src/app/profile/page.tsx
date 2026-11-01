@@ -111,15 +111,15 @@ export default async function ProfilePage({ searchParams }: { searchParams: Prom
         <Card className="border-border bg-surface p-4">
           <p className="text-sm font-semibold text-ink">Engagement</p>
           <div className="mt-3 grid grid-cols-3 gap-2 text-center text-xs">
-            <div className="rounded border border-border bg-black/30 p-2">
+            <div className="rounded border border-border bg-surface-2 p-2">
               <p className="text-[10px] text-ink-3">Total XP</p>
               <p className="text-lg font-mono text-ink">{user?.xp ?? 0}</p>
             </div>
-            <div className="rounded border border-border bg-black/30 p-2">
+            <div className="rounded border border-border bg-surface-2 p-2">
               <p className="text-[10px] text-ink-3">Weekly XP</p>
               <p className="text-lg font-mono text-accent">{user?.weeklyXP ?? 0}</p>
             </div>
-            <div className="rounded border border-border bg-black/30 p-2">
+            <div className="rounded border border-border bg-surface-2 p-2">
               <p className="text-[10px] text-ink-3">Streak</p>
               <p className="text-lg font-mono text-warn">{user?.drillStreak ?? 0}</p>
             </div>

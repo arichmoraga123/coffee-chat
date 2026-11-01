@@ -35,7 +35,7 @@ export function RecruitingCalendarSidebar({ events }: { events: RecruitingSideba
           <p className="text-ink-3">No shared recruiting events in the next 30 days.</p>
         ) : (
           upcoming.map((e) => (
-            <div key={e.id} className="rounded border border-border bg-black/20 px-2 py-1.5">
+            <div key={e.id} className="rounded border border-border bg-surface-2 px-2 py-1.5">
               <p className="font-medium text-ink">{e.title}</p>
               <p className="text-[10px] text-ink-3">
                 {e.firmName ?? "—"} · {e.eventType}

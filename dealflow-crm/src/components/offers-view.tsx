@@ -109,7 +109,7 @@ export function OffersView() {
           <Input placeholder="Start" value={form.startDate} onChange={(e) => setForm((f) => ({ ...f, startDate: e.target.value }))} />
           <Input className="sm:col-span-2" placeholder="Notes" value={form.notes} onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))} />
         </div>
-        <Button size="sm" variant="outline" onClick={addOffer}>
+        <Button size="sm" variant="primary" onClick={addOffer}>
           Add to table
         </Button>
       </Card>

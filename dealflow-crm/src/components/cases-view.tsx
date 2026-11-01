@@ -263,7 +263,7 @@ export function CasesView() {
           <h1 className="page-title">Case competitions</h1>
           <p className="mt-1 text-sm text-ink-3">Track cases, outcomes, and AI-generated resume bullets.</p>
         </div>
-        <Button type="button" onClick={openNew}>
+        <Button variant="primary" type="button" onClick={openNew}>
           Add case
         </Button>
       </div>
@@ -367,7 +367,7 @@ export function CasesView() {
                 Delete
               </button>
             </div>
-            <div className="mt-3 flex items-center justify-between gap-2 rounded border border-border bg-black/20 px-2 py-2">
+            <div className="mt-3 flex items-center justify-between gap-2 rounded border border-border bg-surface-2 px-2 py-2">
               <span className="text-[11px] text-ink-2">Add to resume bullets</span>
               <button
                 type="button"

@@ -336,6 +336,7 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
               onChange={(e) => onFile(e.target.files)}
             />
             <Button
+              variant="primary"
               type="button"
               disabled={loading}
               onClick={() => fileInputRef.current?.click()}
@@ -432,7 +433,7 @@ export function ResumeReviewView({ careerTracks }: { careerTracks: string[] }) {
                   "rounded-lg border px-3 py-1.5 text-left text-xs transition-colors",
                   active?.id === r.id
                     ? "border-accent bg-accent-tint text-ink"
-                    : "border-border bg-black/20 text-ink-2 hover:border-border-strong hover:text-ink",
+                    : "border-border bg-surface-2 text-ink-2 hover:border-border-strong hover:text-ink",
                 )}
               >
                 <span className="block font-medium text-ink">{r.fileName}</span>

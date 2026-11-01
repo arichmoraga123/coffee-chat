@@ -44,7 +44,7 @@ export function GroupsView() {
       </div>
       <div className="flex flex-wrap gap-2 rounded-lg border border-border bg-surface p-4">
         <Input placeholder="New group name" value={name} onChange={(e) => setName(e.target.value)} className="max-w-xs" />
-        <Button size="sm" onClick={() => void create()}>
+        <Button variant="primary" size="sm" onClick={() => void create()}>
           Create
         </Button>
       </div>

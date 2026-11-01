@@ -248,7 +248,7 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
           <Button size="sm" variant="outline" disabled={ingesting} onClick={() => void ingestNow()}>
             {ingesting ? "Pulling news…" : "Pull latest deals now"}
           </Button>
-          <Button size="sm" onClick={openCreate}>
+          <Button variant="primary" size="sm" onClick={openCreate}>
             Add Deal
           </Button>
         </div>
@@ -264,7 +264,7 @@ export function AdminDealsView({ initialDeals }: { initialDeals: DealRow[] }) {
         >
           Drafts
           {draftCount > 0 ? (
-            <span className="ml-2 rounded-full bg-black/30 px-2 py-0.5 text-xs">{draftCount}</span>
+            <span className="ml-2 rounded-full bg-surface-2 px-2 py-0.5 text-xs">{draftCount}</span>
           ) : null}
         </Button>
         <Button

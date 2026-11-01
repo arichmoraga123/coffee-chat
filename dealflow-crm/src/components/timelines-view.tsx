@@ -142,7 +142,7 @@ export function TimelinesView({
           <h1 className="page-title">Firm recruiting timelines</h1>
           <p className="text-sm text-ink-2">Filter by type, role, and cycle year.</p>
         </div>
-        <Button size="sm" onClick={() => setShowAdd(true)}>
+        <Button variant="primary" size="sm" onClick={() => setShowAdd(true)}>
           Add timeline
         </Button>
       </div>

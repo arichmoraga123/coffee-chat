@@ -187,7 +187,7 @@ export async function DashboardHome() {
               <p className="mt-1 text-[13px] text-ink-3">
                 {weakest.length ? `Focus: ${weakest.join(", ")}` : "Reviews first, then your weakest lessons"}
               </p>
-              <Button variant="primary" className="mt-4 h-11 w-full sm:h-9 sm:w-auto" asChild>
+              <Button variant={dailyLeft > 0 ? "secondary" : "primary"} className="mt-4 h-11 w-full sm:h-9 sm:w-auto" asChild>
                 <Link href="/practice/daily">{dailyLeft === DAILY_SET_SIZE ? "Start" : "Resume"}</Link>
               </Button>
             </>

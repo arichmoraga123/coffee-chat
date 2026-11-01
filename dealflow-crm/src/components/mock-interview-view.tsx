@@ -445,7 +445,7 @@ export function MockInterviewView() {
                       type="button"
                       className={cn(
                         "flex w-full items-center justify-between gap-3 rounded border border-border bg-surface p-3 text-left hover:border-border-strong",
-                        relevantBanks.includes(q.bankSource) && "border-success/40 bg-success-bg",
+                        relevantBanks.includes(q.bankSource) && "border-l-2 border-l-accent",
                       )}
                       onClick={() => openPractice(q.id)}
                     >

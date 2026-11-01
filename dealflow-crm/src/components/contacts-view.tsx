@@ -376,7 +376,7 @@ export function ContactsView({
           <Button onClick={() => setShowXRay(true)} size="sm" variant="outline">
             Find Contacts
           </Button>
-          <Button onClick={() => setShowC(true)} size="sm">
+          <Button variant="primary" onClick={() => setShowC(true)} size="sm">
             New Contact (C)
           </Button>
         </div>

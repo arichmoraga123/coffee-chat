@@ -192,7 +192,7 @@ export function CalendarView({
             <Button size="sm" variant="outline" onClick={() => setCursor((c) => addMonths(c, 1))}>
               Next
             </Button>
-            <Button size="sm" onClick={() => setModalOpen(true)}>
+            <Button variant="primary" size="sm" onClick={() => setModalOpen(true)}>
               Add Event
             </Button>
           </div>
@@ -216,7 +216,7 @@ export function CalendarView({
                   key={key}
                   className={cn(
                     "min-h-[88px] rounded border border-border p-1 text-left",
-                    inMonth ? "bg-black/30" : "bg-surface opacity-50",
+                    inMonth ? "bg-surface" : "bg-surface-2 opacity-60",
                     isSameDay(day, new Date()) && "ring-1 ring-accent",
                   )}
                 >

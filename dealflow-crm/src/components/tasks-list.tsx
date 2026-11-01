@@ -73,7 +73,7 @@ export function TasksList({
           </button>
         ))}
         </div>
-        <Button size="sm" onClick={() => setShowModal(true)}>New Task (T)</Button>
+        <Button variant="primary" size="sm" onClick={() => setShowModal(true)}>New Task (T)</Button>
       </div>
       {filtered.map((t) => (
         <label key={t.id} className="flex items-center justify-between rounded border border-border p-3 text-sm">

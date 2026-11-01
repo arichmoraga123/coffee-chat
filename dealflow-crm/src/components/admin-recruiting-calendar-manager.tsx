@@ -157,14 +157,14 @@ export function AdminRecruitingCalendarManager() {
           <h1 className="page-title">Recruiting calendar</h1>
           <p className="text-sm text-ink-3">Manage shared events shown to all members.</p>
         </div>
-        <Button type="button" onClick={openNew}>
+        <Button variant="primary" type="button" onClick={openNew}>
           Add event
         </Button>
       </div>
 
       <Card className="overflow-x-auto p-0">
         <table className="w-full min-w-[720px] text-left text-xs">
-          <thead className="border-b border-border bg-black/30 text-[10px] uppercase tracking-wide text-ink-3">
+          <thead className="border-b border-border bg-surface-2 text-[10px] uppercase tracking-wide text-ink-3">
             <tr>
               <th className="px-3 py-2">Title</th>
               <th className="px-3 py-2">Date</th>

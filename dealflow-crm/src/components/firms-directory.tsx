@@ -63,6 +63,7 @@ export function FirmsDirectory({ initialFirms }: { initialFirms: FirmRow[] }) {
       <div className="flex items-center justify-between gap-2">
         <h1 className="page-title">Firms</h1>
         <Button
+          variant="primary"
           size="sm"
           onClick={() => {
             setType("");
