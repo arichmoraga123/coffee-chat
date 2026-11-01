@@ -13,6 +13,7 @@
     "irr",
     "rule of 72"
   ],
+  "workbook": "PEB_00_TVM_IRR_MOIC",
   "sourceRefs": [
     {
       "guide": "BIWS 400 Questions",
@@ -118,6 +119,12 @@
         "Rattle off all five anchors."
       ],
       "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b9",
+      "workbook": "PEB_00_TVM_IRR_MOIC",
+      "body": "Practice this lesson's mechanics in the matching workbook."
     }
   ]
 }

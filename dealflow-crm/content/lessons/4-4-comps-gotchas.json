@@ -13,6 +13,7 @@
     "comps",
     "multiples"
   ],
+  "workbook": "PEB_05_Comps_Precedents_FootballField",
   "sourceRefs": [
     {
       "guide": "BIWS 400 Questions",
@@ -94,6 +95,12 @@
         "What drives multiple compression?"
       ],
       "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b7",
+      "workbook": "PEB_05_Comps_Precedents_FootballField",
+      "body": "Practice this lesson's mechanics in the matching workbook."
     }
   ]
 }

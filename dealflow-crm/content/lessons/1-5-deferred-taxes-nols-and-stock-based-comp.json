@@ -14,6 +14,7 @@
     "nol",
     "stock-based"
   ],
+  "workbook": "PEB_09_Deferred_Taxes_NOLs",
   "sourceRefs": [
     {
       "guide": "BIWS 400 Questions",
@@ -163,6 +164,12 @@
         "Is SBC a real expense?"
       ],
       "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b11",
+      "workbook": "PEB_09_Deferred_Taxes_NOLs",
+      "body": "Practice this lesson's mechanics in the matching workbook."
     }
   ]
 }

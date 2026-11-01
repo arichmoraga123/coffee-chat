@@ -3,6 +3,7 @@ import { requireAdminUserId } from "@/lib/auth";
 import { lessonsForWorkbook, workbookKeys } from "@/lib/learn/lessons";
 import { blobConfigured } from "@/lib/learn/blob-storage";
 import { WorkbookUploader } from "@/components/learn/admin/workbook-uploader";
+import { WorkbookZipUploader } from "@/components/learn/admin/workbook-zip-uploader";
 
 export const dynamic = "force-dynamic";
 
@@ -39,6 +40,7 @@ export default async function LearnResourcesPage() {
           a read-write token env var (e.g. BLOB_READ_WRITE_TOKEN) is set, then redeploy.
         </p>
       ) : null}
+      <WorkbookZipUploader />
       <WorkbookUploader keys={keys} />
 
       <div className="overflow-x-auto rounded-xl border border-border">

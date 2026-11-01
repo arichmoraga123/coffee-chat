@@ -14,6 +14,7 @@
     "precedents",
     "comps"
   ],
+  "workbook": "PEB_10_Sum_of_the_Parts",
   "sourceRefs": [
     {
       "guide": "BIWS 400 Questions",
@@ -202,6 +203,12 @@
         "When is the DCF most useful?"
       ],
       "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b14",
+      "workbook": "PEB_10_Sum_of_the_Parts",
+      "body": "Practice this lesson's mechanics in the matching workbook."
     }
   ]
 }

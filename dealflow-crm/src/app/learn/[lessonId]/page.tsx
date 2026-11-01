@@ -7,6 +7,7 @@ import type { BlockOf } from "@/lib/learn/schema";
 import type { BlockStateMap } from "@/lib/learn/progress-server";
 import { isMentorRole, latestResources } from "@/lib/learn/resources-server";
 import { LessonPlayer } from "@/components/learn/lesson-player";
+import { workbooksForLesson } from "@/lib/learn/workbook-map";
 import { MCQ_WHERE } from "@/lib/mcq/server";
 import { LessonHelp } from "@/components/learn/lesson-help";
 
@@ -25,7 +26,7 @@ export default async function LessonPage({ params }: { params: Promise<{ lessonI
   if (!lesson) notFound();
 
   const workbookKeys = Array.from(
-    new Set([lesson.workbook, ...lesson.blocks.map((b) => (b.type === "excelLink" ? b.workbook : undefined))].filter(Boolean) as string[]),
+    new Set([...workbooksForLesson(lesson.id), lesson.workbook, ...lesson.blocks.map((b) => (b.type === "excelLink" ? b.workbook : undefined))].filter(Boolean) as string[]),
   );
 
   const [progress, user, resources, faqRows, myQuestions, practiceCount] = await Promise.all([

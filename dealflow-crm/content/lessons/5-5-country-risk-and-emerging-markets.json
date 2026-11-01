@@ -13,6 +13,7 @@
     "country risk",
     "wacc"
   ],
+  "workbook": "PEB_03_CAPM_Beta_WACC",
   "sourceRefs": [
     {
       "guide": "BIWS 400 Questions",
@@ -160,6 +161,12 @@
         "How would you adjust WACC for an emerging-market company?"
       ],
       "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b12",
+      "workbook": "PEB_03_CAPM_Beta_WACC",
+      "body": "Practice this lesson's mechanics in the matching workbook."
     }
   ]
 }

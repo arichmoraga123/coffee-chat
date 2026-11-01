@@ -12,6 +12,7 @@
   "relatedQuestionTags": [
     "working capital"
   ],
+  "workbook": "PEB_08_Working_Capital",
   "sourceRefs": [
     {
       "guide": "BIWS 400 Questions",
@@ -185,6 +186,12 @@
         "Why exclude cash?"
       ],
       "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b12",
+      "workbook": "PEB_08_Working_Capital",
+      "body": "Practice this lesson's mechanics in the matching workbook."
     }
   ]
 }

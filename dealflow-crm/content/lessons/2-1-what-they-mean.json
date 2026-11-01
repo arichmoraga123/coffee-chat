@@ -13,6 +13,7 @@
     "enterprise value",
     "equity value"
   ],
+  "workbook": "PEB_02_EV_Equity_Bridge",
   "sourceRefs": [
     {
       "guide": "BIWS 400 Questions",
@@ -158,6 +159,12 @@
         "Why do we need both?"
       ],
       "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b10",
+      "workbook": "PEB_02_EV_Equity_Bridge",
+      "body": "Practice this lesson's mechanics in the matching workbook."
     }
   ]
 }

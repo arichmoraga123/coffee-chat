@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npx tsx scripts/test-walkthroughs.ts && next build",
     "start": "next start",
     "lint": "eslint",
     "postinstall": "prisma generate",
@@ -19,7 +19,8 @@
     "roster:import": "npx tsx scripts/roster-import.ts",
     "test-followups": "npx tsx scripts/test-followups.ts",
     "test-import": "npx tsx scripts/test-import.ts",
-    "repair-dates": "npx tsx scripts/repair-imported-dates.ts"
+    "repair-dates": "npx tsx scripts/repair-imported-dates.ts",
+    "test-walkthroughs": "npx tsx scripts/test-walkthroughs.ts"
   },
   "prisma": {
     "seed": "npx tsx prisma/seed.ts"

@@ -11,6 +11,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { FORMULAS, MCQS, TAGS } from "./overrides";
+import { WORKBOOK_LESSONS } from "../../src/lib/learn/workbook-map";
 
 type Json = Record<string, unknown>;
 type Block = Json & { type: string; id: string };
@@ -35,16 +36,8 @@ const MODULE_TITLES: Record<number, string> = {
   11: "Mental Math & Brain Teasers",
 };
 
-/** Workbook ↔ lesson map from the spec (section 3.5). */
-const WORKBOOK_MAP: Record<string, string[]> = {
-  PEB_01_Accounting_3Statement_Linking: ["1-2", "1-3"],
-  PEB_02_EV_Equity_Bridge: ["2-2", "2-3", "2-4", "2-5"],
-  PEB_03_CAPM_Beta_WACC: ["5-1", "5-2", "5-3", "5-4"],
-  PEB_04_DCF: ["6-1", "6-2", "6-3", "6-4", "6-5"],
-  PEB_05_Comps_Precedents_FootballField: ["3-3", "4-2", "4-3"],
-  PEB_06_Merger_Model: ["1-6", "7-2", "7-3", "7-4"],
-  PEB_07_LBO: ["8-2", "8-4", "8-5"],
-};
+/** Workbook ↔ lesson map (v2, shared with the app). */
+const WORKBOOK_MAP: Record<string, string[]> = WORKBOOK_LESSONS;
 const WORKBOOK_BY_PREFIX: Record<string, string> = Object.fromEntries(
   Object.keys(WORKBOOK_MAP).map((k) => [k.slice(0, 6), k]),
 );

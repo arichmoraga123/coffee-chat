@@ -12,6 +12,7 @@
   "relatedQuestionTags": [
     "dcf"
   ],
+  "workbook": "PEB_04_DCF",
   "sourceRefs": [
     {
       "guide": "BIWS 400 Questions",
@@ -109,6 +110,12 @@
         "Can you DCF a bank?"
       ],
       "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b9",
+      "workbook": "PEB_04_DCF",
+      "body": "Practice this lesson's mechanics in the matching workbook."
     }
   ]
 }

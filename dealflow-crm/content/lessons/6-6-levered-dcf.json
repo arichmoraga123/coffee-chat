@@ -13,6 +13,7 @@
     "levered",
     "dcf"
   ],
+  "workbook": "PEB_12_Bank_Valuation",
   "sourceRefs": [
     {
       "guide": "BIWS 400 Questions",
@@ -143,6 +144,12 @@
         "When would you use a levered DCF?"
       ],
       "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b10",
+      "workbook": "PEB_12_Bank_Valuation",
+      "body": "Practice this lesson's mechanics in the matching workbook."
     }
   ]
 }

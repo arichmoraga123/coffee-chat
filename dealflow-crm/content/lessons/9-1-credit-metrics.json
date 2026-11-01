@@ -14,6 +14,7 @@
     "leverage",
     "coverage"
   ],
+  "workbook": "PEB_11_Credit_Analysis_Recovery",
   "sourceRefs": [
     {
       "guide": "BIWS 400 Questions",
@@ -159,6 +160,12 @@
         "What do lenders focus on?"
       ],
       "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b11",
+      "workbook": "PEB_11_Credit_Analysis_Recovery",
+      "body": "Practice this lesson's mechanics in the matching workbook."
     }
   ]
 }

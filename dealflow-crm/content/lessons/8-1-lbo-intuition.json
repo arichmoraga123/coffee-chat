@@ -12,6 +12,7 @@
   "relatedQuestionTags": [
     "lbo"
   ],
+  "workbook": "PEB_07_LBO",
   "sourceRefs": [
     {
       "guide": "BIWS 400 Questions",
@@ -179,6 +180,12 @@
         "Why does leverage increase returns?"
       ],
       "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b12",
+      "workbook": "PEB_07_LBO",
+      "body": "Practice this lesson's mechanics in the matching workbook."
     }
   ]
 }

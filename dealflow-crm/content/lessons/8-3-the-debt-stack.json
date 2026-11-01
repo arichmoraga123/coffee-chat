@@ -14,6 +14,7 @@
     "leveraged",
     "debt"
   ],
+  "workbook": "PEB_11_Credit_Analysis_Recovery",
   "sourceRefs": [
     {
       "guide": "BIWS 400 Questions",
@@ -200,6 +201,12 @@
         "Maintenance vs. incurrence covenants?"
       ],
       "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b13",
+      "workbook": "PEB_11_Credit_Analysis_Recovery",
+      "body": "Practice this lesson's mechanics in the matching workbook."
     }
   ]
 }

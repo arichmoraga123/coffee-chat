@@ -14,6 +14,7 @@
     "p/bv",
     "fig"
   ],
+  "workbook": "PEB_12_Bank_Valuation",
   "sourceRefs": [
     {
       "guide": "BIWS 400 Questions",
@@ -167,6 +168,12 @@
         "What drives P/BV?"
       ],
       "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b11",
+      "workbook": "PEB_12_Bank_Valuation",
+      "body": "Practice this lesson's mechanics in the matching workbook."
     }
   ]
 }

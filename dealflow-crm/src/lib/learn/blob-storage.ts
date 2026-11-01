@@ -1,5 +1,13 @@
 import "server-only";
 import { get, put } from "@vercel/blob";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { randomBytes } from "node:crypto";
+import path from "node:path";
+
+/** Development without Blob: workbooks go to a local folder so the full flow can be tried. Never in production. */
+const LOCAL_DIR = path.join(process.env.TMPDIR ?? "/tmp", "prospect-workbooks");
+const localMode = () => !blobToken() && process.env.NODE_ENV !== "production";
+export const workbookStorageReady = () => Boolean(blobToken()) || localMode();
 
 export const XLSX_MIME = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 export const MAX_WORKBOOK_BYTES = 10 * 1024 * 1024;
@@ -28,6 +36,12 @@ export function blobConfigured(): boolean {
  * only ever used server-side by the download route.
  */
 export async function storeWorkbook(pathname: string, data: Buffer): Promise<{ url: string }> {
+  if (localMode()) {
+    const id = randomBytes(10).toString("hex");
+    await mkdir(LOCAL_DIR, { recursive: true });
+    await writeFile(path.join(LOCAL_DIR, id), data);
+    return { url: `local:${id}` };
+  }
   try {
     const r = await put(pathname, data, { access: "private", addRandomSuffix: true, contentType: XLSX_MIME, token: blobToken() });
     return { url: r.url };
@@ -40,6 +54,16 @@ export async function storeWorkbook(pathname: string, data: Buffer): Promise<{ u
 
 /** Opens a stored workbook for streaming to the client. */
 export async function openWorkbook(url: string): Promise<ReadableStream<Uint8Array> | null> {
+  if (url.startsWith("local:")) {
+    const buf = await readFile(path.join(LOCAL_DIR, url.slice(6).replace(/[^a-f0-9]/g, ""))).catch(() => null);
+    if (!buf) return null;
+    return new ReadableStream({
+      start(c) {
+        c.enqueue(new Uint8Array(buf));
+        c.close();
+      },
+    });
+  }
   for (const access of ["private", "public"] as const) {
     try {
       const r = await get(url, { access, token: blobToken() });

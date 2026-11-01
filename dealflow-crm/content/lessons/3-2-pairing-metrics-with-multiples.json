@@ -13,6 +13,7 @@
     "multiples",
     "ebitda"
   ],
+  "workbook": "PEB_05_Comps_Precedents_FootballField",
   "sourceRefs": [
     {
       "guide": "BIWS 400 Questions",
@@ -179,6 +180,12 @@
         "When use EV/revenue?"
       ],
       "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b13",
+      "workbook": "PEB_05_Comps_Precedents_FootballField",
+      "body": "Practice this lesson's mechanics in the matching workbook."
     }
   ]
 }

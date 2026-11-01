@@ -1,5 +1,8 @@
 "use client";
 
+import Link from "next/link";
+import { workbookTitle, workbooksForLesson } from "@/lib/learn/workbook-map";
+
 import { useMemo, useState } from "react";
 import katex from "katex";
 import "katex/dist/katex.min.css";
@@ -212,41 +215,54 @@ export function CheckpointView({ block }: { block: BlockOf<"checkpoint"> }) {
 }
 
 export function ExcelLinkView({ block }: { block: BlockOf<"excelLink"> }) {
-  const { resources, completed, isAdmin } = useLesson();
-  const r = resources[block.workbook];
+  const { lessonId, resources, completed, isAdmin } = useLesson();
+  const keys = Array.from(new Set([block.workbook, ...workbooksForLesson(lessonId)]));
   const keyUnlocked = completed || isAdmin;
   return (
-    <div className="rounded-[var(--radius-lg)] border border-success/40 bg-success-bg p-4">
-      <div className="flex items-start gap-3">
-        <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-success-bg text-sm font-bold text-success">
-          XLS
-        </span>
-        <div className="min-w-0 flex-1">
-          <p className="font-semibold text-ink">{r?.student?.title ?? block.workbook.replace(/_/g, " ")}</p>
-          {block.body ? <p className="mt-0.5 text-sm text-ink-2">{block.body}</p> : null}
-          {r?.student?.description ? <p className="mt-0.5 text-xs text-ink-2">{r.student.description}</p> : null}
-        </div>
-      </div>
-      <div className="mt-3 flex flex-wrap items-center gap-2">
-        {r?.student ? (
-          <Button asChild size="sm">
-            <a href={`/api/learn/resources/${r.student.id}/download`}>Download workbook</a>
-          </Button>
-        ) : (
-          <span className="text-xs text-ink-3">Workbook coming soon — a mentor hasn&apos;t uploaded it yet.</span>
-        )}
-        {r?.answerKey ? (
-          keyUnlocked ? (
-            <Button asChild size="sm" variant="outline">
-              <a href={`/api/learn/resources/${r.answerKey.id}/download`}>Download answer key</a>
-            </Button>
-          ) : (
-            <Button size="sm" variant="outline" disabled title="Finish the lesson to unlock the answer key">
-              Finish the lesson to unlock the answer key
-            </Button>
-          )
-        ) : null}
-      </div>
+    <div className="space-y-3">
+      {keys.map((key, i) => {
+        const r = resources[key];
+        return (
+          <div key={key} className="rounded-[var(--radius-lg)] border border-success/40 bg-success-bg p-4">
+            <div className="flex items-start gap-3">
+              <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-surface text-sm font-bold text-success">XLS</span>
+              <div className="min-w-0 flex-1">
+                <p className="font-semibold text-ink">
+                  {r?.student?.title ?? workbookTitle(key)}
+                  {keys.length > 1 && i > 0 ? <span className="ml-2 text-xs font-normal text-ink-3">Also uses</span> : null}
+                </p>
+                {i === 0 && block.body ? <p className="mt-0.5 text-sm text-ink-2">{block.body}</p> : null}
+                {r?.student?.description ? <p className="mt-0.5 text-xs text-ink-2">{r.student.description}</p> : null}
+              </div>
+            </div>
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              {r?.student ? (
+                <>
+                  <Button asChild size="sm" variant="primary">
+                    <a href={`/api/learn/resources/${r.student.id}/download`}>Download workbook</a>
+                  </Button>
+                  <Button asChild size="sm" variant="secondary">
+                    <Link href={`/learn/workbooks/${key}/guided?from=${lessonId}`}>Walk me through it in the browser</Link>
+                  </Button>
+                </>
+              ) : (
+                <span className="text-xs text-ink-3">Workbook coming soon. A mentor hasn&apos;t uploaded it yet.</span>
+              )}
+              {r?.answerKey ? (
+                keyUnlocked ? (
+                  <Button asChild size="sm" variant="ghost">
+                    <a href={`/api/learn/resources/${r.answerKey.id}/download`}>Download answer key</a>
+                  </Button>
+                ) : (
+                  <span className="text-xs text-ink-3" title="Finish the lesson to unlock the answer key">
+                    Answer key unlocks when you finish the lesson
+                  </span>
+                )
+              ) : null}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

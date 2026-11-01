@@ -13,6 +13,7 @@
     "perpetuity",
     "terminal value"
   ],
+  "workbook": "PEB_00_TVM_IRR_MOIC",
   "sourceRefs": [
     {
       "guide": "BIWS 400 Questions",
@@ -151,6 +152,12 @@
         "Why does g have to be below r?"
       ],
       "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b10",
+      "workbook": "PEB_00_TVM_IRR_MOIC",
+      "body": "Practice this lesson's mechanics in the matching workbook."
     }
   ]
 }

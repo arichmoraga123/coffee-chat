@@ -1,3 +1,4 @@
+import { ALL_WORKBOOK_KEYS, WORKBOOK_LESSONS } from "@/lib/learn/workbook-map";
 import { RAW_LESSONS } from "./lessons.generated";
 import { LessonSchema, isGraded, type Block, type Lesson } from "./schema";
 
@@ -36,7 +37,7 @@ export function modules(): ModuleGroup[] {
 
 /** Workbook keys referenced anywhere in the curriculum (for the admin upload dropdown). */
 export function workbookKeys(): string[] {
-  const keys = new Set<string>();
+  const keys = new Set<string>(ALL_WORKBOOK_KEYS);
   for (const l of allLessons()) {
     if (l.workbook) keys.add(l.workbook);
     for (const b of l.blocks) if (b.type === "excelLink") keys.add(b.workbook);
@@ -45,7 +46,7 @@ export function workbookKeys(): string[] {
 }
 
 export function lessonsForWorkbook(key: string): Lesson[] {
-  return allLessons().filter((l) => l.workbook === key || l.blocks.some((b) => b.type === "excelLink" && b.workbook === key));
+  return allLessons().filter((l) => l.workbook === key || l.blocks.some((b) => b.type === "excelLink" && b.workbook === key) || (WORKBOOK_LESSONS[key] ?? []).includes(l.id));
 }
 
 /** Blocks that count toward the progress bar: graded blocks, step-throughs, deep dives (opened) and the checkpoint. */

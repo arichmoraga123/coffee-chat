@@ -14,6 +14,7 @@
     "rule of 40",
     "software"
   ],
+  "workbook": "PEB_14_SaaS_Metrics",
   "sourceRefs": [
     {
       "guide": "BIWS 400 Questions",
@@ -158,6 +159,12 @@
         "What's the Rule of 40?"
       ],
       "selfGrade": true
+    },
+    {
+      "type": "excelLink",
+      "id": "b11",
+      "workbook": "PEB_14_SaaS_Metrics",
+      "body": "Practice this lesson's mechanics in the matching workbook."
     }
   ]
 }
