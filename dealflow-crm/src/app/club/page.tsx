@@ -7,6 +7,9 @@ import { Card } from "@/components/ui/card";
 import { prisma } from "@/lib/prisma";
 import { PE_BROAD_NAME } from "@/lib/club-roster";
 import { JoinPeBroadButton } from "@/components/club/join-pebroad-button";
+import { SimpleMarkdown } from "@/components/ui/simple-markdown";
+import { clubViewer, fmtEt, visiblePost } from "@/lib/club-view";
+import { TYPE_LABEL, type PostType } from "@/lib/club-publish";
 
 /** Verified @msu.edu students who aren't PE@Broad members can ask to join. */
 async function peBroadJoinState(userId: string) {
@@ -46,113 +49,134 @@ export default async function ClubHubPage() {
   if (!d.club) {
     return <p className="text-sm text-ink-2">Club could not be loaded.</p>;
   }
+  const v = await clubViewer(userId);
+  const now = new Date();
+  const [pinned, nextEvent, posts] = await Promise.all([
+    prisma.clubAnnouncement.findFirst({ where: { clubId, isPinned: true }, orderBy: { createdAt: "desc" }, include: { author: { select: { name: true } } } }),
+    prisma.clubEvent.findFirst({ where: { clubId, date: { gte: now }, archivedAt: null }, orderBy: { date: "asc" } }),
+    prisma.clubPost.findMany({
+      where: { clubId, archivedAt: null },
+      orderBy: { createdAt: "desc" },
+      take: 60,
+      include: { author: { select: { name: true } }, progress: { where: { userId }, select: { doneAt: true } } },
+    }),
+  ]);
+  const visible = v ? posts.filter((p) => visiblePost(v, p)) : posts;
+  const newest = visible.slice(0, 3);
+  const soon = new Date(now.getTime() + 14 * 86_400_000);
+  const openAssignments = visible
+    .filter((p) => p.dueDate && p.dueDate <= soon && p.dueDate >= new Date(now.getTime() - 7 * 86_400_000) && !p.progress[0]?.doneAt && p.type !== "resource")
+    .sort((a, b) => a.dueDate!.getTime() - b.dueDate!.getTime())
+    .slice(0, 5);
+  const fmtDay = (x: Date) => x.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
 
   return (
     <div className="space-y-6">
       {joinBanner}
       {d.club.description ? <p className="max-w-2xl text-sm text-ink-2">{d.club.description}</p> : null}
 
-      {d.pinnedAnnouncements.length ? (
-        <section>
-          <h2 className="section-title mb-3">Pinned announcements</h2>
-          <div className="space-y-2">
-            {d.pinnedAnnouncements.map((a) => (
-              <Card key={a.id} className="p-5">
-                <p className="text-sm font-medium text-ink">{a.title}</p>
-                <p className="mt-1 text-xs text-ink-3">
-                  {a.author.name} · {format(a.createdAt, "MMM d, yyyy")}
-                </p>
-                <p className="mt-2 line-clamp-3 text-sm text-ink-2">{a.body}</p>
-                <Link href="/club/announcements" className="mt-2 inline-block text-xs text-accent hover:underline">
-                  View all
-                </Link>
-              </Card>
-            ))}
-          </div>
-        </section>
+      {pinned ? (
+        <Card className="border-accent/40 p-5">
+          <p className="text-xs font-semibold text-accent">Pinned announcement</p>
+          <p className="mt-1 font-semibold text-ink">{pinned.title}</p>
+          <p className="text-[13px] text-ink-3">
+            {pinned.author.name} · {format(pinned.createdAt, "MMM d")}
+          </p>
+          <SimpleMarkdown text={pinned.body.length > 600 ? `${pinned.body.slice(0, 600)}…` : pinned.body} className="mt-2 text-sm text-ink-2" />
+          <Link href="/club/announcements" className="mt-2 inline-block text-[13px] text-accent hover:underline">
+            All announcements
+          </Link>
+        </Card>
       ) : null}
 
       <section className="grid gap-4 md:grid-cols-2">
-        <Card className="p-5">
-          <h2 className="section-title">Upcoming events</h2>
-          <ul className="mt-3 space-y-2">
-            {d.upcomingEvents.length === 0 ? (
-              <li className="text-sm text-ink-3">No upcoming events.</li>
-            ) : (
-              d.upcomingEvents.map((e) => (
-                <li key={e.id} className="text-sm text-ink-2">
-                  <span className="font-medium text-ink">{e.title}</span>
-                  <span className="text-ink-3"> — {format(e.date, "MMM d, h:mm a")}</span>
-                </li>
-              ))
-            )}
-          </ul>
-          <Link href="/club/events" className="mt-3 inline-block text-xs text-accent hover:underline">
-            Calendar & RSVP
-          </Link>
+        <Card title="Next event" action={<Link href="/club/events" className="text-accent hover:underline">All events</Link>}>
+          {nextEvent ? (
+            <div className="space-y-1">
+              <p className="font-medium text-ink">{nextEvent.title}</p>
+              <p className="text-sm text-ink-2">{fmtEt(nextEvent.date, { weekday: "long", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })} ET</p>
+              {nextEvent.location ? <p className="text-[13px] text-ink-3">{nextEvent.location}</p> : null}
+              <p className="text-[13px] text-ink-3">
+                {nextEvent.rsvpIds.length} going{nextEvent.rsvpIds.includes(userId) ? " · you're going" : ""}
+              </p>
+            </div>
+          ) : (
+            <p className="text-sm text-ink-3">No upcoming events.</p>
+          )}
         </Card>
-
-        <Card className="p-5">
-          <h2 className="section-title">Officer contacts</h2>
-          <ul className="mt-3 space-y-2">
-            {d.officers.length === 0 ? (
-              <li className="text-sm text-ink-3">No officers listed yet.</li>
-            ) : (
-              d.officers.map((o, i) => (
-                <li key={i} className="text-sm text-ink-2">
-                  <span className="rounded bg-surface-2 px-1.5 py-0.5 text-[10px] uppercase text-ink-2">{o.role}</span>{" "}
-                  <span className="font-medium text-ink">{o.name}</span>
-                  {o.email ? <span className="block text-xs text-ink-3">{o.email}</span> : null}
+        <Card title="Due soon" action={<Link href="/club/content" className="text-accent hover:underline">Content</Link>}>
+          {openAssignments.length ? (
+            <ul className="space-y-2 text-sm">
+              {openAssignments.map((p) => (
+                <li key={p.id} className="flex items-baseline justify-between gap-3">
+                  <Link href={`/club/content/${p.id}`} className="min-w-0 text-ink hover:underline [overflow-wrap:anywhere]">
+                    {p.title}
+                  </Link>
+                  <span className={`shrink-0 text-[13px] ${p.dueDate! < now ? "text-warn" : "text-ink-3"}`}>{fmtDay(p.dueDate!)}</span>
                 </li>
-              ))
-            )}
-          </ul>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-sm text-ink-3">Nothing due in the next two weeks.</p>
+          )}
         </Card>
       </section>
 
-      <section>
-        <div className="mb-2 flex items-center justify-between">
-          <h2 className="section-title">Active projects</h2>
-          <Link href="/club/projects" className="text-xs text-accent hover:underline">
-            All projects
+      <section className="space-y-2">
+        <div className="flex items-center justify-between">
+          <h2 className="section-title">Newest posts</h2>
+          <Link href="/club/content" className="text-[13px] text-accent hover:underline">
+            All content
           </Link>
         </div>
-        <div className="space-y-2">
+        {newest.length ? (
+          <div className="grid gap-3 sm:grid-cols-3">
+            {newest.map((p) => (
+              <Link key={p.id} href={`/club/content/${p.id}`} className="rounded-[var(--radius-lg)] border border-border bg-surface p-4 hover:border-border-strong">
+                <p className="text-xs font-semibold text-accent">{TYPE_LABEL[p.type as PostType] ?? p.type}</p>
+                <p className="mt-1 text-sm font-medium text-ink [overflow-wrap:anywhere]">{p.title}</p>
+                <p className="mt-1 text-[13px] text-ink-3">
+                  {p.author.name} · {format(p.createdAt, "MMM d")}
+                </p>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <p className="text-sm text-ink-3">No posts yet.</p>
+        )}
+      </section>
+
+      <section className="grid gap-4 md:grid-cols-2">
+        <Card title="Active projects" action={<Link href="/club/projects" className="text-accent hover:underline">All projects</Link>}>
           {d.activeProjects.length === 0 ? (
             <p className="text-sm text-ink-3">No active projects.</p>
           ) : (
-            d.activeProjects.map((p) => (
-              <Card key={p.id} className="p-4">
-                <p className="text-sm font-medium text-ink">{p.title}</p>
-                {p.dueDate ? (
-                  <p className="text-xs text-ink-3">Due {format(p.dueDate, "MMM d, yyyy")}</p>
-                ) : null}
-              </Card>
-            ))
+            <ul className="space-y-2 text-sm">
+              {d.activeProjects.map((p) => (
+                <li key={p.id} className="flex items-baseline justify-between gap-3">
+                  <Link href={`/club/projects/${p.id}`} className="text-ink hover:underline">
+                    {p.title}
+                  </Link>
+                  {p.dueDate ? <span className="text-[13px] text-ink-3">Due {format(p.dueDate, "MMM d")}</span> : null}
+                </li>
+              ))}
+            </ul>
           )}
-        </div>
-      </section>
-
-      <section>
-        <div className="mb-2 flex items-center justify-between">
-          <h2 className="section-title">Recent posts</h2>
-          <Link href="/club/content" className="text-xs text-accent hover:underline">
-            Content library
-          </Link>
-        </div>
-        <div className="space-y-2">
-          {d.recentPosts.length === 0 ? (
-            <p className="text-sm text-ink-3">No posts yet.</p>
+        </Card>
+        <Card title="Officers">
+          {d.officers.length === 0 ? (
+            <p className="text-sm text-ink-3">No officers listed yet.</p>
           ) : (
-            d.recentPosts.map((p) => (
-              <Card key={p.id} className="p-4">
-                <p className="text-xs uppercase text-ink-3">{p.type}</p>
-                <p className="text-sm font-medium text-ink">{p.title}</p>
-                <p className="text-xs text-ink-3">{p.author.name}</p>
-              </Card>
-            ))
+            <ul className="space-y-2">
+              {d.officers.map((o, i) => (
+                <li key={i} className="text-sm text-ink-2">
+                  <span className="font-medium text-ink">{o.name}</span> <span className="text-[13px] text-ink-3">· {o.role}</span>
+                  {o.email ? <span className="block text-[13px] text-ink-3">{o.email}</span> : null}
+                </li>
+              ))}
+            </ul>
           )}
-        </div>
+        </Card>
       </section>
     </div>
   );

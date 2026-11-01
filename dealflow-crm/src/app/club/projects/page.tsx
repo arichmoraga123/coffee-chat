@@ -1,60 +1,63 @@
 import Link from "next/link";
-import { format } from "date-fns";
 import { prisma } from "@/lib/prisma";
 import { requireUserId } from "@/lib/auth";
-import { resolveClubIdForUser } from "@/lib/club-server";
-import { Card } from "@/components/ui/card";
+import { clubViewer, lessonOptions } from "@/lib/club-view";
+import { PROJECT_STATUS, teamNames } from "@/lib/club-projects";
+import { Avatar } from "@/components/ui/avatar";
+import { EmptyState } from "@/components/ui/empty-state";
+import { PostToClubButton } from "@/components/club/publish-dialog";
+import { cn } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
+export const metadata = { title: "Club projects" };
 
 export default async function ClubProjectsPage() {
   const userId = await requireUserId();
-  const clubId = await resolveClubIdForUser(userId);
-  if (!clubId) return <p className="text-sm text-ink-2">No club context.</p>;
-
+  const v = await clubViewer(userId);
+  if (!v) return <p className="text-sm text-ink-2">No club context.</p>;
   const projects = await prisma.clubProject.findMany({
-    where: { clubId },
-    orderBy: { createdAt: "desc" },
-    include: { deliverables: true },
+    where: { clubId: v.clubId, ...(v.canPost ? {} : { archivedAt: null }) },
+    orderBy: [{ archivedAt: { sort: "desc", nulls: "first" } }, { createdAt: "desc" }],
   });
-
+  const names = await teamNames(projects);
+  if (!projects.length) {
+    return (
+      <EmptyState
+        title="No projects yet"
+        description={v.canPost ? "Start a stock pitch, case competition team or research project and add the team." : "Projects your officers start show up here."}
+        action={v.canPost ? <PostToClubButton isAdmin={v.isAdmin} lessons={lessonOptions()} label="Add project" type="project" variant="secondary" /> : undefined}
+      />
+    );
+  }
   return (
-    <div className="space-y-6">
-      <h1 className="text-xl font-semibold text-ink">Projects</h1>
-      <div className="space-y-4">
-        {projects.map((p) => (
-          <Card key={p.id} className="border-border bg-surface p-4">
-            <div className="flex flex-wrap items-start justify-between gap-2">
-              <div>
-                <p className="text-xs uppercase text-ink-3">{p.status}</p>
-                <h2 className="text-lg font-medium text-ink">{p.title}</h2>
-                {p.description ? <p className="mt-2 text-sm text-ink-2">{p.description}</p> : null}
-                {p.dueDate ? <p className="mt-1 text-xs text-ink-3">Due {format(p.dueDate, "MMM d, yyyy")}</p> : null}
-                {p.driveLink ? (
-                  <Link href={p.driveLink} className="mt-2 inline-block text-xs text-warn hover:underline" target="_blank" rel="noreferrer">
-                    Drive folder
-                  </Link>
-                ) : null}
+    <div className="space-y-3">
+      <h2 className="section-title">Projects</h2>
+      <div className="grid gap-3 sm:grid-cols-2">
+        {projects.map((p) => {
+          const team = [...new Set([...(p.leadId ? [p.leadId] : []), ...p.memberIds])];
+          return (
+            <Link key={p.id} href={`/club/projects/${p.id}`} className={cn("block rounded-[var(--radius-lg)] border border-border bg-surface p-4 transition-colors hover:border-border-strong", p.archivedAt && "opacity-60")}>
+              <div className="flex items-center justify-between gap-2">
+                <span className={cn("rounded px-2 py-0.5 text-xs font-semibold", p.status === "done" ? "bg-success-bg text-success" : p.status === "planning" ? "bg-surface-2 text-ink-2" : "bg-accent-tint text-accent")}>
+                  {PROJECT_STATUS[p.status] ?? p.status}
+                </span>
+                {p.dueDate ? <span className="text-[13px] text-ink-3">Due {p.dueDate.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" })}</span> : null}
               </div>
-            </div>
-            {p.deliverables.length ? (
-              <ul className="mt-4 space-y-2 border-t border-border pt-3">
-                {p.deliverables.map((d) => (
-                  <li key={d.id} className="text-sm text-ink-2">
-                    <span className="font-medium text-ink">{d.title}</span>
-                    <span className="ml-2 text-xs text-ink-3">({d.status})</span>
-                    {d.driveLink ? (
-                      <Link href={d.driveLink} className="ml-2 text-xs text-warn hover:underline" target="_blank" rel="noreferrer">
-                        Link
-                      </Link>
-                    ) : null}
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </Card>
-        ))}
-        {projects.length === 0 ? <p className="text-sm text-ink-3">No projects yet.</p> : null}
+              <p className="mt-2 font-medium text-ink">{p.title}</p>
+              {p.description ? <p className="mt-1 line-clamp-2 text-[13px] text-ink-2">{p.description}</p> : null}
+              {team.length ? (
+                <div className="mt-3 flex items-center gap-1">
+                  {team.slice(0, 6).map((u) => (
+                    <span key={u} title={names.get(u)}>
+                      <Avatar name={names.get(u) ?? "?"} size={24} />
+                    </span>
+                  ))}
+                  {team.length > 6 ? <span className="text-xs text-ink-3">+{team.length - 6}</span> : null}
+                </div>
+              ) : null}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

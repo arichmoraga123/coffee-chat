@@ -40,7 +40,7 @@ export async function getClubDashboardPayload(clubId: string, userId: string) {
       include: { author: { select: { name: true } } },
     }),
     prisma.clubProject.findMany({
-      where: { clubId, status: "active" },
+      where: { clubId, status: { in: ["active", "planning"] }, archivedAt: null },
       orderBy: { createdAt: "desc" },
       take: 8,
       include: { deliverables: true },

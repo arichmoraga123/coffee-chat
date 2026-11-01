@@ -164,6 +164,8 @@ export function activityText(kind: string, data: Record<string, unknown>): strin
       return String(data.text ?? "finished a challenge");
     case "weekly_challenge":
       return String(data.text ?? "This week's club challenge is live");
+    case "club_post":
+      return String(data.text ?? "posted to the club");
     default:
       return kind;
   }
