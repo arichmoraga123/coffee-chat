@@ -1,5 +1,5 @@
 import type { PrismaClient } from "@prisma/client";
-import { kindOf, stageFromKind } from "@/lib/followups";
+import { kindOf, mergeStage, stageFromKind } from "@/lib/followups";
 
 /**
  * Phase H.5 — fixes what the old importer did: it copied LinkedIn's "Connected On" (or any "date" column) into
@@ -62,14 +62,16 @@ export async function applyRepair(db: PrismaClient, plan: RepairPlan) {
       await tx.interaction.updateMany({ where: { id: { in: plan.interactionsToRemove }, userId: plan.userId }, data: { autoCreated: true, deletedAt: new Date() } });
     }
     for (const d of plan.datesToReset) {
-      const latest = await tx.interaction.findFirst({
+      const real = await tx.interaction.findMany({
         where: { contactId: d.contactId, deletedAt: null, autoCreated: false },
-        orderBy: { date: "desc" },
+        orderBy: { date: "asc" },
         select: { date: true, kind: true, type: true, notes: true },
       });
+      let stage = stageFromKind(null);
+      for (const i of real) stage = mergeStage(stage, stageFromKind(kindOf(i)));
       await tx.contact.update({
         where: { id: d.contactId },
-        data: { lastInteractionDate: latest?.date ?? null, relationshipStage: stageFromKind(latest ? kindOf(latest) : null) },
+        data: { lastInteractionDate: real.at(-1)?.date ?? null, relationshipStage: stage },
       });
     }
   });

@@ -3,7 +3,7 @@ import { InteractionType, TaskType } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { syncCoffeeFollowUpToExternalCalendars } from "@/lib/calendar-sync";
 import { normalizeStringArray, normalizeIntArray } from "@/lib/form-arrays";
-import { INTERACTION_KINDS, kindOf, stageFromKind, type InteractionKind } from "@/lib/followups";
+import { INTERACTION_KINDS, kindOf, mergeStage, stageFromKind, type InteractionKind } from "@/lib/followups";
 import { syncFollowupTasks } from "@/lib/followup-tasks";
 
 export function buildInteractionUncheckedData(
@@ -120,14 +120,15 @@ export async function createInteractionAndSideEffects(opts: {
   }
 
   const bonus = differenceInDays(new Date(), data.date) <= 14 ? 2 : 0;
-  const current = await prisma.contact.findUnique({ where: { id: contactId }, select: { lastInteractionDate: true, list: true } });
+  const current = await prisma.contact.findUnique({ where: { id: contactId }, select: { lastInteractionDate: true, list: true, relationshipStage: true } });
+  const newest = !current?.lastInteractionDate || current.lastInteractionDate <= data.date;
   await prisma.contact.update({
     where: { id: contactId },
     data: {
       relationshipStrength: { increment: 1 + bonus },
       // Logging an older interaction never moves "last contacted" backwards.
       lastInteractionDate: !current?.lastInteractionDate || current.lastInteractionDate < data.date ? data.date : current.lastInteractionDate,
-      relationshipStage: stageFromKind(data.kind as InteractionKind),
+      ...(newest ? { relationshipStage: mergeStage(current?.relationshipStage, stageFromKind(data.kind as InteractionKind)) } : {}),
       // Talking to someone on the Network list makes them an active contact.
       ...(current?.list === "network" ? { list: "active" } : {}),
     },

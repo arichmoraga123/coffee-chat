@@ -3,7 +3,7 @@ import { addDays, format } from "date-fns";
 import { prisma } from "@/lib/prisma";
 import { requireUserId } from "@/lib/auth";
 import { STAGE_LABELS } from "@/lib/constants";
-import { getFollowUpSteps } from "@/lib/follow-up";
+import { loadTasks } from "@/lib/tasks-data";
 import { modules } from "@/lib/learn/lessons";
 import { isGraded } from "@/lib/learn/schema";
 import { utcDay, DAILY_SET_SIZE } from "@/lib/mcq/server";
@@ -28,7 +28,7 @@ export async function DashboardHome() {
   const now = new Date();
   const weekOut = addDays(now, 7);
 
-  const [user, lessonRows, attempts, drillLog, dailySet, pipeline, events, coffee, contacts, membership] = await Promise.all([
+  const [user, lessonRows, attempts, drillLog, dailySet, pipeline, events, coffee, taskRows, membership] = await Promise.all([
     prisma.user.findUnique({
       where: { id: userId },
       select: { onboardingDone: true, drillStreak: true, weeklyXP: true, name: true },
@@ -56,7 +56,7 @@ export async function DashboardHome() {
       take: 6,
       select: { id: true, date: true, contact: { select: { fullName: true } } },
     }),
-    prisma.contact.findMany({ where: { userId, lastInteractionDate: { not: null } }, select: { id: true, fullName: true, lastInteractionDate: true } }),
+    loadTasks(userId, { dueBefore: addDays(now, 8), take: 20 }),
     prisma.clubMember.findFirst({ where: { userId, active: true, club: { name: "PE@Broad" } }, select: { clubId: true } }),
   ]);
 
@@ -125,14 +125,9 @@ export async function DashboardHome() {
   ]
     .sort((a, b) => a.date.getTime() - b.date.getTime())
     .slice(0, 4);
-  const overdue = contacts
-    .flatMap((c) =>
-      getFollowUpSteps(c.lastInteractionDate as Date)
-        .filter((s) => s.isOverdue)
-        .slice(0, 1)
-        .map((s) => ({ key: `${c.id}-${s.label}`, id: c.id, name: c.fullName, label: s.label })),
-    )
-    .slice(0, 3);
+  const todayYmd = now.toISOString().slice(0, 10);
+  const followups = taskRows.slice(0, 4).map((t) => ({ key: t.id, id: t.contactId, name: t.contactName, label: t.title, due: t.due, overdue: t.due < todayYmd }));
+  const moreFollowups = Math.max(0, taskRows.length - followups.length);
 
   /* PE@Broad standings: weekly points among active members */
   let standings: { userId: string; name: string; points: number; rank: number }[] = [];
@@ -221,8 +216,8 @@ export async function DashboardHome() {
           )}
         </Card>
 
-        <Card title="This week" action={<Link href="/calendar" className="text-accent hover:underline">Calendar</Link>}>
-          {calls.length === 0 && overdue.length === 0 ? (
+        <Card title="This week" action={<Link href="/tasks" className="text-accent hover:underline">Tasks</Link>}>
+          {calls.length === 0 && followups.length === 0 ? (
             <p className="text-sm text-ink-3">Nothing scheduled in the next 7 days.</p>
           ) : (
             <ul className="space-y-2.5 text-sm">
@@ -232,14 +227,25 @@ export async function DashboardHome() {
                   <span className="shrink-0 text-[13px] text-ink-3">{format(c.date, "EEE h:mm a")}</span>
                 </li>
               ))}
-              {overdue.map((o) => (
+              {followups.map((o) => (
                 <li key={o.key}>
-                  <Link href={`/contacts/${o.id}`} className="flex items-baseline justify-between gap-3 hover:underline">
-                    <span className="min-w-0 text-warn">Follow up · {o.name}</span>
-                    <span className="shrink-0 text-[13px] text-warn">Overdue</span>
+                  <Link href="/tasks" className="flex items-baseline justify-between gap-3 hover:underline">
+                    <span className={cn("min-w-0 [overflow-wrap:anywhere]", o.overdue ? "text-warn" : "text-ink")}>
+                      {o.label} · {o.name}
+                    </span>
+                    <span className={cn("shrink-0 text-[13px]", o.overdue ? "text-warn" : "text-ink-3")}>
+                      {o.overdue ? "Overdue" : o.due === todayYmd ? "Today" : format(new Date(`${o.due}T12:00:00Z`), "EEE")}
+                    </span>
                   </Link>
                 </li>
               ))}
+              {moreFollowups ? (
+                <li>
+                  <Link href="/tasks" className="text-[13px] text-accent hover:underline">
+                    {moreFollowups} more on Tasks
+                  </Link>
+                </li>
+              ) : null}
             </ul>
           )}
         </Card>

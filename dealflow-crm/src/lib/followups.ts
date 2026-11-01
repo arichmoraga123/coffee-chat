@@ -187,4 +187,27 @@ export function stageFromKind(kind: InteractionKind | null): string {
       return "Chatted";
   }
 }
+const STAGE_RANK: Record<string, number> = {
+  "Not contacted": 0,
+  "Emailed – no reply": 1,
+  "Gone cold": 1,
+  Replied: 2,
+  "Call scheduled": 3,
+  Chatted: 4,
+  "Ongoing relationship": 5,
+  "Referred me": 6,
+  Interviewing: 7,
+};
+
+/** Stage after a new interaction: moves forward, never back ("Follow-up email sent" after a chat stays Chatted). "Not pursuing" is the student's call and stays. */
+export function mergeStage(current: string | null | undefined, next: string): string {
+  if (!current) return next;
+  if (current === "Not pursuing") return current;
+  const a = STAGE_RANK[current];
+  const b = STAGE_RANK[next];
+  if (a === undefined || b === undefined) return next;
+  if (current === "Gone cold") return next;
+  return b >= a ? next : current;
+}
+
 export const RELATIONSHIP_STAGES = ["Not contacted", "Emailed – no reply", "Replied", "Call scheduled", "Chatted", "Referred me", "Interviewing", "Gone cold", "Not pursuing"];

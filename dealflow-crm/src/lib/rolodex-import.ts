@@ -3,7 +3,7 @@ import type { FirmType, Prisma, RecruitingCategory } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { lookupKnownFirmType } from "@/lib/known-firms";
 import { normalizeFirmName, normalizeLinkedIn, trigramSimilarity } from "@/lib/contact-match";
-import { INTERACTION_KINDS, kindOf, parseKind, stageFromKind, type InteractionKind } from "@/lib/followups";
+import { INTERACTION_KINDS, kindOf, mergeStage, parseKind, stageFromKind, type InteractionKind } from "@/lib/followups";
 import {
   CONTACT_FIELD_LABELS,
   LISTS,
@@ -187,6 +187,7 @@ type FileContact = {
   latestExisting: Date | null;
   newInteractions: { date: Date; kind: InteractionKind }[];
   existingList: string | null;
+  currentStage?: string | null;
 };
 
 type Plan = {
@@ -357,6 +358,7 @@ export async function planImport(userId: string, input: ImportInput): Promise<Pl
       latestExisting: latestByContact.get(ex.id) ?? null,
       newInteractions: [],
       existingList: ex.list,
+      currentStage: ex.relationshipStage,
     };
     touchedExisting.set(ex.id, fc);
     fileContacts.push(fc);
@@ -613,7 +615,13 @@ export async function planImport(userId: string, input: ImportInput): Promise<Pl
     const latestNew = added.reduce((m, i) => (i.date > m.date ? i : m));
     const latest = fc.latestExisting && fc.latestExisting > latestNew.date ? fc.latestExisting : latestNew.date;
     fc.data.lastInteractionDate = latest;
-    if (!fc.stageGiven && (!fc.latestExisting || latestNew.date >= fc.latestExisting)) fc.data.relationshipStage = stageFromKind(latestNew.kind);
+    if (!fc.stageGiven && (!fc.latestExisting || latestNew.date >= fc.latestExisting)) {
+      // Furthest stage reached, never moving an existing contact backwards.
+      const sorted = [...added].sort((a, b) => a.date.getTime() - b.date.getTime());
+      let stage: string | null = fc.existing ? (fc.currentStage ?? null) : null;
+      for (const i of sorted) stage = mergeStage(stage, stageFromKind(i.kind));
+      if (stage && stage !== fc.currentStage) fc.data.relationshipStage = stage;
+    }
     if (fc.existing && fc.existingList === "network") {
       fc.data.list = "active";
       fc.diff.push({ field: "List", current: "Network", incoming: "Contacts (has interactions)", action: "fill" });

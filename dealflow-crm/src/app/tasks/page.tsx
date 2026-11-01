@@ -1,37 +1,21 @@
-import { prisma } from "@/lib/prisma";
-import { TasksList } from "@/components/tasks-list";
 import { requireUserId } from "@/lib/auth";
+import { loadTasks } from "@/lib/tasks-data";
+import { syncFollowupTasks } from "@/lib/followup-tasks";
+import { PageHeader } from "@/components/ui/page-header";
+import { TasksBoard } from "@/components/tasks/tasks-board";
 
 export const dynamic = "force-dynamic";
+export const metadata = { title: "Tasks" };
 
 export default async function TasksPage() {
   const userId = await requireUserId();
-  const [tasks, contacts] = await Promise.all([
-    prisma.task.findMany({
-      where: { userId },
-      include: { contact: true },
-      orderBy: { dueDate: "asc" },
-    }),
-    prisma.contact.findMany({
-      where: { userId },
-      select: { id: true, fullName: true },
-      orderBy: { fullName: "asc" },
-    }),
-  ]);
-
+  // Make sure automatic follow-ups reflect the latest interactions before listing them.
+  await syncFollowupTasks(userId).catch((e) => console.error("followup sync failed", e));
+  const tasks = await loadTasks(userId, { includeDone: true });
   return (
-    <div className="space-y-4">
-      <h1 className="page-title">Tasks</h1>
-      <TasksList
-        contacts={contacts}
-        initialTasks={tasks.map((t) => ({
-          id: t.id,
-          dueDate: t.dueDate.toISOString(),
-          taskType: t.taskType,
-          status: t.status,
-          contactName: t.contact.fullName,
-        }))}
-      />
+    <div className="space-y-5">
+      <PageHeader title="Tasks" subtitle="Follow-ups worked out from your interactions, plus the next steps you've set. Press T to add one." />
+      <TasksBoard tasks={tasks} />
     </div>
   );
 }

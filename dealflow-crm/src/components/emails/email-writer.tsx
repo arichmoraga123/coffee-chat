@@ -42,6 +42,28 @@ function fillTemplate(t: ColdTemplate, me: Me, r: { name: string; firm: string; 
   return { subject: fill(t.subject), body: fill(t.body) };
 }
 
+/** What "Mark as sent" logs for each email type. */
+const SENT_KIND: Record<EmailKind, string> = {
+  cold: "cold_email",
+  "thank-you": "thank_you",
+  "follow-up": "followup_email",
+  bump: "followup_email",
+  "re-engage": "followup_email",
+  "referral-ask": "referral",
+  "intro-request": "followup_email",
+  linkedin: "linkedin_message",
+};
+const SENT_LABEL: Record<EmailKind, string> = {
+  cold: "Cold email sent",
+  "thank-you": "Thank-you sent",
+  "follow-up": "Follow-up email sent",
+  bump: "Follow-up email sent",
+  "re-engage": "Follow-up email sent",
+  "referral-ask": "Referral / resume sent",
+  "intro-request": "Follow-up email sent",
+  linkedin: "LinkedIn message sent",
+};
+
 export function EmailWriter({
   contacts,
   me,
@@ -115,6 +137,21 @@ export function EmailWriter({
   };
 
   const linkedin = kind === "linkedin";
+  const [sentFor, setSentFor] = useState<string | null>(null);
+  const markSent = async () => {
+    if (!contactId) return;
+    const res = await fetch("/api/interactions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ contactId, kind: SENT_KIND[kind], date: (() => {
+          const d = new Date();
+          return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+        })(), notes: subject ? `Subject: ${subject}` : body.slice(0, 200) }),
+    });
+    if (!res.ok) return toast.error("Couldn't log it.");
+    setSentFor(`${contactId}|${subject}|${body.length}`);
+    toast(`Logged as ${SENT_LABEL[kind]}. Reminders updated.`);
+  };
 
   return (
     <div className="grid grid-cols-[minmax(0,1fr)] gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
@@ -285,7 +322,15 @@ export function EmailWriter({
                     <a href={`mailto:${to ?? ""}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`}>Open in email app</a>
                   </Button>
                 ) : null}
+                {source === "contact" && contactId ? (
+                  <Button variant="secondary" disabled={sentFor === `${contactId}|${subject}|${body.length}`} onClick={() => void markSent()}>
+                    {sentFor === `${contactId}|${subject}|${body.length}` ? "Logged" : "Mark as sent"}
+                  </Button>
+                ) : null}
               </div>
+              {source === "contact" && contactId ? (
+                <p className="mt-2 text-[13px] text-ink-3">Mark as sent once it&apos;s actually sent. It logs a {SENT_LABEL[kind].toLowerCase()} for today and sets the next reminder. Copying alone logs nothing.</p>
+              ) : null}
             </>
           ) : (
             <p className="text-sm text-ink-3">Pick who it&apos;s for and the kind of email, then press Write with AI, or load a template.</p>

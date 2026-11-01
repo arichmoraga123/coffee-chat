@@ -11,7 +11,7 @@ export default async function EmailsPage({ searchParams }: { searchParams: Promi
   const sp = await searchParams;
   const [contacts, me] = await Promise.all([
     prisma.contact.findMany({
-      where: { userId },
+      where: { userId, deletedAt: null },
       orderBy: { fullName: "asc" },
       select: { id: true, fullName: true, title: true, firm: { select: { name: true } } },
       take: 1000,

@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession } from "@/lib/auth";
 import { utcDay, DAILY_SET_SIZE } from "@/lib/mcq/server";
 import { unreadCount } from "@/lib/dm";
+import { tasksDueCount } from "@/lib/tasks-data";
 
 /** Small counts for the sidebar: daily-set questions left, open mentor questions, and club membership. */
 export async function GET() {
@@ -32,6 +33,7 @@ export async function GET() {
       ])
     : [0, 0];
   const isMentor = user?.role === "ADMIN" || user?.role === "MENTOR";
+  const tasksDue = await tasksDueCount(userId);
   const mentorOpen = isMentor ? await prisma.mentorQuestion.count({ where: { status: "open" } }) : 0;
   return NextResponse.json({
     name: user?.name ?? "",
@@ -42,5 +44,6 @@ export async function GET() {
     mentorOpen,
     unread,
     pendingChallenges,
+    tasksDue,
   });
 }

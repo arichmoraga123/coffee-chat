@@ -29,7 +29,7 @@ export type NavItem = {
   icon: LucideIcon;
   /** Extra path prefixes that should mark this item active (its tab pages). */
   also?: string[];
-  count?: "dailyLeft" | "mentorOpen" | "unread" | "pendingChallenges";
+  count?: "dailyLeft" | "mentorOpen" | "unread" | "pendingChallenges" | "tasksDue";
 };
 export type NavGroup = { id: string; label: string; items: NavItem[]; audience?: "club" | "admin" | "mentor" };
 
@@ -50,7 +50,7 @@ export const NAV_GROUPS: NavGroup[] = [
     label: "Recruiting",
     items: [
       { href: "/pipeline", label: "Pipeline", icon: TrendingUp, also: ["/offers"] },
-      { href: "/contacts", label: "Contacts", icon: Users, also: ["/tasks", "/debriefs", "/emails"] },
+      { href: "/contacts", label: "Contacts", icon: Users, also: ["/tasks", "/debriefs", "/emails"], count: "tasksDue" },
       { href: "/firms", label: "Firms", icon: Building2, also: ["/deals", "/timelines", "/research"] },
       { href: "/calendar", label: "Calendar", icon: CalendarDays, also: ["/recruiting-calendar", "/roadmap"] },
     ],

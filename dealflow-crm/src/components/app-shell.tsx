@@ -23,7 +23,7 @@ import {
   type NavItem,
 } from "@/components/nav/nav-config";
 
-type NavCounts = { name: string; role: string; clubMember: boolean; clubRole: string | null; dailyLeft: number; mentorOpen: number; unread: number; pendingChallenges: number };
+type NavCounts = { name: string; role: string; clubMember: boolean; clubRole: string | null; dailyLeft: number; mentorOpen: number; unread: number; pendingChallenges: number; tasksDue: number };
 
 const ROLE_LABEL: Record<string, string> = { ADMIN: "Admin", MENTOR: "Mentor", USER: "Member" };
 

@@ -14,14 +14,12 @@ export async function POST(req: Request) {
   });
   if (!contact) return NextResponse.json({ error: "Contact not found" }, { status: 404 });
 
+  const due = new Date(String(body.dueDate ?? ""));
+  if (isNaN(due.getTime())) return NextResponse.json({ error: "Pick a due date." }, { status: 400 });
+  const taskType = (Object.values(TaskType) as string[]).includes(body.taskType) ? (body.taskType as TaskType) : TaskType.FOLLOW_UP;
+  const notes = String(body.notes ?? "").trim().slice(0, 2000);
   const task = await prisma.task.create({
-    data: {
-      contactId: body.contactId,
-      userId,
-      dueDate: new Date(body.dueDate),
-      taskType: body.taskType as TaskType,
-      notes: body.notes || "",
-    },
+    data: { contactId: contact.id, userId, dueDate: due, taskType, notes, kind: "manual", reason: notes ? notes.split("\n")[0].slice(0, 200) : null },
   });
   return NextResponse.json(task);
 }
