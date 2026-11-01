@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { subDays, format } from "date-fns";
 import { prisma } from "@/lib/prisma";
 import { requireUserId } from "@/lib/auth";
@@ -78,6 +79,9 @@ export default async function ProfilePage({ searchParams }: { searchParams: Prom
           <p className="text-sm text-ink-2">Theme</p>
           <ThemeSetting />
         </div>
+      </Card>
+      <Card title="PE@Broad sharing" action={<Link href="/settings/club-sharing" className="text-accent hover:underline">Edit</Link>}>
+        <p className="text-sm text-ink-2">Choose what other club members see: learning progress, drill stats, targets, and firms in contact.</p>
       </Card>
       {params.referredBy ? (
         <p className="rounded border border-success/40 bg-success-bg px-3 py-2 text-sm text-success">

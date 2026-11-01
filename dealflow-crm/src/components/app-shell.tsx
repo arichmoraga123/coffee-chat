@@ -10,6 +10,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { CountPill } from "@/components/ui/badge";
 import { Tabs } from "@/components/ui/tabs";
 import { CommandPalette } from "@/components/nav/command-palette";
+import { subscribeToUnread } from "@/lib/realtime";
 import {
   HOME,
   MOBILE_TABS,
@@ -22,7 +23,7 @@ import {
   type NavItem,
 } from "@/components/nav/nav-config";
 
-type NavCounts = { name: string; role: string; clubMember: boolean; clubRole: string | null; dailyLeft: number; mentorOpen: number };
+type NavCounts = { name: string; role: string; clubMember: boolean; clubRole: string | null; dailyLeft: number; mentorOpen: number; unread: number; pendingChallenges: number };
 
 const ROLE_LABEL: Record<string, string> = { ADMIN: "Admin", MENTOR: "Mentor", USER: "Member" };
 
@@ -66,6 +67,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     if (bare || !session?.user) return;
     void refreshCounts();
   }, [bare, session?.user, pathname, refreshCounts]);
+
+  // Unread messages and pending challenges: re-check every 30 seconds.
+  useEffect(() => {
+    if (bare || !session?.user) return;
+    return subscribeToUnread(() => void refreshCounts());
+  }, [bare, session?.user, refreshCounts]);
 
   useEffect(() => {
     if (bare || !session?.user || pathname.startsWith("/admin")) return;

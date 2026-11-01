@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession } from "@/lib/auth";
 import { utcDay } from "@/lib/mcq/server";
+import { canEarnXp, postClubActivity, STREAK_MILESTONES } from "@/lib/club-social";
 
 function addUtcDays(dayStr: string, delta: number) {
   const [y, m, d] = dayStr.split("-").map(Number);
@@ -41,7 +42,7 @@ export async function POST() {
   const answered = first.size;
   if (answered === 0) return NextResponse.json({ error: "Answer at least one question first" }, { status: 400 });
   const correct = [...first.values()].filter(Boolean).length;
-  const xpSession = correct * 10 + (answered - correct) * 2;
+  const xpSession = (await canEarnXp(userId)) ? correct * 10 + (answered - correct) * 2 : 0;
 
   const user = await prisma.user.findUnique({
     where: { id: userId },
@@ -71,7 +72,8 @@ export async function POST() {
     return NextResponse.json({ error: "Daily drill already completed" }, { status: 409 });
   }
 
-  const milestone = streak === 7 || streak === 30 || streak === 100 ? streak : null;
+  const milestone = STREAK_MILESTONES.has(streak) && streak !== user.drillStreak ? streak : null;
+  if (milestone) await postClubActivity(userId, "streak", { days: milestone });
   return NextResponse.json({
     drillStreak: streak,
     xp: nextXp,

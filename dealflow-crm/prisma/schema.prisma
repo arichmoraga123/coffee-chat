@@ -38,6 +38,18 @@ model User {
   onboardingDone            Boolean                  @default(false)
   accountActive             Boolean                  @default(true)
   lastActiveAt              DateTime?
+  /// Soft delete from the bot review page (account hidden and disabled). Purged only by an explicit admin action.
+  deletedAt                 DateTime?
+  /// Marked "Keep" on the bot review page.
+  reviewedKeep              Boolean                  @default(false)
+  signupIp                  String?
+  classYear                 Int?
+  /// PE@Broad sharing settings
+  shareLearning             Boolean                  @default(true)
+  shareDrill                Boolean                  @default(true)
+  shareTargets              Boolean                  @default(true)
+  /// null = not asked yet
+  shareFirms                Boolean?
   createdAt                 DateTime                 @default(now())
   updatedAt                 DateTime                 @updatedAt
   school                    School?                  @relation(fields: [schoolId], references: [id], onDelete: SetNull)
@@ -58,6 +70,14 @@ model User {
   lessonProgress            LessonProgress[]
   questionAttempts          QuestionAttempt[]
   dailyQuestionSets         DailyQuestionSet[]
+  clubActivities            ClubActivity[]
+  activityReactions         ClubActivityReaction[]
+  conversationMemberships   ConversationMember[]
+  messagesSent              Message[]
+  challengesCreated         Challenge[]              @relation("ChallengeCreator")
+  challengeParticipations   ChallengeParticipant[]
+  challengeAnswers          ChallengeAnswer[]
+  stories                   Story[]
   clubJoinRequests          ClubJoinRequest[]
   reviewItems               ReviewItem[]
   mentorQuestions           MentorQuestion[]         @relation("MentorQuestionAsker")
@@ -838,6 +858,9 @@ model Club {
   events               ClubEvent[]
   announcements        ClubAnnouncement[]
   rosterEntries        ClubRosterEntry[]
+  activities           ClubActivity[]
+  conversations        Conversation[]
+  challenges           Challenge[]
   joinRequests         ClubJoinRequest[]
   stripeCustomerId     String?
   stripeSubscriptionId String?
@@ -1141,4 +1164,143 @@ model ClubJoinRequest {
 
   @@unique([clubId, userId])
   @@index([clubId, status])
+}
+
+/// PE@Broad activity feed: lesson/module completions, challenge results, streak milestones, new members.
+model ClubActivity {
+  id        String                 @id @default(cuid())
+  clubId    String
+  userId    String
+  kind      String // lesson_complete | module_complete | challenge_result | streak | joined | weekly_challenge
+  data      Json                   @default("{}")
+  createdAt DateTime               @default(now())
+  club      Club                   @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  user      User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reactions ClubActivityReaction[]
+
+  @@index([clubId, createdAt])
+}
+
+model ClubActivityReaction {
+  activityId String
+  userId     String
+  emoji      String
+  createdAt  DateTime     @default(now())
+  activity   ClubActivity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([activityId, userId])
+}
+
+model Conversation {
+  id            String               @id @default(cuid())
+  clubId        String
+  createdAt     DateTime             @default(now())
+  lastMessageAt DateTime             @default(now())
+  club          Club                 @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  members       ConversationMember[]
+  messages      Message[]
+}
+
+model ConversationMember {
+  conversationId String
+  userId         String
+  lastReadAt     DateTime     @default(now())
+  muted          Boolean      @default(false)
+  /// This member blocked the other person: no new messages either way.
+  blocked        Boolean      @default(false)
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([conversationId, userId])
+  @@index([userId])
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String
+  senderId       String
+  body           String
+  kind           String       @default("text") // text | challenge
+  challengeId    String?
+  createdAt      DateTime     @default(now())
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender         User         @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId, createdAt])
+  @@index([senderId, createdAt])
+}
+
+model Challenge {
+  id                String                 @id @default(cuid())
+  clubId            String
+  mode              String // async | live | weekly
+  createdById       String
+  /// { modules?: number[], lessons?: string[], categories?: string[], difficulty?: string, label?: string }
+  topic             Json                   @default("{}")
+  questionIds       String[]
+  secondsPerQ       Int                    @default(30)
+  status            String                 @default("pending") // pending | accepted | live | complete | expired | declined
+  expiresAt         DateTime
+  currentIndex      Int                    @default(0)
+  questionStartedAt DateTime?
+  createdAt         DateTime               @default(now())
+  club              Club                   @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  createdBy         User                   @relation("ChallengeCreator", fields: [createdById], references: [id], onDelete: Cascade)
+  participants      ChallengeParticipant[]
+  answers           ChallengeAnswer[]
+
+  @@index([clubId, mode, createdAt])
+}
+
+model ChallengeParticipant {
+  challengeId String
+  userId      String
+  score       Int       @default(0)
+  totalMs     Int       @default(0)
+  ready       Boolean   @default(false)
+  lastSeenAt  DateTime?
+  finishedAt  DateTime?
+  xpAwarded   Int       @default(0)
+  challenge   Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([challengeId, userId])
+  @@index([userId])
+}
+
+model ChallengeAnswer {
+  id          String    @id @default(cuid())
+  challengeId String
+  userId      String
+  questionId  String
+  correct     Boolean
+  chosenText  String    @default("")
+  ms          Int
+  createdAt   DateTime  @default(now())
+  challenge   Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([challengeId, userId, questionId])
+}
+
+/// Storybank: a behavioral story the student drafts ("word vomit") and the AI cleans up.
+model Story {
+  id        String   @id @default(cuid())
+  userId    String
+  /// Which of the 6 prompted slots this is (leadership, teamwork, failure, conflict, initiative, why-finance) or "custom"
+  slot      String
+  title     String   @default("")
+  rawText   String   @default("")
+  /// AI-cleaned version: { situation, task, action, result, oneLiner, twoMinute }
+  polished  Json?
+  /// Behavioral questions this story answers, with a short angle for each: [{ question, angle }]
+  questions Json     @default("[]")
+  /// Coaching notes: what's missing / what to sharpen
+  feedback  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }

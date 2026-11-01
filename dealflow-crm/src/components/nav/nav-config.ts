@@ -9,6 +9,10 @@ import {
   Home,
   LayoutGrid,
   Library,
+  MessageSquare,
+  ShieldAlert,
+  Swords,
+  Trophy,
   Mic,
   Settings,
   Shield,
@@ -24,7 +28,7 @@ export type NavItem = {
   icon: LucideIcon;
   /** Extra path prefixes that should mark this item active (its tab pages). */
   also?: string[];
-  count?: "dailyLeft" | "mentorOpen";
+  count?: "dailyLeft" | "mentorOpen" | "unread" | "pendingChallenges";
 };
 export type NavGroup = { id: string; label: string; items: NavItem[]; audience?: "club" | "admin" | "mentor" };
 
@@ -55,15 +59,18 @@ export const NAV_GROUPS: NavGroup[] = [
     label: "PE@Broad",
     audience: "club",
     items: [
-      { href: "/club", label: "Club", icon: LayoutGrid, also: ["/club/announcements", "/club/events", "/club/projects", "/club/content", "/groups"] },
-      { href: "/club/members", label: "Members", icon: Users },
+      { href: "/club", label: "Club", icon: LayoutGrid, also: ["/club/announcements", "/club/events", "/club/projects", "/club/content", "/groups", "/club/pe-broad"] },
+      { href: "/club/pe-broad/members", label: "Members", icon: Users, also: ["/club/members"] },
+      { href: "/club/pe-broad/leaderboard", label: "Standings", icon: Trophy },
+      { href: "/messages", label: "Messages", icon: MessageSquare, count: "unread" },
+      { href: "/challenges", label: "Challenges", icon: Swords, count: "pendingChallenges" },
     ],
   },
   {
     id: "tools",
     label: "Tools",
     items: [
-      { href: "/mock-interview", label: "Mock interviews", icon: Mic },
+      { href: "/mock-interview", label: "Mock interviews", icon: Mic, also: ["/stories"] },
       { href: "/resume", label: "Resume review", icon: FileText },
       { href: "/pitch-builder", label: "Stock pitch", icon: Briefcase },
       { href: "/resources", label: "Resources", icon: Library, also: ["/cases", "/vault"] },
@@ -85,6 +92,7 @@ export const NAV_GROUPS: NavGroup[] = [
     items: [
       { href: "/admin", label: "Admin", icon: Shield, also: ["/schools", "/comp", "/alumni"] },
       { href: "/admin/club/roster", label: "Roster", icon: Users },
+      { href: "/admin/users/review", label: "Account review", icon: ShieldAlert },
       { href: "/admin/questions", label: "Question editor", icon: Target },
       { href: "/admin/learn/questions", label: "Mentor queue", icon: GraduationCap, count: "mentorOpen" },
     ],
@@ -133,7 +141,9 @@ export const SECTION_TABS: { match: string[]; tabs: { href: string; label: strin
     match: ["/club", "/groups"],
     tabs: [
       { href: "/club", label: "Overview" },
-      { href: "/club/members", label: "Members" },
+      { href: "/club/pe-broad", label: "Activity" },
+      { href: "/club/pe-broad/members", label: "Members" },
+      { href: "/club/pe-broad/leaderboard", label: "Standings" },
       { href: "/club/announcements", label: "Announcements" },
       { href: "/club/events", label: "Events" },
       { href: "/club/projects", label: "Projects" },
@@ -185,5 +195,5 @@ export const MOBILE_TABS: { href: string; label: string; icon: LucideIcon; match
     icon: TrendingUp,
     match: ["/pipeline", "/offers", "/contacts", "/tasks", "/debriefs", "/firms", "/deals", "/timelines", "/research", "/calendar", "/recruiting-calendar", "/roadmap"],
   },
-  { href: "/club", label: "Club", icon: Users, match: ["/club", "/groups"] },
+  { href: "/club", label: "Club", icon: Users, match: ["/club", "/groups", "/messages", "/challenges"] },
 ];

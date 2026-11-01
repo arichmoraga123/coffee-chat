@@ -34,7 +34,8 @@ export default async function CohortPage({ searchParams }: { searchParams: Promi
       });
   const ids = members.map((m) => m.id);
 
-  const [progress, shaky] = await Promise.all([
+  const weekAgo = new Date(new Date().getTime() - 7 * 86_400_000);
+  const [progress, shaky, missedRaw] = await Promise.all([
     prisma.lessonProgress.findMany({
       where: { userId: { in: ids } },
       select: { userId: true, lessonId: true, status: true, score: true },
@@ -46,7 +47,19 @@ export default async function CohortPage({ searchParams }: { searchParams: Promi
       orderBy: { _count: { userId: "desc" } },
       take: 15,
     }),
+    prisma.questionAttempt.groupBy({
+      by: ["questionId"],
+      where: { userId: { in: ids }, correct: false, createdAt: { gte: weekAgo }, question: { mcqEligible: true } },
+      _count: { _all: true },
+      orderBy: { _count: { questionId: "desc" } },
+      take: 10,
+    }),
   ]);
+  const missedQs = await prisma.question.findMany({
+    where: { id: { in: missedRaw.map((m) => m.questionId) } },
+    select: { id: true, question: true, lessonId: true },
+  });
+  const missed = missedRaw.map((m) => ({ ...m, q: missedQs.find((q) => q.id === m.questionId) })).filter((m) => m.q);
 
   const groups = modules();
   const byUser = new Map<string, typeof progress>();
@@ -87,6 +100,29 @@ export default async function CohortPage({ searchParams }: { searchParams: Promi
           </Link>
         </div>
       </div>
+
+      <section className="space-y-2">
+        <h2 className="text-sm font-semibold text-ink">Most-missed questions this week</h2>
+        {missed.length ? (
+          <ol className="space-y-1 text-sm">
+            {missed.map((m) => (
+              <li key={m.questionId} className="flex gap-3">
+                <span className="w-8 shrink-0 text-right font-mono text-danger">{m._count._all}</span>
+                <span className="text-ink">
+                  {m.q!.lessonId ? (
+                    <Link href={`/learn/${m.q!.lessonId}`} className="mr-1 font-mono text-xs text-ink-3 hover:underline">
+                      {m.q!.lessonId.replace("-", ".")}
+                    </Link>
+                  ) : null}
+                  {m.q!.question}
+                </span>
+              </li>
+            ))}
+          </ol>
+        ) : (
+          <p className="text-sm text-ink-3">No misses logged this week.</p>
+        )}
+      </section>
 
       <section className="space-y-2">
         <h2 className="text-sm font-semibold text-ink">Most-marked &ldquo;Shaky&rdquo; — cover these at the next meeting</h2>

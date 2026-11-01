@@ -1,7 +1,8 @@
 import "server-only";
 import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { getLesson } from "./lessons";
+import { allLessons, getLesson } from "./lessons";
+import { canEarnXp, postClubActivity, STREAK_MILESTONES } from "@/lib/club-social";
 import { gradeCalc, gradeFillBlank, gradeMcq, gradeOrder } from "./grading";
 import { isGraded, type Lesson } from "./schema";
 
@@ -110,7 +111,8 @@ export async function applyLessonEvent(
     update: {},
   });
 
-  return prisma.$transaction(async (tx) => {
+  let streakHit: number | null = null;
+  const result = await prisma.$transaction(async (tx): Promise<EventResult> => {
     await tx.$executeRaw`SELECT 1 FROM "LessonProgress" WHERE "userId" = ${userId} AND "lessonId" = ${lessonId} FOR UPDATE`;
     const row = await tx.lessonProgress.findUniqueOrThrow({ where: { userId_lessonId: { userId, lessonId } } });
     const all = { ...((row.blockState ?? {}) as BlockStateMap) };
@@ -192,6 +194,7 @@ export async function applyLessonEvent(
     const complete = isLessonComplete(lesson, all);
     const justCompleted = complete && row.status !== "completed";
     if (justCompleted) xp += XP.complete;
+    if (xp > 0 && !(await canEarnXp(userId, tx))) xp = 0;
     const score = lessonScore(lesson, all);
 
     await tx.lessonProgress.update({
@@ -212,8 +215,11 @@ export async function applyLessonEvent(
       data.xp = { increment: xp };
       data.weeklyXP = { increment: xp };
     }
+    let newStreak: number | null = null;
     if (user && user.lastDrillDay !== today) {
-      data.drillStreak = user.lastDrillDay === prevDay(today) ? user.drillStreak + 1 : 1;
+      newStreak = user.lastDrillDay === prevDay(today) ? user.drillStreak + 1 : 1;
+      data.drillStreak = newStreak;
+      if (STREAK_MILESTONES.has(newStreak)) streakHit = newStreak;
       data.lastDrillDay = today;
     }
     if (Object.keys(data).length) {
@@ -241,4 +247,16 @@ export async function applyLessonEvent(
       score,
     };
   });
+
+  // Club feed: lesson / module completions and streak milestones (outside the transaction).
+  if (result.ok && result.justCompleted) {
+    await postClubActivity(userId, "lesson_complete", { lessonId, title: lesson.title });
+    const moduleLessons = allLessons().filter((l) => l.module === lesson.module).map((l) => l.id);
+    const done = await prisma.lessonProgress.count({ where: { userId, lessonId: { in: moduleLessons }, status: "completed" } });
+    if (done === moduleLessons.length) {
+      await postClubActivity(userId, "module_complete", { module: lesson.module, title: lesson.moduleTitle });
+    }
+  }
+  if (streakHit) await postClubActivity(userId, "streak", { days: streakHit });
+  return result;
 }

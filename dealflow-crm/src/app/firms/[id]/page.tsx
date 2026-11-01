@@ -3,6 +3,8 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { Card } from "@/components/ui/card";
 import { requireUserId } from "@/lib/auth";
+import { peBroadMembership } from "@/lib/club-social";
+import { firmOverlap } from "@/lib/club-profiles";
 import { FirmDetailEditor } from "@/components/firm-detail-editor";
 import { FirmTypeBadge } from "@/lib/firm-type";
 
@@ -20,6 +22,8 @@ export default async function FirmDetail({
     include: { contacts: true, opportunities: true },
   });
   if (!firm) return notFound();
+  const membership = await peBroadMembership(userId);
+  const overlap = membership ? await firmOverlap(membership.clubId, firm.name, userId) : [];
 
   return (
     <div className="space-y-4">
@@ -32,6 +36,21 @@ export default async function FirmDetail({
         <h1 className="text-xl font-semibold">{firm.name}</h1>
         <FirmTypeBadge type={firm.type} />
       </div>
+      {overlap.length ? (
+        <p className="rounded-[var(--radius)] border border-border bg-accent-tint px-4 py-3 text-sm text-ink">
+          {overlap.length} PE@Broad member{overlap.length === 1 ? " is" : "s are"} also talking to {firm.name}:{" "}
+          {overlap.map((o, i) => (
+            <span key={o.userId}>
+              {i ? ", " : ""}
+              <Link href={`/club/pe-broad/members/${o.userId}`} className="font-medium text-accent hover:underline">
+                {o.name}
+              </Link>{" "}
+              <span className="text-ink-3">({o.stage})</span>
+            </span>
+          ))}
+          . Compare notes before your interviews.
+        </p>
+      ) : null}
       <FirmDetailEditor
         firm={{
           id: firm.id,

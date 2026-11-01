@@ -133,11 +133,13 @@ export async function syncRosterMembership(userId: string, db: PrismaClient = de
     const active = list.filter((e) => e.active);
     if (active.length) {
       const role = active.some((e) => e.role === "admin") ? "admin" : "member";
+      const before = await db.clubMember.findUnique({ where: { clubId_userId: { clubId, userId } }, select: { id: true } });
       await db.clubMember.upsert({
         where: { clubId_userId: { clubId, userId } },
         create: { clubId, userId, role: clubRoleFor(role), active: true },
         update: { role: clubRoleFor(role), active: true },
       });
+      if (!before) await db.clubActivity.create({ data: { clubId, userId, kind: "joined" } }).catch(() => null);
       await db.clubJoinRequest.updateMany({
         where: { clubId, userId, status: "pending" },
         data: { status: "approved", decidedAt: new Date() },

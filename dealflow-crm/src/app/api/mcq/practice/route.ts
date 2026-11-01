@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getUserIdFromSession } from "@/lib/auth";
 import { listMcqs } from "@/lib/mcq/server";
+import { lockedQuestionIds } from "@/lib/challenges";
 import { MCQ_DIFFICULTIES, toLessonId } from "@/lib/mcq/validate";
 
 /** A shuffled practice set. Options come back shuffled and without the correct answer. */
@@ -13,7 +14,7 @@ export async function GET(req: Request) {
   const lesson = sp.get("lesson");
   const difficulty = sp.get("difficulty");
   const limit = Math.min(Math.max(Number(sp.get("limit")) || 10, 1), 50);
-  const exclude = (sp.get("exclude") ?? "").split(",").filter(Boolean).slice(0, 500);
+  const exclude = [...(sp.get("exclude") ?? "").split(",").filter(Boolean).slice(0, 500), ...(await lockedQuestionIds(userId))];
   const questions = await listMcqs(
     {
       module: mod,

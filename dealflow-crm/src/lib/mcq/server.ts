@@ -1,6 +1,7 @@
 import "server-only";
 import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
+import { canEarnXp } from "@/lib/club-social";
 
 import type { GradeResult, McqContext, PublicMcq } from "./types";
 
@@ -82,7 +83,7 @@ export async function gradeMcqAnswer(
     select: { status: true },
   });
   const firstMastery = correct && context === "practice" && prior?.status !== "known";
-  const xp = firstMastery ? 10 : 0;
+  const xp = firstMastery && (await canEarnXp(userId)) ? 10 : 0;
 
   await prisma.$transaction(async (tx) => {
     await tx.questionAttempt.create({

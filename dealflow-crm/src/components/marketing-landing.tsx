@@ -32,7 +32,7 @@ export function MarketingLanding({ inviteName }: { inviteName?: string | null })
         "Personal rolodex and pipeline tracker",
         "Resume reviewer (3 per month)",
         { text: "Read-only comp data and timelines", comingSoon: true },
-        "Global leaderboard",
+        "Daily practice sets",
       ],
       cta: "Get Started Free",
       href: "/signup",
@@ -45,7 +45,7 @@ export function MarketingLanding({ inviteName }: { inviteName?: string | null })
         "Everything in Free",
         "Full club hub (announcements, projects, events)",
         "Officer tools and content distribution",
-        "Club leaderboard",
+        "Club standings",
         "Up to 50 members",
         "14-day free trial",
       ],
@@ -132,7 +132,7 @@ export function MarketingLanding({ inviteName }: { inviteName?: string | null })
 
       <section id="features" className="space-y-8">
         {[
-          ["Practice like the real thing.", "400+ questions from Goldman, KKR, McKinsey and more. Flashcard and MCQ modes. Daily streaks, XP, and a leaderboard that keeps you accountable."],
+          ["Practice like the real thing.", "400+ questions from Goldman, KKR, McKinsey and more. Flashcard and MCQ modes. Daily sets with spaced review, and club standings that keep you accountable."],
           ["Your rolodex, supercharged.", "Log every coffee chat with detailed notes. One click generates a personalized follow-up email referencing exactly what you discussed. Pre-call briefs before every conversation."],
           ["Get feedback like a Goldman recruiter.", "Upload your resume and get specific, actionable feedback tailored to your target track — IB, PE, consulting, S&T, and more. Bullet point rewrites included."],
           [

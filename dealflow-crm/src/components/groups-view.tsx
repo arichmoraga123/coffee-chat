@@ -63,9 +63,9 @@ export function GroupsView() {
         ))}
       </div>
       <div className="rounded-lg border border-border bg-surface p-3 text-sm text-ink-2">
-        Group leaderboard uses each member&apos;s streak / XP from their profile.{" "}
+        Practice together, then compare scores in PE@Broad standings.{" "}
         <Button asChild size="sm" variant="outline" className="ml-2">
-          <Link href="/questions">MCQ challenge → Question Bank</Link>
+          <Link href="/club/pe-broad/leaderboard">Standings</Link>
         </Button>
       </div>
     </div>

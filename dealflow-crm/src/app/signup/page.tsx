@@ -2,6 +2,9 @@
 
 import Link from "next/link";
 import { FormEvent, Suspense, useState } from "react";
+import Script from "next/script";
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Card } from "@/components/ui/card";
@@ -25,7 +28,13 @@ function SignupForm() {
     const signupResponse = await fetch("/api/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, password, refCode: searchParams.get("ref") ?? undefined }),
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+        refCode: searchParams.get("ref") ?? undefined,
+        turnstileToken: (new FormData(event.currentTarget as HTMLFormElement).get("cf-turnstile-response") as string | null) ?? undefined,
+      }),
     });
     if (!signupResponse.ok) {
       const payload = (await signupResponse.json().catch(() => ({}))) as { error?: string };
@@ -81,7 +90,13 @@ function SignupForm() {
             onChange={(event) => setPassword(event.target.value)}
           />
           {error ? <p className="text-sm text-danger">{error}</p> : null}
-          <Button className="w-full" disabled={loading} type="submit">
+          {TURNSTILE_SITE_KEY ? (
+            <>
+              <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />
+              <div className="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} />
+            </>
+          ) : null}
+          <Button variant="primary" className="w-full" disabled={loading} type="submit">
             {loading ? "Creating account..." : "Sign up"}
           </Button>
         </form>
