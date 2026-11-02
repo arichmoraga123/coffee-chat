@@ -85,6 +85,7 @@ model User {
   importBatches             ImportBatch[]
   notifications             Notification[]
   notificationPref          NotificationPref?
+  openingReminders          OpeningReminder[]
   workbookProgress          WorkbookProgress[]
   clubPostProgress          ClubPostProgress[]
   clubJoinRequests          ClubJoinRequest[]
@@ -462,9 +463,14 @@ model Opportunity {
   createdAt              DateTime             @default(now())
   firmId                 String
   userId                 String
+  /// Set when added from the Openings page.
+  openingId              String?
   firm                   Firm                 @relation(fields: [firmId], references: [id], onDelete: Cascade)
   user                   User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  opening                Opening?             @relation(fields: [openingId], references: [id], onDelete: SetNull)
   contacts               OpportunityContact[]
+
+  @@index([userId, openingId])
 }
 
 model OpportunityContact {
@@ -1382,12 +1388,70 @@ model ImportBatch {
   /// { contactsNew, contactsUpdated, interactions, tasks, skipped, errors }
   counts       Json          @default("{}")
   status       String        @default("complete") // complete | undone
+  /// Openings uploads: { created: id[], updated: { id, before }[], archived: id[] } so the upload can be undone.
+  undoData     Json?
   createdAt    DateTime      @default(now())
   user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   contacts     Contact[]
   interactions Interaction[]
 
   @@index([userId, createdAt])
+}
+
+// --- Recruiting openings (bulk uploaded by admins/officers, Part B) ---
+/// Firms are per user in this app, so an opening stores the firm name; members match it to their own firm list.
+model Opening {
+  id               String            @id @default(cuid())
+  /// null = visible to everyone; PE@Broad uploads set the club.
+  clubId           String?
+  firmName         String
+  /// normalizeFirmName(firmName), for matching and de-duplication.
+  firmNorm         String
+  program          String
+  /// Summer Analyst | Sophomore / early insight program | Diversity program | Off-cycle internship | Full-time Analyst | Externship / spring week | Other
+  roleType         String?
+  track            String?
+  group            String?
+  /// Freshman | Sophomore | Junior | Senior
+  classYears       String[]          @default([])
+  recruitingSummer Int?
+  city             String
+  opensOn          DateTime?
+  deadline         DateTime?
+  /// Fixed | Rolling | Unknown
+  deadlineType     String            @default("Unknown")
+  /// Only when the file sets Status (Not yet open | Open | Closed).
+  statusOverride   String?
+  link             String?
+  source           String?
+  notes            String?
+  /// clubId|firmNorm|program|city|summer (lowercased): one opening per Firm + Program + City + Recruiting Summer.
+  dedupeKey        String            @unique
+  importBatchId    String?
+  createdById      String?
+  archivedAt       DateTime?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  reminders        OpeningReminder[]
+  opportunities    Opportunity[]
+
+  @@index([archivedAt, deadline])
+  @@index([firmNorm])
+}
+
+model OpeningReminder {
+  userId           String
+  openingId        String
+  remindOpen       Boolean   @default(true)
+  remindDaysBefore Int       @default(7)
+  openSentAt       DateTime?
+  deadlineSentAt   DateTime?
+  createdAt        DateTime  @default(now())
+  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  opening          Opening   @relation(fields: [openingId], references: [id], onDelete: Cascade)
+
+  @@id([userId, openingId])
+  @@index([openingId])
 }
 
 model Notification {

@@ -1,6 +1,7 @@
 import {
   BookOpen,
   Briefcase,
+  BriefcaseBusiness,
   Building2,
   CalendarDays,
   ClipboardCheck,
@@ -49,6 +50,7 @@ export const NAV_GROUPS: NavGroup[] = [
     id: "recruiting",
     label: "Recruiting",
     items: [
+      { href: "/recruiting/openings", label: "Openings", icon: BriefcaseBusiness },
       { href: "/pipeline", label: "Pipeline", icon: TrendingUp, also: ["/offers"] },
       { href: "/contacts", label: "Contacts", icon: Users, also: ["/tasks", "/debriefs", "/emails"], count: "tasksDue" },
       { href: "/firms", label: "Firms", icon: Building2, also: ["/deals", "/timelines", "/research"] },
@@ -196,7 +198,7 @@ export const MOBILE_TABS: { href: string; label: string; icon: LucideIcon; match
     href: "/pipeline",
     label: "Recruiting",
     icon: TrendingUp,
-    match: ["/pipeline", "/offers", "/contacts", "/tasks", "/debriefs", "/emails", "/firms", "/deals", "/timelines", "/research", "/calendar", "/recruiting-calendar", "/roadmap"],
+    match: ["/recruiting", "/pipeline", "/offers", "/contacts", "/tasks", "/debriefs", "/emails", "/firms", "/deals", "/timelines", "/research", "/calendar", "/recruiting-calendar", "/roadmap"],
   },
   { href: "/club", label: "Club", icon: Users, match: ["/club", "/groups", "/messages", "/challenges"] },
 ];

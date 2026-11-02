@@ -5,12 +5,14 @@ import { PIPELINE_STAGES } from "@/lib/constants";
 import { FIRM_TYPE_ORDER } from "@/lib/firm-type";
 import { RELATIONSHIP_STAGES } from "@/lib/followups";
 import { backfillRoster } from "@/lib/club-roster";
+import { openingsAccess } from "@/lib/openings-data";
+import { CLASS_YEARS, DEADLINE_TYPES, OPENING_STATUSES, OPENING_TRACKS, ROLE_TYPES } from "@/lib/openings";
 
 /**
  * Shared bulk editing (Phase G.2b). Every change runs in one transaction, scoped to records the user owns
  * (or the club for admins), and returns an undo snapshot the client can send back within 10 seconds.
  */
-export type BulkEntity = "contacts" | "firms" | "opportunities" | "tasks" | "interactions" | "roster" | "questions" | "mentor-questions";
+export type BulkEntity = "contacts" | "firms" | "opportunities" | "tasks" | "interactions" | "roster" | "questions" | "mentor-questions" | "openings";
 export type BulkRequest =
   | { entity: BulkEntity; ids: string[]; op: "set"; field: string; value: unknown; tagMode?: "add" | "remove" }
   | { entity: BulkEntity; ids: string[]; op: "action"; action: string; value?: unknown };
@@ -276,6 +278,63 @@ export async function runBulk(ctx: Ctx, req: BulkRequest): Promise<BulkResult> {
       throw err("Unknown action.");
     }
 
+    case "openings": {
+      // Admins edit any opening; club officers edit their club's openings.
+      const access = await openingsAccess(userId);
+      const rows = await prisma.opening.findMany({ where: { id: { in: ids } } });
+      const okRows = rows.filter((o) => access.isAdmin || (o.clubId && access.officerClubs.some((c) => c.id === o.clubId)));
+      if (!okRows.length) throw Object.assign(new Error("Only admins and club officers can edit openings."), { status: 403 });
+      const okIds = okRows.map((o) => o.id);
+      const snap = (fields: string[]): Undo => ({ entity: "openings", rows: okRows.map((o) => ({ id: o.id, data: pickFields(o as unknown as Record<string, unknown>, fields) })) });
+      const oneOf = (list: readonly string[], v: unknown, what: string) => {
+        const s = String(v ?? "").trim();
+        if (s && !list.includes(s)) throw err(`Unknown ${what}.`);
+        return s || null;
+      };
+      if (req.op === "set") {
+        const v = req.value;
+        const text = (max: number) => String(v ?? "").trim().slice(0, max) || null;
+        const SETTERS: Record<string, () => Prisma.OpeningUpdateManyMutationInput> = {
+          track: () => ({ track: oneOf(OPENING_TRACKS, v, "track") }),
+          roleType: () => ({ roleType: oneOf(ROLE_TYPES, v, "role type") }),
+          statusOverride: () => ({ statusOverride: oneOf(OPENING_STATUSES, v, "status") }),
+          deadlineType: () => ({ deadlineType: oneOf(DEADLINE_TYPES, v, "deadline type") ?? "Unknown" }),
+          deadline: () => ({ deadline: asDate(v) }),
+          opensOn: () => ({ opensOn: asDate(v) }),
+          group: () => ({ group: text(120) }),
+          link: () => ({ link: text(1000) }),
+          notes: () => ({ notes: text(2000) }),
+          source: () => ({ source: text(120) }),
+          recruitingSummer: () => {
+            const n = v === "" || v === null ? null : Number(v);
+            if (n !== null && (!Number.isInteger(n) || n < 2000 || n > 2100)) throw err("Recruiting Summer must be a year.");
+            return { recruitingSummer: n };
+          },
+        };
+        if (req.field === "classYears") {
+          const list = (Array.isArray(v) ? v : String(v ?? "").split(/[;,]/)).map((x) => String(x).trim()).filter(Boolean);
+          for (const y of list) if (!(CLASS_YEARS as readonly string[]).includes(y)) throw err("Unknown class year.");
+          const undo = snap(["classYears"]);
+          for (const o of okRows) {
+            const next =
+              req.tagMode === "add" ? [...new Set([...o.classYears, ...list])] : req.tagMode === "remove" ? o.classYears.filter((y) => !list.includes(y)) : list;
+            await prisma.opening.update({ where: { id: o.id }, data: { classYears: CLASS_YEARS.filter((y) => next.includes(y)) } });
+          }
+          return { count: okRows.length, undo };
+        }
+        const make = SETTERS[req.field];
+        if (!make) throw err("That field can't be bulk edited.");
+        const data = make();
+        const undo = snap(Object.keys(data));
+        return { count: (await prisma.opening.updateMany({ where: { id: { in: okIds } }, data })).count, undo };
+      }
+      if (req.op === "action" && (req.action === "archive" || req.action === "unarchive")) {
+        const undo = snap(["archivedAt"]);
+        return { count: (await prisma.opening.updateMany({ where: { id: { in: okIds } }, data: { archivedAt: req.action === "archive" ? new Date() : null } })).count, undo };
+      }
+      throw err("Unknown action.");
+    }
+
     case "mentor-questions": {
       if (!ctx.isAdmin) throw Object.assign(new Error("Admins only."), { status: 403 });
       const rows = await prisma.mentorQuestion.findMany({ where: { id: { in: ids } } });
@@ -302,6 +361,7 @@ const UNDO_FIELDS: Record<BulkEntity, string[]> = {
   roster: ["role", "active"],
   questions: ["status", "difficulty", "category"],
   "mentor-questions": ["public", "status"],
+  openings: ["track", "roleType", "statusOverride", "deadlineType", "deadline", "opensOn", "group", "link", "notes", "source", "recruitingSummer", "classYears", "archivedAt"],
 };
 
 /** Puts the previous values back. Only whitelisted fields, only records the user owns. */
@@ -312,7 +372,7 @@ export async function runUndo(ctx: Ctx, undo: Undo): Promise<number> {
     const out: Record<string, unknown> = {};
     for (const [k, v] of Object.entries(data)) {
       if (!allowed.has(k)) continue;
-      out[k] = typeof v === "string" && /^(deletedAt|completedAt|snoozedUntil|dismissedAt|dueDate|applicationDeadline)$/.test(k) ? new Date(v) : v;
+      out[k] = typeof v === "string" && /^(deletedAt|completedAt|snoozedUntil|dismissedAt|dueDate|applicationDeadline|deadline|opensOn|archivedAt)$/.test(k) ? new Date(v) : v;
     }
     return out;
   };
@@ -346,6 +406,14 @@ export async function runUndo(ctx: Ctx, undo: Undo): Promise<number> {
         case "mentor-questions":
           if (ctx.isAdmin) n += (await tx.mentorQuestion.updateMany({ where: { id: r.id }, data })).count;
           break;
+        case "openings": {
+          const o = await tx.opening.findUnique({ where: { id: r.id }, select: { clubId: true } });
+          const access = await openingsAccess(userId);
+          if (o && (access.isAdmin || (o.clubId && access.officerClubs.some((c) => c.id === o.clubId)))) {
+            n += (await tx.opening.updateMany({ where: { id: r.id }, data })).count;
+          }
+          break;
+        }
       }
     }
     // Hard deletes (opportunities, empty firms) come back as new rows with the same ids.

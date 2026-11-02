@@ -4,10 +4,11 @@ import { loadTasks } from "@/lib/tasks-data";
 import { notify } from "@/lib/notify";
 import { appUrl, esc, flushOutbound } from "@/lib/outbound";
 import { remindStaleMentorQuestions } from "@/lib/mentor-alerts";
+import { daysUntil } from "@/lib/openings";
 
 /** K.5 daily job: follow-up digests, stale mentor questions, today's event reminders, Trash purge, queued texts. */
 export async function runDaily(now = new Date()) {
-  const out = { users: 0, digests: 0, mentorReminders: 0, eventReminders: 0, purged: 0, sent: 0 };
+  const out = { users: 0, digests: 0, mentorReminders: 0, eventReminders: 0, openingReminders: 0, purged: 0, sent: 0 };
   const todayYmd = new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" }).format(now);
   const tomorrow = new Date(`${todayYmd}T00:00:00Z`);
   tomorrow.setUTCDate(tomorrow.getUTCDate() + 1);
@@ -81,6 +82,9 @@ export async function runDaily(now = new Date()) {
     await prisma.clubEvent.update({ where: { id: e.id }, data: { reminderSentAt: now } });
   }
 
+  // 3b. Recruiting openings: "Opens today" and "Deadline in N days" for members who asked to be reminded.
+  out.openingReminders = await remindOpenings(todayYmd);
+
   // 4. Trash keeps contacts for 30 days.
   const purge = await prisma.contact.deleteMany({ where: { deletedAt: { lt: new Date(now.getTime() - 30 * 86_400_000) } } });
   out.purged = purge.count;
@@ -88,4 +92,62 @@ export async function runDaily(now = new Date()) {
   // 5. Send everything queued (including texts that waited for quiet hours to end).
   out.sent = (await flushOutbound({ limit: 1000 })).sent;
   return out;
+}
+
+/** One notification per member listing the openings that open today or whose deadline is within their reminder window. */
+async function remindOpenings(todayYmd: string): Promise<number> {
+  const today = new Date(`${todayYmd}T00:00:00Z`);
+  const horizon = new Date(today.getTime() + 61 * 86_400_000);
+  const due = await prisma.openingReminder.findMany({
+    where: {
+      opening: { archivedAt: null },
+      OR: [
+        { remindOpen: true, openSentAt: null, opening: { opensOn: { gte: today, lt: new Date(today.getTime() + 86_400_000) } } },
+        { deadlineSentAt: null, opening: { deadline: { gte: today, lte: horizon } } },
+      ],
+    },
+    include: { opening: { select: { id: true, firmName: true, program: true, opensOn: true, deadline: true, link: true } } },
+  });
+  const byUser = new Map<string, { opens: typeof due; deadlines: typeof due }>();
+  for (const r of due) {
+    const o = r.opening;
+    const g = byUser.get(r.userId) ?? { opens: [], deadlines: [] };
+    if (r.remindOpen && !r.openSentAt && o.opensOn && o.opensOn.toISOString().slice(0, 10) === todayYmd) g.opens.push(r);
+    else if (!r.deadlineSentAt && o.deadline && daysUntil(o.deadline, todayYmd) <= r.remindDaysBefore) g.deadlines.push(r);
+    else continue;
+    byUser.set(r.userId, g);
+  }
+  let sent = 0;
+  const now = new Date();
+  for (const [userId, g] of byUser) {
+    const lines = [
+      ...g.opens.map((r) => ({ text: `Opens today: ${r.opening.firmName} — ${r.opening.program}`, link: r.opening.link })),
+      ...g.deadlines.map((r) => {
+        const d = daysUntil(r.opening.deadline!, todayYmd);
+        return { text: `Deadline ${d === 0 ? "today" : d === 1 ? "tomorrow" : `in ${d} days`}: ${r.opening.firmName} — ${r.opening.program}`, link: r.opening.link };
+      }),
+    ];
+    const title = g.opens.length && !g.deadlines.length ? `${g.opens.length} application${g.opens.length === 1 ? "" : "s"} open today` : `${lines.length} application deadline${lines.length === 1 ? "" : "s"} coming up`;
+    await notify(
+      userId,
+      "opening_reminder",
+      {
+        title,
+        body: lines.map((l) => l.text).slice(0, 3).join(" · "),
+        url: "/recruiting/openings",
+        email: {
+          subject: title,
+          intro: "Openings you asked to be reminded about.",
+          lines: lines.slice(0, 20).map((l) => `${esc(l.text)}${l.link ? ` · <a href="${esc(l.link)}" style="color:#18453b;font-weight:600">Apply</a>` : ""}`),
+          cta: "Open Openings",
+        },
+        sms: `Prospect: ${lines[0].text}${lines.length > 1 ? ` (+${lines.length - 1} more)` : ""}. ${appUrl("/recruiting/openings").replace(/^https?:\/\//, "")}`,
+      },
+      { flush: false },
+    ).catch((e) => console.error("opening reminder failed", userId, e));
+    await prisma.openingReminder.updateMany({ where: { userId, openingId: { in: g.opens.map((r) => r.openingId) } }, data: { openSentAt: now } });
+    await prisma.openingReminder.updateMany({ where: { userId, openingId: { in: g.deadlines.map((r) => r.openingId) } }, data: { deadlineSentAt: now } });
+    sent++;
+  }
+  return sent;
 }

@@ -17,6 +17,7 @@ import { DashboardNewsFeed } from "@/components/dashboard-news-feed";
 import { OnboardingWizard } from "@/components/onboarding-wizard";
 import { Greeting } from "@/components/home/greeting";
 import { cn } from "@/lib/utils";
+import { deadlinesThisWeek } from "@/lib/openings-data";
 
 const PIPELINE_ORDER = ["TARGET", "NETWORKING", "APPLIED", "FIRST_ROUND", "TECHNICAL", "SUPERDAY", "OFFER"] as const;
 
@@ -128,6 +129,7 @@ export async function DashboardHome() {
   const todayYmd = now.toISOString().slice(0, 10);
   const followups = taskRows.slice(0, 4).map((t) => ({ key: t.id, id: t.contactId, name: t.contactName, label: t.title, due: t.due, overdue: t.due < todayYmd }));
   const moreFollowups = Math.max(0, taskRows.length - followups.length);
+  const deadlines = await deadlinesThisWeek(userId).catch(() => []);
 
   /* PE@Broad standings: weekly points among active members */
   let standings: { userId: string; name: string; points: number; rank: number }[] = [];
@@ -217,7 +219,7 @@ export async function DashboardHome() {
         </Card>
 
         <Card title="This week" action={<Link href="/tasks" className="text-accent hover:underline">Tasks</Link>}>
-          {calls.length === 0 && followups.length === 0 ? (
+          {calls.length === 0 && followups.length === 0 && deadlines.length === 0 ? (
             <p className="text-sm text-ink-3">Nothing scheduled in the next 7 days.</p>
           ) : (
             <ul className="space-y-2.5 text-sm">
@@ -236,6 +238,19 @@ export async function DashboardHome() {
                     <span className={cn("shrink-0 text-[13px]", o.overdue ? "text-warn" : "text-ink-3")}>
                       {o.overdue ? "Overdue" : o.due === todayYmd ? "Today" : format(new Date(`${o.due}T12:00:00Z`), "EEE")}
                     </span>
+                  </Link>
+                </li>
+              ))}
+              {deadlines.length ? (
+                <li className="pt-1 text-[12px] font-semibold uppercase tracking-wide text-ink-3">Deadlines this week</li>
+              ) : null}
+              {deadlines.map((d) => (
+                <li key={`d-${d.id}`}>
+                  <Link href="/recruiting/openings" className="flex items-baseline justify-between gap-3 hover:underline">
+                    <span className="min-w-0 text-ink [overflow-wrap:anywhere]">
+                      {d.firm} · {d.program}
+                    </span>
+                    <span className="shrink-0 text-[13px] text-warn">{d.deadline === todayYmd ? "Today" : format(new Date(`${d.deadline}T12:00:00Z`), "EEE MMM d")}</span>
                   </Link>
                 </li>
               ))}

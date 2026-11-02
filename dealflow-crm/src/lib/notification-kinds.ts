@@ -8,7 +8,7 @@ export const CATEGORY_LABEL: Record<PrefCategory, string> = {
   clubPosts: "Club posts",
   challenges: "Challenges",
   messages: "Messages",
-  eventReminders: "Event reminders",
+  eventReminders: "Event and application deadline reminders",
 };
 
 export const KINDS = {
@@ -18,6 +18,7 @@ export const KINDS = {
   mentor_answer: { category: "mentorAlerts", sms: false },
   club_post: { category: "clubPosts", sms: false },
   event_reminder: { category: "eventReminders", sms: true },
+  opening_reminder: { category: "eventReminders", sms: true },
   challenge: { category: "challenges", sms: false },
   message: { category: "messages", sms: false },
 } as const satisfies Record<string, { category: PrefCategory; sms: boolean }>;

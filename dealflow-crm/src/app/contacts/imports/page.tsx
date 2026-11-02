@@ -15,7 +15,7 @@ const SOURCE: Record<string, string> = { rolodex_template: "Rolodex file", linke
 
 export default async function ImportsPage() {
   const userId = await requireUserId();
-  const batches = await prisma.importBatch.findMany({ where: { userId }, orderBy: { createdAt: "desc" }, take: 100 });
+  const batches = await prisma.importBatch.findMany({ where: { userId, source: { not: "openings" } }, orderBy: { createdAt: "desc" }, take: 100 });
   return (
     <div className="space-y-5">
       <PageHeader

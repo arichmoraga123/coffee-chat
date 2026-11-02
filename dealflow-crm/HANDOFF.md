@@ -1,6 +1,6 @@
 # Prospect: handoff for a new session
 
-Prospect is a recruiting and learning app for MSU finance students and the PE@Broad club. The repo is `arichmoraga123/coffee-chat`, and the app lives in `dealflow-crm/`. Work has been on branch `claude/dazzling-lamport-tujeoy`. It has **not** been merged, and no pull request is open.
+Prospect is a recruiting and learning app for MSU finance students and the PE@Broad club. The repo is `arichmoraga123/coffee-chat`, and the app lives in `dealflow-crm/`. Round 1–2 work is on `claude/dazzling-lamport-tujeoy`; round 3 (resume reviewer v2, UI cleanup, openings) continues on `claude/youthful-mccarthy-3qlrk8`, which includes all of it. Nothing has been merged, and no pull request is open.
 
 ## Stack and conventions
 - **Framework:** Next.js 16 App Router. Route `params` and `searchParams` are Promises. Read `node_modules/next/dist/docs/` before using unfamiliar APIs (see `AGENTS.md`).
@@ -87,13 +87,43 @@ Prospect is a recruiting and learning app for MSU finance students and the PE@Br
 - **Test:** `npm run test-walkthroughs`. All 1,070 steps pass against the v2 student files. It runs before `next build` and only checks function support when the files are missing.
 - **Local development:** without a Blob token, workbooks and club files are saved to a temp folder. Production never does this.
 
+### Round 3: spec `CLAUDE_CODE_SPEC_Resume_Reviewer.md` (repo root)
+
+**Part A: resume reviewer v2** (behind `RESUME_V2=true`; the old reviewer runs otherwise)
+- Grades against a strong resume at the student's class year. Level, target and experience pickers default from the profile.
+- Rubric weights and grading rules: `src/lib/resume/rubric.ts`. The overall score is computed in code (rounded to 0.5).
+- Formatting is measured from the PDF with `unpdf` (13 checks): `src/lib/resume/format-checks.ts`. Test: `npm run test-resume-format` against PDFs in `scripts/fixtures/resumes/`.
+- Prompt, schema and validation: `src/lib/resume/grader.ts`. Route: `src/app/api/resume/review/v2.ts`. Screen: `src/components/resume/resume-review-v2.tsx`.
+- Stored PDFs (for re-grading) use the same private Blob store; last 10 reviews kept; students can delete. `.docx` gets content-only feedback.
+- Calibration: `npm run test-resume-grader` (needs `ANTHROPIC_API_KEY`; cases in `scripts/fixtures/resumes/calibration.json`). Not run yet. Optional exemplars go in `content/resume-exemplars/[level]/` as .txt/.md.
+- Skipped as agreed: the admin rubric page and calibration screens.
+
+**Part C: UI cleanup and guided Excel**
+- Collapsible sidebar (Ctrl/Cmd+\\), saved in `User.sidebarCollapsed`; starts collapsed at 1024–1279px and on /pipeline and guided workbooks.
+- Section tabs render under the page title (`src/components/ui/section-tabs.tsx`, used by `PageHeader`); `Tabs` never shows a vertical scrollbar and moves overflow into "More".
+- Pipeline board: 280px columns, collapsed empty stages, untruncated cards, "⋯" menu, Board/Table toggle.
+- Practice: SearchSelect for Module/Lesson, segmented questions-per-session.
+- Guided workbook grid rewritten: `src/components/learn/guided/spreadsheet-grid.tsx` (keyboard, point mode, F4, copy/paste/fill with shifted refs via `src/lib/formula/refs.ts`, undo, locked inputs, auto-check). Test: `npm run test-formula-refs`.
+- Skipped as agreed: the full Excel shortcut set and the screenshot audit.
+
+**Part B: recruiting openings**
+- Models `Opening` and `OpeningReminder`. Firms are per user, so an opening stores `firmName` + `firmNorm` and matches each member's own firm list.
+- Upload (admins/officers): `/recruiting/openings/upload`, parse in `src/lib/openings-parse.ts`, plan/commit/undo in `src/lib/openings-import.ts`. Test: `npm run test-openings-import`.
+- Openings page `/recruiting/openings`: filters, Add to pipeline, Remind me, Mark applied, admin bulk/inline edit (entity `openings` in `src/lib/bulk.ts`).
+- Reminders run in the daily cron (`opening_reminder`, under the event-reminders setting). Home "This week" shows deadlines.
+- Skipped as agreed: the calendar view.
+
+**Browser tests** (Playwright): `tests/guided-excel.spec.ts`, `tests/openings.spec.ts`. They need a local Postgres seeded with `npx tsx tests/seed-e2e.ts` and the app on port 3100; run `npm run test:e2e`.
+
 ### Schema
 The latest migration is `prisma/migrations/20261103120000_round2_outreach_notifications_workbooks/migration.sql`. It adds:
 - `ImportBatch`, `Notification`, `NotificationPref`, `OutboundMessage`, `ClubPostProgress`, `WorkbookProgress`
 - many new columns on Contact, Interaction, Task, ClubPost, ClubProject and ClubEvent
 - pg_trgm indexes
 
-There have been no schema changes since.
+Round 3 adds two more (run both in Neon, in order; both are idempotent):
+- `prisma/migrations/20261104120000_sidebar_pref/migration.sql`
+- `prisma/migrations/20261104130000_recruiting_openings/migration.sql`
 
 ## Owner's to-do list (may not be done yet; ask)
 1. Run the round-2 migration SQL in Neon.
@@ -106,19 +136,11 @@ There have been no schema changes since.
 4. Upload `PEB_Practice_Workbooks_v2.zip` at Admin → Learn · Workbooks, then click "Delete old versions".
 5. Give club officers the "officer" role on the roster page.
 
+## Owner's to-do for round 3
+1. Run the two round-3 migrations above in Neon.
+2. Set `RESUME_V2=true` in Vercel once you've tried the new reviewer (it needs `ANTHROPIC_API_KEY`, already used by the old one).
+3. Optional: run `npm run test-resume-grader` with an API key and add exemplar resumes.
+4. Upload the openings template at Recruiting → Openings → Upload.
+
 ## Next up (not started)
-Spec: `CLAUDE_CODE_SPEC_Resume_Reviewer.md`. The owner has this file; it isn't in the repo yet. Put `Prospect_Recruiting_Openings_Template.xlsx` in `public/templates/`. Credits are limited, so the plan agreed so far is:
-
-1. **Part A: resume reviewer v2.** Grade relative to the student's class year, with formatting checks done in code using `unpdf`.
-   - Skip the admin rubric page and the calibration screens; keep the weights in `lib/resume/rubric.ts`.
-   - Do step 0 first: report how the current reviewer works.
-2. **Part C core UI fixes:**
-   - collapsible sidebar
-   - title and subtitle above the tabs, with fixed spacing
-   - pipeline cards that don't truncate
-   - `SearchSelect` filters on Practice
-   - guided Excel: typing, arrows, Tab and Enter, locked input cells, auto-check
-   - skip: the full Excel shortcut set and the screenshot audit
-3. **Part B: recruiting openings upload.** Reuse the rolodex import patterns; skip the calendar view.
-
-Commit after each part. Commit messages and pull requests must not contain model names.
+Nothing queued. Round 3 (Parts A, B, C) is built.

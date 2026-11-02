@@ -78,6 +78,16 @@ async function main() {
     update: { blobUrl: `local:${id}`, sizeBytes: data.length },
     create: { workbookKey: KEY, kind: "student", title: "PEB 00 student", blobUrl: `local:${id}`, fileName: `${KEY}.xlsx`, sizeBytes: data.length, version: 1, uploadedBy: user.id },
   });
+  // An admin who is also an officer of a test club (for the openings upload tests).
+  await prisma.user.update({ where: { id: user.id }, data: { role: "ADMIN" } });
+  const school = await prisma.school.upsert({ where: { id: "e2e-school" }, update: {}, create: { id: "e2e-school", name: "Michigan State University", shortName: "MSU", domain: "msu.edu" } as never });
+  const club = await prisma.club.upsert({ where: { id: "e2e-club" }, update: {}, create: { id: "e2e-club", name: "PE@Broad", type: "finance", schoolId: school.id } as never });
+  await prisma.clubMember.upsert({ where: { clubId_userId: { clubId: club.id, userId: user.id } }, update: { role: "officer", active: true }, create: { clubId: club.id, userId: user.id, role: "officer" } });
+  // Fresh openings state for each run.
+  await prisma.opportunity.deleteMany({ where: { userId: user.id, openingId: { not: null } } });
+  await prisma.opening.deleteMany({ where: { clubId: { in: [club.id] } } });
+  await prisma.opening.deleteMany({ where: { clubId: null, createdById: user.id } });
+  await prisma.importBatch.deleteMany({ where: { userId: user.id, source: "openings" } });
   console.log("Seeded user", E2E_USER.email, "and", KEY);
   await prisma.$disconnect();
 }
