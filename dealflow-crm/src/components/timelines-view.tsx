@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { useCareerTracks } from "@/components/career-track-provider";
 import { matchesCareerTracks } from "@/lib/career-tracks";
 import { Select } from "@/components/ui/select";
+import { SectionTabs } from "@/components/ui/section-tabs";
 
 export type TimelineRow = {
   id: string;
@@ -143,6 +144,7 @@ export function TimelinesView({
           <h1 className="page-title">Firm recruiting timelines</h1>
           <p className="text-sm text-ink-2">Filter by type, role, and cycle year.</p>
         </div>
+        <SectionTabs className="mt-5 mb-6" />
         <Button variant="primary" size="sm" onClick={() => setShowAdd(true)}>
           Add timeline
         </Button>

@@ -585,7 +585,20 @@ export function functionsIn(formula: string): string[] {
 // ---------- workbook ----------
 
 export type CellData = { v?: Scalar; f?: string; /** number format */ z?: string };
-export type SheetData = { name: string; cells: Record<string, CellData>; cols: number; rows: number; widths?: number[] };
+export type SheetData = {
+  name: string;
+  cells: Record<string, CellData>;
+  cols: number;
+  rows: number;
+  /** Column widths in px (from !cols), index 0 = column A. */
+  widths?: number[];
+  /** Row heights in px (from !rows), index 0 = row 1. */
+  heights?: number[];
+  /** Merged ranges, 1-based. */
+  merges?: { c1: number; r1: number; c2: number; r2: number }[];
+  /** Cells with wrap text on. */
+  wrap?: string[];
+};
 
 /** A recalculating workbook: formulas evaluate on demand with caching and cycle detection. */
 export class Workbook {

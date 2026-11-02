@@ -76,7 +76,7 @@ export default async function ClubPostPage({ params }: { params: Promise<{ id: s
 
   return (
     <div className="space-y-5">
-      <PageHeader
+      <PageHeader sectionTabs={false}
         crumbs={[{ label: "Content", href: "/club/content" }, { label }]}
         title={post.title}
         subtitle={`${label} · ${post.author.name} · ${fmt(post.createdAt)}${post.dueDate ? ` · Due ${fmt(post.dueDate)}` : ""}${post.archivedAt ? " · Archived" : ""}`}

@@ -11,7 +11,7 @@ export async function GET() {
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const today = utcDay();
   const [user, log, set, membership] = await Promise.all([
-    prisma.user.findUnique({ where: { id: userId }, select: { name: true, role: true } }),
+    prisma.user.findUnique({ where: { id: userId }, select: { name: true, role: true, sidebarCollapsed: true } }),
     prisma.dailyDrillLog.findUnique({ where: { userId_date: { userId, date: today } }, select: { id: true } }),
     prisma.dailyQuestionSet.findUnique({ where: { userId_date: { userId, date: today } }, select: { questionIds: true } }),
     prisma.clubMember.findFirst({ where: { userId, active: true, club: { name: "PE@Broad" } }, select: { role: true } }),
@@ -46,5 +46,6 @@ export async function GET() {
     pendingChallenges,
     tasksDue,
     notificationsUnread,
+    sidebarCollapsed: user?.sidebarCollapsed ?? null,
   });
 }

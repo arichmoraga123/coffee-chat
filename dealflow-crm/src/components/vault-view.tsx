@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
+import { SectionTabs } from "@/components/ui/section-tabs";
 
 type Doc = {
   id: string;
@@ -88,6 +89,7 @@ export function VaultView() {
           <span className="text-success">SHARED</span> anonymized metadata &amp; Drive links
         </p>
       </div>
+      <SectionTabs className="mt-5 mb-6" />
       <Card className="border-warn/40 bg-warn-bg p-3 text-sm text-warn">
         All documents should be anonymized. Never submit files with personal information you do not want shared.
       </Card>

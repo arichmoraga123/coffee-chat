@@ -2,17 +2,18 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import * as XLSX from "xlsx";
 import { toast } from "sonner";
-import { Check, ChevronDown, ChevronLeft, ChevronRight, Download, Lightbulb, Eye } from "lucide-react";
+import { Check, ChevronDown, ChevronLeft, ChevronRight, Download, Lightbulb, Eye, PanelRightClose, PanelRightOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { ProgressBar } from "@/components/ui/progress-bar";
-import { Workbook, addr, isErr, parseAddr, parseInput, type Scalar } from "@/lib/formula/engine";
+import { Workbook, addr, parseAddr, parseInput, type Scalar } from "@/lib/formula/engine";
 import { sheetsFromXlsx, sheetsToXlsx } from "@/lib/formula/load-xlsx";
 import { matches, type WalkStep } from "@/lib/walkthroughs";
 import { cn } from "@/lib/utils";
+import { fmtCell } from "@/components/learn/guided/format";
+import { SpreadsheetGrid, type CommitResult, type Editability } from "@/components/learn/guided/spreadsheet-grid";
 
 type Saved = { entries: Record<string, string>; completedStepIds: string[]; firstTryStepIds: string[] };
 type Msg = { tone: "ok" | "warn" | "info"; text: string } | null;
@@ -21,22 +22,8 @@ const keyOf = (sheet: string, a: string) => `${sheet}!${a}`;
 const MAX_COLS = 40;
 const MAX_ROWS = 300;
 
-function fmt(v: Scalar, z?: string): string {
-  if (v === null || v === undefined) return "";
-  if (isErr(v)) return v.error;
-  if (typeof v === "boolean") return v ? "TRUE" : "FALSE";
-  if (typeof v === "number") {
-    if (z) {
-      try {
-        return XLSX.SSF.format(z, v);
-      } catch {
-        /* fall through */
-      }
-    }
-    return Math.abs(v) >= 1000 ? v.toLocaleString("en-US", { maximumFractionDigits: 2 }) : String(Math.round(v * 10_000) / 10_000);
-  }
-  return String(v);
-}
+const fmt = fmtCell;
+const isInstructions = (name: string) => /^(instructions?|read ?me|start here)$/i.test(name.trim());
 
 /** Every address a reference like "C7:G7" or "B22" covers. */
 function expand(ref: string): string[] {
@@ -102,14 +89,14 @@ export function GuidedWorkbook({
   const [loadError, setLoadError] = useState<string | null>(null);
   const [entries, setEntries] = useState<Record<string, string>>(saved.entries);
   const [completed, setCompleted] = useState<Set<string>>(new Set(saved.completedStepIds));
-  const [firstTry, setFirstTry] = useState<Set<string>>(new Set(saved.firstTryStepIds));
+  const [, setFirstTry] = useState<Set<string>>(new Set(saved.firstTryStepIds));
   const [tries, setTries] = useState<Record<string, number>>({});
+  const [bad, setBad] = useState<Set<string>>(new Set());
   const firstOpen = Math.max(0, steps.findIndex((s) => !saved.completedStepIds.includes(s.id)));
   const [idx, setIdx] = useState(firstOpen);
   const step = steps[idx];
   const [sheet, setSheet] = useState(step?.sheet ?? sheetsOrder[0]);
   const [sel, setSel] = useState(step?.cell ?? "A1");
-  const [bar, setBar] = useState("");
   const [msg, setMsg] = useState<Msg>(null);
   const [hint, setHint] = useState(false);
   const [showMe, setShowMe] = useState(false);
@@ -120,9 +107,10 @@ export function GuidedWorkbook({
   const [listOpen, setListOpen] = useState(false);
   const [narrow, setNarrow] = useState(false);
   const [continueAnyway, setContinueAnyway] = useState(false);
-  const barRef = useRef<HTMLInputElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
+  const [panelOpen, setPanelOpen] = useState(true);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  /** Cells that had content in the original student file (inputs and labels stay locked). */
+  const baseCells = useRef<Map<string, Set<string>>>(new Map());
 
   // Load the student workbook and replay saved entries.
   useEffect(() => {
@@ -131,7 +119,9 @@ export function GuidedWorkbook({
       try {
         const res = await fetch(studentUrl);
         if (!res.ok) throw new Error("Couldn't load the workbook.");
-        const book = new Workbook(sheetsFromXlsx(await res.arrayBuffer()));
+        const sheets = sheetsFromXlsx(await res.arrayBuffer());
+        baseCells.current = new Map(sheets.map((s) => [s.name, new Set(Object.keys(s.cells))]));
+        const book = new Workbook(sheets);
         for (const [k, raw] of Object.entries(saved.entries)) {
           const i = k.lastIndexOf("!");
           book.set(k.slice(0, i), k.slice(i + 1), parseInput(raw));
@@ -155,24 +145,12 @@ export function GuidedWorkbook({
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  // The newest data for saving (state updates from one click land in the same tick).
+  // The newest data for saving (state updates from one keystroke land in the same tick).
   const latest = useRef({ entries: saved.entries, completed: new Set(saved.completedStepIds), firstTry: new Set(saved.firstTryStepIds) });
-  /** Scrolls the grid just enough to show a cell, leaving room for the sticky row numbers and column letters. */
-  const ensureVisible = useCallback((a: string) => {
-    requestAnimationFrame(() => {
-      const grid = gridRef.current;
-      const td = document.getElementById(`gc-${a}`);
-      if (!grid || !td) return;
-      const left = td.offsetLeft;
-      const top = td.offsetTop;
-      const stickyW = 40;
-      const stickyH = 24;
-      if (left - stickyW < grid.scrollLeft) grid.scrollLeft = Math.max(0, left - stickyW - 8);
-      else if (left + td.offsetWidth > grid.scrollLeft + grid.clientWidth) grid.scrollLeft = left + td.offsetWidth - grid.clientWidth + 8;
-      if (top - stickyH < grid.scrollTop) grid.scrollTop = Math.max(0, top - stickyH - 8);
-      else if (top + td.offsetHeight > grid.scrollTop + grid.clientHeight) grid.scrollTop = top + td.offsetHeight - grid.clientHeight + 8;
-    });
-  }, []);
+  const selRef = useRef(sel);
+  useEffect(() => {
+    selRef.current = sel;
+  }, [sel]);
 
   const save = useCallback(
     (next: { entries?: Record<string, string>; completed?: Set<string>; firstTry?: Set<string> }) => {
@@ -195,41 +173,59 @@ export function GuidedWorkbook({
   const rawFor = useCallback(
     (sh: string, a: string) => {
       const k = keyOf(sh, a);
-      if (k in entries) return entries[k];
+      if (k in latest.current.entries) return latest.current.entries[k];
       const c = wb?.sheets.get(sh)?.cells[a];
       if (!c) return "";
       return c.f ?? (c.v === null || c.v === undefined ? "" : String(c.v));
     },
-    [entries, wb],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [entries, wb, ver],
   );
 
-  // Move to a step: its sheet, its cell, reset the panel.
-  useEffect(() => {
-    if (!step) return;
-    setSheet(step.sheet);
-    setSel(step.cell);
-    setBar(rawFor(step.sheet, step.cell));
+  const resetPanel = () => {
     setMsg(null);
     setHint(false);
     setShowMe(false);
     setChoice("");
     setText("");
     setTextRevealed(false);
-    ensureVisible(step.cell);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [idx, ver === 0]);
+  };
 
-  const commit = (sh: string, a: string, raw: string) => {
-    if (!wb) return;
-    const k = keyOf(sh, a);
+  /** Panel navigation: jump the grid to that step's cell. */
+  const goToStep = (i: number) => {
+    const s = steps[i];
+    if (!s) return;
+    setIdx(i);
+    setSheet(s.sheet);
+    setSel(s.cell);
+    resetPanel();
+  };
+
+  /** The panel follows the selected answer cell (free order). */
+  const followStep = (i: number) => {
+    if (i === idx) return;
+    setIdx(i);
+    resetPanel();
+  };
+
+  const stepIndexAt = (sh: string, a: string) => steps.findIndex((s) => s.sheet === sh && s.cell === a);
+
+  const writeCells = (sh: string, changes: { a: string; raw: string }[]) => {
+    if (!wb || !changes.length) return;
     const next = { ...latest.current.entries };
-    if (raw.trim()) next[k] = raw.trim();
-    else delete next[k];
-    wb.set(sh, a, parseInput(raw));
+    const unbad = new Set(bad);
+    for (const { a, raw } of changes) {
+      const k = keyOf(sh, a);
+      if (raw.trim()) next[k] = raw.trim();
+      else delete next[k];
+      wb.set(sh, a, parseInput(raw));
+      unbad.delete(k);
+    }
+    latest.current.entries = next;
+    setBad(unbad);
     setEntries(next);
     setVer((v) => v + 1);
     save({ entries: next });
-    return next;
   };
 
   const complete = (s: WalkStep, first: boolean, note = "Correct.") => {
@@ -239,48 +235,81 @@ export function GuidedWorkbook({
     setFirstTry(f);
     setMsg({ tone: "ok", text: note });
     save({ completed: c, firstTry: f });
-    const nextIdx = steps.findIndex((x, i) => i > idx && !c.has(x.id));
-    if (nextIdx >= 0) setTimeout(() => setIdx(nextIdx), 700);
+    const at = steps.findIndex((x) => x.id === s.id);
+    const nextIdx = steps.findIndex((x, i) => i > at && !c.has(x.id));
+    // Move the panel on, unless the student already selected another answer cell.
+    if (nextIdx >= 0)
+      setTimeout(() => {
+        const here = stepIndexAt(s.sheet, selRef.current);
+        if (here < 0 || here === at) {
+          setIdx(nextIdx);
+          setMsg(null);
+          setHint(false);
+          setShowMe(false);
+        }
+      }, 700);
   };
 
   const wrong = (s: WalkStep, got: Scalar) => {
     const n = (tries[s.id] ?? 0) + 1;
     setTries({ ...tries, [s.id]: n });
+    setBad((b) => new Set(b).add(keyOf(s.sheet, s.cell)));
     if (n >= 2 && s.expectedValue !== null && s.expectedValue !== undefined) {
       setMsg({ tone: "warn", text: `Your result: ${fmt(got, s.numberFormat)}. Expected about ${fmt(s.expectedValue as Scalar, s.numberFormat)}.` });
     } else setMsg({ tone: "warn", text: "Not quite. Check the Uses list." });
   };
 
-  const check = () => {
+  /** Checks a grid answer step against what's in its cell. */
+  const checkGridStep = (s: WalkStep): CommitResult => {
+    if (!wb) return null;
+    const raw = rawFor(s.sheet, s.cell);
+    const at = steps.findIndex((x) => x.id === s.id);
+    if (at !== idx) {
+      setIdx(at);
+      resetPanel();
+    }
+    if (!raw.trim()) {
+      setMsg({ tone: "info", text: `Type your answer in ${s.cell}, then press Enter.` });
+      return null;
+    }
+    const first = !(tries[s.id] ?? 0) && !showMe;
+    const v = wb.get(s.sheet, s.cell);
+    if ((s.kind === "formula" || s.kind === "formula-text") && !raw.trim().startsWith("=")) {
+      if (matches(s, v)) {
+        setMsg({ tone: "info", text: "Right number. Now enter it as a formula that references the cells, so it updates when inputs change." });
+        return "bad";
+      }
+      wrong(s, v);
+      return "bad";
+    }
+    if (matches(s, v)) {
+      complete(s, first);
+      return "ok";
+    }
+    wrong(s, v);
+    return "bad";
+  };
+
+  const checkCurrent = () => {
     if (!wb || !step) return;
     const first = !(tries[step.id] ?? 0) && !showMe;
     if (step.kind === "choice") {
       if (!choice) return setMsg({ tone: "info", text: "Pick an answer first." });
-      commit(step.sheet, step.cell, choice);
+      writeCells(step.sheet, [{ a: step.cell, raw: choice }]);
       return String(choice).toLowerCase() === String(step.expectedValue).toLowerCase() ? complete(step, first) : wrong(step, choice);
     }
     if (step.kind === "text") {
       if (!text.trim()) return setMsg({ tone: "info", text: "Write your answer first." });
-      commit(step.sheet, step.cell, text);
+      writeCells(step.sheet, [{ a: step.cell, raw: text }]);
       setTextRevealed(true);
       return setMsg(null);
     }
-    // Commit whatever is in the formula bar for the step cell first.
-    const raw = sel === step.cell && sheet === step.sheet ? bar : rawFor(step.sheet, step.cell);
-    if (!raw.trim()) return setMsg({ tone: "info", text: "Type your answer in the highlighted cell (or the formula bar), then press Check." });
-    commit(step.sheet, step.cell, raw);
-    const v = wb.get(step.sheet, step.cell);
-    if (step.kind === "value") return matches(step, v) ? complete(step, first) : wrong(step, v);
-    if (!raw.trim().startsWith("=")) {
-      if (matches(step, v)) return setMsg({ tone: "info", text: "Right number. Now enter it as a formula that references the cells, so it updates when inputs change." });
-      return wrong(step, v);
-    }
-    return matches(step, v) ? complete(step, first) : wrong(step, v);
+    checkGridStep(step);
   };
 
   const sheetData = wb?.sheets.get(sheet);
   const stepsHere = useMemo(() => steps.filter((s) => s.sheet === sheet), [steps, sheet]);
-  const stepCells = useMemo(() => new Map(stepsHere.map((s) => [s.cell, s])), [stepsHere]);
+  const answerCells = useMemo(() => new Map(stepsHere.map((s) => [s.cell, { numberFormat: s.numberFormat, step: s }])), [stepsHere]);
   const refCells = useMemo(() => {
     const set = new Set<string>();
     for (const r of step?.references ?? []) if (r.sheet === sheet) for (const a of expand(r.ref)) set.add(a);
@@ -296,51 +325,42 @@ export function GuidedWorkbook({
         rows = Math.max(rows, p.row);
       }
     }
-    return { cols: Math.min(MAX_COLS, cols + 1), rows: Math.min(MAX_ROWS, rows + 2) };
+    return { cols: Math.min(MAX_COLS, Math.max(cols + 2, 10)), rows: Math.min(MAX_ROWS, Math.max(rows + 5, 30)) };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sheetData, stepsHere, ver]);
 
   const sheetNames = useMemo(() => {
     const all = wb ? [...wb.sheets.keys()] : sheetsOrder;
-    return [...sheetsOrder.filter((s) => all.includes(s)), ...all.filter((s) => !sheetsOrder.includes(s))];
+    const ordered = [...sheetsOrder.filter((s) => all.includes(s)), ...all.filter((s) => !sheetsOrder.includes(s))];
+    // The Instructions sheet is always the first tab.
+    return [...ordered.filter(isInstructions), ...ordered.filter((s) => !isInstructions(s))];
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wb, ver, sheetsOrder]);
 
-  const select = (a: string) => {
+  const editability = useCallback(
+    (a: string): Editability => {
+      const st = answerCells.get(a)?.step;
+      if (st) {
+        if (st.kind === "choice" || st.kind === "text") return { ok: false, reason: "Answer this one in the steps panel." };
+        return { ok: true };
+      }
+      if (baseCells.current.get(sheet)?.has(a)) return { ok: false, reason: "Inputs are locked here — change them in the downloaded workbook." };
+      return { ok: true };
+    },
+    [answerCells, sheet],
+  );
+
+  const onSelect = (a: string) => {
     setSel(a);
-    setBar(rawFor(sheet, a));
+    const i = stepIndexAt(sheet, a);
+    if (i >= 0) followStep(i);
   };
 
-  const onGridKey = (e: React.KeyboardEvent) => {
-    if (e.target !== gridRef.current) return;
-    const p = parseAddr(sel);
-    if (!p) return;
-    const move = (dc: number, dr: number) => {
-      e.preventDefault();
-      const a = addr(Math.max(1, p.col + dc), Math.max(1, p.row + dr));
-      select(a);
-      ensureVisible(a);
-    };
-    if (e.key === "ArrowRight" || e.key === "Tab") return move(1, 0);
-    if (e.key === "ArrowLeft") return move(-1, 0);
-    if (e.key === "ArrowDown") return move(0, 1);
-    if (e.key === "ArrowUp") return move(0, -1);
-    if (e.key === "Enter" || e.key === "F2") {
-      e.preventDefault();
-      barRef.current?.focus();
-      return;
-    }
-    if (e.key === "Delete" || e.key === "Backspace") {
-      e.preventDefault();
-      commit(sheet, sel, "");
-      setBar("");
-      return;
-    }
-    if (e.key.length === 1 && !e.metaKey && !e.ctrlKey) {
-      e.preventDefault();
-      setBar(e.key);
-      barRef.current?.focus();
-    }
+  const onCommit = (changes: { a: string; raw: string }[], opts?: { check?: string }): CommitResult => {
+    writeCells(sheet, changes);
+    const target = opts?.check ? answerCells.get(opts.check)?.step : undefined;
+    if (target && target.kind !== "choice" && target.kind !== "text") return checkGridStep(target);
+    return null;
   };
 
   const download = () => {
@@ -369,129 +389,75 @@ export function GuidedWorkbook({
   if (loadError) return <p className="text-sm text-danger">{loadError}</p>;
 
   const done = completed.size;
-  const widths = sheetData?.widths ?? [];
-  const colW = (c: number) => Math.min(c === 1 ? 230 : 160, Math.max(56, widths[c - 1] || (c === 1 ? 200 : 96)));
   const grouped = sheetsOrder.map((s) => ({ sheet: s, steps: steps.map((x, i) => ({ x, i })).filter(({ x }) => x.sheet === s) })).filter((g) => g.steps.length);
 
+  const sheetTabs = (
+    <div className="no-scrollbar flex shrink-0 gap-0.5 overflow-x-auto border-t border-border bg-surface-2 px-2 pt-1" role="tablist" aria-label="Sheets">
+      {sheetNames.map((s) => (
+        <button
+          key={s}
+          type="button"
+          role="tab"
+          aria-selected={s === sheet}
+          onClick={() => {
+            setSheet(s);
+            const first = steps.find((x) => x.sheet === s && !completed.has(x.id)) ?? steps.find((x) => x.sheet === s);
+            setSel(first?.cell ?? "A1");
+            if (first) followStep(steps.indexOf(first));
+          }}
+          className={cn("whitespace-nowrap rounded-t px-3 py-1.5 text-[12px]", s === sheet ? "bg-surface font-semibold text-accent shadow-[inset_0_-2px_0_var(--accent)]" : "text-ink-2 hover:bg-surface")}
+        >
+          {s}
+        </button>
+      ))}
+    </div>
+  );
+
   return (
-    <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_380px]">
+    <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
       {/* Spreadsheet */}
-      <div className="flex min-w-0 flex-col overflow-hidden rounded-[var(--radius-lg)] border border-border bg-surface">
-        <div className="flex items-center gap-2 border-b border-border px-2 py-1.5">
-          <span className="w-14 shrink-0 rounded border border-border bg-surface-2 px-1.5 py-1 text-center font-mono text-xs text-ink-2">{sel}</span>
-          <span className="font-mono text-xs italic text-ink-3">fx</span>
-          <input
-            ref={barRef}
-            value={bar}
-            onChange={(e) => setBar(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                commit(sheet, sel, bar);
-                if (step && sheet === step.sheet && sel === step.cell && step.kind !== "text" && step.kind !== "choice") setTimeout(check, 0);
-                gridRef.current?.focus();
-              } else if (e.key === "Escape") {
-                setBar(rawFor(sheet, sel));
-                gridRef.current?.focus();
-              }
+      <div className="h-[calc(100vh-220px)] min-h-[460px] min-w-0 flex-1">
+        {!wb ? (
+          <div className="flex h-full items-center justify-center rounded-[var(--radius-lg)] border border-border bg-surface text-sm text-ink-3">Loading the workbook…</div>
+        ) : isInstructions(sheet) ? (
+          <div className="flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] border border-border bg-surface">
+            <InstructionsView data={sheetData} />
+            {sheetTabs}
+          </div>
+        ) : (
+          <SpreadsheetGrid
+            sheetData={sheetData}
+            sheet={sheet}
+            sel={sel}
+            onSelect={onSelect}
+            value={(a) => wb.get(sheet, a)}
+            rawFor={(a) => rawFor(sheet, a)}
+            editability={editability}
+            answerCells={answerCells}
+            statusOf={(a) => {
+              const st = answerCells.get(a)?.step;
+              if (st && completed.has(st.id) && matches(st, wb.get(sheet, a))) return "ok";
+              return bad.has(keyOf(sheet, a)) ? "bad" : null;
             }}
-            aria-label={`Formula bar for ${sheet}!${sel}`}
-            spellCheck={false}
-            className="h-8 min-w-0 flex-1 rounded border border-border-strong bg-surface px-2 font-mono text-[13px] text-ink focus-visible:border-accent focus-visible:outline-none"
-            placeholder={step && sel === step.cell ? "Type = to start a formula, then press Enter" : ""}
+            refCells={refCells}
+            hoverCells={hover?.sheet === sheet ? hover.cells : null}
+            currentCell={step && step.sheet === sheet ? step.cell : null}
+            cellTitle={(a) => answerCells.get(a)?.step.instruction}
+            dims={dims}
+            onCommit={onCommit}
+            footer={sheetTabs}
           />
-        </div>
-        <div ref={gridRef} tabIndex={0} onKeyDown={onGridKey} className="relative max-h-[68vh] min-h-[420px] overflow-auto outline-none" aria-label="Spreadsheet">
-          {!wb ? (
-            <p className="p-6 text-sm text-ink-3">Loading the workbook…</p>
-          ) : (
-            <table className="border-separate border-spacing-0 font-mono text-[12px]" style={{ tableLayout: "fixed", width: 40 + Array.from({ length: dims.cols }, (_, i) => colW(i + 1)).reduce((a, b) => a + b, 0) }}>
-              <colgroup>
-                <col style={{ width: 40 }} />
-                {Array.from({ length: dims.cols }, (_, i) => (
-                  <col key={i} style={{ width: colW(i + 1) }} />
-                ))}
-              </colgroup>
-              <thead>
-                <tr>
-                  <th className="sticky left-0 top-0 z-20 border-b border-r border-border bg-surface-2" />
-                  {Array.from({ length: dims.cols }, (_, i) => (
-                    <th key={i} className="sticky top-0 z-10 border-b border-r border-border bg-surface-2 px-1 py-0.5 text-center font-sans text-[11px] font-medium text-ink-3">
-                      {addr(i + 1, 1).replace(/\d+$/, "")}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {Array.from({ length: dims.rows }, (_, r) => (
-                  <tr key={r}>
-                    <th className="sticky left-0 z-10 border-b border-r border-border bg-surface-2 px-1 text-right font-sans text-[11px] font-medium text-ink-3">{r + 1}</th>
-                    {Array.from({ length: dims.cols }, (_, c) => {
-                      const a = addr(c + 1, r + 1);
-                      const cd = sheetData?.cells[a];
-                      const v = wb.get(sheet, a);
-                      const st = stepCells.get(a);
-                      const isCurrent = step && step.sheet === sheet && step.cell === a;
-                      const isRef = refCells.has(a);
-                      const isHover = hover?.sheet === sheet && hover.cells.has(a);
-                      const isInput = !st && cd && !cd.f && typeof cd.v === "number";
-                      const shown = fmt(v, cd?.z ?? (st ? st.numberFormat : undefined));
-                      // Text spills into the next cell when it's empty, like Excel.
-                      const right = addr(c + 2, r + 1);
-                      const spill = typeof v === "string" && !sheetData?.cells[right] && !stepCells.has(right);
-                      return (
-                        <td
-                          key={c}
-                          id={`gc-${a}`}
-                          onClick={() => select(a)}
-                          onDoubleClick={() => {
-                            select(a);
-                            barRef.current?.focus();
-                          }}
-                          title={cd?.f ?? (st ? st.instruction : undefined)}
-                          className={cn(
-                            "h-6 cursor-cell whitespace-nowrap border-b border-r border-divider px-1.5",
-                            spill ? "relative overflow-visible" : "overflow-hidden",
-                            typeof v === "number" ? "text-right" : "text-left",
-                            isInput ? "text-info" : "text-ink",
-                            st && !completed.has(st.id) && "bg-warn-bg",
-                            isRef && "bg-accent-tint",
-                            isHover && "bg-accent/20",
-                            sel === a && "outline outline-2 -outline-offset-2 outline-ink-3",
-                            isCurrent && "outline outline-[3px] -outline-offset-[3px] outline-accent",
-                            isErr(v) && "text-danger",
-                          )}
-                        >
-                          {spill ? <span className="pointer-events-none relative z-[1]">{shown}</span> : shown}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
-        <div className="flex gap-0.5 overflow-x-auto border-t border-border bg-surface-2 px-2 pt-1">
-          {sheetNames.map((s) => (
-            <button
-              key={s}
-              type="button"
-              onClick={() => {
-                setSheet(s);
-                setSel("A1");
-                setBar(rawFor(s, "A1"));
-              }}
-              className={cn("whitespace-nowrap rounded-t px-3 py-1.5 text-[12px]", s === sheet ? "bg-surface font-semibold text-accent shadow-[inset_0_-2px_0_var(--accent)]" : "text-ink-2 hover:bg-surface")}
-            >
-              {s}
-            </button>
-          ))}
-        </div>
+        )}
       </div>
 
-      {/* Step panel */}
-      <div className="space-y-3">
+      {/* Step panel (right-hand drawer) */}
+      {panelOpen ? (
+      <div className="w-full shrink-0 space-y-3 lg:w-[360px]">
+        <div className="flex justify-end">
+          <Button size="sm" variant="ghost" onClick={() => setPanelOpen(false)} aria-label="Collapse steps panel">
+            <PanelRightClose className="size-4" /> Hide steps
+          </Button>
+        </div>
         <div className="rounded-[var(--radius-lg)] border border-border bg-surface p-4">
           <div className="flex items-center justify-between gap-2 text-[13px] text-ink-3">
             <span>
@@ -527,7 +493,6 @@ export function GuidedWorkbook({
                         onBlur={() => setHover(null)}
                         onClick={() => {
                           if (r.sheet !== sheet) setSheet(r.sheet);
-                          ensureVisible(expand(r.ref)[0]);
                         }}
                         className="rounded border border-border bg-accent-tint px-2 py-1 text-left text-xs text-ink hover:border-accent"
                       >
@@ -571,18 +536,18 @@ export function GuidedWorkbook({
                   ) : null}
                 </div>
               ) : (
-                <p className="text-[13px] text-ink-3">Type in the highlighted cell {step.cell} (or the formula bar), then press Enter or Check.</p>
+                <p className="text-[13px] text-ink-3">Type in cell {step.cell} (or the formula bar) and press Enter. It checks automatically.</p>
               )}
 
               {msg ? <p className={cn("rounded-[var(--radius)] px-3 py-2 text-[13px]", msg.tone === "ok" ? "bg-success-bg text-success" : msg.tone === "warn" ? "bg-warn-bg text-warn" : "bg-surface-2 text-ink-2")}>{msg.text}</p> : null}
 
               <div className="flex flex-wrap gap-2">
                 {!(step.kind === "text" && textRevealed) ? (
-                  <Button size="sm" variant="primary" onClick={check}>
+                  <Button size="sm" variant="primary" onClick={() => checkCurrent()}>
                     Check
                   </Button>
                 ) : null}
-                <Button size="sm" variant="secondary" onClick={() => setIdx(Math.min(steps.length - 1, idx + 1))} disabled={idx >= steps.length - 1}>
+                <Button size="sm" variant="secondary" onClick={() => goToStep(Math.min(steps.length - 1, idx + 1))} disabled={idx >= steps.length - 1}>
                   Skip
                 </Button>
                 {step.hint ? (
@@ -604,10 +569,10 @@ export function GuidedWorkbook({
                 </div>
               ) : null}
               <div className="flex items-center justify-between border-t border-divider pt-2">
-                <Button size="sm" variant="ghost" disabled={idx === 0} onClick={() => setIdx(idx - 1)}>
+                <Button size="sm" variant="ghost" disabled={idx === 0} onClick={() => goToStep(idx - 1)}>
                   <ChevronLeft className="size-4" /> Previous
                 </Button>
-                <Button size="sm" variant="ghost" disabled={idx >= steps.length - 1} onClick={() => setIdx(idx + 1)}>
+                <Button size="sm" variant="ghost" disabled={idx >= steps.length - 1} onClick={() => goToStep(idx + 1)}>
                   Next <ChevronRight className="size-4" />
                 </Button>
               </div>
@@ -635,7 +600,7 @@ export function GuidedWorkbook({
                     <button
                       key={x.id}
                       type="button"
-                      onClick={() => setIdx(i)}
+                      onClick={() => goToStep(i)}
                       className={cn("flex w-full items-center gap-2 rounded px-2 py-1 text-left text-[13px] hover:bg-surface-2", i === idx && "bg-accent-tint")}
                     >
                       <span className={cn("size-2 shrink-0 rounded-full", completed.has(x.id) ? "bg-success" : "bg-border-strong")} aria-hidden />
@@ -660,6 +625,51 @@ export function GuidedWorkbook({
           ))}
         </div>
         <p className="text-xs text-ink-3">{title}. Progress saves as you go.</p>
+      </div>
+      ) : (
+        <button
+          type="button"
+          onClick={() => setPanelOpen(true)}
+          aria-label="Show steps panel"
+          className="flex shrink-0 items-center gap-2 rounded-[var(--radius-lg)] border border-border bg-surface px-2 py-3 text-xs font-semibold text-ink-2 hover:text-ink lg:w-10 lg:flex-col"
+        >
+          <PanelRightOpen className="size-4" />
+          <span className="lg:[writing-mode:vertical-rl]">Steps · {completed.size}/{steps.length}</span>
+        </button>
+      )}
+    </div>
+  );
+}
+
+/** The Instructions sheet as readable text: the steps and the color legend. */
+function InstructionsView({ data }: { data: ReturnType<Workbook["sheets"]["get"]> }) {
+  const rows = new Map<number, string[]>();
+  for (const [a, c] of Object.entries(data?.cells ?? {})) {
+    const p = parseAddr(a);
+    if (!p || c.v === null || c.v === undefined || c.v === "") continue;
+    const list = rows.get(p.row) ?? [];
+    list[p.col - 1] = String(c.v);
+    rows.set(p.row, list);
+  }
+  const lines = [...rows.entries()].sort((x, y) => x[0] - y[0]).map(([, cols]) => cols.filter(Boolean).join(" — "));
+  return (
+    <div className="min-h-0 flex-1 overflow-y-auto p-6">
+      <div className="max-w-2xl space-y-2 text-sm leading-relaxed text-ink">
+        {lines.map((l, i) => (i === 0 ? <h2 key={i} className="section-title">{l}</h2> : <p key={i}>{l}</p>))}
+      </div>
+      <div className="mt-6 max-w-2xl rounded-[var(--radius)] border border-border p-4 text-[13px]">
+        <p className="mb-2 font-semibold text-ink">Color legend</p>
+        <ul className="space-y-1.5 text-ink-2">
+          <li className="flex items-center gap-2">
+            <span className="w-14 rounded border border-border px-1.5 text-right font-medium text-info">1,000</span> Blue: inputs (locked here)
+          </li>
+          <li className="flex items-center gap-2">
+            <span className="w-14 rounded border border-border px-1.5 text-right text-ink">751.31</span> Black: formulas
+          </li>
+          <li className="flex items-center gap-2">
+            <span className="w-14 rounded border border-border bg-cell-answer px-1.5 text-right text-ink">&nbsp;</span> Yellow: your answer cells
+          </li>
+        </ul>
       </div>
     </div>
   );

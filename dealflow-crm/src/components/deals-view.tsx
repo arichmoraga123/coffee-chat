@@ -11,6 +11,7 @@ import { useCareerTracks } from "@/components/career-track-provider";
 import { matchesCareerTracks } from "@/lib/career-tracks";
 import { DealDetailPanel } from "@/components/deal-detail-panel";
 import { Select } from "@/components/ui/select";
+import { SectionTabs } from "@/components/ui/section-tabs";
 
 type Deal = {
   id: string;
@@ -116,6 +117,7 @@ export function DealsView({
           deal&rdquo; or turn it into a stock pitch.
         </p>
       </div>
+      <SectionTabs className="mt-5 mb-6" />
 
       <div className="flex flex-wrap gap-2 border-b border-border pb-3">
         <Button

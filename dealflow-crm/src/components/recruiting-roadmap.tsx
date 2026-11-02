@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { SectionTabs } from "@/components/ui/section-tabs";
 
 type ClassYear = "freshman" | "sophomore" | "junior";
 
@@ -183,6 +184,7 @@ export function RecruitingRoadmap() {
         <h1 className="page-title">Recruiting roadmap</h1>
         <p className="mt-1 text-sm text-ink-2">What to do, and when, to land a junior-summer investment banking internship.</p>
       </div>
+      <SectionTabs className="mt-5 mb-6" />
 
       <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Class year">
         {(

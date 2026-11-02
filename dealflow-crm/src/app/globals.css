@@ -23,6 +23,8 @@
   --warn-bg: #fdf3dd;
   --info: #1d4ed8;
   --info-bg: #e8eefd;
+  /* Guided spreadsheet: answer cells */
+  --cell-answer: #fff4bf;
   --radius-sm: 6px;
   --radius: 8px;
   --radius-lg: 10px;
@@ -52,6 +54,7 @@
   --warn-bg: #2b2414;
   --info: #7da2f5;
   --info-bg: #19213a;
+  --cell-answer: #3a2f12;
   color-scheme: dark;
 }
 
@@ -77,6 +80,7 @@
   --color-warn-bg: var(--warn-bg);
   --color-info: var(--info);
   --color-info-bg: var(--info-bg);
+  --color-cell-answer: var(--cell-answer);
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
@@ -157,5 +161,13 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .skeleton-shimmer::after {
     animation: none;
+  }
+}
+
+/* Horizontal scrollers that should never show a scrollbar (tab rows, board edges). */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
   }
 }

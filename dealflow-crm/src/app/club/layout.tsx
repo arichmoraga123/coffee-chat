@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { resolveClubIdForUser } from "@/lib/club-server";
 import { SubscriptionBanner } from "@/components/subscription-banner";
 import { PageHeader } from "@/components/ui/page-header";
+import { SectionTabs } from "@/components/ui/section-tabs";
 import { canPost } from "@/lib/club-publish";
 import { lessonOptions } from "@/lib/club-view";
 import { PostToClubButton } from "@/components/club/publish-dialog";
@@ -35,7 +36,7 @@ export default async function ClubLayout({ children }: { children: React.ReactNo
   return (
     <div className="space-y-6">
       {userId ? <SubscriptionBanner userId={userId} /> : null}
-      {header}
+      {header ?? <SectionTabs />}
       {children}
     </div>
   );

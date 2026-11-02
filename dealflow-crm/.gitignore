@@ -50,3 +50,7 @@ next-env.d.ts
 
 # Club roster and other student personal data — never commit
 /content/private/
+
+# Playwright
+/test-results/
+/playwright-report/

@@ -16,6 +16,7 @@ import { gradeAnswerByKeywords, type KeywordGradeResult } from "@/lib/answer-gra
 import { PracticeModal } from "@/components/practice-modal";
 import { getRelevantCategories, getTrackLearningPath } from "@/lib/track-utils";
 import { Select } from "@/components/ui/select";
+import { SectionTabs } from "@/components/ui/section-tabs";
 
 export type QuestionDTO = {
   id: string;
@@ -468,6 +469,7 @@ export function QuestionsBank({
             />
           </div>
         </div>
+        <SectionTabs className="mb-6" />
 
         <Card className="p-4">
           {learningPath.length > 0 ? (

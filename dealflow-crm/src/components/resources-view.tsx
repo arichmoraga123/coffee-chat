@@ -13,6 +13,7 @@ import { EmailTemplatesTab } from "@/components/email-templates-tab";
 import { useCareerTracks } from "@/components/career-track-provider";
 import { RESOURCE_TRACK_BUCKETS, matchesCareerTracks } from "@/lib/career-tracks";
 import { getRelevantResources } from "@/lib/track-utils";
+import { SectionTabs } from "@/components/ui/section-tabs";
 
 export function ResourcesView({ initialBookmarkSlugs }: { initialBookmarkSlugs: string[] }) {
   const router = useRouter();
@@ -77,6 +78,7 @@ export function ResourcesView({ initialBookmarkSlugs }: { initialBookmarkSlugs: 
           Curated links across career tracks. Use the sidebar career filter to narrow further.
         </p>
       </div>
+      <SectionTabs className="mt-5 mb-6" />
 
       <div className="flex flex-wrap gap-2 border-b border-border pb-2">
         <Button

@@ -38,7 +38,7 @@ export default async function MemberProfilePage({ params }: { params: Promise<{ 
 
   return (
     <div className="space-y-6">
-      <PageHeader
+      <PageHeader sectionTabs={false}
         crumbs={[{ label: "Members", href: "/club/pe-broad/members" }, { label: p.name }]}
         title={
           <span className="flex items-center gap-3">

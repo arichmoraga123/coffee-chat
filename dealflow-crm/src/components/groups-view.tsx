@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { SectionTabs } from "@/components/ui/section-tabs";
 
 type G = { id: string; name: string; role: string; memberCount: number };
 
@@ -42,6 +43,7 @@ export function GroupsView() {
           <span className="text-success">SHARED</span> inside the group only · invite by email (must already have an account)
         </p>
       </div>
+      <SectionTabs className="mt-5 mb-6" />
       <div className="flex flex-wrap gap-2 rounded-lg border border-border bg-surface p-4">
         <Input placeholder="New group name" value={name} onChange={(e) => setName(e.target.value)} className="max-w-xs" />
         <Button variant="primary" size="sm" onClick={() => void create()}>

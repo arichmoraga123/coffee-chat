@@ -2,14 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { signOut, useSession } from "next-auth/react";
-import { LogOut, MoreHorizontal, Search, X } from "lucide-react";
+import { LogOut, MoreHorizontal, PanelLeftClose, PanelLeftOpen, Search, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { NotificationBell } from "@/components/notifications/notification-bell";
 import { Avatar } from "@/components/ui/avatar";
 import { CountPill } from "@/components/ui/badge";
-import { Tabs } from "@/components/ui/tabs";
 import { CommandPalette } from "@/components/nav/command-palette";
 import { subscribeToUnread } from "@/lib/realtime";
 import {
@@ -19,12 +18,40 @@ import {
   SETTINGS,
   activeHref,
   pathMatches,
-  sectionTabsFor,
   type NavGroup,
   type NavItem,
 } from "@/components/nav/nav-config";
 
-type NavCounts = { name: string; role: string; clubMember: boolean; clubRole: string | null; dailyLeft: number; mentorOpen: number; unread: number; pendingChallenges: number; tasksDue: number; notificationsUnread: number };
+type NavCounts = { name: string; role: string; clubMember: boolean; clubRole: string | null; dailyLeft: number; mentorOpen: number; unread: number; pendingChallenges: number; tasksDue: number; notificationsUnread: number; sidebarCollapsed?: boolean | null };
+
+const SIDEBAR_KEY = "prospect:sidebar-collapsed";
+const MID_WIDTH = "(min-width: 1024px) and (max-width: 1279px)";
+
+/** Pages that open with the sidebar collapsed (they need the width). */
+function routeWantsCollapsed(pathname: string) {
+  return pathname === "/pipeline" || /^\/learn\/workbooks\/[^/]+\/guided/.test(pathname);
+}
+
+function readStoredPref(): boolean | null {
+  try {
+    const v = localStorage.getItem(SIDEBAR_KEY);
+    return v === "1" ? true : v === "0" ? false : null;
+  } catch {
+    return null;
+  }
+}
+
+function useMediaQuery(query: string) {
+  return useSyncExternalStore(
+    (cb) => {
+      const mq = window.matchMedia(query);
+      mq.addEventListener("change", cb);
+      return () => mq.removeEventListener("change", cb);
+    },
+    () => window.matchMedia(query).matches,
+    () => false,
+  );
+}
 
 const ROLE_LABEL: Record<string, string> = { ADMIN: "Admin", MENTOR: "Mentor", USER: "Member" };
 
@@ -43,6 +70,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const [counts, setCounts] = useState<NavCounts | null>(null);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
+  // Sidebar: the user's saved choice, a per-page override on pages that open collapsed, and the width default.
+  const [pref, setPref] = useState<boolean | null>(null);
+  const [pageOverride, setPageOverride] = useState<{ path: string; collapsed: boolean } | null>(null);
+  const midWidth = useMediaQuery(MID_WIDTH);
+  const [tip, setTip] = useState<{ label: string; top: number; left: number } | null>(null);
 
   const isAuthPage = pathname === "/login" || pathname === "/signup";
   const isPublicPage = pathname === "/" || pathname === "/pricing" || pathname.startsWith("/join");
@@ -53,12 +85,51 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const groups = useMemo(() => visibleGroups(counts, role), [counts, role]);
   const allItems = useMemo(() => [HOME, SETTINGS, ...groups.flatMap((g) => g.items)], [groups]);
   const active = activeHref(pathname, allItems);
-  const tabs = bare ? null : sectionTabsFor(pathname);
+
+  const routeCollapsed = routeWantsCollapsed(pathname);
+  const collapsed =
+    pageOverride?.path === pathname ? pageOverride.collapsed : routeCollapsed ? true : (pref ?? midWidth);
+
+  const toggleSidebar = useCallback(() => {
+    const next = !collapsed;
+    if (routeCollapsed) {
+      setPageOverride({ path: pathname, collapsed: next });
+      return;
+    }
+    setPref(next);
+    try {
+      localStorage.setItem(SIDEBAR_KEY, next ? "1" : "0");
+    } catch {
+      /* storage unavailable */
+    }
+    void fetch("/api/user/ui-prefs", {
+      method: "PATCH",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ sidebarCollapsed: next }),
+    }).catch(() => {});
+  }, [collapsed, routeCollapsed, pathname]);
+
+  useEffect(() => {
+    const stored = readStoredPref();
+    if (stored !== null) setPref(stored);
+  }, []);
 
   const refreshCounts = useCallback(async () => {
     try {
       const res = await fetch("/api/nav");
-      if (res.ok) setCounts((await res.json()) as NavCounts);
+      if (res.ok) {
+        const data = (await res.json()) as NavCounts;
+        setCounts(data);
+        // The saved setting wins over this browser's copy.
+        if (typeof data.sidebarCollapsed === "boolean") {
+          setPref(data.sidebarCollapsed);
+          try {
+            localStorage.setItem(SIDEBAR_KEY, data.sidebarCollapsed ? "1" : "0");
+          } catch {
+            /* storage unavailable */
+          }
+        }
+      }
     } catch {
       /* offline */
     }
@@ -80,7 +151,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     void fetch("/api/user/ping", { method: "POST" }).catch(() => {});
   }, [bare, pathname, session?.user]);
 
-  useEffect(() => setMoreOpen(false), [pathname]);
+  useEffect(() => {
+    setMoreOpen(false);
+    setTip(null);
+  }, [pathname]);
 
   // ⌘K / Ctrl+K opens search. C / I / T are the existing quick-add shortcuts.
   useEffect(() => {
@@ -89,6 +163,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
         setPaletteOpen((o) => !o);
+        return;
+      }
+      if ((e.metaKey || e.ctrlKey) && e.key === "\\") {
+        e.preventDefault();
+        window.dispatchEvent(new CustomEvent("prospect-toggle-sidebar"));
         return;
       }
       const t = e.target as HTMLElement | null;
@@ -101,9 +180,23 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [bare]);
 
+  useEffect(() => {
+    const onToggle = () => toggleSidebar();
+    window.addEventListener("prospect-toggle-sidebar", onToggle);
+    return () => window.removeEventListener("prospect-toggle-sidebar", onToggle);
+  }, [toggleSidebar]);
+
   if (bare) {
     return <main className="min-h-screen bg-bg p-4 text-ink md:p-6">{children}</main>;
   }
+
+  const tipHandlers = (label: string) => {
+    const show = (e: React.SyntheticEvent<HTMLElement>) => {
+      const r = e.currentTarget.getBoundingClientRect();
+      setTip({ label, top: r.top + r.height / 2, left: r.right + 8 });
+    };
+    return { onMouseEnter: show, onFocus: show, onMouseLeave: () => setTip(null), onBlur: () => setTip(null) };
+  };
 
   const countFor = (it: NavItem) => (it.count && counts ? counts[it.count] : 0);
 
@@ -116,17 +209,20 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         key={`${it.href}-${it.label}`}
         href={it.href}
         onClick={opts?.onClick}
-        title={opts?.compact ? it.label : undefined}
+        {...(opts?.compact ? tipHandlers(n > 0 ? `${it.label} · ${n}` : it.label) : {})}
         aria-current={isActive ? "page" : undefined}
         className={cn(
-          "flex h-11 items-center gap-2.5 rounded-[var(--radius)] px-2.5 text-sm transition-colors md:h-9",
+          "group relative flex h-11 items-center gap-2.5 rounded-[var(--radius)] px-2.5 text-sm transition-colors md:h-9",
           opts?.compact && "justify-center px-0",
           isActive ? "bg-accent-tint font-semibold text-accent" : "text-ink-2 hover:bg-surface-2 hover:text-ink",
         )}
       >
         <Icon className="h-4 w-4 shrink-0" aria-hidden />
         {opts?.compact ? (
-          <span className="sr-only">{it.label}</span>
+          <>
+            <span className="sr-only">{it.label}</span>
+            {n > 0 ? <span className="absolute right-2 top-1.5 h-2 w-2 rounded-full bg-accent ring-2 ring-surface" aria-hidden /> : null}
+          </>
         ) : (
           <>
             <span className="min-w-0 flex-1 truncate">{it.label}</span>
@@ -158,6 +254,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         compact ? "justify-center" : "px-2.5",
       )}
       aria-label="Search (Command K)"
+      {...(compact ? tipHandlers("Search · ⌘K") : {})}
     >
       <Search className="h-4 w-4 shrink-0" aria-hidden />
       {compact ? null : (
@@ -197,8 +294,21 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   const bell = (align: "left" | "right") => <NotificationBell unread={counts?.notificationsUnread ?? 0} onChange={() => void refreshCounts()} align={align} />;
 
-  const brand = (compact: boolean) => (
+  const toggleButton = (
+    <button
+      type="button"
+      onClick={toggleSidebar}
+      aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+      title={`${collapsed ? "Expand" : "Collapse"} sidebar (Ctrl/⌘ + \\)`}
+      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--radius)] text-ink-3 hover:bg-surface-2 hover:text-ink"
+    >
+      {collapsed ? <PanelLeftOpen className="h-4 w-4" aria-hidden /> : <PanelLeftClose className="h-4 w-4" aria-hidden />}
+    </button>
+  );
+
+  const brand = (compact: boolean, withToggle = false) => (
     <div className={cn("mb-4 flex items-center gap-1", compact ? "flex-col" : "justify-between")}>
+    {withToggle && compact ? toggleButton : null}
     <Link href="/dashboard" className={cn("flex min-w-0 items-center gap-2.5", compact && "justify-center")}>
       <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--radius)] bg-accent text-sm font-bold text-on-accent">P</span>
       {compact ? null : (
@@ -208,7 +318,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </span>
       )}
     </Link>
-    {bell("left")}
+    <div className={cn("flex items-center", compact && "flex-col")}>
+      {bell("left")}
+      {withToggle && !compact ? toggleButton : null}
+    </div>
     </div>
   );
 
@@ -217,13 +330,18 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen bg-bg text-ink">
       {/* Desktop sidebar (≥1024px) */}
-      <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col border-r border-border bg-surface px-3 py-4 lg:flex">
-        {brand(false)}
-        {searchButton(false)}
+      <aside
+        className={cn(
+          "sticky top-0 z-40 hidden h-screen shrink-0 flex-col border-r border-border bg-surface py-4 transition-[width] duration-150 ease-out lg:flex",
+          collapsed ? "w-16 px-2" : "w-60 px-3",
+        )}
+      >
+        {brand(collapsed, true)}
+        {searchButton(collapsed)}
         <nav aria-label="Main" className="mt-4 min-h-0 flex-1 overflow-y-auto">
-          {navBody(false)}
+          {navBody(collapsed)}
         </nav>
-        {footer(false)}
+        {footer(collapsed)}
       </aside>
 
       {/* Tablet icon rail (768–1023px) */}
@@ -256,8 +374,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
         </header>
 
-        <main className="mx-auto w-full min-w-0 max-w-[1200px] flex-1 space-y-6 px-4 pb-24 pt-4 md:px-8 md:pb-10 md:pt-8 lg:px-10">
-          {tabs ? <Tabs items={tabs.map((t) => ({ href: t.href, label: t.label, active: t.active }))} /> : null}
+        <main
+          className={cn(
+            "mx-auto w-full min-w-0 flex-1 space-y-6 px-4 pb-24 pt-4 md:px-8 md:pb-10 md:pt-8",
+            // Wide working pages (guided spreadsheet, pipeline board) use the full width.
+            routeCollapsed ? "max-w-none lg:px-6" : "max-w-[1200px] lg:px-10",
+          )}
+        >
           {children}
         </main>
       </div>
@@ -313,6 +436,16 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             {navBody(false, () => setMoreOpen(false))}
             {footer(false)}
           </div>
+        </div>
+      ) : null}
+
+      {tip ? (
+        <div
+          role="tooltip"
+          className="pointer-events-none fixed z-[60] -translate-y-1/2 whitespace-nowrap rounded-[var(--radius-sm)] bg-ink px-2 py-1 text-xs font-medium text-bg shadow"
+          style={{ top: tip.top, left: tip.left }}
+        >
+          {tip.label}
         </div>
       ) : null}
 

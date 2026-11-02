@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ProgramTracker } from "@/components/program-tracker";
 import { RecruitingSeasonCalendarView } from "@/components/recruiting-season-calendar-view";
+import { SectionTabs } from "@/components/ui/section-tabs";
 
 export function RecruitingCalendarTabs() {
   const [tab, setTab] = useState<"programs" | "calendar">("programs");
@@ -15,6 +16,7 @@ export function RecruitingCalendarTabs() {
           Every Summer 2028 program with open/close dates, plus a month calendar of key recruiting events.
         </p>
       </div>
+      <SectionTabs className="mt-5 mb-6" />
       <div className="flex gap-2 border-b border-border pb-3">
         <Button size="sm" variant={tab === "programs" ? "default" : "outline"} onClick={() => setTab("programs")}>
           2028 programs

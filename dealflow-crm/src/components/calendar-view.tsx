@@ -19,6 +19,7 @@ import { Modal } from "@/components/ui/modal";
 import { cn } from "@/lib/utils";
 import { RecruitingCalendarSidebar, type RecruitingSidebarEvent } from "@/components/recruiting-calendar-sidebar";
 import { Select } from "@/components/ui/select";
+import { SectionTabs } from "@/components/ui/section-tabs";
 
 type RecruitingEventDTO = {
   id: string;
@@ -198,6 +199,7 @@ export function CalendarView({
             </Button>
           </div>
         </div>
+        <SectionTabs className="mt-5 mb-6" />
 
         <Card className="border-border bg-surface p-3">
           <div className="grid grid-cols-7 gap-1 text-center text-[10px] font-semibold uppercase text-ink-3">

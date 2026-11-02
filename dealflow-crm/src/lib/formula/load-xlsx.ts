@@ -7,6 +7,7 @@ export function sheetsFromXlsx(data: ArrayBuffer | Uint8Array): SheetData[] {
   return wb.SheetNames.map((name) => {
     const ws = wb.Sheets[name];
     const cells: Record<string, CellData> = {};
+    const wrap: string[] = [];
     let cols = 1;
     let rows = 1;
     for (const key of Object.keys(ws)) {
@@ -22,12 +23,15 @@ export function sheetsFromXlsx(data: ArrayBuffer | Uint8Array): SheetData[] {
       else if (c.t === "e") d.v = null;
       if (c.z && typeof c.z === "string" && c.z !== "General") d.z = c.z;
       if (d.f === undefined && (d.v === undefined || d.v === "")) continue;
+      if ((c.s as { alignment?: { wrapText?: boolean } } | undefined)?.alignment?.wrapText) wrap.push(addr(p.col, p.row));
       cells[addr(p.col, p.row)] = d;
       cols = Math.max(cols, p.col);
       rows = Math.max(rows, p.row);
     }
-    const widths = (ws["!cols"] ?? []).map((c) => (c?.wpx ? Math.round(c.wpx) : c?.wch ? Math.round(c.wch * 7 + 10) : 0));
-    return { name, cells, cols, rows, widths };
+    const widths = (ws["!cols"] ?? []).map((c) => (c?.wpx ? Math.round(c.wpx) : c?.wch ? Math.round(c.wch * 7 + 10) : c?.width ? Math.round(c.width * 7 + 5) : 0));
+    const heights = (ws["!rows"] ?? []).map((r) => (r?.hpx ? Math.round(r.hpx) : r?.hpt ? Math.round((r.hpt * 4) / 3) : 0));
+    const merges = (ws["!merges"] ?? []).map((m) => ({ c1: m.s.c + 1, r1: m.s.r + 1, c2: m.e.c + 1, r2: m.e.r + 1 }));
+    return { name, cells, cols, rows, widths, heights, merges, wrap };
   });
 }
 

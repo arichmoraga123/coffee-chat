@@ -25,7 +25,7 @@ export default async function ClubProjectPage({ params }: { params: Promise<{ id
   const fmt = (d: Date) => d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
   return (
     <div className="space-y-5">
-      <PageHeader
+      <PageHeader sectionTabs={false}
         crumbs={[{ label: "Projects", href: "/club/projects" }, { label: p.title }]}
         title={p.title}
         subtitle={`${PROJECT_STATUS[p.status] ?? p.status}${p.dueDate ? ` · Due ${fmt(p.dueDate)}` : ""}${p.archivedAt ? " · Archived" : ""}`}

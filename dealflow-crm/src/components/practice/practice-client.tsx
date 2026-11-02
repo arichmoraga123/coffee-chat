@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PageHeader } from "@/components/ui/page-header";
 import { SegmentedControl } from "@/components/ui/segmented-control";
-import { Select } from "@/components/ui/select";
+import { SearchSelect } from "@/components/ui/search-select";
 import { StatTile } from "@/components/ui/stat-tile";
 import { DataTable, Td, Th } from "@/components/ui/data-table";
 import { QuestionMcqDeck } from "@/components/question-mcq-deck";
@@ -153,36 +153,40 @@ export function PracticeClient({
   );
 
   const controls = (
-    <div className="flex flex-wrap items-end gap-3">
-      <label className="space-y-1">
+    <div className="flex flex-wrap items-end gap-x-4 gap-y-3">
+      <div className="w-full min-w-0 space-y-1 sm:w-64">
         <span className="eyebrow block">Module</span>
-        <Select
+        <SearchSelect
+          ariaLabel="Module"
           value={mod}
-          onChange={(e) => {
-            setMod(e.target.value);
+          onChange={(v) => {
+            setMod(v || "all");
             setLesson("all");
           }}
-          className="w-56"
-        >
-          <option value="all">All modules</option>
-          {modules.map(([m, info]) => (
-            <option key={m} value={m}>
-              {m}. {info.title}
-            </option>
-          ))}
-        </Select>
-      </label>
-      <label className="space-y-1">
+          options={[
+            { value: "all", label: "All modules" },
+            ...modules.map(([m, info]) => ({ value: String(m), label: `${m}. ${info.title}`, keywords: `module ${m}` })),
+          ]}
+        />
+      </div>
+      <div className="w-full min-w-0 space-y-1 sm:w-72">
         <span className="eyebrow block">Lesson</span>
-        <Select value={lesson} onChange={(e) => setLesson(e.target.value)} className="w-56">
-          <option value="all">All lessons</option>
-          {lessonOptions.map((l) => (
-            <option key={l.id} value={l.id}>
-              {l.id.replace("-", ".")} {l.title}
-            </option>
-          ))}
-        </Select>
-      </label>
+        <SearchSelect
+          ariaLabel="Lesson"
+          value={lesson}
+          onChange={(v) => setLesson(v || "all")}
+          placeholder="Search by number or title"
+          options={[
+            { value: "all", label: "All lessons" },
+            ...lessonOptions.map((l) => ({
+              value: l.id,
+              label: `${l.id.replace("-", ".")} ${l.title}`,
+              sublabel: mod === "all" ? l.moduleTitle : undefined,
+              keywords: `${l.id.replace("-", ".")} ${l.id} ${l.title}`,
+            })),
+          ]}
+        />
+      </div>
       <div className="space-y-1">
         <span className="eyebrow block">Difficulty</span>
         <SegmentedControl<Difficulty>
@@ -281,15 +285,14 @@ export function PracticeClient({
       />
       <Card className="p-5">
         {controls}
-        <div className="mt-4 flex items-center gap-2 text-[13px] text-ink-3">
-          <span>Questions per session</span>
-          <Select value={size} onChange={(e) => setSize(Number(e.target.value))} className="h-8 w-20" aria-label="Questions per session">
-            {[5, 10, 20, 40].map((n) => (
-              <option key={n} value={n}>
-                {n}
-              </option>
-            ))}
-          </Select>
+        <div className="mt-4 space-y-1">
+          <span className="eyebrow block">Questions per session</span>
+          <SegmentedControl<string>
+            ariaLabel="Questions per session"
+            value={String(size)}
+            onChange={(v) => setSize(Number(v))}
+            options={[5, 10, 20, 30].map((n) => ({ value: String(n), label: String(n) }))}
+          />
         </div>
       </Card>
 

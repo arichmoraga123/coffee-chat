@@ -9,6 +9,7 @@ import { Modal } from "@/components/ui/modal";
 import { cn } from "@/lib/utils";
 import { ConsultingCaseLibrary } from "@/components/consulting-case-library";
 import { Select } from "@/components/ui/select";
+import { SectionTabs } from "@/components/ui/section-tabs";
 
 export type CaseDTO = {
   id: string;
@@ -253,6 +254,7 @@ export function CasesView() {
             <h1 className="page-title">Consulting case library</h1>
             <p className="mt-1 text-sm text-ink-3">Seeded scenarios for profitability, market entry, M&amp;A, pricing, and operations.</p>
           </div>
+          <SectionTabs className="mt-5 mb-6" />
           <ConsultingCaseLibrary />
         </>
       ) : null}
@@ -264,6 +266,7 @@ export function CasesView() {
           <h1 className="page-title">Case competitions</h1>
           <p className="mt-1 text-sm text-ink-3">Track cases, outcomes, and AI-generated resume bullets.</p>
         </div>
+        <SectionTabs className="mt-5 mb-6" />
         <Button variant="primary" type="button" onClick={openNew}>
           Add case
         </Button>

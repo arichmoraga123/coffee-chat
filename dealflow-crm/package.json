@@ -22,7 +22,9 @@
     "repair-dates": "npx tsx scripts/repair-imported-dates.ts",
     "test-walkthroughs": "npx tsx scripts/test-walkthroughs.ts",
     "test-resume-format": "npx tsx scripts/test-resume-format.ts",
-    "test-resume-grader": "npx tsx scripts/test-resume-grader.ts"
+    "test-resume-grader": "npx tsx scripts/test-resume-grader.ts",
+    "test:e2e": "playwright test",
+    "test-formula-refs": "npx tsx scripts/test-formula-refs.ts"
   },
   "prisma": {
     "seed": "npx tsx prisma/seed.ts"
@@ -73,6 +75,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4",
     "@types/katex": "^0.16.8",
     "@types/node": "^20",

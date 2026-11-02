@@ -1,22 +1,26 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SectionTabs } from "@/components/ui/section-tabs";
 
 export type Crumb = { label: string; href?: string };
 
-/** Breadcrumb (if nested) → title + subtitle on the left → primary action (+ at most one secondary) on the right. */
+/** Breadcrumb (if nested) → title + subtitle on the left, actions on the right → section tabs underneath. */
 export function PageHeader({
   title,
   subtitle,
   crumbs,
   actions,
   className,
+  sectionTabs = true,
 }: {
   title: React.ReactNode;
   subtitle?: React.ReactNode;
   crumbs?: Crumb[];
   actions?: React.ReactNode;
   className?: string;
+  /** Show the section's route tabs under the title (on by default). */
+  sectionTabs?: boolean;
 }) {
   return (
     <header className={cn("space-y-2", className)}>
@@ -45,6 +49,7 @@ export function PageHeader({
         </div>
         {actions ? <div className="flex shrink-0 flex-wrap items-center gap-2">{actions}</div> : null}
       </div>
+      {sectionTabs ? <SectionTabs className="!mt-5" /> : null}
     </header>
   );
 }

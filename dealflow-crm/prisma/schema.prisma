@@ -44,6 +44,8 @@ model User {
   reviewedKeep              Boolean                  @default(false)
   signupIp                  String?
   classYear                 Int?
+  /// Desktop sidebar collapsed to the icon rail (null = not chosen yet)
+  sidebarCollapsed          Boolean?
   /// PE@Broad sharing settings
   shareLearning             Boolean                  @default(true)
   shareDrill                Boolean                  @default(true)

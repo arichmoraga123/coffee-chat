@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { SectionTabs } from "@/components/ui/section-tabs";
 
 export type OfferRow = {
   firmName: string;
@@ -96,6 +97,7 @@ export function OffersView() {
           <span className="text-accent">PRIVATE</span> to your account
         </p>
       </div>
+      <SectionTabs className="mt-5 mb-6" />
       <Card className="space-y-2 border-border bg-surface p-4">
         <p className="font-medium text-ink">Add offer</p>
         <div className="grid gap-2 sm:grid-cols-2">

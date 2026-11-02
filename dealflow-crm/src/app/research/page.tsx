@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { requireUserId } from "@/lib/auth";
+import { SectionTabs } from "@/components/ui/section-tabs";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +16,7 @@ export default async function ResearchPage() {
           <span className="text-success">SHARED</span> wiki — any logged-in member can edit.
         </p>
       </div>
+      <SectionTabs className="mt-5 mb-6" />
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {firms.map((f) => (
           <Link
