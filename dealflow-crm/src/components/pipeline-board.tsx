@@ -166,6 +166,9 @@ function CardMenu({
           <button type="button" role="menuitem" className={item} onClick={() => (setOpen(false), onEdit())}>
             Edit
           </button>
+          <Link role="menuitem" className={item} href={`/prep/${opp.firmId}?opp=${opp.id}`} onClick={() => setOpen(false)}>
+            Prep for interview
+          </Link>
           <button type="button" role="menuitem" className={cn(item, "text-danger hover:text-danger")} onClick={() => (setOpen(false), onDelete())}>
             Delete
           </button>
@@ -405,7 +408,14 @@ export function PipelineBoard({
     <div className="space-y-4">
       <PageHeader
         title="Pipeline"
-        subtitle="Drag cards between stages. Cmd/Ctrl-click cards to select several and change them together."
+        subtitle={
+          <>
+            Drag cards between stages. Cmd/Ctrl-click cards to select several and change them together.{" "}
+            <Link href="/stories/group-finder" className="text-accent hover:underline">
+              Which group fits you?
+            </Link>
+          </>
+        }
         actions={
           <Button variant="primary" onClick={openAdd}>
             Add opportunity

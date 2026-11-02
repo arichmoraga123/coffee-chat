@@ -56,6 +56,11 @@ export default async function FirmDetail({
           </span>
         }
         subtitle={[firm.location !== "Unknown" ? firm.location : null, firm.focus !== "Generalist" ? firm.focus : null, `${firm.contacts.length} contact${firm.contacts.length === 1 ? "" : "s"}`].filter(Boolean).join(" · ")}
+        actions={
+          <Link href={`/prep/${firm.id}`} className="inline-flex h-9 items-center rounded-[var(--radius)] border border-border-strong bg-surface px-4 text-sm font-medium text-ink hover:bg-surface-2">
+            Prep for interview
+          </Link>
+        }
       />
       {overlap.length ? (
         <p className="rounded-[var(--radius)] border border-border bg-accent-tint px-4 py-3 text-sm text-ink">

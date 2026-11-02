@@ -332,7 +332,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       {/* Desktop sidebar (≥1024px) */}
       <aside
         className={cn(
-          "sticky top-0 z-40 hidden h-screen shrink-0 flex-col border-r border-border bg-surface py-4 transition-[width] duration-150 ease-out lg:flex",
+          "sticky top-0 z-40 hidden h-screen shrink-0 flex-col border-r border-border bg-surface py-4 transition-[width] duration-150 ease-out print:!hidden lg:flex",
           collapsed ? "w-16 px-2" : "w-60 px-3",
         )}
       >
@@ -345,7 +345,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* Tablet icon rail (768–1023px) */}
-      <aside className="sticky top-0 hidden h-screen w-16 shrink-0 flex-col border-r border-border bg-surface px-2 py-4 md:flex lg:hidden">
+      <aside className="sticky top-0 hidden h-screen w-16 shrink-0 flex-col border-r border-border bg-surface px-2 py-4 print:!hidden md:flex lg:hidden">
         {brand(true)}
         {searchButton(true)}
         <nav aria-label="Main" className="mt-4 min-h-0 flex-1 overflow-y-auto">
@@ -356,7 +356,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       <div className="flex min-h-screen min-w-0 flex-1 flex-col">
         {/* Phone top bar */}
-        <header className="sticky top-0 z-30 flex h-12 items-center justify-between border-b border-border bg-surface px-4 md:hidden">
+        <header className="sticky top-0 z-30 flex h-12 items-center justify-between border-b border-border bg-surface px-4 print:hidden md:hidden">
           <Link href="/dashboard" className="flex items-center gap-2">
             <span className="flex h-7 w-7 items-center justify-center rounded-[var(--radius-sm)] bg-accent text-xs font-bold text-on-accent">P</span>
             <span className="text-[15px] font-semibold">Prospect</span>
@@ -388,7 +388,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       {/* Phone bottom tab bar */}
       <nav
         aria-label="Main"
-        className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-5 border-t border-border bg-surface pb-[env(safe-area-inset-bottom)] md:hidden"
+        className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-5 border-t border-border bg-surface pb-[env(safe-area-inset-bottom)] print:hidden md:hidden"
       >
         {MOBILE_TABS.map((t) => {
           const Icon = t.icon;

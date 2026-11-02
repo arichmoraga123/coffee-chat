@@ -118,7 +118,14 @@ export default async function ProfilePage({ searchParams }: { searchParams: Prom
           </div>
           <ProfileTracksForm initialTracks={user?.careerTracks ?? []} />
         </Card>
-        <Card title="Targets">
+        <Card
+          title="Targets"
+          action={
+            <Link href="/stories/group-finder" className="text-accent hover:underline">
+              Find my groups
+            </Link>
+          }
+        >
           <ProfileTargetsForm
             initialGroups={user?.recruitingTarget ?? []}
             initialFirms={user?.targetFirms ?? []}

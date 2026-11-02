@@ -44,7 +44,8 @@ export type AnthropicUsageFeature =
   | "pitch-outline"
   | "mcq-generate"
   | "learn-tutor"
-  | "storybank";
+  | "storybank"
+  | "fit-answer";
 
 export type AiCallOptions = {
   system?: string;

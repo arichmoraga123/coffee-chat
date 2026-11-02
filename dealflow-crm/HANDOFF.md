@@ -115,6 +115,27 @@ Prospect is a recruiting and learning app for MSU finance students and the PE@Br
 
 **Browser tests** (Playwright): `tests/guided-excel.spec.ts`, `tests/openings.spec.ts`. They need a local Postgres seeded with `npx tsx tests/seed-e2e.ts` and the app on port 3100; run `npm run test:e2e`.
 
+### Round 4: spec `CLAUDE_CODE_SPEC_Fit_and_Practice.md` (repo root), phases F1–F4
+
+**F1: question bank v2 and challenge picks**
+- The bank, seed and validator use `content/questions/PEB_Question_Bank_v2.json` (505 questions; the 236 v1 ids are unchanged). Load it with `npm run seed:questions`.
+- Challenge picker: `src/lib/challenge-picker.ts` (scope, then module top-up with a note; fresh questions first; about 3/5/2 easy/medium/hard). Test: `npm run test-challenge-picker`.
+- Practice modes: Weak spots, Missed before, Hard only (`practiceModeQuestions` in `src/lib/mcq/server.ts`).
+
+**F2: fit questions** (Storybank → Fit questions, `/stories/fit`)
+- Builder pre-filled from the rolodex (firm conversations, city contacts + hometown, Group Finder result), linked stories, "Assemble draft" (no AI, `assembleDraft` in `src/lib/fit.ts`), "Improve with AI" and feedback (`src/lib/fit-ai.ts`, rules verbatim), practice timer with in-browser recording, versions with compare.
+- Interview prep pack: `/prep/[firmId]` (from the firm page and the pipeline card "⋯" menu), printable.
+- Test: `npm run test-fit`.
+
+**F3: Group Finder** (`/stories/group-finder`)
+- Scoring in `src/lib/groupFinder.ts`; persona tests `npm run test-group-finder`. Results saved per take; cohort page shows each member's top group and club counts.
+
+**F4: admin editing** (`/admin/fit`)
+- Fit questions, group profiles and questionnaire weights live in the `FitContent` table, seeded from `content/fit/*.json` (missing ids are added; edits are never overwritten; questions are archived, not deleted). Max scores recalculate from the weights. "Run persona tests" button.
+- Admin → Questions has an "Underfilled lessons" list (fewer than 9 questions).
+
+Browser test for all of it: `tests/fit.spec.ts` and `tests/practice.spec.ts`.
+
 ### Schema
 The latest migration is `prisma/migrations/20261103120000_round2_outreach_notifications_workbooks/migration.sql`. It adds:
 - `ImportBatch`, `Notification`, `NotificationPref`, `OutboundMessage`, `ClubPostProgress`, `WorkbookProgress`
@@ -124,6 +145,8 @@ The latest migration is `prisma/migrations/20261103120000_round2_outreach_notifi
 Round 3 adds two more (run both in Neon, in order; both are idempotent):
 - `prisma/migrations/20261104120000_sidebar_pref/migration.sql`
 - `prisma/migrations/20261104130000_recruiting_openings/migration.sql`
+
+Round 4 adds one more: `prisma/migrations/20261105120000_fit_and_group_finder/migration.sql`.
 
 ## Owner's to-do list (may not be done yet; ask)
 1. Run the round-2 migration SQL in Neon.
@@ -141,6 +164,11 @@ Round 3 adds two more (run both in Neon, in order; both are idempotent):
 2. Set `RESUME_V2=true` in Vercel once you've tried the new reviewer (it needs `ANTHROPIC_API_KEY`, already used by the old one).
 3. Optional: run `npm run test-resume-grader` with an API key and add exemplar resumes.
 4. Upload the openings template at Recruiting → Openings → Upload.
+
+## Owner's to-do for round 4
+1. Run `20261105120000_fit_and_group_finder/migration.sql` in Neon **before** deploying.
+2. Load question bank v2 into production: `npm run seed:questions` with the production `DATABASE_URL` (upserts only).
+3. Deploy.
 
 ## Next up (not started)
 Nothing queued. Round 3 (Parts A, B, C) is built.

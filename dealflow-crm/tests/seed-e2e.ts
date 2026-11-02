@@ -94,6 +94,18 @@ async function main() {
   await prisma.questionAttempt.deleteMany({ where: { userId: { in: [user.id, rival.id] } } });
   await prisma.userQuestionProgress.deleteMany({ where: { userId: { in: [user.id, rival.id] } } });
   await prisma.challenge.deleteMany({ where: { clubId: club.id, mode: { not: "weekly" } } });
+  // A firm, contact and conversation for the fit-question builder and prep page.
+  await prisma.fitAnswer.deleteMany({ where: { userId: user.id } });
+  await prisma.groupFinderResult.deleteMany({ where: { userId: user.id } });
+  await prisma.user.update({ where: { id: user.id }, data: { recruitingTarget: [], hometown: null } });
+  const hl = await prisma.firm.upsert({ where: { userId_name: { userId: user.id, name: "Houlihan Lokey" } }, update: {}, create: { userId: user.id, name: "Houlihan Lokey", location: "Chicago", focus: "Restructuring" } });
+  let dana = await prisma.contact.findFirst({ where: { userId: user.id, fullName: "Dana Smith" } });
+  dana ??= await prisma.contact.create({
+    data: { userId: user.id, firmId: hl.id, fullName: "Dana Smith", email: "dana@example.com", group: "Restructuring", title: "Associate", location: "Chicago, IL", school: "MSU", recruitingCategory: "IB", referralProbability: "MEDIUM" } as never,
+  });
+  if (!(await prisma.interaction.count({ where: { contactId: dana.id } }))) {
+    await prisma.interaction.create({ data: { userId: user.id, contactId: dana.id, date: new Date("2026-10-20T15:00:00Z"), type: "COFFEE_CHAT", notes: "Talked about the group's creditor-side work on large bankruptcies" } as never });
+  }
   // Fresh openings state for each run.
   await prisma.opportunity.deleteMany({ where: { userId: user.id, openingId: { not: null } } });
   await prisma.opening.deleteMany({ where: { clubId: { in: [club.id] } } });

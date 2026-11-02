@@ -46,6 +46,8 @@ model User {
   classYear                 Int?
   /// Desktop sidebar collapsed to the icon rail (null = not chosen yet)
   sidebarCollapsed          Boolean?
+  /// Used by the "Why this city" fit answer builder
+  hometown                  String?
   /// PE@Broad sharing settings
   shareLearning             Boolean                  @default(true)
   shareDrill                Boolean                  @default(true)
@@ -86,6 +88,8 @@ model User {
   notifications             Notification[]
   notificationPref          NotificationPref?
   openingReminders          OpeningReminder[]
+  fitAnswers                FitAnswer[]
+  groupFinderResults        GroupFinderResult[]
   workbookProgress          WorkbookProgress[]
   clubPostProgress          ClubPostProgress[]
   clubJoinRequests          ClubJoinRequest[]
@@ -1535,4 +1539,72 @@ model WorkbookProgress {
   user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, workbookKey])
+}
+
+// --- Fit questions, Group Finder (Fit & Practice spec F2–F4) ---
+
+/// A student's answer to one fit question. Questions about a specific firm, city or group keep one answer per choice (variant).
+model FitAnswer {
+  id                     String             @id @default(cuid())
+  userId                 String
+  questionId             String
+  /// The firm, city or group this version is about ("" when the question has none).
+  variant                String             @default("")
+  builder                Json               @default("{}")
+  linkedStoryIds         String[]           @default([])
+  includedInteractionIds String[]           @default([])
+  draft                  String             @default("")
+  /// Last AI feedback (scores, flags, must-include checks).
+  feedback               Json?
+  /// not_started | drafted | practiced
+  status                 String             @default("not_started")
+  /// nailed | needs_work
+  selfRating             String?
+  practicedAt            DateTime?
+  createdAt              DateTime           @default(now())
+  updatedAt              DateTime           @updatedAt
+  user                   User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  versions               FitAnswerVersion[]
+
+  @@unique([userId, questionId, variant])
+  @@index([userId])
+}
+
+model FitAnswerVersion {
+  id        String    @id @default(cuid())
+  answerId  String
+  draft     String
+  builder   Json      @default("{}")
+  createdAt DateTime  @default(now())
+  answer    FitAnswer @relation(fields: [answerId], references: [id], onDelete: Cascade)
+
+  @@index([answerId, createdAt])
+}
+
+model GroupFinderResult {
+  id         String   @id @default(cuid())
+  userId     String
+  /// questionId → option index
+  answers    Json
+  /// Every group with its match (0–100) and top reasons, best first.
+  results    Json
+  topGroupId String
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([topGroupId])
+}
+
+/// Admin-editable fit content, seeded from content/fit/*.json on first use (upsert by id).
+/// id: "question:<id>" | "group:<id>" | "finder" (the questionnaire + maxScores).
+model FitContent {
+  id        String   @id
+  kind      String
+  data      Json
+  sortOrder Int      @default(0)
+  updatedBy String?
+  updatedAt DateTime @updatedAt
+
+  @@index([kind, sortOrder])
 }

@@ -23,6 +23,7 @@ export async function GET() {
       referralCode: true,
       contributionXP: true,
       targetFirms: true,
+      hometown: true,
       dailyGoal: true,
       onboardingDone: true,
       role: true,
@@ -64,6 +65,9 @@ export async function PATCH(req: Request) {
   }
   if (typeof body.bio === "string") {
     data.bio = body.bio.trim().slice(0, 2000) || null;
+  }
+  if (typeof body.hometown === "string") {
+    data.hometown = body.hometown.trim().slice(0, 120) || null;
   }
   if (Array.isArray(body.targetFirms)) {
     data.targetFirms = body.targetFirms.map((x: unknown) => String(x));

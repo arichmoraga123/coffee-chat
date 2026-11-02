@@ -37,13 +37,13 @@ export function OpeningsView({
 }: {
   rows: OpeningRow[];
   canEdit: boolean;
-  defaults: { classYear: string | null; track: string | null };
+  defaults: { classYear: string | null; track: string | null; q?: string };
 }) {
   const router = useRouter();
   const [rows, setRows] = useState(initialRows);
   // Server refreshes (after edits, uploads) replace the local copy.
   useEffect(() => setRows(initialRows), [initialRows]);
-  const [q, setQ] = useState("");
+  const [q, setQ] = useState(defaults.q ?? "");
   const [track, setTrack] = useState(defaults.track && initialRows.some((r) => r.track === defaults.track) ? defaults.track : ALL);
   const [roleType, setRoleType] = useState(ALL);
   const [classYear, setClassYear] = useState(defaults.classYear ?? ALL);
@@ -130,7 +130,14 @@ export function OpeningsView({
     <div className="space-y-6">
       <PageHeader
         title="Openings"
-        subtitle="Application openings collected by PE@Broad. Add them to your pipeline and get deadline reminders."
+        subtitle={
+          <>
+            Application openings collected by PE@Broad. Add them to your pipeline and get deadline reminders.{" "}
+            <Link href="/stories/group-finder" className="text-accent hover:underline">
+              Not sure which group? Try the Group Finder
+            </Link>
+          </>
+        }
         actions={
           canEdit ? (
             <Button variant="primary" asChild>

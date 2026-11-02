@@ -117,6 +117,14 @@ export const SECTION_TABS: { match: string[]; tabs: { href: string; label: strin
   },
   { match: ["/pipeline", "/offers"], tabs: [{ href: "/pipeline", label: "Pipeline" }, { href: "/offers", label: "Offers" }] },
   {
+    match: ["/stories"],
+    tabs: [
+      { href: "/stories", label: "Stories" },
+      { href: "/stories/fit", label: "Fit questions" },
+      { href: "/stories/group-finder", label: "Group Finder" },
+    ],
+  },
+  {
     match: ["/contacts", "/tasks", "/debriefs", "/emails"],
     tabs: [
       { href: "/contacts", label: "Contacts" },

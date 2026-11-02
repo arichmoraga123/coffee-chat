@@ -13,6 +13,7 @@ const links = [
   { href: "/admin/learn/questions", label: "Learn: mentor queue", exact: false, adminOnly: false, showMentorBadge: true as const },
   { href: "/admin/learn/cohort", label: "Learn: cohort", exact: false, adminOnly: false },
   { href: "/admin/learn/resources", label: "Learn: workbooks", exact: false, adminOnly: true },
+  { href: "/admin/fit", label: "Fit content", exact: false, adminOnly: true },
 ] as const;
 
 export function AdminSubnav({

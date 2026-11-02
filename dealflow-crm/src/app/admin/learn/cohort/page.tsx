@@ -55,6 +55,26 @@ export default async function CohortPage({ searchParams }: { searchParams: Promi
       take: 10,
     }),
   ]);
+  // Group Finder: each member's latest top group, and a club-wide count (for pairing freshmen with older members).
+  const finderRows = await prisma.groupFinderResult.findMany({
+    where: { userId: { in: ids } },
+    orderBy: { createdAt: "desc" },
+    select: { userId: true, topGroupId: true, results: true },
+  });
+  const topByUser = new Map<string, { id: string; name: string; match: number }>();
+  for (const f of finderRows) {
+    if (topByUser.has(f.userId)) continue;
+    const r = (f.results as { id: string; name: string; match: number }[] | null)?.[0];
+    if (r) topByUser.set(f.userId, { id: r.id, name: r.name, match: r.match });
+  }
+  const groupCounts = new Map<string, { name: string; members: string[] }>();
+  for (const m of members) {
+    const t = topByUser.get(m.id);
+    if (!t) continue;
+    const g = groupCounts.get(t.id) ?? { name: t.name, members: [] };
+    g.members.push(m.name);
+    groupCounts.set(t.id, g);
+  }
   const missedQs = await prisma.question.findMany({
     where: { id: { in: missedRaw.map((m) => m.questionId) } },
     select: { id: true, question: true, lessonId: true },
@@ -73,6 +93,7 @@ export default async function CohortPage({ searchParams }: { searchParams: Promi
         ...m,
         perModule: groups.map((g) => Math.round((g.lessons.filter((l) => done.has(l.id)).length / g.lessons.length) * 100)),
         totalDone: done.size,
+        topGroup: topByUser.get(m.id) ?? null,
         avgScore: scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : null,
       };
     })
@@ -142,6 +163,24 @@ export default async function CohortPage({ searchParams }: { searchParams: Promi
         )}
       </section>
 
+      <section className="space-y-2">
+        <h2 className="text-sm font-semibold text-ink">Group Finder results</h2>
+        {groupCounts.size ? (
+          <ul className="flex flex-wrap gap-2 text-[13px]">
+            {[...groupCounts.entries()]
+              .sort((a, b) => b[1].members.length - a[1].members.length)
+              .map(([id, g]) => (
+                <li key={id} className="rounded-[var(--radius)] border border-border bg-surface px-3 py-1.5" title={g.members.join(", ")}>
+                  <span className="font-medium text-ink">{g.name}</span> <span className="tabular-nums text-ink-3">· {g.members.length}</span>
+                </li>
+              ))}
+          </ul>
+        ) : (
+          <p className="text-sm text-ink-3">No one has taken the Group Finder yet.</p>
+        )}
+        <p className="text-[12px] text-ink-3">Hover a group to see who. Use it to pair freshmen with older members who landed in the same group.</p>
+      </section>
+
       <div className="overflow-x-auto rounded-xl border border-border">
         <table className="w-full min-w-[900px] text-left text-xs">
           <thead className="bg-surface text-[10px] uppercase tracking-wide text-ink-3">
@@ -155,12 +194,13 @@ export default async function CohortPage({ searchParams }: { searchParams: Promi
               ))}
               <th className="px-2 py-2 text-center">Done</th>
               <th className="px-2 py-2 text-center">Avg score</th>
+              <th className="px-3 py-2">Top group</th>
             </tr>
           </thead>
           <tbody>
             {rows.length === 0 ? (
               <tr>
-                <td colSpan={groups.length + 3} className="px-3 py-4 text-ink-3">
+                <td colSpan={groups.length + 4} className="px-3 py-4 text-ink-3">
                   No members yet.
                 </td>
               </tr>
@@ -178,6 +218,7 @@ export default async function CohortPage({ searchParams }: { searchParams: Promi
                 ))}
                 <td className="px-2 py-2 text-center font-mono text-ink">{r.totalDone}</td>
                 <td className="px-2 py-2 text-center font-mono text-ink">{r.avgScore === null ? "—" : `${r.avgScore}%`}</td>
+                <td className="px-3 py-2 text-ink-2">{r.topGroup ? `${r.topGroup.name} (${r.topGroup.match})` : "—"}</td>
               </tr>
             ))}
           </tbody>
