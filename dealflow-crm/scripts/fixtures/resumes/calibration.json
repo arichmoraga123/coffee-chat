@@ -1,0 +1,7 @@
+[
+  { "file": "freshman-strong.pdf", "level": "Freshman", "target": "IB", "note": "Freshman, only non-finance jobs, strong bullets", "min": 7.5, "max": 10 },
+  { "file": "freshman-vague.pdf", "level": "Freshman", "target": "IB", "note": "Freshman, vague bullets", "min": 4, "max": 6 },
+  { "file": "sophomore-clubs.pdf", "level": "Sophomore", "target": "PE", "note": "Sophomore with finance clubs", "min": 7, "max": 10 },
+  { "file": "junior-strong.pdf", "level": "Junior", "target": "PE", "note": "Junior with a strong internship", "min": 8, "max": 10 },
+  { "file": "messy-two-page.pdf", "level": "Junior", "target": "IB", "note": "2 pages, 3 fonts", "formattingMax": 5 }
+]

@@ -4,6 +4,7 @@ import { getUserIdFromSession } from "@/lib/auth";
 import { anthropicJsonWithProgress, getAnthropicApiKey } from "@/lib/anthropic";
 import { CAREER_TRACK_OPTIONS } from "@/lib/career-tracks";
 import { getPrimaryTrack } from "@/lib/track-utils";
+import { RESUME_V2, V2_KEEP, postV2 } from "./v2";
 
 const CAREER_TRACK_SET = new Set<string>(CAREER_TRACK_OPTIONS);
 
@@ -156,6 +157,7 @@ export async function POST(req: Request) {
     if (!getAnthropicApiKey()) {
       return NextResponse.json({ error: "AI is not configured" }, { status: 503 });
     }
+    if (RESUME_V2()) return await postV2(req, userId);
 
     const form = await req.formData();
     const profile = await prisma.user.findUnique({
@@ -256,7 +258,7 @@ export async function GET() {
   const reviews = await prisma.resumeReview.findMany({
     where: { userId },
     orderBy: { createdAt: "desc" },
-    take: 3,
+    take: RESUME_V2() ? V2_KEEP : 3,
   });
   return NextResponse.json({ reviews });
 }
