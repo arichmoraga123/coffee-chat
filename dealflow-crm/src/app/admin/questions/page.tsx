@@ -4,6 +4,8 @@ import { prisma } from "@/lib/prisma";
 import { AdminQuestionsPanel } from "@/components/admin-questions-panel";
 import { MCQ_WHERE } from "@/lib/mcq/server";
 import { allLessons } from "@/lib/learn/lessons";
+import { PEB_BANK } from "@/lib/mcq/bank";
+import { LoadBankButton } from "@/components/admin/load-bank-button";
 
 export const dynamic = "force-dynamic";
 
@@ -18,6 +20,7 @@ export default async function AdminQuestionsPage() {
   return (
     <div className="space-y-3">
       <h1 className="page-title">Admin · Questions</h1>
+      <LoadBankButton loaded={await prisma.question.count({ where: { id: { in: PEB_BANK.map((q) => q.id) } } })} total={PEB_BANK.length} />
       <details className="rounded-[var(--radius-lg)] border border-border bg-surface p-4" open={underfilled.length > 0}>
         <summary className="cursor-pointer text-sm font-semibold text-ink">
           Underfilled lessons ({underfilled.length}) <span className="font-normal text-ink-3">· fewer than 9 practice questions</span>
