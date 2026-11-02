@@ -224,3 +224,66 @@ export async function publicMcqsByIds(ids: string[]): Promise<PublicMcq[]> {
   const byId = new Map(rows.map((r) => [r.id, r]));
   return ids.map((id) => byId.get(id)).filter((r): r is NonNullable<typeof r> => Boolean(r)).map(toPublicMcq);
 }
+
+/* ───────────────────────── practice modes (F1.4) ───────────────────────── */
+
+export type PracticeMode = "weak" | "missed" | "hard";
+
+/**
+ * weak: the user's three lowest-accuracy lessons (at least 5 attempts each), mixed.
+ * missed: only questions the user got wrong and hasn't since gotten right, oldest miss first.
+ * hard: hard questions, for the chosen module (or all).
+ */
+export async function practiceModeQuestions(
+  userId: string,
+  mode: PracticeMode,
+  opts: { module?: number; limit: number; exclude: string[] },
+): Promise<{ questions: PublicMcq[]; note: string }> {
+  if (mode === "hard") {
+    const questions = await listMcqs({ module: opts.module, difficulty: "Hard" }, opts.limit, opts.exclude);
+    return { questions, note: typeof opts.module === "number" ? `Hard questions from Module ${opts.module}` : "Hard questions from every module" };
+  }
+  const attempts = await prisma.questionAttempt.findMany({
+    where: { userId, question: MCQ_WHERE },
+    select: { questionId: true, correct: true, createdAt: true, question: { select: { lessonId: true } } },
+    orderBy: { createdAt: "asc" },
+  });
+  if (mode === "weak") {
+    const stats = new Map<string, { right: number; total: number }>();
+    for (const a of attempts) {
+      const l = a.question.lessonId;
+      if (!l) continue;
+      const s = stats.get(l) ?? { right: 0, total: 0 };
+      s.total++;
+      if (a.correct) s.right++;
+      stats.set(l, s);
+    }
+    const weakest = [...stats.entries()]
+      .filter(([, s]) => s.total >= 5)
+      .sort((a, b) => a[1].right / a[1].total - b[1].right / b[1].total)
+      .slice(0, 3);
+    if (!weakest.length) return { questions: [], note: "Answer at least 5 questions in a lesson to find your weak spots." };
+    const rows = await prisma.question.findMany({
+      where: { ...MCQ_WHERE, lessonId: { in: weakest.map(([l]) => l) }, id: { notIn: opts.exclude } },
+      select: MCQ_SELECT,
+    });
+    const label = weakest.map(([l, s]) => `${l.replace("-", ".")} (${Math.round((s.right / s.total) * 100)}%)`).join(", ");
+    return { questions: shuffle(rows).slice(0, opts.limit).map(toPublicMcq), note: `Your weakest lessons: ${label}` };
+  }
+  // missed
+  const firstMiss = new Map<string, Date>();
+  const latest = new Map<string, boolean>();
+  for (const a of attempts) {
+    if (!a.correct && !firstMiss.has(a.questionId)) firstMiss.set(a.questionId, a.createdAt);
+    latest.set(a.questionId, a.correct);
+  }
+  const ids = [...firstMiss.entries()]
+    .filter(([id]) => latest.get(id) === false && !opts.exclude.includes(id))
+    .sort((a, b) => a[1].getTime() - b[1].getTime())
+    .map(([id]) => id)
+    .slice(0, opts.limit);
+  if (!ids.length) return { questions: [], note: "No missed questions to review. Nice." };
+  const rows = await prisma.question.findMany({ where: { ...MCQ_WHERE, id: { in: ids } }, select: MCQ_SELECT });
+  const byId = new Map(rows.map((r) => [r.id, r]));
+  return { questions: ids.flatMap((id) => (byId.has(id) ? [toPublicMcq(byId.get(id)!)] : [])), note: `${ids.length} question${ids.length === 1 ? "" : "s"} you missed, oldest first` };
+}

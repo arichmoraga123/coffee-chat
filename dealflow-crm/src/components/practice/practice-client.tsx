@@ -27,6 +27,7 @@ export type PracticeLessonOption = {
 
 type Mode = "mcq" | "flashcards";
 type Difficulty = "all" | "Easy" | "Medium" | "Hard";
+type SetMode = "standard" | "weak" | "missed" | "hard";
 type Missed = { id: string; question: string; lessonId: string | null };
 
 export function PracticeClient({
@@ -46,6 +47,7 @@ export function PracticeClient({
   const [lesson, setLesson] = useState<string>(initialLesson ?? "all");
   const [difficulty, setDifficulty] = useState<Difficulty>((initialDifficulty as Difficulty) ?? "all");
   const [size, setSize] = useState(10);
+  const [practiceMode, setPracticeMode] = useState<SetMode>("standard");
   const [mode, setMode] = useState<Mode>("mcq");
   const [questions, setQuestions] = useState<PublicMcq[] | null>(null);
   const [loading, setLoading] = useState(false);
@@ -78,16 +80,23 @@ export function PracticeClient({
       setLoading(true);
       try {
         const qs = new URLSearchParams({ limit: String(size) });
-        if (l !== "all") qs.set("lesson", l);
-        else if (m !== "all") qs.set("module", m);
-        if (difficulty !== "all") qs.set("difficulty", difficulty);
+        const sm = overrides?.lesson ? "standard" : practiceMode;
+        if (sm !== "standard") {
+          qs.set("mode", sm);
+          if (sm === "hard" && m !== "all") qs.set("module", m);
+        } else {
+          if (l !== "all") qs.set("lesson", l);
+          else if (m !== "all") qs.set("module", m);
+          if (difficulty !== "all") qs.set("difficulty", difficulty);
+        }
         const res = await fetch(`/api/mcq/practice?${qs}`);
         if (!res.ok) throw new Error();
-        const data = (await res.json()) as { questions: PublicMcq[] };
+        const data = (await res.json()) as { questions: PublicMcq[]; note?: string };
         if (!data.questions.length) {
-          toast("No questions match those filters yet.");
+          toast(data.note ?? "No questions match those filters yet.");
           return;
         }
+        if (data.note) toast(data.note);
         setQuestions(data.questions);
         setStats({ answered: 0, correct: 0, points: 0, ms: 0 });
         setMissed([]);
@@ -99,7 +108,7 @@ export function PracticeClient({
         setLoading(false);
       }
     },
-    [lesson, mod, size, difficulty],
+    [lesson, mod, size, difficulty, practiceMode],
   );
 
   // Arriving from a lesson's "Practice related questions" link starts right away.
@@ -153,6 +162,32 @@ export function PracticeClient({
   );
 
   const controls = (
+    <div className="space-y-4">
+    <div className="space-y-1">
+      <span className="eyebrow block">Practice</span>
+      <SegmentedControl<SetMode>
+        ariaLabel="Practice mode"
+        value={practiceMode}
+        onChange={setPracticeMode}
+        className="flex-wrap"
+        options={[
+          { value: "standard", label: "By lesson" },
+          { value: "weak", label: "Weak spots" },
+          { value: "missed", label: "Missed before" },
+          { value: "hard", label: "Hard only" },
+        ]}
+      />
+      {practiceMode !== "standard" ? (
+        <p className="text-[13px] text-ink-3">
+          {practiceMode === "weak"
+            ? "Questions from your three lowest-accuracy lessons (at least 5 answers each)."
+            : practiceMode === "missed"
+              ? "Only questions you got wrong, oldest first."
+              : "Hard questions from the module you choose (or all modules)."}
+        </p>
+      ) : null}
+    </div>
+    {practiceMode === "standard" || practiceMode === "hard" ? (
     <div className="flex flex-wrap items-end gap-x-4 gap-y-3">
       <div className="w-full min-w-0 space-y-1 sm:w-64">
         <span className="eyebrow block">Module</span>
@@ -169,6 +204,8 @@ export function PracticeClient({
           ]}
         />
       </div>
+      {practiceMode === "standard" ? (
+        <>
       <div className="w-full min-w-0 space-y-1 sm:w-72">
         <span className="eyebrow block">Lesson</span>
         <SearchSelect
@@ -201,6 +238,8 @@ export function PracticeClient({
           ]}
         />
       </div>
+        </>
+      ) : null}
       <div className="space-y-1">
         <span className="eyebrow block">Mode</span>
         <SegmentedControl<Mode>
@@ -213,6 +252,8 @@ export function PracticeClient({
           ]}
         />
       </div>
+    </div>
+    ) : null}
     </div>
   );
 

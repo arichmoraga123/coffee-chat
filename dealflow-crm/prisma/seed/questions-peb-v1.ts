@@ -1,5 +1,5 @@
 import type { PrismaClient } from "@prisma/client";
-import { PEB_BANK_V1 } from "../../src/lib/mcq/bank";
+import { PEB_BANK } from "../../src/lib/mcq/bank";
 import { capitalizeDifficulty, toLessonId } from "../../src/lib/mcq/validate";
 
 /**
@@ -8,7 +8,7 @@ import { capitalizeDifficulty, toLessonId } from "../../src/lib/mcq/validate";
  */
 export async function seedPebQuestions(prisma: PrismaClient) {
   let n = 0;
-  for (const q of PEB_BANK_V1) {
+  for (const q of PEB_BANK) {
     const lessonId = toLessonId(q.lessonId);
     const data = {
       question: q.question.trim(),
@@ -17,7 +17,7 @@ export async function seedPebQuestions(prisma: PrismaClient) {
       difficulty: capitalizeDifficulty(q.difficulty),
       tags: [q.category, `lesson ${q.lessonId}`],
       keywords: q.keywords ?? [],
-      source: q.source ?? "PE@Broad Technical Bank v1",
+      source: q.source ?? "PE@Broad Technical Bank v2",
       status: "active",
       scope: "global",
       careerTracks: [] as string[],

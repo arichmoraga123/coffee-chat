@@ -6,8 +6,17 @@ import { MCQ_WHERE } from "@/lib/mcq/server";
 import { canEarnXp, peBroadMembership, postClubActivity, SOCIAL_USER_WHERE } from "@/lib/club-social";
 import { sendMessage, startConversation } from "@/lib/dm";
 import type { PublicMcq } from "@/lib/mcq/types";
+import { pickChallengeQuestions, topUpNote } from "@/lib/challenge-picker";
 
-export type ChallengeTopic = { modules?: number[]; lessons?: string[]; categories?: string[]; difficulty?: string; label?: string };
+export type ChallengeTopic = {
+  modules?: number[];
+  lessons?: string[];
+  categories?: string[];
+  difficulty?: string;
+  label?: string;
+  /** Set by the picker, e.g. "Includes 2 questions from Module 8". */
+  note?: string;
+};
 
 export const ASYNC_HOURS = 48;
 export const LIVE_SECONDS = 30;
@@ -47,31 +56,61 @@ export function topicLabel(t: ChallengeTopic): string {
   else if (t.categories?.length) parts.push(t.categories.join(", "));
   else parts.push("Mixed");
   if (t.difficulty) parts.push(t.difficulty);
+  if (t.note) parts.push(t.note);
   return parts.join(" · ");
 }
 
-/** Picks n MCQ-eligible questions for a topic. `weights` (lessonId → weight) biases the pick (weekly challenge). */
-export async function pickQuestions(topic: ChallengeTopic, n: number, weights?: Map<string, number>): Promise<string[]> {
-  const where: Prisma.QuestionWhereInput = { ...MCQ_WHERE };
-  if (topic.lessons?.length) where.lessonId = { in: topic.lessons };
-  else if (topic.modules?.length) where.OR = topic.modules.map((m) => ({ lessonId: { startsWith: `${m}-` } }));
-  if (topic.categories?.length) where.category = { in: topic.categories };
-  if (topic.difficulty) where.difficulty = topic.difficulty;
-  const pool = await prisma.question.findMany({ where, select: { id: true, lessonId: true } });
-  const items = pool.map((q) => ({ id: q.id, w: weights?.get(q.lessonId ?? "") ?? 1 }));
-  const out: string[] = [];
-  while (out.length < n && items.length) {
-    const total = items.reduce((s, x) => s + x.w, 0);
-    let r = Math.random() * total;
-    let i = 0;
-    for (; i < items.length - 1; i++) {
-      r -= items[i].w;
-      if (r <= 0) break;
-    }
-    out.push(items[i].id);
-    items.splice(i, 1);
+const FRESH_DAYS = 30;
+
+/**
+ * Picks n questions for a challenge (F1.3): the topic's lessons first, topped up from the same module;
+ * questions nobody in the challenge answered in the last 30 days first; about 3 easy / 5 medium / 2 hard.
+ * `players` are the duel's two players; `clubMembers` (weekly) avoids what most of the club answered recently.
+ */
+export async function pickQuestions(
+  topic: ChallengeTopic,
+  n: number,
+  opts: { weights?: Map<string, number>; players?: string[]; clubMembers?: string[] } = {},
+): Promise<{ ids: string[]; note: string | null }> {
+  const base: Prisma.QuestionWhereInput = { ...MCQ_WHERE };
+  if (topic.categories?.length) base.category = { in: topic.categories };
+  const select = { id: true, lessonId: true, difficulty: true } as const;
+  const scope: Prisma.QuestionWhereInput = { ...base };
+  if (topic.lessons?.length) scope.lessonId = { in: topic.lessons };
+  else if (topic.modules?.length) scope.OR = topic.modules.map((m) => ({ lessonId: { startsWith: `${m}-` } }));
+  const primary = await prisma.question.findMany({ where: scope, select });
+  let topUp: typeof primary = [];
+  if (topic.lessons?.length && primary.length < n) {
+    const mods = [...new Set(topic.lessons.map((l) => l.split("-")[0]))];
+    topUp = await prisma.question.findMany({
+      where: { ...base, OR: mods.map((m) => ({ lessonId: { startsWith: `${m}-` } })), lessonId: { notIn: topic.lessons } },
+      select,
+    });
   }
-  return out;
+
+  // Who has seen what in the last 30 days.
+  const staleness = new Map<string, number>();
+  const people = opts.players ?? opts.clubMembers ?? [];
+  if (people.length) {
+    const since = new Date(Date.now() - FRESH_DAYS * 86_400_000);
+    const seen = await prisma.questionAttempt.findMany({
+      where: { userId: { in: people }, createdAt: { gte: since }, questionId: { in: [...primary, ...topUp].map((q) => q.id) } },
+      select: { userId: true, questionId: true },
+      distinct: ["userId", "questionId"],
+    });
+    const by = new Map<string, number>();
+    for (const a of seen) by.set(a.questionId, (by.get(a.questionId) ?? 0) + 1);
+    for (const [qid, count] of by) {
+      if (opts.players) staleness.set(qid, Math.min(2, count));
+      else {
+        const share = count / people.length;
+        staleness.set(qid, share >= 0.5 ? 2 : share >= 0.2 ? 1 : 0);
+      }
+    }
+  }
+
+  const r = pickChallengeQuestions({ n, primary, topUp, staleness, lessonWeights: opts.weights, difficulty: topic.difficulty ?? null });
+  return { ids: r.ids, note: topUpNote(r) };
 }
 
 export async function createChallenge(opts: {
@@ -86,14 +125,16 @@ export async function createChallenge(opts: {
   if (creatorId === opponentId) return { error: "Pick someone else to challenge." };
   const [a, b] = await Promise.all([peBroadMembership(creatorId), peBroadMembership(opponentId)]);
   if (!a || !b || a.clubId !== b.clubId) return { error: "Challenges are between PE@Broad members." };
-  const questionIds = await pickQuestions(opts.topic, opts.length);
+  const picked = await pickQuestions(opts.topic, opts.length, { players: [creatorId, opponentId] });
+  const questionIds = picked.ids;
   if (questionIds.length < opts.length) return { error: "Not enough questions for that topic. Try a broader one." };
+  const topic: ChallengeTopic = picked.note ? { ...opts.topic, note: picked.note } : opts.topic;
   const challenge = await prisma.challenge.create({
     data: {
       clubId: a.clubId,
       mode: opts.mode,
       createdById: creatorId,
-      topic: opts.topic as Prisma.InputJsonValue,
+      topic: topic as Prisma.InputJsonValue,
       questionIds,
       secondsPerQ: LIVE_SECONDS,
       status: "pending",
@@ -108,7 +149,7 @@ export async function createChallenge(opts: {
     await sendMessage(
       creatorId,
       conv.id,
-      `${opts.mode === "live" ? "Live duel" : "Challenge"}: ${opts.length} questions · ${topicLabel(opts.topic)}. You have ${ASYNC_HOURS} hours.`,
+      `${opts.mode === "live" ? "Live duel" : "Challenge"}: ${opts.length} questions · ${topicLabel(topic)}. You have ${ASYNC_HOURS} hours.`,
       { kind: "challenge", challengeId: challenge.id },
     );
   }
@@ -315,8 +356,10 @@ export async function ensureWeeklyChallenge(clubId: string, override?: Challenge
     stats.set(l, s);
   }
   const weights = new Map([...stats.entries()].map(([l, s]) => [l, 1 + 3 * (1 - s.right / s.total)]));
-  const topic = override ?? { label: "Weakest lessons from last week" };
-  const questionIds = await pickQuestions(topic, 10, override ? undefined : weights);
+  const baseTopic: ChallengeTopic = override ?? { label: "Weakest lessons from last week" };
+  const picked = await pickQuestions(baseTopic, 10, { weights: override ? undefined : weights, clubMembers: members.map((m) => m.userId) });
+  const questionIds = picked.ids;
+  const topic: ChallengeTopic = picked.note ? { ...baseTopic, note: picked.note } : baseTopic;
   if (questionIds.length < 10) return { error: "Not enough questions for that topic." } as const;
   const creator = createdById ?? members.find((m) => m.role === "admin")?.userId ?? members[0]?.userId;
   if (!creator) return { error: "The club has no members yet." } as const;

@@ -83,6 +83,17 @@ async function main() {
   const school = await prisma.school.upsert({ where: { id: "e2e-school" }, update: {}, create: { id: "e2e-school", name: "Michigan State University", shortName: "MSU", domain: "msu.edu" } as never });
   const club = await prisma.club.upsert({ where: { id: "e2e-club" }, update: {}, create: { id: "e2e-club", name: "PE@Broad", type: "finance", schoolId: school.id } as never });
   await prisma.clubMember.upsert({ where: { clubId_userId: { clubId: club.id, userId: user.id } }, update: { role: "officer", active: true }, create: { clubId: club.id, userId: user.id, role: "officer" } });
+  // A second club member to duel with.
+  const rival = await prisma.user.upsert({
+    where: { email: "e2e-rival@prospect.test" },
+    update: {},
+    create: { email: "e2e-rival@prospect.test", name: "Rival Student", passwordHash: await hash(E2E_USER.password, 10), onboardingDone: true, classYear: 2028 },
+  });
+  await prisma.clubMember.upsert({ where: { clubId_userId: { clubId: club.id, userId: rival.id } }, update: { active: true }, create: { clubId: club.id, userId: rival.id } });
+  // Fresh practice and challenge state for each run.
+  await prisma.questionAttempt.deleteMany({ where: { userId: { in: [user.id, rival.id] } } });
+  await prisma.userQuestionProgress.deleteMany({ where: { userId: { in: [user.id, rival.id] } } });
+  await prisma.challenge.deleteMany({ where: { clubId: club.id, mode: { not: "weekly" } } });
   // Fresh openings state for each run.
   await prisma.opportunity.deleteMany({ where: { userId: user.id, openingId: { not: null } } });
   await prisma.opening.deleteMany({ where: { clubId: { in: [club.id] } } });

@@ -25,7 +25,8 @@
     "test-resume-grader": "npx tsx scripts/test-resume-grader.ts",
     "test:e2e": "playwright test",
     "test-formula-refs": "npx tsx scripts/test-formula-refs.ts",
-    "test-openings-import": "npx tsx scripts/test-openings-import.ts"
+    "test-openings-import": "npx tsx scripts/test-openings-import.ts",
+    "test-challenge-picker": "npx tsx scripts/test-challenge-picker.ts"
   },
   "prisma": {
     "seed": "npx tsx prisma/seed.ts"

@@ -3,7 +3,7 @@
  * answer that matches `answer`, an explanation, a valid difficulty, and a lesson that exists in /learn.
  * Usage: npm run validate-questions
  */
-import { PEB_BANK_V1 } from "../src/lib/mcq/bank";
+import { PEB_BANK } from "../src/lib/mcq/bank";
 import { capitalizeDifficulty, toLessonId, validateMcq } from "../src/lib/mcq/validate";
 import { getLesson } from "../src/lib/learn/lessons";
 
@@ -11,7 +11,7 @@ const problems: string[] = [];
 const ids = new Set<string>();
 const texts = new Map<string, string>();
 
-for (const q of PEB_BANK_V1) {
+for (const q of PEB_BANK) {
   const where = q.id || "(missing id)";
   if (!q.id) problems.push(`${where}: missing id`);
   else if (ids.has(q.id)) problems.push(`${where}: duplicate id`);
@@ -41,4 +41,4 @@ if (problems.length) {
   console.error(`✗ ${problems.length} problem(s):\n  ${problems.join("\n  ")}`);
   process.exit(1);
 }
-console.log(`✓ ${PEB_BANK_V1.length} questions valid`);
+console.log(`✓ ${PEB_BANK.length} questions valid`);

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getUserIdFromSession } from "@/lib/auth";
-import { listMcqs } from "@/lib/mcq/server";
+import { listMcqs, practiceModeQuestions, type PracticeMode } from "@/lib/mcq/server";
 import { lockedQuestionIds } from "@/lib/challenges";
 import { MCQ_DIFFICULTIES, toLessonId } from "@/lib/mcq/validate";
 
@@ -15,6 +15,10 @@ export async function GET(req: Request) {
   const difficulty = sp.get("difficulty");
   const limit = Math.min(Math.max(Number(sp.get("limit")) || 10, 1), 50);
   const exclude = [...(sp.get("exclude") ?? "").split(",").filter(Boolean).slice(0, 500), ...(await lockedQuestionIds(userId))];
+  const mode = sp.get("mode");
+  if (mode === "weak" || mode === "missed" || mode === "hard") {
+    return NextResponse.json(await practiceModeQuestions(userId, mode as PracticeMode, { module: mod, limit, exclude }));
+  }
   const questions = await listMcqs(
     {
       module: mod,

@@ -1,0 +1,1167 @@
+{
+ "version": 1,
+ "groups": [
+  {
+   "id": "tmt",
+   "name": "Technology, Media & Telecom (TMT)",
+   "type": "coverage",
+   "oneLiner": "Covers software, internet, semiconductors, media, and telecom companies.",
+   "whatYouDo": "M&A and financings for tech companies, from fast-growing software businesses to large telecom and media companies.",
+   "typicalDeals": [
+    "Software acquisitions",
+    "Tech IPOs",
+    "Semiconductor consolidation",
+    "Media and telecom mergers"
+   ],
+   "skills": [
+    "Revenue-based valuation",
+    "SaaS metrics (ARR, NRR, Rule of 40)",
+    "Fast-moving industry knowledge"
+   ],
+   "goodFitIf": [
+    "You follow tech and product news closely",
+    "You like fast-changing industries"
+   ],
+   "tradeoffs": [
+    "Valuations swing with sentiment",
+    "Many companies are valued on growth, not profits"
+   ],
+   "relatedLessons": [
+    "10.4",
+    "3.2",
+    "4.4"
+   ],
+   "hubs": [
+    "San Francisco Bay Area",
+    "New York"
+   ],
+   "whyAngles": [
+    "A personal or academic link to technology, media & telecom",
+    "A specific recent deal and what it shows about the space",
+    "What you learned from a banker in the group"
+   ],
+   "questionsToAskBankers": [
+    "What does a typical deal look like for your team?",
+    "What skills make analysts stand out in your group?",
+    "How has the group's deal mix changed recently?"
+   ]
+  },
+  {
+   "id": "healthcare",
+   "name": "Healthcare",
+   "type": "coverage",
+   "oneLiner": "Covers pharma, biotech, medical devices, and healthcare services.",
+   "whatYouDo": "Advises companies from biotechs with one drug to hospital systems and device makers.",
+   "typicalDeals": [
+    "Pharma buying biotech pipelines",
+    "Healthcare services roll-ups",
+    "Medtech acquisitions"
+   ],
+   "skills": [
+    "Pipeline (risk-adjusted NPV) valuation",
+    "Regulatory awareness",
+    "Science literacy helps"
+   ],
+   "goodFitIf": [
+    "You have a biology, chemistry, or health interest",
+    "You like steady demand with complex regulation"
+   ],
+   "tradeoffs": [
+    "Scientific and regulatory detail has a learning curve"
+   ],
+   "relatedLessons": [
+    "3.1",
+    "6.7"
+   ],
+   "hubs": [
+    "New York",
+    "Boston",
+    "Bay Area"
+   ],
+   "whyAngles": [
+    "A personal or academic link to healthcare",
+    "A specific recent deal and what it shows about the space",
+    "What you learned from a banker in the group"
+   ],
+   "questionsToAskBankers": [
+    "What does a typical deal look like for your team?",
+    "What skills make analysts stand out in your group?",
+    "How has the group's deal mix changed recently?"
+   ]
+  },
+  {
+   "id": "industrials",
+   "name": "Industrials",
+   "type": "coverage",
+   "oneLiner": "Covers manufacturing, aerospace and defense, transportation, building products, and business services.",
+   "whatYouDo": "Works with a very broad set of businesses that make and move physical things, often with many middle-market and sponsor-owned clients.",
+   "typicalDeals": [
+    "Sponsor buyouts of manufacturers",
+    "Aerospace supplier mergers",
+    "Business services roll-ups"
+   ],
+   "skills": [
+    "Classic EBITDA-based valuation",
+    "Operational understanding",
+    "Cyclicality analysis"
+   ],
+   "goodFitIf": [
+    "You like how physical products are made and sold",
+    "You want broad, generalist-style exposure"
+   ],
+   "tradeoffs": [
+    "Less 'headline' glamour",
+    "Cycles matter a lot"
+   ],
+   "relatedLessons": [
+    "4.1",
+    "6.7",
+    "8.6"
+   ],
+   "hubs": [
+    "Chicago",
+    "New York",
+    "Midwest offices"
+   ],
+   "whyAngles": [
+    "A personal or academic link to industrials",
+    "A specific recent deal and what it shows about the space",
+    "What you learned from a banker in the group"
+   ],
+   "questionsToAskBankers": [
+    "What does a typical deal look like for your team?",
+    "What skills make analysts stand out in your group?",
+    "How has the group's deal mix changed recently?"
+   ]
+  },
+  {
+   "id": "consumer",
+   "name": "Consumer & Retail",
+   "type": "coverage",
+   "oneLiner": "Covers consumer brands, food and beverage, restaurants, and retailers.",
+   "whatYouDo": "Advises brands and retailers on acquisitions, sales, and financings.",
+   "typicalDeals": [
+    "Brand acquisitions",
+    "Restaurant buyouts",
+    "Retail mergers"
+   ],
+   "skills": [
+    "Brand and consumer trend analysis",
+    "Same-store sales and unit economics"
+   ],
+   "goodFitIf": [
+    "You think about why people buy what they buy",
+    "You like businesses you can see and use"
+   ],
+   "tradeoffs": [
+    "Consumer tastes shift quickly",
+    "Retail can be volatile"
+   ],
+   "relatedLessons": [
+    "1.4",
+    "1.7"
+   ],
+   "hubs": [
+    "New York",
+    "Chicago"
+   ],
+   "whyAngles": [
+    "A personal or academic link to consumer & retail",
+    "A specific recent deal and what it shows about the space",
+    "What you learned from a banker in the group"
+   ],
+   "questionsToAskBankers": [
+    "What does a typical deal look like for your team?",
+    "What skills make analysts stand out in your group?",
+    "How has the group's deal mix changed recently?"
+   ]
+  },
+  {
+   "id": "fig",
+   "name": "Financial Institutions (FIG)",
+   "type": "coverage",
+   "oneLiner": "Covers banks, insurers, asset managers, and fintech.",
+   "whatYouDo": "Advises financial companies, which are valued and regulated very differently from other businesses.",
+   "typicalDeals": [
+    "Bank mergers",
+    "Insurance acquisitions",
+    "Asset manager consolidation",
+    "Fintech deals"
+   ],
+   "skills": [
+    "Bank and insurance accounting",
+    "P/BV, P/TBV, dividend discount models",
+    "Regulatory capital"
+   ],
+   "goodFitIf": [
+    "You enjoy accounting and how financial firms make money",
+    "You like a specialized, technical niche"
+   ],
+   "tradeoffs": [
+    "Specialized skills transfer less directly to other industries"
+   ],
+   "relatedLessons": [
+    "10.1",
+    "10.5",
+    "6.6"
+   ],
+   "hubs": [
+    "New York"
+   ],
+   "whyAngles": [
+    "A personal or academic link to financial institutions",
+    "A specific recent deal and what it shows about the space",
+    "What you learned from a banker in the group"
+   ],
+   "questionsToAskBankers": [
+    "What does a typical deal look like for your team?",
+    "What skills make analysts stand out in your group?",
+    "How has the group's deal mix changed recently?"
+   ]
+  },
+  {
+   "id": "energy",
+   "name": "Energy, Power & Infrastructure",
+   "type": "coverage",
+   "oneLiner": "Covers oil and gas, utilities, renewables, and infrastructure.",
+   "whatYouDo": "Advises producers, pipelines, utilities, and renewable developers on deals and financings.",
+   "typicalDeals": [
+    "Upstream mergers",
+    "Pipeline (midstream) deals",
+    "Renewable portfolio financings",
+    "Utility acquisitions"
+   ],
+   "skills": [
+    "Commodity price analysis",
+    "NAV and reserve-based valuation",
+    "Project finance basics"
+   ],
+   "goodFitIf": [
+    "You follow energy, climate, or infrastructure",
+    "You're comfortable with commodity cycles"
+   ],
+   "tradeoffs": [
+    "Results swing with commodity prices"
+   ],
+   "relatedLessons": [
+    "10.3",
+    "6.7"
+   ],
+   "hubs": [
+    "Houston",
+    "New York"
+   ],
+   "whyAngles": [
+    "A personal or academic link to energy, power & infrastructure",
+    "A specific recent deal and what it shows about the space",
+    "What you learned from a banker in the group"
+   ],
+   "questionsToAskBankers": [
+    "What does a typical deal look like for your team?",
+    "What skills make analysts stand out in your group?",
+    "How has the group's deal mix changed recently?"
+   ]
+  },
+  {
+   "id": "realestate",
+   "name": "Real Estate, Gaming & Lodging",
+   "type": "coverage",
+   "oneLiner": "Covers REITs, property owners, hotels, and casinos.",
+   "whatYouDo": "Advises property companies on mergers, asset sales, and capital raises.",
+   "typicalDeals": [
+    "REIT mergers",
+    "Portfolio sales",
+    "Hotel and casino deals"
+   ],
+   "skills": [
+    "Cap rates, NOI, FFO/AFFO, NAV"
+   ],
+   "goodFitIf": [
+    "You like tangible assets and property markets"
+   ],
+   "tradeoffs": [
+    "Very rate-sensitive"
+   ],
+   "relatedLessons": [
+    "10.2"
+   ],
+   "hubs": [
+    "New York"
+   ],
+   "whyAngles": [
+    "A personal or academic link to real estate, gaming & lodging",
+    "A specific recent deal and what it shows about the space",
+    "What you learned from a banker in the group"
+   ],
+   "questionsToAskBankers": [
+    "What does a typical deal look like for your team?",
+    "What skills make analysts stand out in your group?",
+    "How has the group's deal mix changed recently?"
+   ]
+  },
+  {
+   "id": "fsg",
+   "name": "Financial Sponsors (FSG)",
+   "type": "coverage",
+   "oneLiner": "Covers private equity firms as clients.",
+   "whatYouDo": "Builds relationships with PE firms and brings them buyout and sale opportunities across industries.",
+   "typicalDeals": [
+    "Sponsor buyouts",
+    "Sponsor-to-sponsor sales",
+    "Dividend recaps"
+   ],
+   "skills": [
+    "LBO modeling",
+    "Understanding how sponsors evaluate deals"
+   ],
+   "goodFitIf": [
+    "You're fascinated by how PE firms think",
+    "You want exposure across many industries"
+   ],
+   "tradeoffs": [
+    "You're often coordinating with industry groups rather than leading on industry depth"
+   ],
+   "relatedLessons": [
+    "8.1",
+    "8.4",
+    "8.6"
+   ],
+   "hubs": [
+    "New York",
+    "Chicago"
+   ],
+   "whyAngles": [
+    "A personal or academic link to financial sponsors",
+    "A specific recent deal and what it shows about the space",
+    "What you learned from a banker in the group"
+   ],
+   "questionsToAskBankers": [
+    "What does a typical deal look like for your team?",
+    "What skills make analysts stand out in your group?",
+    "How has the group's deal mix changed recently?"
+   ]
+  },
+  {
+   "id": "ma",
+   "name": "M&A (product group)",
+   "type": "product",
+   "oneLiner": "Executes mergers, acquisitions, and sales across all industries.",
+   "whatYouDo": "Runs sale processes and buy-side advisory, building valuation and merger models and working through negotiations.",
+   "typicalDeals": [
+    "Company sales",
+    "Mergers",
+    "Buy-side advisory",
+    "Fairness opinions"
+   ],
+   "skills": [
+    "Valuation",
+    "Merger models",
+    "Deal process management"
+   ],
+   "goodFitIf": [
+    "You love valuation and modeling",
+    "You want to stay a generalist"
+   ],
+   "tradeoffs": [
+    "Less industry depth than a coverage group"
+   ],
+   "relatedLessons": [
+    "7.2",
+    "7.3",
+    "3.1"
+   ],
+   "hubs": [
+    "All major offices"
+   ],
+   "whyAngles": [
+    "A personal or academic link to m&a",
+    "A specific recent deal and what it shows about the space",
+    "What you learned from a banker in the group"
+   ],
+   "questionsToAskBankers": [
+    "What does a typical deal look like for your team?",
+    "What skills make analysts stand out in your group?",
+    "How has the group's deal mix changed recently?"
+   ]
+  },
+  {
+   "id": "levfin",
+   "name": "Leveraged Finance",
+   "type": "product",
+   "oneLiner": "Structures and raises high-yield bonds and leveraged loans, often for LBOs.",
+   "whatYouDo": "Works out how much debt a company can carry and helps raise it from investors.",
+   "typicalDeals": [
+    "LBO financing",
+    "Refinancings",
+    "Dividend recap debt"
+   ],
+   "skills": [
+    "Credit analysis",
+    "Debt capacity",
+    "Covenants and debt terms"
+   ],
+   "goodFitIf": [
+    "You like credit and capital structures",
+    "You're interested in sponsors and buyouts"
+   ],
+   "tradeoffs": [
+    "Very market-dependent; busy when credit markets are open"
+   ],
+   "relatedLessons": [
+    "8.3",
+    "9.1",
+    "9.3"
+   ],
+   "hubs": [
+    "New York"
+   ],
+   "whyAngles": [
+    "A personal or academic link to leveraged finance",
+    "A specific recent deal and what it shows about the space",
+    "What you learned from a banker in the group"
+   ],
+   "questionsToAskBankers": [
+    "What does a typical deal look like for your team?",
+    "What skills make analysts stand out in your group?",
+    "How has the group's deal mix changed recently?"
+   ]
+  },
+  {
+   "id": "ecm",
+   "name": "Equity Capital Markets (ECM)",
+   "type": "product",
+   "oneLiner": "Helps companies raise equity: IPOs, follow-on offerings, and convertibles.",
+   "whatYouDo": "Sits between companies and investors, advising on timing, pricing, and investor demand.",
+   "typicalDeals": [
+    "IPOs",
+    "Follow-on offerings",
+    "Convertible bonds",
+    "Block trades"
+   ],
+   "skills": [
+    "Market awareness",
+    "Investor communication",
+    "Pricing judgment"
+   ],
+   "goodFitIf": [
+    "You love live markets",
+    "You like communication and timing more than deep modeling"
+   ],
+   "tradeoffs": [
+    "Lighter on detailed modeling",
+    "Deal flow depends on market windows"
+   ],
+   "relatedLessons": [
+    "2.3",
+    "3.2"
+   ],
+   "hubs": [
+    "New York"
+   ],
+   "whyAngles": [
+    "A personal or academic link to equity capital markets",
+    "A specific recent deal and what it shows about the space",
+    "What you learned from a banker in the group"
+   ],
+   "questionsToAskBankers": [
+    "What does a typical deal look like for your team?",
+    "What skills make analysts stand out in your group?",
+    "How has the group's deal mix changed recently?"
+   ]
+  },
+  {
+   "id": "dcm",
+   "name": "Debt Capital Markets (DCM)",
+   "type": "product",
+   "oneLiner": "Helps companies and institutions raise investment-grade debt.",
+   "whatYouDo": "Advises on bond issuance, pricing, and timing for higher-quality borrowers.",
+   "typicalDeals": [
+    "Investment-grade bond deals",
+    "Debt refinancings"
+   ],
+   "skills": [
+    "Rates and credit spreads",
+    "Market timing",
+    "Execution"
+   ],
+   "goodFitIf": [
+    "You're interested in fixed income and rates",
+    "You like fast execution"
+   ],
+   "tradeoffs": [
+    "Less modeling depth than M&A"
+   ],
+   "relatedLessons": [
+    "5.4",
+    "9.3"
+   ],
+   "hubs": [
+    "New York"
+   ],
+   "whyAngles": [
+    "A personal or academic link to debt capital markets",
+    "A specific recent deal and what it shows about the space",
+    "What you learned from a banker in the group"
+   ],
+   "questionsToAskBankers": [
+    "What does a typical deal look like for your team?",
+    "What skills make analysts stand out in your group?",
+    "How has the group's deal mix changed recently?"
+   ]
+  },
+  {
+   "id": "rx",
+   "name": "Restructuring",
+   "type": "product",
+   "oneLiner": "Advises distressed companies or their creditors on fixing balance sheets.",
+   "whatYouDo": "Works on bankruptcies, debt exchanges, and negotiations among creditor groups.",
+   "typicalDeals": [
+    "Chapter 11 reorganizations",
+    "Out-of-court debt exchanges",
+    "Distressed sales"
+   ],
+   "skills": [
+    "Liquidity analysis",
+    "Capital structure and recovery analysis",
+    "Legal process"
+   ],
+   "goodFitIf": [
+    "You like complex negotiations and puzzles",
+    "You're interested in credit and distressed investing"
+   ],
+   "tradeoffs": [
+    "Very technical and intense",
+    "Busiest when the economy struggles"
+   ],
+   "relatedLessons": [
+    "9.2",
+    "9.3",
+    "1.5"
+   ],
+   "hubs": [
+    "New York",
+    "Chicago"
+   ],
+   "whyAngles": [
+    "A personal or academic link to restructuring",
+    "A specific recent deal and what it shows about the space",
+    "What you learned from a banker in the group"
+   ],
+   "questionsToAskBankers": [
+    "What does a typical deal look like for your team?",
+    "What skills make analysts stand out in your group?",
+    "How has the group's deal mix changed recently?"
+   ]
+  }
+ ],
+ "questions": [
+  {
+   "id": "q1",
+   "prompt": "Which headline would you click first?",
+   "options": [
+    {
+     "label": "A new AI chip or software launch",
+     "weights": {
+      "tmt": 3
+     }
+    },
+    {
+     "label": "An FDA drug approval or a hospital merger",
+     "weights": {
+      "healthcare": 3
+     }
+    },
+    {
+     "label": "An aerospace or factory automation deal",
+     "weights": {
+      "industrials": 3
+     }
+    },
+    {
+     "label": "A big consumer brand's earnings",
+     "weights": {
+      "consumer": 3
+     }
+    },
+    {
+     "label": "A bank's earnings or a Fed rate decision",
+     "weights": {
+      "fig": 3,
+      "dcm": 1
+     }
+    },
+    {
+     "label": "Oil prices, power grids, or renewables",
+     "weights": {
+      "energy": 3
+     }
+    },
+    {
+     "label": "Office, housing, or hotel market trends",
+     "weights": {
+      "realestate": 3
+     }
+    },
+    {
+     "label": "A well-known company going bankrupt",
+     "weights": {
+      "rx": 3
+     }
+    },
+    {
+     "label": "A blockbuster IPO",
+     "weights": {
+      "ecm": 3
+     }
+    },
+    {
+     "label": "A private equity firm buying a company",
+     "weights": {
+      "fsg": 3,
+      "levfin": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "q2",
+   "prompt": "How do you feel about building detailed financial models?",
+   "options": [
+    {
+     "label": "I love it and want to get really good at it",
+     "weights": {
+      "ma": 2,
+      "fsg": 2,
+      "rx": 2,
+      "levfin": 1,
+      "industrials": 1
+     }
+    },
+    {
+     "label": "I like it, but I'm more interested in markets and pricing",
+     "weights": {
+      "ecm": 2,
+      "dcm": 2,
+      "levfin": 1
+     }
+    },
+    {
+     "label": "It's fine — I'm more interested in understanding industries",
+     "weights": {
+      "tmt": 1,
+      "healthcare": 1,
+      "industrials": 1,
+      "consumer": 1,
+      "fig": 1,
+      "energy": 1,
+      "realestate": 1
+     }
+    },
+    {
+     "label": "I'd rather focus on relationships and communication",
+     "weights": {
+      "ecm": 2,
+      "dcm": 2,
+      "fsg": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "q3",
+   "prompt": "Which deal sounds most interesting to work on?",
+   "options": [
+    {
+     "label": "Selling a family-owned company to the right buyer",
+     "weights": {
+      "ma": 3,
+      "industrials": 1,
+      "consumer": 1
+     }
+    },
+    {
+     "label": "Raising the debt so a PE firm can buy a company",
+     "weights": {
+      "levfin": 3,
+      "fsg": 2
+     }
+    },
+    {
+     "label": "Taking a fast-growing startup public",
+     "weights": {
+      "ecm": 3,
+      "tmt": 1
+     }
+    },
+    {
+     "label": "Helping a struggling company avoid running out of cash",
+     "weights": {
+      "rx": 3
+     }
+    },
+    {
+     "label": "Advising one bank on buying another",
+     "weights": {
+      "fig": 3
+     }
+    },
+    {
+     "label": "Funding a portfolio of solar projects",
+     "weights": {
+      "energy": 3,
+      "dcm": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "q4",
+   "prompt": "What pace do you prefer?",
+   "options": [
+    {
+     "label": "Live markets where things change by the hour",
+     "weights": {
+      "ecm": 3,
+      "dcm": 3,
+      "levfin": 2
+     }
+    },
+    {
+     "label": "Long, deep projects that take months to finish",
+     "weights": {
+      "ma": 2,
+      "rx": 2,
+      "fig": 1,
+      "healthcare": 1
+     }
+    },
+    {
+     "label": "A mix of both",
+     "weights": {
+      "tmt": 1,
+      "industrials": 1,
+      "consumer": 1,
+      "energy": 1,
+      "realestate": 1,
+      "fsg": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "q5",
+   "prompt": "How do you feel about learning very industry-specific accounting (bank capital rules, insurance reserves, oil reserves)?",
+   "options": [
+    {
+     "label": "Sounds interesting — I like specialized knowledge",
+     "weights": {
+      "fig": 3,
+      "energy": 2,
+      "realestate": 2
+     }
+    },
+    {
+     "label": "Fine if I need it",
+     "weights": {
+      "healthcare": 1,
+      "tmt": 1,
+      "industrials": 1
+     }
+    },
+    {
+     "label": "I'd rather stick to general corporate finance",
+     "weights": {
+      "ma": 2,
+      "consumer": 1,
+      "industrials": 1,
+      "levfin": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "q6",
+   "prompt": "Bankruptcy court, creditor negotiations, and legal detail sound…",
+   "options": [
+    {
+     "label": "Fascinating",
+     "weights": {
+      "rx": 3,
+      "levfin": 1
+     }
+    },
+    {
+     "label": "Fine in small doses",
+     "weights": {
+      "ma": 1,
+      "fsg": 1
+     }
+    },
+    {
+     "label": "Not for me",
+     "weights": {
+      "ecm": 1,
+      "dcm": 1,
+      "consumer": 1,
+      "tmt": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "q7",
+   "prompt": "Which background or interest fits you best?",
+   "options": [
+    {
+     "label": "Biology, chemistry, or health",
+     "weights": {
+      "healthcare": 3
+     }
+    },
+    {
+     "label": "Computer science, software, or tech products",
+     "weights": {
+      "tmt": 3,
+      "industrials": 1
+     }
+    },
+    {
+     "label": "Engineering or how physical things are built",
+     "weights": {
+      "industrials": 3,
+      "energy": 1
+     }
+    },
+    {
+     "label": "Economics, policy, or how money works",
+     "weights": {
+      "fig": 2,
+      "dcm": 1,
+      "energy": 1
+     }
+    },
+    {
+     "label": "Brands, marketing, and consumer behavior",
+     "weights": {
+      "consumer": 3
+     }
+    },
+    {
+     "label": "None in particular",
+     "weights": {
+      "ma": 1,
+      "fsg": 1,
+      "consumer": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "q8",
+   "prompt": "After two years, what do you want to be known for?",
+   "options": [
+    {
+     "label": "Deep expertise in one industry",
+     "weights": {
+      "tmt": 2,
+      "healthcare": 2,
+      "industrials": 2,
+      "consumer": 2,
+      "fig": 2,
+      "energy": 2,
+      "realestate": 2
+     }
+    },
+    {
+     "label": "Strong modeling and deal execution across industries",
+     "weights": {
+      "ma": 3,
+      "rx": 1
+     }
+    },
+    {
+     "label": "Knowing investors and how markets price deals",
+     "weights": {
+      "ecm": 2,
+      "dcm": 2,
+      "levfin": 2
+     }
+    },
+    {
+     "label": "Understanding how private equity firms think",
+     "weights": {
+      "fsg": 3,
+      "levfin": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "q9",
+   "prompt": "If you had to guess today, what might come after banking?",
+   "note": "Paths vary a lot by person and firm — this is a soft signal.",
+   "options": [
+    {
+     "label": "Private equity",
+     "weights": {
+      "fsg": 2,
+      "levfin": 2,
+      "ma": 2,
+      "industrials": 1,
+      "healthcare": 1,
+      "consumer": 1
+     }
+    },
+    {
+     "label": "Hedge funds or public investing",
+     "weights": {
+      "rx": 2,
+      "ecm": 1,
+      "tmt": 1,
+      "healthcare": 1
+     }
+    },
+    {
+     "label": "Credit or distressed investing",
+     "weights": {
+      "rx": 3,
+      "levfin": 2,
+      "dcm": 1
+     }
+    },
+    {
+     "label": "Corporate development or a startup",
+     "weights": {
+      "tmt": 2,
+      "healthcare": 1,
+      "consumer": 1,
+      "ma": 1
+     }
+    },
+    {
+     "label": "Not sure yet — I want to keep options open",
+     "weights": {
+      "ma": 2,
+      "industrials": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "q10",
+   "prompt": "Which city are you most drawn to?",
+   "note": "Optional — light weight. Most groups exist in most major offices.",
+   "weight": 0.5,
+   "options": [
+    {
+     "label": "New York",
+     "weights": {
+      "fig": 1,
+      "ecm": 1,
+      "dcm": 1,
+      "fsg": 1,
+      "rx": 1,
+      "levfin": 1,
+      "ma": 1
+     }
+    },
+    {
+     "label": "Chicago",
+     "weights": {
+      "industrials": 1,
+      "consumer": 1,
+      "fsg": 1,
+      "ma": 1
+     }
+    },
+    {
+     "label": "Houston",
+     "weights": {
+      "energy": 3
+     }
+    },
+    {
+     "label": "San Francisco Bay Area",
+     "weights": {
+      "tmt": 3
+     }
+    },
+    {
+     "label": "No preference",
+     "weights": {}
+    }
+   ]
+  },
+  {
+   "id": "q11",
+   "prompt": "How comfortable are you with booms and busts in your industry?",
+   "options": [
+    {
+     "label": "Comfortable — cycles make it interesting",
+     "weights": {
+      "energy": 2,
+      "rx": 1,
+      "ecm": 1,
+      "realestate": 1
+     }
+    },
+    {
+     "label": "I'd prefer steadier demand",
+     "weights": {
+      "healthcare": 2,
+      "consumer": 1,
+      "fig": 1
+     }
+    },
+    {
+     "label": "Somewhere in between",
+     "weights": {
+      "industrials": 1,
+      "tmt": 1,
+      "ma": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "q12",
+   "prompt": "Which classes do you enjoy most?",
+   "options": [
+    {
+     "label": "Accounting",
+     "weights": {
+      "fig": 2,
+      "rx": 1,
+      "ma": 1
+     }
+    },
+    {
+     "label": "Corporate finance and valuation",
+     "weights": {
+      "ma": 2,
+      "fsg": 1,
+      "industrials": 1
+     }
+    },
+    {
+     "label": "Investments and fixed income",
+     "weights": {
+      "dcm": 3,
+      "levfin": 2,
+      "rx": 1
+     }
+    },
+    {
+     "label": "Marketing and strategy",
+     "weights": {
+      "consumer": 2,
+      "tmt": 1
+     }
+    },
+    {
+     "label": "Science or engineering",
+     "weights": {
+      "healthcare": 1,
+      "tmt": 1,
+      "industrials": 1,
+      "energy": 1
+     }
+    }
+   ]
+  },
+  {
+   "id": "q13",
+   "prompt": "What kind of business do you find most interesting?",
+   "options": [
+    {
+     "label": "Factories, supply chains, and physical operations",
+     "weights": {
+      "industrials": 3,
+      "energy": 2
+     }
+    },
+    {
+     "label": "Software, networks, and intellectual property",
+     "weights": {
+      "tmt": 3
+     }
+    },
+    {
+     "label": "Banks, insurers, and financial products",
+     "weights": {
+      "fig": 3,
+      "dcm": 1
+     }
+    },
+    {
+     "label": "Consumer brands and stores",
+     "weights": {
+      "consumer": 3
+     }
+    },
+    {
+     "label": "Hospitals, drugs, and medical devices",
+     "weights": {
+      "healthcare": 3
+     }
+    },
+    {
+     "label": "Buildings, hotels, and land",
+     "weights": {
+      "realestate": 3
+     }
+    }
+   ]
+  },
+  {
+   "id": "q14",
+   "prompt": "Do you want to specialize early or stay broad?",
+   "options": [
+    {
+     "label": "Stay broad for now",
+     "weights": {
+      "ma": 2,
+      "industrials": 1,
+      "fsg": 1
+     }
+    },
+    {
+     "label": "Specialize early in an industry",
+     "weights": {
+      "healthcare": 1,
+      "fig": 1,
+      "energy": 1,
+      "realestate": 1,
+      "tmt": 1
+     }
+    },
+    {
+     "label": "Specialize in a product (debt, equity, restructuring)",
+     "weights": {
+      "levfin": 1,
+      "ecm": 1,
+      "dcm": 1,
+      "rx": 1
+     }
+    }
+   ]
+  }
+ ],
+ "maxScores": {
+  "tmt": 22.5,
+  "healthcare": 19.0,
+  "industrials": 19.5,
+  "consumer": 20.5,
+  "fig": 22.5,
+  "energy": 20.5,
+  "realestate": 14.0,
+  "fsg": 17.5,
+  "ma": 21.5,
+  "levfin": 16.5,
+  "ecm": 17.5,
+  "dcm": 17.5,
+  "rx": 20.5
+ },
+ "scoring": "For each group, sum (option weight × question weight) over answers, divide by maxScores[group], show the top 3 as a 0–100 match. List the answers that contributed most to each as 'Why this fits'.",
+ "disclaimer": "This is a starting point for conversations, not a verdict. Many analysts switch groups, and most programs let you learn more before you're placed."
+}

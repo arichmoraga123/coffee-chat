@@ -1,0 +1,1145 @@
+{
+ "version": 1,
+ "categories": [
+  "Your story",
+  "Why IB",
+  "Why this city",
+  "Why this group",
+  "Why this firm",
+  "Strengths, weaknesses & fit",
+  "Markets & deals",
+  "Closing"
+ ],
+ "questions": [
+  {
+   "id": "story-tmay",
+   "category": "Your story",
+   "prompt": "Tell me about yourself.",
+   "whatTheyreTesting": "Can you tell a clear, logical story in about a minute that explains why you're sitting in this interview?",
+   "framework": [
+    "Where you're from and what you study (one line)",
+    "The moment or experience that got you interested in finance",
+    "What you did about it — clubs, courses, jobs, self-study",
+    "What you learned the job involves and why it fits you",
+    "Why you're here today (this firm / role)"
+   ],
+   "mustInclude": [
+    "A clear thread connecting your experiences to banking",
+    "One or two specific actions, not a list of everything",
+    "A forward-looking close"
+   ],
+   "avoid": [
+    "Reading your resume line by line",
+    "Starting in childhood",
+    "Going over two minutes",
+    "Generic lines like \"I've always loved finance\""
+   ],
+   "builderFields": [
+    {
+     "key": "background",
+     "label": "Where you're from + school + major",
+     "hint": "One sentence."
+    },
+    {
+     "key": "spark",
+     "label": "What first got you interested in finance",
+     "hint": "A specific moment: a class, job, person, or event."
+    },
+    {
+     "key": "actions",
+     "label": "What you did about it",
+     "hint": "Clubs, case comps, internships, self-study — pick the strongest 2."
+    },
+    {
+     "key": "learned",
+     "label": "What you learned about the job, and why it fits you",
+     "hint": "Show you know what analysts actually do."
+    },
+    {
+     "key": "close",
+     "label": "Why you're interviewing here",
+     "hint": "One line tying to this firm or role."
+    }
+   ],
+   "outlineTemplate": "I'm a [year] at [school] studying [major], originally from [hometown]. I got interested in finance when [spark]. Since then I've [action 1] and [action 2], which showed me that [what the job involves]. That fits me because [strength]. That's why I'm excited about [role] at [firm].",
+   "likelyFollowUps": [
+    "Why finance over [your major's usual path]?",
+    "Tell me more about [an experience you mentioned]."
+   ],
+   "suggestedStoryThemes": [
+    "leadership",
+    "first exposure to finance",
+    "teamwork"
+   ],
+   "targetLengthSeconds": "60–90"
+  },
+  {
+   "id": "story-resume",
+   "category": "Your story",
+   "prompt": "Walk me through your resume.",
+   "whatTheyreTesting": "Same as \"tell me about yourself,\" but anchored to your resume. Can you connect the dots and explain your choices?",
+   "framework": [
+    "Open with school and why you chose your major",
+    "Move through experiences in order, one or two lines each",
+    "For each, say why you did it and what you took from it",
+    "End with why banking is the logical next step"
+   ],
+   "mustInclude": [
+    "The reason behind each move",
+    "What each experience taught you that's relevant to banking"
+   ],
+   "avoid": [
+    "Reading bullets aloud",
+    "Spending equal time on everything — linger on the most relevant"
+   ],
+   "builderFields": [
+    {
+     "key": "school",
+     "label": "School, major, and why",
+     "hint": ""
+    },
+    {
+     "key": "exp1",
+     "label": "Experience 1: why you did it, what you learned",
+     "hint": ""
+    },
+    {
+     "key": "exp2",
+     "label": "Experience 2: why you did it, what you learned",
+     "hint": ""
+    },
+    {
+     "key": "exp3",
+     "label": "Experience 3 (optional)",
+     "hint": ""
+    },
+    {
+     "key": "next",
+     "label": "Why banking is the next step",
+     "hint": ""
+    }
+   ],
+   "outlineTemplate": "I chose [school/major] because [reason]. My first experience was [exp1], where I learned [lesson]. That led me to [exp2], where [lesson]. Those experiences pointed me toward banking because [reason], and that's what brings me here.",
+   "likelyFollowUps": [
+    "Which experience was most valuable?",
+    "What would you do differently?"
+   ],
+   "suggestedStoryThemes": [
+    "first exposure to finance",
+    "leadership"
+   ],
+   "targetLengthSeconds": "90–120"
+  },
+  {
+   "id": "story-outside",
+   "category": "Your story",
+   "prompt": "What do you do outside of school and recruiting?",
+   "whatTheyreTesting": "Are you a real, interesting person the team would want to work with at 1 a.m.?",
+   "framework": [
+    "Name one or two genuine interests",
+    "Add a specific detail that makes it memorable",
+    "Optionally connect it to a trait (discipline, teamwork)"
+   ],
+   "mustInclude": [
+    "Specific detail (\"I've run three half marathons\" beats \"I like running\")"
+   ],
+   "avoid": [
+    "Saying you have no time for hobbies",
+    "Listing five hobbies with no detail"
+   ],
+   "builderFields": [
+    {
+     "key": "interest",
+     "label": "Interest",
+     "hint": ""
+    },
+    {
+     "key": "detail",
+     "label": "A specific detail or story",
+     "hint": ""
+    },
+    {
+     "key": "trait",
+     "label": "What it says about you (optional)",
+     "hint": ""
+    }
+   ],
+   "outlineTemplate": "Outside of class I [interest] — [specific detail]. It's taught me [trait].",
+   "likelyFollowUps": [
+    "How did you get into that?"
+   ],
+   "suggestedStoryThemes": [
+    "sports",
+    "personal interest"
+   ],
+   "targetLengthSeconds": "30–45"
+  },
+  {
+   "id": "why-ib",
+   "category": "Why IB",
+   "prompt": "Why investment banking?",
+   "whatTheyreTesting": "Do you understand what an analyst actually does, and is there a believable reason you want that job specifically?",
+   "framework": [
+    "What sparked your interest (a real experience)",
+    "What you've learned about the work itself",
+    "Why that work fits your strengths",
+    "What you want to get out of it (learning curve, deal exposure, foundation)"
+   ],
+   "mustInclude": [
+    "Specific understanding of the analyst role: modeling, pitch materials, deal execution, long hours",
+    "At least one concrete experience behind your interest"
+   ],
+   "avoid": [
+    "\"The money\" or \"prestige\"",
+    "\"Fast-paced environment\" with nothing behind it",
+    "Saying you want to leave for PE as your main reason"
+   ],
+   "builderFields": [
+    {
+     "key": "spark",
+     "label": "The experience that got you interested",
+     "hint": "e.g., a case competition, internship, family business sale, a deal you followed."
+    },
+    {
+     "key": "understanding",
+     "label": "What you've learned the analyst job involves",
+     "hint": "From coffee chats, courses, or work. Be concrete."
+    },
+    {
+     "key": "fit",
+     "label": "Why that work fits you",
+     "hint": "Link to a strength with evidence."
+    },
+    {
+     "key": "goal",
+     "label": "What you want to get out of it",
+     "hint": "Learning curve, exposure to how companies make big decisions."
+    }
+   ],
+   "outlineTemplate": "I first got interested in banking when [spark]. Talking with analysts like [person] and working through [technical prep], I learned the job is [what it involves]. That fits me because [strength + evidence]. What I want most is [goal], and banking is the fastest way to get it.",
+   "likelyFollowUps": [
+    "What do you think an analyst does day to day?",
+    "Why not consulting?",
+    "How do you feel about the hours?"
+   ],
+   "suggestedStoryThemes": [
+    "first exposure to finance",
+    "analytical work",
+    "working hard under pressure"
+   ],
+   "targetLengthSeconds": "60–90"
+  },
+  {
+   "id": "why-not-consulting",
+   "category": "Why IB",
+   "prompt": "Why banking and not consulting?",
+   "whatTheyreTesting": "Do you understand the real differences, and is your choice deliberate?",
+   "framework": [
+    "Acknowledge what's appealing about consulting (briefly)",
+    "Name the concrete difference that matters to you: transactions, financial analysis, capital markets",
+    "Tie it to an experience or strength"
+   ],
+   "mustInclude": [
+    "A real distinction (deals and valuation vs. operations strategy)"
+   ],
+   "avoid": [
+    "Putting consulting down",
+    "Saying you applied to both but liked banking more without a reason"
+   ],
+   "builderFields": [
+    {
+     "key": "respect",
+     "label": "What appeals to you about consulting",
+     "hint": "One line."
+    },
+    {
+     "key": "difference",
+     "label": "The difference that matters to you",
+     "hint": ""
+    },
+    {
+     "key": "evidence",
+     "label": "Experience that shows it",
+     "hint": ""
+    }
+   ],
+   "outlineTemplate": "I see a lot of overlap in the problem-solving, but what draws me to banking is [difference]. When I [evidence], I realized I most enjoy [aspect].",
+   "likelyFollowUps": [
+    "Did you apply to consulting firms?"
+   ],
+   "suggestedStoryThemes": [
+    "analytical work"
+   ],
+   "targetLengthSeconds": "45–60"
+  },
+  {
+   "id": "why-not-pe",
+   "category": "Why IB",
+   "prompt": "Why banking and not going straight to private equity or a hedge fund?",
+   "whatTheyreTesting": "Are you going to stay and work hard, or are you using banking as a stepping stone you'll resent?",
+   "framework": [
+    "Explain the training and deal exposure banking gives",
+    "Show genuine interest in the advisory/transaction side",
+    "Keep long-term plans open and honest without leading with them"
+   ],
+   "mustInclude": [
+    "The value of seeing many deals and learning the fundamentals well"
+   ],
+   "avoid": [
+    "\"I want to exit to PE in two years\" as the core answer"
+   ],
+   "builderFields": [
+    {
+     "key": "training",
+     "label": "What banking teaches that you want",
+     "hint": ""
+    },
+    {
+     "key": "advisory",
+     "label": "What interests you about advising clients",
+     "hint": ""
+    }
+   ],
+   "outlineTemplate": "Banking gives me [training] across many deals, which I can't get anywhere else this early. I'm also genuinely drawn to [advisory aspect].",
+   "likelyFollowUps": [
+    "Where do you see yourself in five years?"
+   ],
+   "suggestedStoryThemes": [
+    "learning",
+    "first exposure to finance"
+   ],
+   "targetLengthSeconds": "45–60"
+  },
+  {
+   "id": "five-years",
+   "category": "Why IB",
+   "prompt": "Where do you see yourself in five years?",
+   "whatTheyreTesting": "Are you thoughtful about your career and likely to commit to this role?",
+   "framework": [
+    "Focus on becoming excellent in the role first",
+    "Describe the skills and responsibility you want to have",
+    "Stay open about the specific path"
+   ],
+   "mustInclude": [
+    "Commitment to the analyst role"
+   ],
+   "avoid": [
+    "Naming a specific buy-side firm you plan to jump to"
+   ],
+   "builderFields": [
+    {
+     "key": "skills",
+     "label": "Skills you want to have built",
+     "hint": ""
+    },
+    {
+     "key": "responsibility",
+     "label": "Responsibility you want",
+     "hint": ""
+    }
+   ],
+   "outlineTemplate": "In five years I want to have [skills] and be trusted to [responsibility] — ideally having grown here first.",
+   "likelyFollowUps": [],
+   "suggestedStoryThemes": [
+    "learning"
+   ],
+   "targetLengthSeconds": "30–45"
+  },
+  {
+   "id": "why-city",
+   "category": "Why this city",
+   "prompt": "Why [city]?",
+   "whatTheyreTesting": "Will you actually stay in this office, and do you have a real reason to be here?",
+   "framework": [
+    "Personal ties: family, school, past time spent there, where you want to build a life",
+    "Professional reasons: industries or clients concentrated there, the office's deal flow",
+    "Evidence: people you've met there, time you've spent there",
+    "Commitment: you plan to build your career there"
+   ],
+   "mustInclude": [
+    "At least one personal tie and one professional reason"
+   ],
+   "avoid": [
+    "\"It's the center of finance\" with nothing personal",
+    "Saying you'd go anywhere"
+   ],
+   "builderFields": [
+    {
+     "key": "personal",
+     "label": "Personal ties to the city",
+     "hint": "Family, friends, school, time spent there."
+    },
+    {
+     "key": "professional",
+     "label": "Professional reasons",
+     "hint": "e.g., Houston energy, Bay Area tech, Chicago middle market, NYC breadth of deals."
+    },
+    {
+     "key": "evidence",
+     "label": "People you've met or time spent there",
+     "hint": "Pull from your contacts at this office."
+    },
+    {
+     "key": "commit",
+     "label": "Why you'll stay",
+     "hint": ""
+    }
+   ],
+   "outlineTemplate": "[City] is where I want to build my career. [Personal tie]. Professionally, [professional reason], and talking with [people] confirmed that.",
+   "likelyFollowUps": [
+    "Would you consider another office?"
+   ],
+   "suggestedStoryThemes": [
+    "personal background"
+   ],
+   "targetLengthSeconds": "30–60"
+  },
+  {
+   "id": "other-offices",
+   "category": "Why this city",
+   "prompt": "Would you be open to working in another office?",
+   "whatTheyreTesting": "Flexibility vs. genuine preference.",
+   "framework": [
+    "Restate your preference and the reason",
+    "Show openness where it's true"
+   ],
+   "mustInclude": [
+    "Honesty"
+   ],
+   "avoid": [
+    "Saying yes to everything if it contradicts your \"why this city\""
+   ],
+   "builderFields": [
+    {
+     "key": "preference",
+     "label": "Your preference and why",
+     "hint": ""
+    },
+    {
+     "key": "open",
+     "label": "Where you'd also be glad to work",
+     "hint": ""
+    }
+   ],
+   "outlineTemplate": "[City] is my first choice because [reason], but I'd be glad to work in [other] because [reason].",
+   "likelyFollowUps": [],
+   "suggestedStoryThemes": [
+    "personal background"
+   ],
+   "targetLengthSeconds": "20–30"
+  },
+  {
+   "id": "why-group",
+   "category": "Why this group",
+   "prompt": "Why [coverage or product group]?",
+   "whatTheyreTesting": "Have you thought about what the group does, and is your interest real?",
+   "framework": [
+    "What the group does and the kinds of deals it works on",
+    "What draws you to that industry or product (an experience, class, or interest)",
+    "What you've learned from people in the group",
+    "A recent deal or trend in the space"
+   ],
+   "mustInclude": [
+    "A specific deal or trend",
+    "A personal link to the industry or product"
+   ],
+   "avoid": [
+    "\"I find the industry interesting\" with nothing behind it"
+   ],
+   "builderFields": [
+    {
+     "key": "what",
+     "label": "What the group does",
+     "hint": "Use the Group Finder profile if you're not sure."
+    },
+    {
+     "key": "draw",
+     "label": "What draws you to it",
+     "hint": "An experience, class, job, or long-standing interest."
+    },
+    {
+     "key": "people",
+     "label": "What you learned from people in the group",
+     "hint": "Pull from your logged conversations."
+    },
+    {
+     "key": "deal",
+     "label": "A recent deal or trend",
+     "hint": "One sentence with why it matters."
+    }
+   ],
+   "outlineTemplate": "I'm drawn to [group] because [draw]. Talking with [person] about [topic], I learned the group [what]. One deal I've followed is [deal], which shows [insight].",
+   "likelyFollowUps": [
+    "Walk me through a recent deal in this space.",
+    "How are companies in this industry valued?"
+   ],
+   "suggestedStoryThemes": [
+    "industry interest",
+    "first exposure to finance"
+   ],
+   "targetLengthSeconds": "60–90"
+  },
+  {
+   "id": "why-not-other-group",
+   "category": "Why this group",
+   "prompt": "Why [this group] and not M&A (or another group)?",
+   "whatTheyreTesting": "Do you understand how groups differ?",
+   "framework": [
+    "Name a real difference (industry depth vs. product expertise, markets vs. advisory)",
+    "Connect to what you enjoy"
+   ],
+   "mustInclude": [
+    "A correct description of both groups"
+   ],
+   "avoid": [
+    "Criticizing the other group"
+   ],
+   "builderFields": [
+    {
+     "key": "difference",
+     "label": "The key difference",
+     "hint": ""
+    },
+    {
+     "key": "why",
+     "label": "Why it matters to you",
+     "hint": ""
+    }
+   ],
+   "outlineTemplate": "Both appeal to me, but [this group] [difference], and I enjoy [aspect] most.",
+   "likelyFollowUps": [],
+   "suggestedStoryThemes": [
+    "industry interest"
+   ],
+   "targetLengthSeconds": "30–45"
+  },
+  {
+   "id": "recent-deal",
+   "category": "Why this group",
+   "prompt": "Walk me through a recent deal you've followed.",
+   "whatTheyreTesting": "Do you follow markets, and can you analyze a deal like a banker?",
+   "framework": [
+    "Buyer, target, price, and multiple",
+    "Strategic rationale",
+    "How it was financed",
+    "Risks",
+    "Your view: would you have done it?"
+   ],
+   "mustInclude": [
+    "Numbers (price and a multiple) and a clear view"
+   ],
+   "avoid": [
+    "Only describing what the companies do"
+   ],
+   "builderFields": [
+    {
+     "key": "basics",
+     "label": "Who bought whom, for how much, at what multiple",
+     "hint": ""
+    },
+    {
+     "key": "rationale",
+     "label": "Strategic rationale",
+     "hint": ""
+    },
+    {
+     "key": "financing",
+     "label": "How it was paid for",
+     "hint": ""
+    },
+    {
+     "key": "risks",
+     "label": "Risks",
+     "hint": ""
+    },
+    {
+     "key": "view",
+     "label": "Your view",
+     "hint": ""
+    }
+   ],
+   "outlineTemplate": "[Buyer] agreed to buy [target] for about [$], roughly [x]x EBITDA. The logic is [rationale]. It's financed with [mix]. The main risks are [risks]. I think [view] because [reason].",
+   "likelyFollowUps": [
+    "What multiple would you have paid?",
+    "Who else could have bought it?"
+   ],
+   "suggestedStoryThemes": [
+    "deal interest"
+   ],
+   "targetLengthSeconds": "90–120"
+  },
+  {
+   "id": "why-firm",
+   "category": "Why this firm",
+   "prompt": "Why our firm?",
+   "whatTheyreTesting": "Did you do your homework, and do you have a real connection to this firm?",
+   "framework": [
+    "People: who you've spoken with and what stood out",
+    "Platform: the firm's strengths in your group or deal type",
+    "Culture: something specific you observed",
+    "Fit: why that matches you"
+   ],
+   "mustInclude": [
+    "Names of people you spoke with and what you learned from them",
+    "A specific firm strength (a deal, a ranking, a group)"
+   ],
+   "avoid": [
+    "Website clichés (\"collaborative culture\", \"premier platform\")",
+    "Generic praise that fits any bank"
+   ],
+   "builderFields": [
+    {
+     "key": "people",
+     "label": "People you spoke with and what stood out",
+     "hint": "Pulled from your contacts at this firm."
+    },
+    {
+     "key": "platform",
+     "label": "A specific strength of the firm",
+     "hint": "Recent deals, group strength, size of deal teams."
+    },
+    {
+     "key": "culture",
+     "label": "Something you observed about the culture",
+     "hint": ""
+    },
+    {
+     "key": "fit",
+     "label": "Why that fits you",
+     "hint": ""
+    }
+   ],
+   "outlineTemplate": "Talking with [people], what stood out was [specific]. I'm also drawn to [platform strength], like [deal]. That matters to me because [fit].",
+   "likelyFollowUps": [
+    "Who have you spoken with here?",
+    "Where else are you interviewing?"
+   ],
+   "suggestedStoryThemes": [
+    "networking",
+    "first exposure to finance"
+   ],
+   "targetLengthSeconds": "60–90"
+  },
+  {
+   "id": "bb-vs-boutique",
+   "category": "Why this firm",
+   "prompt": "Why a boutique (or middle-market bank) over a bulge bracket — or the reverse?",
+   "whatTheyreTesting": "Do you understand how firm types differ?",
+   "framework": [
+    "Name real differences: deal size, team size, analyst responsibility, product breadth",
+    "Connect to what you want"
+   ],
+   "mustInclude": [
+    "A balanced, accurate comparison"
+   ],
+   "avoid": [
+    "Implying one type is simply \"better\""
+   ],
+   "builderFields": [
+    {
+     "key": "difference",
+     "label": "The difference that matters to you",
+     "hint": ""
+    },
+    {
+     "key": "why",
+     "label": "Why",
+     "hint": ""
+    }
+   ],
+   "outlineTemplate": "At a [firm type], [difference], which matters to me because [reason].",
+   "likelyFollowUps": [],
+   "suggestedStoryThemes": [
+    "learning"
+   ],
+   "targetLengthSeconds": "30–45"
+  },
+  {
+   "id": "where-else",
+   "category": "Why this firm",
+   "prompt": "Where else are you recruiting?",
+   "whatTheyreTesting": "Is your search consistent, and is this firm a real priority?",
+   "framework": [
+    "Name a consistent set (same type of role/group)",
+    "Reaffirm why this firm stands out"
+   ],
+   "mustInclude": [
+    "Consistency"
+   ],
+   "avoid": [
+    "Listing every type of job",
+    "Saying \"only you\" if it isn't true"
+   ],
+   "builderFields": [
+    {
+     "key": "others",
+     "label": "Similar firms you're recruiting with",
+     "hint": ""
+    },
+    {
+     "key": "standout",
+     "label": "Why this firm stands out",
+     "hint": ""
+    }
+   ],
+   "outlineTemplate": "I'm focused on [type] roles, mainly at firms like [others]. [This firm] stands out because [reason].",
+   "likelyFollowUps": [],
+   "suggestedStoryThemes": [
+    "networking"
+   ],
+   "targetLengthSeconds": "20–30"
+  },
+  {
+   "id": "strengths",
+   "category": "Strengths, weaknesses & fit",
+   "prompt": "What are your strengths?",
+   "whatTheyreTesting": "Self-awareness and evidence.",
+   "framework": [
+    "Pick two strengths relevant to an analyst",
+    "Give a short example for each"
+   ],
+   "mustInclude": [
+    "Proof for each strength"
+   ],
+   "avoid": [
+    "Listing five adjectives"
+   ],
+   "builderFields": [
+    {
+     "key": "s1",
+     "label": "Strength 1 + example",
+     "hint": ""
+    },
+    {
+     "key": "s2",
+     "label": "Strength 2 + example",
+     "hint": ""
+    }
+   ],
+   "outlineTemplate": "Two strengths stand out. First, [s1] — for example, [example]. Second, [s2] — [example].",
+   "likelyFollowUps": [],
+   "suggestedStoryThemes": [
+    "work ethic",
+    "attention to detail",
+    "teamwork"
+   ],
+   "targetLengthSeconds": "45–60"
+  },
+  {
+   "id": "weakness",
+   "category": "Strengths, weaknesses & fit",
+   "prompt": "What's your greatest weakness?",
+   "whatTheyreTesting": "Honesty and self-improvement.",
+   "framework": [
+    "A real weakness that isn't a dealbreaker for an analyst",
+    "A specific example of it",
+    "What you're actively doing about it, with progress"
+   ],
+   "mustInclude": [
+    "A concrete fix in progress"
+   ],
+   "avoid": [
+    "Humble-brags (\"I work too hard\")",
+    "Weaknesses central to the job (\"I'm not detail-oriented\")"
+   ],
+   "builderFields": [
+    {
+     "key": "weakness",
+     "label": "The weakness",
+     "hint": ""
+    },
+    {
+     "key": "example",
+     "label": "When it showed up",
+     "hint": ""
+    },
+    {
+     "key": "fix",
+     "label": "What you're doing about it",
+     "hint": ""
+    }
+   ],
+   "outlineTemplate": "I tend to [weakness]. That showed up when [example]. Since then I've [fix], and [progress].",
+   "likelyFollowUps": [],
+   "suggestedStoryThemes": [
+    "growth",
+    "failure"
+   ],
+   "targetLengthSeconds": "45–60"
+  },
+  {
+   "id": "teamwork",
+   "category": "Strengths, weaknesses & fit",
+   "prompt": "Tell me about a time you worked on a team.",
+   "whatTheyreTesting": "Can you contribute to a deal team and handle friction?",
+   "framework": [
+    "STAR: situation, task, action, result",
+    "Make your own role clear",
+    "Quantify the result if possible"
+   ],
+   "mustInclude": [
+    "What YOU did"
+   ],
+   "avoid": [
+    "\"We\" for everything"
+   ],
+   "builderFields": [
+    {
+     "key": "situation",
+     "label": "Situation",
+     "hint": ""
+    },
+    {
+     "key": "task",
+     "label": "Your role",
+     "hint": ""
+    },
+    {
+     "key": "action",
+     "label": "What you did",
+     "hint": ""
+    },
+    {
+     "key": "result",
+     "label": "Result",
+     "hint": ""
+    }
+   ],
+   "outlineTemplate": "On [team/project], I was responsible for [role]. When [challenge], I [action]. As a result, [result].",
+   "likelyFollowUps": [
+    "What would you do differently?"
+   ],
+   "suggestedStoryThemes": [
+    "teamwork"
+   ],
+   "targetLengthSeconds": "60–90"
+  },
+  {
+   "id": "leadership",
+   "category": "Strengths, weaknesses & fit",
+   "prompt": "Tell me about a time you led something.",
+   "whatTheyreTesting": "Initiative and ownership.",
+   "framework": [
+    "STAR",
+    "Show how you influenced people, not just held a title"
+   ],
+   "mustInclude": [
+    "A result you drove"
+   ],
+   "avoid": [
+    "Only describing your title"
+   ],
+   "builderFields": [
+    {
+     "key": "situation",
+     "label": "Situation",
+     "hint": ""
+    },
+    {
+     "key": "action",
+     "label": "How you led",
+     "hint": ""
+    },
+    {
+     "key": "result",
+     "label": "Result",
+     "hint": ""
+    }
+   ],
+   "outlineTemplate": "As [role] in [org], [situation]. I [action], and [result].",
+   "likelyFollowUps": [],
+   "suggestedStoryThemes": [
+    "leadership"
+   ],
+   "targetLengthSeconds": "60–90"
+  },
+  {
+   "id": "failure",
+   "category": "Strengths, weaknesses & fit",
+   "prompt": "Tell me about a time you failed.",
+   "whatTheyreTesting": "Honesty, accountability, learning.",
+   "framework": [
+    "A real failure you owned",
+    "What you learned",
+    "How you applied it later"
+   ],
+   "mustInclude": [
+    "Ownership and a later success using the lesson"
+   ],
+   "avoid": [
+    "A fake failure",
+    "Blaming others"
+   ],
+   "builderFields": [
+    {
+     "key": "failure",
+     "label": "What happened",
+     "hint": ""
+    },
+    {
+     "key": "lesson",
+     "label": "What you learned",
+     "hint": ""
+    },
+    {
+     "key": "applied",
+     "label": "When you applied it",
+     "hint": ""
+    }
+   ],
+   "outlineTemplate": "[Failure]. I learned [lesson], and the next time [applied].",
+   "likelyFollowUps": [],
+   "suggestedStoryThemes": [
+    "failure",
+    "growth"
+   ],
+   "targetLengthSeconds": "60–90"
+  },
+  {
+   "id": "pressure",
+   "category": "Strengths, weaknesses & fit",
+   "prompt": "Tell me about a time you worked under a tight deadline.",
+   "whatTheyreTesting": "Can you handle banking hours and pressure?",
+   "framework": [
+    "STAR",
+    "How you prioritized and kept quality up"
+   ],
+   "mustInclude": [
+    "Prioritization and accuracy under pressure"
+   ],
+   "avoid": [
+    "Saying you just worked all night with no method"
+   ],
+   "builderFields": [
+    {
+     "key": "situation",
+     "label": "Situation and deadline",
+     "hint": ""
+    },
+    {
+     "key": "action",
+     "label": "How you prioritized",
+     "hint": ""
+    },
+    {
+     "key": "result",
+     "label": "Result",
+     "hint": ""
+    }
+   ],
+   "outlineTemplate": "With [deadline] for [task], I [prioritized], and [result].",
+   "likelyFollowUps": [],
+   "suggestedStoryThemes": [
+    "working hard under pressure"
+   ],
+   "targetLengthSeconds": "60–90"
+  },
+  {
+   "id": "mistake",
+   "category": "Strengths, weaknesses & fit",
+   "prompt": "Tell me about a time you made a mistake with numbers or details.",
+   "whatTheyreTesting": "Attention to detail and how you handle errors.",
+   "framework": [
+    "The mistake",
+    "How you caught or fixed it, and told the right people",
+    "The system you now use to prevent it"
+   ],
+   "mustInclude": [
+    "A checking habit you use now"
+   ],
+   "avoid": [
+    "Pretending you never make mistakes"
+   ],
+   "builderFields": [
+    {
+     "key": "mistake",
+     "label": "The mistake",
+     "hint": ""
+    },
+    {
+     "key": "fix",
+     "label": "How you fixed it",
+     "hint": ""
+    },
+    {
+     "key": "system",
+     "label": "How you prevent it now",
+     "hint": ""
+    }
+   ],
+   "outlineTemplate": "[Mistake]. I [fix], and since then I [system].",
+   "likelyFollowUps": [],
+   "suggestedStoryThemes": [
+    "attention to detail"
+   ],
+   "targetLengthSeconds": "60–90"
+  },
+  {
+   "id": "conflict",
+   "category": "Strengths, weaknesses & fit",
+   "prompt": "Tell me about a disagreement with a teammate.",
+   "whatTheyreTesting": "Maturity and collaboration.",
+   "framework": [
+    "The disagreement",
+    "How you listened and found a resolution",
+    "The outcome and relationship after"
+   ],
+   "mustInclude": [
+    "Respect for the other person"
+   ],
+   "avoid": [
+    "Making the other person the villain"
+   ],
+   "builderFields": [
+    {
+     "key": "disagreement",
+     "label": "The disagreement",
+     "hint": ""
+    },
+    {
+     "key": "resolution",
+     "label": "How you resolved it",
+     "hint": ""
+    },
+    {
+     "key": "outcome",
+     "label": "Outcome",
+     "hint": ""
+    }
+   ],
+   "outlineTemplate": "[Disagreement]. I [resolution], and [outcome].",
+   "likelyFollowUps": [],
+   "suggestedStoryThemes": [
+    "teamwork"
+   ],
+   "targetLengthSeconds": "60–90"
+  },
+  {
+   "id": "markets",
+   "category": "Markets & deals",
+   "prompt": "What's going on in the markets right now?",
+   "whatTheyreTesting": "Do you follow markets and understand what drives them?",
+   "framework": [
+    "One or two current themes (rates, M&A activity, IPOs, a sector)",
+    "Why it matters for banks and their clients",
+    "Your view"
+   ],
+   "mustInclude": [
+    "Specific, current facts"
+   ],
+   "avoid": [
+    "Stale news",
+    "Opinions with no facts"
+   ],
+   "builderFields": [
+    {
+     "key": "theme",
+     "label": "Theme",
+     "hint": "Check this week's news before every interview."
+    },
+    {
+     "key": "why",
+     "label": "Why it matters for deals",
+     "hint": ""
+    },
+    {
+     "key": "view",
+     "label": "Your view",
+     "hint": ""
+    }
+   ],
+   "outlineTemplate": "The big theme I'm watching is [theme]. It matters because [effect on deals]. I think [view].",
+   "likelyFollowUps": [
+    "How would that affect M&A volume?"
+   ],
+   "suggestedStoryThemes": [
+    "market interest"
+   ],
+   "targetLengthSeconds": "60–90"
+  },
+  {
+   "id": "pitch-stock",
+   "category": "Markets & deals",
+   "prompt": "Pitch me a stock.",
+   "whatTheyreTesting": "Can you form and defend an investment view?",
+   "framework": [
+    "Recommendation and target price",
+    "2–3 thesis points the market is missing",
+    "Valuation support",
+    "Key risks and what would change your mind"
+   ],
+   "mustInclude": [
+    "A clear view and numbers"
+   ],
+   "avoid": [
+    "Picking a megacap with no edge",
+    "Only describing the company"
+   ],
+   "builderFields": [
+    {
+     "key": "rec",
+     "label": "Buy/sell and target",
+     "hint": ""
+    },
+    {
+     "key": "thesis",
+     "label": "Thesis points",
+     "hint": ""
+    },
+    {
+     "key": "valuation",
+     "label": "Valuation",
+     "hint": ""
+    },
+    {
+     "key": "risks",
+     "label": "Risks",
+     "hint": ""
+    }
+   ],
+   "outlineTemplate": "I'd [buy/sell] [company], with a target of [$]. The market is missing [thesis]. At [multiple] vs peers at [multiple], [valuation]. The main risk is [risk].",
+   "likelyFollowUps": [
+    "What's the bear case?"
+   ],
+   "suggestedStoryThemes": [
+    "investing"
+   ],
+   "targetLengthSeconds": "90–120"
+  },
+  {
+   "id": "questions-for-us",
+   "category": "Closing",
+   "prompt": "Do you have any questions for me?",
+   "whatTheyreTesting": "Curiosity and preparation.",
+   "framework": [
+    "Ask 2–3 questions only this person can answer",
+    "Use what you know about them or the group"
+   ],
+   "mustInclude": [
+    "Specific, thoughtful questions"
+   ],
+   "avoid": [
+    "Questions answered on the website",
+    "Asking about hours or pay"
+   ],
+   "builderFields": [
+    {
+     "key": "q1",
+     "label": "Question about their experience",
+     "hint": ""
+    },
+    {
+     "key": "q2",
+     "label": "Question about the group or recent work",
+     "hint": ""
+    }
+   ],
+   "outlineTemplate": "I'd love to hear [q1]. And [q2]?",
+   "likelyFollowUps": [],
+   "suggestedStoryThemes": [
+    "networking"
+   ],
+   "targetLengthSeconds": "—"
+  }
+ ]
+}
