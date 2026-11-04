@@ -5,6 +5,7 @@ import { notify } from "@/lib/notify";
 import { appUrl, esc, flushOutbound } from "@/lib/outbound";
 import { remindStaleMentorQuestions } from "@/lib/mentor-alerts";
 import { daysUntil } from "@/lib/openings";
+import { finalizeDueDuels } from "@/lib/group-competition";
 
 /** K.5 daily job: follow-up digests, stale mentor questions, today's event reminders, Trash purge, queued texts. */
 export async function runDaily(now = new Date()) {
@@ -84,6 +85,9 @@ export async function runDaily(now = new Date()) {
 
   // 3b. Recruiting openings: "Opens today" and "Deadline in N days" for members who asked to be reminded.
   out.openingReminders = await remindOpenings(todayYmd);
+
+  // 3c. Group duels whose time is up get their final score (pages also do this when opened).
+  await finalizeDueDuels(now).catch((e) => console.error("group duels failed", e));
 
   // 4. Trash keeps contacts for 30 days.
   const purge = await prisma.contact.deleteMany({ where: { deletedAt: { lt: new Date(now.getTime() - 30 * 86_400_000) } } });

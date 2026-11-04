@@ -94,6 +94,9 @@ async function main() {
   await prisma.questionAttempt.deleteMany({ where: { userId: { in: [user.id, rival.id] } } });
   await prisma.userQuestionProgress.deleteMany({ where: { userId: { in: [user.id, rival.id] } } });
   await prisma.challenge.deleteMany({ where: { clubId: club.id, mode: { not: "weekly" } } });
+  // Fresh study-group state: groups the test users created (duels and memberships go with them).
+  await prisma.studyGroup.deleteMany({ where: { createdBy: { in: [user.id, rival.id] } } });
+  await prisma.user.updateMany({ where: { id: { in: [user.id, rival.id] } }, data: { teamGroupId: null, teamJoinedAt: null } });
   // A firm, contact and conversation for the fit-question builder and prep page.
   await prisma.fitAnswer.deleteMany({ where: { userId: user.id } });
   await prisma.groupFinderResult.deleteMany({ where: { userId: user.id } });

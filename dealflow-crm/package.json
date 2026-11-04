@@ -29,7 +29,8 @@
     "test-challenge-picker": "npx tsx scripts/test-challenge-picker.ts",
     "test-group-finder": "npx tsx scripts/test-group-finder.ts",
     "test-fit": "npx tsx scripts/test-fit.ts",
-    "test-partial-json": "npx tsx scripts/test-partial-json.ts"
+    "test-partial-json": "npx tsx scripts/test-partial-json.ts",
+    "test-group-points": "npx tsx scripts/test-group-points.ts"
   },
   "prisma": {
     "seed": "npx tsx prisma/seed.ts"

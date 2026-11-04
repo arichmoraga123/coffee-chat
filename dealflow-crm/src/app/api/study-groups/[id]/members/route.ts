@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession } from "@/lib/auth";
+import { teamIfNone } from "@/lib/group-competition";
 
 export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
   const userId = await getUserIdFromSession();
@@ -25,5 +26,6 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
     create: { groupId: id, userId: user.id, role: "member" },
     update: {},
   });
+  await teamIfNone(user.id, id);
   return NextResponse.json({ ok: true, userId: user.id });
 }

@@ -136,6 +136,14 @@ Prospect is a recruiting and learning app for MSU finance students and the PE@Br
 
 Browser test for all of it: `tests/fit.spec.ts` and `tests/practice.spec.ts`.
 
+### Study group competition (`/groups`)
+- Points from real activity (`src/lib/group-points-rules.ts`, test `npm run test-group-points`): lesson +25, correct answer +2 (once per question per day), daily set +10, challenge finished +5; 150/day cap per person.
+- One team per person (`User.teamGroupId`, switch once a week); team score = best 5 members; teams up to 8.
+- Weekly league, streaks (100+ points a week), levels from season points (last 12 weeks + 100 per duel win).
+- Group duels (`GroupDuel`): captains challenge for 3 or 7 days; scores are each side's top N (N = smaller team, max 5); finished by the daily cron and on page load. Server logic: `src/lib/group-competition.ts`.
+- Groups can be open or invite-only, with a join code / invite link (`/groups?join=CODE`).
+- Browser test: `tests/groups.spec.ts`. Migration: `20261106120000_group_competition`.
+
 ### Schema
 The latest migration is `prisma/migrations/20261103120000_round2_outreach_notifications_workbooks/migration.sql`. It adds:
 - `ImportBatch`, `Notification`, `NotificationPref`, `OutboundMessage`, `ClubPostProgress`, `WorkbookProgress`

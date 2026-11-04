@@ -73,22 +73,17 @@ export function GroupDetailView({ groupId }: { groupId: string }) {
 
   return (
     <div className="space-y-4">
-      <Link href="/groups" className="text-xs text-ink-3 underline-offset-4 hover:text-ink hover:underline">
-        ← Groups
-      </Link>
-      <h1 className="text-xl font-semibold">{group.name}</h1>
+      <h2 className="section-title">Group space</h2>
       <div className="grid gap-4 lg:grid-cols-2">
         <Card className="space-y-3 border-border bg-surface p-4">
-          <p className="text-sm font-medium text-ink">Members &amp; stats</p>
+          <p className="text-sm font-medium text-ink">Members</p>
           <ul className="space-y-2 text-sm">
             {sorted.map((m) => (
               <li key={m.user.id} className="flex justify-between gap-2 border-b border-border py-1">
                 <span>
-                  {m.user.name} <span className="text-xs text-ink-3">({m.role})</span>
+                  {m.user.name} {m.role === "admin" ? <span className="text-xs text-ink-3">(captain)</span> : null}
                 </span>
-                <span className="text-xs text-ink-2">
-                  streak {m.user.drillStreak} · wk XP {m.user.weeklyXP} · XP {m.user.xp}
-                </span>
+                <span className="text-xs text-ink-2">{m.user.drillStreak ? `${m.user.drillStreak}-day streak` : ""}</span>
               </li>
             ))}
           </ul>
@@ -123,7 +118,7 @@ export function GroupDetailView({ groupId }: { groupId: string }) {
           )}
         </Card>
         <Card className="space-y-2 border-border bg-surface p-4">
-          <p className="text-sm font-medium text-ink">Group board</p>
+          <p className="text-sm font-medium text-ink">Group chat</p>
           <div className="max-h-72 space-y-2 overflow-y-auto text-sm">
             {group.messages.map((m) => (
               <div key={m.id} className="rounded bg-surface px-2 py-1">

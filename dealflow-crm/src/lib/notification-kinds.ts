@@ -20,6 +20,7 @@ export const KINDS = {
   event_reminder: { category: "eventReminders", sms: true },
   opening_reminder: { category: "eventReminders", sms: true },
   challenge: { category: "challenges", sms: false },
+  group_duel: { category: "challenges", sms: false },
   message: { category: "messages", sms: false },
 } as const satisfies Record<string, { category: PrefCategory; sms: boolean }>;
 

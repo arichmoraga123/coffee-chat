@@ -48,6 +48,9 @@ model User {
   sidebarCollapsed          Boolean?
   /// Used by the "Why this city" fit answer builder
   hometown                  String?
+  /// The study group this person earns competition points for (one team at a time)
+  teamGroupId               String?
+  teamJoinedAt              DateTime?
   /// PE@Broad sharing settings
   shareLearning             Boolean                  @default(true)
   shareDrill                Boolean                  @default(true)
@@ -724,10 +727,47 @@ model StudyGroup {
   name          String
   createdBy     String
   createdAt     DateTime            @default(now())
+  /// Short line shown on the league table and the join list
+  description   String?
+  /// open = anyone can join from the Groups page · invite = invite or join code only
+  visibility    String              @default("invite")
+  /// Share this code (or the link) to let people join
+  joinCode      String?             @unique
   creator       User                @relation("StudyGroupCreator", fields: [createdBy], references: [id], onDelete: Cascade)
   members       StudyGroupMember[]
   messages      StudyGroupMessage[]
   sharedPitches StockPitch[]
+  duelsSent     GroupDuel[]         @relation("DuelChallenger")
+  duelsReceived GroupDuel[]         @relation("DuelOpponent")
+}
+
+/// A points race between two study groups (teams). Scores are worked out from members' activity in the window.
+model GroupDuel {
+  id                String     @id @default(cuid())
+  challengerId      String
+  opponentId        String
+  /// pending | active | finished | declined | cancelled | expired
+  status            String     @default("pending")
+  durationDays      Int        @default(3)
+  createdById       String
+  respondedById     String?
+  startsAt          DateTime?
+  endsAt            DateTime?
+  /// Team members on each side when the duel started (people who switch teams mid-duel still count for the side they started on)
+  challengerMembers String[]   @default([])
+  opponentMembers   String[]   @default([])
+  challengerScore   Int?
+  opponentScore     Int?
+  /// null = tie (or not finished)
+  winnerId          String?
+  createdAt         DateTime   @default(now())
+  finishedAt        DateTime?
+  challenger        StudyGroup @relation("DuelChallenger", fields: [challengerId], references: [id], onDelete: Cascade)
+  opponent          StudyGroup @relation("DuelOpponent", fields: [opponentId], references: [id], onDelete: Cascade)
+
+  @@index([challengerId, status])
+  @@index([opponentId, status])
+  @@index([status, endsAt])
 }
 
 model StudyGroupMember {
