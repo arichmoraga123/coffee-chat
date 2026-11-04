@@ -3,6 +3,9 @@ import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession } from "@/lib/auth";
 import { getAnthropicApiKey } from "@/lib/anthropic";
 import { draftToText, generateEmail } from "@/lib/email-ai";
+import { ndjsonResponse, throttle } from "@/lib/ai-stream";
+
+const partialText = (p: { subjects: string[]; body: string }) => (p.subjects[0] ? `Subject: ${p.subjects[0]}\n\n${p.body}` : p.body);
 
 export async function POST(
   req: Request,
@@ -39,7 +42,8 @@ export async function POST(
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  try {
+  return ndjsonResponse(async (send) => {
+    const live = throttle((p: { subjects: string[]; body: string }) => send({ type: "partial", text: partialText(p) }));
     const history = await prisma.interaction.findMany({
       where: { userId, contactId, id: { not: interaction.id } },
       orderBy: { date: "desc" },
@@ -48,10 +52,8 @@ export async function POST(
     // A call in the last week gets a thank-you; older ones get an update-style follow-up.
     const daysSince = (Date.now() - interaction.date.getTime()) / 86_400_000;
     const kind = body.kind ?? (daysSince <= 7 ? "thank-you" : "follow-up");
-    const draft = await generateEmail({ userId, kind, contact, interaction, history, extra: body.extra, feature: "follow-up" });
-    return NextResponse.json({ text: draftToText(draft), draft, kind });
-  } catch (e) {
-    const msg = e instanceof Error ? e.message : "AI request failed";
-    return NextResponse.json({ error: msg }, { status: 502 });
-  }
+    const draft = await generateEmail({ userId, kind, contact, interaction, history, extra: body.extra, feature: "follow-up", onPartial: live.push });
+    live.flush();
+    return { text: draftToText(draft), draft, kind };
+  });
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { readAiStream } from "@/lib/read-ai-stream";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -95,21 +96,33 @@ export function EmailWriter({
     setBusy(true);
     setDraft(null);
     const clean = Object.fromEntries(Object.entries(manual).filter(([, v]) => v.trim()));
-    const res = await fetch("/api/emails/generate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        kind,
-        contactId: source === "contact" ? contactId : undefined,
-        manual: source === "manual" ? clean : undefined,
-        templateId: templateId || undefined,
-        extra: extra.trim() || undefined,
-        save: source === "contact",
-      }),
-    });
+    setSubject("");
+    setBody("");
+    let d: { draft?: Draft; to?: string | null };
+    try {
+      // Subject and body fill in as the model writes them.
+      d = await readAiStream<{ draft?: Draft; to?: string | null }>(
+        "/api/emails/generate",
+        {
+          kind,
+          contactId: source === "contact" ? contactId : undefined,
+          manual: source === "manual" ? clean : undefined,
+          templateId: templateId || undefined,
+          extra: extra.trim() || undefined,
+          save: source === "contact",
+        },
+        (ev) => {
+          const subjects = ev.subjects as string[] | undefined;
+          if (subjects?.[0]) setSubject(subjects[0]);
+          if (typeof ev.body === "string") setBody(ev.body);
+        },
+      );
+    } catch (e) {
+      setBusy(false);
+      return toast.error(e instanceof Error ? e.message : "Couldn't write the email.");
+    }
     setBusy(false);
-    const d = (await res.json().catch(() => ({}))) as { draft?: Draft; to?: string | null; error?: string };
-    if (!res.ok || !d.draft) return toast.error(d.error ?? "Couldn't write the email.");
+    if (!d.draft) return toast.error("Couldn't write the email.");
     setDraft(d.draft);
     setTo(d.to ?? null);
     setSubject(d.draft.subjects[0] ?? "");

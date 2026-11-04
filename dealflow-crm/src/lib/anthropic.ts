@@ -163,6 +163,19 @@ export async function anthropicMessage(content: UserContent, opts: AiCallOptions
   return textOf(msg);
 }
 
+/** Like anthropicMessage, but calls `onText` with the text so far as it streams (for live display). */
+export async function anthropicMessageWithProgress(content: UserContent, opts: AiCallOptions, onText: (soFar: string) => void): Promise<string> {
+  const stream = await openStream(content, opts);
+  let soFar = "";
+  stream.on("text", (delta) => {
+    soFar += delta;
+    onText(soFar);
+  });
+  const msg = await stream.finalMessage();
+  if (opts.usageLog) void logUsage(opts.usageLog.userId, opts.usageLog.feature, msg);
+  return textOf(msg);
+}
+
 /**
  * Structured JSON output: the API guarantees the response matches `schema`,
  * so there are no "invalid JSON, retry" round trips.

@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { readAiStream } from "@/lib/read-ai-stream";
 import { InteractionType } from "@prisma/client";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -107,62 +108,31 @@ export function ContactDetailView({
     setAiModal({ open: true, title, text: "", loading: true, error: null });
   };
 
-  const runPreCallBrief = async () => {
-    openAiModal("Pre-call brief");
+  /** Opens the AI popup and fills it as the text streams in. */
+  const runAi = async (title: string, url: string, body?: unknown) => {
+    openAiModal(title);
     try {
-      const res = await fetch(`/api/contacts/${profile.id}/pre-call-brief`, { method: "POST" });
-      const data = (await res.json()) as { text?: string; error?: string };
-      if (!res.ok) {
-        setAiModal((m) => ({ ...m, loading: false, error: data.error ?? "Request failed" }));
-        return;
-      }
-      setAiModal((m) => ({ ...m, loading: false, text: data.text ?? "" }));
-    } catch {
-      setAiModal((m) => ({ ...m, loading: false, error: "Network error" }));
+      const done = await readAiStream<{ text?: string }>(url, body, (ev) => {
+        if (typeof ev.text === "string") setAiModal((m) => ({ ...m, text: ev.text as string }));
+      });
+      setAiModal((m) => ({ ...m, loading: false, text: done.text ?? m.text }));
+      return true;
+    } catch (e) {
+      setAiModal((m) => ({ ...m, loading: false, error: e instanceof Error ? e.message : "Network error" }));
+      return false;
     }
   };
 
-  const runDraftFollowUp = async (interactionId: string) => {
-    openAiModal("Follow-up email draft");
-    try {
-      const res = await fetch(`/api/contacts/${profile.id}/draft-followup`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ interactionId }),
-      });
-      const data = (await res.json()) as { text?: string; error?: string };
-      if (!res.ok) {
-        setAiModal((m) => ({ ...m, loading: false, error: data.error ?? "Request failed" }));
-        return;
-      }
-      setAiModal((m) => ({ ...m, loading: false, text: data.text ?? "" }));
-    } catch {
-      setAiModal((m) => ({ ...m, loading: false, error: "Network error" }));
-    }
-  };
+  const runPreCallBrief = () => void runAi("Pre-call brief", `/api/contacts/${profile.id}/pre-call-brief`);
+
+  const runDraftFollowUp = (interactionId: string) => void runAi("Follow-up email draft", `/api/contacts/${profile.id}/draft-followup`, { interactionId });
 
   const submitIntroRequest = async () => {
     setIntroBusy(true);
-    openAiModal("Intro request draft");
     setShowIntro(false);
-    try {
-      const res = await fetch(`/api/contacts/${profile.id}/intro-request`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ targetPerson: introTarget }),
-      });
-      const data = (await res.json()) as { text?: string; error?: string };
-      if (!res.ok) {
-        setAiModal((m) => ({ ...m, loading: false, error: data.error ?? "Request failed" }));
-        return;
-      }
-      setAiModal((m) => ({ ...m, loading: false, text: data.text ?? "" }));
-      setIntroTarget("");
-    } catch {
-      setAiModal((m) => ({ ...m, loading: false, error: "Network error" }));
-    } finally {
-      setIntroBusy(false);
-    }
+    const ok = await runAi("Intro request draft", `/api/contacts/${profile.id}/intro-request`, { targetPerson: introTarget });
+    if (ok) setIntroTarget("");
+    setIntroBusy(false);
   };
 
   const logInteraction = async () => {
@@ -202,23 +172,7 @@ export function ContactDetailView({
   };
 
   const runDraftTemplate = async (templateType: EmailTemplateType) => {
-    openAiModal(EMAIL_TEMPLATE_TYPES[templateType]?.label ?? "Email draft");
-    try {
-      const res = await fetch(`/api/contacts/${profile.id}/draft-email`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ templateType }),
-      });
-      const data = (await res.json()) as { text?: string; error?: string };
-      if (!res.ok) {
-        setAiModal((m) => ({ ...m, loading: false, error: data.error ?? "Request failed" }));
-        return;
-      }
-      setAiModal((m) => ({ ...m, loading: false, text: data.text ?? "" }));
-      refresh();
-    } catch {
-      setAiModal((m) => ({ ...m, loading: false, error: "Network error" }));
-    }
+    if (await runAi(EMAIL_TEMPLATE_TYPES[templateType]?.label ?? "Email draft", `/api/contacts/${profile.id}/draft-email`, { templateType })) refresh();
   };
 
   const nameParts = profile.fullName.trim().split(/\s+/);

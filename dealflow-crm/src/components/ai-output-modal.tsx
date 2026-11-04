@@ -51,8 +51,16 @@ export function AiOutputModal({ open, title, text, loading, error, onClose }: Pr
 
   return (
     <Modal open={open} onClose={onClose} title={title} className="max-w-2xl">
-      {loading ? (
-        <p className="text-sm text-ink-2">Writing… this takes a few seconds.</p>
+      {loading && !text ? (
+        <p className="text-sm text-ink-2">Writing…</p>
+      ) : loading ? (
+        // Streaming: show the text as it's written (read-only until it finishes).
+        <div className="space-y-2" aria-live="polite">
+          <div className="max-h-[65vh] overflow-y-auto rounded-[var(--radius)] border border-border bg-surface p-5">
+            {isDoc ? <Markdown>{text}</Markdown> : <p className="whitespace-pre-wrap text-sm leading-relaxed text-ink">{text}</p>}
+          </div>
+          <p className="text-[12px] text-ink-3">Still writing…</p>
+        </div>
       ) : error ? (
         <div className="space-y-3">
           <p className="text-sm text-danger">{error}</p>

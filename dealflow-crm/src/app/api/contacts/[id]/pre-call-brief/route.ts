@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession } from "@/lib/auth";
-import { anthropicMessage, getAnthropicApiKey } from "@/lib/anthropic";
+import { anthropicMessageWithProgress, getAnthropicApiKey } from "@/lib/anthropic";
+import { ndjsonResponse, throttle } from "@/lib/ai-stream";
 import { contactProfileBlock, interactionBlock } from "@/lib/contact-profile";
 import { firmDealsBlock, senderBlock } from "@/lib/email-ai";
 
@@ -76,17 +77,15 @@ export async function POST(_req: Request, { params }: { params: Promise<{ id: st
     history || "(none logged yet)",
   ].join("\n");
 
-  try {
-    const text = await anthropicMessage(prompt, {
-      system: BRIEF_STYLE,
-      cacheSystem: true,
-      maxTokens: 1800,
-      effort: "medium",
-      usageLog: { userId, feature: "pre-call" },
-    });
-    return NextResponse.json({ text });
-  } catch (e) {
-    const msg = e instanceof Error ? e.message : "AI request failed";
-    return NextResponse.json({ error: msg }, { status: 502 });
-  }
+  // Streams the brief as it's written. Low effort: it summarizes facts we already pass in, so deep thinking only adds wait.
+  return ndjsonResponse(async (send) => {
+    const live = throttle((text: string) => send({ type: "partial", text }));
+    const text = await anthropicMessageWithProgress(
+      prompt,
+      { system: BRIEF_STYLE, cacheSystem: true, maxTokens: 1800, effort: "low", usageLog: { userId, feature: "pre-call" } },
+      live.push,
+    );
+    live.flush();
+    return { text };
+  });
 }

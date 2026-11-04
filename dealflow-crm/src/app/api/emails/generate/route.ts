@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession } from "@/lib/auth";
 import { getAnthropicApiKey } from "@/lib/anthropic";
 import { generateEmail } from "@/lib/email-ai";
+import { ndjsonResponse, throttle } from "@/lib/ai-stream";
 import { EMAIL_KINDS } from "@/lib/email-ai-kinds";
 import { COLD_TEMPLATES } from "@/lib/cold-email-templates";
 
@@ -41,7 +42,9 @@ export async function POST(req: Request) {
   const history = contact ? await prisma.interaction.findMany({ where: { userId, contactId: contact.id }, orderBy: { date: "desc" }, take: 4 }) : [];
   const template = b.templateId ? COLD_TEMPLATES.find((t) => t.id === b.templateId) : undefined;
 
-  try {
+  // Streams the draft as it's written; the final event has the same { draft, to } as before.
+  return ndjsonResponse(async (send) => {
+    const live = throttle((p: { subjects: string[]; body: string }) => send({ type: "partial", ...p }));
     const draft = await generateEmail({
       userId,
       kind: b.kind,
@@ -52,14 +55,14 @@ export async function POST(req: Request) {
       extra: b.extra,
       templateBody: template ? `Subject: ${template.subject}\n\n${template.body}` : undefined,
       feature: "contact-email",
+      onPartial: live.push,
     });
+    live.flush();
     if (contact && b.save) {
       await prisma.contactEmailDraft.create({
         data: { contactId: contact.id, userId, templateType: b.kind, content: `Subject: ${draft.subjects[0] ?? ""}\n\n${draft.body}` },
       });
     }
-    return NextResponse.json({ draft, to: contact?.email ?? null });
-  } catch (e) {
-    return NextResponse.json({ error: e instanceof Error ? e.message : "AI request failed" }, { status: 502 });
-  }
+    return { draft, to: contact?.email ?? null };
+  });
 }

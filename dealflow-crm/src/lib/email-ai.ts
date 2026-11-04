@@ -1,7 +1,8 @@
 import "server-only";
 import type { Interaction } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { anthropicJson, type AnthropicUsageFeature } from "@/lib/anthropic";
+import { anthropicJsonWithProgress, type AnthropicUsageFeature } from "@/lib/anthropic";
+import { partialString, partialStringArray } from "@/lib/partial-json";
 import { contactProfileBlock, interactionBlock, type ContactWithFirm } from "@/lib/contact-profile";
 
 /**
@@ -121,11 +122,13 @@ export async function generateEmail(opts: {
   extra?: string;
   templateBody?: string;
   feature: AnthropicUsageFeature;
+  /** Called while the model writes, with the subject lines and body so far. */
+  onPartial?: (p: { subjects: string[]; body: string }) => void;
 }): Promise<EmailDraft> {
   const kind = EMAIL_KINDS[opts.kind];
-  const sender = await senderBlock(opts.userId);
   const firmName = opts.contact?.firm.name ?? opts.manual?.firm;
-  const deals = await firmDealsBlock(firmName);
+  // Both lookups at once instead of one after the other.
+  const [sender, deals] = await Promise.all([senderBlock(opts.userId), firmDealsBlock(firmName)]);
 
   const recipient = opts.contact
     ? contactProfileBlock(opts.contact)
@@ -161,13 +164,19 @@ export async function generateEmail(opts: {
     .filter((x) => x !== "")
     .join("\n");
 
-  return anthropicJson<EmailDraft>(prompt, EMAIL_SCHEMA as unknown as Record<string, unknown>, {
-    system: EMAIL_STYLE,
-    cacheSystem: true,
-    maxTokens: 1500,
-    effort: "medium",
-    usageLog: { userId: opts.userId, feature: opts.feature },
-  });
+  // Short writing task: low effort means less thinking before the first word (much faster), same rules.
+  return anthropicJsonWithProgress<EmailDraft>(
+    prompt,
+    EMAIL_SCHEMA as unknown as Record<string, unknown>,
+    {
+      system: EMAIL_STYLE,
+      cacheSystem: true,
+      maxTokens: 1500,
+      effort: "low",
+      usageLog: { userId: opts.userId, feature: opts.feature },
+    },
+    (soFar) => opts.onPartial?.({ subjects: partialStringArray(soFar, "subjects"), body: partialString(soFar, "body") }),
+  );
 }
 
 /** Plain-text version for the existing "copy this draft" modals. */

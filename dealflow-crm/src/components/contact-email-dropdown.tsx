@@ -1,5 +1,6 @@
 "use client";
 
+import { readAiStream } from "@/lib/read-ai-stream";
 import { useState } from "react";
 import { ChevronDown, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -30,19 +31,13 @@ export function ContactEmailDropdown({ contactId, size = "sm" }: Props) {
     const label = EMAIL_TEMPLATE_TYPES[templateType].label;
     setAiModal({ open: true, title: label, text: "", loading: true, error: null });
     try {
-      const res = await fetch(`/api/contacts/${contactId}/draft-email`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ templateType }),
+      // The draft fills in as it's written.
+      const done = await readAiStream<{ text?: string }>(`/api/contacts/${contactId}/draft-email`, { templateType }, (ev) => {
+        if (typeof ev.text === "string") setAiModal((m) => ({ ...m, text: ev.text as string }));
       });
-      const data = (await res.json()) as { text?: string; error?: string };
-      if (!res.ok) {
-        setAiModal((m) => ({ ...m, loading: false, error: data.error ?? "Failed" }));
-        return;
-      }
-      setAiModal((m) => ({ ...m, loading: false, text: data.text ?? "" }));
-    } catch {
-      setAiModal((m) => ({ ...m, loading: false, error: "Network error" }));
+      setAiModal((m) => ({ ...m, loading: false, text: done.text ?? m.text }));
+    } catch (e) {
+      setAiModal((m) => ({ ...m, loading: false, error: e instanceof Error ? e.message : "Network error" }));
     }
   };
 

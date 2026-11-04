@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserIdFromSession } from "@/lib/auth";
-import { anthropicMessage, getAnthropicApiKey } from "@/lib/anthropic";
+import { anthropicMessageWithProgress, getAnthropicApiKey } from "@/lib/anthropic";
+import { ndjsonResponse, throttle } from "@/lib/ai-stream";
 import { contactProfileBlock } from "@/lib/contact-profile";
 
 export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -56,13 +57,10 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
     userCtx,
   ].join("\n");
 
-  try {
-    const text = await anthropicMessage(prompt, {
-      usageLog: { userId, feature: "intro" },
-    });
-    return NextResponse.json({ text });
-  } catch (e) {
-    const msg = e instanceof Error ? e.message : "AI request failed";
-    return NextResponse.json({ error: msg }, { status: 502 });
-  }
+  return ndjsonResponse(async (send) => {
+    const live = throttle((text: string) => send({ type: "partial", text }));
+    const text = await anthropicMessageWithProgress(prompt, { maxTokens: 1200, effort: "low", usageLog: { userId, feature: "intro" } }, live.push);
+    live.flush();
+    return { text };
+  });
 }
